@@ -8,8 +8,6 @@ import br.com.twobrothers.msdespesas.models.entities.DespesaEntity;
 import br.com.twobrothers.msdespesas.repositories.DespesaRepository;
 import br.com.twobrothers.msdespesas.validations.DespesaValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +41,21 @@ public class DespesaService {
                 despesa.orElseThrow(() -> new ObjectNotFoundException("Nenhuma despesa foi encontrada")), DespesaDTO.class);
     }
 
-    public List<DespesaDTO> buscaPorRangeDeDataCadastro(LocalDate dataInicio, LocalDate dataFim) {
-        //TODO PAREI AQUI, ESTAVA DANDO FALHA DE PARSE NA CONVERÃO DE LOCALDATE PARA LOCALDATETIME
-        return repository.buscaPorRangeDeDataCadastro(dataInicio, dataFim)
-                .stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
+    public List<DespesaDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+
+        try {
+            List<DespesaEntity> despesas = repository.buscaPorRangeDeDataCadastro(
+                    (LocalDate.parse(dataInicio)).atTime(0, 0),
+                    (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
+
+            if (!despesas.isEmpty())
+                return despesas.stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
+            throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada no range de datas indicado");
+        }
+        catch(Exception e) {
+            throw new InvalidRequestException("Falha na requisição. Motivo: Padrão de data recebido inválido");
+        }
+
     }
 
     public List<DespesaDTO> buscaPorPaginacao(Pageable paginacao) {

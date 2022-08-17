@@ -41,9 +41,9 @@ public class DespesaController {
         return ResponseEntity.ok().body(repository.findAll());
     }
 
-    @GetMapping("/range{dataInicio}{dataFim}")
-    public ResponseEntity<List<DespesaDTO>> buscaPorRangeDeDataDeCadastro(@PathParam("dataInicio") LocalDate dataInicio, @PathParam("dataFim") LocalDate dataFim) {
-        return ResponseEntity.ok().body(service.buscaPorRangeDeDataCadastro(dataInicio, dataFim));
+    @GetMapping("/range")
+    public ResponseEntity<List<DespesaDTO>> buscaPorRangeDeDataDeCadastro(@PathParam("inicio") String inicio, @PathParam("fim") String fim) {
+        return ResponseEntity.ok().body(service.buscaPorRangeDeDataCadastro(inicio, fim));
     }
 
     @GetMapping("/pagination")

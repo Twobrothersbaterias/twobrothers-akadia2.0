@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface DespesaRepository extends JpaRepository<DespesaEntity, Long> {
 
     @Query("Select d From DespesaEntity d where d.dataCadastro between ?1 and ?2")
-    Optional<List<DespesaEntity>> buscaPorRangeDeDataCadastro(LocalDate dataInicio, LocalDate dataFim);
+    List<DespesaEntity> buscaPorRangeDeDataCadastro(LocalDateTime dataInicio, LocalDateTime dataFim);
 
 }
