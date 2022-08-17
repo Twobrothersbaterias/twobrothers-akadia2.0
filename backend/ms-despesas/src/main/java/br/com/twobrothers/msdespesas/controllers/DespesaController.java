@@ -57,6 +57,11 @@ public class DespesaController {
         return ResponseEntity.ok().body(service.buscaPorDescricao(descricao));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<DespesaDTO> atualizaDespesa(@PathVariable("id") Long id, @RequestBody DespesaDTO despesa) {
+        return ResponseEntity.ok().body(service.atualizaPorId(id, despesa));
+    }
+
 
 
 }

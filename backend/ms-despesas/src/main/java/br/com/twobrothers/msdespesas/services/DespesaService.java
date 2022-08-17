@@ -71,4 +71,33 @@ public class DespesaService {
         throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada");
     }
 
+    public DespesaDTO atualizaPorId(Long id, DespesaDTO despesa) {
+
+        Optional<DespesaEntity> despesaOptional = repository.findById(id);
+
+        if (despesaOptional.isPresent()) {
+
+            DespesaEntity despesaAtualizada = despesaOptional.get();
+
+            if (validation.validaCorpoDaRequisicao(despesa)) {
+
+                despesaAtualizada.setDataPagamento(despesa.getDataPagamento());
+                despesaAtualizada.setStatusDespesa(despesa.getStatusDespesa());
+                despesaAtualizada.setTipoDespesa(despesa.getTipoDespesa());
+                despesaAtualizada.setDescricao(despesa.getDescricao());
+                despesaAtualizada.setDataAgendamento(despesa.getDataAgendamento());
+                despesaAtualizada.setValor(despesa.getValor());
+
+                return modelMapper.mapper().map(repository.save(despesaAtualizada), DespesaDTO.class);
+
+            }
+
+            throw new InvalidRequestException("Corpo da requisição inválido");
+
+        }
+        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + id);
+
+    }
+
+
 }
