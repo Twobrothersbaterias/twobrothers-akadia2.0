@@ -1,6 +1,6 @@
 package br.com.twobrothers.msdespesas.validations;
 
-import br.com.twobrothers.msdespesas.exceptions.InvalidRequestException;
+import br.com.twobrothers.msdespesas.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.msdespesas.models.dto.DespesaDTO;
 import br.com.twobrothers.msdespesas.models.enums.StatusDespesaEnum;
 
@@ -29,12 +29,12 @@ public class DespesaValidation {
     }
 
     public boolean validaAtributoDataAgendamento(String data) {
-        if (data.toString().matches(DATE_REGEX)) return true;
+        if (data.matches(DATE_REGEX)) return true;
         throw new InvalidRequestException("Validação da despesa falhou. Motivo: o padrão da data de agendamento é inválido");
     }
 
     public boolean validaAtributoDataPagamento(String data) {
-        if (data.toString().matches(DATE_REGEX)) return true;
+        if (data.matches(DATE_REGEX)) return true;
         throw new InvalidRequestException("Validação da despesa falhou. Motivo: o padrão da data de pagamento é inválido");
     }
 

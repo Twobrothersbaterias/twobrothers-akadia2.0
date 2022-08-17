@@ -1,4 +1,4 @@
-package br.com.twobrothers.msdespesas.exceptions;
+package br.com.twobrothers.msdespesas.services.exceptions;
 
 import lombok.*;
 

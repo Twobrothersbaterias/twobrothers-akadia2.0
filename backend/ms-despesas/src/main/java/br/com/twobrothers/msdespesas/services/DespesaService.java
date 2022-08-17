@@ -1,8 +1,8 @@
 package br.com.twobrothers.msdespesas.services;
 
 import br.com.twobrothers.msdespesas.config.ModelMapperConfig;
-import br.com.twobrothers.msdespesas.exceptions.InvalidRequestException;
-import br.com.twobrothers.msdespesas.exceptions.ObjectNotFoundException;
+import br.com.twobrothers.msdespesas.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.msdespesas.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msdespesas.models.dto.DespesaDTO;
 import br.com.twobrothers.msdespesas.models.entities.DespesaEntity;
 import br.com.twobrothers.msdespesas.repositories.DespesaRepository;
