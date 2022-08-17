@@ -18,7 +18,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @ComponentScan("br.com.twobrothers.msdespesas.services")
 @ComponentScan("br.com.twobrothers.msdespesas.validations")
 @ComponentScan("br.com.twobrothers.msdespesas.utils")
-@ComponentScan("br.com.twobrothers.msdespesas.exceptions")
+@ComponentScan("br.com.twobrothers.msdespesas.services.exceptions")
 public class MsDespesasApplication {
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package br.com.twobrothers.msdespesas.config.security;
+package br.com.twobrothers.msbalanco.config.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,7 +22,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/despesas/**").permitAll()
+                .antMatchers("/balanco/**").permitAll()
                 .anyRequest().permitAll();
         http.cors().and().csrf().disable();
     }
