@@ -45,8 +45,7 @@ public class DespesaService {
             if (!despesas.isEmpty())
                 return despesas.stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
             throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada no range de datas indicado");
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new InvalidRequestException("Falha na requisição. Motivo: Padrão de data recebido inválido");
         }
 
@@ -99,5 +98,11 @@ public class DespesaService {
 
     }
 
+    public Boolean deletaDespesaPorId(Long id) {
+        Optional<DespesaEntity> despesaOptional = repository.findById(id);
+        if (despesaOptional.isPresent())
+            repository.deleteById(id);
+        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + id);
+    }
 
 }

@@ -62,6 +62,11 @@ public class DespesaController {
         return ResponseEntity.ok().body(service.atualizaPorId(id, despesa));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> removeDespesa(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(service.deletaDespesaPorId(id));
+    }
+
 
 
 }
