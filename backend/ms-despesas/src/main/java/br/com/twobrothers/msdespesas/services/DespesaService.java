@@ -100,8 +100,10 @@ public class DespesaService {
 
     public Boolean deletaDespesaPorId(Long id) {
         Optional<DespesaEntity> despesaOptional = repository.findById(id);
-        if (despesaOptional.isPresent())
+        if (despesaOptional.isPresent()) {
             repository.deleteById(id);
+            return true;
+        }
         throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + id);
     }
 
