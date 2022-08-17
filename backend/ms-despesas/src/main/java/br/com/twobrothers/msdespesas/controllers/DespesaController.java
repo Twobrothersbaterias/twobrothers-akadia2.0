@@ -37,8 +37,8 @@ public class DespesaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DespesaEntity>> todasDespesas() {
-        return ResponseEntity.ok().body(repository.findAll());
+    public ResponseEntity<List<DespesaDTO>> todasDespesas() {
+        return ResponseEntity.ok().body(service.buscaTodasAsDespesas());
     }
 
     @GetMapping("/range")
@@ -51,4 +51,12 @@ public class DespesaController {
             direction = Sort.Direction.ASC, size = 10, page = 0) Pageable paginacao) {
         return ResponseEntity.ok().body(service.buscaPorPaginacao(paginacao));
     }
+
+    @GetMapping("/description")
+    public ResponseEntity<List<DespesaDTO>> buscaDespesaPorDescricao(@PathParam("descricao") String descricao) {
+        return ResponseEntity.ok().body(service.buscaPorDescricao(descricao));
+    }
+
+
+
 }

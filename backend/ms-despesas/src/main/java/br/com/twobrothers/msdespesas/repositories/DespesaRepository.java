@@ -16,4 +16,7 @@ public interface DespesaRepository extends JpaRepository<DespesaEntity, Long> {
     @Query("Select d From DespesaEntity d where d.dataCadastro between ?1 and ?2")
     List<DespesaEntity> buscaPorRangeDeDataCadastro(LocalDateTime dataInicio, LocalDateTime dataFim);
 
+    @Query("Select d From DespesaEntity d where d.descricao = ?1")
+    List<DespesaEntity> buscaPorDescricao(String descricao);
+
 }

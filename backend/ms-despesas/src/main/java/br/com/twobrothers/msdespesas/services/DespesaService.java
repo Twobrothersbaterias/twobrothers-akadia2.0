@@ -35,12 +35,6 @@ public class DespesaService {
         throw new InvalidRequestException("Ocorreu uma falha na validação da requisição");
     }
 
-    public DespesaDTO findById(Long id) {
-        Optional<DespesaEntity> despesa = repository.findById(id);
-        return modelMapper.mapper().map(
-                despesa.orElseThrow(() -> new ObjectNotFoundException("Nenhuma despesa foi encontrada")), DespesaDTO.class);
-    }
-
     public List<DespesaDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
 
         try {
@@ -62,6 +56,13 @@ public class DespesaService {
         if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
                 .getContent().stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
         throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada na página indicada");
+    }
+
+    public List<DespesaDTO> buscaPorDescricao(String descricao) {
+        List<DespesaEntity> despesas = repository.buscaPorDescricao(descricao);
+        if (!despesas.isEmpty()) return despesas
+                .stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
+        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com a descrição passada");
     }
 
     public List<DespesaDTO> buscaTodasAsDespesas() {
