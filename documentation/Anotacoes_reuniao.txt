@@ -1,0 +1,57 @@
+Alterar privilégios para
+VENDAS & ADMIN
+====================================================
+
+Filtro aberto para a aba de vendas, ou seja,
+o que quer que seja pesquisado irá retornar 
+um valor com base na pesquisa
+
+====================================================
+
+Restrições de atualização para o pivilégio VENDAS
+
+====================================================
+
+Adição de baterias variadas na venda
+
+====================================================
+
+Filtro dia a dia nas datas utilizando um RANGE
+
+====================================================
+
+ESTOQUE -> PRIVILÉGIO VENDAS SÓ VISUALIZA QUANTIDADE
+
+====================================================
+
+E-commerce comunicação com o site
+
+====================================================
+
+
+********* NOVOS
+
+Parte para adicionar e gerir os técnicos e a equipe
+(Gestão de pessoal)
+
+====================================================
+
+FAQ interno para colaboradores
+(Gestão de processos da empresa)
+
+====================================================
+
+Comunicação bancária para geração de boletos pelo
+sistema
+
+====================================================
+
+Tabela de precificação de baterias
+
+====================================================
+
+Cadastro e gestão de fornecedores com relatórios
+Comunicação com a receita
+
+====================================================
+
