@@ -8,10 +8,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString @EqualsAndHashCode
+@ToString
+@EqualsAndHashCode
 @Table(name = "TB_DESPESA")
 public class DespesaEntity {
 
@@ -26,6 +28,6 @@ public class DespesaEntity {
     private Double valor;
     private StatusDespesaEnum statusDespesa;
     private TipoDespesaEnum tipoDespesa;
-    //TODO private Usuario usuarioResponsavel;
+    private Long idUsuarioResponsavel;
 
 }

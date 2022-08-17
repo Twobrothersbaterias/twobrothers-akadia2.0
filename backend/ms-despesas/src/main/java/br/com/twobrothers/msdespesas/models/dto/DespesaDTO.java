@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString @EqualsAndHashCode
 public class DespesaDTO {
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -31,6 +31,6 @@ public class DespesaDTO {
     private StatusDespesaEnum statusDespesa;
     private TipoDespesaEnum tipoDespesa;
 
-    //TODO private Usuario usuarioResponsavel;
+    private Long idUsuarioResponsavel;
 
 }
