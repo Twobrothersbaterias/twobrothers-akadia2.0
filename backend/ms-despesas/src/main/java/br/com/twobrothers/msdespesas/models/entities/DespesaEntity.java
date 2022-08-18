@@ -26,8 +26,13 @@ public class DespesaEntity {
     private String dataAgendamento;
     private String descricao;
     private Double valor;
+
+    @Enumerated(EnumType.STRING)
     private StatusDespesaEnum statusDespesa;
+
+    @Enumerated(EnumType.STRING)
     private TipoDespesaEnum tipoDespesa;
+
     private Long idUsuarioResponsavel;
 
 }

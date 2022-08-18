@@ -22,10 +22,14 @@ public class PatrimonioEntity {
     private Long id;
     private String nome;
     private LocalDateTime dataCadastro;
+
+    @Enumerated(EnumType.STRING)
     private TipoPatrimonioEnum tipoPatrimonio;
+
+    @Enumerated(EnumType.STRING)
     private StatusPatrimonioEnum statusPatrimonio;
     private String dataAgendamentoPatrimonio;
-    private Double valorPatrimonio;
+    private Double valor;
     private Long idUsuarioResponsavel;
 
 }
