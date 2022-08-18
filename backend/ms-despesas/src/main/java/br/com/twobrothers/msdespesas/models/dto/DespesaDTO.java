@@ -3,7 +3,6 @@ package br.com.twobrothers.msdespesas.models.dto;
 import br.com.twobrothers.msdespesas.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.msdespesas.models.enums.TipoDespesaEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 

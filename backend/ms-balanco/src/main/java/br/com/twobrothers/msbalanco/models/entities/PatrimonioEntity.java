@@ -28,7 +28,7 @@ public class PatrimonioEntity {
 
     @Enumerated(EnumType.STRING)
     private StatusPatrimonioEnum statusPatrimonio;
-    private String dataAgendamentoPatrimonio;
+    private String dataAgendamento;
     private Double valor;
     private Long idUsuarioResponsavel;
 

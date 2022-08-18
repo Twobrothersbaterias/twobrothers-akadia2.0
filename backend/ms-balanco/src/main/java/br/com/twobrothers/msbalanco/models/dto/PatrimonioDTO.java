@@ -27,7 +27,7 @@ public class PatrimonioDTO {
     private StatusPatrimonioEnum statusPatrimonio;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private String dataAgendamentoPatrimonio;
+    private String dataAgendamento;
 
     private Double valor;
     private Long idUsuarioResponsavel;

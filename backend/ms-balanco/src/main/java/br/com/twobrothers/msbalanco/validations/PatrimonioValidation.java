@@ -9,8 +9,8 @@ public class PatrimonioValidation {
 
     public boolean validaCorpoDaRequisicao(PatrimonioDTO patrimonio) {
         validaSePossuiAtributosNulos(patrimonio);
-        if (patrimonio.getDataAgendamentoPatrimonio() != null) {
-            validaAtributoDataAgendamento(patrimonio.getDataAgendamentoPatrimonio());
+        if (patrimonio.getDataAgendamento() != null) {
+            validaAtributoDataAgendamento(patrimonio.getDataAgendamento());
         }
         return true;
     }
@@ -19,7 +19,8 @@ public class PatrimonioValidation {
         if (patrimonio.getNome() != null
                 && patrimonio.getTipoPatrimonio() != null
                 && patrimonio.getStatusPatrimonio() != null
-                && patrimonio.getValor() != null)
+                && patrimonio.getValor() != null
+                && patrimonio.getIdUsuarioResponsavel() != null)
             return true;
         throw new InvalidRequestException("Validação do patrimônio falhou. Motivo: um ou mais atributos recebido(s) " +
                 "na requisição são nulos");

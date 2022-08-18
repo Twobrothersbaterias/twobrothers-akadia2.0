@@ -81,10 +81,10 @@ public class PatrimonioService {
             if (validation.validaCorpoDaRequisicao(patrimonio)) {
 
                 patrimonioAtualizado.setTipoPatrimonio(patrimonio.getTipoPatrimonio());
-                patrimonioAtualizado.setValorPatrimonio(patrimonio.getValorPatrimonio());
                 patrimonioAtualizado.setStatusPatrimonio(patrimonio.getStatusPatrimonio());
-                patrimonioAtualizado.setDataAgendamentoPatrimonio(patrimonio.getDataAgendamentoPatrimonio());
                 patrimonioAtualizado.setNome(patrimonio.getNome());
+                patrimonioAtualizado.setDataAgendamento(patrimonio.getDataAgendamento());
+                patrimonioAtualizado.setValor(patrimonio.getValor());
 
                 return modelMapper.mapper().map(repository.save(patrimonioAtualizado), PatrimonioDTO.class);
 
