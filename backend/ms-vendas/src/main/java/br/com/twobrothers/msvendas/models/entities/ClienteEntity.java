@@ -22,6 +22,7 @@ public class ClienteEntity {
     private Long id;
 
     private LocalDateTime dataCadastro;
+    private String dataNascimento;
     private String nomeCompleto;
     private String cpfCnpj;
     private String email;

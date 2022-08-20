@@ -1,5 +1,6 @@
 package br.com.twobrothers.msvendas.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -20,6 +21,8 @@ public class ClienteDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataCadastro;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private String dataNascimento;
     private String nomeCompleto;
     private String cpfCnpj;
     private String email;
