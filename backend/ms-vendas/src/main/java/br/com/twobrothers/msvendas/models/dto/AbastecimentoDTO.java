@@ -14,22 +14,37 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class AbastecimentoDTO {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataCadastro;
+
+    //TODO Verificar se annotation realmente funciona
+    @JsonProperty(required = true)
     private Integer quantidade;
 
     //TODO Deve ser calculado com base no custo total (custoTotal/quantidade)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Double custoUnitario;
 
+    //TODO Verificar se annotation realmente funciona
+    @JsonProperty(required = true)
     private Double custoTotal;
+
+    @JsonProperty(required = false)
     private String observacao;
+
+    @JsonProperty(required = true)
     private Long idUsuarioResponsavel;
+    @JsonProperty(required = true)
     private FormaPagamentoEnum formaPagamento;
+    @JsonProperty(required = true)
     private ProdutoEstoqueDTO produtoEstoque;
+
+    @JsonProperty(required = false)
     private TrocaDTO troca;
+    @JsonProperty(required = false)
     private FornecedorDTO fornecedor;
 
 }
