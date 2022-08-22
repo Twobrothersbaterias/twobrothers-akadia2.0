@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "TB_TROCA")
+@Table(name = "tb_troca")
 public class TrocaEntity {
 
     @Id

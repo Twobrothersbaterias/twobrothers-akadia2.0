@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "TB_FORNECEDOR")
+@Table(name = "tb_fornecedor")
 public class FornecedorEntity {
 
     @Id

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "TB_ENDERECO")
+@Table(name = "tb_endereco")
 public class EnderecoEntity {
 
     @Id

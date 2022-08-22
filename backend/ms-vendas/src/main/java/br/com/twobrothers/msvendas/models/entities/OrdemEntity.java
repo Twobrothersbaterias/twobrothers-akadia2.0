@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "TB_ORDEM")
+@Table(name = "tb_ordem")
 public class OrdemEntity {
 
     @Id

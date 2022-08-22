@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "TB_CLIENTE")
+@Table(name = "tb_cliente")
 public class ClienteEntity {
 
     @Id
