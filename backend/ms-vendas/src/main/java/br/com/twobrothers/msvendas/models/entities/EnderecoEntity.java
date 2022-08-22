@@ -24,6 +24,7 @@ public class EnderecoEntity {
 
     private LocalDateTime dataCadastro;
     private String logradouro;
+    private Integer numero;
     private String bairro;
     private String cep;
     private String complemento;

@@ -22,11 +22,12 @@ public class EnderecoDTO {
     private LocalDateTime dataCadastro;
 
     private String logradouro;
+    private Integer numero;
     private String bairro;
     private String cep;
     private String complemento;
     private EstadoEnum estado;
-    private List<ClienteDTO> clientes = new ArrayList<>();
+    private List<ClienteDTO> clientes;
     private List<FornecedorDTO> fornecedores = new ArrayList<>();
 
 }
