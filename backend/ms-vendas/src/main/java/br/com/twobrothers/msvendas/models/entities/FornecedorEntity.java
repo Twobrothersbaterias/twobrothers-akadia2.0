@@ -23,6 +23,9 @@ public class FornecedorEntity {
 
     private LocalDateTime dataCadastro;
     private String nome;
+    private String cpfCnpj;
+    private String telefone;
+    private String email;
     private Long idUsuarioResponsavel;
 
     @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY)
