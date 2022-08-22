@@ -116,5 +116,4 @@ public class AbastecimentoService {
         throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado com o id " + id);
     }
 
-
 }
