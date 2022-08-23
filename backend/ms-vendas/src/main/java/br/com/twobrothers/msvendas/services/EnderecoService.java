@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -50,17 +51,13 @@ public class EnderecoService {
 
     public List<EnderecoDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
 
-        try {
-            List<EnderecoEntity> enderecos = repository.buscaPorRangeDeDataCadastro(
-                    (LocalDate.parse(dataInicio)).atTime(0, 0),
-                    (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
+        List<EnderecoEntity> enderecos = repository.buscaPorRangeDeDataCadastro(
+                (LocalDate.parse(dataInicio)).atTime(0, 0),
+                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
 
-            if (!enderecos.isEmpty())
-                return enderecos.stream().map(x -> modelMapper.mapper().map(x, EnderecoDTO.class)).collect(Collectors.toList());
-            throw new ObjectNotFoundException("Não existe nenhum endereço cadastrado no range de datas indicado");
-        } catch (Exception e) {
-            throw new InvalidRequestException("Falha na requisição. Motivo: Padrão de data recebido inválido");
-        }
+        if (!enderecos.isEmpty())
+            return enderecos.stream().map(x -> modelMapper.mapper().map(x, EnderecoDTO.class)).collect(Collectors.toList());
+        throw new ObjectNotFoundException("Não existe nenhum endereço cadastrado no range de datas indicado");
 
     }
 
@@ -80,6 +77,12 @@ public class EnderecoService {
             EnderecoEntity enderecoAtualizado = enderecoOptional.get();
 
             if (validation.validaCorpoRequisicao(endereco, repository, ValidationType.UPDATE)) {
+
+                Optional<EnderecoEntity> enderecoEncontrado =
+                        repository.buscaPorAtributos(endereco.getLogradouro(), endereco.getBairro(), endereco.getNumero());
+
+                if (enderecoEncontrado.isPresent() && !Objects.equals(enderecoEncontrado.get().getId(), id))
+                    throw new InvalidRequestException("O endereço informado já existe");
 
                 enderecoAtualizado.setBairro(endereco.getBairro());
                 enderecoAtualizado.setCep(endereco.getCep());

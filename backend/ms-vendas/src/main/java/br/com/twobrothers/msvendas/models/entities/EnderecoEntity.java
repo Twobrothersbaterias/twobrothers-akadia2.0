@@ -55,4 +55,9 @@ public class EnderecoEntity {
         this.fornecedores.add(fornecedor);
     }
 
+    public void removeFornecedor(FornecedorEntity fornecedor) {
+        fornecedor.setEndereco(null);
+        this.fornecedores.remove(fornecedor);
+    }
+
 }

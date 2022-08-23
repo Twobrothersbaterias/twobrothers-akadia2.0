@@ -20,7 +20,6 @@ public class FornecedorValidation {
 
     public boolean validaSePossuiAtributosNulos(FornecedorDTO fornecedor) {
         if (fornecedor.getNome() != null
-                && fornecedor.getEndereco() != null
                 && fornecedor.getIdUsuarioResponsavel() != null
                 && fornecedor.getTelefone() != null)
             return true;
@@ -34,7 +33,7 @@ public class FornecedorValidation {
 
     public boolean validaAtributoCpfCnpj(String cpfCnpj, FornecedorRepository repository, ValidationType type) { //TODO Testar REGEX
 
-        if (cpfCnpj.length() == 11 && cpfCnpj.replace(".", "").replace("-", "")
+        if (cpfCnpj.length() == 11 && cpfCnpj.replace(".", "").replace("-", "").replace("/", "")
                 .matches(CPF_REGEX_PATTERN_REPLACED) || cpfCnpj.length() == 14 &&
                 cpfCnpj.replace(".", "").replace("-", ""
                 ).matches(CNPJ_REGEX_PATTERN_REPLACED)) {

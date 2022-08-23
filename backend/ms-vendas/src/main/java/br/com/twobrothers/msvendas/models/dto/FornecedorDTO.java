@@ -25,7 +25,10 @@ public class FornecedorDTO {
     private String telefone;
     private String email;
     private Long idUsuarioResponsavel;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private EnderecoDTO endereco;
+
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();
     private List<AbastecimentoDTO> abastecimentos = new ArrayList<>();
 

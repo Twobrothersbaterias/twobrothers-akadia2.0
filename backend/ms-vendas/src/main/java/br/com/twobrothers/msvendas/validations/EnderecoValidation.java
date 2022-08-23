@@ -23,10 +23,7 @@ public class EnderecoValidation {
 
     public boolean validaSeNaoNulo(EnderecoDTO endereco) {
         if (endereco.getLogradouro() != null
-                && endereco.getNumero() != null
-                && endereco.getBairro() != null
-                && endereco.getCep() != null
-                && endereco.getComplemento() != null) return true;
+                && endereco.getNumero() != null) return true;
         throw new InvalidRequestException("Requisição inválida. Um ou mais campos obrigatórios são nulos");
     }
 

@@ -29,29 +29,29 @@ public class FornecedorController {
         return ResponseEntity.ok().body(service.buscaTodos());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FornecedorDTO> buscaPorId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(service.buscaPorId(id));
+    @GetMapping("/id")
+    public ResponseEntity<FornecedorDTO> buscaPorId(@PathParam("id") Long value) {
+        return ResponseEntity.ok().body(service.buscaPorId(value));
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<FornecedorDTO> buscaPorNome(@PathVariable("name") String nome) {
-        return ResponseEntity.ok().body(service.buscaPorNome(nome));
+    @GetMapping("/name")
+    public ResponseEntity<List<FornecedorDTO>> buscaPorNome(@PathParam("nome") String value) {
+        return ResponseEntity.ok().body(service.buscaPorNome(value));
     }
 
-    @GetMapping("/{cpfCnpj}")
-    public ResponseEntity<FornecedorDTO> buscaPorCpfCnpj(@PathVariable("cpfCnpj") String cpfCnpj) {
-        return ResponseEntity.ok().body(service.buscaPorCpfCnpj(cpfCnpj));
+    @GetMapping("/cpfcnpj")
+    public ResponseEntity<FornecedorDTO> buscaPorCpfCnpj(@PathParam("cpfCnpj") String value) {
+        return ResponseEntity.ok().body(service.buscaPorCpfCnpj(value));
     }
 
-    @GetMapping("/{phone}")
-    public ResponseEntity<FornecedorDTO> buscaPorTelefone(@PathVariable("phone") String telefone) {
-        return ResponseEntity.ok().body(service.buscaPorTelefone(telefone));
+    @GetMapping("/phone")
+    public ResponseEntity<List<FornecedorDTO>> buscaPorTelefone(@PathParam("telefone") String value) {
+        return ResponseEntity.ok().body(service.buscaPorTelefone(value));
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<FornecedorDTO> buscaPorEmail(@PathVariable("email") String email) {
-        return ResponseEntity.ok().body(service.buscaPorEmail(email));
+    @GetMapping("/email")
+    public ResponseEntity<FornecedorDTO> buscaPorEmail(@PathParam("email") String value) {
+        return ResponseEntity.ok().body(service.buscaPorEmail(value));
     }
 
     @GetMapping("/pagination")
