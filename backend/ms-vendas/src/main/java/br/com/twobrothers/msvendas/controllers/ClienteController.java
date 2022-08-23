@@ -30,28 +30,28 @@ public class ClienteController {
     }
 
     @GetMapping("/id")
-    public ResponseEntity<ClienteDTO> buscaPorId(@PathParam("id") Long id) {
-        return ResponseEntity.ok().body(service.buscaPorId(id));
+    public ResponseEntity<ClienteDTO> buscaPorId(@PathParam("id") Long value) {
+        return ResponseEntity.ok().body(service.buscaPorId(value));
     }
 
     @GetMapping("/name")
-    public ResponseEntity<List<ClienteDTO>> buscaPorNome(@PathParam("nomeCompleto") String nomeCompleto) {
-        return ResponseEntity.ok().body(service.buscaPorNomeCompleto(nomeCompleto));
+    public ResponseEntity<List<ClienteDTO>> buscaPorNome(@PathParam("nomeCompleto") String value) {
+        return ResponseEntity.ok().body(service.buscaPorNomeCompleto(value));
     }
 
-    @GetMapping("/cpfCnpj")
-    public ResponseEntity<ClienteDTO> buscaPorCpfCnpj(@PathParam("cpfCnpj") String cpfCnpj) {
-        return ResponseEntity.ok().body(service.buscaPorCpfCnpj(cpfCnpj));
+    @GetMapping("/cpfcnpj")
+    public ResponseEntity<ClienteDTO> buscaPorCpfCnpj(@PathParam("cpfCnpj") String value) {
+        return ResponseEntity.ok().body(service.buscaPorCpfCnpj(value));
     }
 
     @GetMapping("/phone")
-    public ResponseEntity<List<ClienteDTO>> buscaPorTelefone(@PathParam("telefone") String telefone) {
-        return ResponseEntity.ok().body(service.buscaPorTelefone(telefone));
+    public ResponseEntity<List<ClienteDTO>> buscaPorTelefone(@PathParam("telefone") String value) {
+        return ResponseEntity.ok().body(service.buscaPorTelefone(value));
     }
 
     @GetMapping("/email")
-    public ResponseEntity<ClienteDTO> buscaPorEmail(@PathParam("email") String email) {
-        return ResponseEntity.ok().body(service.buscaPorEmail(email));
+    public ResponseEntity<ClienteDTO> buscaPorEmail(@PathParam("email") String value) {
+        return ResponseEntity.ok().body(service.buscaPorEmail(value));
     }
 
     @GetMapping("/pagination")

@@ -18,6 +18,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class EnderecoDTO {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

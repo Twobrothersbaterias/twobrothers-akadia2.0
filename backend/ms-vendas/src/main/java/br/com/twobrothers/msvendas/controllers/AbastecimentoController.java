@@ -29,9 +29,9 @@ public class AbastecimentoController {
         return ResponseEntity.ok().body(service.buscaTodos());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AbastecimentoDTO> buscaPorId(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(service.buscaPorId(id));
+    @GetMapping("/id")
+    public ResponseEntity<AbastecimentoDTO> buscaPorId(@PathParam("id") Long value) {
+        return ResponseEntity.ok().body(service.buscaPorId(value));
     }
 
     @GetMapping("/pagination")

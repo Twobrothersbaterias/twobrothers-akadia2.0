@@ -17,7 +17,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class ClienteDTO {
 
-    //@JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

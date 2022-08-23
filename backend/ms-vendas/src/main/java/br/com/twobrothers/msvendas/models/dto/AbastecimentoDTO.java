@@ -20,7 +20,6 @@ public class AbastecimentoDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataCadastro;
 
-    //TODO Verificar se annotation realmente funciona
     @JsonProperty(required = true)
     private Integer quantidade;
 
@@ -28,7 +27,6 @@ public class AbastecimentoDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Double custoUnitario;
 
-    //TODO Verificar se annotation realmente funciona
     @JsonProperty(required = true)
     private Double custoTotal;
 
