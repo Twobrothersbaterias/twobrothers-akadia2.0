@@ -1,6 +1,7 @@
 package br.com.twobrothers.msvendas.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class ClienteDTO {
 
+    //@JsonIgnore
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -28,7 +30,10 @@ public class ClienteDTO {
     private String email;
     private String telefone;
     private Long idUsuarioResponsavel;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private EnderecoDTO endereco;
+
     private List<OrdemDTO> ordens = new ArrayList<>();
 
 }

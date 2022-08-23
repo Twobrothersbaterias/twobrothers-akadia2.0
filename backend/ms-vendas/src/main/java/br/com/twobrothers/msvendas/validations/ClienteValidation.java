@@ -9,6 +9,8 @@ import static br.com.twobrothers.msvendas.utils.RegexPatterns.*;
 
 public class ClienteValidation {
 
+    EnderecoValidation enderecoValidation = new EnderecoValidation();
+
     public boolean validaCorpoRequisicao(ClienteDTO cliente, ClienteRepository repository, ValidationType type) {
         if (cliente.getDataNascimento() != null) validaAtributoDataNascimento(cliente.getDataNascimento());
         if (cliente.getNomeCompleto() != null) validaAtributoNomeCompleto(cliente.getNomeCompleto());
@@ -33,15 +35,13 @@ public class ClienteValidation {
 
     public boolean validaAtributoCpfCnpj(String cpfCnpj, ClienteRepository repository, ValidationType type) { //TODO Testar REGEX
 
-        if (cpfCnpj.length() == 11 && cpfCnpj.replace(".", "").replace("-", "")
-                .matches(CPF_REGEX_PATTERN_REPLACED) || cpfCnpj.length() == 14 &&
-                cpfCnpj.replace(".", "").replace("-", ""
-                ).matches(CNPJ_REGEX_PATTERN_REPLACED)) {
+        cpfCnpj = cpfCnpj.replace(".", "").replace("-", "");
 
+        if (cpfCnpj.length() == 11 && cpfCnpj.matches(CPF_REGEX_PATTERN_REPLACED) ||
+                cpfCnpj.length() == 14 && cpfCnpj.matches(CNPJ_REGEX_PATTERN_REPLACED)) {
             if (type.equals(ValidationType.CREATE) && repository.buscaPorCpfCnpj(cpfCnpj).isEmpty() || type.equals(ValidationType.UPDATE)) {
                 return true;
-            }
-            else {
+            } else {
                 throw new InvalidRequestException("O cpf/cnpj enviado já existe em um cadastro de nossa base de dados.");
             }
         } else {
@@ -53,18 +53,17 @@ public class ClienteValidation {
         if (email.matches(EMAIL_REGEX_PATTERN)) {
             if (type.equals(ValidationType.CREATE) && repository.buscaPorEmail(email).isEmpty() || type.equals(ValidationType.UPDATE)) {
                 return true;
-            }
-            else {
+            } else {
                 throw new InvalidRequestException("O e-mail enviado já existe em um cadastro de nossa base de dados.");
             }
-        }
-        else {
+        } else {
             throw new InvalidRequestException("Validação do e-mail falhou. O valor enviado é inválido.");
         }
     }
 
     public boolean validaAtributoTelefone(String telefone) {
-        if (telefone.matches(PHONE_REGEX_PATTERN)) return true; //TODO Testar REGEX
+        if (telefone.replace("(", "").replace(")", "").replace("-", "")
+                .matches(PHONE_REGEX_PATTERN_REPLACED)) return true; //TODO Testar REGEX
         throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
     }
 }

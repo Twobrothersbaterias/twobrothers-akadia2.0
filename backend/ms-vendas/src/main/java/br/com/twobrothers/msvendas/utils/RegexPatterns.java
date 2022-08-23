@@ -27,5 +27,6 @@ public class RegexPatterns {
     public static final String CNPJ_REGEX_PATTERN_REPLACED = "[0-9]{8}000[1-2][0-9]{2}";
 
     public static final String PHONE_REGEX_PATTERN = "([1-9]{2})[1-9][0-9]{3,4}-[0-9]{4}";
+    public static final String PHONE_REGEX_PATTERN_REPLACED = "[1-9]{2}[1-9][0-9]{3,4}[0-9]{4}";
 
 }

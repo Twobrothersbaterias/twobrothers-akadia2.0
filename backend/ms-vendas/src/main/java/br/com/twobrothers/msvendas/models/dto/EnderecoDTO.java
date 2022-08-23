@@ -1,5 +1,7 @@
 package br.com.twobrothers.msvendas.models.dto;
 
+import br.com.twobrothers.msvendas.models.entities.ClienteEntity;
+import br.com.twobrothers.msvendas.models.entities.FornecedorEntity;
 import br.com.twobrothers.msvendas.models.enums.EstadoEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -27,7 +29,17 @@ public class EnderecoDTO {
     private String cep;
     private String complemento;
     private EstadoEnum estado;
-    private List<ClienteDTO> clientes;
+    private List<ClienteDTO> clientes = new ArrayList<>();
     private List<FornecedorDTO> fornecedores = new ArrayList<>();
+
+    public void addCliente(ClienteDTO cliente) {
+        cliente.setEndereco(this);
+        this.clientes.add(cliente);
+    }
+
+    public void addFornecedor(FornecedorDTO fornecedor) {
+        fornecedor.setEndereco(this);
+        this.fornecedores.add(fornecedor);
+    }
 
 }
