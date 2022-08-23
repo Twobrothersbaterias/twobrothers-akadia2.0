@@ -29,6 +29,7 @@ public class PrecoFornecedorEntity {
     private ProdutoEstoqueEntity produto;
 
     @ManyToOne(targetEntity = FornecedorEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "fornecedor_id")
     private FornecedorEntity fornecedor;
 
 }

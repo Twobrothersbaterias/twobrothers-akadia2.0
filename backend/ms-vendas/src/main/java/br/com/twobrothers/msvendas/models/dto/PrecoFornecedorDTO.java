@@ -1,5 +1,6 @@
 package br.com.twobrothers.msvendas.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -21,15 +22,17 @@ public class PrecoFornecedorDTO {
 
     @JsonProperty(required = true)
     private Double valor;
+
+    @JsonProperty(required = false)
     private String observacao;
 
     @JsonProperty(required = true)
     private Long idUsuarioResponsavel;
 
-    @JsonProperty(required = true, access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private ProdutoEstoqueDTO produto;
 
-    @JsonProperty(required = true, access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private FornecedorDTO fornecedor;
 
 }
