@@ -31,7 +31,7 @@ public class AbastecimentoEntity {
 
     @ManyToOne(targetEntity = ProdutoEstoqueEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")
-    private ProdutoEstoqueEntity produtoEstoque;
+    private ProdutoEstoqueEntity produto;
 
     //TODO Ponto de atenção
     @OneToOne(targetEntity = TrocaEntity.class, fetch = FetchType.LAZY)

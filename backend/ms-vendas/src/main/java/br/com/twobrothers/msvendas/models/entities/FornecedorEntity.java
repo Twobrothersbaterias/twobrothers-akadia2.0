@@ -32,10 +32,20 @@ public class FornecedorEntity {
     @JoinColumn(name = "id_endereco")
     private EnderecoEntity endereco;
 
-    @OneToMany(targetEntity = PrecoFornecedorEntity.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = PrecoFornecedorEntity.class, mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<PrecoFornecedorEntity> precosFornecedor = new ArrayList<>();
 
-    @OneToMany(targetEntity = AbastecimentoEntity.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = AbastecimentoEntity.class, mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<AbastecimentoEntity> abastecimentos = new ArrayList<>();
 
+    public void addPrecoFornecedor(PrecoFornecedorEntity preco) {
+        preco.setFornecedor(this);
+        this.precosFornecedor.add(preco);
+    }
+
+    public void removePrecoFornecedor(PrecoFornecedorEntity preco) {
+        preco.setFornecedor(null);
+        this.precosFornecedor.remove(preco);
+    }
+    
 }
