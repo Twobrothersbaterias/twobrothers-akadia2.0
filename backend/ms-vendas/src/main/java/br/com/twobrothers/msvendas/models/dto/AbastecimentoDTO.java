@@ -39,12 +39,14 @@ public class AbastecimentoDTO {
     private Long idUsuarioResponsavel;
     @JsonProperty(required = true)
     private FormaPagamentoEnum formaPagamento;
-    @JsonProperty(required = true)
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, required = true)
     private ProdutoEstoqueDTO produtoEstoque;
 
-    @JsonProperty(required = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, required = false)
     private TrocaDTO troca;
-    @JsonProperty(required = false)
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, required = false)
     private FornecedorDTO fornecedor;
 
 }

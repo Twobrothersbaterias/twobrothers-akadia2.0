@@ -26,9 +26,9 @@ public class ProdutoEstoqueEntity {
     private String sigla;
     private String marcaBateria;
     private String especificacao;
-    private Integer quantidade;
     private Integer quantidadeMinima;
     private Long idUsuarioResponsavel;
+    private Integer quantidade;
 
     @Enumerated(EnumType.STRING)
     private TipoProdutoEnum tipoProduto;

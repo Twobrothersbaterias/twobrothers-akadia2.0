@@ -21,15 +21,34 @@ public class ProdutoEstoqueDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataCadastro;
 
+    @JsonProperty(required = true)
     private String sigla;
+
+    @JsonProperty(required = true)
     private String marcaBateria;
+
+    @JsonProperty(required = true)
     private String especificacao;
-    private Integer quantidade;
+
+    @JsonProperty(required = false, defaultValue = "0")
     private Integer quantidadeMinima;
+
+    @JsonProperty(required = true)
     private Long idUsuarioResponsavel;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Integer quantidade;
+
+    @JsonProperty(required = true)
     private TipoProdutoEnum tipoProduto;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<AbastecimentoDTO> abastecimentos = new ArrayList<>();
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<OrdemDTO> ordens = new ArrayList<>();
 
 }
