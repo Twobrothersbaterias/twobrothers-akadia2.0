@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class EnderecoService {
 
     public EnderecoDTO criaNovo(EnderecoDTO endereco) {
         if (validation.validaCorpoRequisicao(endereco, repository, ValidationType.CREATE)) {
+            endereco.setDataCadastro(LocalDateTime.now());
             return modelMapper.mapper().map(repository
                     .save(modelMapper.mapper().map(endereco, EnderecoEntity.class)), EnderecoDTO.class);
         }

@@ -33,13 +33,13 @@ public class ProdutoEstoqueEntity {
     @Enumerated(EnumType.STRING)
     private TipoProdutoEnum tipoProduto;
 
-    @OneToMany(targetEntity = AbastecimentoEntity.class, mappedBy = "produto", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = AbastecimentoEntity.class, fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL)
     private List<AbastecimentoEntity> abastecimentos = new ArrayList<>();
 
-    @OneToMany(targetEntity = PrecoFornecedorEntity.class, mappedBy = "produto", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = PrecoFornecedorEntity.class, fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL)
     private List<PrecoFornecedorEntity> precosFornecedor = new ArrayList<>();
 
-    @OneToMany(targetEntity = OrdemEntity.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY)
     private List<OrdemEntity> ordens = new ArrayList<>();
 
     public void addPrecoFornecedor(PrecoFornecedorEntity preco) {

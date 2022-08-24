@@ -31,6 +31,7 @@ public class RetiradaEntity {
 
     //TODO Ponto de atenção
     @OneToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ordem_id")
     private OrdemEntity ordem;
 
 }

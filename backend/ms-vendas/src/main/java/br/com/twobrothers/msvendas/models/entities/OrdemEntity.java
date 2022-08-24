@@ -43,13 +43,13 @@ public class OrdemEntity {
     private ClienteEntity cliente;
 
     //TODO Ponto de atenção
-    @OneToOne(targetEntity = RetiradaEntity.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = RetiradaEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private RetiradaEntity retirada;
 
-    @OneToMany(targetEntity = ProdutoEstoqueEntity.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = ProdutoEstoqueEntity.class, fetch = FetchType.LAZY, mappedBy = "ordens", cascade = CascadeType.ALL)
     private List<ProdutoEstoqueEntity> produtos = new ArrayList<>();
 
-    @OneToMany(targetEntity = TrocaEntity.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = TrocaEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<TrocaEntity> trocas = new ArrayList<>();
 
 }

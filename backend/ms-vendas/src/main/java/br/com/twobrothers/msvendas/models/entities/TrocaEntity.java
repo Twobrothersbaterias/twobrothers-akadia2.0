@@ -27,7 +27,7 @@ public class TrocaEntity {
     private OrdemEntity ordem;
 
     //TODO Ponto de atenção
-    @OneToOne(targetEntity = AbastecimentoEntity.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = AbastecimentoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "troca")
     private AbastecimentoEntity abastecimento;
 
 }
