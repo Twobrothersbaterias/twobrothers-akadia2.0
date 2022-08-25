@@ -1,4 +1,4 @@
-package br.com.twobrothers.msvendas.services;
+package br.com.twobrothers.msvendas.repositories.services;
 
 import br.com.twobrothers.msvendas.config.ModelMapperConfig;
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;

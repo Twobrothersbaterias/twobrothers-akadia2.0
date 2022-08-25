@@ -13,6 +13,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @EnableSpringDataWebSupport
 @EntityScan(basePackages = {"br.com.twobrothers.msvendas.models"})
 @EnableJpaRepositories("br.com.twobrothers.msvendas.repositories")
+@ComponentScan("br.com.twobrothers.msvendas.repositories.services")
 @ComponentScan("br.com.twobrothers.msvendas.config")
 @ComponentScan("br.com.twobrothers.msvendas.controllers")
 @ComponentScan("br.com.twobrothers.msvendas.services")

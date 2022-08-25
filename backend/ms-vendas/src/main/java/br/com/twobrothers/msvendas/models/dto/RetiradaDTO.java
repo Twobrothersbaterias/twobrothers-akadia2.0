@@ -1,7 +1,9 @@
 package br.com.twobrothers.msvendas.models.dto;
 
+import br.com.twobrothers.msvendas.models.entities.OrdemEntity;
 import br.com.twobrothers.msvendas.models.enums.StatusRetiradaEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -17,7 +19,6 @@ public class RetiradaDTO {
 
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataRetirada;
 
     private String observacao;
@@ -28,6 +29,13 @@ public class RetiradaDTO {
     private String tecnicoEntrada;
     private String tecnicoSaida;
     private StatusRetiradaEnum statusRetirada;
+
+    @JsonIgnore
     private OrdemDTO ordem;
+
+    public void addOrdem(OrdemDTO ordem) {
+        ordem.setRetirada(this);
+        this.setOrdem(ordem);
+    }
 
 }

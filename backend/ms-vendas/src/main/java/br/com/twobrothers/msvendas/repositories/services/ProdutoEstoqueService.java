@@ -1,4 +1,4 @@
-package br.com.twobrothers.msvendas.services;
+package br.com.twobrothers.msvendas.repositories.services;
 
 import br.com.twobrothers.msvendas.config.ModelMapperConfig;
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
@@ -32,7 +32,8 @@ public class ProdutoEstoqueService {
     public ProdutoEstoqueDTO criaNovo(ProdutoEstoqueDTO produto) {
         if (validation.validaCorpoRequisicao(produto, repository, ValidationType.CREATE)) {
             produto.setDataCadastro(LocalDateTime.now());
-            produto.setQuantidade(0);
+            //TODO Mudar quantidade para 0. 5 é mock
+            produto.setQuantidade(5);
             if (produto.getQuantidadeMinima() == null) produto.setQuantidadeMinima(0);
             return modelMapper.mapper().map(repository.save(modelMapper.mapper()
                     .map(produto, ProdutoEstoqueEntity.class)), ProdutoEstoqueDTO.class);

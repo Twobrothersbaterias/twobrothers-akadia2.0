@@ -1,7 +1,7 @@
 package br.com.twobrothers.msvendas.controllers;
 
 import br.com.twobrothers.msvendas.models.dto.ClienteDTO;
-import br.com.twobrothers.msvendas.services.ClienteService;
+import br.com.twobrothers.msvendas.repositories.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

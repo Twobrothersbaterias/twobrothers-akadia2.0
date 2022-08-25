@@ -47,8 +47,7 @@ public class ProdutoEstoqueDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<OrdemDTO> ordens = new ArrayList<>();
+//
+//    private List<ProdutoOrdemDTO> produtoOrdens = new ArrayList<>();
 
 }

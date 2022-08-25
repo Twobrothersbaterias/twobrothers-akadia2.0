@@ -21,6 +21,7 @@ public class TrocaEntity {
 
     private LocalDateTime dataCadastro;
     private Double valorTroca;
+    private Integer quantidade;
 
     @ManyToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ordem_id")

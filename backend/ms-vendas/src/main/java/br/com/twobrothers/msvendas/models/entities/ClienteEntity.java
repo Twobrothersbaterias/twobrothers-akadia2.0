@@ -33,12 +33,22 @@ public class ClienteEntity {
     private String telefone;
     private Long idUsuarioResponsavel;
 
-    @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_endereco")
     private EnderecoEntity endereco;
 
-    @OneToMany(targetEntity = OrdemEntity.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = OrdemEntity.class, mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<OrdemEntity> ordens = new ArrayList<>();
+
+    public void addOrdem(OrdemEntity ordem) {
+        ordem.setCliente(this);
+        this.ordens.add(ordem);
+    }
+
+    public void removePrecoFornecedor(OrdemEntity ordem) {
+        ordem.setCliente(null);
+        this.ordens.remove(ordem);
+    }
 
 }
 

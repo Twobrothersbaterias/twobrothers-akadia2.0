@@ -34,10 +34,10 @@ public class EnderecoEntity {
     @Enumerated(EnumType.STRING)
     private EstadoEnum estado;
 
-    @OneToMany(targetEntity = ClienteEntity.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ClienteEntity.class, mappedBy = "endereco", cascade = CascadeType.ALL)
     private List<ClienteEntity> clientes = new ArrayList<>();
 
-    @OneToMany(targetEntity = FornecedorEntity.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = FornecedorEntity.class, mappedBy = "endereco", cascade = CascadeType.ALL)
     private List<FornecedorEntity> fornecedores = new ArrayList<>();
 
     public void addCliente(ClienteEntity cliente) {

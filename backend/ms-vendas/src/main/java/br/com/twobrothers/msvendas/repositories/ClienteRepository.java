@@ -15,6 +15,9 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
     @Query("Select c From ClienteEntity c where c.dataCadastro between ?1 and ?2")
     List<ClienteEntity> buscaPorRangeDeDataCadastro(LocalDateTime dataInicio, LocalDateTime dataFim);
 
+    @Query("Select c From ClienteEntity c where c.cpfCnpj = ?1 and c.nomeCompleto = ?2")
+    Optional<ClienteEntity> buscaPorAtributos(String cpfCnpj, String nomeCompleto);
+
     @Query("Select c From ClienteEntity c where c.cpfCnpj = ?1")
     Optional<ClienteEntity> buscaPorCpfCnpj(String cpfCnpj);
 

@@ -2,7 +2,7 @@ package br.com.twobrothers.msvendas.models.dto;
 
 import br.com.twobrothers.msvendas.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.msvendas.models.enums.LojaEnum;
-import br.com.twobrothers.msvendas.models.enums.TipoOrdemEnum;
+import br.com.twobrothers.msvendas.models.enums.TipoEntradaOrdemEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -24,17 +24,29 @@ public class OrdemDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataCadastro;
 
-    private Double valor;
-    private Integer quantidade;
+    @JsonProperty(required = false)
     private String veiculo;
+
+    @JsonProperty(required = true)
     private Boolean emiteNfe;
+
+    @JsonProperty(required = true)
     private Long idUsuarioResponsavel;
-    private TipoOrdemEnum tipoOrdem;
+
+    @JsonProperty(required = true)
     private LojaEnum loja;
+
+    @JsonProperty(required = true)
     private FormaPagamentoEnum formaPagamento;
+
+    @JsonProperty(required = false, access = JsonProperty.Access.WRITE_ONLY)
     private ClienteDTO cliente;
+
+    @JsonProperty(required = true)
     private RetiradaDTO retirada;
-    private List<ProdutoEstoqueDTO> produtos = new ArrayList<>();
+
+    private List<EntradaOrdemDTO> entradas = new ArrayList<>();
+
     private List<TrocaDTO> trocas = new ArrayList<>();
 
 }
