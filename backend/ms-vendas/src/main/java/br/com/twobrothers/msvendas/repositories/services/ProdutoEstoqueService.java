@@ -32,8 +32,7 @@ public class ProdutoEstoqueService {
     public ProdutoEstoqueDTO criaNovo(ProdutoEstoqueDTO produto) {
         if (validation.validaCorpoRequisicao(produto, repository, ValidationType.CREATE)) {
             produto.setDataCadastro(LocalDateTime.now());
-            //TODO Mudar quantidade para 0. 5 é mock
-            produto.setQuantidade(5);
+            produto.setQuantidade(0);
             if (produto.getQuantidadeMinima() == null) produto.setQuantidadeMinima(0);
             return modelMapper.mapper().map(repository.save(modelMapper.mapper()
                     .map(produto, ProdutoEstoqueEntity.class)), ProdutoEstoqueDTO.class);

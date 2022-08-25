@@ -42,9 +42,6 @@ public class AbastecimentoDTO {
     private ProdutoEstoqueDTO produtoEstoque;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, required = false)
-    private TrocaDTO troca;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, required = false)
     private FornecedorDTO fornecedor;
 
 }

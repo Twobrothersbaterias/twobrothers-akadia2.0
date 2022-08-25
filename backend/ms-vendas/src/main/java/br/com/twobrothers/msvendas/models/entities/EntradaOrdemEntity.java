@@ -1,6 +1,7 @@
 package br.com.twobrothers.msvendas.models.entities;
 
-import br.com.twobrothers.msvendas.models.enums.TipoEntradaOrdemEnum;
+import br.com.twobrothers.msvendas.models.enums.TipoEntradaEnum;
+import br.com.twobrothers.msvendas.models.enums.TipoOrdemEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,11 +23,14 @@ public class EntradaOrdemEntity {
 
     private Double valor;
     private Integer quantidade;
-    private String observação;
+    private String observacao;
     private Long produtoEstoqueId;
 
     @Enumerated(EnumType.STRING)
-    private TipoEntradaOrdemEnum tipoEntradaOrdem;
+    private TipoOrdemEnum tipoOrdem;
+
+    @Enumerated(EnumType.STRING)
+    private TipoOrdemEnum tipoEntrada;
 
     @ManyToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ordem_id")

@@ -33,11 +33,6 @@ public class AbastecimentoEntity {
     @JoinColumn(name = "produto_id")
     private ProdutoEstoqueEntity produto;
 
-    //TODO Ponto de atenção
-    @OneToOne(targetEntity = TrocaEntity.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_troca")
-    private TrocaEntity troca;
-
     @ManyToOne(targetEntity = FornecedorEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "fornecedor_id")
     private FornecedorEntity fornecedor;

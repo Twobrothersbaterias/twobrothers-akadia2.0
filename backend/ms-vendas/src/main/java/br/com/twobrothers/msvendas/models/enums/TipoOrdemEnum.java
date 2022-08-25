@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum TipoEntradaOrdemEnum {
+public enum TipoOrdemEnum {
 
     PADRAO_PRODUTO(0, "Padrão - produto"),
     PADRAO_SERVICO(1, "Padrão - serviço"),

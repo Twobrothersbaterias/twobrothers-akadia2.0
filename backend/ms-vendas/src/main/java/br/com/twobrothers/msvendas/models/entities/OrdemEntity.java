@@ -44,7 +44,4 @@ public class OrdemEntity {
     @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();
 
-    @OneToMany(targetEntity = TrocaEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
-    private List<TrocaEntity> trocas = new ArrayList<>();
-
 }

@@ -5,11 +5,10 @@ import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.OrdemDTO;
 import br.com.twobrothers.msvendas.models.dto.EntradaOrdemDTO;
-import br.com.twobrothers.msvendas.models.dto.TrocaDTO;
 import br.com.twobrothers.msvendas.models.entities.ClienteEntity;
 import br.com.twobrothers.msvendas.models.entities.OrdemEntity;
 import br.com.twobrothers.msvendas.models.enums.StatusRetiradaEnum;
-import br.com.twobrothers.msvendas.models.enums.TipoEntradaOrdemEnum;
+import br.com.twobrothers.msvendas.models.enums.TipoOrdemEnum;
 import br.com.twobrothers.msvendas.models.enums.ValidationType;
 import br.com.twobrothers.msvendas.repositories.ClienteRepository;
 import br.com.twobrothers.msvendas.repositories.OrdemRepository;
@@ -73,15 +72,8 @@ public class OrdemService {
             for (EntradaOrdemDTO entradaOrdemDTO : ordem.getEntradas()) {
                 log.info("[PROGRESS] Setando a ordem à entrada");
                 entradaOrdemDTO.setOrdem(ordem);
-                if (entradaOrdemDTO.getTipoEntradaOrdem() != TipoEntradaOrdemEnum.PADRAO_SERVICO)
-                    gerenciamentoEstoqueService.reduzQuantidadeEstoque(entradaOrdemDTO);
-            }
-
-            log.info("[PROGRESS] Percorrendo as trocas passadas na ordem...");
-            for (TrocaDTO trocaDTO: ordem.getTrocas()) {
-                log.info("[PROGRESS] Setando a ordem à troca");
-                trocaDTO.setOrdem(ordem);
-
+                if (entradaOrdemDTO.getTipoOrdem() != TipoOrdemEnum.PADRAO_SERVICO)
+                    gerenciamentoEstoqueService.distribuiParaTrocaOuProduto(entradaOrdemDTO);
             }
 
             log.info("[PROGRESS] Adicionando a retirada à ordem e a ordem à retirada...");

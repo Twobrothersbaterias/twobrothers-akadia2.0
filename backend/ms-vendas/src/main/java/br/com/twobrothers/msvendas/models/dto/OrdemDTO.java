@@ -2,7 +2,6 @@ package br.com.twobrothers.msvendas.models.dto;
 
 import br.com.twobrothers.msvendas.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.msvendas.models.enums.LojaEnum;
-import br.com.twobrothers.msvendas.models.enums.TipoEntradaOrdemEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -46,7 +45,5 @@ public class OrdemDTO {
     private RetiradaDTO retirada;
 
     private List<EntradaOrdemDTO> entradas = new ArrayList<>();
-
-    private List<TrocaDTO> trocas = new ArrayList<>();
 
 }

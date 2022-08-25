@@ -1,6 +1,7 @@
 package br.com.twobrothers.msvendas.models.dto;
 
-import br.com.twobrothers.msvendas.models.enums.TipoEntradaOrdemEnum;
+import br.com.twobrothers.msvendas.models.enums.TipoEntradaEnum;
+import br.com.twobrothers.msvendas.models.enums.TipoOrdemEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -16,10 +17,10 @@ public class EntradaOrdemDTO {
 
     private Double valor;
     private Integer quantidade;
-    private String observação;
+    private String observacao;
     private Long produtoEstoqueId;
-
-    private TipoEntradaOrdemEnum tipoEntradaOrdem;
+    private TipoOrdemEnum tipoOrdem;
+    private TipoEntradaEnum tipoEntrada;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private OrdemDTO ordem;

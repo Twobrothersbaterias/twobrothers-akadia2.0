@@ -6,7 +6,6 @@ import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.msvendas.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.msvendas.models.entities.FornecedorEntity;
-import br.com.twobrothers.msvendas.models.entities.TrocaEntity;
 import br.com.twobrothers.msvendas.repositories.AbastecimentoRepository;
 import br.com.twobrothers.msvendas.validations.AbastecimentoValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +92,6 @@ public class AbastecimentoService {
                 abastecimentoAtualizado.setFormaPagamento(abastecimento.getFormaPagamento());
                 abastecimentoAtualizado.setQuantidade(abastecimento.getQuantidade());
                 abastecimentoAtualizado.setCustoUnitario(abastecimento.getCustoTotal()/abastecimento.getQuantidade());
-                abastecimentoAtualizado.setTroca(modelMapper.mapper().map(abastecimento.getTroca(), TrocaEntity.class));
                 abastecimentoAtualizado.setFornecedor(modelMapper.mapper().map(abastecimento.getFornecedor(), FornecedorEntity.class));
 
                 return modelMapper.mapper().map(repository.save(abastecimentoAtualizado), AbastecimentoDTO.class);
