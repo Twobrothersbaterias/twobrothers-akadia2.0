@@ -20,8 +20,10 @@ public class AbastecimentoController {
     AbastecimentoService service;
 
     @PostMapping
-    public ResponseEntity<AbastecimentoDTO> criaNovo(@RequestBody AbastecimentoDTO abastecimento) {
-        return ResponseEntity.ok().body(service.criaNovo(abastecimento));
+    public ResponseEntity<AbastecimentoDTO> criaNovo(@RequestBody AbastecimentoDTO abastecimento,
+                                                     @PathParam("idFornecedor") Long idFornecedor,
+                                                     @PathParam("idProduto") Long idProduto) {
+        return ResponseEntity.ok().body(service.criaNovo(abastecimento, idProduto, idFornecedor));
     }
 
     @GetMapping
@@ -43,16 +45,6 @@ public class AbastecimentoController {
     @GetMapping("/range")
     public ResponseEntity<List<AbastecimentoDTO>> buscaPorRangeDeDataDeCadastro(@PathParam("inicio") String inicio, @PathParam("fim") String fim) {
         return ResponseEntity.ok().body(service.buscaPorRangeDeDataCadastro(inicio, fim));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<AbastecimentoDTO> atualiza(@PathVariable("id") Long id, @RequestBody AbastecimentoDTO abastecimento) {
-        return ResponseEntity.ok().body(service.atualizaPorId(id, abastecimento));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> remove(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(service.deletaPorId(id));
     }
 
 }

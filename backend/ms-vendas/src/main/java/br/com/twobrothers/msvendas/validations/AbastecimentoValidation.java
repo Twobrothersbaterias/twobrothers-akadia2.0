@@ -20,8 +20,7 @@ public class AbastecimentoValidation {
         if (abastecimento.getQuantidade() != null &&
                 abastecimento.getCustoTotal() != null &&
                 abastecimento.getIdUsuarioResponsavel() != null &&
-                abastecimento.getFormaPagamento() != null &&
-                abastecimento.getProdutoEstoque() != null) return true;
+                abastecimento.getFormaPagamento() != null) return true;
         throw new InvalidRequestException("Validação do abastecimento falhou. Motivo: um ou mais atributos recebido(s) " +
                 "na requisição são nulos");
     }

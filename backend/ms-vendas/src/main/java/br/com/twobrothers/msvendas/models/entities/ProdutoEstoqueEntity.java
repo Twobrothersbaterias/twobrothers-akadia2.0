@@ -1,6 +1,5 @@
 package br.com.twobrothers.msvendas.models.entities;
 
-import br.com.twobrothers.msvendas.models.dto.OrdemDTO;
 import br.com.twobrothers.msvendas.models.enums.TipoProdutoEnum;
 import lombok.*;
 
@@ -40,9 +39,6 @@ public class ProdutoEstoqueEntity {
     @OneToMany(targetEntity = PrecoFornecedorEntity.class, fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL)
     private List<PrecoFornecedorEntity> precosFornecedor = new ArrayList<>();
 
-//    @OneToMany(targetEntity = ProdutoOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL)
-//    private List<ProdutoOrdemEntity> produtoOrdens = new ArrayList<>();
-
     public void addPrecoFornecedor(PrecoFornecedorEntity preco) {
         preco.setProduto(this);
         this.precosFornecedor.add(preco);
@@ -51,6 +47,16 @@ public class ProdutoEstoqueEntity {
     public void removePrecoFornecedor(PrecoFornecedorEntity preco) {
         preco.setProduto(null);
         this.precosFornecedor.remove(preco);
+    }
+
+    public void addAbastecimento(AbastecimentoEntity abastecimento) {
+        abastecimento.setProduto(this);
+        this.abastecimentos.add(abastecimento);
+    }
+
+    public void removeAbastecimentos(AbastecimentoEntity abastecimento) {
+        abastecimento.setProduto(null);
+        this.abastecimentos.remove(abastecimento);
     }
 
 }

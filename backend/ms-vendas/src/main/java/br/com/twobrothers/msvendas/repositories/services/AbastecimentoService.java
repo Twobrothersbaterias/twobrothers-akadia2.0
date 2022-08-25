@@ -4,19 +4,30 @@ import br.com.twobrothers.msvendas.config.ModelMapperConfig;
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.AbastecimentoDTO;
+import br.com.twobrothers.msvendas.models.dto.PrecoFornecedorDTO;
 import br.com.twobrothers.msvendas.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.msvendas.models.entities.FornecedorEntity;
+import br.com.twobrothers.msvendas.models.entities.PrecoFornecedorEntity;
+import br.com.twobrothers.msvendas.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.msvendas.repositories.AbastecimentoRepository;
+import br.com.twobrothers.msvendas.repositories.FornecedorRepository;
+import br.com.twobrothers.msvendas.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.msvendas.validations.AbastecimentoValidation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static br.com.twobrothers.msvendas.utils.StringConstants.BARRA_DE_LOG;
+import static br.com.twobrothers.msvendas.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
+
+@Slf4j
 @Service
 public class AbastecimentoService {
 
@@ -24,19 +35,68 @@ public class AbastecimentoService {
     AbastecimentoRepository repository;
 
     @Autowired
+    ProdutoEstoqueRepository produtoEstoqueRepository;
+
+    @Autowired
+    FornecedorRepository fornecedorRepository;
+
+    @Autowired
     ModelMapperConfig modelMapper;
 
     AbastecimentoValidation validation = new AbastecimentoValidation();
 
-    //TODO TESTAR PERSISTÊNCIA (SE PERSISTE NOS MANYTOONE)
-    //TODO IMPLEMENTAR REGRA DE NEGÓCIO DE AUMENTO DE ESTOQUE NO PRODUTO A CADA ABSTECIMENTO REALIZADO
-    public AbastecimentoDTO criaNovo(AbastecimentoDTO abastecimento) {
+    public AbastecimentoDTO criaNovo(AbastecimentoDTO abastecimento, Long idProduto, Long idFornecedor) {
+
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de criação...");
+
+        log.info("[PROGRESS] Validando objeto do tipo AbastecimentoDTO enviado via JSON...");
         if (validation.validaCorpoRequisicao(abastecimento)) {
-            abastecimento.setCustoUnitario(abastecimento.getCustoTotal() / abastecimento.getQuantidade());
-            return modelMapper.mapper().map(repository
-                    .save(modelMapper.mapper().map(abastecimento, AbastecimentoEntity.class)), AbastecimentoDTO.class);
+
+            log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idProduto);
+            if (!produtoEstoqueRepository.existsById(idProduto)) {
+                throw new InvalidRequestException("Não existe nenhum produto com o id " + idProduto);
+            }
+
+            log.info("[PROGRESS] Verificando se fornecedor com o id {} existe na base de dados...", idFornecedor);
+            if (!fornecedorRepository.existsById(idFornecedor)) {
+                throw new InvalidRequestException("Não existe nenhum fornecedor com o id " + idFornecedor);
+            }
+
+            log.info("[PROGRESS] Setando data de cadastro no abastecimento: {}", LocalDateTime.now());
+            abastecimento.setDataCadastro(LocalDateTime.now());
+
+            log.info("[PROGRESS] Setando o custo unitário do abastecimento...");
+            abastecimento.setCustoUnitario(abastecimento.getCustoTotal()/abastecimento.getQuantidade());
+
+            log.info("[PROGRESS] Persistindo o abastecimento no banco de dados SEM o produto e SEM o fornecedor...");
+            AbastecimentoEntity abastecimentoEntity =
+                    repository.save(modelMapper.mapper().map(abastecimento, AbastecimentoEntity.class));
+
+            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
+
+            log.info("[PROGRESS] Aumentando a quantidade de produtos em estoque com a quantidade passada no abastecimento...");
+            produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + abastecimento.getQuantidade());
+
+            log.info("[PROGRESS] Adicionando abastecimento ao produto e produto ao abastecimento...");
+            produtoEstoque.addAbastecimento(abastecimentoEntity);
+
+            log.info("[PROGRESS] Persistindo produto no banco de dados com o novo abastecimento na lista...");
+            produtoEstoqueRepository.save(produtoEstoque);
+
+            log.info("[PROGRESS] Adicionando abastecimento ao fornecedor e fornecedor ao abastecimento...");
+            FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
+            fornecedor.addAbastecimento(abastecimentoEntity);
+
+            log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo abastecimento na lista...");
+            fornecedorRepository.save(fornecedor);
+
+            log.info("[PROGRESS] Persistindo novo abastecimento na base de dados com relacionamento bidirecional finalizado...");
+            log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return modelMapper.mapper().map(repository.save(abastecimentoEntity), AbastecimentoDTO.class);
         }
-        throw new InvalidRequestException("A validação da requisição falhou. Verificar corpo da requisição.");
+        throw new InvalidRequestException("Houve uma falha na requisição");
+
     }
 
     public List<AbastecimentoDTO> buscaTodos() {
@@ -53,7 +113,6 @@ public class AbastecimentoService {
 
     public List<AbastecimentoDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
 
-        try {
             List<AbastecimentoEntity> abastecimentos = repository.buscaPorRangeDeDataCadastro(
                     (LocalDate.parse(dataInicio)).atTime(0, 0),
                     (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
@@ -61,9 +120,6 @@ public class AbastecimentoService {
             if (!abastecimentos.isEmpty())
                 return abastecimentos.stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
             throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no range de datas indicado");
-        } catch (Exception e) {
-            throw new InvalidRequestException("Falha na requisição. Motivo: Padrão de data recebido inválido");
-        }
 
     }
 
@@ -72,46 +128,6 @@ public class AbastecimentoService {
             return modelMapper.mapper().map(repository.findById(id).get(), AbastecimentoDTO.class);
         }
         throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no banco de dados com o id " + id);
-    }
-
-    public AbastecimentoDTO atualizaPorId(Long id, AbastecimentoDTO abastecimento) {
-
-        //TODO TESTAR PERSISTÊNCIA (SE PERSISTE NOS MANYTOONE)
-        //TODO IMPLEMENTAR REGRA DE NEGÓCIO DE AUMENTO DE ESTOQUE NO PRODUTO A CADA ABSTECIMENTO REALIZADO
-
-        Optional<AbastecimentoEntity> abastecimentoOptional = repository.findById(id);
-
-        if (abastecimentoOptional.isPresent()) {
-
-            AbastecimentoEntity abastecimentoAtualizado = abastecimentoOptional.get();
-
-            if (validation.validaCorpoRequisicao(abastecimento)) {
-
-                abastecimentoAtualizado.setCustoTotal(abastecimento.getCustoTotal());
-                abastecimentoAtualizado.setObservacao(abastecimento.getObservacao());
-                abastecimentoAtualizado.setFormaPagamento(abastecimento.getFormaPagamento());
-                abastecimentoAtualizado.setQuantidade(abastecimento.getQuantidade());
-                abastecimentoAtualizado.setCustoUnitario(abastecimento.getCustoTotal()/abastecimento.getQuantidade());
-                abastecimentoAtualizado.setFornecedor(modelMapper.mapper().map(abastecimento.getFornecedor(), FornecedorEntity.class));
-
-                return modelMapper.mapper().map(repository.save(abastecimentoAtualizado), AbastecimentoDTO.class);
-
-            }
-
-            throw new InvalidRequestException("Corpo da requisição inválido");
-
-        }
-        throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado com o id " + id);
-
-    }
-
-    public Boolean deletaPorId(Long id) {
-        Optional<AbastecimentoEntity> abastecimentoOptional = repository.findById(id);
-        if (abastecimentoOptional.isPresent()) {
-            repository.deleteById(id);
-            return true;
-        }
-        throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado com o id " + id);
     }
 
 }

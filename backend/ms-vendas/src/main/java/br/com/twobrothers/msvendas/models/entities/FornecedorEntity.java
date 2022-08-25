@@ -47,5 +47,15 @@ public class FornecedorEntity {
         preco.setFornecedor(null);
         this.precosFornecedor.remove(preco);
     }
+
+    public void addAbastecimento(AbastecimentoEntity abastecimento) {
+        abastecimento.setFornecedor(this);
+        this.abastecimentos.add(abastecimento);
+    }
+
+    public void removeAbastecimento(AbastecimentoEntity abastecimento) {
+        abastecimento.setFornecedor(null);
+        this.abastecimentos.remove(abastecimento);
+    }
     
 }
