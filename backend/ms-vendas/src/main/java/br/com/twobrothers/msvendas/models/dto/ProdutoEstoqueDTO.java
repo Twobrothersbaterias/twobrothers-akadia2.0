@@ -1,6 +1,8 @@
 package br.com.twobrothers.msvendas.models.dto;
 
+import br.com.twobrothers.msvendas.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.msvendas.models.enums.TipoProdutoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -47,7 +49,9 @@ public class ProdutoEstoqueDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();
-//
-//    private List<ProdutoOrdemDTO> produtoOrdens = new ArrayList<>();
+
+    //TODO Teste remover atributo
+    @JsonIgnore
+    private List<EntradaOrdemEntity> entradas = new ArrayList<>();
 
 }

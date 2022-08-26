@@ -34,7 +34,7 @@ public class GerenciamentoEstoqueService {
 
     public void reduzQuantidadeEstoque(EntradaOrdemDTO entradaOrdemDTO) {
         if (verificaSeExiste(entradaOrdemDTO) && verificaSePossuiQuantidadeEmEstoque(entradaOrdemDTO)) {
-            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(entradaOrdemDTO.getProdutoEstoqueId()).get();
+            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
             produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() - entradaOrdemDTO.getQuantidade());
             produtoEstoqueRepository.save(produtoEstoque);
         }
@@ -42,7 +42,7 @@ public class GerenciamentoEstoqueService {
 
     public void aumentaQuantidadeEstoque(EntradaOrdemDTO entradaOrdemDTO) {
         if (verificaSeExiste(entradaOrdemDTO)) {
-            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(entradaOrdemDTO.getProdutoEstoqueId()).get();
+            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
             produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + entradaOrdemDTO.getQuantidade());
             produtoEstoqueRepository.save(produtoEstoque);
 
@@ -63,7 +63,7 @@ public class GerenciamentoEstoqueService {
 
     public boolean verificaSePossuiQuantidadeEmEstoque(EntradaOrdemDTO entradaOrdemDTO) {
         if (verificaSeExiste(entradaOrdemDTO)) {
-            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(entradaOrdemDTO.getProdutoEstoqueId()).get();
+            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
             if (entradaOrdemDTO.getQuantidade() <= produtoEstoque.getQuantidade()) return true;
         }
         throw new InvalidRequestException("A quantidade passada pela ordem é maior do que a que existe em estoque");
@@ -72,7 +72,7 @@ public class GerenciamentoEstoqueService {
     public boolean verificaSeExiste(EntradaOrdemDTO entradaOrdemDTO) {
 
         Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
-                produtoEstoqueRepository.findById(entradaOrdemDTO.getProdutoEstoqueId());
+                produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
 
         if (produtoEstoqueEntityOptional.isPresent()) {
 
@@ -84,7 +84,7 @@ public class GerenciamentoEstoqueService {
             throw new InvalidRequestException("O produto não possui o tipo condizente com o tipo da entrada da ordem");
 
         }
-        throw new ObjectNotFoundException("Não existe nenhum produto com o id " + entradaOrdemDTO.getProdutoEstoqueId());
+        throw new ObjectNotFoundException("Não existe nenhum produto com a sigla " + entradaOrdemDTO.getProduto().getSigla());
 
     }
 

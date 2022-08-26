@@ -44,15 +44,15 @@ public class OrdemController {
     public ResponseEntity<List<OrdemDTO>> buscaPorRangeDeDataDeCadastro(@PathParam("inicio") String inicio, @PathParam("fim") String fim) {
         return ResponseEntity.ok().body(service.buscaPorRangeDeDataCadastro(inicio, fim));
     }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<OrdemDTO> atualiza(@PathVariable("id") Long id, @RequestBody OrdemDTO ordem) {
-//        return ResponseEntity.ok().body(service.atualizaPorId(id, ordem));
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Boolean> remove(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok().body(service.deletaPorId(id));
-//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrdemDTO> atualiza(@PathVariable("id") Long id, @RequestBody OrdemDTO ordem) {
+        return ResponseEntity.ok().body(service.atualizaPorId(id, ordem));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> remove(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(service.deletaPorId(id));
+    }
 
 }

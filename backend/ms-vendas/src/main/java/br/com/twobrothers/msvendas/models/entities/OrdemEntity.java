@@ -34,7 +34,7 @@ public class OrdemEntity {
     @Enumerated(EnumType.STRING)
     private FormaPagamentoEnum formaPagamento;
 
-    @ManyToOne(targetEntity = ClienteEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = ClienteEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
 
@@ -43,5 +43,10 @@ public class OrdemEntity {
 
     @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();
+
+    public void addEntrada(EntradaOrdemEntity entrada) {
+        entrada.setOrdem(this);
+        this.entradas.add(entrada);
+    }
 
 }

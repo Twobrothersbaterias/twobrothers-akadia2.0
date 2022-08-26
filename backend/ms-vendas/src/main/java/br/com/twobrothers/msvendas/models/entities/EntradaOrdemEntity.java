@@ -24,16 +24,28 @@ public class EntradaOrdemEntity {
     private Double valor;
     private Integer quantidade;
     private String observacao;
-    private Long produtoEstoqueId;
+    //TODO TESTE Retirar comment
+//    private Long produtoEstoqueId;
 
     @Enumerated(EnumType.STRING)
     private TipoOrdemEnum tipoOrdem;
 
     @Enumerated(EnumType.STRING)
-    private TipoOrdemEnum tipoEntrada;
+    private TipoEntradaEnum tipoEntrada;
 
-    @ManyToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    //TODO TESTE Retirar comment
+//    @ManyToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "ordem_id")
+//    private OrdemEntity ordem;
+
+    //TODO TESTE Retirar atributo
+    @ManyToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ordem_id")
     private OrdemEntity ordem;
+
+    //TODO TESTE Retirar atributo
+    @ManyToOne(targetEntity = ProdutoEstoqueEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "produto_id")
+    private ProdutoEstoqueEntity produto;
 
 }

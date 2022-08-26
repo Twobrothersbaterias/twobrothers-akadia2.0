@@ -18,12 +18,17 @@ public class EntradaOrdemDTO {
     private Double valor;
     private Integer quantidade;
     private String observacao;
-    private Long produtoEstoqueId;
+    //TODO TESTE Remover comment
+//    private Long produtoEstoqueId;
     private TipoOrdemEnum tipoOrdem;
     private TipoEntradaEnum tipoEntrada;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private OrdemDTO ordem;
+
+    //TODO Remover atributo
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private ProdutoEstoqueDTO produto;
 
     public void addOrdem(OrdemDTO ordem) {
         ordem.getEntradas().add(this);

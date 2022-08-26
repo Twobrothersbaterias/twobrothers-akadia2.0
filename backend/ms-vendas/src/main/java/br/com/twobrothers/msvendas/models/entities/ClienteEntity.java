@@ -28,12 +28,12 @@ public class ClienteEntity {
     @Column(unique = true)
     private String cpfCnpj;
 
-    @Column(unique = true)
     private String email;
+
     private String telefone;
     private Long idUsuarioResponsavel;
 
-    @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco")
     private EnderecoEntity endereco;
 
