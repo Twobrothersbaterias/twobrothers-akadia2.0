@@ -1,14 +1,16 @@
 package br.com.twobrothers.msvendas.validations;
 
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
+import br.com.twobrothers.msvendas.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.msvendas.models.dto.OrdemDTO;
-import br.com.twobrothers.msvendas.models.enums.ValidationType;
-import br.com.twobrothers.msvendas.repositories.OrdemRepository;
 
 public class OrdemValidation {
 
-    public boolean validaCorpoRequisicao(OrdemDTO ordem, OrdemRepository repository, ValidationType validationType) {
+    EntradaOrdemValidation entradaOrdemValidation = new EntradaOrdemValidation();
+
+    public boolean validaCorpoRequisicao(OrdemDTO ordem) {
         validaSePossuiAtributosNulos(ordem);
+        validaAtributosEntradaOrdem(ordem);
         return true;
     }
 
@@ -21,5 +23,11 @@ public class OrdemValidation {
         throw new InvalidRequestException("Requisição inválida. Um ou mais atributos obrigatórios são nulos.");
     }
 
+    public boolean validaAtributosEntradaOrdem(OrdemDTO ordem) {
+        for (EntradaOrdemDTO entradaOrdem: ordem.getEntradas()) {
+            entradaOrdemValidation.validaCorpoRequisicao(entradaOrdem);
+        }
+        return true;
+    }
 
 }
