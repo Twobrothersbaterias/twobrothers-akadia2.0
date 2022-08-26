@@ -19,8 +19,10 @@ import br.com.twobrothers.msvendas.validations.OrdemValidation;
 import br.com.twobrothers.msvendas.validations.ProdutoEstoqueValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +60,7 @@ public class OrdemService {
         log.info("[STARTING] Iniciando método de criação...");
 
         log.info("[PROGRESS] Inicializando validação do objeto ordem recebido via JSON");
-        if (validation.validaCorpoRequisicao(ordem, repository, ValidationType.CREATE)) {
+        if (validation.validaCorpoRequisicao(ordem)) {
 
             log.info("[PROGRESS] Setando timestamp de cadastro: {}", LocalDateTime.now());
             ordem.setDataCadastro(LocalDateTime.now());
@@ -119,55 +121,55 @@ public class OrdemService {
                 .map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
         throw new ObjectNotFoundException("Não existe nenhuma ordem salva na base de dados.");
     }
-//
-//    public List<OrdemDTO> buscaPorPaginacao(Pageable paginacao) {
-//        if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
-//                .getContent().stream().map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
-//        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada na página indicada");
-//    }
-//
-//    public List<OrdemDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
-//
-//        List<OrdemEntity> ordens = repository.buscaPorRangeDeDataCadastro(
-//                (LocalDate.parse(dataInicio)).atTime(0, 0),
-//                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
-//
-//        if (!ordens.isEmpty())
-//            return ordens.stream().map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
-//        throw new ObjectNotFoundException("Não existe nenhum produto cadastrado no range de datas indicado");
-//
-//    }
-//
-//    public OrdemDTO buscaPorId(Long id) {
-//        if (repository.findById(id).isPresent()) {
-//            return modelMapper.mapper().map(repository.findById(id).get(), OrdemDTO.class);
-//        }
-//        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada no banco de dados com o id " + id);
-//    }
-//
-//    public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {
-//
-//        Optional<OrdemEntity> ordemOptional = repository.findById(id);
-//
-//        if (ordemOptional.isPresent()) {
-//
-//            OrdemEntity ordemAtualizada = ordemOptional.get();
-//
-//            if (validation.validaCorpoRequisicao(ordem)) {
-//                // SETAGEM DE ATRIBUTOS
-//                return modelMapper.mapper().map(repository.save(ordemAtualizada), OrdemDTO.class);
-//            }
-//            throw new InvalidRequestException("Requisição inválida.");
-//        }
-//        throw new ObjectNotFoundException("Nenhuma ordem foi encontrada com o id " + id);
-//    }
-//
-//    public Boolean deletaPorId(Long id) {
-//        if (repository.findById(id).isPresent()) {
-//            repository.delete(repository.findById(id).get());
-//            return true;
-//        }
-//        throw new ObjectNotFoundException("Nenhuma ordem foi encontrada com o id " + id);
-//    }
+
+    public List<OrdemDTO> buscaPorPaginacao(Pageable paginacao) {
+        if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
+                .getContent().stream().map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
+        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada na página indicada");
+    }
+
+    public List<OrdemDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+
+        List<OrdemEntity> ordens = repository.buscaPorRangeDeDataCadastro(
+                (LocalDate.parse(dataInicio)).atTime(0, 0),
+                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
+
+        if (!ordens.isEmpty())
+            return ordens.stream().map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
+        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada no range de datas indicado");
+
+    }
+
+    public OrdemDTO buscaPorId(Long id) {
+        if (repository.findById(id).isPresent()) {
+            return modelMapper.mapper().map(repository.findById(id).get(), OrdemDTO.class);
+        }
+        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada no banco de dados com o id " + id);
+    }
+
+    public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {
+
+        Optional<OrdemEntity> ordemOptional = repository.findById(id);
+
+        if (ordemOptional.isPresent()) {
+
+            OrdemEntity ordemAtualizada = ordemOptional.get();
+
+            if (validation.validaCorpoRequisicao(ordem)) {
+                // SETAGEM DE ATRIBUTOS
+                return modelMapper.mapper().map(repository.save(ordemAtualizada), OrdemDTO.class);
+            }
+            throw new InvalidRequestException("Requisição inválida.");
+        }
+        throw new ObjectNotFoundException("Nenhuma ordem foi encontrada com o id " + id);
+    }
+
+    public Boolean deletaPorId(Long id) {
+        if (repository.findById(id).isPresent()) {
+            repository.delete(repository.findById(id).get());
+            return true;
+        }
+        throw new ObjectNotFoundException("Nenhuma ordem foi encontrada com o id " + id);
+    }
 
 }
