@@ -42,72 +42,49 @@ public class FornecedorService {
     EnderecoValidation enderecoValidation = new EnderecoValidation();
 
     public FornecedorDTO criaNovo(FornecedorDTO fornecedor) {
+
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
 
         log.info("[PROGRESS] Setando a data de cadastro no fornecedor: {}", LocalDateTime.now());
         fornecedor.setDataCadastro(LocalDateTime.now());
 
-        log.info("[PROGRESS] Verificando se objeto FornecedorDTO possui objeto do tipo EnderecoDTO acoplado...");
-
-        if (fornecedor.getEndereco() != null) {
-
-            log.warn("[INFO] Objeto EnderecoDTO acoplado detectado");
-
-            log.info("[PROGRESS] Validando corpo do objeto FornecedorDTO passado via JSON...");
-            if (validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE)) {
-
-                log.info("[PROGRESS] Verificando se o endereço já existe na base de dados: {}", fornecedor.getEndereco());
-
-                Optional<EnderecoEntity> enderecoEntity = enderecoRepository.buscaPorAtributos(
-                        fornecedor.getEndereco().getLogradouro(),
-                        fornecedor.getEndereco().getBairro(),
-                        fornecedor.getEndereco().getNumero()
-                );
-
-                EnderecoDTO enderecoDTO;
-
-                if (enderecoEntity.isPresent()) {
-                    log.warn("[INFO] O endereço passado já existe");
-                    enderecoDTO = modelMapper.mapper().map(enderecoEntity.get(), EnderecoDTO.class);
-                } else {
-                    log.warn("[INFO] O endereço passado não existe");
-                    enderecoDTO = fornecedor.getEndereco();
-
-                    log.info("[PROGRESS] Validando corpo do objeto EnderecoDTO passado via JSON...");
-                    if (enderecoValidation.validaCorpoRequisicao(enderecoDTO, enderecoRepository, ValidationType.CREATE)) {
-                        log.info("[PROGRESS] Setando a data de cadastro no endereço: {}", LocalDateTime.now());
-                        enderecoDTO.setDataCadastro(LocalDateTime.now());
-                    } else {
-                        log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
-                        throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
-                    }
-                }
-
-                enderecoDTO.addFornecedor(fornecedor);
-
-                log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
-                enderecoRepository.save(modelMapper.mapper().map(enderecoDTO, EnderecoEntity.class));
-                log.info("[SUCCESS] Requisição finalizada com sucesso");
-                return fornecedor;
-
-            }
-
-        } else {
-
-            log.warn("[INFO] Objeto EnderecoDTO acoplado não detectado");
-
-            log.info("[PROGRESS] Validando corpo do objeto EnderecoDTO passado via JSON...");
-            if (validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE)) {
-                log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
-                log.info("[SUCCESS] Requisição finalizada com sucesso");
-                return modelMapper.mapper().map(repository.save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class)), FornecedorDTO.class);
-            }
-
+        if (!validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE)) {
+            log.info(VALIDACAO_DO_FORNECEDOR_FALHOU_LOG);
+            throw new InvalidRequestException(VALIDACAO_DO_FORNECEDOR_FALHOU);
         }
 
-        log.info(VALIDACAO_DO_FORNECEDOR_FALHOU_LOG);
-        throw new InvalidRequestException(VALIDACAO_DO_FORNECEDOR_FALHOU);
+        log.info("[PROGRESS] Verificando se objeto FornecedorDTO possui objeto do tipo EnderecoDTO acoplado...");
+        if (fornecedor.getEndereco() != null) {
+
+            log.warn("[INFO] Objeto endereço acoplado detectado no corpo da requisição");
+
+            if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco()))
+                throw new InvalidRequestException("Falha na validação do corpo do endereço");
+
+            EnderecoDTO enderecoDTO = fornecedor.getEndereco();
+
+            log.info("[PROGRESS] Setando data de cadastro no objeto endereço recebido na requisição...");
+            enderecoDTO.setDataCadastro(LocalDateTime.now());
+
+            enderecoDTO.addFornecedor(fornecedor);
+
+            log.info("[PROGRESS] Salvando o endereço na base de dados persistindo o fornecedor em cascata...");
+            enderecoRepository.save(modelMapper.mapper().map(enderecoDTO, EnderecoEntity.class));
+            log.info("[SUCCESS] Requisição finalizada com sucesso");
+            return fornecedor;
+
+        }
+        else{
+
+            log.warn("[INFO] Objeto endereço não detectado no corpo da requisição");
+
+            log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
+            log.info("[SUCCESS] Requisição finalizada com sucesso");
+            return modelMapper.mapper().map(repository
+                    .save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class)), FornecedorDTO.class);
+
+        }
 
     }
 
@@ -188,114 +165,45 @@ public class FornecedorService {
             log.info("[PROGRESS] Atualizando o fornecedor encontrado com os valores recebidos no corpo da requisição...");
             fornecedorAtualizado = fornecedorEncontrado;
             fornecedorAtualizado.setNome(fornecedor.getNome());
+            fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
             fornecedorAtualizado.setTelefone(fornecedor.getTelefone());
             fornecedorAtualizado.setEmail(fornecedor.getEmail());
-            fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
+            if (fornecedor.getEndereco() != null) {
+                fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
+            }
+            else {
+                fornecedorAtualizado.setEndereco(null);
+            }
 
             log.info("[PROGRESS] Verificando se algum endereço foi enviado via JSON...");
             if (fornecedor.getEndereco() != null) {
 
-                if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco(), enderecoRepository, ValidationType.UPDATE)) {
+                if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco())) {
                     log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
                     throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
                 }
 
-                log.info("[PROGRESS] Criando as variáveis do endereço: enderecoOptional e enderecoEncontrado...");
-                Optional<EnderecoEntity> enderecoOptional = enderecoRepository.buscaPorAtributos(
-                        fornecedor.getEndereco().getLogradouro(),
-                        fornecedor.getEndereco().getBairro(),
-                        fornecedor.getEndereco().getNumero()
-                );
-                EnderecoEntity enderecoEncontrado;
+                log.info("[PROGRESS] Adicionando fornecedor ao endereço e endereço ao fornecedor");
+                EnderecoEntity enderecoEntity = modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class);
+                enderecoEntity.addFornecedor(fornecedorAtualizado);
 
-                log.info("[PROGRESS] Criando o objeto enderecoAtualizado para setagem dos atributos...");
-                EnderecoEntity enderecoAtualizado;
-
-                log.info("[PROGRESS] Verificando se o endereço recebido via JSON existe na base de dados...");
-                if (enderecoOptional.isPresent()) {
-
-                    enderecoEncontrado = enderecoOptional.get();
-                    log.info("[INFO] Endereço encontrado: {}, {}", enderecoEncontrado.getLogradouro(), enderecoEncontrado.getNumero());
-
-                    log.info("[PROGRESS] Verificando se o endereço passado na requisição é diferente do antigo endereço do fornecedor...");
-                    if (fornecedorEncontrado.getEndereco() != enderecoEncontrado) {
-
-                        log.warn("[INFO] O endereço recebido é diferente.");
-                        log.info("[PROGRESS] Removendo o fornecedor a ser atualizado do endereço antigo...");
-                        EnderecoEntity enderecoAntigo = fornecedorEncontrado.getEndereco();
-                        enderecoAntigo.removeFornecedor(fornecedorEncontrado);
-
-                        log.info("[PROGRESS] Salvando o endereço antigo sem o fornecedor...");
-                        enderecoRepository.save(enderecoAntigo);
-
-                        log.info("[PROGRESS] Setando o valor do endereço atualizado com o valor do endereço encontrado...");
-                        enderecoAtualizado = modelMapper.mapper().map(enderecoEncontrado, EnderecoEntity.class);
-
-                    } else {
-                        log.warn("[INFO] O endereço recebido na requisição é igual ao endereço antigo do fornecedor.");
-                        log.info("[PROGRESS] Setando a variável enderecoAtualizado com o valor do endereco encontrado...");
-                        enderecoAtualizado = enderecoEncontrado;
-
-                        log.info("[PROGRESS] Removendo o fornecedor do endereço antigo...");
-                        EnderecoEntity enderecoAntigo = fornecedorEncontrado.getEndereco();
-                        enderecoAntigo.removeFornecedor(fornecedorEncontrado);
-
-                    }
-
-                } else {
-
-                    log.warn("[INFO] Endereço não encontrado.");
-
-                    log.info("[PROGRESS] Removendo o fornecedor do endereço antigo...");
-                    EnderecoEntity enderecoAntigo = fornecedorEncontrado.getEndereco();
-                    enderecoAntigo.removeFornecedor(fornecedorEncontrado);
-
-                    log.info("[PROGRESS] Salvando o endereço antigo sem o fornecedor...");
-                    enderecoRepository.save(enderecoAntigo);
-
-                    log.info("[PROGRESS] Setando o valor da variável enderecoAtualizado com o valor passado via JSON...");
-                    enderecoAtualizado = modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class);
-                    enderecoAtualizado.setDataCadastro(LocalDateTime.now());
-
-                }
-
-                log.info("[PROGRESS] Adicionando o endereço ao fornecedor e o fornecedor ao endereço...");
-                enderecoAtualizado.addFornecedor(fornecedorAtualizado);
-
-                log.info("[PROGRESS] Salvando o novo endereço com o fornecedor atualizado dentro...");
-                enderecoRepository.save(enderecoAtualizado);
+                log.info("[PROGRESS] Iniciando persistência em cascata [enderecoEntity] -> [fornecedorEntity]...");
+                enderecoRepository.save(enderecoEntity);
 
             }
             else {
 
-                log.warn("[INFO] Nenhum endereço foi recebido na requisição");
+                log.warn("[INFO] Endereço não encontrado no corpo da requisição.");
 
-                log.info("[INFO] Verifica se o fornecedor antigo possuia um endereço cadastrado");
-                if (fornecedorEncontrado.getEndereco() != null) {
-
-                    EnderecoEntity enderecoEncontrado = new EnderecoEntity();
-
-                    Optional<EnderecoEntity> enderecoOptional = enderecoRepository.buscaPorAtributos(
-                            fornecedorEncontrado.getEndereco().getLogradouro(),
-                            fornecedorEncontrado.getEndereco().getBairro(),
-                            fornecedorEncontrado.getEndereco().getNumero()
-                    );
-
-                    if (enderecoOptional.isPresent()) {
-                        enderecoEncontrado = enderecoOptional.get();
-                    }
-
-                    enderecoEncontrado.getFornecedores().remove(fornecedorEncontrado);
-                    enderecoRepository.save(enderecoEncontrado);
-                }
-
-                log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
+                log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
                 repository.save(fornecedorAtualizado);
 
             }
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(fornecedorAtualizado, FornecedorDTO.class);
+
+
         }
 
         log.info(FORNECEDOR_NAO_ENCONTRADO_LOG);
@@ -313,21 +221,6 @@ public class FornecedorService {
         if (fornecedorOptional.isPresent()) {
 
             log.warn("[INFO] Fornecedor encontrado.");
-
-            log.info("[PROGRESS] Buscando pelo endereço do fornecedor na base de dados...");
-            Optional<EnderecoEntity> optionalAddress = enderecoRepository.buscaPorAtributos(
-                    fornecedorOptional.get().getEndereco().getLogradouro(),
-                    fornecedorOptional.get().getEndereco().getBairro(),
-                    fornecedorOptional.get().getEndereco().getNumero()
-            );
-
-            if (optionalAddress.isPresent()) {
-                log.warn("[INFO] Endereço encontrado: {}, {}", optionalAddress.get().getLogradouro(), optionalAddress.get().getNumero());
-                log.info("[PROGRESS] Removendo o fornecedor da lista de fornecedors do endereço...");
-                optionalAddress.get().getFornecedores().remove(fornecedorOptional.get());
-                log.info("[PROGRESS] Salvando o endereço sem o fornecedor na lista..");
-                enderecoRepository.save(optionalAddress.get());
-            }
 
             log.info("[PROGRESS] Removendo o fornecedor da base de dados...");
             repository.deleteById(id);

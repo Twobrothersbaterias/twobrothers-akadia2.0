@@ -5,7 +5,6 @@ import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.EnderecoDTO;
 import br.com.twobrothers.msvendas.models.entities.EnderecoEntity;
-import br.com.twobrothers.msvendas.models.enums.ValidationType;
 import br.com.twobrothers.msvendas.repositories.EnderecoRepository;
 import br.com.twobrothers.msvendas.validations.EnderecoValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,7 +29,7 @@ public class EnderecoService {
     EnderecoValidation validation = new EnderecoValidation();
 
     public EnderecoDTO criaNovo(EnderecoDTO endereco) {
-        if (validation.validaCorpoRequisicao(endereco, repository, ValidationType.CREATE)) {
+        if (validation.validaCorpoRequisicao(endereco)) {
             endereco.setDataCadastro(LocalDateTime.now());
             return modelMapper.mapper().map(repository
                     .save(modelMapper.mapper().map(endereco, EnderecoEntity.class)), EnderecoDTO.class);
@@ -78,13 +76,7 @@ public class EnderecoService {
 
             EnderecoEntity enderecoAtualizado = enderecoOptional.get();
 
-            if (validation.validaCorpoRequisicao(endereco, repository, ValidationType.UPDATE)) {
-
-                Optional<EnderecoEntity> enderecoEncontrado =
-                        repository.buscaPorAtributos(endereco.getLogradouro(), endereco.getBairro(), endereco.getNumero());
-
-                if (enderecoEncontrado.isPresent() && !Objects.equals(enderecoEncontrado.get().getId(), id))
-                    throw new InvalidRequestException("O endereço informado já existe");
+            if (validation.validaCorpoRequisicao(endereco)) {
 
                 enderecoAtualizado.setBairro(endereco.getBairro());
                 enderecoAtualizado.setCep(endereco.getCep());

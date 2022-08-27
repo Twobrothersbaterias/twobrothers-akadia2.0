@@ -7,7 +7,6 @@ import br.com.twobrothers.msvendas.models.dto.ClienteDTO;
 import br.com.twobrothers.msvendas.models.dto.EnderecoDTO;
 import br.com.twobrothers.msvendas.models.entities.ClienteEntity;
 import br.com.twobrothers.msvendas.models.entities.EnderecoEntity;
-import br.com.twobrothers.msvendas.models.entities.OrdemEntity;
 import br.com.twobrothers.msvendas.models.enums.ValidationType;
 import br.com.twobrothers.msvendas.repositories.ClienteRepository;
 import br.com.twobrothers.msvendas.repositories.EnderecoRepository;
@@ -37,9 +36,6 @@ public class ClienteService {
     EnderecoRepository enderecoRepository;
 
     @Autowired
-    EnderecoService enderecoService;
-
-    @Autowired
     ModelMapperConfig modelMapper;
 
     ClienteValidation validation = new ClienteValidation();
@@ -60,45 +56,31 @@ public class ClienteService {
             log.warn("[INFO] Objeto EnderecoDTO acoplado detectado");
 
             log.info("[PROGRESS] Validando corpo do objeto ClienteDTO passado via JSON...");
-            if (validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE)) {
+            if (!validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE))
+                throw new InvalidRequestException("Falha na validação do corpo da requisição");
 
-                log.info("[PROGRESS] Verificando se o endereço já existe na base de dados: {}", cliente.getEndereco());
+                EnderecoDTO enderecoDTO = cliente.getEndereco();
 
-                Optional<EnderecoEntity> enderecoEntity = enderecoRepository.buscaPorAtributos(
-                        cliente.getEndereco().getLogradouro(),
-                        cliente.getEndereco().getBairro(),
-                        cliente.getEndereco().getNumero()
-                );
-
-                EnderecoDTO enderecoDTO;
-
-                if (enderecoEntity.isPresent()) {
-                    log.warn("[INFO] O endereço passado já existe");
-                    enderecoDTO = modelMapper.mapper().map(enderecoEntity.get(), EnderecoDTO.class);
+                log.info("[PROGRESS] Validando corpo do objeto EnderecoDTO passado via JSON...");
+                if (enderecoValidation.validaCorpoRequisicao(enderecoDTO)) {
+                    log.info("[PROGRESS] Setando a data de cadastro no endereço: {}", LocalDateTime.now());
+                    enderecoDTO.setDataCadastro(LocalDateTime.now());
                 } else {
-                    log.warn("[INFO] O endereço passado não existe");
-                    enderecoDTO = cliente.getEndereco();
-
-                    log.info("[PROGRESS] Validando corpo do objeto EnderecoDTO passado via JSON...");
-                    if (enderecoValidation.validaCorpoRequisicao(enderecoDTO, enderecoRepository, ValidationType.CREATE)) {
-                        log.info("[PROGRESS] Setando a data de cadastro no endereço: {}", LocalDateTime.now());
-                        enderecoDTO.setDataCadastro(LocalDateTime.now());
-                    } else {
-                        log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
-                        throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
-                    }
+                    log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
+                    throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
                 }
 
                 enderecoDTO.addCliente(cliente);
 
-                log.info("[PROGRESS] Salvando o cliente na base de dados...");
+                log.info("[PROGRESS] Salvando o endereço na base de dados persistindo o cliente em cascata...");
                 enderecoRepository.save(modelMapper.mapper().map(enderecoDTO, EnderecoEntity.class));
                 log.info("[SUCCESS] Requisição finalizada com sucesso");
                 return cliente;
 
-            }
 
-        } else {
+
+        }
+        else {
 
             log.warn("[INFO] Objeto EnderecoDTO acoplado não detectado");
 
@@ -172,36 +154,6 @@ public class ClienteService {
         throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo nomeCompleto enviado.");
     }
 
-    public ClienteDTO atualizaCliente(Long id, ClienteDTO cliente) {
-
-        Optional<ClienteEntity> clienteOptional = repository.findById(id);
-
-        if (clienteOptional.isPresent()) {
-
-            ClienteEntity clienteAtualizado = clienteOptional.get();
-
-            if (validation.validaCorpoRequisicao(cliente, repository, ValidationType.UPDATE)) {
-
-                clienteAtualizado.setCpfCnpj(cliente.getCpfCnpj());
-                clienteAtualizado.setEmail(cliente.getEmail());
-                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
-                clienteAtualizado.setDataNascimento(cliente.getDataNascimento());
-                clienteAtualizado.setNomeCompleto(cliente.getNomeCompleto());
-                clienteAtualizado.setTelefone(cliente.getTelefone());
-                clienteAtualizado.setOrdens(cliente.getOrdens().stream()
-                        .map(x -> modelMapper.mapper().map(x, OrdemEntity.class)).collect(Collectors.toList()));
-
-                return modelMapper.mapper().map(repository.save(clienteAtualizado), ClienteDTO.class);
-
-            }
-
-            throw new InvalidRequestException("Corpo da requisição inválido");
-
-        }
-        throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado com o id " + id);
-
-    }
-
     public ClienteDTO atualizaPorId(Long id, ClienteDTO cliente) {
 
         log.info(BARRA_DE_LOG);
@@ -228,114 +180,48 @@ public class ClienteService {
             clienteAtualizado.setTelefone(cliente.getTelefone());
             clienteAtualizado.setDataNascimento(cliente.getDataNascimento());
 
+            if (cliente.getEndereco() != null) {
+                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
+            }
+            else {
+                clienteAtualizado.setEndereco(null);
+            }
+
             log.info("[PROGRESS] Verificando se algum endereço foi enviado via JSON...");
             if (cliente.getEndereco() != null) {
 
-                if (!enderecoValidation.validaCorpoRequisicao(cliente.getEndereco(), enderecoRepository, ValidationType.UPDATE)) {
+                if (!enderecoValidation.validaCorpoRequisicao(cliente.getEndereco())) {
                     log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
                     throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
                 }
 
-                log.info("[PROGRESS] Criando as variáveis do endereço: enderecoOptional e enderecoEncontrado...");
-                Optional<EnderecoEntity> enderecoOptional = enderecoRepository.buscaPorAtributos(
-                        cliente.getEndereco().getLogradouro(),
-                        cliente.getEndereco().getBairro(),
-                        cliente.getEndereco().getNumero()
-                );
-                EnderecoEntity enderecoEncontrado;
+                log.info("[PROGRESS] Adicionando cliente ao endereço e endereço ao cliente");
+                EnderecoEntity enderecoEntity = modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class);
+                enderecoEntity.addCliente(clienteAtualizado);
 
-                log.info("[PROGRESS] Criando o objeto enderecoAtualizado para setagem dos atributos...");
-                EnderecoEntity enderecoAtualizado;
+                log.info("[PROGRESS] Iniciando persistência em cascata [enderecoEntity] -> [clienteEntity]...");
+                enderecoRepository.save(enderecoEntity);
 
-                log.info("[PROGRESS] Verificando se o endereço recebido via JSON existe na base de dados...");
-                if (enderecoOptional.isPresent()) {
+            }
+            else {
 
-                    enderecoEncontrado = enderecoOptional.get();
-                    log.info("[INFO] Endereço encontrado: {}, {}", enderecoEncontrado.getLogradouro(), enderecoEncontrado.getNumero());
+                log.warn("[INFO] Endereço não encontrado no corpo da requisição.");
 
-                    log.info("[PROGRESS] Verificando se o endereço passado na requisição é diferente do antigo endereço do cliente...");
-                    if (clienteEncontrado.getEndereco() != enderecoEncontrado) {
-
-                        log.warn("[INFO] O endereço recebido é diferente.");
-                        log.info("[PROGRESS] Removendo o cliente a ser atualizado do endereço antigo...");
-                        EnderecoEntity enderecoAntigo = clienteEncontrado.getEndereco();
-                        enderecoAntigo.removeCliente(clienteEncontrado);
-
-                        log.info("[PROGRESS] Salvando o endereço antigo sem o cliente...");
-                        enderecoRepository.save(enderecoAntigo);
-
-                        log.info("[PROGRESS] Setando o valor do endereço atualizado com o valor do endereço encontrado...");
-                        enderecoAtualizado = modelMapper.mapper().map(enderecoEncontrado, EnderecoEntity.class);
-
-                    } else {
-                        log.warn("[INFO] O endereço recebido na requisição é igual ao endereço antigo do cliente.");
-                        log.info("[PROGRESS] Setando a variável enderecoAtualizado com o valor do endereco encontrado...");
-                        enderecoAtualizado = enderecoEncontrado;
-
-                        log.info("[PROGRESS] Removendo o cliente do endereço antigo...");
-                        EnderecoEntity enderecoAntigo = clienteEncontrado.getEndereco();
-                        enderecoAntigo.removeCliente(clienteEncontrado);
-
-                    }
-
-                } else {
-
-                    log.warn("[INFO] Endereço não encontrado.");
-
-                    log.info("[PROGRESS] Removendo o cliente do endereço antigo...");
-                    EnderecoEntity enderecoAntigo = clienteEncontrado.getEndereco();
-                    enderecoAntigo.removeCliente(clienteEncontrado);
-
-                    log.info("[PROGRESS] Salvando o endereço antigo sem o cliente...");
-                    enderecoRepository.save(enderecoAntigo);
-
-                    log.info("[PROGRESS] Setando o valor da variável enderecoAtualizado com o valor passado via JSON...");
-                    enderecoAtualizado = modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class);
-                    enderecoAtualizado.setDataCadastro(LocalDateTime.now());
-
-                }
-
-                log.info("[PROGRESS] Adicionando o endereço ao cliente e o cliente ao endereço...");
-                enderecoAtualizado.addCliente(clienteAtualizado);
-
-                log.info("[PROGRESS] Salvando o novo endereço com o cliente atualizado dentro...");
-                enderecoRepository.save(enderecoAtualizado);
-
-            } else {
-
-                log.warn("[INFO] Nenhum endereço foi recebido na requisição");
-
-                log.info("[INFO] Verifica se o cliente antigo possuia um endereço cadastrado");
-                if (clienteEncontrado.getEndereco() != null) {
-
-                    EnderecoEntity enderecoEncontrado = new EnderecoEntity();
-
-                    Optional<EnderecoEntity> enderecoOptional = enderecoRepository.buscaPorAtributos(
-                            clienteEncontrado.getEndereco().getLogradouro(),
-                            clienteEncontrado.getEndereco().getBairro(),
-                            clienteEncontrado.getEndereco().getNumero()
-                    );
-
-                    if (enderecoOptional.isPresent()) {
-                        enderecoEncontrado = enderecoOptional.get();
-                    }
-
-                    enderecoEncontrado.getClientes().remove(clienteEncontrado);
-                    enderecoRepository.save(enderecoEncontrado);
-                }
-
-                log.info("[PROGRESS] Salvando o cliente na base de dados...");
+                log.info("[PROGRESS] Iniciando persistência do cliente na base de dados...");
                 repository.save(clienteAtualizado);
 
             }
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(clienteAtualizado, ClienteDTO.class);
+
+
         }
 
         log.info(CLIENTE_NAO_ENCONTRADO_LOG);
         throw new InvalidRequestException(CLIENTE_NAO_ENCONTRADO);
-    }
+
+}
 
     public Boolean deletaPorId(Long id) {
 
@@ -348,21 +234,6 @@ public class ClienteService {
         if (clienteOptional.isPresent()) {
 
             log.warn("[INFO] Cliente encontrado.");
-
-            log.info("[PROGRESS] Buscando pelo endereço do cliente na base de dados...");
-            Optional<EnderecoEntity> optionalAddress = enderecoRepository.buscaPorAtributos(
-                    clienteOptional.get().getEndereco().getLogradouro(),
-                    clienteOptional.get().getEndereco().getBairro(),
-                    clienteOptional.get().getEndereco().getNumero()
-            );
-
-            if (optionalAddress.isPresent()) {
-                log.warn("[INFO] Endereço encontrado: {}, {}", optionalAddress.get().getLogradouro(), optionalAddress.get().getNumero());
-                log.info("[PROGRESS] Removendo o cliente da lista de clientes do endereço...");
-                optionalAddress.get().getClientes().remove(clienteOptional.get());
-                log.info("[PROGRESS] Salvando o endereço sem o cliente na lista..");
-                enderecoRepository.save(optionalAddress.get());
-            }
 
             log.info("[PROGRESS] Removendo o cliente da base de dados...");
             repository.deleteById(id);

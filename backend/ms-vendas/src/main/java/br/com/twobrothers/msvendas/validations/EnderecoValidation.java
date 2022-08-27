@@ -10,9 +10,8 @@ import static br.com.twobrothers.msvendas.utils.RegexPatterns.STREET_NUMBER_REGE
 
 public class EnderecoValidation {
 
-    public boolean validaCorpoRequisicao(EnderecoDTO endereco, EnderecoRepository repository, ValidationType validationType) {
+    public boolean validaCorpoRequisicao(EnderecoDTO endereco) {
         validaSeNaoNulo(endereco);
-        if (validationType.equals(ValidationType.CREATE)) validaSeJaExiste(endereco, repository);
         validaLogradouro(endereco.getLogradouro());
         validaNumero(endereco.getNumero());
         validaBairro(endereco.getBairro());
@@ -25,11 +24,6 @@ public class EnderecoValidation {
         if (endereco.getLogradouro() != null
                 && endereco.getNumero() != null) return true;
         throw new InvalidRequestException("Requisição inválida. Um ou mais campos obrigatórios são nulos");
-    }
-
-    public boolean validaSeJaExiste(EnderecoDTO endereco, EnderecoRepository repository) {
-        if (repository.buscaPorAtributos(endereco.getLogradouro(), endereco.getBairro(), endereco.getNumero()).isEmpty()) return true;
-        throw new InvalidRequestException("Requisição inválida. O endereço informado já existe");
     }
 
     public boolean validaLogradouro(String logradouro) {
