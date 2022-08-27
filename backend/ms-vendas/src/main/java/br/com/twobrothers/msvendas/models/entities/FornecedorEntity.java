@@ -28,8 +28,7 @@ public class FornecedorEntity {
     private String email;
     private Long idUsuarioResponsavel;
 
-    @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_endereco")
+    @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;
 
     @OneToMany(targetEntity = PrecoFornecedorEntity.class, mappedBy = "fornecedor", cascade = CascadeType.ALL)

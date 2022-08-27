@@ -3,12 +3,10 @@ package br.com.twobrothers.msvendas.repositories.services;
 import br.com.twobrothers.msvendas.config.ModelMapperConfig;
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
-import br.com.twobrothers.msvendas.models.dto.EnderecoDTO;
 import br.com.twobrothers.msvendas.models.dto.FornecedorDTO;
 import br.com.twobrothers.msvendas.models.entities.EnderecoEntity;
 import br.com.twobrothers.msvendas.models.entities.FornecedorEntity;
 import br.com.twobrothers.msvendas.models.enums.ValidationType;
-import br.com.twobrothers.msvendas.repositories.EnderecoRepository;
 import br.com.twobrothers.msvendas.repositories.FornecedorRepository;
 import br.com.twobrothers.msvendas.validations.EnderecoValidation;
 import br.com.twobrothers.msvendas.validations.FornecedorValidation;
@@ -33,9 +31,6 @@ public class FornecedorService {
     FornecedorRepository repository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
-
-    @Autowired
     ModelMapperConfig modelMapper;
 
     FornecedorValidation validation = new FornecedorValidation();
@@ -49,42 +44,25 @@ public class FornecedorService {
         log.info("[PROGRESS] Setando a data de cadastro no fornecedor: {}", LocalDateTime.now());
         fornecedor.setDataCadastro(LocalDateTime.now());
 
-        if (!validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE)) {
-            log.info(VALIDACAO_DO_FORNECEDOR_FALHOU_LOG);
-            throw new InvalidRequestException(VALIDACAO_DO_FORNECEDOR_FALHOU);
-        }
+        if (validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE)) {
 
-        log.info("[PROGRESS] Verificando se objeto FornecedorDTO possui objeto do tipo EnderecoDTO acoplado...");
-        if (fornecedor.getEndereco() != null) {
-
-            log.warn("[INFO] Objeto endereço acoplado detectado no corpo da requisição");
-
-            if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco()))
-                throw new InvalidRequestException("Falha na validação do corpo do endereço");
-
-            EnderecoDTO enderecoDTO = fornecedor.getEndereco();
-
-            log.info("[PROGRESS] Setando data de cadastro no objeto endereço recebido na requisição...");
-            enderecoDTO.setDataCadastro(LocalDateTime.now());
-
-            enderecoDTO.addFornecedor(fornecedor);
-
-            log.info("[PROGRESS] Salvando o endereço na base de dados persistindo o fornecedor em cascata...");
-            enderecoRepository.save(modelMapper.mapper().map(enderecoDTO, EnderecoEntity.class));
-            log.info("[SUCCESS] Requisição finalizada com sucesso");
-            return fornecedor;
-
-        }
-        else{
-
-            log.warn("[INFO] Objeto endereço não detectado no corpo da requisição");
+            if (fornecedor.getEndereco() != null) {
+                fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
+                if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco())) {
+                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
+                    throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
+                }
+            }
 
             log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
-            log.info("[SUCCESS] Requisição finalizada com sucesso");
-            return modelMapper.mapper().map(repository
-                    .save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class)), FornecedorDTO.class);
+            FornecedorEntity fornecedorEntity = repository.save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class));
 
+            log.info("[SUCCESS] Requisição finalizada com sucesso");
+            return modelMapper.mapper().map(fornecedorEntity, FornecedorDTO.class);
         }
+
+        log.info(VALIDACAO_DO_FORNECEDOR_FALHOU_LOG);
+        throw new InvalidRequestException(VALIDACAO_DO_FORNECEDOR_FALHOU);
 
     }
 
@@ -168,41 +146,26 @@ public class FornecedorService {
             fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
             fornecedorAtualizado.setTelefone(fornecedor.getTelefone());
             fornecedorAtualizado.setEmail(fornecedor.getEmail());
-            if (fornecedor.getEndereco() != null) {
-                fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
-            }
-            else {
-                fornecedorAtualizado.setEndereco(null);
-            }
 
-            log.info("[PROGRESS] Verificando se algum endereço foi enviado via JSON...");
             if (fornecedor.getEndereco() != null) {
 
                 if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco())) {
-                    log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
+                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
                     throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
                 }
 
-                log.info("[PROGRESS] Adicionando fornecedor ao endereço e endereço ao fornecedor");
-                EnderecoEntity enderecoEntity = modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class);
-                enderecoEntity.addFornecedor(fornecedorAtualizado);
-
-                log.info("[PROGRESS] Iniciando persistência em cascata [enderecoEntity] -> [fornecedorEntity]...");
-                enderecoRepository.save(enderecoEntity);
-
+                fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
+                fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
             }
-            else {
-
-                log.warn("[INFO] Endereço não encontrado no corpo da requisição.");
-
-                log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
-                repository.save(fornecedorAtualizado);
-
+            else{
+                fornecedorAtualizado.setEndereco(null);
             }
+
+            log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
+            repository.save(fornecedorAtualizado);
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(fornecedorAtualizado, FornecedorDTO.class);
-
 
         }
 

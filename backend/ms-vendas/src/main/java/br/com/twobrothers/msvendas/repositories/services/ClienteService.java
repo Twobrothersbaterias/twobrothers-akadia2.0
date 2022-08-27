@@ -4,12 +4,10 @@ import br.com.twobrothers.msvendas.config.ModelMapperConfig;
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.ClienteDTO;
-import br.com.twobrothers.msvendas.models.dto.EnderecoDTO;
 import br.com.twobrothers.msvendas.models.entities.ClienteEntity;
 import br.com.twobrothers.msvendas.models.entities.EnderecoEntity;
 import br.com.twobrothers.msvendas.models.enums.ValidationType;
 import br.com.twobrothers.msvendas.repositories.ClienteRepository;
-import br.com.twobrothers.msvendas.repositories.EnderecoRepository;
 import br.com.twobrothers.msvendas.validations.ClienteValidation;
 import br.com.twobrothers.msvendas.validations.EnderecoValidation;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +31,6 @@ public class ClienteService {
     ClienteRepository repository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
-
-    @Autowired
     ModelMapperConfig modelMapper;
 
     ClienteValidation validation = new ClienteValidation();
@@ -49,48 +44,19 @@ public class ClienteService {
         log.info("[PROGRESS] Setando a data de cadastro no cliente: {}", LocalDateTime.now());
         cliente.setDataCadastro(LocalDateTime.now());
 
-        log.info("[PROGRESS] Verificando se objeto ClienteDTO possui objeto do tipo EnderecoDTO acoplado...");
+        if (validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE)) {
 
-        if (cliente.getEndereco() != null) {
-
-            log.warn("[INFO] Objeto EnderecoDTO acoplado detectado");
-
-            log.info("[PROGRESS] Validando corpo do objeto ClienteDTO passado via JSON...");
-            if (!validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE))
-                throw new InvalidRequestException("Falha na validação do corpo da requisição");
-
-                EnderecoDTO enderecoDTO = cliente.getEndereco();
-
-                log.info("[PROGRESS] Validando corpo do objeto EnderecoDTO passado via JSON...");
-                if (enderecoValidation.validaCorpoRequisicao(enderecoDTO)) {
-                    log.info("[PROGRESS] Setando a data de cadastro no endereço: {}", LocalDateTime.now());
-                    enderecoDTO.setDataCadastro(LocalDateTime.now());
-                } else {
-                    log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
+            if (cliente.getEndereco() != null) {
+                cliente.getEndereco().setDataCadastro(LocalDateTime.now());
+                if (!enderecoValidation.validaCorpoRequisicao(cliente.getEndereco())) {
+                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
                     throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
                 }
-
-                enderecoDTO.addCliente(cliente);
-
-                log.info("[PROGRESS] Salvando o endereço na base de dados persistindo o cliente em cascata...");
-                enderecoRepository.save(modelMapper.mapper().map(enderecoDTO, EnderecoEntity.class));
-                log.info("[SUCCESS] Requisição finalizada com sucesso");
-                return cliente;
-
-
-
-        }
-        else {
-
-            log.warn("[INFO] Objeto EnderecoDTO acoplado não detectado");
-
-            log.info("[PROGRESS] Validando corpo do objeto EnderecoDTO passado via JSON...");
-            if (validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE)) {
-                log.info("[PROGRESS] Salvando o cliente na base de dados...");
-                log.info("[SUCCESS] Requisição finalizada com sucesso");
-                return modelMapper.mapper().map(repository.save(modelMapper.mapper().map(cliente, ClienteEntity.class)), ClienteDTO.class);
             }
 
+            log.info("[PROGRESS] Salvando o cliente na base de dados...");
+            log.info("[SUCCESS] Requisição finalizada com sucesso");
+            return modelMapper.mapper().map(repository.save(modelMapper.mapper().map(cliente, ClienteEntity.class)), ClienteDTO.class);
         }
 
         log.info(VALIDACAO_DO_CLIENTE_FALHOU_LOG);
@@ -181,47 +147,31 @@ public class ClienteService {
             clienteAtualizado.setDataNascimento(cliente.getDataNascimento());
 
             if (cliente.getEndereco() != null) {
-                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
-            }
-            else {
-                clienteAtualizado.setEndereco(null);
-            }
-
-            log.info("[PROGRESS] Verificando se algum endereço foi enviado via JSON...");
-            if (cliente.getEndereco() != null) {
 
                 if (!enderecoValidation.validaCorpoRequisicao(cliente.getEndereco())) {
-                    log.error(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
+                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
                     throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
                 }
 
-                log.info("[PROGRESS] Adicionando cliente ao endereço e endereço ao cliente");
-                EnderecoEntity enderecoEntity = modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class);
-                enderecoEntity.addCliente(clienteAtualizado);
-
-                log.info("[PROGRESS] Iniciando persistência em cascata [enderecoEntity] -> [clienteEntity]...");
-                enderecoRepository.save(enderecoEntity);
-
+                cliente.getEndereco().setDataCadastro(LocalDateTime.now());
+                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
             }
-            else {
-
-                log.warn("[INFO] Endereço não encontrado no corpo da requisição.");
-
-                log.info("[PROGRESS] Iniciando persistência do cliente na base de dados...");
-                repository.save(clienteAtualizado);
-
+            else{
+                clienteAtualizado.setEndereco(null);
             }
+
+            log.info("[PROGRESS] Iniciando persistência do cliente na base de dados...");
+            repository.save(clienteAtualizado);
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(clienteAtualizado, ClienteDTO.class);
-
 
         }
 
         log.info(CLIENTE_NAO_ENCONTRADO_LOG);
         throw new InvalidRequestException(CLIENTE_NAO_ENCONTRADO);
 
-}
+    }
 
     public Boolean deletaPorId(Long id) {
 

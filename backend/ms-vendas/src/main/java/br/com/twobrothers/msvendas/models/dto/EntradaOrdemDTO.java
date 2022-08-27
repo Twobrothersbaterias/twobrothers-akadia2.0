@@ -18,8 +18,6 @@ public class EntradaOrdemDTO {
     private Double valor;
     private Integer quantidade;
     private String observacao;
-    //TODO TESTE Remover comment
-//    private Long produtoEstoqueId;
     private TipoOrdemEnum tipoOrdem;
     private TipoEntradaEnum tipoEntrada;
 

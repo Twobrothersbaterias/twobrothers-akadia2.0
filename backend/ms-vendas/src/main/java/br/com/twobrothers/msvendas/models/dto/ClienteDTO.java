@@ -30,8 +30,6 @@ public class ClienteDTO {
     private String email;
     private String telefone;
     private Long idUsuarioResponsavel;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private EnderecoDTO endereco;
 
     private List<OrdemDTO> ordens = new ArrayList<>();

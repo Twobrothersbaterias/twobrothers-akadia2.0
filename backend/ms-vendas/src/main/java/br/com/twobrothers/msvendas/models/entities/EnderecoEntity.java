@@ -34,30 +34,10 @@ public class EnderecoEntity {
     @Enumerated(EnumType.STRING)
     private EstadoEnum estado;
 
-    @OneToMany(targetEntity = ClienteEntity.class, mappedBy = "endereco", cascade = CascadeType.ALL)
-    private List<ClienteEntity> clientes = new ArrayList<>();
+    @OneToOne(targetEntity = ClienteEntity.class, mappedBy = "endereco", fetch = FetchType.LAZY)
+    private ClienteEntity cliente;
 
-    @OneToMany(targetEntity = FornecedorEntity.class, mappedBy = "endereco", cascade = CascadeType.ALL)
-    private List<FornecedorEntity> fornecedores = new ArrayList<>();
-
-    public void addCliente(ClienteEntity cliente) {
-        cliente.setEndereco(this);
-        this.clientes.add(cliente);
-    }
-
-    public void removeCliente(ClienteEntity cliente) {
-        cliente.setEndereco(null);
-        this.clientes.remove(cliente);
-    }
-
-    public void addFornecedor(FornecedorEntity fornecedor) {
-        fornecedor.setEndereco(this);
-        this.fornecedores.add(fornecedor);
-    }
-
-    public void removeFornecedor(FornecedorEntity fornecedor) {
-        fornecedor.setEndereco(null);
-        this.fornecedores.remove(fornecedor);
-    }
+    @OneToOne(targetEntity = FornecedorEntity.class, mappedBy = "endereco", fetch = FetchType.LAZY)
+    private FornecedorEntity fornecedor;
 
 }

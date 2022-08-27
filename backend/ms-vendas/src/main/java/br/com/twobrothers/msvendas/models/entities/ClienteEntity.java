@@ -33,8 +33,7 @@ public class ClienteEntity {
     private String telefone;
     private Long idUsuarioResponsavel;
 
-    @ManyToOne(targetEntity = EnderecoEntity.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_endereco")
+    @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;
 
     @OneToMany(targetEntity = OrdemEntity.class, mappedBy = "cliente", cascade = CascadeType.ALL)

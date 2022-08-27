@@ -30,17 +30,11 @@ public class EnderecoDTO {
     private String cep;
     private String complemento;
     private EstadoEnum estado;
-    private List<ClienteDTO> clientes = new ArrayList<>();
-    private List<FornecedorDTO> fornecedores = new ArrayList<>();
 
-    public void addCliente(ClienteDTO cliente) {
-        cliente.setEndereco(this);
-        this.clientes.add(cliente);
-    }
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private ClienteDTO cliente;
 
-    public void addFornecedor(FornecedorDTO fornecedor) {
-        fornecedor.setEndereco(this);
-        this.fornecedores.add(fornecedor);
-    }
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private FornecedorDTO fornecedor;
 
 }
