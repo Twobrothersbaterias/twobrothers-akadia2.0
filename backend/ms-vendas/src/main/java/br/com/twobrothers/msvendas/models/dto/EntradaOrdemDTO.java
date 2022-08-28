@@ -24,7 +24,6 @@ public class EntradaOrdemDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private OrdemDTO ordem;
 
-    //TODO Remover atributo
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ProdutoEstoqueDTO produto;
 

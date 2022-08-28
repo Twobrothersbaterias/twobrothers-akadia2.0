@@ -39,8 +39,7 @@ public class ProdutoEstoqueEntity {
     @OneToMany(targetEntity = PrecoFornecedorEntity.class, fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL)
     private List<PrecoFornecedorEntity> precosFornecedor = new ArrayList<>();
 
-    //TODO TESTE Remover atributo
-    @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "produto", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();
 
     public void addPrecoFornecedor(PrecoFornecedorEntity preco) {

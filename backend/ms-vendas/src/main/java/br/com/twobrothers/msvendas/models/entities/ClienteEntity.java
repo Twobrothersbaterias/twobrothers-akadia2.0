@@ -36,7 +36,7 @@ public class ClienteEntity {
     @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;
 
-    @OneToMany(targetEntity = OrdemEntity.class, mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = OrdemEntity.class, cascade = CascadeType.ALL)
     private List<OrdemEntity> ordens = new ArrayList<>();
 
     public void addOrdem(OrdemEntity ordem) {

@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.ws.rs.PathParam;
 import java.util.List;
@@ -18,11 +20,6 @@ public class EnderecoController {
 
     @Autowired
     EnderecoService service;
-
-    @PostMapping
-    public ResponseEntity<EnderecoDTO> criaNovo(@RequestBody EnderecoDTO endereco) {
-        return ResponseEntity.ok().body(service.criaNovo(endereco));
-    }
 
     @GetMapping
     public ResponseEntity<List<EnderecoDTO>> buscaTodos() {
@@ -43,16 +40,6 @@ public class EnderecoController {
     @GetMapping("/range")
     public ResponseEntity<List<EnderecoDTO>> buscaPorRangeDeDataDeCadastro(@PathParam("inicio") String inicio, @PathParam("fim") String fim) {
         return ResponseEntity.ok().body(service.buscaPorRangeDeDataCadastro(inicio, fim));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<EnderecoDTO> atualiza(@PathVariable("id") Long id, @RequestBody EnderecoDTO endereco) {
-        return ResponseEntity.ok().body(service.atualizaPorId(id, endereco));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> remove(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(service.deletaPorId(id));
     }
 
 }

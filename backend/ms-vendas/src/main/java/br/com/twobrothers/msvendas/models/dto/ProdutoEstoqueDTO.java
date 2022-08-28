@@ -50,8 +50,6 @@ public class ProdutoEstoqueDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();
 
-    //TODO Teste remover atributo
-    @JsonIgnore
-    private List<EntradaOrdemEntity> entradas = new ArrayList<>();
+    private List<EntradaOrdemDTO> entradas = new ArrayList<>();
 
 }

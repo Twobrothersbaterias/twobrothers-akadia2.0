@@ -1,20 +1,16 @@
 package br.com.twobrothers.msvendas.repositories.services;
 
 import br.com.twobrothers.msvendas.config.ModelMapperConfig;
-import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.EnderecoDTO;
 import br.com.twobrothers.msvendas.models.entities.EnderecoEntity;
 import br.com.twobrothers.msvendas.repositories.EnderecoRepository;
-import br.com.twobrothers.msvendas.validations.EnderecoValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,17 +21,6 @@ public class EnderecoService {
 
     @Autowired
     ModelMapperConfig modelMapper;
-
-    EnderecoValidation validation = new EnderecoValidation();
-
-    public EnderecoDTO criaNovo(EnderecoDTO endereco) {
-        if (validation.validaCorpoRequisicao(endereco)) {
-            endereco.setDataCadastro(LocalDateTime.now());
-            return modelMapper.mapper().map(repository
-                    .save(modelMapper.mapper().map(endereco, EnderecoEntity.class)), EnderecoDTO.class);
-        }
-        throw new InvalidRequestException("A validação da requisição falhou. Verificar corpo da requisição.");
-    }
 
     public List<EnderecoDTO> buscaTodos() {
         if (!repository.findAll().isEmpty()) return repository.findAll().stream()
@@ -66,43 +51,6 @@ public class EnderecoService {
             return modelMapper.mapper().map(repository.findById(id).get(), EnderecoDTO.class);
         }
         throw new ObjectNotFoundException("Não existe nenhum endereço cadastrado no banco de dados com o id " + id);
-    }
-
-    public EnderecoDTO atualizaPorId(Long id, EnderecoDTO endereco) {
-
-        Optional<EnderecoEntity> enderecoOptional = repository.findById(id);
-
-        if (enderecoOptional.isPresent()) {
-
-            EnderecoEntity enderecoAtualizado = enderecoOptional.get();
-
-            if (validation.validaCorpoRequisicao(endereco)) {
-
-                enderecoAtualizado.setBairro(endereco.getBairro());
-                enderecoAtualizado.setCep(endereco.getCep());
-                enderecoAtualizado.setComplemento(endereco.getComplemento());
-                enderecoAtualizado.setEstado(endereco.getEstado());
-                enderecoAtualizado.setLogradouro(endereco.getLogradouro());
-                enderecoAtualizado.setNumero(endereco.getNumero());
-
-                return modelMapper.mapper().map(repository.save(enderecoAtualizado), EnderecoDTO.class);
-
-            }
-
-            throw new InvalidRequestException("Corpo da requisição inválido");
-
-        }
-        throw new ObjectNotFoundException("Não existe nenhum endereço cadastrado com o id " + id);
-
-    }
-
-    public Boolean deletaPorId(Long id) {
-        Optional<EnderecoEntity> enderecoOptional = repository.findById(id);
-        if (enderecoOptional.isPresent()) {
-            repository.deleteById(id);
-            return true;
-        }
-        throw new ObjectNotFoundException("Não existe nenhum endereço cadastrado com o id " + id);
     }
 
 }

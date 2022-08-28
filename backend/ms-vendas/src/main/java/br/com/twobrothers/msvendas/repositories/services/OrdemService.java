@@ -6,9 +6,12 @@ import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.msvendas.models.dto.OrdemDTO;
 import br.com.twobrothers.msvendas.models.entities.*;
+import br.com.twobrothers.msvendas.models.enums.StatusRetiradaEnum;
+import br.com.twobrothers.msvendas.models.enums.ValidationType;
 import br.com.twobrothers.msvendas.repositories.*;
 import br.com.twobrothers.msvendas.services.GerenciamentoEstoqueService;
 import br.com.twobrothers.msvendas.validations.ClienteValidation;
+import br.com.twobrothers.msvendas.validations.EnderecoValidation;
 import br.com.twobrothers.msvendas.validations.OrdemValidation;
 import br.com.twobrothers.msvendas.validations.ProdutoEstoqueValidation;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +58,7 @@ public class OrdemService {
 
     OrdemValidation validation = new OrdemValidation();
     ClienteValidation clienteValidation = new ClienteValidation();
+    EnderecoValidation enderecoValidation = new EnderecoValidation();
     ProdutoEstoqueValidation produtoEstoqueValidation = new ProdutoEstoqueValidation();
 
     String PERSISTENCIA_EM_CASCATA_STRING =
@@ -66,180 +70,94 @@ public class OrdemService {
         log.info("[STARTING] Iniciando método de criação...");
 
         log.info("[PROGRESS] Validando objeto do tipo OrdemDTO enviado via JSON...");
-        if (validation.validaCorpoRequisicao(ordem)) {
+        validation.validaCorpoRequisicao(ordem);
 
-            OrdemEntity ordemEntity = modelMapper.mapper().map(ordem, OrdemEntity.class);
-            ordemEntity.setEntradas(new ArrayList<>());
+        OrdemEntity ordemEntity = modelMapper.mapper().map(ordem, OrdemEntity.class);
+        ordemEntity.setEntradas(new ArrayList<>());
+        ordemEntity.setCliente(null);
+        ordemEntity.setRetirada(null);
 
-            for (EntradaOrdemDTO entrada : ordem.getEntradas()) {
+        ClienteEntity clienteEntity = new ClienteEntity();
 
-                log.info("[PROGRESS] Encaminhando para método de gerenciamento de estoque...");
-                gerenciamentoEstoqueService.distribuiParaTrocaOuProduto(entrada);
+        log.info("[PROGRESS] Verificando se cliente passado pelo corpo da requisição é nulo...");
+        if (ordem.getCliente() != null) {
 
-                String sigla = entrada.getProduto().getSigla();
-                entrada.setOrdem(null);
-                entrada.setProduto(null);
+            clienteValidation.validaCorpoRequisicao(ordem.getCliente(), clienteRepository, ValidationType.UPDATE);
 
-                log.info("[PROGRESS] Setando data de cadastro na ordem: {}", LocalDateTime.now());
-                ordem.setDataCadastro(LocalDateTime.now());
+            log.warn("[INFO] Cliente recebido pelo corpo da requisição");
 
-                log.info("[PROGRESS] Persistindo as entradas no banco de dados SEM o produto e SEM a ordem...");
-                EntradaOrdemEntity entradaOrdemEntity =
-                        entradaOrdemRepository.save(modelMapper.mapper().map(entrada, EntradaOrdemEntity.class));
+            Optional<ClienteEntity> clienteEntityOptional =
+                    clienteRepository.buscaPorCpfCnpj(ordem.getCliente().getCpfCnpj());
 
-                ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(sigla).get();
+            log.info("[PROGRESS] Verificando se cliente passado existe na base de dados...");
+            if (clienteEntityOptional.isPresent()) {
+                log.info("[INFO] Cliente encontrado: {}", clienteEntityOptional.get().getNomeCompleto());
+                clienteEntity = clienteEntityOptional.get();
 
-                log.info("[PROGRESS] Adicionando entrada ao produto e produto à entrada...");
-                produtoEstoque.addEntrada(entradaOrdemEntity);
-
-                log.info("[PROGRESS] Persistindo produto no banco de dados com a nova entrada na lista...");
-                produtoEstoqueRepository.save(produtoEstoque);
-
-                ordemEntity.setCliente(null);
-                ordemEntity.addEntrada(entradaOrdemEntity);
-                ordemEntity = repository.save(ordemEntity);
-
+            } else {
+                log.info("[INFO] Cliente não encontrado");
+                clienteEntity = modelMapper.mapper().map(ordem.getCliente(), ClienteEntity.class);
+                clienteEntity.setDataCadastro(LocalDateTime.now());
             }
 
-            //TODO TESTE SABADO REMOVER
-//            log.info("[PROGRESS] Verificando se cliente passado pelo corpo da requisição é nulo...");
-//            if (ordem.getCliente() != null) {
-//
-//                log.warn("[INFO] Cliente recebido pelo corpo da requisição");
-//
-//                Optional<ClienteEntity> clienteEntityOptional =
-//                        clienteRepository.buscaPorCpfCnpj(ordem.getCliente().getCpfCnpj());
-//
-//                ClienteEntity clienteEntity;
-//
-//                log.info("[PROGRESS] Verificando se cliente passado existe na base de dados...");
-//                if (clienteEntityOptional.isPresent()) {
-//                    log.info("[INFO] Cliente encontrado: {}", clienteEntityOptional.get().getNomeCompleto());
-//
-//                    clienteEntity = clienteEntityOptional.get();
-//                    clienteEntity.addOrdem(ordemEntity);
-//
-//                    log.info("[PROGRESS] Verificando se foi passado um endereço através do corpo do cliente...");
-//                    if (ordem.getCliente().getEndereco() != null) {
-//
-//                        log.info("[INFO] Endereço passado através do corpo do cliente");
-//
-//                        Optional<EnderecoEntity> optionalEnderecoEntity =
-//                                enderecoRepository.buscaPorAtributos(ordem.getCliente().getEndereco().getLogradouro(),
-//                                        ordem.getCliente().getEndereco().getBairro(),
-//                                        ordem.getCliente().getEndereco().getNumero());
-//
-//                        log.info("[PROGRESS] Verificando se endereço passado na requisição é o mesmo persistido na base de dados...");
-//                        if (optionalEnderecoEntity.isPresent() && optionalEnderecoEntity.get().equals(clienteEntity.getEndereco())) {
-//                            log.info("[INFO] O endereço do cliente é o mesmo de antes");
-//
-//                            log.info("[PROGRESS] Atualizando o cliente com a ordem acoplada na base de dados...");
-//                            clienteRepository.save(clienteEntity);
-//                        }
-//                        else {
-//                            log.info("[INFO] O endereço do cliente mudou");
-//
-//                            log.info("[PROGRESS] Verificando se o endereço para qual o cliente mudou existe na base de dados...");
-//                            if (optionalEnderecoEntity.isPresent()) {
-//                                log.info("[INFO] Endereço encontrado: {}", optionalEnderecoEntity.get().getLogradouro());
-//                                EnderecoEntity enderecoEntity = optionalEnderecoEntity.get();
-//
-//                                log.info("[PROGRESS] Adicionando o endereço ao cliente e o cliente ao endereço...");
-//                                enderecoEntity.addCliente(clienteEntity);
-//
-//                                log.info(PERSISTENCIA_EM_CASCATA_STRING);
-//                                enderecoRepository.save(enderecoEntity);
-//                            }
-//                            else {
-//                                log.info("[INFO] Nenhum endereço foi encontrado na base de dados...");
-//                                EnderecoEntity enderecoEntity = modelMapper.mapper().map(ordem.getCliente().getEndereco(), EnderecoEntity.class);
-//
-//                                log.info("[PROGRESS] Adicionando data de cadastro ao endereço: {}", LocalDateTime.now());
-//                                enderecoEntity.setDataCadastro(LocalDateTime.now());
-//
-//                                log.info("[PROGRESS] Adicionando o endereço ao cliente e o cliente ao endereço...");
-//                                enderecoEntity.addCliente(clienteEntity);
-//
-//                                log.info(PERSISTENCIA_EM_CASCATA_STRING);
-//                                enderecoRepository.save(enderecoEntity);
-//                            }
-//                        }
-//                    }
-//                    else {
-//                        log.info("[INFO] Nenhum endereço foi passado através do corpo do cliente");
-//                        clienteEntity.addOrdem(ordemEntity);
-//                        clienteEntity.setEndereco(null);
-//                        clienteRepository.save(clienteEntity);
-//                    }
-//                }
-//                else {
-//                    log.info("[INFO] Cliente não encontrado");
-//
-//                    log.info("[PROGRESS] Setando valor da variável clienteEntity para o valor do objeto cliente passado via JSON...");
-//                    clienteEntity = modelMapper.mapper().map(ordem.getCliente(), ClienteEntity.class);
-//
-//                    log.info("[PROGRESS] Setando data de cadastro do cliente para {}...", LocalDateTime.now());
-//                    clienteEntity.setDataCadastro(LocalDateTime.now());
-//
-//                    log.info("[PROGRESS] Adicionando ordem ao cliente e cliente à ordem...");
-//                    clienteEntity.addOrdem(ordemEntity);
-//
-//                    log.info("[PROGRESS] Verificando se foi passado um endereço através do corpo do cliente...");
-//                    if (ordem.getCliente().getEndereco() != null) {
-//
-//                        log.info("[INFO] Endereço passado através do corpo do cliente");
-//
-//                        Optional<EnderecoEntity> optionalEnderecoEntity =
-//                                enderecoRepository.buscaPorAtributos(ordem.getCliente().getEndereco().getLogradouro(),
-//                                        ordem.getCliente().getEndereco().getBairro(),
-//                                        ordem.getCliente().getEndereco().getNumero());
-//
-//                        log.info("[PROGRESS] Verificando se endereço passado existe na base de dados...");
-//                        if (optionalEnderecoEntity.isPresent()) {
-//                            log.warn("[INFO] Endereço encontrado: {}", optionalEnderecoEntity.get().getLogradouro());
-//                            EnderecoEntity enderecoEntity = optionalEnderecoEntity.get();
-//
-//                            log.info("[PROGRESS] Setando data de cadastro para o enderecoEntity {}...", LocalDateTime.now());
-//                            enderecoEntity.setDataCadastro(LocalDateTime.now());
-//
-//                            log.info("[PROGRESS] Adicionando cliente ao endereço e endereço ao cliente...");
-//                            enderecoEntity.addCliente(clienteEntity);
-//
-//                            log.info(PERSISTENCIA_EM_CASCATA_STRING);
-//                            enderecoRepository.save(enderecoEntity);
-//                        }
-//                        else {
-//                            log.warn("[INFO] Endereço não encontrado");
-//                            EnderecoEntity enderecoEntity = clienteEntity.getEndereco();
-//
-//                            log.info("[PROGRESS] Setando data de cadastro para o enderecoEntity {}...", LocalDateTime.now());
-//                            enderecoEntity.setDataCadastro(LocalDateTime.now());
-//
-//                            log.info("[PROGRESS] Adicionando cliente ao endereço e endereço ao cliente...");
-//                            enderecoEntity.addCliente(clienteEntity);
-//
-//                            log.info(PERSISTENCIA_EM_CASCATA_STRING);
-//                            enderecoRepository.save(enderecoEntity);
-//                        }
-//                    }
-//                    else {
-//                        log.info("[INFO] Nenhum endereço foi passado através do corpo do cliente");
-//                        clienteEntity.addOrdem(ordemEntity);
-//                        clienteEntity.setEndereco(null);
-//                        clienteRepository.save(clienteEntity);
-//                    }
-//
-//                }
-//
-//            } else {
-//                log.warn("[INFO] Nenhum cliente foi recebido pelo corpo da requisição");
-//            }
-//
-//            return modelMapper.mapper().map(ordemEntity, OrdemDTO.class);
+            if (ordem.getCliente().getEndereco() != null) {
+                enderecoValidation.validaCorpoRequisicao(ordem.getCliente().getEndereco());
+                clienteEntity.setEndereco(modelMapper.mapper().map(ordem.getCliente().getEndereco(), EnderecoEntity.class));
+                clienteEntity.getEndereco().setDataCadastro(LocalDateTime.now());
+            } else {
+                clienteEntity.setEndereco(null);
+            }
 
         }
 
-        throw new InvalidRequestException("A validação da requisição falhou. Verificar corpo da requisição.");
+        for (EntradaOrdemDTO entradaOrdemDTO : ordem.getEntradas()) {
+
+            Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
+                    produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
+
+            if (produtoEstoqueEntityOptional.isPresent()) {
+
+                gerenciamentoEstoqueService.distribuiParaTrocaOuProduto(entradaOrdemDTO);
+
+                ordemEntity = repository.save(ordemEntity);
+
+                log.info("[PROGRESS] Persistindo as entradas no banco de dados SEM o produto e SEM a ordem...");
+                entradaOrdemDTO.setProduto(null);
+                EntradaOrdemEntity entradaOrdemEntity =
+                        entradaOrdemRepository.save(modelMapper.mapper().map(entradaOrdemDTO, EntradaOrdemEntity.class));
+
+                ProdutoEstoqueEntity produtoEstoqueEntity = produtoEstoqueEntityOptional.get();
+
+                produtoEstoqueEntity.addEntrada(entradaOrdemEntity);
+
+                produtoEstoqueRepository.save(produtoEstoqueEntity);
+
+                log.info("[PROGRESS] Adicionando entrada à ordem e ordem à entrada...");
+                ordemEntity.addEntrada(entradaOrdemEntity);
+
+            } else {
+                throw new ObjectNotFoundException("O produto buscado não existe na base de dados");
+            }
+
+        }
+
+        ordemEntity.setDataCadastro(LocalDateTime.now());
+
+        if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.LOJA_FISICA)) {
+            ordem.getRetirada().setDataRetirada(LocalDateTime.now());
+        }
+
+        ordemEntity.setRetirada(modelMapper.mapper().map(ordem.getRetirada(), RetiradaEntity.class));
+
+        if (ordem.getCliente() != null) {
+            clienteEntity.addOrdem(ordemEntity);
+            clienteRepository.save(clienteEntity);
+        } else {
+            ordemEntity =
+                    repository.save(modelMapper.mapper().map(ordemEntity, OrdemEntity.class));
+        }
+
+        return modelMapper.mapper().map(ordemEntity, OrdemDTO.class);
 
     }
 
