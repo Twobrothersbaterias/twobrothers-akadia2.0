@@ -44,6 +44,11 @@ public class ClienteEntity {
         this.ordens.add(ordem);
     }
 
+    public void removeOrdem(OrdemEntity ordem) {
+        ordem.setCliente(null);
+        this.ordens.remove(ordem);
+    }
+
     public void removePrecoFornecedor(OrdemEntity ordem) {
         ordem.setCliente(null);
         this.ordens.remove(ordem);

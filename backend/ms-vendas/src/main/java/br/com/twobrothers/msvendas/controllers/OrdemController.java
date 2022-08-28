@@ -28,7 +28,7 @@ public class OrdemController {
 
     @PostMapping
     public ResponseEntity<OrdemDTO> criaNovo(@RequestBody OrdemDTO ordem) {
-        return ResponseEntity.ok().body(service.criaNovo(ordem));
+        return ResponseEntity.ok().body(service.criaNovo(ordem, null));
     }
 
     @GetMapping

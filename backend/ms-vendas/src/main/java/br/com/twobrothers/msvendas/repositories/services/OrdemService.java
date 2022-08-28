@@ -1,15 +1,18 @@
 package br.com.twobrothers.msvendas.repositories.services;
 
 import br.com.twobrothers.msvendas.config.ModelMapperConfig;
-import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.msvendas.models.dto.OrdemDTO;
 import br.com.twobrothers.msvendas.models.entities.*;
 import br.com.twobrothers.msvendas.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.msvendas.models.enums.ValidationType;
-import br.com.twobrothers.msvendas.repositories.*;
+import br.com.twobrothers.msvendas.repositories.ClienteRepository;
+import br.com.twobrothers.msvendas.repositories.EntradaOrdemRepository;
+import br.com.twobrothers.msvendas.repositories.OrdemRepository;
+import br.com.twobrothers.msvendas.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.msvendas.services.GerenciamentoEstoqueService;
+import br.com.twobrothers.msvendas.services.OperacaoEstoque;
 import br.com.twobrothers.msvendas.validations.ClienteValidation;
 import br.com.twobrothers.msvendas.validations.EnderecoValidation;
 import br.com.twobrothers.msvendas.validations.OrdemValidation;
@@ -45,12 +48,6 @@ public class OrdemService {
     EntradaOrdemRepository entradaOrdemRepository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
-
-    @Autowired
-    ClienteService clienteService;
-
-    @Autowired
     GerenciamentoEstoqueService gerenciamentoEstoqueService;
 
     @Autowired
@@ -61,10 +58,7 @@ public class OrdemService {
     EnderecoValidation enderecoValidation = new EnderecoValidation();
     ProdutoEstoqueValidation produtoEstoqueValidation = new ProdutoEstoqueValidation();
 
-    String PERSISTENCIA_EM_CASCATA_STRING =
-            "[PROGRESS] Persistindo endereço na base de dados com cliente -> ordem acoplado...";
-
-    public OrdemDTO criaNovo(OrdemDTO ordem) {
+    public OrdemDTO criaNovo(OrdemDTO ordem, Long id) {
 
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação...");
@@ -73,6 +67,7 @@ public class OrdemService {
         validation.validaCorpoRequisicao(ordem);
 
         OrdemEntity ordemEntity = modelMapper.mapper().map(ordem, OrdemEntity.class);
+        if (id != null) ordemEntity.setId(id);
         ordemEntity.setEntradas(new ArrayList<>());
         ordemEntity.setCliente(null);
         ordemEntity.setRetirada(null);
@@ -93,6 +88,11 @@ public class OrdemService {
             if (clienteEntityOptional.isPresent()) {
                 log.info("[INFO] Cliente encontrado: {}", clienteEntityOptional.get().getNomeCompleto());
                 clienteEntity = clienteEntityOptional.get();
+                clienteEntity.setNomeCompleto(ordem.getCliente().getNomeCompleto());
+                clienteEntity.setEmail(ordem.getCliente().getEmail());
+                clienteEntity.setTelefone(ordem.getCliente().getTelefone());
+                clienteEntity.setDataNascimento(ordem.getCliente().getDataNascimento());
+                clienteEntity.setCpfCnpj(ordem.getCliente().getCpfCnpj());
 
             } else {
                 log.info("[INFO] Cliente não encontrado");
@@ -110,14 +110,19 @@ public class OrdemService {
 
         }
 
+        gerenciamentoEstoqueService.validacoesEmMassa(ordem.getEntradas());
+
         for (EntradaOrdemDTO entradaOrdemDTO : ordem.getEntradas()) {
+
+            produtoEstoqueValidation.validaCorpoRequisicao
+                    (entradaOrdemDTO.getProduto(), produtoEstoqueRepository, ValidationType.UPDATE);
 
             Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
                     produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
 
             if (produtoEstoqueEntityOptional.isPresent()) {
 
-                gerenciamentoEstoqueService.distribuiParaTrocaOuProduto(entradaOrdemDTO);
+                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(entradaOrdemDTO, OperacaoEstoque.CRIACAO);
 
                 ordemEntity = repository.save(ordemEntity);
 
@@ -135,7 +140,8 @@ public class OrdemService {
                 log.info("[PROGRESS] Adicionando entrada à ordem e ordem à entrada...");
                 ordemEntity.addEntrada(entradaOrdemEntity);
 
-            } else {
+            }
+            else {
                 throw new ObjectNotFoundException("O produto buscado não existe na base de dados");
             }
 
@@ -193,32 +199,36 @@ public class OrdemService {
     }
 
     public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {
-
-        Optional<OrdemEntity> ordemOptional = repository.findById(id);
-
-        if (ordemOptional.isPresent()) {
-
-            OrdemEntity ordemAtualizada = ordemOptional.get();
-
-            if (validation.validaCorpoRequisicao(ordem)) {
-
-                ordemAtualizada.setVeiculo(ordem.getVeiculo());
-                ordemAtualizada.setLoja(ordem.getLoja());
-                ordemAtualizada.setFormaPagamento(ordem.getFormaPagamento());
-                ordemAtualizada.setEmiteNfe(ordem.getEmiteNfe());
-                ordemAtualizada.setRetirada(modelMapper.mapper().map(ordem.getRetirada(), RetiradaEntity.class));
-                ordemAtualizada.setEntradas(ordem.getEntradas().stream().map(x -> modelMapper.mapper().map(x, EntradaOrdemEntity.class)).collect(Collectors.toList()));
-
-                return modelMapper.mapper().map(repository.save(ordemAtualizada), OrdemDTO.class);
-            }
-            throw new InvalidRequestException("Requisição inválida.");
-        }
-        throw new ObjectNotFoundException("Nenhuma ordem foi encontrada com o id " + id);
+        deletaPorId(id);
+        return criaNovo(ordem, id);
     }
 
     public Boolean deletaPorId(Long id) {
-        if (repository.findById(id).isPresent()) {
-            repository.delete(repository.findById(id).get());
+
+        Optional<OrdemEntity> ordemEntityOptional = repository.findById(id);
+
+        if (ordemEntityOptional.isPresent()) {
+
+            OrdemEntity ordemEntity = ordemEntityOptional.get();
+
+            for (EntradaOrdemEntity entradaOrdemEntity : ordemEntity.getEntradas()) {
+
+                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(
+                        modelMapper.mapper().map(entradaOrdemEntity, EntradaOrdemDTO.class), OperacaoEstoque.REMOCAO);
+
+                ProdutoEstoqueEntity produtoEstoqueEntity = entradaOrdemEntity.getProduto();
+                produtoEstoqueEntity.removeEntrada(entradaOrdemEntity);
+                produtoEstoqueRepository.save(produtoEstoqueEntity);
+
+            }
+
+            if (ordemEntity.getCliente() != null) {
+                ClienteEntity clienteEntity = ordemEntity.getCliente();
+                clienteEntity.removeOrdem(ordemEntity);
+                clienteRepository.save(clienteEntity);
+            }
+
+            repository.delete(ordemEntity);
             return true;
         }
         throw new ObjectNotFoundException("Nenhuma ordem foi encontrada com o id " + id);

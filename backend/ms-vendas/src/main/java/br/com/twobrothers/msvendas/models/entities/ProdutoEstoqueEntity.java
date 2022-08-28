@@ -62,10 +62,13 @@ public class ProdutoEstoqueEntity {
         this.abastecimentos.remove(abastecimento);
     }
 
-    //TODO TESTE Remover
     public void addEntrada(EntradaOrdemEntity entrada) {
         entrada.setProduto(this);
         this.entradas.add(entrada);
+    }
+    public void removeEntrada(EntradaOrdemEntity entrada) {
+        entrada.setProduto(null);
+        this.entradas.remove(entrada);
     }
 
 }
