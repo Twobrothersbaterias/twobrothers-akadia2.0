@@ -13,10 +13,7 @@ import br.com.twobrothers.msvendas.repositories.OrdemRepository;
 import br.com.twobrothers.msvendas.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.msvendas.services.GerenciamentoEstoqueService;
 import br.com.twobrothers.msvendas.services.OperacaoEstoque;
-import br.com.twobrothers.msvendas.validations.ClienteValidation;
-import br.com.twobrothers.msvendas.validations.EnderecoValidation;
-import br.com.twobrothers.msvendas.validations.OrdemValidation;
-import br.com.twobrothers.msvendas.validations.ProdutoEstoqueValidation;
+import br.com.twobrothers.msvendas.validations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +53,8 @@ public class OrdemService {
     OrdemValidation validation = new OrdemValidation();
     ClienteValidation clienteValidation = new ClienteValidation();
     EnderecoValidation enderecoValidation = new EnderecoValidation();
+    EntradaOrdemValidation entradaOrdemValidation = new EntradaOrdemValidation();
+    RetiradaValidation retiradaValidation = new RetiradaValidation();
     ProdutoEstoqueValidation produtoEstoqueValidation = new ProdutoEstoqueValidation();
 
     public OrdemDTO criaNovo(OrdemDTO ordem, Long id) {
@@ -111,6 +110,7 @@ public class OrdemService {
         }
 
         gerenciamentoEstoqueService.validacoesEmMassa(ordem.getEntradas());
+        retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
 
         for (EntradaOrdemDTO entradaOrdemDTO : ordem.getEntradas()) {
 
