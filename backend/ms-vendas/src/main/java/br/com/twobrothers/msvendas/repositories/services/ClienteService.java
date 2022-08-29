@@ -37,7 +37,6 @@ public class ClienteService {
     EnderecoValidation enderecoValidation = new EnderecoValidation();
 
     public ClienteDTO criaNovo(ClienteDTO cliente) {
-
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
 
