@@ -3,6 +3,8 @@ package br.com.twobrothers.msbalanco.validations;
 import br.com.twobrothers.msbalanco.models.dto.PatrimonioDTO;
 import br.com.twobrothers.msbalanco.services.exceptions.InvalidRequestException;
 
+import java.time.LocalDate;
+
 import static br.com.twobrothers.msbalanco.utils.RegexPatterns.DATE_REGEX;
 
 public class PatrimonioValidation {
@@ -27,7 +29,21 @@ public class PatrimonioValidation {
     }
 
     public boolean validaAtributoDataAgendamento(String data) {
-        if (data.matches(DATE_REGEX)) return true;
+
+        LocalDate hoje = LocalDate.now();
+
+        if (data.matches(DATE_REGEX)) {
+
+            String dataDeAgendamento = data.replace("/", "-").split("-")[2] + "-"
+                    + data.replace("/", "-").split("-")[1] + "-"
+                    + data.replace("/", "-").split("-")[0];
+
+            LocalDate dataAgendada = LocalDate.parse(dataDeAgendamento);
+            if (dataAgendada.isBefore(hoje))
+                throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
+
+            return true;
+        }
         throw new InvalidRequestException
                 ("Validação do patrimoônio falhou. Motivo: o padrão da data de agendamento é inválido");
     }
