@@ -44,79 +44,123 @@ public class ClienteService {
         log.info("[PROGRESS] Setando a data de cadastro no cliente: {}", LocalDateTime.now());
         cliente.setDataCadastro(LocalDateTime.now());
 
-        if (validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE)) {
+        log.info("[PROGRESS] Validando objeto do tipo ClienteDTO recebido por meio da requisição...");
+        validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE);
 
-            if (cliente.getEndereco() != null) {
-                cliente.getEndereco().setDataCadastro(LocalDateTime.now());
-                if (!enderecoValidation.validaCorpoRequisicao(cliente.getEndereco())) {
-                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
-                    throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
-                }
-            }
+        log.info("[PROGRESS] Verificando se o objeto ClienteDTO recebido por meio da requisição possui um objeto do tipo EnderecoDTO acoplado...");
+        if (cliente.getEndereco() != null) {
+            log.info("[INFO] Objeto do tipo EnderecoDTO detectado.");
 
-            log.info("[PROGRESS] Salvando o cliente na base de dados...");
-            log.info("[SUCCESS] Requisição finalizada com sucesso");
-            return modelMapper.mapper().map(repository.save(modelMapper.mapper().map(cliente, ClienteEntity.class)), ClienteDTO.class);
+            log.info("[PROGRESS] Setando data de cadastro do endereço...");
+            cliente.getEndereco().setDataCadastro(LocalDateTime.now());
+
+            log.info("[PROGRESS] Validando objeto do tipo EnderecoDTO recebido dentro do objeto ClienteDTO...");
+            enderecoValidation.validaCorpoRequisicao(cliente.getEndereco());
+
         }
 
-        log.info(VALIDACAO_DO_CLIENTE_FALHOU_LOG);
-        throw new InvalidRequestException(VALIDACAO_DO_CLIENTE_FALHOU);
+        log.info("[PROGRESS] Salvando o cliente na base de dados...");
+        ClienteEntity clienteEntity = repository.save(modelMapper.mapper().map(cliente, ClienteEntity.class));
+
+        log.info("[SUCCESS] Requisição finalizada com sucesso");
+        return modelMapper.mapper().map(clienteEntity, ClienteDTO.class);
 
     }
 
     public List<ClienteDTO> buscaTodos() {
-        if (!repository.findAll().isEmpty()) return repository.findAll().stream()
-                .map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todos os clientes...");
+
+        if (!repository.findAll().isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll().stream()
+                    .map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum cliente salvo na base de dados");
         throw new ObjectNotFoundException("Não existe nenhum cliente salvo na base de dados.");
     }
 
     public List<ClienteDTO> buscaPorPaginacao(Pageable paginacao) {
-        if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
-                .getContent().stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por paginação...");
+        if (!repository.findAll(paginacao).isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll(paginacao)
+                    .getContent().stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        }
+        log.error("Nenhum cliente foi encontrado considerando os parâmetros da paginação...");
         throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado na página indicada");
     }
 
     public List<ClienteDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca por range de cadastro...");
 
         List<ClienteEntity> clientes = repository.buscaPorRangeDeDataCadastro(
                 (LocalDate.parse(dataInicio)).atTime(0, 0),
                 (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
 
-        if (!clientes.isEmpty())
+        if (!clientes.isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return clientes.stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Nenhum cliente foi encontrado considerando os parâmetros recebidos");
         throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado no range de datas indicado");
 
     }
 
     public ClienteDTO buscaPorId(Long id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca por id...");
         if (repository.findById(id).isPresent()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(repository.findById(id).get(), ClienteDTO.class);
         }
+        log.error("[ERROR] Não existe nenhum cliente cadastrado no banco de dados com o id " + id);
         throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado no banco de dados com o id " + id);
     }
 
     public ClienteDTO buscaPorCpfCnpj(String cpfCnpj) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por CPF/CNPJ");
         if (repository.buscaPorCpfCnpj(cpfCnpj).isPresent()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(repository.buscaPorCpfCnpj(cpfCnpj).get(), ClienteDTO.class);
         }
+        log.error("[ERROR] Nenhum cliente foi encontrado através do tributo CPF/CNPJ enviado");
         throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo cpfCnpj enviado.");
     }
 
     public ClienteDTO buscaPorEmail(String email) {
-        if (repository.buscaPorEmail(email).isPresent())
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por EMAIL");
+        if (repository.buscaPorEmail(email).isPresent()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(repository.buscaPorEmail(email).get(), ClienteDTO.class);
+        }
+        log.error("[ERROR] Nenhum cliente foi encontrado através do atributo EMAIL enviado");
         throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo email enviado.");
     }
 
     public List<ClienteDTO> buscaPorTelefone(String telefone) {
-        if (!repository.buscaPorTelefone(telefone).isEmpty())
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por TELEFONE");
+        if (!repository.buscaPorTelefone(telefone).isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return repository.buscaPorTelefone(telefone).stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Nenhum cliente foi encontrado através do atributo TELEFONE enviado");
         throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo telefone enviado.");
     }
 
     public List<ClienteDTO> buscaPorNomeCompleto(String nomeCompleto) {
-        if (!repository.buscaPorNomeCompleto(nomeCompleto).isEmpty())
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por NOME COMPLETO");
+        if (!repository.buscaPorNomeCompleto(nomeCompleto).isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return repository.buscaPorNomeCompleto(nomeCompleto).stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Nenhum cliente foi encontrado através do atributo nomeCompleto enviado");
         throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo nomeCompleto enviado.");
     }
 
@@ -133,8 +177,9 @@ public class ClienteService {
         ClienteEntity clienteAtualizado;
 
         log.info("[PROGRESS] Verificando se um cliente com o id {} já existe na base de dados...", id);
-        if (validation.validaCorpoRequisicao(cliente, repository, ValidationType.UPDATE)
-                && clienteOptional.isPresent()) {
+        if (clienteOptional.isPresent()) {
+
+            validation.validaCorpoRequisicao(cliente, repository, ValidationType.UPDATE);
 
             clienteEncontrado = clienteOptional.get();
             log.warn("[INFO] Cliente encontrado: {}", clienteEncontrado.getNomeCompleto());
@@ -146,25 +191,27 @@ public class ClienteService {
             clienteAtualizado.setTelefone(cliente.getTelefone());
             clienteAtualizado.setDataNascimento(cliente.getDataNascimento());
 
+            log.info("[PROGRESS] Verificando se cliente possui objeto do tipo endereço acoplado...");
             if (cliente.getEndereco() != null) {
-
-                if (!enderecoValidation.validaCorpoRequisicao(cliente.getEndereco())) {
-                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
-                    throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
-                }
-
+                log.warn("[INFO] Endereço acoplado detectado.");
+                enderecoValidation.validaCorpoRequisicao(cliente.getEndereco());
+                log.info("[PROGRESS] Setando data de cadastro no endereço...");
                 cliente.getEndereco().setDataCadastro(LocalDateTime.now());
+                log.info("[PROGRESS] Acoplando objeto do tipo EnderecoDTO na variável clienteAtualizado...");
                 clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
             }
-            else{
+            else {
+                log.warn("[INFO] Nenhum endereço foi detectado.");
+
+                log.info("[PROGRESS] Setando endereço da variável clienteAtualizado como null...");
                 clienteAtualizado.setEndereco(null);
             }
 
             log.info("[PROGRESS] Iniciando persistência do cliente na base de dados...");
-            repository.save(clienteAtualizado);
+            ClienteEntity clienteEntity = repository.save(clienteAtualizado);
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(clienteAtualizado, ClienteDTO.class);
+            return modelMapper.mapper().map(clienteEntity, ClienteDTO.class);
 
         }
 

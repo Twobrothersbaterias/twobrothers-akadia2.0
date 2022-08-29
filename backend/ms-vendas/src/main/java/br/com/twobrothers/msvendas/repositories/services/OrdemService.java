@@ -53,7 +53,7 @@ public class OrdemService {
     OrdemValidation validation = new OrdemValidation();
     ClienteValidation clienteValidation = new ClienteValidation();
     EnderecoValidation enderecoValidation = new EnderecoValidation();
-    EntradaOrdemValidation entradaOrdemValidation = new EntradaOrdemValidation();
+    PagamentoValidation pagamentoValidation = new PagamentoValidation();
     RetiradaValidation retiradaValidation = new RetiradaValidation();
     ProdutoEstoqueValidation produtoEstoqueValidation = new ProdutoEstoqueValidation();
 
@@ -111,6 +111,7 @@ public class OrdemService {
 
         gerenciamentoEstoqueService.validacoesEmMassa(ordem.getEntradas());
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
+        pagamentoValidation.validaCorpoRequisicaoEmMassa(ordem.getPagamentos());
 
         for (EntradaOrdemDTO entradaOrdemDTO : ordem.getEntradas()) {
 

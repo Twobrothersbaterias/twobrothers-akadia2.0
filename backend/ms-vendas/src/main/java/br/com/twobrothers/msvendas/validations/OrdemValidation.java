@@ -14,20 +14,19 @@ public class OrdemValidation {
         return true;
     }
 
-    public boolean validaSePossuiAtributosNulos(OrdemDTO ordem) {
-        if (ordem.getEmiteNfe() != null
-                && ordem.getFormaPagamento() != null
-                && ordem.getLoja() != null
-                && ordem.getRetirada() != null
-                && !ordem.getEntradas().isEmpty()) return true;
-        throw new InvalidRequestException("Requisição inválida. Um ou mais atributos obrigatórios são nulos.");
+    public void validaSePossuiAtributosNulos(OrdemDTO ordem) {
+        if (ordem.getEmiteNfe() == null
+                || ordem.getLoja() == null
+                || ordem.getRetirada() == null
+                || ordem.getPagamentos() == null
+                || ordem.getEntradas().isEmpty())
+            throw new InvalidRequestException("Requisição inválida. Um ou mais atributos obrigatórios são nulos.");
     }
 
-    public boolean validaAtributosEntradaOrdem(OrdemDTO ordem) {
-        for (EntradaOrdemDTO entradaOrdem: ordem.getEntradas()) {
+    public void validaAtributosEntradaOrdem(OrdemDTO ordem) {
+        for (EntradaOrdemDTO entradaOrdem : ordem.getEntradas()) {
             entradaOrdemValidation.validaCorpoRequisicao(entradaOrdem);
         }
-        return true;
     }
 
 }

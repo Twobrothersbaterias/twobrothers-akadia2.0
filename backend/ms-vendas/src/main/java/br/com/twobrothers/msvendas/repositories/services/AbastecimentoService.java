@@ -4,10 +4,8 @@ import br.com.twobrothers.msvendas.config.ModelMapperConfig;
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msvendas.models.dto.AbastecimentoDTO;
-import br.com.twobrothers.msvendas.models.dto.PrecoFornecedorDTO;
 import br.com.twobrothers.msvendas.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.msvendas.models.entities.FornecedorEntity;
-import br.com.twobrothers.msvendas.models.entities.PrecoFornecedorEntity;
 import br.com.twobrothers.msvendas.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.msvendas.repositories.AbastecimentoRepository;
 import br.com.twobrothers.msvendas.repositories.FornecedorRepository;
@@ -21,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static br.com.twobrothers.msvendas.utils.StringConstants.BARRA_DE_LOG;
@@ -67,7 +64,7 @@ public class AbastecimentoService {
             abastecimento.setDataCadastro(LocalDateTime.now());
 
             log.info("[PROGRESS] Setando o custo unitário do abastecimento...");
-            abastecimento.setCustoUnitario(abastecimento.getCustoTotal()/abastecimento.getQuantidade());
+            abastecimento.setCustoUnitario(abastecimento.getCustoTotal() / abastecimento.getQuantidade());
 
             log.info("[PROGRESS] Persistindo o abastecimento no banco de dados SEM o produto e SEM o fornecedor...");
             AbastecimentoEntity abastecimentoEntity =
@@ -100,33 +97,56 @@ public class AbastecimentoService {
     }
 
     public List<AbastecimentoDTO> buscaTodos() {
-        if (!repository.findAll().isEmpty()) return repository.findAll().stream()
-                .map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de buscar todos os abastecimentos...");
+
+        log.info("[PROGRESS] Verificando se existem abastecimentos salvos na base de dados...");
+        if (!repository.findAll().isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll().stream()
+                    .map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum abastecimento salvo no banco de dados");
         throw new ObjectNotFoundException("Não existe nenhum abastecimento salvo na base de dados.");
     }
 
     public List<AbastecimentoDTO> buscaPorPaginacao(Pageable paginacao) {
-        if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
-                .getContent().stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimentos por paginação...");
+        if (!repository.findAll(paginacao).isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll(paginacao)
+                    .getContent().stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Nenhum abastecimento foi encontrado com os parâmetros recebidos");
         throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado na página indicada");
     }
 
     public List<AbastecimentoDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método busca de abastecimento por range de data de cadastro...");
 
-            List<AbastecimentoEntity> abastecimentos = repository.buscaPorRangeDeDataCadastro(
-                    (LocalDate.parse(dataInicio)).atTime(0, 0),
-                    (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
+        List<AbastecimentoEntity> abastecimentos = repository.buscaPorRangeDeDataCadastro(
+                (LocalDate.parse(dataInicio)).atTime(0, 0),
+                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
 
-            if (!abastecimentos.isEmpty())
-                return abastecimentos.stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
-            throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no range de datas indicado");
+        if (!abastecimentos.isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return abastecimentos.stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Nenhum abastecimento foi encontrado com os parâmetros recebidos");
+        throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no range de datas indicado");
 
     }
 
     public AbastecimentoDTO buscaPorId(Long id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por id...");
         if (repository.findById(id).isPresent()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(repository.findById(id).get(), AbastecimentoDTO.class);
         }
+        log.error("[ERROR] Nenhum abastecimento foi encontrado através do id {}", id);
         throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no banco de dados com o id " + id);
     }
 

@@ -1,6 +1,5 @@
 package br.com.twobrothers.msvendas.models.entities;
 
-import br.com.twobrothers.msvendas.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.msvendas.models.enums.LojaEnum;
 import lombok.*;
 
@@ -31,8 +30,6 @@ public class OrdemEntity {
 
     @Enumerated(EnumType.STRING)
     private LojaEnum loja;
-    @Enumerated(EnumType.STRING)
-    private FormaPagamentoEnum formaPagamento;
 
     @ManyToOne(targetEntity = ClienteEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
@@ -40,6 +37,9 @@ public class OrdemEntity {
 
     @OneToOne(targetEntity = RetiradaEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private RetiradaEntity retirada;
+
+    @OneToMany(targetEntity = PagamentoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PagamentoEntity> pagamentos = new ArrayList<>();
 
     @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();

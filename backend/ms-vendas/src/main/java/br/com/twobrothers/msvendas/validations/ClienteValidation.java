@@ -9,9 +9,7 @@ import static br.com.twobrothers.msvendas.utils.RegexPatterns.*;
 
 public class ClienteValidation {
 
-    EnderecoValidation enderecoValidation = new EnderecoValidation();
-
-    public boolean validaCorpoRequisicao(ClienteDTO cliente, ClienteRepository repository, ValidationType type) {
+    public void validaCorpoRequisicao(ClienteDTO cliente, ClienteRepository repository, ValidationType type) {
         if (cliente.getDataNascimento() != null) validaAtributoDataNascimento(cliente.getDataNascimento());
         if (cliente.getNomeCompleto() != null) validaAtributoNomeCompleto(cliente.getNomeCompleto());
         if (cliente.getCpfCnpj() != null) validaAtributoCpfCnpj(cliente.getCpfCnpj(), repository, type);
@@ -20,17 +18,16 @@ public class ClienteValidation {
         if (cliente.getIdUsuarioResponsavel() == null)
             throw new InvalidRequestException("O id do usuário responsável pela " +
                     "requisição não pode ser nulo");
-        return true;
     }
 
-    public boolean validaAtributoDataNascimento(String dataNascimento) {
-        if (dataNascimento.matches(DATE_REGEX)) return true;
-        throw new InvalidRequestException("Validação do cliente falhou. O padrão da data de nascimento enviada é inválido.");
+    public void validaAtributoDataNascimento(String dataNascimento) {
+        if (!dataNascimento.matches(DATE_REGEX))
+            throw new InvalidRequestException("Validação do cliente falhou. O padrão da data de nascimento enviada é inválido.");
     }
 
-    public boolean validaAtributoNomeCompleto(String nomeCompleto) {
-        if (nomeCompleto.length() <= 70) return true;
-        throw new InvalidRequestException("Validação do cliente falhou. O nome completo deve conter menos de 70 caracteres");
+    public void validaAtributoNomeCompleto(String nomeCompleto) {
+        if (nomeCompleto.length() > 70)
+            throw new InvalidRequestException("Validação do cliente falhou. O nome completo deve conter menos de 70 caracteres");
     }
 
     public boolean validaAtributoCpfCnpj(String cpfCnpj, ClienteRepository repository, ValidationType type) {
@@ -59,8 +56,8 @@ public class ClienteValidation {
         }
     }
 
-    public boolean validaAtributoTelefone(String telefone) {
-        if (telefone.matches(PHONE_REGEX_PATTERN)) return true;
-        throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
+    public void validaAtributoTelefone(String telefone) {
+        if (!telefone.matches(PHONE_REGEX_PATTERN))
+            throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
     }
 }

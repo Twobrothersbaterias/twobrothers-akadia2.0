@@ -1,6 +1,5 @@
 package br.com.twobrothers.msvendas.models.dto;
 
-import br.com.twobrothers.msvendas.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.msvendas.models.enums.LojaEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -23,7 +22,6 @@ public class OrdemDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataCadastro;
 
-    @JsonProperty(required = false)
     private String veiculo;
 
     @JsonProperty(required = true)
@@ -35,14 +33,13 @@ public class OrdemDTO {
     @JsonProperty(required = true)
     private LojaEnum loja;
 
-    @JsonProperty(required = true)
-    private FormaPagamentoEnum formaPagamento;
-
-    @JsonProperty(required = false, access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private ClienteDTO cliente;
 
     @JsonProperty(required = true)
     private RetiradaDTO retirada;
+
+    private List<PagamentoDTO> pagamentos = new ArrayList<>();
 
     private List<EntradaOrdemDTO> entradas = new ArrayList<>();
 
