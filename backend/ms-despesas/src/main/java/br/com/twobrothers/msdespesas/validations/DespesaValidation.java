@@ -1,8 +1,10 @@
 package br.com.twobrothers.msdespesas.validations;
 
-import br.com.twobrothers.msdespesas.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.msdespesas.models.dto.DespesaDTO;
 import br.com.twobrothers.msdespesas.models.enums.StatusDespesaEnum;
+import br.com.twobrothers.msdespesas.services.exceptions.InvalidRequestException;
+
+import java.time.LocalDate;
 
 import static br.com.twobrothers.msdespesas.utils.RegexPatterns.DATE_REGEX;
 
@@ -29,7 +31,21 @@ public class DespesaValidation {
     }
 
     public boolean validaAtributoDataAgendamento(String data) {
-        if (data.matches(DATE_REGEX)) return true;
+
+        LocalDate hoje = LocalDate.now();
+
+        if (data.matches(DATE_REGEX)) {
+
+            String dataDeAgendamento = data.replace("/", "-").split("-")[2] + "-"
+                    + data.replace("/", "-").split("-")[1] + "-"
+                    + data.replace("/", "-").split("-")[0];
+
+            LocalDate dataAgendada = LocalDate.parse(dataDeAgendamento);
+            if (dataAgendada.isBefore(hoje))
+                throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
+
+            return true;
+        }
         throw new InvalidRequestException("Validação da despesa falhou. Motivo: o padrão da data de agendamento é inválido");
     }
 
