@@ -29,7 +29,6 @@ public class RetiradaEntity {
     @Enumerated(EnumType.STRING)
     private StatusRetiradaEnum statusRetirada;
 
-    //TODO Ponto de atenção
     @OneToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ordem_id")
     private OrdemEntity ordem;

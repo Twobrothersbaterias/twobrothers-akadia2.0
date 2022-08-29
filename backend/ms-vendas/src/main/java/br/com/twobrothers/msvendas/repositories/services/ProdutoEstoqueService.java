@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -86,7 +87,7 @@ public class ProdutoEstoqueService {
             ProdutoEstoqueEntity produtoAtualizado = produtoOptional.get();
 
             if (repository.buscaPorSigla(produto.getSigla()).isPresent()
-                    && repository.buscaPorSigla(produto.getSigla()).get().getId() != produtoOptional.get().getId()) {
+                    && !Objects.equals(repository.buscaPorSigla(produto.getSigla()).get().getId(), produtoOptional.get().getId())) {
                 throw new InvalidRequestException("O produto com a sigla " + produto.getSigla() + " já existe na base de dados");
             }
 

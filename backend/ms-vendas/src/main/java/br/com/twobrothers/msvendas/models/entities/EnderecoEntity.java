@@ -1,13 +1,10 @@
 package br.com.twobrothers.msvendas.models.entities;
 
-import br.com.twobrothers.msvendas.models.dto.ClienteDTO;
 import br.com.twobrothers.msvendas.models.enums.EstadoEnum;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

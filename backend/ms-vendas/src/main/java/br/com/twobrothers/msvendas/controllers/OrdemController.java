@@ -1,9 +1,6 @@
 package br.com.twobrothers.msvendas.controllers;
 
-import br.com.twobrothers.msvendas.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.msvendas.models.dto.OrdemDTO;
-import br.com.twobrothers.msvendas.models.entities.EntradaOrdemEntity;
-import br.com.twobrothers.msvendas.repositories.EntradaOrdemRepository;
 import br.com.twobrothers.msvendas.repositories.services.OrdemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +19,6 @@ public class OrdemController {
     @Autowired
     OrdemService service;
 
-    //TODO REMOVER
-    @Autowired
-    EntradaOrdemRepository entradaOrdemRepository;
-
     @PostMapping
     public ResponseEntity<OrdemDTO> criaNovo(@RequestBody OrdemDTO ordem) {
         return ResponseEntity.ok().body(service.criaNovo(ordem, null));
@@ -34,12 +27,6 @@ public class OrdemController {
     @GetMapping
     public ResponseEntity<List<OrdemDTO>> buscaTodos() {
         return ResponseEntity.ok().body(service.buscaTodos());
-    }
-
-    //TODO REMOVER
-    @GetMapping("/entradas")
-    public List<EntradaOrdemEntity> buscaTodasEntradas() {
-        return entradaOrdemRepository.findAll();
     }
 
     @GetMapping("/id")

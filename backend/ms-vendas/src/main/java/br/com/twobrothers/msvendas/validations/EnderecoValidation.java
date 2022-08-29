@@ -2,8 +2,6 @@ package br.com.twobrothers.msvendas.validations;
 
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.models.dto.EnderecoDTO;
-import br.com.twobrothers.msvendas.models.enums.ValidationType;
-import br.com.twobrothers.msvendas.repositories.EnderecoRepository;
 
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.POSTAL_CODE_REGEX_PATTERN;
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.STREET_NUMBER_REGEX_PATTERN;

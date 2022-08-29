@@ -1,8 +1,6 @@
 package br.com.twobrothers.msvendas.models.dto;
 
-import br.com.twobrothers.msvendas.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.msvendas.models.enums.TipoProdutoEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
