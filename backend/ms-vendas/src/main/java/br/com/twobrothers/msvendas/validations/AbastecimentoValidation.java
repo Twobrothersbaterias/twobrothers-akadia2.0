@@ -25,12 +25,12 @@ public class AbastecimentoValidation {
                 "na requisição são nulos");
     }
 
-    public boolean validaAtributoQuantidade(Integer quantidade) { //TODO Testar REGEX
+    public boolean validaAtributoQuantidade(Integer quantidade) {
         if (quantidade.toString().matches(QUANTIDADE_REGEX)) return true;
         throw new InvalidRequestException("Validação do abastecimento falhou. Motivo: A quantidade deve estar entre 1 e 999");
     }
 
-    public boolean validaAtributoCustoTotal(Double custoTotal) { //TODO Testar validation
+    public boolean validaAtributoCustoTotal(Double custoTotal) {
         if (custoTotal > 0.0 && custoTotal < 999999.0) return true;
         throw new InvalidRequestException("Validação do abastecimento falhou. Motivo: O custo total deve deve estar entre R$ 1,00 e R$ 999.999,00");
     }

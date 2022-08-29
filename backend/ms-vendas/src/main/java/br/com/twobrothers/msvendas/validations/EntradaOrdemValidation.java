@@ -23,7 +23,7 @@ public class EntradaOrdemValidation {
     }
 
     public boolean validaAtributoQuantidade(Integer quantidade) {
-        if (quantidade.toString().matches(QUANTIDADE_REGEX)) return true; //TODO TESTAR REGEX
+        if (quantidade.toString().matches(QUANTIDADE_REGEX)) return true;
         throw new InvalidRequestException("Atributo quantidade passado na entradaOrdem inválido");
     }
 

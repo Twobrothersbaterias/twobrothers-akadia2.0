@@ -31,12 +31,10 @@ public class FornecedorValidation {
         throw new InvalidRequestException("Requisição inválida. O nome do fornecedor deve possuir menos de 60 caracteres.");
     }
 
-    public boolean validaAtributoCpfCnpj(String cpfCnpj, FornecedorRepository repository, ValidationType type) { //TODO Testar REGEX
+    public boolean validaAtributoCpfCnpj(String cpfCnpj, FornecedorRepository repository, ValidationType type) {
 
-        if (cpfCnpj.length() == 11 && cpfCnpj.replace(".", "").replace("-", "").replace("/", "")
-                .matches(CPF_REGEX_PATTERN_REPLACED) || cpfCnpj.length() == 14 &&
-                cpfCnpj.replace(".", "").replace("-", ""
-                ).matches(CNPJ_REGEX_PATTERN_REPLACED)) {
+        if (cpfCnpj.length() == 14 && cpfCnpj.matches(CPF_REGEX_PATTERN)
+                || cpfCnpj.length() == 18 && cpfCnpj.matches(CNPJ_REGEX_PATTERN)) {
 
             if (type.equals(ValidationType.CREATE) && repository.buscaPorCpfCnpj(cpfCnpj).isEmpty() || type.equals(ValidationType.UPDATE)) {
                 return true;
@@ -61,7 +59,7 @@ public class FornecedorValidation {
     }
 
     public boolean validaAtributoTelefone(String telefone) {
-        if (telefone.matches(PHONE_REGEX_PATTERN)) return true; //TODO Testar REGEX
+        if (telefone.matches(PHONE_REGEX_PATTERN)) return true;
         throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
     }
 

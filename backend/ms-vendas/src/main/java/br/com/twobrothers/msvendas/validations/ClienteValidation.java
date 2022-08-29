@@ -23,7 +23,7 @@ public class ClienteValidation {
         return true;
     }
 
-    public boolean validaAtributoDataNascimento(String dataNascimento) { //TODO Testar REGEX
+    public boolean validaAtributoDataNascimento(String dataNascimento) {
         if (dataNascimento.matches(DATE_REGEX)) return true;
         throw new InvalidRequestException("Validação do cliente falhou. O padrão da data de nascimento enviada é inválido.");
     }
@@ -33,12 +33,10 @@ public class ClienteValidation {
         throw new InvalidRequestException("Validação do cliente falhou. O nome completo deve conter menos de 70 caracteres");
     }
 
-    public boolean validaAtributoCpfCnpj(String cpfCnpj, ClienteRepository repository, ValidationType type) { //TODO Testar REGEX
+    public boolean validaAtributoCpfCnpj(String cpfCnpj, ClienteRepository repository, ValidationType type) {
 
-        cpfCnpj = cpfCnpj.replace(".", "").replace("-", "");
-
-        if (cpfCnpj.length() == 11 && cpfCnpj.matches(CPF_REGEX_PATTERN_REPLACED) ||
-                cpfCnpj.length() == 14 && cpfCnpj.matches(CNPJ_REGEX_PATTERN_REPLACED)) {
+        if (cpfCnpj.length() == 14 && cpfCnpj.matches(CPF_REGEX_PATTERN)
+                || cpfCnpj.length() == 18 && cpfCnpj.matches(CNPJ_REGEX_PATTERN)) {
             if (type.equals(ValidationType.CREATE) && repository.buscaPorCpfCnpj(cpfCnpj).isEmpty() || type.equals(ValidationType.UPDATE)) {
                 return true;
             } else {
@@ -62,8 +60,7 @@ public class ClienteValidation {
     }
 
     public boolean validaAtributoTelefone(String telefone) {
-        if (telefone.replace("(", "").replace(")", "").replace("-", "")
-                .matches(PHONE_REGEX_PATTERN_REPLACED)) return true; //TODO Testar REGEX
+        if (telefone.matches(PHONE_REGEX_PATTERN)) return true;
         throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
     }
 }
