@@ -4,38 +4,61 @@ import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.models.dto.ClienteDTO;
 import br.com.twobrothers.msvendas.models.enums.ValidationType;
 import br.com.twobrothers.msvendas.repositories.ClienteRepository;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.*;
 
+@Slf4j
 public class ClienteValidation {
 
     public void validaCorpoRequisicao(ClienteDTO cliente, ClienteRepository repository, ValidationType type) {
+        validaSePossuiAtributosNulos(cliente);
+        validaAtributoNomeCompleto(cliente.getNomeCompleto());
         if (cliente.getDataNascimento() != null) validaAtributoDataNascimento(cliente.getDataNascimento());
-        if (cliente.getNomeCompleto() != null) validaAtributoNomeCompleto(cliente.getNomeCompleto());
         if (cliente.getCpfCnpj() != null) validaAtributoCpfCnpj(cliente.getCpfCnpj(), repository, type);
         if (cliente.getEmail() != null) validaAtributoEmail(cliente.getEmail(), repository, type);
         if (cliente.getTelefone() != null) validaAtributoTelefone(cliente.getTelefone());
-        if (cliente.getIdUsuarioResponsavel() == null)
-            throw new InvalidRequestException("O id do usuário responsável pela " +
-                    "requisição não pode ser nulo");
+        log.warn("[VALIDAÇÃO - CLIENTE] Validação do objeto cliente finalizada com sucesso");
+    }
+
+    public void validaSePossuiAtributosNulos(ClienteDTO cliente) {
+
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação de atributos obrigatórios nulos...");
+        List<String> atributosNulos = new ArrayList<>();
+
+        if (cliente.getNomeCompleto() == null) atributosNulos.add("nomeCompleto");
+        if (cliente.getIdUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
+
+        if (!atributosNulos.isEmpty())
+            throw new InvalidRequestException("Validação do cliente falhou. A inserção de um ou mais atributos " +
+                    "obrigatórios é necessária no corpo da requisição: " + atributosNulos);
+
+        log.warn("Validação de atributos nulos OK");
     }
 
     public void validaAtributoDataNascimento(String dataNascimento) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação do atributo dataNascimento...");
         if (!dataNascimento.matches(DATE_REGEX))
             throw new InvalidRequestException("Validação do cliente falhou. O padrão da data de nascimento enviada é inválido.");
+        log.warn("Validação do atributo dataNascimento OK");
     }
 
     public void validaAtributoNomeCompleto(String nomeCompleto) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação do atributo nomeCompleto...");
         if (nomeCompleto.length() > 70)
             throw new InvalidRequestException("Validação do cliente falhou. O nome completo deve conter menos de 70 caracteres");
+        log.warn("Validação do atributo nomeCompleto OK");
     }
 
-    public boolean validaAtributoCpfCnpj(String cpfCnpj, ClienteRepository repository, ValidationType type) {
-
+    public void validaAtributoCpfCnpj(String cpfCnpj, ClienteRepository repository, ValidationType type) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação do atributo cpfCnpj...");
         if (cpfCnpj.length() == 14 && cpfCnpj.matches(CPF_REGEX_PATTERN)
                 || cpfCnpj.length() == 18 && cpfCnpj.matches(CNPJ_REGEX_PATTERN)) {
             if (type.equals(ValidationType.CREATE) && repository.buscaPorCpfCnpj(cpfCnpj).isEmpty() || type.equals(ValidationType.UPDATE)) {
-                return true;
+                log.info("Validação do atributo cpfCnpj OK");
             } else {
                 throw new InvalidRequestException("O cpf/cnpj enviado já existe em um cadastro de nossa base de dados.");
             }
@@ -44,10 +67,11 @@ public class ClienteValidation {
         }
     }
 
-    public boolean validaAtributoEmail(String email, ClienteRepository repository, ValidationType type) {
+    public void validaAtributoEmail(String email, ClienteRepository repository, ValidationType type) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação do atributo email...");
         if (email.matches(EMAIL_REGEX_PATTERN)) {
             if (type.equals(ValidationType.CREATE) && repository.buscaPorEmail(email).isEmpty() || type.equals(ValidationType.UPDATE)) {
-                return true;
+                log.info("Validação do atributo email OK");
             } else {
                 throw new InvalidRequestException("O e-mail enviado já existe em um cadastro de nossa base de dados.");
             }
@@ -57,7 +81,9 @@ public class ClienteValidation {
     }
 
     public void validaAtributoTelefone(String telefone) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação do atributo telefone...");
         if (!telefone.matches(PHONE_REGEX_PATTERN))
             throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
+        log.info("Validação do atributo email OK");
     }
 }
