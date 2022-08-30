@@ -2,25 +2,41 @@ package br.com.twobrothers.msvendas.validations;
 
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.models.dto.RetiradaDTO;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.DATE_REGEX;
 
+@Slf4j
 public class RetiradaValidation {
 
-    public boolean validaCorpoRequisicao(RetiradaDTO retiradaDTO) {
+    public void validaCorpoRequisicao(RetiradaDTO retiradaDTO) {
         validaSePossuiAtributosNulos(retiradaDTO);
-        return true;
+        if (retiradaDTO.getDataAgendamento() != null) validaAtributoDataAgendamento(retiradaDTO.getDataAgendamento());
+        log.warn("[VALIDAÇÃO - RETIRADA] Validação do objeto retirada finalizada com sucesso");
     }
 
     public void validaSePossuiAtributosNulos(RetiradaDTO retiradaDTO) {
-        if (retiradaDTO.getStatusRetirada() == null
-                || retiradaDTO.getTecnicoEntrada() == null)
-            throw new InvalidRequestException("Alguns atributos obrigatórios devem ser inseridos no corpo da requisição");
+
+        log.info("[VALIDAÇÃO - RETIRADA] Inicializando validação de atributos obrigatórios nulos...");
+        List<String> atributosNulos = new ArrayList<>();
+
+        if (retiradaDTO.getStatusRetirada() == null) atributosNulos.add("statusRetirada");
+        if (retiradaDTO.getTecnicoEntrada() == null) atributosNulos.add("tecnicoEntrada");
+
+        if (!atributosNulos.isEmpty())
+            throw new InvalidRequestException("Validação do abastecimento falhou. A inserção de um ou mais atributos " +
+                    "obrigatórios é necessária no corpo da requisição: " + atributosNulos);
+
+        log.warn("Validação de atributos nulos OK");
+
     }
 
     public void validaAtributoDataAgendamento(String data) {
+        log.info("[VALIDAÇÃO - RETIRADA] Inicializando validação do atributo dataAgendamento...");
 
         LocalDate hoje = LocalDate.now();
 
@@ -36,6 +52,7 @@ public class RetiradaValidation {
         if (dataAgendada.isBefore(hoje))
             throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
 
+        log.warn("Validação do atributo dataAgendamento OK");
     }
 
 }
