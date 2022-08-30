@@ -4,9 +4,9 @@ import br.com.twobrothers.msbalanco.config.ModelMapperConfig;
 import br.com.twobrothers.msbalanco.models.dto.PatrimonioDTO;
 import br.com.twobrothers.msbalanco.models.entities.PatrimonioEntity;
 import br.com.twobrothers.msbalanco.repositories.PatrimonioRepository;
-import br.com.twobrothers.msbalanco.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.msbalanco.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.msbalanco.validations.PatrimonioValidation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static br.com.twobrothers.msbalanco.utils.StringConstants.BARRA_DE_LOG;
+import static br.com.twobrothers.msbalanco.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
+
+@Slf4j
 @Service
 public class PatrimonioService {
 
@@ -29,44 +33,73 @@ public class PatrimonioService {
     PatrimonioValidation validation = new PatrimonioValidation();
 
     public PatrimonioDTO criaNovo(PatrimonioDTO patrimonio) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de criação de patrimonio...");
+
+        log.info("[PROGRESS] Setando data de cadastro do patrimonio...");
         patrimonio.setDataCadastro(LocalDateTime.now());
-        if (validation.validaCorpoDaRequisicao(patrimonio))
-            return modelMapper.mapper().map(repository.save(modelMapper.mapper().map(patrimonio, PatrimonioEntity.class)), PatrimonioDTO.class);
-        throw new InvalidRequestException("Ocorreu uma falha na validação da requisição");
+
+        log.info("[PROGRESS] Inicializando método de validação do patrimônio...");
+        validation.validaCorpoDaRequisicao(patrimonio);
+
+        log.info("[PROGRESS] Persistindo patrimonio na base de dados...");
+        PatrimonioEntity patrimonioEntity = repository.save(modelMapper.mapper().map(patrimonio, PatrimonioEntity.class));
+
+        log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(patrimonioEntity, PatrimonioDTO.class);
     }
 
     public List<PatrimonioDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca por range de data de cadastro...");
 
-        try {
-            List<PatrimonioEntity> patrimonios = repository.buscaPorRangeDeDataCadastro(
-                    (LocalDate.parse(dataInicio)).atTime(0, 0),
-                    (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
+        List<PatrimonioEntity> patrimonios = repository.buscaPorRangeDeDataCadastro(
+                (LocalDate.parse(dataInicio)).atTime(0, 0),
+                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
 
-            if (!patrimonios.isEmpty())
-                return patrimonios.stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
-            throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada no range de datas indicado");
-        } catch (Exception e) {
-            throw new InvalidRequestException("Falha na requisição. Motivo: Padrão de data recebido inválido");
+        if (!patrimonios.isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return patrimonios.stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
         }
 
+        log.error("[ERROR] Não existe nenhuma despesa cadastrada no range de datas indicado");
+        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada no range de datas indicado");
     }
 
     public List<PatrimonioDTO> buscaPorPaginacao(Pageable paginacao) {
-        if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
-                .getContent().stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de patrimônio por paginação...");
+        if (!repository.findAll(paginacao).isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll(paginacao)
+                    .getContent().stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum patrimônio cadastrado na página indicada");
         throw new ObjectNotFoundException("Não existe nenhum patrimônio cadastrado na página indicada");
     }
 
     public List<PatrimonioDTO> buscaPorDescricao(String descricao) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de patrimônio por descrição...");
         List<PatrimonioEntity> patrimonios = repository.buscaPorDescricao(descricao);
-        if (!patrimonios.isEmpty()) return patrimonios
-                .stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+        if (!patrimonios.isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return patrimonios
+                    .stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum patrimônio cadastrado com a descrição recebida pela requisição");
         throw new ObjectNotFoundException("Não existe nenhum patrimônio cadastrado com a descrição passada");
     }
 
     public List<PatrimonioDTO> buscaTodos() {
-        if (!repository.findAll().isEmpty()) return repository.findAll()
-                .stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todos os patrimônios...");
+        if (!repository.findAll().isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll()
+                    .stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum patrimônio cadastrado na base de dados");
         throw new ObjectNotFoundException("Não existe nenhum patrimônio cadastrado");
     }
 
@@ -74,35 +107,45 @@ public class PatrimonioService {
 
         Optional<PatrimonioEntity> patrimonioOptional = repository.findById(id);
 
-        if (patrimonioOptional.isPresent()) {
-
-            PatrimonioEntity patrimonioAtualizado = patrimonioOptional.get();
-
-            if (validation.validaCorpoDaRequisicao(patrimonio)) {
-
-                patrimonioAtualizado.setTipoPatrimonio(patrimonio.getTipoPatrimonio());
-                patrimonioAtualizado.setStatusPatrimonio(patrimonio.getStatusPatrimonio());
-                patrimonioAtualizado.setNome(patrimonio.getNome());
-                patrimonioAtualizado.setDataAgendamento(patrimonio.getDataAgendamento());
-                patrimonioAtualizado.setValor(patrimonio.getValor());
-
-                return modelMapper.mapper().map(repository.save(patrimonioAtualizado), PatrimonioDTO.class);
-
-            }
-
-            throw new InvalidRequestException("Corpo da requisição inválido");
-
+        if (patrimonioOptional.isEmpty()) {
+            log.error("[ERROR] Não existe nenhum patrimônio cadastrado com o id {}", id);
+            throw new ObjectNotFoundException("Não existe nenhum patrimônio cadastrado com o id " + id);
         }
-        throw new ObjectNotFoundException("Não existe nenhum patrimônio cadastrado com o id " + id);
 
+        PatrimonioEntity patrimonioAtualizado = patrimonioOptional.get();
+
+        log.info("[PROGRESS] Inicializando método de validação do objeto PatrimonioDTO...");
+        validation.validaCorpoDaRequisicao(patrimonio);
+
+        log.info("[PROGRESS] Setando atributos no objeto patrimonioAtualizado...");
+
+        patrimonioAtualizado.setTipoPatrimonio(patrimonio.getTipoPatrimonio());
+        patrimonioAtualizado.setStatusPatrimonio(patrimonio.getStatusPatrimonio());
+        patrimonioAtualizado.setNome(patrimonio.getNome());
+        patrimonioAtualizado.setDataAgendamento(patrimonio.getDataAgendamento());
+        patrimonioAtualizado.setValor(patrimonio.getValor());
+
+        log.info("[PROGRESS] Atualizando patrimonio no banco de dados...");
+        PatrimonioEntity patrimonioEntity = repository.save(patrimonioAtualizado);
+
+        log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(patrimonioEntity, PatrimonioDTO.class);
     }
 
     public Boolean deletaPorId(Long id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de remoção de patrimônio por id...");
+
         Optional<PatrimonioEntity> patrimonioOptional = repository.findById(id);
+
         if (patrimonioOptional.isPresent()) {
+            log.info("[PROGRESS] Removendo patrimônio da base de dados...");
             repository.deleteById(id);
+
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return true;
         }
+        log.error("[ERROR] Não existe nenhum patrimônio cadastrado com o id {}", id);
         throw new ObjectNotFoundException("Não existe nenhum patrimônio cadastrado com o id " + id);
     }
 
