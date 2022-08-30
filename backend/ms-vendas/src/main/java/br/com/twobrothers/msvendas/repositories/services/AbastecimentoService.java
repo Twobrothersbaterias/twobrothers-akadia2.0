@@ -48,51 +48,49 @@ public class AbastecimentoService {
         log.info("[STARTING] Iniciando método de criação...");
 
         log.info("[PROGRESS] Validando objeto do tipo AbastecimentoDTO enviado via JSON...");
-        if (validation.validaCorpoRequisicao(abastecimento)) {
+        validation.validaCorpoRequisicao(abastecimento);
 
-            log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idProduto);
-            if (!produtoEstoqueRepository.existsById(idProduto)) {
-                throw new InvalidRequestException("Não existe nenhum produto com o id " + idProduto);
-            }
-
-            log.info("[PROGRESS] Verificando se fornecedor com o id {} existe na base de dados...", idFornecedor);
-            if (!fornecedorRepository.existsById(idFornecedor)) {
-                throw new InvalidRequestException("Não existe nenhum fornecedor com o id " + idFornecedor);
-            }
-
-            log.info("[PROGRESS] Setando data de cadastro no abastecimento: {}", LocalDateTime.now());
-            abastecimento.setDataCadastro(LocalDateTime.now());
-
-            log.info("[PROGRESS] Setando o custo unitário do abastecimento...");
-            abastecimento.setCustoUnitario(abastecimento.getCustoTotal() / abastecimento.getQuantidade());
-
-            log.info("[PROGRESS] Persistindo o abastecimento no banco de dados SEM o produto e SEM o fornecedor...");
-            AbastecimentoEntity abastecimentoEntity =
-                    repository.save(modelMapper.mapper().map(abastecimento, AbastecimentoEntity.class));
-
-            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
-
-            log.info("[PROGRESS] Aumentando a quantidade de produtos em estoque com a quantidade passada no abastecimento...");
-            produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + abastecimento.getQuantidade());
-
-            log.info("[PROGRESS] Adicionando abastecimento ao produto e produto ao abastecimento...");
-            produtoEstoque.addAbastecimento(abastecimentoEntity);
-
-            log.info("[PROGRESS] Persistindo produto no banco de dados com o novo abastecimento na lista...");
-            produtoEstoqueRepository.save(produtoEstoque);
-
-            log.info("[PROGRESS] Adicionando abastecimento ao fornecedor e fornecedor ao abastecimento...");
-            FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
-            fornecedor.addAbastecimento(abastecimentoEntity);
-
-            log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo abastecimento na lista...");
-            fornecedorRepository.save(fornecedor);
-
-            log.info("[PROGRESS] Persistindo novo abastecimento na base de dados com relacionamento bidirecional finalizado...");
-            log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.save(abastecimentoEntity), AbastecimentoDTO.class);
+        log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idProduto);
+        if (!produtoEstoqueRepository.existsById(idProduto)) {
+            throw new InvalidRequestException("Não existe nenhum produto com o id " + idProduto);
         }
-        throw new InvalidRequestException("Houve uma falha na requisição");
+
+        log.info("[PROGRESS] Verificando se fornecedor com o id {} existe na base de dados...", idFornecedor);
+        if (!fornecedorRepository.existsById(idFornecedor)) {
+            throw new InvalidRequestException("Não existe nenhum fornecedor com o id " + idFornecedor);
+        }
+
+        log.info("[PROGRESS] Setando data de cadastro no abastecimento: {}", LocalDateTime.now());
+        abastecimento.setDataCadastro(LocalDateTime.now());
+
+        log.info("[PROGRESS] Setando o custo unitário do abastecimento...");
+        abastecimento.setCustoUnitario(abastecimento.getCustoTotal() / abastecimento.getQuantidade());
+
+        log.info("[PROGRESS] Persistindo o abastecimento no banco de dados SEM o produto e SEM o fornecedor...");
+        AbastecimentoEntity abastecimentoEntity =
+                repository.save(modelMapper.mapper().map(abastecimento, AbastecimentoEntity.class));
+
+        ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
+
+        log.info("[PROGRESS] Aumentando a quantidade de produtos em estoque com a quantidade passada no abastecimento...");
+        produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + abastecimento.getQuantidade());
+
+        log.info("[PROGRESS] Adicionando abastecimento ao produto e produto ao abastecimento...");
+        produtoEstoque.addAbastecimento(abastecimentoEntity);
+
+        log.info("[PROGRESS] Persistindo produto no banco de dados com o novo abastecimento na lista...");
+        produtoEstoqueRepository.save(produtoEstoque);
+
+        log.info("[PROGRESS] Adicionando abastecimento ao fornecedor e fornecedor ao abastecimento...");
+        FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
+        fornecedor.addAbastecimento(abastecimentoEntity);
+
+        log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo abastecimento na lista...");
+        fornecedorRepository.save(fornecedor);
+
+        log.info("[PROGRESS] Persistindo novo abastecimento na base de dados com relacionamento bidirecional finalizado...");
+        log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(repository.save(abastecimentoEntity), AbastecimentoDTO.class);
 
     }
 
