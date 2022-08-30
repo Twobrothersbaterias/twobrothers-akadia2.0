@@ -9,6 +9,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Gabriel Lagrota
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @version 1.0
+ * @since 30-08-22
+ */
 @Repository
 public interface FornecedorRepository extends JpaRepository<FornecedorEntity, Long> {
 

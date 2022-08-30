@@ -1,12 +1,19 @@
 package br.com.twobrothers.msvendas.utils;
 
+/**
+ * @author Gabriel Lagrota
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @version 1.0
+ * @since 30-08-22
+ */
 public class StringConstants {
 
     StringConstants(){}
 
     public static final String CLIENTE_NAO_ENCONTRADO_LOG = "[FALHA]  Cliente não encontrado";
     public static final String FORNECEDOR_NAO_ENCONTRADO_LOG = "[FALHA]  Fornecedor não encontrado";
-    public static final String MICROSERVICE_CONNECTION_FAILED_LOG = "[FAILURE] Installment Microservice connection failed";
 
     public static final String CLIENTE_NAO_ENCONTRADO = "Cliente não encontrado";
     public static final String FORNECEDOR_NAO_ENCONTRADO = "Fornecedor não encontrado";

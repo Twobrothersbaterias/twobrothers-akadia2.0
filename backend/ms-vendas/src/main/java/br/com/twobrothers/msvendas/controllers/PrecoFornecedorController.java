@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.PathParam;
 import java.util.List;
 
+/**
+ * @author Gabriel Lagrota
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @version 1.0
+ * @since 30-08-22
+ */
 @RestController
 @RequestMapping("vendas/preco")
 public class PrecoFornecedorController {
@@ -38,7 +46,7 @@ public class PrecoFornecedorController {
 
     @GetMapping("/pagination")
     public ResponseEntity<List<PrecoFornecedorDTO>> buscaPorPaginacao(
-            @PageableDefault(sort = "dataCadastro", direction = Sort.Direction.ASC, page = 0, size = 5) Pageable paginacao) {
+            @PageableDefault(sort = "dataCadastro", direction = Sort.Direction.ASC, size = 5) Pageable paginacao) {
         return ResponseEntity.ok().body(service.buscaPorPaginacao(paginacao));
     }
 

@@ -10,6 +10,14 @@ import java.util.List;
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.POSTAL_CODE_REGEX_PATTERN;
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.STREET_NUMBER_REGEX_PATTERN;
 
+/**
+ * @author Gabriel Lagrota
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @version 1.0
+ * @since 30-08-22
+ */
 @Slf4j
 public class EnderecoValidation {
 

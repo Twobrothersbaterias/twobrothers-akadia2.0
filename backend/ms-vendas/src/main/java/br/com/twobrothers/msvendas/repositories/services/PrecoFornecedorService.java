@@ -25,6 +25,14 @@ import java.util.stream.Collectors;
 import static br.com.twobrothers.msvendas.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.msvendas.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
 
+/**
+ * @author Gabriel Lagrota
+ * @version 1.0
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @since 30-08-22
+ */
 @Slf4j
 @Service
 public class PrecoFornecedorService {
@@ -48,47 +56,44 @@ public class PrecoFornecedorService {
         log.info("[STARTING] Iniciando método de criação...");
 
         log.info("[PROGRESS] Validando objeto do tipo PrecoFornecedorDTO enviado via JSON...");
-        if (validation.validaCorpoRequisicao(preco)) {
+        validation.validaCorpoRequisicao(preco);
 
-            log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idProduto);
-            if (!produtoEstoqueRepository.existsById(idProduto)) {
-                throw new InvalidRequestException("Não existe nenhum produto com o id " + idProduto);
-            }
-
-            log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idFornecedor);
-            if (!fornecedorRepository.existsById(idFornecedor)) {
-                throw new InvalidRequestException("Não existe nenhum fornecedor com o id " + idFornecedor);
-            }
-
-            log.info("[PROGRESS] Setando data de cadastro no preço: {}", LocalDateTime.now());
-            preco.setDataCadastro(LocalDateTime.now());
-
-            log.info("[PROGRESS] Persistindo o preço no banco de dados SEM o produto e SEM o fornecedor...");
-            PrecoFornecedorEntity precoFornecedorEntity =
-                    repository.save(modelMapper.mapper().map(preco, PrecoFornecedorEntity.class));
-
-            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
-
-            log.info("[PROGRESS] Adicionando preço ao produto e produto ao preço...");
-            produtoEstoque.addPrecoFornecedor(precoFornecedorEntity);
-
-            log.info("[PROGRESS] Persistindo produto no banco de dados com o novo preço na lista...");
-            produtoEstoqueRepository.save(produtoEstoque);
-
-            log.info("[PROGRESS] Adicionando preço ao fornecedor e fornecedor ao preço...");
-            FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
-            fornecedor.addPrecoFornecedor(precoFornecedorEntity);
-
-            log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo preço na lista...");
-            fornecedorRepository.save(fornecedor);
-
-            log.info("[PROGRESS] Persistindo novo preço na base de dados com relacionamento bidirecional...");
-            log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.save(precoFornecedorEntity), PrecoFornecedorDTO.class);
-
+        log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idProduto);
+        if (!produtoEstoqueRepository.existsById(idProduto)) {
+            throw new InvalidRequestException("Não existe nenhum produto com o id " + idProduto);
         }
 
-        throw new InvalidRequestException("A validação da requisição falhou. Verificar corpo da requisição.");
+        log.info("[PROGRESS] Verificando se produto com o id {} existe na base de dados...", idFornecedor);
+        if (!fornecedorRepository.existsById(idFornecedor)) {
+            throw new InvalidRequestException("Não existe nenhum fornecedor com o id " + idFornecedor);
+        }
+
+        log.info("[PROGRESS] Setando data de cadastro no preço: {}", LocalDateTime.now());
+        preco.setDataCadastro(LocalDateTime.now());
+
+        log.info("[PROGRESS] Persistindo o preço no banco de dados SEM o produto e SEM o fornecedor...");
+        PrecoFornecedorEntity precoFornecedorEntity =
+                repository.save(modelMapper.mapper().map(preco, PrecoFornecedorEntity.class));
+
+        ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
+
+        log.info("[PROGRESS] Adicionando preço ao produto e produto ao preço...");
+        produtoEstoque.addPrecoFornecedor(precoFornecedorEntity);
+
+        log.info("[PROGRESS] Persistindo produto no banco de dados com o novo preço na lista...");
+        produtoEstoqueRepository.save(produtoEstoque);
+
+        log.info("[PROGRESS] Adicionando preço ao fornecedor e fornecedor ao preço...");
+        FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
+        fornecedor.addPrecoFornecedor(precoFornecedorEntity);
+
+        log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo preço na lista...");
+        fornecedorRepository.save(fornecedor);
+
+        log.info("[PROGRESS] Persistindo novo preço na base de dados com relacionamento bidirecional...");
+        log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(repository.save(precoFornecedorEntity), PrecoFornecedorDTO.class);
+
     }
 
     public List<PrecoFornecedorDTO> buscaTodos() {
