@@ -2,34 +2,51 @@ package br.com.twobrothers.msvendas.validations;
 
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.models.dto.EntradaOrdemDTO;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.QUANTIDADE_REGEX;
 
+@Slf4j
 public class EntradaOrdemValidation {
 
-    public boolean validaCorpoRequisicao(EntradaOrdemDTO entradaOrdemDTO) {
+    public void validaCorpoRequisicao(EntradaOrdemDTO entradaOrdemDTO) {
         validaSePossuiAtributosNulos(entradaOrdemDTO);
         validaAtributoQuantidade(entradaOrdemDTO.getQuantidade());
         validaAtributoValor(entradaOrdemDTO.getValor());
-        return true;
     }
 
-    public boolean validaSePossuiAtributosNulos(EntradaOrdemDTO entradaOrdemDTO) {
-        if (entradaOrdemDTO.getTipoEntrada() != null
-                && entradaOrdemDTO.getTipoOrdem() != null
-                && entradaOrdemDTO.getQuantidade() != null
-                && entradaOrdemDTO.getValor() != null) return true;
-        throw new InvalidRequestException("Requisição inválida. Um ou mais atributos obrigatórios são nulos.");
+    public void validaSePossuiAtributosNulos(EntradaOrdemDTO entradaOrdemDTO) {
+
+        log.info("[VALIDAÇÃO - ENTRADA] Inicializando validação de atributos obrigatórios nulos...");
+        List<String> atributosNulos = new ArrayList<>();
+
+        if (entradaOrdemDTO.getTipoEntrada() == null) atributosNulos.add("tipoEntrada");
+        if (entradaOrdemDTO.getTipoOrdem() == null) atributosNulos.add("tipoOrdem");
+        if (entradaOrdemDTO.getQuantidade() == null) atributosNulos.add("quantidade");
+        if (entradaOrdemDTO.getValor() == null) atributosNulos.add("valor");
+
+        if (!atributosNulos.isEmpty())
+            throw new InvalidRequestException("Validação da entrada falhou. A inserção de um ou mais atributos " +
+                    "obrigatórios é necessária no corpo da requisição: " + atributosNulos);
+
+        log.warn("Validação de atributos nulos OK");
     }
 
-    public boolean validaAtributoQuantidade(Integer quantidade) {
-        if (quantidade.toString().matches(QUANTIDADE_REGEX)) return true;
-        throw new InvalidRequestException("Atributo quantidade passado na entradaOrdem inválido");
+    public void validaAtributoQuantidade(Integer quantidade) {
+        log.info("[VALIDAÇÃO - ENTRADA] Inicializando validação do atributo quantidade...");
+        if (!quantidade.toString().matches(QUANTIDADE_REGEX))
+            throw new InvalidRequestException("Atributo quantidade passado na entradaOrdem inválido");
+        log.warn("Validação do atributo quantidade OK");
     }
 
-    public boolean validaAtributoValor(Double valor) {
-        if (valor > 0.0 && valor < 99999.0) return true;
-        throw new InvalidRequestException("Atributo valor inválido. O valor deve estar entre 0.0 e 9999.0");
+    public void validaAtributoValor(Double valor) {
+        log.info("[VALIDAÇÃO - ENTRADA] Inicializando validação do atributo valor...");
+        if (valor < 0.0 || valor > 99999.0)
+            throw new InvalidRequestException("Atributo valor inválido. O valor deve estar entre 0.0 e 9999.0");
+        log.warn("Validação do atributo valor OK");
     }
 
 }
