@@ -44,22 +44,18 @@ public class FornecedorService {
         log.info("[PROGRESS] Setando a data de cadastro no fornecedor: {}", LocalDateTime.now());
         fornecedor.setDataCadastro(LocalDateTime.now());
 
-        if (validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE)) {
+        validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE);
 
-            if (fornecedor.getEndereco() != null) {
-                fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
-                enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
-            }
-
-            log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
-            FornecedorEntity fornecedorEntity = repository.save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class));
-
-            log.info("[SUCCESS] Requisição finalizada com sucesso");
-            return modelMapper.mapper().map(fornecedorEntity, FornecedorDTO.class);
+        if (fornecedor.getEndereco() != null) {
+            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
+            enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
         }
 
-        log.info(VALIDACAO_DO_FORNECEDOR_FALHOU_LOG);
-        throw new InvalidRequestException(VALIDACAO_DO_FORNECEDOR_FALHOU);
+        log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
+        FornecedorEntity fornecedorEntity = repository.save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class));
+
+        log.info("[SUCCESS] Requisição finalizada com sucesso");
+        return modelMapper.mapper().map(fornecedorEntity, FornecedorDTO.class);
 
     }
 
@@ -130,41 +126,40 @@ public class FornecedorService {
         log.info("[PROGRESS] Criando o objeto fornecedorAtualizado setagem dos atributos...");
         FornecedorEntity fornecedorAtualizado;
 
+        log.info("[PROGRESS] Iniciando a validação do objeto fornecedor recebido via requisição...");
+        validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.UPDATE);
+
         log.info("[PROGRESS] Verificando se um fornecedor com o id {} já existe na base de dados...", id);
-        if (validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.UPDATE)
-                && fornecedorOptional.isPresent()) {
-
-            fornecedorEncontrado = fornecedorOptional.get();
-            log.warn("[INFO] Fornecedor encontrado: {}", fornecedorEncontrado.getNome());
-
-            log.info("[PROGRESS] Atualizando o fornecedor encontrado com os valores recebidos no corpo da requisição...");
-            fornecedorAtualizado = fornecedorEncontrado;
-            fornecedorAtualizado.setNome(fornecedor.getNome());
-            fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
-            fornecedorAtualizado.setTelefone(fornecedor.getTelefone());
-            fornecedorAtualizado.setEmail(fornecedor.getEmail());
-
-            if (fornecedor.getEndereco() != null) {
-
-                enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
-
-                fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
-                fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
-            }
-            else{
-                fornecedorAtualizado.setEndereco(null);
-            }
-
-            log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
-            repository.save(fornecedorAtualizado);
-
-            log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(fornecedorAtualizado, FornecedorDTO.class);
-
+        if (fornecedorOptional.isEmpty()) {
+            log.info(FORNECEDOR_NAO_ENCONTRADO_LOG);
+            throw new InvalidRequestException(FORNECEDOR_NAO_ENCONTRADO);
         }
 
-        log.info(FORNECEDOR_NAO_ENCONTRADO_LOG);
-        throw new InvalidRequestException(FORNECEDOR_NAO_ENCONTRADO);
+        fornecedorEncontrado = fornecedorOptional.get();
+        log.warn("[INFO] Fornecedor encontrado: {}", fornecedorEncontrado.getNome());
+
+        log.info("[PROGRESS] Atualizando o fornecedor encontrado com os valores recebidos no corpo da requisição...");
+        fornecedorAtualizado = fornecedorEncontrado;
+        fornecedorAtualizado.setNome(fornecedor.getNome());
+        fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
+        fornecedorAtualizado.setTelefone(fornecedor.getTelefone());
+        fornecedorAtualizado.setEmail(fornecedor.getEmail());
+
+        if (fornecedor.getEndereco() != null) {
+            enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
+
+            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
+            fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
+        } else {
+            fornecedorAtualizado.setEndereco(null);
+        }
+
+        log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
+        repository.save(fornecedorAtualizado);
+
+        log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(fornecedorAtualizado, FornecedorDTO.class);
+
     }
 
     public Boolean deletaPorId(Long id) {

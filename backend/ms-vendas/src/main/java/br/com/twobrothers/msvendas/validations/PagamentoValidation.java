@@ -2,27 +2,32 @@ package br.com.twobrothers.msvendas.validations;
 
 import br.com.twobrothers.msvendas.exceptions.InvalidRequestException;
 import br.com.twobrothers.msvendas.models.dto.PagamentoDTO;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static br.com.twobrothers.msvendas.utils.RegexPatterns.DATE_REGEX;
 
+@Slf4j
 public class PagamentoValidation {
 
     public void validaCorpoRequisicaoEmMassa(List<PagamentoDTO> pagamentos) {
-        for (PagamentoDTO pagamentoDTO: pagamentos) {
+        for (PagamentoDTO pagamentoDTO : pagamentos) {
             validaCorpoRequisicao(pagamentoDTO);
         }
+        log.warn("[VALIDAÇÃO - PAGAMENTO] Validação da listas de pagamento finalizada com sucesso");
     }
 
     public void validaCorpoRequisicao(PagamentoDTO pagamentoDTO) {
         validaSePossuiAtributosNulos(pagamentoDTO);
         if (pagamentoDTO.getDataPagamento() != null) validaAtributoDataPagamento(pagamentoDTO.getDataPagamento());
-        if (pagamentoDTO.getDataAgendamento() != null )validaAtributoDataAgendamento(pagamentoDTO.getDataAgendamento());
+        if (pagamentoDTO.getDataAgendamento() != null) validaAtributoDataAgendamento(pagamentoDTO.getDataAgendamento());
+        log.warn("[VALIDAÇÃO - PAGAMENTO] Validação do objeto pagamento finalizada com sucesso");
     }
 
     public void validaSePossuiAtributosNulos(PagamentoDTO pagamentoDTO) {
+        log.info("[VALIDAÇÃO - PAGAMENTO] Inicializando validação de atributos obrigatórios nulos...");
 
         if (pagamentoDTO.getDataAgendamento() != null) {
 
@@ -31,21 +36,23 @@ public class PagamentoValidation {
 
             if (pagamentoDTO.getFormaPagamento() != null)
                 throw new InvalidRequestException("Não é possível cadastrar a forma de pagamento em um agendamento");
-        }
-        else {
+        } else {
             if (pagamentoDTO.getDataAgendamento() != null)
                 throw new InvalidRequestException("Não é possível cadastrar uma data de agendamento em um pagamento que já foi realizado");
 
             if (pagamentoDTO.getFormaPagamento() == null)
-                throw  new InvalidRequestException("A forma de pagamento não pode ser nula");
+                throw new InvalidRequestException("A forma de pagamento não pode ser nula");
         }
 
         if (pagamentoDTO.getValor() == null)
             throw new InvalidRequestException("O campo valor não pode ser nulo");
 
+
+        log.warn("Validação de atributos nulos OK");
     }
 
     public void validaAtributoDataPagamento(String dataPagamento) {
+        log.info("[VALIDAÇÃO - PAGAMENTO] Inicializando validação do atributo dataPagamento...");
 
         LocalDate hoje = LocalDate.now();
 
@@ -61,9 +68,11 @@ public class PagamentoValidation {
         if (dataAgendada.isAfter(hoje))
             throw new InvalidRequestException("Não é possível realizar um pagamento para uma data no futuro");
 
+        log.warn("Validação do atributo dataPagamento OK");
     }
 
     public void validaAtributoDataAgendamento(String dataAgendamento) {
+        log.info("[VALIDAÇÃO - PAGAMENTO] Inicializando validação do atributo dataAgendamento...");
 
         LocalDate hoje = LocalDate.now();
 
@@ -79,6 +88,7 @@ public class PagamentoValidation {
         if (dataAgendada.isBefore(hoje))
             throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
 
+        log.warn("Validação do atributo dataAgendamento OK");
     }
 
 }
