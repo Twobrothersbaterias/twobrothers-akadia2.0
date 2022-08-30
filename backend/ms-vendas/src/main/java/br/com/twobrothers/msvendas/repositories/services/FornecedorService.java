@@ -48,10 +48,7 @@ public class FornecedorService {
 
             if (fornecedor.getEndereco() != null) {
                 fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
-                if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco())) {
-                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
-                    throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
-                }
+                enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
             }
 
             log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
@@ -149,10 +146,7 @@ public class FornecedorService {
 
             if (fornecedor.getEndereco() != null) {
 
-                if (!enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco())) {
-                    log.info(VALIDACAO_DO_ENDERECO_FALHOU_LOG);
-                    throw new InvalidRequestException(VALIDACAO_DO_ENDERECO_FALHOU);
-                }
+                enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
 
                 fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
                 fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
