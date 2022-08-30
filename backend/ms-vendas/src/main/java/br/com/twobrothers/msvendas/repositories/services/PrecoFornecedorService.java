@@ -82,7 +82,7 @@ public class PrecoFornecedorService {
             log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo preço na lista...");
             fornecedorRepository.save(fornecedor);
 
-            log.info("[PROGRESS] Persistindo novo preço na base de dados com relacionamento bidirecional finalizado...");
+            log.info("[PROGRESS] Persistindo novo preço na base de dados com relacionamento bidirecional...");
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(repository.save(precoFornecedorEntity), PrecoFornecedorDTO.class);
 
@@ -92,33 +92,54 @@ public class PrecoFornecedorService {
     }
 
     public List<PrecoFornecedorDTO> buscaTodos() {
-        if (!repository.findAll().isEmpty()) return repository.findAll().stream()
-                .map(x -> modelMapper.mapper().map(x, PrecoFornecedorDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de buscar todos os preços de fornecedor...");
+        if (!repository.findAll().isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll().stream()
+                    .map(x -> modelMapper.mapper().map(x, PrecoFornecedorDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum preço de fornecedor salvo na base de dados");
         throw new ObjectNotFoundException("Não existe nenhum preço salvo na base de dados.");
     }
 
     public List<PrecoFornecedorDTO> buscaPorPaginacao(Pageable paginacao) {
-        if (!repository.findAll(paginacao).isEmpty()) return repository.findAll(paginacao)
-                .getContent().stream().map(x -> modelMapper.mapper().map(x, PrecoFornecedorDTO.class)).collect(Collectors.toList());
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de preço de fornecedor por paginação...");
+        if (!repository.findAll(paginacao).isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return repository.findAll(paginacao)
+                    .getContent().stream().map(x -> modelMapper.mapper().map(x, PrecoFornecedorDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum preço cadastrado na página indicada");
         throw new ObjectNotFoundException("Não existe nenhum preço cadastrado na página indicada");
     }
 
     public List<PrecoFornecedorDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de preço de fornecedor por range de cadastro...");
 
         List<PrecoFornecedorEntity> precos = repository.buscaPorRangeDeDataCadastro(
                 (LocalDate.parse(dataInicio)).atTime(0, 0),
                 (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
 
-        if (!precos.isEmpty())
+        if (!precos.isEmpty()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return precos.stream().map(x -> modelMapper.mapper().map(x, PrecoFornecedorDTO.class)).collect(Collectors.toList());
+        }
+        log.error("[ERROR] Não existe nenhum produto cadastrado no range de datas indicado");
         throw new ObjectNotFoundException("Não existe nenhum produto cadastrado no range de datas indicado");
 
     }
 
     public PrecoFornecedorDTO buscaPorId(Long id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de preço de fornecedor por id...");
         if (repository.findById(id).isPresent()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(repository.findById(id).get(), PrecoFornecedorDTO.class);
         }
+        log.error("[ERROR] Não existe nenhum preço cadastrado no banco de dados com o id {}", id);
         throw new ObjectNotFoundException("Não existe nenhum preço cadastrado no banco de dados com o id " + id);
     }
 
@@ -126,25 +147,37 @@ public class PrecoFornecedorService {
 
         Optional<PrecoFornecedorEntity> precoOptional = repository.findById(id);
 
-        if (precoOptional.isPresent()) {
-
-            PrecoFornecedorEntity precoAtualizado = precoOptional.get();
-
-            if (validation.validaCorpoRequisicao(preco)) {
-                precoAtualizado.setValor(preco.getValor());
-                precoAtualizado.setObservacao(preco.getObservacao());
-                return modelMapper.mapper().map(repository.save(precoAtualizado), PrecoFornecedorDTO.class);
-            }
-            throw new InvalidRequestException("Requisição inválida.");
+        if (precoOptional.isEmpty()) {
+            log.error("[ERROR] Nenhum preço foi encontrado com o id {}", id);
+            throw new ObjectNotFoundException("Nenhum preço foi encontrado com o id " + id);
         }
-        throw new ObjectNotFoundException("Nenhum preço foi encontrado com o id " + id);
+
+        log.info("[PROGRESS] Iniciando classe de validação de preço de fornecedor...");
+        validation.validaCorpoRequisicao(preco);
+
+        log.info("[PROGRESS] Atribuindo valor do objeto preco recebido pelo requisição ao objeto precoAtualizado...");
+        PrecoFornecedorEntity precoAtualizado = precoOptional.get();
+
+        log.info("[PROGRESS] Atualizando PrecoFornecedorDTO com os valores recebidos via requisição...");
+
+        precoAtualizado.setValor(preco.getValor());
+        precoAtualizado.setObservacao(preco.getObservacao());
+
+        log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(repository.save(precoAtualizado), PrecoFornecedorDTO.class);
+
+
     }
 
     public Boolean deletaPorId(Long id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de remoção de preço de fornecedor por id...");
         if (repository.findById(id).isPresent()) {
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
             repository.delete(repository.findById(id).get());
             return true;
         }
+        log.error("[ERROR] Não existe nenhum preço de fornecedor cadastrado com o id {}", id);
         throw new ObjectNotFoundException("Nenhum preço foi encontrado com o id " + id);
     }
 
