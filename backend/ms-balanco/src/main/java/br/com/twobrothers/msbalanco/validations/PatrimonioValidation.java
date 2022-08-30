@@ -16,6 +16,7 @@ public class PatrimonioValidation {
     public void validaCorpoDaRequisicao(PatrimonioDTO patrimonio) {
         validaSePossuiAtributosNulos(patrimonio);
         if (patrimonio.getDataAgendamento() != null) validaAtributoDataAgendamento(patrimonio.getDataAgendamento());
+        log.warn("[VALIDAÇÃO - PATRIMONIO] Validação do objeto patrimonio finalizada com sucesso");
     }
 
     public void validaSePossuiAtributosNulos(PatrimonioDTO patrimonio) {
