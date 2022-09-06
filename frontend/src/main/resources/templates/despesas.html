@@ -22,12 +22,12 @@
 
 		<div class="row main-row" id="main_row">
 
-				<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
-				<div class="container side_menu" id="side_menu">	
+			<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
+			<div class="container side_menu" id="side_menu">	
 
 					<div class="row side_menu_row" id="side_menu_row">
 
-						<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8" id="div_aside_principal" onmouseover="animateMenu('principal')" onmouseleave="returnMenuState('principal')">
+						<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal" onmouseover="animateMenu('principal')" onmouseleave="returnMenuState('principal')">
 
 							<a th:href="@{/}" class="row aside_clicavel">
 
@@ -39,7 +39,7 @@
 
 						</div>
 
-						<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8" id="div_aside_balanco" onmouseover="animateMenu('balanco')" onmouseleave="returnMenuState('balanco')">
+						<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco" onmouseover="animateMenu('balanco')" onmouseleave="returnMenuState('balanco')">
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -49,7 +49,7 @@
 							
 						</div>
 
-						<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8" id="div_aside_estatisticas" onmouseover="animateMenu('estatisticas')" onmouseleave="returnMenuState('estatisticas')">
+						<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas" onmouseover="animateMenu('estatisticas')" onmouseleave="returnMenuState('estatisticas')">
 							
 							<a th:href="@{/entradas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -59,7 +59,7 @@
 
 						</div>
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8" id="div_aside_despesas">
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
 							<a th:href="@{/despesas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -69,17 +69,17 @@
 
 						</div>
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8" id="div_aside_despesas">
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
 							<a th:href="@{/despesas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/expenses-white.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/expenses-green.png" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
 						</div>
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8" id="div_aside_despesas">
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
 							<a th:href="@{/despesas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -89,7 +89,7 @@
 
 						</div>					
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8" id="div_aside_despesas">
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
 							<a th:href="@{/despesas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -99,7 +99,7 @@
 
 						</div>			
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8" id="div_aside_despesas">
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
 							<a th:href="@{/despesas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -112,7 +112,7 @@
 					</div>
 
 					<div class="row last">
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 ">
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 							
 							<a th:href="@{/despesas}" class="row aside_clicavel">
 								<button type="button" class="img_button">
@@ -123,29 +123,123 @@
 						</div>	
 					</div>
 
-				</div>
+			</div>
 
-			<main class="container main col-xl-11 col-lg-11 col-md-12 col-sm-12 col-12" id="main">
+			<main class="container main" id="main">
 
 				<!-- Menu superior 1 -->
-				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
 
-					<ul class="menu_superior_1_ul col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12">
+					<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11">
 
 						<!--<li class="col-xl-1">
 							<img src="../static/img/logo.png" class="img_logo"/>
 						</li>-->
-						<li class="col-xl-8 li_menu_principal"></li>
-						<li class="col-xl-4 li_nome_perfil">Olá, Fulano de tal</li>
+						<li class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-6 li_menu_principal"></li>
+						<li class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 li_nome_perfil" id="nome_perfil">Olá, Guilherme</li>
 
 					</ul>	
-
 				</div>
+
+				<!-- Menu superior mobile -->
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/home-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/people-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/bag-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/box-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>		
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/expenses-green.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/pie-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/banknotes-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/collab-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/faq-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>																																							
+
+				</div>					
 
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
 					<!-------------- CONTEUDO_CONTAINER ------------>
-					<div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_container" id="conteudo_container">
+					<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
 
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
@@ -161,32 +255,58 @@
 								<p th:text="${SucessoDelete}"></p>
 							</div>										
 
-							<h1 class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo_text" id="conteudo_titulo_text">
+							<h1 class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 conteudo_titulo_text" id="conteudo_titulo_text">
 								Despesas
 							</h1>
 
-							<div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+							<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-9"></div>
 
-							<div class="img_div col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img class="col-xl-3 img" src="../static/img/add-white.png"/>
-								<img class="col-xl-3 img" src="../static/img/refresh-gray.png"/>
-								<img class="col-xl-3 img" src="../static/img/line-gray.png"/>
-								<img class="col-xl-3 img" src="../static/img/filter-gray.png"/>
+							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" onclick="novaDespesa()"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/refresh-gray.png"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png"/>
+
 							</div>							
-
 						</div>
 
 						<hr>
 
+						<div class="row informativos_row" id="informativo_row">
 
+							<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_pago">
+								<div class="informativo_chave">
+									Pago: 
+								</div>
+								<div class="informativo_valor">
+									R$ 1.150.000,00
+								</div>	
+							</div>
 
+							<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_pendente">
+								<div class="informativo_chave">
+									Pendente: 
+								</div>
+								<div class="informativo_valor">
+									R$ 1.150.000,00
+								</div>	
+							</div>
 
+							<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_hoje">
+								<div class="informativo_chave">
+									A pagar hoje: 
+								</div>
+								<div class="informativo_valor">
+									0
+								</div>	
+							</div>			
+		
+						</div>
 
-
-
-						<div class="row col-xl-12 row_tabela_all">
+						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 row_tabela_all">
 							
-							<div class="col-xl-12 col-lg-11 col-md-11 col-sm-12 col-12 tabela_all" id="tabela_all">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 tabela_all" id="tabela_all">
 
 								<table class="tabela col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tabela">
 
@@ -194,15 +314,14 @@
 
 											<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
 
-												<th class="th th_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Data</th>
+												<th class="th th_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">Data</th>
 												<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Descrição</th>
-												<th class="th th_valor col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">Valor</th>
+												<th class="th th_valor col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Valor</th>
 												<th class="th th_forma col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" id="th_forma">Tipo</th>
 												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Status</th>
-												<th class="th col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Agendado</th>
-												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
-													
-												</th>												
+												<th class="th col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Data ag.</th>
+												<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+												</th>											
 
 											</tr>	
 									</thead>
@@ -211,34 +330,11 @@
 
 										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
 											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
 											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
+											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 											
 											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 											
@@ -246,152 +342,22 @@
 											
 											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
+											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
+												<form class="form_remove_img" id="form_remove_img">
+													<button type="submit" class="col-lg-12 btn_excluir_img">
+														<img src="../static/img/minus-green.png" class="excluir_img" id="excluir_img">
+													</button>
+												</form>											
+												<form class="form_remove_text" id="form_remove_text">
+													<button type="submit" class="col-lg-12 btn_excluir">														
+														<div class="excluir_text" id="excluir_text">
+															Excluir
+														</div>
 													</button>
 												</form>
 											</td>
 
-										</tr>
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>										
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>
-
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_description td_col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">...</td>
-											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			<form>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														Excluir
-													</button>
-												</form>
-											</td>
-
-										</tr>																						
+										</tr>																																																			
 									</tbody>	
 										
 								</table>
@@ -403,9 +369,9 @@
 						<!-- Início da paginação -->
 						<div class="row page_row">
 
-							<div class="col-xs-11 col-lg-11 col-md-11 pages">
+							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
 
-								<ul class="ul col-xs-12 col-lg-12 col-md-12">
+								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
 										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page-1})}" class="li_a page_click" id="anterior" onmouseover="animateButton('anterior')" onmouseleave="animateButtonLeave('anterior')">
@@ -429,8 +395,44 @@
 
 							</div>
 						</div><!-- PAGE_ROW-->
+					</div>
 
-					</div> <!-- Fim da paginação -->
+					<!-------------- NOVA_DESPESA ------------>
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 conteudo_container_novo" id="conteudo_container_novo" hidden=true>
+						
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+
+							<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+								<p th:text="${SucessoCadastro}"></p>
+							</div>
+
+							<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
+								<p th:text="${ErroCadastro}"></p>
+							</div>								
+
+							<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
+								<p th:text="${SucessoDelete}"></p>
+							</div>										
+
+							<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text" id="conteudo_titulo_text">
+								Nova despesa
+							</h1>
+
+							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+
+							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+								<img class="col-xl-5 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/back-green.png" onclick="fechaNovaDespesa()"/>
+
+							</div>						
+						</div>
+
+						<hr>						
+
+
+
+					</div>	
+
 
 				</div>
 
