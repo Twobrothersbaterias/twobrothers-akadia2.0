@@ -21,7 +21,7 @@ import java.util.List;
  * @since 30-08-22
  */
 @RestController
-@RequestMapping("/despesas")
+@RequestMapping("api/despesas")
 public class DespesaController {
 
     @Autowired
@@ -29,6 +29,7 @@ public class DespesaController {
 
     @PostMapping
     public ResponseEntity<DespesaDTO> novaDespesa(@RequestBody DespesaDTO despesa) {
+        System.err.println(despesa);
         return ResponseEntity.ok().body(service.criaNovaDespesa(despesa));
     }
 

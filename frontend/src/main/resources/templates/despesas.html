@@ -10,9 +10,13 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
-		<link href="../static/css/reset.css" rel="stylesheet" />
+		<!--<link href="../static/css/reset.css" rel="stylesheet" />
 		<link href="../static/css/despesas.css" rel="stylesheet" />
-		<link rel="icon" href="../static/img/logo.png" type="image/gif" sizes="32x32">
+		<link rel="icon" href="../static/img/logo.png" type="image/gif" sizes="32x32">-->
+		
+		<link th:href="@{css/reset.css}" rel="stylesheet" />
+		<link th:href="@{css/despesas.css}" rel="stylesheet" />
+		<link rel="icon" th:href="@{img/logo.png}" type="image/gif" sizes="32x32">
 
 		<title>VALT | Despesas</title>
 
@@ -29,10 +33,10 @@
 
 						<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal" onmouseover="animateMenu('principal')" onmouseleave="returnMenuState('principal')">
 
-							<a th:href="@{/}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 
 								<button type="button" class="img_button">
-									<img src="../static/img/home-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/home-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>	
 							
 							</a>
@@ -43,7 +47,7 @@
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/people-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/people-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 							
@@ -51,9 +55,9 @@
 
 						<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas" onmouseover="animateMenu('estatisticas')" onmouseleave="returnMenuState('estatisticas')">
 							
-							<a th:href="@{/entradas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/bag-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/bag-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -61,9 +65,9 @@
 
 						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
-							<a th:href="@{/despesas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/box-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/box-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -71,9 +75,9 @@
 
 						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
-							<a th:href="@{/despesas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/expenses-green.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/expenses-green.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -81,9 +85,9 @@
 
 						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
-							<a th:href="@{/despesas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/pie-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/pie-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -91,9 +95,9 @@
 
 						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
-							<a th:href="@{/despesas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/banknotes-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/banknotes-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -101,9 +105,9 @@
 
 						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
 							
-							<a th:href="@{/despesas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/collab-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/collab-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -114,9 +118,9 @@
 					<div class="row last">
 						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 							
-							<a th:href="@{/despesas}" class="row aside_clicavel">
+							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img src="../static/img/faq-gray.png" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img th:src="@{img/faq-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -146,9 +150,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/home-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/home-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -156,9 +160,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/people-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/people-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -166,9 +170,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/bag-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/bag-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -176,9 +180,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/box-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/box-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -186,9 +190,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/expenses-green.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/expenses-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -196,9 +200,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/pie-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/pie-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -206,9 +210,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/banknotes-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/banknotes-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -216,9 +220,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/collab-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/collab-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -226,9 +230,9 @@
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/faq-gray.png" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img th:src="@{img/faq-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -243,7 +247,7 @@
 
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
-							<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+							<!-- <div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
 								<p th:text="${SucessoCadastro}"></p>
 							</div>
 
@@ -253,7 +257,7 @@
 
 							<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
 								<p th:text="${SucessoDelete}"></p>
-							</div>										
+							</div>	-->									
 
 							<h1 class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 conteudo_titulo_text" id="conteudo_titulo_text">
 								Despesas
@@ -263,10 +267,10 @@
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" onclick="abrirNovaDespesa()"/>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/refresh-gray.png"/>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"/>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/add-green.png}" onclick="abrirNovaDespesa()"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/refresh-gray.png}"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/line-gray.png}"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/filter-gray.png}"/>
 
 							</div>							
 						</div>
@@ -328,7 +332,9 @@
 
 									<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">		
 
-										<tr th:if="${liabilities == ''}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<!--<tr th:if="${liabilities == ''}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
+
+										<tr class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
 
 											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
 											
@@ -345,7 +351,7 @@
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form class="form_remove_img" id="form_remove_img">
 													<button type="submit" class="col-lg-12 btn_excluir_img">
-														<img src="../static/img/minus-green.png" class="excluir_img" id="excluir_img">
+														<img th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
 													</button>
 												</form>											
 												<form class="form_remove_text" id="form_remove_text">
@@ -357,7 +363,7 @@
 												</form>
 											</td>
 
-										</tr>																																																			
+										</tr>																		
 									</tbody>	
 										
 								</table>
@@ -374,21 +380,26 @@
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page-1})}" class="li_a page_click" id="anterior">
+										<!--<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page-1})}" class="li_a page_click" id="anterior">-->
+										<a href="#" class="li_a page_click" id="anterior">			
 											Anterior
 										</a>
 									</li>
 
-									<div th:text="${page}" th:value="${page}" id="pegando_page" style="display:none"></div>
+									<!--<div th:text="${page}" th:value="${page}" id="pegando_page" style="display:none"></div>-->
+									<div id="pegando_page" style="display:none"></div>				
 
-									<li th:each="pageNumber : ${pageNumbers}" class="li page page_li">
+									<!--<li th:each="pageNumber : ${pageNumbers}" class="li page page_li">-->
+									<li class="li page page_li">										
 
-										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${pageNumber})}" class="li_a page_number page_click" th:text="${pageNumber}">1</a>
+										<!--<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${pageNumber})}" class="li_a page_number page_click" th:text="${pageNumber}">1</a>-->
+										<a href="#" class="li_a page_number page_click">1</a>										
 
 									</li>
 
 									<li class="li page">
-										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page}+1)}" class="li_a page_click" id="proxima">Próximo</a>
+										<!--<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page}+1)}" class="li_a page_click" id="proxima">Próximo</a>-->
+										<a href="#" class="li_a page_click" id="proxima">Próximo</a>										
 									</li>
 
 								</ul>
@@ -410,9 +421,9 @@
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" onclick="fechaNovaDespesa()"/>
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/back-green.png}" onclick="fechaNovaDespesa()"/>
 
-								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" onclick="fechaNovaDespesa()"/>								
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/refresh-gray.png}" onclick="fechaNovaDespesa()"/>								
 							</div>	
 
 						</div>
@@ -514,6 +525,6 @@
 			<div class="loader"></div>
 		</div>
 
-		<script type="text/javascript" src="../static/js/despesas.js" defer></script>
+		<script type="text/javascript" th:src="@{js/despesas.js}" defer></script>
 	</body>
 </html>		

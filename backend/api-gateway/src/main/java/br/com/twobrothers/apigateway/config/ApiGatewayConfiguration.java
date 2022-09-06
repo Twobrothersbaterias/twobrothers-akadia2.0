@@ -13,10 +13,12 @@ public class ApiGatewayConfiguration {
 
         return builder.routes()
                 .route(p -> p.path("/despesas/**")
+                        .uri("lb://frontend"))
+                .route(p -> p.path("/api/despesas/**")
                         .uri("lb://ms-despesas"))
-                .route(p -> p.path("/patrimonio/**")
+                .route(p -> p.path("/api/patrimonio/**")
                         .uri("lb://ms-balanco"))
-                .route(p -> p.path("/vendas/**")
+                .route(p -> p.path("/api/vendas/**")
                         .uri("lb://ms-vendas"))
                 .build();
 
