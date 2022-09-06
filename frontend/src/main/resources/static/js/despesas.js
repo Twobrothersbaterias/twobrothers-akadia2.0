@@ -21,6 +21,15 @@ function responsive(){
 	var menuMobile = document.getElementById('menu_superior_mobile');
 	var informativoRow = document.getElementById('informativo_row');
 	var excluirText = document.getElementById('excluir_text');
+	var containerNovo = document.getElementById('conteudo_container_novo');	
+	var novoTitulo	= document.getElementById('novo_titulo');
+
+	var firstBlock = document.getElementById('nova_despesa_first_block');
+	var fourthBlock = document.getElementById('nova_despesa_fourth_block');
+	var thirdBlock = document.getElementById('nova_despesa_third_block');
+	var seventhBlock = document.getElementById('nova_despesa_seventh_block');	
+	var novaDespesaSegundaRow = document.getElementById('nova_despesa_segunda_row');
+	var novaDespesaSubmit = document.getElementById('nova_despesa_submit');
 
 	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
@@ -32,6 +41,7 @@ function responsive(){
 	var formRemoveText = document.getElementsByClassName('form_remove_text');
 	var liA = document.getElementsByClassName('li_a');
 	var menuSuperiorMobileItem = document.getElementsByClassName('menu_superior_mobile_item');
+	var novaDespesaInput = document.getElementsByClassName('nova_despesa_input');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
@@ -44,6 +54,11 @@ function responsive(){
 		menuSuperior.style.height="55px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
+		novaDespesaSegundaRow.style.marginTop="20px"
+		novaDespesaSegundaRow.style.marginBottom="25px";
+		containerNovo.style.fontSize="1rem";		
+		novoTitulo.style.fontSize="1.5rem";	
+		novaDespesaSubmit.style.marginTop="0px";			
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.95rem";
@@ -84,6 +99,11 @@ function responsive(){
 		menuSuperior.style.height="50px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
+		novaDespesaSegundaRow.style.marginTop="20px"
+		novaDespesaSegundaRow.style.marginBottom="25px";	
+		containerNovo.style.fontSize="1rem";
+		novoTitulo.style.fontSize="1.3rem";	
+		novaDespesaSubmit.style.marginTop="0px";							
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.95rem";
@@ -121,7 +141,7 @@ function responsive(){
 	
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');
+		console.log('Médio');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -138,6 +158,12 @@ function responsive(){
 		menuSuperior.style.height="50px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
+		novaDespesaSegundaRow.style.marginTop="20px"
+		novaDespesaSegundaRow.style.marginBottom="25px";
+		containerNovo.style.fontSize="1rem";		
+		novoTitulo.style.fontSize="1.2rem";
+		novaDespesaSubmit.style.marginTop="0px";	
+
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.85rem";
@@ -172,7 +198,7 @@ function responsive(){
 		}				
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');
+		console.log('Pequeno');	
 
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -181,6 +207,11 @@ function responsive(){
 		menuSuperior.style.height="45px";
 		menuMobile.style.display="flex";
 		informativoRow.style.justifyContent="center";
+		novaDespesaSegundaRow.style.marginTop="20px"
+		novaDespesaSegundaRow.style.marginBottom="25px";	
+		containerNovo.style.fontSize="0.90rem";	
+		novoTitulo.style.fontSize="1.2rem";		
+		novaDespesaSubmit.style.marginTop="0px";
 
 		for(var i = 0; i < th.length; i++) {
 			th[i].style.fontSize="0.75rem";
@@ -222,6 +253,10 @@ function responsive(){
 			}
 		}
 
+		for(var i = 0; i < novaDespesaInput.length; i++) {
+			novaDespesaInput[i].style.marginBottom="0";
+		}		
+
 	}
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
@@ -232,6 +267,10 @@ function responsive(){
 		nomePerfil.style.fontSize="1rem";
 		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
+		novaDespesaSegundaRow.style.margin="0";	
+		containerNovo.style.fontSize="0.90rem";
+		novoTitulo.style.fontSize="1.2rem";
+		novaDespesaSubmit.style.marginTop="5px";	
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.65rem";
@@ -273,6 +312,10 @@ function responsive(){
 			}
 		}		
 
+		for(var i = 0; i < novaDespesaInput.length; i++) {
+			novaDespesaInput[i].style.marginBottom="15px";
+		}
+
 	}
 
 }
@@ -291,7 +334,7 @@ function hideMessage() {
 	}
 }
 
-function novaDespesa() {
+function abrirNovaDespesa() {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');

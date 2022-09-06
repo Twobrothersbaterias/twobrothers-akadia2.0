@@ -263,7 +263,7 @@
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" onclick="novaDespesa()"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" onclick="abrirNovaDespesa()"/>
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/refresh-gray.png"/>
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"/>
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png"/>
@@ -374,7 +374,7 @@
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page-1})}" class="li_a page_click" id="anterior" onmouseover="animateButton('anterior')" onmouseleave="animateButtonLeave('anterior')">
+										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page-1})}" class="li_a page_click" id="anterior">
 											Anterior
 										</a>
 									</li>
@@ -388,7 +388,7 @@
 									</li>
 
 									<li class="li page">
-										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page}+1)}" class="li_a page_click" id="proxima" onmouseover="animateButton('proxima')" onmouseleave="animateButtonLeave('proxima')">Próximo</a>
+										<a th:href="@{__${baseUrl}__/despesas(year=${year}, month=${month}, page=${page}+1)}" class="li_a page_click" id="proxima">Próximo</a>
 									</li>
 
 								</ul>
@@ -398,23 +398,11 @@
 					</div>
 
 					<!-------------- NOVA_DESPESA ------------>
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 conteudo_container_novo" id="conteudo_container_novo" hidden=true>
+					<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden=true>
 						
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
-							<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
-								<p th:text="${SucessoCadastro}"></p>
-							</div>
-
-							<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
-								<p th:text="${ErroCadastro}"></p>
-							</div>								
-
-							<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
-								<p th:text="${SucessoDelete}"></p>
-							</div>										
-
-							<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text" id="conteudo_titulo_text">
+							<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_nova_despesa" id="novo_titulo">
 								Nova despesa
 							</h1>
 
@@ -422,12 +410,94 @@
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img class="col-xl-5 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/back-green.png" onclick="fechaNovaDespesa()"/>
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" onclick="fechaNovaDespesa()"/>
 
-							</div>						
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" onclick="fechaNovaDespesa()"/>								
+							</div>	
+
 						</div>
 
-						<hr>						
+						<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+						<form class="nova_despesa_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+							<div class="nova_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_primeira_row">
+
+								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_first_block">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Tipo
+									</label>
+									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<option>Fixo</option>
+										<option>Variável</option>
+									</select>
+								</div>										
+
+								<div class="nova_despesa_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="nova_despesa_second_block">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Descrição
+									</label>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text"/>
+								</div>							
+
+								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_third_block">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Valor
+									</label>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number"/>
+								</div>
+
+							</div>
+
+							<div class="nova_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_segunda_row">
+
+								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12"  id="nova_despesa_fourth_block" >
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Status
+									</label>
+									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<option>Pago</option>
+										<option>Pendente</option>
+									</select>
+								</div>										
+
+								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_fifth_block">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Data pgto.
+									</label>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"type="date"/>
+								</div>							
+
+								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_sixth_block">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Agendamento
+									</label>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date"/>
+								</div>	
+
+								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_seventh_block">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Persistência
+									</label>
+									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<option>Não</option>
+										<option>Um mês</option>
+										<option>Um trimestre</option>
+										<option>Um semestre</option>
+										<option>Um ano</option>
+									</select>
+								</div>																	
+
+							</div>	
+
+							<div class="nova_despesa_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_third_row">
+
+								<button class="nova_despesa_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="nova_despesa_submit">
+									Salvar
+								</button>	
+
+							</div>																				
+						</form>			
 
 
 
