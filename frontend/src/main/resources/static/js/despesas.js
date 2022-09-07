@@ -370,6 +370,23 @@ function fechaNovaDespesa() {
 	var sideMenu = document.getElementById('side_menu');	
 
 	var containerNovo = document.getElementById('conteudo_container_novo');	
+
+	var descricaoDespesaInput = document.getElementById('descricao_despesa_input');
+	var valorDespesaInput = document.getElementById('valor_despesa_input');
+	var tipoDespesaInput = document.getElementById('tipo_despesa_input');
+	var statusDespesaInput = document.getElementById('status_despesa');
+	var dataPagamentoInput = document.getElementById('data_pagamento_input');
+	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
+	var persistenciaInput = document.getElementById('persistencia_input');
+
+
+	descricaoDespesaInput.value="";
+	valorDespesaInput.value="";
+	statusDespesaInput.value="PAGO";
+	dataPagamentoInput.value="";
+	dataAgendamentoInput.value="";
+	persistenciaInput.value="NAO";
+	tipoDespesaInput.value="FIXO";
 	
 	containerNovo.hidden=true;
 
@@ -388,5 +405,54 @@ function fechaNovaDespesa() {
 	sideMenu.style.opacity="1";
 	sideMenu.style.transition="1s";
 	sideMenu.style.pointerEvents="auto";		
+}
+
+function changeStatus() {
+
+	var statusDespesa = document.getElementById('status_despesa');
+
+	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
+	var dataPagamentoInput = document.getElementById('data_pagamento_input');	
+
+	if (statusDespesa.value == "PAGO") {
+		dataAgendamentoInput.style.color="#4444";
+		dataAgendamentoInput.value="";
+		dataAgendamentoInput.disabled=true;
+
+		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.disabled=false;
+	} 
+
+	else if(statusDespesa.value == "PENDENTE") {
+		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.disabled=false;
+
+		dataPagamentoInput.style.color="#4444";
+		dataPagamentoInput.value="";
+		dataPagamentoInput.disabled=true;
+	}
 
 }
+
+function reloadNovaDespesa() {
+
+	var descricaoDespesaInput = document.getElementById('descricao_despesa_input');
+	var tipoDespesaInput = document.getElementById('tipo_despesa_input');
+	var valorDespesaInput = document.getElementById('valor_despesa_input');
+	var statusDespesaInput = document.getElementById('status_despesa');
+	var dataPagamentoInput = document.getElementById('data_pagamento_input');
+	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
+	var persistenciaInput = document.getElementById('persistencia_input');
+
+	descricaoDespesaInput.value="";
+	valorDespesaInput.value="";
+	tipoDespesaInput.value="FIXO";
+	statusDespesaInput.value="PAGO";
+	dataPagamentoInput.value="";
+	dataAgendamentoInput.value="";
+	persistenciaInput.value="NAO";	
+
+}
+
+
+

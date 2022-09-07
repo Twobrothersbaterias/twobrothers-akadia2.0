@@ -1,5 +1,6 @@
 package br.com.twobrothers.msdespesas.models.entities;
 
+import br.com.twobrothers.msdespesas.models.enums.PersistenciaEnum;
 import br.com.twobrothers.msdespesas.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.msdespesas.models.enums.TipoDespesaEnum;
 import lombok.*;
@@ -40,6 +41,9 @@ public class DespesaEntity {
 
     @Enumerated(EnumType.STRING)
     private TipoDespesaEnum tipoDespesa;
+
+    @Enumerated(EnumType.STRING)
+    private PersistenciaEnum persistencia;
 
     private Long idUsuarioResponsavel;
 

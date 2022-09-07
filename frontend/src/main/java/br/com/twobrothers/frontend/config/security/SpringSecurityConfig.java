@@ -1,11 +1,13 @@
 package br.com.twobrothers.frontend.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author Gabriel Lagrota
@@ -19,11 +21,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //TODO CONFIGURAR CLASSE DE SEGURANÇA PARA AUTENTICAR COM TOKEN QUE DEVE SER CRIADO NA TELA DE LOGIN
+    @Autowired
+    private AutenticacaoService autenticacaoService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Construir
+        auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
@@ -31,14 +34,24 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/despesas/**").permitAll()
-                .anyRequest().permitAll();
-        http.cors().and().csrf().disable();
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/login?logout")
+                .permitAll();
+//                .anyRequest().permitAll();
+//        http.cors().and().csrf().disable();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Construir
     }
+
 
 
 }

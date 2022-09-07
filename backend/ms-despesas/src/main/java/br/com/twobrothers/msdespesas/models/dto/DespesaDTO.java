@@ -1,5 +1,6 @@
 package br.com.twobrothers.msdespesas.models.dto;
 
+import br.com.twobrothers.msdespesas.models.enums.PersistenciaEnum;
 import br.com.twobrothers.msdespesas.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.msdespesas.models.enums.TipoDespesaEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -37,6 +38,7 @@ public class DespesaDTO {
     private Double valor;
     private StatusDespesaEnum statusDespesa;
     private TipoDespesaEnum tipoDespesa;
+    private PersistenciaEnum persistencia;
 
     private Long idUsuarioResponsavel;
 

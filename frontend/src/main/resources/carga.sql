@@ -1,0 +1,1 @@
+INSERT INTO tb_usuario(nome, nome_usuario, senha) VALUES('Gabriel', 'admin', '$2a$10$/uDkd5sxwtA3Pe5GAUXoKeA56nK9HVQoLYdY/GUyVtLiF3ag5Q30W');

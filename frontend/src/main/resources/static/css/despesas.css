@@ -529,6 +529,14 @@ hr{
     color: #C3C8C8;
 }
 
+#nova_despesa_label_agendamento {
+    color: #82A886;
+}
+
+#data_agendamento_input {
+    color: #4444;
+}
+
 option {
     color: #212121;
 }

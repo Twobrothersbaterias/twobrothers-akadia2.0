@@ -423,14 +423,14 @@
 
 								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/back-green.png}" onclick="fechaNovaDespesa()"/>
 
-								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/refresh-gray.png}" onclick="fechaNovaDespesa()"/>								
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/refresh-gray.png}" onclick="reloadNovaDespesa()"/>								
 							</div>	
 
 						</div>
 
 						<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-						<form class="nova_despesa_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<form th:action="@{despesas}" method="POST" th:object="${despesa}" class="nova_despesa_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 							<div class="nova_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_primeira_row">
 
@@ -438,9 +438,9 @@
 									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Tipo
 									</label>
-									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-										<option>Fixo</option>
-										<option>Variável</option>
+									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input" required>
+										<option value="FIXO">Fixo</option>
+										<option value="VARIAVEL">Variável</option>
 									</select>
 								</div>										
 
@@ -448,14 +448,14 @@
 									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Descrição
 									</label>
-									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text"/>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input" required/>
 								</div>							
 
 								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_third_block">
-									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="valor_despesa_input">
 										Valor
 									</label>
-									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number"/>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" required/>
 								</div>
 
 							</div>
@@ -466,36 +466,36 @@
 									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Status
 									</label>
-									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-										<option>Pago</option>
-										<option>Pendente</option>
+									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="changeStatus()" name="statusDespesa" id="status_despesa" required>
+										<option value="PAGO">Pago</option>
+										<option value="PENDENTE">Pendente</option>
 									</select>
 								</div>										
 
 								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_fifth_block">
-									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_label_data_pagamento">
 										Data pgto.
 									</label>
-									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"type="date"/>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date"/>
 								</div>							
 
 								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_sixth_block">
-									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_label_agendamento" disabled>
 										Agendamento
 									</label>
-									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date"/>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" disabled/>
 								</div>	
 
 								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_seventh_block">
 									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Persistência
 									</label>
-									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-										<option>Não</option>
-										<option>Um mês</option>
-										<option>Um trimestre</option>
-										<option>Um semestre</option>
-										<option>Um ano</option>
+									<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input" name="persistencia" required>
+										<option value="NAO">Não</option>
+										<option value="UM_MES">Um mês</option>
+										<option value="UM_TRIMESTRE">Um trimestre</option>
+										<option value="UM_SEMESTRE">Um semestre</option>
+										<option value="UM_ANO">Um ano</option>
 									</select>
 								</div>																	
 
@@ -503,7 +503,7 @@
 
 							<div class="nova_despesa_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_third_row">
 
-								<button class="nova_despesa_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="nova_despesa_submit">
+								<button type="submit" class="nova_despesa_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="nova_despesa_submit">
 									Salvar
 								</button>	
 
