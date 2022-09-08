@@ -140,7 +140,7 @@
 							<img src="../static/img/logo.png" class="img_logo"/>
 						</li>-->
 						<li class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-6 li_menu_principal"></li>
-						<li class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 li_nome_perfil" id="nome_perfil">Olá, Guilherme</li>
+						<li th:text="'Olá, ' + ${username}" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 li_nome_perfil" id="nome_perfil">Olá, Guilherme</li>
 
 					</ul>	
 				</div>
@@ -334,19 +334,19 @@
 
 										<!--<tr th:if="${liabilities == ''}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
 
-										<tr class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
+										<tr th:each="despesa: ${despesas}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
+											<td th:text="${despesa.dataCadastro}" class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
 											
-											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+											<td th:text="${despesa.descricao}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
 											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td th:text="${despesa.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td th:text="${despesa.tipoDespesa}" class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td th:text="${despesa.statusDespesa}" class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 											
-											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td th:text="${despesa.dataAgendamento}" class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form class="form_remove_img" id="form_remove_img">
