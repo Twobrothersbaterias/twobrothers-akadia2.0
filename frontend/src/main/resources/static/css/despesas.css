@@ -64,7 +64,7 @@ body{
     position: absolute;
     animation: rotacionar 1s infinite;
     border: 28px solid #E5E5E5;
-    border-top-color: #00FE1A;
+    border-top-color: #82A886;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -555,6 +555,95 @@ option {
     font-size: 1rem;
     border: 1px solid #82A886;
 }
+
+/* ===== ACIONAMENTO DE FILTROS DE BUSCA ===== */
+
+.conteudo_container_filtro {
+    position: absolute;
+    top: 70px;    
+    padding: 30px;
+    background: #212121;
+    box-shadow: 10px 10px 30px #121212;
+}
+
+#filtro_titulo {
+    color: #C3C8C8;
+}
+
+.conteudo_container_filtro {
+    margin-top: 15px;
+}
+
+.filtro_block {
+    margin: 0;
+}
+
+.filtro_form, .filtro_row_principal {
+    margin: 0;
+    padding: 0;    
+}
+
+.filtro_form_row {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.filtro_label {
+    color: #82A886;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 4px;
+}
+
+.filtro_input {
+    border: 1px solid #82A886;
+    background: transparent;
+    padding: 3px 5px;
+    color: #C3C8C8;    
+}
+
+.add_filtro_block {
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+}
+
+.add_filtro {
+    display: flex;
+    justify-content: center;   
+    padding: 5px;
+    background: #82A886; 
+    border: 1px solid transparent;
+    color: #212121;
+    box-shadow: 0px 0px 10px #121212;        
+}
+
+.add_filtro:hover {
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
+
+.filtro_row_tag {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.filtro_tag {
+    background: #transparent;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #82A886;
+    color: #82A886;
+    border-radius: 15px;
+    opacity: 0.96;
+    padding: 5px 0;  
+    box-shadow: 0px 0px 10px #121212;    
+}
+
 
 @keyframes pulse{
 

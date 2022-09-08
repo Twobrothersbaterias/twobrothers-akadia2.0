@@ -10,13 +10,13 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
-		<!--<link href="../static/css/reset.css" rel="stylesheet" />
+		<link href="../static/css/reset.css" rel="stylesheet" />
 		<link href="../static/css/despesas.css" rel="stylesheet" />
-		<link rel="icon" href="../static/img/logo.png" type="image/gif" sizes="32x32">-->
+		<link rel="icon" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 		
-		<link th:href="@{css/reset.css}" rel="stylesheet" />
+		<!--<link th:href="@{css/reset.css}" rel="stylesheet" />
 		<link th:href="@{css/despesas.css}" rel="stylesheet" />
-		<link rel="icon" th:href="@{img/logo.png}" type="image/gif" sizes="32x32">
+		<link rel="icon" th:href="@{img/logo.png}" type="image/gif" sizes="32x32">-->
 
 		<title>VALT | Despesas</title>
 
@@ -31,43 +31,33 @@
 
 					<div class="row side_menu_row" id="side_menu_row">
 
-						<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal" onmouseover="animateMenu('principal')" onmouseleave="returnMenuState('principal')">
+						<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
 
 							<a href="#" class="row aside_clicavel">
 
 								<button type="button" class="img_button">
-									<img th:src="@{img/home-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/home-gray.png" th:src="@{img/home-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>	
 							
 							</a>
 
 						</div>
 
-						<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco" onmouseover="animateMenu('balanco')" onmouseleave="returnMenuState('balanco')">
+						<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/people-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/people-gray.png" th:src="@{img/people-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 							
 						</div>
 
-						<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas" onmouseover="animateMenu('estatisticas')" onmouseleave="returnMenuState('estatisticas')">
+						<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/bag-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
-
-						</div>
-
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img th:src="@{img/box-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/bag-gray.png" th:src="@{img/bag-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -77,7 +67,7 @@
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/expenses-green.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/box-gray.png" th:src="@{img/box-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -87,7 +77,17 @@
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/pie-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/expenses-gray.png" th:src="@{img/expenses-green.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+								</button>
+							</a>
+
+						</div>
+
+						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
+							
+							<a href="#" class="row aside_clicavel">
+								<button type="button" class="img_button">
+									<img src="../static/img/pie-gray.png" th:src="@{img/pie-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -97,7 +97,7 @@
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/banknotes-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/banknotes-gray.png" th:src="@{img/banknotes-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -107,7 +107,7 @@
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/collab-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/collab-gray.png" th:src="@{img/collab-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -120,7 +120,7 @@
 							
 							<a href="#" class="row aside_clicavel">
 								<button type="button" class="img_button">
-									<img th:src="@{img/faq-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+									<img src="../static/img/faq-gray.png" th:src="@{img/faq-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 								</button>
 							</a>
 
@@ -152,7 +152,7 @@
 						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/home-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/home-gray.png" th:src="@{img/home-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -162,7 +162,7 @@
 						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/people-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/people-gray.png" th:src="@{img/people-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -172,7 +172,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/bag-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/bag-gray.png" th:src="@{img/bag-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -182,7 +182,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/box-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/box-gray.png" th:src="@{img/box-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -192,7 +192,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/expenses-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/expenses-green.png" th:src="@{img/expenses-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -202,7 +202,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/pie-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/pie-gray.png" th:src="@{img/pie-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -212,7 +212,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/banknotes-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/banknotes-gray.png" th:src="@{img/banknotes-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -222,7 +222,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/collab-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/collab-gray.png" th:src="@{img/collab-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -232,7 +232,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img th:src="@{img/faq-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/faq-gray.png" th:src="@{img/faq-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -267,10 +267,10 @@
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/add-green.png}" onclick="abrirNovaDespesa()"/>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/refresh-gray.png}"/>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/line-gray.png}"/>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" th:src="@{img/filter-gray.png}"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovaDespesa()"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
 
 							</div>							
 						</div>
@@ -330,9 +330,7 @@
 											</tr>	
 									</thead>
 
-									<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">		
-
-										<!--<tr th:if="${liabilities == ''}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
+									<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 										<tr th:each="despesa: ${despesas}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -351,7 +349,7 @@
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form class="form_remove_img" id="form_remove_img">
 													<button type="submit" class="col-lg-12 btn_excluir_img">
-														<img th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
+														<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
 													</button>
 												</form>											
 												<form class="form_remove_text" id="form_remove_text">
@@ -363,7 +361,8 @@
 												</form>
 											</td>
 
-										</tr>																		
+										</tr>																					
+																																																																																																																																						
 									</tbody>	
 										
 								</table>
@@ -421,9 +420,9 @@
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/back-green.png}" onclick="fechaNovaDespesa()"/>
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fechaNovaDespesa()"/>
 
-								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" th:src="@{img/refresh-gray.png}" onclick="reloadNovaDespesa()"/>								
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovaDespesa()"/>								
 							</div>	
 
 						</div>
@@ -509,11 +508,159 @@
 
 							</div>																				
 						</form>			
-
-
-
 					</div>	
 
+					<!-------------- FILTROS ------------>
+					<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden=true>
+
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+							<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_filtro" id="filtro_titulo">
+								Filtros de busca
+							</h1>
+
+							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+
+							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fecharFiltro()"/>
+
+								<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+							</div>	
+
+						</div>						
+
+						<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">		
+
+							<div class="filtro_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_primeira_row">							
+
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_first_block">
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Tipo
+									</label>
+									<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_input" onchange="filtroChange()">
+										<option value="DESCRICAO" id="tipo_filtro_option_descricao">Por descrição</option>
+										<option value="DATA" id="tipo_filtro_option_data">Data a data</option>
+										<option value="PERIODO" id="tipo_filtro_option_periodo">Por período</option>
+										<option value="TIPO" id="tipo_filtro_option_tipo">Por tipo</option>
+									</select>
+								</div>		
+
+								<div class="filtro_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="filtro_descricao_block">
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Descrição
+									</label>
+									<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30"id="descricao_filtro_input"/>
+								</div>
+
+
+
+								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_data_inicio_block" hidden>
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Data início
+									</label>
+									<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
+								</div>	
+
+								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_data_fim_block" hidden>
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Data fim
+									</label>
+									<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_fim_filtro_input"/>
+								</div>									
+
+
+
+								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_mes_block" hidden>
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Mês
+									</label>
+									<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mes_filtro_input">
+										<option value="01">Janeiro</option>
+										<option value="02">Fevereiro</option>
+										<option value="03">Março</option>
+										<option value="04">Abril</option>
+										<option value="05">Maio</option>
+										<option value="06">Junho</option>
+										<option value="07">Julho</option>
+										<option value="08">Agosto</option>
+										<option value="09">Setembro</option>
+										<option value="10">Outubro</option>
+										<option value="11">Novembro</option>
+										<option value="12">Dezembro</option>
+									</select>
+								</div>
+
+								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_ano_block" hidden>
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Ano
+									</label>
+									<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="ano_filtro_input">
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
+										<option value="2024">2024</option>
+										<option value="2025">2025</option>
+									</select>
+								</div>		
+
+
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12"  id="filtro_tipo_block" hidden>
+									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										Tipo
+									</label>
+									<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tipo_filtro_input">
+										<option value="FIXO">Fixo</option>
+										<option value="VARIAVEL">Variável</option>
+									</select>
+								</div>															
+
+								<div class="filtro_block add_filtro_block col-xl-2 col-lg-1 col-md-6 col-sm-6 col-12"  id="filtro_second_block">			
+									<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
+										Adicionar
+									</button>				
+								</div>																
+							</div>		
+
+							<hr>
+
+							<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
+
+								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
+									Descrição
+								</div>
+
+								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+									Data a data
+								</div>
+
+								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+									Periodo
+								</div>											
+
+								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_tipo_tag" onclick="removerFiltro('tipo')" onmouseover="efeitoRemoverFiltro('tipo')" onmouseleave="efeitoRemoverFiltroLeave('tipo')"hidden>
+									Tipo
+								</div>														
+
+								<form class="form_fantasma_filtro col-xl-2" id="form_fantasma_filtro">
+
+									<input type="text" name="descricao" id="input_descricao_backend" hidden/>
+									<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
+									<input type="text" name="dataFim" id="input_data_fim_backend" hidden/>
+									<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
+									<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
+									<input type="text" name="tipo" id="input_tipo_backend" hidden/>
+
+									<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
+										<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											Buscar
+										</button>				
+									</div>		
+
+								</form>	
+
+							</div>				
+
+					</div>
 
 				</div>
 
@@ -525,6 +672,7 @@
 			<div class="loader"></div>
 		</div>
 
-		<script type="text/javascript" th:src="@{js/despesas.js}" defer></script>
+		<script type="text/javascript" src="../static/js/despesas.js" defer></script>
+		<!--<script type="text/javascript" th:src="@{js/despesas.js}" defer></script>-->
 	</body>
 </html>		

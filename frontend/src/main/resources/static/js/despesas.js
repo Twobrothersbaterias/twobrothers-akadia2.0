@@ -454,5 +454,480 @@ function reloadNovaDespesa() {
 
 }
 
+function abrirFiltro() {
+
+	var containerPrincipal = document.getElementById('conteudo_container');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
+	var sideMenu = document.getElementById('side_menu');
+
+	var containerFiltro = document.getElementById('conteudo_container_filtro');
+
+	containerFiltro.hidden=false;
+
+	containerPrincipal.style.pointerEvents="none";
+	containerPrincipal.style.opacity="0.075";
+	containerPrincipal.style.transition="1s";
+
+	menuSuperior.style.pointerEvents="none";
+	menuSuperior.style.opacity="0.1";
+	menuSuperior.style.transition="1s";
+
+	menuSuperiorMobile.style.pointerEvents="none";
+	menuSuperiorMobile.style.opacity="0.1";
+	menuSuperiorMobile.style.transition="1s";	
+
+	sideMenu.style.pointerEvents="none";
+	sideMenu.style.opacity="0.1";
+	sideMenu.style.transition="1s";		
+
+}
+
+function fecharFiltro() {
+	var containerPrincipal = document.getElementById('conteudo_container');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
+	var sideMenu = document.getElementById('side_menu');	
+
+	var containerFiltro = document.getElementById('conteudo_container_filtro');	
+	
+	containerFiltro.hidden=true;
+
+	containerPrincipal.style.opacity="1";
+	containerPrincipal.style.transition="1s";
+	containerPrincipal.style.pointerEvents="auto";
+
+	menuSuperior.style.opacity="1";
+	menuSuperior.style.transition="1s";
+	menuSuperior.style.pointerEvents="auto";
+
+	menuSuperiorMobile.style.opacity="1";
+	menuSuperiorMobile.style.transition="1s";
+	menuSuperiorMobile.style.pointerEvents="auto";	
+
+	sideMenu.style.opacity="1";
+	sideMenu.style.transition="1s";
+	sideMenu.style.pointerEvents="auto";		
+}
+
+function filtroChange() {
+
+	var filtroTipo = document.getElementById('filtro_input');
+
+	var descricaoBlock = document.getElementById('filtro_descricao_block');
+	var descricaoInput = document.getElementById('descricao_filtro_input');
+
+	var dataInicio = document.getElementById('filtro_data_inicio_block');
+	var dataInicioInput = document.getElementById('data_inicio_filtro_input');
+
+	var dataFim = document.getElementById('filtro_data_fim_block');
+	var dataFimInput = document.getElementById('data_fim_filtro_input');
 
 
+	var mesBlock = document.getElementById('filtro_mes_block');
+	var mesInput = document.getElementById('mes_filtro_input');
+
+	var anoBlock = document.getElementById('filtro_ano_block');
+	var anoInput = document.getElementById('ano_filtro_input');
+
+	var tipo = document.getElementById('filtro_tipo_block');
+	var tipoInput = document.getElementById('tipo_filtro_input');	
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if (dia < 10) {
+		dia = '0'+dia;
+	}
+
+	if(mes < 10){
+		mes = '0'+mes;
+	}
+
+	var data = (ano + '-' + mes + '-' + dia);
+
+	if (filtroTipo.value == 'DESCRICAO') {
+
+		descricaoBlock.hidden=false;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;
+
+		mesInput.value=mes;
+		mesBlock.hidden=true;
+
+		anoInput.value=ano;
+		anoBlock.hidden=true;
+
+		tipoInput.value="FIXO";
+		tipo.hidden=true;
+
+	}
+	else if (filtroTipo.value == 'DATA') {
+
+		descricaoInput.value="";
+		descricaoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=false;
+
+		dataFimInput.value=data;
+		dataFim.hidden=false;
+
+		mesInput.value=mes;
+		mesBlock.hidden=true;
+
+		anoInput.value=ano;
+		anoBlock.hidden=true;
+
+		tipoInput.value="FIXO";
+		tipo.hidden=true;		
+	}
+	else if (filtroTipo.value == 'PERIODO') {
+
+		descricaoInput.value="";
+		descricaoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;
+
+		mesInput.value=mes;
+		mesBlock.hidden=false;
+
+		anoInput.value=ano;
+		anoBlock.hidden=false;
+
+		tipoInput.value="FIXO";
+		tipo.hidden=true;
+		
+	}
+	else if (filtroTipo.value == 'TIPO') {
+
+		descricaoInput.value="";
+		descricaoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;
+
+		mesInput.value=mes;
+		mesBlock.hidden=true;
+
+		anoInput.value=ano;
+		anoBlock.hidden=true;
+
+		tipoInput.value="FIXO";
+		tipo.hidden=false;
+		
+	}
+
+}
+
+function addFiltro() {
+
+	var filtroTipo = document.getElementById('filtro_input');
+	var filtroBt = document.getElementById('filtro_bt');
+	var buscarBt = document.getElementById('filtro_buscar_bt');
+
+	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
+	var descricaoBlock = document.getElementById('filtro_descricao_block');	
+	var descricaoTag = document.getElementById('filtro_descricao_tag');
+
+	var optionData = document.getElementById('tipo_filtro_option_data');
+	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
+	var dataFimBlock = document.getElementById('filtro_data_fim_block');	
+	var dataTag = document.getElementById('filtro_data_tag');	
+
+	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
+	var periodoMesBlock = document.getElementById('filtro_mes_block');	
+	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
+	var periodoTag = document.getElementById('filtro_periodo_tag');		
+
+	var optionTipo = document.getElementById('tipo_filtro_option_tipo');
+	var tipoBlock = document.getElementById('filtro_tipo_block');	
+	var tipoTag = document.getElementById('filtro_tipo_tag');	
+
+	var inputDescricaoFiltro = document.getElementById('descricao_filtro_input');
+	var inputDataInicioFiltro = document.getElementById('data_inicio_filtro_input');
+	var inputDataFimFiltro = document.getElementById('data_fim_filtro_input');
+	var inputMesFiltro = document.getElementById('mes_filtro_input');
+	var inputAnoFiltro = document.getElementById('ano_filtro_input');
+	var inputTipoFiltro = document.getElementById('tipo_filtro_input');
+
+	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
+	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
+	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
+	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
+	var inputTipoBackend = document.getElementById('input_tipo_backend');
+
+	buscarBt.hidden=false;
+
+	if (filtroTipo.value == 'DESCRICAO') {
+		optionDescricao.hidden=true;
+		descricaoBlock.hidden=true;
+		descricaoTag.hidden=false;
+		filtroTipo.value="";
+		inputDescricaoBackend.value=inputDescricaoFiltro.value;
+	}
+	else if (filtroTipo.value == 'DATA') {
+		optionData.hidden=true;
+		optionPeriodo.hidden=true;
+
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+
+		dataTag.hidden=false;
+		filtroTipo.value="";
+		inputDataInicioBackend.value=inputDataInicioFiltro.value;
+		inputDataFimBackend.value=inputDataFimFiltro.value;
+	}
+	else if (filtroTipo.value == 'PERIODO') {
+		optionData.hidden=true;
+		optionPeriodo.hidden=true;
+
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+
+		periodoTag.hidden=false;
+		filtroTipo.value="";
+		inputMesBackend.value=inputMesFiltro.value;
+		inputAnoBackend.value=inputAnoFiltro.value;
+	}
+	else if (filtroTipo.value == 'TIPO') {
+		optionTipo.hidden=true;
+		tipoBlock.hidden=true;
+		tipoTag.hidden=false;
+		filtroTipo.value="";
+		inputTipoBackend.value=inputTipoFiltro.value;
+	}				
+	
+	var j = 0
+	for(var i = 0; i < filtroTipo.options.length; i++) {
+		if(filtroTipo.options[i].hidden) {
+			j++;
+		}
+		if (j == 4) {
+			filtroTipo.style.border="1px solid grey";
+			filtroTipo.disabled=true;
+			filtroBt.disabled=true;
+			filtroBt.style.pointerEvents="none";
+
+		}
+	}		
+
+}
+
+function removerFiltro(filtro) {
+
+	var filtroTipo = document.getElementById('filtro_input');
+	var filtroBt = document.getElementById('filtro_bt');
+	var buscarBt = document.getElementById('filtro_buscar_bt');
+
+	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
+	var descricaoBlock = document.getElementById('filtro_descricao_block');	
+	var descricaoTag = document.getElementById('filtro_descricao_tag');
+
+	var optionData = document.getElementById('tipo_filtro_option_data');
+	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
+	var dataFimBlock = document.getElementById('filtro_data_fim_block');	
+	var dataTag = document.getElementById('filtro_data_tag');	
+
+	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
+	var periodoMesBlock = document.getElementById('filtro_mes_block');	
+	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
+	var periodoTag = document.getElementById('filtro_periodo_tag');		
+
+	var optionTipo = document.getElementById('tipo_filtro_option_tipo');
+	var tipoBlock = document.getElementById('filtro_tipo_block');	
+	var tipoTag = document.getElementById('filtro_tipo_tag');	
+
+	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
+	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
+	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
+	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
+	var inputTipoBackend = document.getElementById('input_tipo_backend');	
+	
+	filtroTipo.style.border="1px solid #82A886";
+	filtroTipo.disabled=false;
+	filtroBt.disabled=false;
+	filtroBt.style.pointerEvents="auto";	
+
+	if (filtro == 'descricao') {		
+
+		optionDescricao.hidden=false;
+
+		descricaoBlock.hidden=false;
+
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+		tipoBlock.hidden=true;
+
+		descricaoTag.hidden=true;
+
+		filtroTipo.value="DESCRICAO";
+
+		inputDescricaoBackend.value="";
+	}
+	else if (filtro == 'data') {
+		optionData.hidden=false;
+		optionPeriodo.hidden=false;
+
+		descricaoBlock.hidden=true;
+		dataInicioBlock.hidden=false;
+		dataFimBlock.hidden=false;
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+		tipoBlock.hidden=true;
+
+		dataTag.hidden=true;
+		filtroTipo.value="DATA";
+
+		inputDataInicioBackend.value="";
+		inputDataFimBackend.value="";
+	}
+	else if (filtro == 'periodo') {
+		optionData.hidden=false;
+		optionPeriodo.hidden=false;
+
+		descricaoBlock.hidden=true;
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+		periodoMesBlock.hidden=false;
+		periodoAnoBlock.hidden=false;
+		tipoBlock.hidden=true;
+
+		periodoTag.hidden=true;
+		filtroTipo.value="PERIODO";
+
+		inputMesBackend.value="";
+		inputAnoBackend.value="";
+	}
+	else if (filtro == 'tipo') {
+		optionTipo.hidden=false;
+
+		descricaoBlock.hidden=true;
+
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+		tipoBlock.hidden=false;
+
+		tipoTag.hidden=true;
+
+		filtroTipo.value="TIPO";
+
+		inputTipoBackend.value="";
+	}			
+
+	var j = 0
+	for(var i = 0; i < filtroTipo.options.length; i++) {
+		if(filtroTipo.options[i].hidden) {
+			j++;
+		}
+	}	
+	if (j == 0) {
+		buscarBt.hidden=true;
+	}		
+
+}
+
+function efeitoRemoverFiltro(filtro) {
+
+	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtroData = document.getElementById('filtro_data_tag');	
+	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
+	var filtroTipo = document.getElementById('filtro_tipo_tag');	
+
+	if (filtro == 'descricao') {
+		filtroDescricao.style.transition="0.5s"
+		filtroDescricao.style.background="#AA3C3C";
+		filtroDescricao.style.border="1px solid #AA3C3C";
+		filtroDescricao.style.color="#212121";
+		filtroDescricao.innerText="Remover";
+		filtroDescricao.style.cursor="pointer";
+	}
+	else if (filtro == 'data') {
+		filtroData.style.transition="0.5s"
+		filtroData.style.background="#AA3C3C";
+		filtroData.style.border="1px solid #AA3C3C";
+		filtroData.style.color="#212121";
+		filtroData.innerText="Remover";
+		filtroData.style.cursor="pointer";
+	}	
+	else if (filtro == 'periodo') {
+		filtroPeriodo.style.transition="0.5s"
+		filtroPeriodo.style.background="#AA3C3C";
+		filtroPeriodo.style.border="1px solid #AA3C3C";
+		filtroPeriodo.style.color="#212121";
+		filtroPeriodo.innerText="Remover";
+		filtroPeriodo.style.cursor="pointer";
+	}
+	else if (filtro == 'tipo') {
+		filtroTipo.style.transition="0.5s"
+		filtroTipo.style.background="#AA3C3C";
+		filtroTipo.style.border="1px solid #AA3C3C";
+		filtroTipo.style.color="#212121";
+		filtroTipo.innerText="Remover";
+		filtroTipo.style.cursor="pointer";
+	}			
+
+}
+
+function efeitoRemoverFiltroLeave(filtro) {
+
+	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtroData = document.getElementById('filtro_data_tag');
+	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
+	var filtroTipo = document.getElementById('filtro_tipo_tag');		
+
+	if (filtro == 'descricao') {
+		filtroDescricao.style.transition="1s"
+		filtroDescricao.style.background="transparent";
+		filtroDescricao.style.border="1px solid #82A886"
+		filtroDescricao.style.color="#82A886";
+		filtroDescricao.innerText="Descrição";
+	}
+	else if (filtro == 'data') {
+		filtroData.style.transition="1s"
+		filtroData.style.background="transparent";
+		filtroData.style.border="1px solid #82A886"
+		filtroData.style.color="#82A886";
+		filtroData.innerText="Data a data";
+	}
+	else if (filtro == 'periodo') {
+		filtroPeriodo.style.transition="1s"
+		filtroPeriodo.style.background="transparent";
+		filtroPeriodo.style.border="1px solid #82A886"
+		filtroPeriodo.style.color="#82A886";
+		filtroPeriodo.innerText="Periodo";
+	}
+	else if (filtro == 'tipo') {
+		filtroTipo.style.transition="1s"
+		filtroTipo.style.background="transparent";
+		filtroTipo.style.border="1px solid #82A886"
+		filtroTipo.style.color="#82A886";
+		filtroTipo.innerText="Tipo";
+	}		
+
+}
