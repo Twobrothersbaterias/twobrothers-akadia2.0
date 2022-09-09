@@ -1,0 +1,66 @@
+package br.com.twobrothers.frontend.controllers.api;
+
+import br.com.twobrothers.frontend.models.dto.OrdemDTO;
+import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.ws.rs.PathParam;
+import java.util.List;
+
+/**
+ * @author Gabriel Lagrota
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @version 1.0
+ * @since 30-08-22
+ */
+@RestController
+@RequestMapping("api/ordem")
+public class OrdemResource {
+
+    @Autowired
+    OrdemCrudService service;
+
+    @PostMapping
+    public ResponseEntity<OrdemDTO> criaNovo(@RequestBody OrdemDTO ordem) {
+        return ResponseEntity.ok().body(service.criaNovo(ordem));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrdemDTO>> buscaTodos() {
+        return ResponseEntity.ok().body(service.buscaTodos());
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<OrdemDTO> buscaPorId(@PathParam("id") Long value) {
+        return ResponseEntity.ok().body(service.buscaPorId(value));
+    }
+
+    @GetMapping("/pagination")
+    public ResponseEntity<List<OrdemDTO>> buscaPorPaginacao(
+            @PageableDefault(sort = "dataCadastro", direction = Sort.Direction.ASC, size = 5) Pageable paginacao) {
+        return ResponseEntity.ok().body(service.buscaPorPaginacao(paginacao));
+    }
+
+    @GetMapping("/range")
+    public ResponseEntity<List<OrdemDTO>> buscaPorRangeDeDataDeCadastro(@PathParam("inicio") String inicio, @PathParam("fim") String fim) {
+        return ResponseEntity.ok().body(service.buscaPorRangeDeDataCadastro(inicio, fim));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrdemDTO> atualiza(@PathVariable("id") Long id, @RequestBody OrdemDTO ordem) {
+        return ResponseEntity.ok().body(service.atualizaPorId(id, ordem));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> remove(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(service.deletaPorId(id));
+    }
+
+}

@@ -33,12 +33,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+//        http.authorizeRequests()
+//                .antMatchers("/api/despesas/**").permitAll()
+//                .anyRequest().permitAll();
+//        http.cors().and().csrf().disable();
+
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/index").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/swagger-ui.html").hasAnyRole("ADMIN")
                 .antMatchers("/api/**").hasAnyRole("ADMIN")
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/api/despesas/**").permitAll() //TODO TRATAR
                 .anyRequest()
                 .authenticated()
                 .and()

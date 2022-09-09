@@ -1,33 +1,50 @@
-package br.com.twobrothers.frontend.models.dto;
+package br.com.twobrothers.frontend.models.entities;
 
 import br.com.twobrothers.frontend.models.enums.PersistenciaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * @author Gabriel Lagrota
+ * @email gabriellagrota23@gmail.com
+ * @phone (11)97981-5415
+ * @github https://github.com/LagrotaGabriel
+ * @version 1.0
+ * @since 30-08-22
+ */
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class DespesaDTO {
+@Table(name = "tb_despesa")
+public class DespesaEntity {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+
     private LocalDateTime dataCadastro;
     private String dataPagamento;
     private String dataAgendamento;
     private String descricao;
     private Double valor;
+
+    @Enumerated(EnumType.STRING)
     private StatusDespesaEnum statusDespesa;
+
+    @Enumerated(EnumType.STRING)
     private TipoDespesaEnum tipoDespesa;
+
+    @Enumerated(EnumType.STRING)
     private PersistenciaEnum persistencia;
 
     private Long idUsuarioResponsavel;
+
 }

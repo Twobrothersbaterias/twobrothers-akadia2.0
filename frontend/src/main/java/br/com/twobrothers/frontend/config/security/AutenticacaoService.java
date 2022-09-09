@@ -1,6 +1,6 @@
 package br.com.twobrothers.frontend.config.security;
 
-import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
+import br.com.twobrothers.frontend.models.entities.user.UsuarioEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

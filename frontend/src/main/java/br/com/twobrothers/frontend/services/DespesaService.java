@@ -1,9 +1,9 @@
 package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
-import br.com.twobrothers.frontend.models.dto.FiltroDespesaDTO;
-import br.com.twobrothers.frontend.proxys.DespesaServiceProxy;
+import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.utils.ConversorDeDatas;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DespesaService {
 
     @Autowired
-    DespesaServiceProxy proxy;
+    DespesaCrudService crudService;
 
     @Autowired
     UsuarioRepository usuario;
@@ -33,12 +33,11 @@ public class DespesaService {
         if (despesaDTO.getDataAgendamento() != null)
             despesaDTO.setDataAgendamento(ConversorDeDatas.converteDataUsParaDataBr(despesaDTO.getDataAgendamento()));
 
-        proxy.novaDespesa(despesaDTO).getBody();
+        crudService.criaNovaDespesa(despesaDTO);
     }
 
     public List<DespesaDTO> filtrandoDespesas(Pageable pageable) {
-        List<DespesaDTO> despesaDTOList = proxy.buscaDespesasPorPaginacao(pageable).getBody();
-        return despesaDTOList;
+        return crudService.buscaPorPaginacao(pageable);
     }
 
     public String constroiUriFiltro(FiltroDespesaDTO filtroDespesaDTO) {

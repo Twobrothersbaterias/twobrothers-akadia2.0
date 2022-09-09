@@ -1,6 +1,6 @@
 package br.com.twobrothers.frontend.repositories;
 
-import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
+import br.com.twobrothers.frontend.models.entities.user.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

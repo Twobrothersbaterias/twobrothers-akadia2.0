@@ -1,7 +1,7 @@
 package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
-import br.com.twobrothers.frontend.models.dto.FiltroDespesaDTO;
+import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.services.DespesaService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
