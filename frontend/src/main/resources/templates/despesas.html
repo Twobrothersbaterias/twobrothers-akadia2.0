@@ -10,9 +10,9 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
-		<link href="../static/css/reset.css" rel="stylesheet" />
-		<link href="../static/css/despesas.css" rel="stylesheet" />
-		<link rel="icon" href="../static/img/logo.png" type="image/gif" sizes="32x32">
+		<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
+		<link th:href="@{css/despesas.css}" href="../static/css/despesas.css" rel="stylesheet" />
+		<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 		
 		<!--<link th:href="@{css/reset.css}" rel="stylesheet" />
 		<link th:href="@{css/despesas.css}" rel="stylesheet" />
@@ -641,7 +641,7 @@
 									Tipo
 								</div>														
 
-								<form class="form_fantasma_filtro col-xl-2" id="form_fantasma_filtro">
+								<form th:action="@{despesas/filtro}" method="POST" th:object="${filtroDespesa}" class="form_fantasma_filtro col-xl-2" id="form_fantasma_filtro">
 
 									<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 									<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
@@ -651,7 +651,7 @@
 									<input type="text" name="tipo" id="input_tipo_backend" hidden/>
 
 									<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
-										<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<button type="submit" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											Buscar
 										</button>				
 									</div>		
@@ -672,7 +672,7 @@
 			<div class="loader"></div>
 		</div>
 
-		<script type="text/javascript" src="../static/js/despesas.js" defer></script>
+		<script type="text/javascript" th:src="@{js/despesas.js}" src="../static/js/despesas.js" defer></script>
 		<!--<script type="text/javascript" th:src="@{js/despesas.js}" defer></script>-->
 	</body>
 </html>		
