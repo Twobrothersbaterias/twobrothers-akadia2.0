@@ -382,7 +382,7 @@ hr{
     cursor: pointer;
 }
 
-.td_data, .th_data{
+.td_pagamento, .th_pagamento{
     justify-content: left;
     padding-left: 10px;
 }
@@ -613,7 +613,7 @@ option {
 .add_filtro {
     display: flex;
     justify-content: center;   
-    padding: 5px;
+    padding: 8px;
     background: #82A886; 
     border: 1px solid transparent;
     color: #212121;
@@ -640,7 +640,7 @@ option {
     color: #82A886;
     border-radius: 15px;
     opacity: 0.96;
-    padding: 5px 0;  
+    padding: 8px 0;  
     box-shadow: 0px 0px 10px #121212;    
 }
 

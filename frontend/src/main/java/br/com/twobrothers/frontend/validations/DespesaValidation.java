@@ -24,9 +24,9 @@ public class DespesaValidation {
 
     public void validaCorpoDaRequisicao(DespesaDTO despesa) {
         validaSePossuiAtributosNulos(despesa);
-        if (despesa.getDataAgendamento() != null) validaAtributoDataAgendamento(despesa.getDataAgendamento());
-        if (despesa.getStatusDespesa().equals(StatusDespesaEnum.PAGO))
-            validaAtributoDataPagamento(despesa.getDataPagamento());
+//        if (despesa.getDataAgendamento() != null) validaAtributoDataAgendamento(despesa.getDataAgendamento());
+//        if (despesa.getStatusDespesa().equals(StatusDespesaEnum.PAGO))
+//            validaAtributoDataPagamento(despesa.getDataPagamento());
         log.warn("[VALIDAÇÃO - DESPESA] Validação do objeto despesa finalizada com sucesso");
     }
 

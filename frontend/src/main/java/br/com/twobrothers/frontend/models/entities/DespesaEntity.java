@@ -6,7 +6,7 @@ import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author Gabriel Lagrota
@@ -30,9 +30,9 @@ public class DespesaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataCadastro;
-    private String dataPagamento;
-    private String dataAgendamento;
+    private LocalDate dataCadastro;
+    private LocalDate dataPagamento;
+    private LocalDate dataAgendamento;
     private String descricao;
     private Double valor;
 

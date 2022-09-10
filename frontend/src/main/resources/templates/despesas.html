@@ -283,8 +283,8 @@
 								<div class="informativo_chave">
 									Pago: 
 								</div>
-								<div class="informativo_valor">
-									R$ 1.150.000,00
+								<div th:text="'R$ ' + ${pago}" class="informativo_valor">
+									NULL
 								</div>	
 							</div>
 
@@ -292,8 +292,8 @@
 								<div class="informativo_chave">
 									Pendente: 
 								</div>
-								<div class="informativo_valor">
-									R$ 1.150.000,00
+								<div th:text="'R$ ' + ${pendente}" class="informativo_valor">
+									NULL
 								</div>	
 							</div>
 
@@ -301,8 +301,8 @@
 								<div class="informativo_chave">
 									A pagar hoje: 
 								</div>
-								<div class="informativo_valor">
-									0
+								<div th:text="${pagar}" class="informativo_valor">
+									NULL
 								</div>	
 							</div>			
 		
@@ -318,12 +318,13 @@
 
 											<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
 
-												<th class="th th_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">Data</th>
+												<th class="th th_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">Data pg.</th>
 												<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Descrição</th>
 												<th class="th th_valor col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Valor</th>
 												<th class="th th_forma col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" id="th_forma">Tipo</th>
 												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Status</th>
-												<th class="th col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Data ag.</th>
+												<th class="th th_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cadastro</th>					
+												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Data ag.</th>
 												<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 												</th>											
 
@@ -332,19 +333,42 @@
 
 									<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
+										<tr th:if="${#lists.isEmpty(despesas)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+											<td class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
+											
+											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+											
+											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											
+											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											
+											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+											<td class="td td_cadastro col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>				
+											
+											<td class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
+
+											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+										</tr>										
+
 										<tr th:each="despesa: ${despesas}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td th:text="${despesa.dataCadastro}" class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
+											<td th:text="${despesa.dataPagamento}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
 											
 											<td th:text="${despesa.descricao}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
 											
-											<td th:text="${despesa.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td th:text="'R$ ' + ${despesa.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 											
-											<td th:text="${despesa.tipoDespesa}" class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td th:text="${despesa.tipoDespesa.desc}" class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 											
-											<td th:text="${despesa.statusDespesa}" class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-											
-											<td th:text="${despesa.dataAgendamento}" class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td th:text="${despesa.statusDespesa.desc}" class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+											<td th:text="${despesa.dataCadastro}" class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-2">...</td>
+
+											<td th:if="${despesa.dataAgendamento != null}" th:text="${despesa.dataAgendamento}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling">...</td>
+											<td th:unless="${despesa.dataAgendamento != null}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling">Nulo</td>		
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form class="form_remove_img" id="form_remove_img">
@@ -546,11 +570,11 @@
 									</select>
 								</div>		
 
-								<div class="filtro_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="filtro_descricao_block">
+								<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12"  id="filtro_descricao_block">
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Descrição
 									</label>
-									<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30"id="descricao_filtro_input"/>
+									<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15"id="descricao_filtro_input"/>
 								</div>
 
 
@@ -625,11 +649,11 @@
 
 							<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
 
-								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
+								<div class="filtro_tag col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
 									Descrição
 								</div>
 
-								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+								<div class="filtro_tag col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
 									Data a data
 								</div>
 

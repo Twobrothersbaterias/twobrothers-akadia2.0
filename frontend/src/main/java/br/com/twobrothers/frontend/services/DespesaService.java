@@ -1,17 +1,26 @@
 package br.com.twobrothers.frontend.services;
 
+import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
+import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
+import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
+import br.com.twobrothers.frontend.repositories.DespesaRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
-import br.com.twobrothers.frontend.utils.ConversorDeDatas;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 
 @Slf4j
 @Service
@@ -23,21 +32,85 @@ public class DespesaService {
     @Autowired
     UsuarioRepository usuario;
 
+    @Autowired
+    DespesaRepository despesaRepository;
+
+    @Autowired
+    ModelMapperConfig modelMapper;
+
     public void tratamentoDeNovaDespesa(DespesaDTO despesaDTO) {
-
+        //TODO Transferir para classe CRUD
         despesaDTO.setIdUsuarioResponsavel(UsuarioUtils.loggedUser(usuario).getId());
-
-        if (despesaDTO.getDataPagamento() != null)
-            despesaDTO.setDataPagamento(ConversorDeDatas.converteDataUsParaDataBr(despesaDTO.getDataPagamento()));
-
-        if (despesaDTO.getDataAgendamento() != null)
-            despesaDTO.setDataAgendamento(ConversorDeDatas.converteDataUsParaDataBr(despesaDTO.getDataAgendamento()));
-
         crudService.criaNovaDespesa(despesaDTO);
     }
 
-    public List<DespesaDTO> filtrandoDespesas(Pageable pageable) {
-        return crudService.buscaPorPaginacao(pageable);
+    public List<DespesaEntity> filtroDespesas(Pageable pageable,
+                                           String descricao,
+                                           TipoDespesaEnum tipo,
+                                           LocalDate dataInicio,
+                                           LocalDate dataFim,
+                                           Integer mes,
+                                           Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de direcionamento de filtro de despesas...");
+        if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
+        else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
+        else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else return crudService.buscaHoje(pageable);
+    }
+
+    public List<DespesaEntity> filtroDespesasSemPaginacao(
+                                              String descricao,
+                                              TipoDespesaEnum tipo,
+                                              LocalDate dataInicio,
+                                              LocalDate dataFim,
+                                              Integer mes,
+                                              Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de direcionamento de filtro de despesas...");
+        if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
+        else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
+        else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else return crudService.buscaHojeSemPaginacao();
+    }
+
+    public Double calculaValorPago(List<DespesaEntity> despesas) {
+
+        Double valor = 0.0;
+        if (despesas != null && !despesas.isEmpty()) {
+            for (DespesaEntity despesa : despesas) {
+                if (despesa.getStatusDespesa() == StatusDespesaEnum.PAGO) valor += despesa.getValor();
+            }
+        }
+        System.err.println(valor);
+        return valor;
+    }
+
+    public Double calculaValorPendente(List<DespesaEntity> despesas) {
+
+        Double valor = 0.0;
+        if (despesas != null && !despesas.isEmpty()) {
+            for (DespesaEntity despesa : despesas) {
+                if (despesa.getStatusDespesa() == StatusDespesaEnum.PENDENTE) valor += despesa.getValor();
+            }
+        }
+        System.err.println(valor);
+        return valor;
+
+    }
+
+    public Integer pendentesHoje() {
+        List<DespesaEntity> despesas = crudService.buscaAgendadosHojeSemPaginacao();
+        Integer quantidade = 0;
+        if (despesas != null && !despesas.isEmpty()) {
+            for (DespesaEntity despesa: despesas) {
+                if (despesa.getStatusDespesa() == StatusDespesaEnum.PENDENTE) quantidade++;
+            }
+        }
+        System.err.println(quantidade);
+        return quantidade;
     }
 
     public String constroiUriFiltro(FiltroDespesaDTO filtroDespesaDTO) {
@@ -45,7 +118,8 @@ public class DespesaService {
         String uri = "despesas?";
 
         if (filtroDespesaDTO.getDescricao() != null && !filtroDespesaDTO.getDescricao().equals("")) {
-            uri += "descricao=" + filtroDespesaDTO.getDescricao();
+            if (uri.equals("despesas?")) uri += "descricao=" + filtroDespesaDTO.getDescricao();
+            else uri += "&descricao=" + filtroDespesaDTO.getDescricao();
         }
 
         if (filtroDespesaDTO.getDataInicio() != null && !filtroDespesaDTO.getDataInicio().equals("")) {

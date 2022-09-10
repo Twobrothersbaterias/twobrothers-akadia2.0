@@ -318,6 +318,8 @@ function responsive(){
 
 	}
 
+	ajustaTabela();
+
 }
 
 function doALoadOfStuff() {
@@ -671,14 +673,23 @@ function addFiltro() {
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
 	var inputTipoBackend = document.getElementById('input_tipo_backend');
 
-	buscarBt.hidden=false;
-
 	if (filtroTipo.value == 'DESCRICAO') {
-		optionDescricao.hidden=true;
-		descricaoBlock.hidden=true;
-		descricaoTag.hidden=false;
-		filtroTipo.value="";
-		inputDescricaoBackend.value=inputDescricaoFiltro.value;
+		if (inputDescricaoFiltro.value != "") {
+			console.log("ACESSADO");
+			optionDescricao.hidden=true;
+			descricaoBlock.hidden=true;
+			descricaoTag.hidden=false;
+			descricaoTag.innerText = descricaoTag.innerText + ': ' + inputDescricaoFiltro.value;
+			filtroTipo.value="";
+			inputDescricaoBackend.value=inputDescricaoFiltro.value;
+
+			filtroBt.hidden=true;
+			buscarBt.hidden=false;
+			filtroTipo.style.border="1px solid grey";
+			filtroTipo.disabled=true;
+			filtroBt.disabled=true;
+			filtroBt.style.pointerEvents="none";				
+		}
 	}
 	else if (filtroTipo.value == 'DATA') {
 		optionData.hidden=true;
@@ -691,9 +702,18 @@ function addFiltro() {
 		periodoAnoBlock.hidden=true;
 
 		dataTag.hidden=false;
+		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
 		inputDataFimBackend.value=inputDataFimFiltro.value;
+
+		filtroBt.hidden=true;
+		buscarBt.hidden=false;
+		filtroTipo.style.border="1px solid grey";
+		filtroTipo.disabled=true;
+		filtroBt.disabled=true;
+		filtroBt.style.pointerEvents="none";			
 	}
 	else if (filtroTipo.value == 'PERIODO') {
 		optionData.hidden=true;
@@ -706,31 +726,36 @@ function addFiltro() {
 		periodoAnoBlock.hidden=true;
 
 		periodoTag.hidden=false;
+		periodoTag.innerText = 'Mês ' + inputMesFiltro.value + ' de ' + inputAnoFiltro.value;
+
 		filtroTipo.value="";
 		inputMesBackend.value=inputMesFiltro.value;
 		inputAnoBackend.value=inputAnoFiltro.value;
+
+		filtroBt.hidden=true;
+		buscarBt.hidden=false;
+		filtroTipo.style.border="1px solid grey";
+		filtroTipo.disabled=true;
+		filtroBt.disabled=true;
+		filtroBt.style.pointerEvents="none";		
 	}
 	else if (filtroTipo.value == 'TIPO') {
 		optionTipo.hidden=true;
 		tipoBlock.hidden=true;
+
 		tipoTag.hidden=false;
+		tipoTag.innerText = 'Tipo: ' + inputTipoFiltro.value;
+
 		filtroTipo.value="";
 		inputTipoBackend.value=inputTipoFiltro.value;
-	}				
-	
-	var j = 0
-	for(var i = 0; i < filtroTipo.options.length; i++) {
-		if(filtroTipo.options[i].hidden) {
-			j++;
-		}
-		if (j == 4) {
-			filtroTipo.style.border="1px solid grey";
-			filtroTipo.disabled=true;
-			filtroBt.disabled=true;
-			filtroBt.style.pointerEvents="none";
 
-		}
-	}		
+		filtroBt.hidden=true;
+		buscarBt.hidden=false;
+		filtroTipo.style.border="1px solid grey";
+		filtroTipo.disabled=true;
+		filtroBt.disabled=true;
+		filtroBt.style.pointerEvents="none";		
+	}					
 
 }
 
@@ -838,17 +863,10 @@ function removerFiltro(filtro) {
 		filtroTipo.value="TIPO";
 
 		inputTipoBackend.value="";
-	}			
-
-	var j = 0
-	for(var i = 0; i < filtroTipo.options.length; i++) {
-		if(filtroTipo.options[i].hidden) {
-			j++;
-		}
 	}	
-	if (j == 0) {
-		buscarBt.hidden=true;
-	}		
+
+	buscarBt.hidden=true;		
+	filtroBt.hidden=false;
 
 }
 
@@ -859,6 +877,7 @@ function efeitoRemoverFiltro(filtro) {
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
 	var filtroTipo = document.getElementById('filtro_tipo_tag');	
 
+
 	if (filtro == 'descricao') {
 		filtroDescricao.style.transition="0.5s"
 		filtroDescricao.style.background="#AA3C3C";
@@ -866,6 +885,7 @@ function efeitoRemoverFiltro(filtro) {
 		filtroDescricao.style.color="#212121";
 		filtroDescricao.innerText="Remover";
 		filtroDescricao.style.cursor="pointer";
+
 	}
 	else if (filtro == 'data') {
 		filtroData.style.transition="0.5s"
@@ -901,33 +921,128 @@ function efeitoRemoverFiltroLeave(filtro) {
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
 	var filtroTipo = document.getElementById('filtro_tipo_tag');		
 
+	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
+	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
+	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
+	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
+	var inputTipoBackend = document.getElementById('input_tipo_backend');	
+
 	if (filtro == 'descricao') {
 		filtroDescricao.style.transition="1s"
 		filtroDescricao.style.background="transparent";
 		filtroDescricao.style.border="1px solid #82A886"
 		filtroDescricao.style.color="#82A886";
 		filtroDescricao.innerText="Descrição";
+		filtroDescricao.innerText = 'Descrição: ' + inputDescricaoBackend.value;
+
 	}
 	else if (filtro == 'data') {
 		filtroData.style.transition="1s"
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #82A886"
 		filtroData.style.color="#82A886";
-		filtroData.innerText="Data a data";
+		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
 		filtroPeriodo.style.background="transparent";
 		filtroPeriodo.style.border="1px solid #82A886"
 		filtroPeriodo.style.color="#82A886";
-		filtroPeriodo.innerText="Periodo";
+		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
 	}
 	else if (filtro == 'tipo') {
 		filtroTipo.style.transition="1s"
 		filtroTipo.style.background="transparent";
 		filtroTipo.style.border="1px solid #82A886"
 		filtroTipo.style.color="#82A886";
-		filtroTipo.innerText="Tipo";
+		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
 	}		
 
+}
+
+function hideMessage(){
+	var alertas = document.getElementsByClassName('alert');
+	for(var i = 0; i < alertas.length; i++){
+		alertas[i].hidden=true;
+	}
+}
+
+/* ================== REALIZA OS AJUSTES DE TEXTO NA TABELA ====================== */
+function ajustaTabela(){
+
+	// Definindo propriedades
+	var line = document.getElementsByClassName('tr');
+	var columnScheduling = document.getElementsByClassName('td_scheduling');
+	var columnPayment = document.getElementsByClassName('td_pagamento');
+	var columnData = document.getElementsByClassName('td_data');
+
+	for(var i = 0; i < line.length; i++) {
+
+		var columnSchedulingSplitted = columnScheduling[i].innerText.split("-");
+		if (columnSchedulingSplitted.length == 3) {
+			var convertedDate = columnSchedulingSplitted[2] + "/" + columnSchedulingSplitted[1] + "/" + columnSchedulingSplitted[0];
+			columnScheduling[i].innerText=convertedDate;
+		}
+
+		var columnPaymentSplitted = columnPayment[i].innerText.split("-");
+		if (columnPaymentSplitted.length == 3) {
+			var convertedDate = columnPaymentSplitted[2] + "/" + columnPaymentSplitted[1] + "/" + columnPaymentSplitted[0];
+			columnPayment[i].innerText=convertedDate;
+		}	
+		
+		var columnDataSplitted = columnData[i].innerText.split("-");
+		if (columnDataSplitted.length == 3) {
+			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+			columnData[i].innerText=convertedDate;
+		}			
+
+
+
+		if(columnScheduling[i].innerText == "Nulo" || columnScheduling[i].innerText == "Não possui") {
+			line[i].style.borderLeft="4px solid #5eff00";
+			columnScheduling[i].innerText="Não possui";
+			if(columnPayment[i].innerText == 'Em aberto'){
+				line[i].style.borderLeft="4px solid #ffdd00";
+			}
+		}
+
+		else {
+
+			const d = new Date();
+			var ano = d.getFullYear();
+			var mes = d.getMonth()+1;
+			var dia = d.getDate();
+
+			if(mes < 10){
+				var mes = '0' + mes;
+			}
+
+			var hoje = (dia + '/' + mes + '/' + ano); 
+
+			if(columnScheduling[i].innerText != "...") {
+				if(columnScheduling[i].innerText == hoje || columnScheduling[i].innerText == "Hoje"){
+					line[i].style.borderLeft="4px solid #ff5900";
+					columnPayment[i].style.color="#ff5900";
+					columnPayment[i].innerText="Vence hoje";
+					columnScheduling[i].style.color="#ff5900"
+					columnScheduling[i].innerText="Hoje"
+				}
+				else if(columnScheduling[i].innerText.split("/")[2] <= ano && 
+					columnScheduling[i].innerText.split("/")[1] <= mes && 
+					columnScheduling[i].innerText.split("/")[0] <= dia || 
+					columnScheduling[i].innerText == "Atrasado"){
+					line[i].style.borderLeft="4px solid #f20a0a";
+					columnPayment[i].style.color="#f20a0a";
+					columnPayment[i].style.color="#F20a0a"
+					columnPayment[i].innerText="Atrasado";
+				}
+				else{
+					line[i].style.borderLeft="4px solid #ffdd00";
+					columnPayment[i].innerText="Agendado";
+				}
+			}
+
+		}
+	}
 }

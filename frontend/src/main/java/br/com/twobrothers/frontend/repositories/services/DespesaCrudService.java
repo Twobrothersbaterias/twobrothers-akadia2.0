@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.repositories.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
+import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import br.com.twobrothers.frontend.repositories.DespesaRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.validations.DespesaValidation;
@@ -12,10 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
@@ -46,7 +46,7 @@ public class DespesaCrudService {
         log.info("[STARTING] Iniciando método de criação de despesa...");
 
         log.info("[PROGRESS] Setando data de cadastro da despesa...");
-        despesa.setDataCadastro(LocalDateTime.now());
+        despesa.setDataCadastro(LocalDate.now());
 
         log.info("[PROGRESS] Inicializando método de validação da despesa...");
         validation.validaCorpoDaRequisicao(despesa);
@@ -58,60 +58,77 @@ public class DespesaCrudService {
         return modelMapper.mapper().map(despesaEntity, DespesaDTO.class);
     }
 
-    public List<DespesaDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
-
+    public List<DespesaEntity> buscaPorRangeDeData(Pageable pageable, LocalDate dataInicio, LocalDate dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de despesa por range de data de cadastro...");
-
-        List<DespesaEntity> despesas = repository.buscaPorRangeDeDataCadastro(
-                (LocalDate.parse(dataInicio)).atTime(0, 0),
-                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
-
-        if (!despesas.isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return despesas.stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
-        }
-
-        log.error("[ERROR] Não existe nenhuma despesa cadastrada no range de datas indicado");
-        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada no range de datas indicado");
-
+        log.info("[STARTING] Iniciando método de busca de despesa por range de data...");
+        return repository.buscaPorRangeDeData(pageable, dataInicio, dataFim);
     }
 
-    public List<DespesaDTO> buscaPorPaginacao(Pageable paginacao) {
+    public List<DespesaEntity> buscaPorPeriodo(Pageable pageable, Integer mes, Integer ano) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de despesa por paginação...");
-        if (!repository.findAll(paginacao).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll(paginacao)
-                    .getContent().stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhuma despesa cadastrada na página indicada");
-        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada na página indicada");
+        log.info("[STARTING] Iniciando método de busca de despesa por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodo(pageable, dataInicio, dataFim);
     }
 
-    public List<DespesaDTO> buscaPorDescricao(String descricao) {
+    public List<DespesaEntity> buscaHoje(Pageable pageable) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todas as despesas cadastradas hoje, pagas hoje ou agendadas para hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHoje(pageable, hoje);
+    }
+
+    public List<DespesaEntity> buscaPorDescricao(Pageable pageable, String descricao) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de despesa por descrição...");
-        List<DespesaEntity> despesas = repository.buscaPorDescricao(descricao);
-        if (!despesas.isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return despesas
-                    .stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhuma despesa cadastrada com a descrição passada");
-        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com a descrição passada");
+        return repository.buscaPorDescricao(pageable, descricao);
     }
 
-    public List<DespesaDTO> buscaTodasAsDespesas() {
+    public List<DespesaEntity> buscaPorTipo(Pageable pageable, TipoDespesaEnum tipo) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por todas as despesas...");
-        if (!repository.findAll().isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll()
-                    .stream().map(x -> modelMapper.mapper().map(x, DespesaDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhuma despesa cadastrada na base de dados");
-        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada");
+        log.info("[STARTING] Iniciando método de busca de despesa por tipo...");
+        return repository.buscaPorTipo(pageable, tipo);
+    }
+
+    public List<DespesaEntity> buscaPorRangeDeDataSemPaginacao( LocalDate dataInicio, LocalDate dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de despesa por range de data...");
+        return repository.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+    }
+
+    public List<DespesaEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de despesa por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio, dataFim);
+    }
+
+    public List<DespesaEntity> buscaHojeSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todas as despesas cadastradas hoje, pagas hoje ou agendadas para hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojeSemPaginacao(hoje);
+    }
+
+    public List<DespesaEntity> buscaAgendadosHojeSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todas as despesas agendadas para hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaAgendadosHojeSemPaginacao(hoje);
+    }
+
+    public List<DespesaEntity> buscaPorDescricaoSemPaginacao(String descricao) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de despesa por descrição...");
+        return repository.buscaPorDescricaoSemPaginacao(descricao);
+    }
+
+    public List<DespesaEntity> buscaPorTipoSemPaginacao(TipoDespesaEnum tipo) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de despesa por tipo...");
+        return repository.buscaPorTipoSemPaginacao(tipo);
     }
 
     public DespesaDTO atualizaPorId(Long id, DespesaDTO despesa) {

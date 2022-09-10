@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8099
 spring:
   application:
     name: frontend
@@ -22,7 +22,3 @@ management:
     web:
       exposure:
         - '*'
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL}
