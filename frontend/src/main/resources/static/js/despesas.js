@@ -34,6 +34,12 @@ function responsive(){
 	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
+	var tdUsuario = document.getElementsByClassName('td_usuario');
+	var thUsuario = document.getElementsByClassName('th_usuario');
+	var tdData = document.getElementsByClassName('td_data');
+	var thData = document.getElementsByClassName('th_data');
+	var tdPagamento = document.getElementsByClassName('td_pagamento');
+	var thPagamento = document.getElementsByClassName('th_pagamento');
 	var tdRemove = document.getElementsByClassName('td_checkbox');
 	var thRemove = document.getElementsByClassName('th_remove');	
 	var btnExcluir = document.getElementsByClassName('btn_excluir');
@@ -42,6 +48,8 @@ function responsive(){
 	var liA = document.getElementsByClassName('li_a');
 	var menuSuperiorMobileItem = document.getElementsByClassName('menu_superior_mobile_item');
 	var novaDespesaInput = document.getElementsByClassName('nova_despesa_input');
+	var filtroBlock = document.getElementsByClassName('filtro_block');
+	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
@@ -58,14 +66,42 @@ function responsive(){
 		novaDespesaSegundaRow.style.marginBottom="25px";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.5rem";	
-		novaDespesaSubmit.style.marginTop="0px";			
+		novaDespesaSubmit.style.marginTop="0px";
+
+		for(var i = 0; i < thUsuario.length; i++) {
+			thUsuario[i].hidden=false;
+			thData[i].hidden=false;
+		}	
+		for(var i = 0; i < tdUsuario.length; i++) {
+			tdUsuario[i].hidden=false;
+		}
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}				
+
+		for(var i = 0; i < thPagamento.length; i++) {
+			thPagamento[i].style.paddingLeft="10px"
+			thPagamento[i].style.justifyContent="left";
+		}	
+		for(var i = 0; i < tdPagamento.length; i++) {
+			tdPagamento[i].style.paddingLeft="10px";
+			tdPagamento[i].style.justifyContent="left";
+		}					
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.95rem";
+			th[i].style.width="13.28%";
 		}
 		for(var i = 0; i < td.length; i++){
 			td[i].style.fontSize="0.95rem";
+			td[i].style.width="13.28%";	
 		}
+		for(var i = 0; i < thRemove.length; i++){
+			thRemove[i].style.width="7%";
+		}		
+		for(var i = 0; i < tdRemove.length; i++){
+			tdRemove[i].style.width="7%";
+		}		
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="1rem";
 			informativo[i].style.width="22%";
@@ -86,7 +122,11 @@ function responsive(){
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
 		}		
-	
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="0";
+		}
+		filtroBuscarBt.style.marginTop="0px";
+		filtroBuscarBt.style.justifyContent="left";		
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
@@ -103,15 +143,47 @@ function responsive(){
 		novaDespesaSegundaRow.style.marginBottom="25px";	
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.3rem";	
-		novaDespesaSubmit.style.marginTop="0px";							
+		novaDespesaSubmit.style.marginTop="0px";
+
+		for(var i = 0; i < thUsuario.length; i++) {
+			thUsuario[i].hidden=false;
+			thData[i].hidden=false;
+		}	
+		for(var i = 0; i < tdUsuario.length; i++) {
+			tdUsuario[i].hidden=false;
+		}			
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}				
+
+		for(var i = 0; i < thPagamento.length; i++) {
+			if (bodyWidth < 1100) {
+				thPagamento[i].style.paddingLeft="0px"
+				thPagamento[i].style.justifyContent="center";
+			}
+			else {
+				thPagamento[i].style.paddingLeft="10px"
+				thPagamento[i].style.justifyContent="left";
+			}
+		}	
+		for(var i = 0; i < tdPagamento.length; i++) {
+			if (bodyWidth < 1100) {
+				tdPagamento[i].style.paddingLeft="0px";
+				tdPagamento[i].style.justifyContent="center";
+			}
+			else {
+				tdPagamento[i].style.paddingLeft="10px";
+				tdPagamento[i].style.justifyContent="left";				
+			}
+		}					
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.95rem";
-			th[i].style.width="15.5%";				
+			th[i].style.width="13.28%";				
 		}		
 		for(var i = 0; i < td.length; i++){
 			td[i].style.fontSize="0.95rem";
-			td[i].style.width="15.5%";				
+			td[i].style.width="13.28%";				
 		}
 		for(var i = 0; i < thRemove.length; i++){
 			thRemove[i].style.width="7%";
@@ -137,8 +209,13 @@ function responsive(){
 			btnExcluir[i].style.fontSize="0.95rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}					
-	
+		}		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="0";
+		}	
+
+		filtroBuscarBt.style.marginTop="0px";
+		filtroBuscarBt.style.justifyContent="left";					
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Médio');	
@@ -153,6 +230,15 @@ function responsive(){
 			sideMenu.style.width="6%";	
 		}
 
+		for(var i = 0; i < thPagamento.length; i++) {
+			thPagamento[i].style.paddingLeft="8px"
+			thPagamento[i].style.justifyContent="left";
+		}	
+		for(var i = 0; i < tdPagamento.length; i++) {
+			tdPagamento[i].style.paddingLeft="8px";
+			tdPagamento[i].style.justifyContent="center";
+		}		
+
 		tituloSessao.style.fontSize="1.35rem";
 		nomePerfil.style.fontSize="1.15rem";
 		menuSuperior.style.height="50px";
@@ -162,16 +248,26 @@ function responsive(){
 		novaDespesaSegundaRow.style.marginBottom="25px";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.2rem";
-		novaDespesaSubmit.style.marginTop="0px";	
+		novaDespesaSubmit.style.marginTop="0px";
 
+		for(var i = 0; i < thUsuario.length; i++) {
+			thUsuario[i].hidden=false;
+			thData[i].hidden=false;
+		}	
+		for(var i = 0; i < tdUsuario.length; i++) {
+			tdUsuario[i].hidden=false;
+		}		
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}		
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.85rem";
-			th[i].style.width="15.66%";			
+			th[i].style.width="13.42%";			
 		}
 		for(var i = 0; i < td.length; i++){
 			td[i].style.fontSize="0.85rem";
-			td[i].style.width="15.66%";			
+			td[i].style.width="13.42%";			
 		}	
 		for(var i = 0; i < thRemove.length; i++){
 			thRemove[i].style.width="6%";
@@ -195,7 +291,13 @@ function responsive(){
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
-		}				
+		}	
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="0";
+		}
+
+		filtroBuscarBt.style.marginTop="0px";
+		filtroBuscarBt.style.justifyContent="left";		
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
@@ -213,12 +315,32 @@ function responsive(){
 		novoTitulo.style.fontSize="1.2rem";		
 		novaDespesaSubmit.style.marginTop="0px";
 
+		for(var i = 0; i < thPagamento.length; i++) {
+			thPagamento[i].style.paddingLeft="0px"
+			thPagamento[i].style.justifyContent="center";
+		}	
+		for(var i = 0; i < tdPagamento.length; i++) {
+			tdPagamento[i].style.paddingLeft="0px";
+			tdPagamento[i].style.justifyContent="center";
+		}		
+
+		for(var i = 0; i < thUsuario.length; i++) {
+			thUsuario[i].hidden=true;
+			thData[i].hidden=false;
+		}	
+		for(var i = 0; i < tdUsuario.length; i++) {
+			tdUsuario[i].hidden=true;
+		}
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}				
+
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.75rem";
+			th[i].style.fontSize="0.70rem";
 			th[i].style.width="15.66%";			
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.75rem";
+			td[i].style.fontSize="0.70rem";
 			td[i].style.width="15.66%";			
 		}
 		for(var i = 0; i < thRemove.length; i++){
@@ -255,8 +377,13 @@ function responsive(){
 
 		for(var i = 0; i < novaDespesaInput.length; i++) {
 			novaDespesaInput[i].style.marginBottom="0";
-		}		
+		}	
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
 
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
@@ -270,15 +397,35 @@ function responsive(){
 		novaDespesaSegundaRow.style.margin="0";	
 		containerNovo.style.fontSize="0.90rem";
 		novoTitulo.style.fontSize="1.2rem";
-		novaDespesaSubmit.style.marginTop="5px";	
+		novaDespesaSubmit.style.marginTop="5px";
+
+		for(var i = 0; i < thUsuario.length; i++) {
+			thUsuario[i].hidden=true;
+			thData[i].hidden=true;
+		}	
+		for(var i = 0; i < tdUsuario.length; i++) {
+			tdUsuario[i].hidden=true;
+		}		
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=true;
+		}				
+
+		for(var i = 0; i < thPagamento.length; i++) {
+			thPagamento[i].style.paddingLeft="0px"
+			thPagamento[i].style.justifyContent="center";
+		}	
+		for(var i = 0; i < tdPagamento.length; i++) {
+			tdPagamento[i].style.paddingLeft="0px";
+			tdPagamento[i].style.justifyContent="center";
+		}		
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.65rem";
-			th[i].style.width="15.66%";
+			th[i].style.fontSize="0.60rem";
+			th[i].style.width="18.8%";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.65rem";
-			td[i].style.width="15.66%";
+			td[i].style.fontSize="0.60rem";
+			td[i].style.width="18.8%";
 		}
 		for(var i = 0; i < thRemove.length; i++){
 			thRemove[i].style.width="6%";
@@ -315,6 +462,12 @@ function responsive(){
 		for(var i = 0; i < novaDespesaInput.length; i++) {
 			novaDespesaInput[i].style.marginBottom="15px";
 		}
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";
 
 	}
 
@@ -338,6 +491,17 @@ function hideMessage() {
 
 function abrirNovaDespesa() {
 
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -346,6 +510,7 @@ function abrirNovaDespesa() {
 	var containerNovo = document.getElementById('conteudo_container_novo');
 
 	containerNovo.hidden=false;
+	data_pagamento_input.value=hoje;
 
 	containerPrincipal.style.pointerEvents="none";
 	containerPrincipal.style.opacity="0.075";
@@ -362,10 +527,21 @@ function abrirNovaDespesa() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
-
 }
 
 function fechaNovaDespesa() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -385,10 +561,16 @@ function fechaNovaDespesa() {
 	descricaoDespesaInput.value="";
 	valorDespesaInput.value="";
 	statusDespesaInput.value="PAGO";
-	dataPagamentoInput.value="";
 	dataAgendamentoInput.value="";
 	persistenciaInput.value="NAO";
 	tipoDespesaInput.value="FIXO";
+
+	dataAgendamentoInput.style.color="#4444";
+	dataAgendamentoInput.disabled=true;	
+
+	dataPagamentoInput.style.color="#C3C8C8";
+	dataPagamentoInput.disabled=false;
+	dataPagamentoInput.value=hoje;	
 	
 	containerNovo.hidden=true;
 
@@ -411,6 +593,17 @@ function fechaNovaDespesa() {
 
 function changeStatus() {
 
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
 	var statusDespesa = document.getElementById('status_despesa');
 
 	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
@@ -423,20 +616,32 @@ function changeStatus() {
 
 		dataPagamentoInput.style.color="#C3C8C8";
 		dataPagamentoInput.disabled=false;
+		dataPagamentoInput.value=hoje;
 	} 
 
 	else if(statusDespesa.value == "PENDENTE") {
 		dataAgendamentoInput.style.color="#C3C8C8";
 		dataAgendamentoInput.disabled=false;
+		dataAgendamentoInput.value=hoje;
 
 		dataPagamentoInput.style.color="#4444";
 		dataPagamentoInput.value="";
 		dataPagamentoInput.disabled=true;
 	}
-
 }
 
 function reloadNovaDespesa() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 	
 
 	var descricaoDespesaInput = document.getElementById('descricao_despesa_input');
 	var tipoDespesaInput = document.getElementById('tipo_despesa_input');
@@ -450,10 +655,9 @@ function reloadNovaDespesa() {
 	valorDespesaInput.value="";
 	tipoDespesaInput.value="FIXO";
 	statusDespesaInput.value="PAGO";
-	dataPagamentoInput.value="";
+	dataPagamentoInput.value=hoje;
 	dataAgendamentoInput.value="";
 	persistenciaInput.value="NAO";	
-
 }
 
 function abrirFiltro() {
@@ -482,7 +686,6 @@ function abrirFiltro() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
-
 }
 
 function fecharFiltro() {
@@ -492,6 +695,8 @@ function fecharFiltro() {
 	var sideMenu = document.getElementById('side_menu');	
 
 	var containerFiltro = document.getElementById('conteudo_container_filtro');	
+
+	reloadFiltro();
 	
 	containerFiltro.hidden=true;
 
@@ -632,7 +837,65 @@ function filtroChange() {
 		tipo.hidden=false;
 		
 	}
+}
 
+function reloadFiltro() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if (dia < 10) {
+		dia = '0'+dia;
+	}
+
+	if(mes < 10){
+		mes = '0'+mes;
+	}
+
+	var data = (ano + '-' + mes + '-' + dia);
+
+	document.getElementById('filtro_input').disabled=false;
+	document.getElementById('filtro_input').style.border="1px solid #82A886";
+	document.getElementById('filtro_input').style.pointerEvents="auto";
+	document.getElementById('filtro_input').value="DESCRICAO";
+	document.getElementById('filtro_bt').hidden=false;
+	document.getElementById('filtro_bt').disabled=false;
+	document.getElementById('filtro_bt').style.pointerEvents="auto";
+	document.getElementById('filtro_buscar_bt').hidden=true;
+
+	document.getElementById('tipo_filtro_option_descricao').hidden=false;
+	document.getElementById('filtro_descricao_block').hidden=false;	
+	document.getElementById('filtro_descricao_tag').hidden=true;
+
+	document.getElementById('tipo_filtro_option_data').hidden=false;
+	document.getElementById('filtro_data_inicio_block').hidden=true;
+	document.getElementById('filtro_data_fim_block').hidden=true;	
+	document.getElementById('filtro_data_tag').hidden=true;	
+
+	document.getElementById('tipo_filtro_option_periodo').hidden=false;
+	document.getElementById('filtro_mes_block').hidden=true;	
+	document.getElementById('filtro_ano_block').hidden=true;	
+	document.getElementById('filtro_periodo_tag').hidden=true;		
+
+	document.getElementById('tipo_filtro_option_tipo').hidden=false;
+	document.getElementById('filtro_tipo_block').hidden=true;	
+	document.getElementById('filtro_tipo_tag').hidden=true;	
+
+	document.getElementById('descricao_filtro_input').value="";
+	document.getElementById('data_inicio_filtro_input').value=data;
+	document.getElementById('data_fim_filtro_input').value=data;
+	document.getElementById('mes_filtro_input').value=mes;
+	document.getElementById('ano_filtro_input').value=ano;
+	document.getElementById('tipo_filtro_input').value="FIXO";
+
+	document.getElementById('input_descricao_backend').value="";
+	document.getElementById('input_data_inicio_backend').value="";
+	document.getElementById('input_data_fim_backend').value="";
+	document.getElementById('input_periodo_mes_backend').value="";
+	document.getElementById('input_periodo_ano_backend').value="";
+	document.getElementById('input_tipo_backend').value="";	
 }
 
 function addFiltro() {
@@ -675,11 +938,10 @@ function addFiltro() {
 
 	if (filtroTipo.value == 'DESCRICAO') {
 		if (inputDescricaoFiltro.value != "") {
-			console.log("ACESSADO");
 			optionDescricao.hidden=true;
 			descricaoBlock.hidden=true;
 			descricaoTag.hidden=false;
-			descricaoTag.innerText = descricaoTag.innerText + ': ' + inputDescricaoFiltro.value;
+			descricaoTag.innerText = "Descrição: " + inputDescricaoFiltro.value;
 			filtroTipo.value="";
 			inputDescricaoBackend.value=inputDescricaoFiltro.value;
 
@@ -756,7 +1018,6 @@ function addFiltro() {
 		filtroBt.disabled=true;
 		filtroBt.style.pointerEvents="none";		
 	}					
-
 }
 
 function removerFiltro(filtro) {
@@ -867,7 +1128,6 @@ function removerFiltro(filtro) {
 
 	buscarBt.hidden=true;		
 	filtroBt.hidden=false;
-
 }
 
 function efeitoRemoverFiltro(filtro) {
@@ -911,7 +1171,6 @@ function efeitoRemoverFiltro(filtro) {
 		filtroTipo.innerText="Remover";
 		filtroTipo.style.cursor="pointer";
 	}			
-
 }
 
 function efeitoRemoverFiltroLeave(filtro) {
@@ -958,7 +1217,6 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroTipo.style.color="#82A886";
 		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
 	}		
-
 }
 
 function hideMessage(){
@@ -995,16 +1253,20 @@ function ajustaTabela(){
 		if (columnDataSplitted.length == 3) {
 			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
 			columnData[i].innerText=convertedDate;
-		}			
-
-
+		}					
 
 		if(columnScheduling[i].innerText == "Nulo" || columnScheduling[i].innerText == "Não possui") {
+			
 			line[i].style.borderLeft="4px solid #5eff00";
 			columnScheduling[i].innerText="Não possui";
-			if(columnPayment[i].innerText == 'Em aberto'){
-				line[i].style.borderLeft="4px solid #ffdd00";
+			
+			if (columnPayment[i].innerText != "Em aberto" 
+				&& !columnPayment[i].innerText.includes("Pago ")) {
+
+				var dataPagamento = columnPayment[i].innerText;
+				columnPayment[i].innerText="Pago " + dataPagamento
 			}
+
 		}
 
 		else {
@@ -1033,12 +1295,14 @@ function ajustaTabela(){
 					columnScheduling[i].innerText.split("/")[0] <= dia || 
 					columnScheduling[i].innerText == "Atrasado"){
 					line[i].style.borderLeft="4px solid #f20a0a";
+					columnScheduling[i].style.color="#f20a0a";
 					columnPayment[i].style.color="#f20a0a";
-					columnPayment[i].style.color="#F20a0a"
+					columnPayment[i].style.color="#F20a0a";
 					columnPayment[i].innerText="Atrasado";
 				}
 				else{
 					line[i].style.borderLeft="4px solid #ffdd00";
+					columnScheduling[i].style.color="#ffdd00";
 					columnPayment[i].innerText="Agendado";
 				}
 			}

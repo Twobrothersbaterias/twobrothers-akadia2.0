@@ -360,7 +360,7 @@ hr{
 .th, .td{
     margin: 0;
     padding: 0;
-    padding: 10px 0px;
+    padding: 8px 0px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -642,6 +642,11 @@ option {
     opacity: 0.96;
     padding: 8px 0;  
     box-shadow: 0px 0px 10px #121212;    
+}
+
+.form_fantasma_filtro {
+    display: flex;
+    justify-content: center;
 }
 
 

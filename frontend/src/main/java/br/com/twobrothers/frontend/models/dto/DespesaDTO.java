@@ -20,15 +20,15 @@ public class DespesaDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDate dataCadastro;
-    private LocalDate dataPagamento;
-    private LocalDate dataAgendamento;
+    private String dataCadastro;
+    private String dataPagamento;
+    private String dataAgendamento;
     private String descricao;
     private Double valor;
     private StatusDespesaEnum statusDespesa;
     private TipoDespesaEnum tipoDespesa;
     private PersistenciaEnum persistencia;
 
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
 }

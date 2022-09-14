@@ -247,17 +247,21 @@
 
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
-							<!-- <div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+							<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
 								<p th:text="${SucessoCadastro}"></p>
 							</div>
 
 							<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
 								<p th:text="${ErroCadastro}"></p>
-							</div>								
+							</div>			
+
+							<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
+								<p th:text="${ErroBusca}"></p>
+							</div>						
 
 							<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
 								<p th:text="${SucessoDelete}"></p>
-							</div>	-->									
+							</div>									
 
 							<h1 class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 conteudo_titulo_text" id="conteudo_titulo_text">
 								Despesas
@@ -284,7 +288,7 @@
 									Pago: 
 								</div>
 								<div th:text="'R$ ' + ${pago}" class="informativo_valor">
-									NULL
+									R$ 0.00
 								</div>	
 							</div>
 
@@ -293,7 +297,7 @@
 									Pendente: 
 								</div>
 								<div th:text="'R$ ' + ${pendente}" class="informativo_valor">
-									NULL
+									R$ 0.00
 								</div>	
 							</div>
 
@@ -302,7 +306,7 @@
 									A pagar hoje: 
 								</div>
 								<div th:text="${pagar}" class="informativo_valor">
-									NULL
+									R$ 0.00
 								</div>	
 							</div>			
 		
@@ -318,13 +322,20 @@
 
 											<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
 
-												<th class="th th_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">Data pg.</th>
-												<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Descrição</th>
-												<th class="th th_valor col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Valor</th>
-												<th class="th th_forma col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" id="th_forma">Tipo</th>
-												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Status</th>
+												<th class="th th_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Pagamento</th>
+
+												<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Descrição</th>
+
+												<th class="th th_valor col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
+
+												<th class="th th_forma col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="th_forma">Tipo</th>
+
+												<th class="th th_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Responsável</th>
+
 												<th class="th th_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cadastro</th>					
+
 												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Data ag.</th>
+
 												<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 												</th>											
 
@@ -335,18 +346,18 @@
 
 										<tr th:if="${#lists.isEmpty(despesas)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
+											<td class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 											
-											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
 											
 											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 											
-											<td class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 
-											<td class="td td_cadastro col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>				
-											
+											<td class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+											<td class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>	
+
 											<td class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
@@ -355,17 +366,17 @@
 
 										<tr th:each="despesa: ${despesas}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td th:text="${despesa.dataPagamento}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-1 col-1">...</td>
+											<td th:text="${despesa.dataPagamento}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 											
-											<td th:text="${despesa.descricao}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+											<td th:text="${despesa.descricao}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
 											
 											<td th:text="'R$ ' + ${despesa.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 											
-											<td th:text="${despesa.tipoDespesa.desc}" class="td td_tipo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											
-											<td th:text="${despesa.statusDespesa.desc}" class="td td_status col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td th:text="${despesa.tipoDespesa.desc}" class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 
-											<td th:text="${despesa.dataCadastro}" class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-2">...</td>
+											<td th:text="${despesa.usuarioResponsavel}" class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+											<td th:text="${despesa.dataCadastro}" class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 
 											<td th:if="${despesa.dataAgendamento != null}" th:text="${despesa.dataAgendamento}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling">...</td>
 											<td th:unless="${despesa.dataAgendamento != null}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling">Nulo</td>		
@@ -499,14 +510,14 @@
 									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_label_data_pagamento">
 										Data pgto.
 									</label>
-									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date"/>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date" required/>
 								</div>							
 
 								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_sixth_block">
 									<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_label_agendamento" disabled>
 										Agendamento
 									</label>
-									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" disabled/>
+									<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" required disabled/>
 								</div>	
 
 								<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_seventh_block">
@@ -558,7 +569,7 @@
 
 							<div class="filtro_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_primeira_row">							
 
-								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_first_block">
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12" id="filtro_first_block">
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Tipo
 									</label>
@@ -570,7 +581,7 @@
 									</select>
 								</div>		
 
-								<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12"  id="filtro_descricao_block">
+								<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"  id="filtro_descricao_block">
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Descrição
 									</label>
@@ -579,14 +590,14 @@
 
 
 
-								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_data_inicio_block" hidden>
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Data início
 									</label>
 									<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
 								</div>	
 
-								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_data_fim_block" hidden>
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Data fim
 									</label>
@@ -595,7 +606,7 @@
 
 
 
-								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_mes_block" hidden>
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Mês
 									</label>
@@ -615,7 +626,7 @@
 									</select>
 								</div>
 
-								<div class="filtro_block col-xl-3 col-lg-5 col-md-6 col-sm-6 col-12"  id="filtro_ano_block" hidden>
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_ano_block" hidden>
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Ano
 									</label>
@@ -628,7 +639,7 @@
 								</div>		
 
 
-								<div class="filtro_block col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12"  id="filtro_tipo_block" hidden>
+								<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_tipo_block" hidden>
 									<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										Tipo
 									</label>
@@ -638,7 +649,7 @@
 									</select>
 								</div>															
 
-								<div class="filtro_block add_filtro_block col-xl-2 col-lg-1 col-md-6 col-sm-6 col-12"  id="filtro_second_block">			
+								<div class="filtro_block add_filtro_block col-xl-2 col-lg-2 col-md-3 col-sm-12 col-12"  id="filtro_second_block">			
 									<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
 										Adicionar
 									</button>				
@@ -649,23 +660,23 @@
 
 							<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
 
-								<div class="filtro_tag col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
+								<div class="filtro_tag col-xl-3 col-lg-3 col-md-4 col-sm-6 col-9" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
 									Descrição
 								</div>
 
-								<div class="filtro_tag col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+								<div class="filtro_tag col-xl-3 col-lg-4 col-md-5 col-sm-6 col-9" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
 									Data a data
 								</div>
 
-								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+								<div class="filtro_tag col-xl-2 col-lg-3 col-md-4 col-sm-6 col-9" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
 									Periodo
 								</div>											
 
-								<div class="filtro_tag col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12" id="filtro_tipo_tag" onclick="removerFiltro('tipo')" onmouseover="efeitoRemoverFiltro('tipo')" onmouseleave="efeitoRemoverFiltroLeave('tipo')"hidden>
+								<div class="filtro_tag col-xl-2 col-lg-3 col-md-4 col-sm-6 col-9" id="filtro_tipo_tag" onclick="removerFiltro('tipo')" onmouseover="efeitoRemoverFiltro('tipo')" onmouseleave="efeitoRemoverFiltroLeave('tipo')"hidden>
 									Tipo
 								</div>														
 
-								<form th:action="@{despesas/filtro}" method="POST" th:object="${filtroDespesa}" class="form_fantasma_filtro col-xl-2" id="form_fantasma_filtro">
+								<form th:action="@{despesas/filtro}" method="POST" th:object="${filtroDespesa}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-9" id="form_fantasma_filtro">
 
 									<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 									<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>

@@ -3,9 +3,13 @@ package br.com.twobrothers.frontend.repositories.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
+import br.com.twobrothers.frontend.models.enums.PersistenciaEnum;
+import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import br.com.twobrothers.frontend.repositories.DespesaRepository;
+import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.DespesaValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +43,9 @@ public class DespesaCrudService {
     @Autowired
     ModelMapperConfig modelMapper;
 
+    @Autowired
+    UsuarioRepository usuario;
+
     DespesaValidation validation = new DespesaValidation();
 
     public DespesaDTO criaNovaDespesa(DespesaDTO despesa) {
@@ -46,21 +54,58 @@ public class DespesaCrudService {
         log.info("[STARTING] Iniciando método de criação de despesa...");
 
         log.info("[PROGRESS] Setando data de cadastro da despesa...");
-        despesa.setDataCadastro(LocalDate.now());
+        despesa.setDataCadastro(LocalDate.now().toString());
+
+        log.info("[PROGRESS] Setando usuário responsável pela despesa...");
+        despesa.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuario).getUsername());
 
         log.info("[PROGRESS] Inicializando método de validação da despesa...");
         validation.validaCorpoDaRequisicao(despesa);
 
-        log.info("[PROGRESS] Persistindo despesa na base de dados...");
-        DespesaEntity despesaEntity = repository.save(modelMapper.mapper().map(despesa, DespesaEntity.class));
+        if (!despesa.getPersistencia().equals(PersistenciaEnum.NAO)) {
+            log.info("[PROGRESS] Propagando persistência: {}", despesa.getPersistencia().getDesc());
+            repository.saveAll(criaDespesasDePersistencia(despesa));
+        }
 
         log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        log.info("[PROGRESS] Persistindo despesa na base de dados...");
+        DespesaEntity despesaEntity = repository.save(modelMapper.mapper().map(despesa, DespesaEntity.class));
         return modelMapper.mapper().map(despesaEntity, DespesaDTO.class);
     }
 
-    public List<DespesaEntity> buscaPorRangeDeData(Pageable pageable, LocalDate dataInicio, LocalDate dataFim) {
+    public List<DespesaEntity> criaDespesasDePersistencia(DespesaDTO despesa) {
+        log.warn("[INFO] Método de criação de despesas de persistência acessado...");
+
+        List<DespesaEntity> despesas = new ArrayList<>();
+        for (int i = 1; i < despesa.getPersistencia().getMeses() + 1; i++) {
+            log.info("[PROGRESS] Acessando persistência da {}° despesa...", i);
+
+            log.info("[PROGRESS] Realizando setagem de atributos do objeto despesa...");
+            DespesaEntity despesaEntity = modelMapper.mapper().map(despesa, DespesaEntity.class);
+            despesaEntity.setDataCadastro(LocalDate.now().toString());
+            despesaEntity.setStatusDespesa(StatusDespesaEnum.PENDENTE);
+            despesaEntity.setPersistencia(PersistenciaEnum.PERSISTIDO);
+            if (despesa.getDataAgendamento() != null) {
+                despesaEntity.setDataAgendamento(
+                        LocalDate.parse(despesaEntity.getDataAgendamento()).plusMonths(Long.parseLong(String.valueOf(i))).toString());
+                despesaEntity.setDataPagamento("Em aberto");
+            }
+            else {
+                despesaEntity.setDataAgendamento(
+                        LocalDate.parse(despesaEntity.getDataPagamento()).plusMonths(Long.parseLong(String.valueOf(i))).toString());
+                despesaEntity.setDataPagamento("Em aberto");
+            }
+
+            despesas.add(despesaEntity);
+        }
+
+        return despesas;
+    }
+
+    public List<DespesaEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de despesa por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
         return repository.buscaPorRangeDeData(pageable, dataInicio, dataFim);
     }
 
@@ -69,14 +114,14 @@ public class DespesaCrudService {
         log.info("[STARTING] Iniciando método de busca de despesa por período...");
         LocalDate dataInicio = LocalDate.of(ano, mes, 1);
         LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
-        return repository.buscaPorPeriodo(pageable, dataInicio, dataFim);
+        return repository.buscaPorPeriodo(pageable, dataInicio.toString(), dataFim.toString());
     }
 
     public List<DespesaEntity> buscaHoje(Pageable pageable) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de todas as despesas cadastradas hoje, pagas hoje ou agendadas para hoje...");
         LocalDate hoje = LocalDate.now();
-        return repository.buscaHoje(pageable, hoje);
+        return repository.buscaHoje(pageable, hoje.toString());
     }
 
     public List<DespesaEntity> buscaPorDescricao(Pageable pageable, String descricao) {
@@ -91,7 +136,7 @@ public class DespesaCrudService {
         return repository.buscaPorTipo(pageable, tipo);
     }
 
-    public List<DespesaEntity> buscaPorRangeDeDataSemPaginacao( LocalDate dataInicio, LocalDate dataFim) {
+    public List<DespesaEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de despesa por range de data...");
         return repository.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
@@ -102,21 +147,21 @@ public class DespesaCrudService {
         log.info("[STARTING] Iniciando método de busca de despesa por período...");
         LocalDate dataInicio = LocalDate.of(ano, mes, 1);
         LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
-        return repository.buscaPorPeriodoSemPaginacao(dataInicio, dataFim);
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
     }
 
     public List<DespesaEntity> buscaHojeSemPaginacao() {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de todas as despesas cadastradas hoje, pagas hoje ou agendadas para hoje...");
         LocalDate hoje = LocalDate.now();
-        return repository.buscaHojeSemPaginacao(hoje);
+        return repository.buscaHojeSemPaginacao(hoje.toString());
     }
 
     public List<DespesaEntity> buscaAgendadosHojeSemPaginacao() {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de todas as despesas agendadas para hoje...");
         LocalDate hoje = LocalDate.now();
-        return repository.buscaAgendadosHojeSemPaginacao(hoje);
+        return repository.buscaAgendadosHojeSemPaginacao(hoje.toString());
     }
 
     public List<DespesaEntity> buscaPorDescricaoSemPaginacao(String descricao) {

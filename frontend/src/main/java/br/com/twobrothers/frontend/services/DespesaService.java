@@ -9,16 +9,13 @@ import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import br.com.twobrothers.frontend.repositories.DespesaRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
-import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 
@@ -38,19 +35,23 @@ public class DespesaService {
     @Autowired
     ModelMapperConfig modelMapper;
 
-    public void tratamentoDeNovaDespesa(DespesaDTO despesaDTO) {
-        //TODO Transferir para classe CRUD
-        despesaDTO.setIdUsuarioResponsavel(UsuarioUtils.loggedUser(usuario).getId());
-        crudService.criaNovaDespesa(despesaDTO);
+    public String encaminhaParaCriacaoDoCrudService(DespesaDTO despesa) {
+        try {
+            crudService.criaNovaDespesa(despesa);
+            return null;
+        }
+        catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     public List<DespesaEntity> filtroDespesas(Pageable pageable,
                                            String descricao,
                                            TipoDespesaEnum tipo,
-                                           LocalDate dataInicio,
-                                           LocalDate dataFim,
+                                           String dataInicio,
+                                           String dataFim,
                                            Integer mes,
-                                           Integer ano) {
+                                           Integer ano) throws InvalidRequestException {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de direcionamento de filtro de despesas...");
         if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
@@ -63,10 +64,10 @@ public class DespesaService {
     public List<DespesaEntity> filtroDespesasSemPaginacao(
                                               String descricao,
                                               TipoDespesaEnum tipo,
-                                              LocalDate dataInicio,
-                                              LocalDate dataFim,
+                                              String dataInicio,
+                                              String dataFim,
                                               Integer mes,
-                                              Integer ano) {
+                                              Integer ano) throws InvalidRequestException {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de direcionamento de filtro de despesas...");
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
@@ -84,7 +85,6 @@ public class DespesaService {
                 if (despesa.getStatusDespesa() == StatusDespesaEnum.PAGO) valor += despesa.getValor();
             }
         }
-        System.err.println(valor);
         return valor;
     }
 
@@ -96,7 +96,6 @@ public class DespesaService {
                 if (despesa.getStatusDespesa() == StatusDespesaEnum.PENDENTE) valor += despesa.getValor();
             }
         }
-        System.err.println(valor);
         return valor;
 
     }
@@ -109,7 +108,6 @@ public class DespesaService {
                 if (despesa.getStatusDespesa() == StatusDespesaEnum.PENDENTE) quantidade++;
             }
         }
-        System.err.println(quantidade);
         return quantidade;
     }
 

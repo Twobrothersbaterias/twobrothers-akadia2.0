@@ -24,9 +24,8 @@ public class DespesaValidation {
 
     public void validaCorpoDaRequisicao(DespesaDTO despesa) {
         validaSePossuiAtributosNulos(despesa);
-//        if (despesa.getDataAgendamento() != null) validaAtributoDataAgendamento(despesa.getDataAgendamento());
-//        if (despesa.getStatusDespesa().equals(StatusDespesaEnum.PAGO))
-//            validaAtributoDataPagamento(despesa.getDataPagamento());
+        if (despesa.getStatusDespesa().equals(StatusDespesaEnum.PENDENTE)) validaAtributoDataAgendamento(despesa.getDataAgendamento());
+        if (despesa.getStatusDespesa().equals(StatusDespesaEnum.PAGO)) validaAtributoDataPagamento(despesa.getDataPagamento());
         log.warn("[VALIDAÇÃO - DESPESA] Validação do objeto despesa finalizada com sucesso");
     }
 
@@ -53,30 +52,38 @@ public class DespesaValidation {
 
         LocalDate hoje = LocalDate.now();
 
-        if (!data.matches(DATE_REGEX)) {
-            log.error("[ERROR] Validação da despesa falhou. Motivo: o padrão da data de agendamento é inválido");
-            throw new InvalidRequestException("Validação da despesa falhou. Motivo: o padrão da data de agendamento é inválido");
-        }
+        LocalDate dataAgendada = LocalDate.parse(data);
 
-        String dataDeAgendamento = data.replace("/", "-").split("-")[2] + "-"
-                + data.replace("/", "-").split("-")[1] + "-"
-                + data.replace("/", "-").split("-")[0];
-
-        LocalDate dataAgendada = LocalDate.parse(dataDeAgendamento);
         if (dataAgendada.isBefore(hoje)) {
             log.error("[ERROR] Não é possível realizar um agendamento para uma data no passado");
             throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
         }
 
         log.warn("Validação do atributo dataAgendamento OK");
-
     }
 
     public void validaAtributoDataPagamento(String data) {
         log.info("[VALIDAÇÃO - DESPESA] Inicializando validação do atributo dataPagamento...");
-        if (!data.matches(DATE_REGEX))
-            throw new InvalidRequestException("Validação da despesa falhou. Motivo: o padrão da data de pagamento é inválido");
-        log.warn("Validação do atributo dataPagamento OK");
+
+        LocalDate hoje = LocalDate.now();
+        LocalDate dataPagamento = LocalDate.parse(data);
+
+        if (dataPagamento.isAfter(hoje)) {
+            log.error("[ERROR] Não é possível realizar um pagamento para uma data no futuro");
+            throw new InvalidRequestException("Não é possível realizar um pagamento para uma data no futuro");
+        }
+
+        log.warn("Validação do atributo pagamento OK");
+    }
+
+    public void validaRangeData(String inicio, String fim) {
+
+        LocalDate dataInicio = LocalDate.parse(inicio);
+        LocalDate dataFim = LocalDate.parse(fim);
+
+        if (dataInicio.isAfter(dataFim))
+            throw new InvalidRequestException("O conteúdo do campo data início não pode ser anterior ao campo data fim");
+
     }
 
 }
