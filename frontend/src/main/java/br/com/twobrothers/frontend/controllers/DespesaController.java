@@ -81,9 +81,6 @@ public class DespesaController {
                     mes.orElse(null),
                     ano.orElse(null));
 
- //           Collections.sort(despesasPaginadas, new ComparadorDeDataDePagamento());
- //           Collections.sort(despesasPaginadas, new ComparadorDeAgendamento());
-
             despesasSemPaginacao = despesaService.filtroDespesasSemPaginacao(
                     descricao.orElse(null),
                     tipo.orElse(null),

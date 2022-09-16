@@ -1,24 +1,34 @@
-server:
-  port: 8099
+#server:
+#  port: 8099
+#spring:
+#  application:
+#    name: frontend
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant-path-matcher
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        - '*'
+
 spring:
-  application:
-    name: frontend
   mvc:
-    pathmatch:
-      matching-strategy: ant-path-matcher
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  pathmatch:
+    matching-strategy: ant-path-matcher
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-management:
-  endpoints:
-    web:
-      exposure:
-        - '*'
+    url: ${JDBC_DATASOURCE_URL}
+  jpa:
+    show-sql: true
+    generate-ddl: true
