@@ -31,6 +31,15 @@ function responsive(){
 	var novaDespesaSegundaRow = document.getElementById('nova_despesa_segunda_row');
 	var novaDespesaSubmit = document.getElementById('nova_despesa_submit');
 
+	var containerEdita = document.getElementById('conteudo_container_edita');	
+	var editaTitulo	= document.getElementById('edita_titulo');
+	var editaFirstBlock = document.getElementById('edita_despesa_first_block');
+	var editaFourthBlock = document.getElementById('edita_despesa_fourth_block');
+	var editaThirdBlock = document.getElementById('edita_despesa_third_block');
+	var editaSeventhBlock = document.getElementById('edita_despesa_seventh_block');	
+	var editaDespesaSegundaRow = document.getElementById('edita_despesa_segunda_row');
+	var editaDespesaSubmit = document.getElementById('edita_despesa_submit');
+
 	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
@@ -67,6 +76,12 @@ function responsive(){
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.5rem";	
 		novaDespesaSubmit.style.marginTop="0px";
+
+		editaDespesaSegundaRow.style.marginTop="20px"
+		editaDespesaSegundaRow.style.marginBottom="25px";
+		containerEdita.style.fontSize="1rem";		
+		editaTitulo.style.fontSize="1.5rem";	
+		editaDespesaSubmit.style.marginTop="0px";		
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -144,6 +159,12 @@ function responsive(){
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.3rem";	
 		novaDespesaSubmit.style.marginTop="0px";
+
+		editaDespesaSegundaRow.style.marginTop="20px"
+		editaDespesaSegundaRow.style.marginBottom="25px";	
+		containerEdita.style.fontSize="1rem";
+		editaTitulo.style.fontSize="1.3rem";	
+		editaDespesaSubmit.style.marginTop="0px";		
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -250,6 +271,12 @@ function responsive(){
 		novoTitulo.style.fontSize="1.2rem";
 		novaDespesaSubmit.style.marginTop="0px";
 
+		editaDespesaSegundaRow.style.marginTop="20px"
+		editaDespesaSegundaRow.style.marginBottom="25px";
+		containerEdita.style.fontSize="1rem";		
+		editaTitulo.style.fontSize="1.2rem";
+		editaDespesaSubmit.style.marginTop="0px";		
+
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
 			thData[i].hidden=false;
@@ -314,6 +341,12 @@ function responsive(){
 		containerNovo.style.fontSize="0.90rem";	
 		novoTitulo.style.fontSize="1.2rem";		
 		novaDespesaSubmit.style.marginTop="0px";
+
+		editaDespesaSegundaRow.style.marginTop="20px"
+		editaDespesaSegundaRow.style.marginBottom="25px";	
+		containerEdita.style.fontSize="0.90rem";	
+		editaTitulo.style.fontSize="1.2rem";		
+		editaDespesaSubmit.style.marginTop="0px";		
 
 		for(var i = 0; i < thPagamento.length; i++) {
 			thPagamento[i].style.paddingLeft="0px"
@@ -399,6 +432,11 @@ function responsive(){
 		novoTitulo.style.fontSize="1.2rem";
 		novaDespesaSubmit.style.marginTop="5px";
 
+		editaDespesaSegundaRow.style.margin="0";	
+		containerEdita.style.fontSize="0.90rem";
+		editaTitulo.style.fontSize="1.2rem";
+		editaDespesaSubmit.style.marginTop="5px";
+
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=true;
 			thData[i].hidden=true;
@@ -472,6 +510,7 @@ function responsive(){
 	}
 
 	ajustaTabela();
+	pageResponsiva();
 
 }
 
@@ -628,6 +667,7 @@ function changeStatus() {
 		dataPagamentoInput.value="";
 		dataPagamentoInput.disabled=true;
 	}
+
 }
 
 function reloadNovaDespesa() {
@@ -1219,6 +1259,212 @@ function efeitoRemoverFiltroLeave(filtro) {
 	}		
 }
 
+function abrirEditaDespesa(
+							id, 
+							tipo, 
+							descricao, 
+							valor, 
+							status, 
+							dataPagamento, 
+							dataAgendamento, 
+							responsavel, 
+							dataCadastro, 
+							persistencia) {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
+	var containerPrincipal = document.getElementById('conteudo_container');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
+	var sideMenu = document.getElementById('side_menu');
+
+	var containerEdita = document.getElementById('conteudo_container_edita');
+
+	var subtitulo = document.getElementById('edita_despesa_subtitulo');
+
+	containerEdita.hidden=false;
+
+	containerPrincipal.style.pointerEvents="none";
+	containerPrincipal.style.opacity="0.075";
+	containerPrincipal.style.transition="1s";
+
+	menuSuperior.style.pointerEvents="none";
+	menuSuperior.style.opacity="0.1";
+	menuSuperior.style.transition="1s";
+
+	menuSuperiorMobile.style.pointerEvents="none";
+	menuSuperiorMobile.style.opacity="0.1";
+	menuSuperiorMobile.style.transition="1s";	
+
+	sideMenu.style.pointerEvents="none";
+	sideMenu.style.opacity="0.1";
+	sideMenu.style.transition="1s";
+
+	// CONVERTENDO DATA PARA PADRÃO BR
+	var dataCadastroSplitada = dataCadastro.split("-");
+	if (dataCadastroSplitada.length == 3) {
+		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
+		subtitulo.innerText="Despesa criada dia " + dataUsParaDataBr + " por " + responsavel;
+	}	
+
+	// SETANDO VALORES NOS CAMPOS
+	document.getElementById('id_input_edicao').value=id;
+	document.getElementById('tipo_despesa_input_edicao').value=tipo;
+	document.getElementById('descricao_despesa_input_edicao').value=descricao;
+	document.getElementById('valor_despesa_input_edicao').value=valor;
+	document.getElementById('status_despesa_edicao').value=status;
+
+	document.getElementById('persistencia_input_edicao').style.color="#4444";
+	document.getElementById('persistencia_input_edicao').value=persistencia;
+	document.getElementById('persistencia_input_edicao').disabled=true;
+
+	if (status == 'PAGO') {
+		document.getElementById('data_pagamento_input_edicao').value=dataPagamento;
+		document.getElementById('data_agendamento_input_edicao').style.color="#4444";
+		document.getElementById('data_agendamento_input_edicao').value="";
+		document.getElementById('data_agendamento_input_edicao').disabled=true;
+	}
+	else if (status == 'PENDENTE') {
+		document.getElementById('data_agendamento_input_edicao').value=dataAgendamento;
+		document.getElementById('data_pagamento_input_edicao').style.color="#4444";
+		document.getElementById('data_pagamento_input_edicao').value="";
+		document.getElementById('data_pagamento_input_edicao').disabled=true;
+	}
+	
+	document.getElementById('persistencia_input_edicao').value=persistencia;
+}
+
+function fecharEditaDespesa() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
+	var containerPrincipal = document.getElementById('conteudo_container');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
+	var sideMenu = document.getElementById('side_menu');	
+
+	var containerEdita = document.getElementById('conteudo_container_edita');	
+
+	var descricaoDespesaInput = document.getElementById('descricao_despesa_input_edicao');
+	var valorDespesaInput = document.getElementById('valor_despesa_input_edicao');
+	var tipoDespesaInput = document.getElementById('tipo_despesa_input_edicao');
+	var statusDespesaInput = document.getElementById('status_despesa_edicao');
+	var dataPagamentoInput = document.getElementById('data_pagamento_input_edicao');
+	var dataAgendamentoInput = document.getElementById('data_agendamento_input_edicao');
+	var persistenciaInput = document.getElementById('persistencia_input_edicao');
+
+
+	descricaoDespesaInput.value="";
+	valorDespesaInput.value="";
+	statusDespesaInput.value="PAGO";
+	dataAgendamentoInput.value="";
+	persistenciaInput.value="NAO";
+	tipoDespesaInput.value="FIXO";
+
+	dataAgendamentoInput.style.color="#4444";
+	dataAgendamentoInput.disabled=true;	
+
+	dataPagamentoInput.style.color="#C3C8C8";
+	dataPagamentoInput.disabled=false;
+	dataPagamentoInput.value=hoje;	
+	
+	containerEdita.hidden=true;
+
+	containerPrincipal.style.opacity="1";
+	containerPrincipal.style.transition="1s";
+	containerPrincipal.style.pointerEvents="auto";
+
+	menuSuperior.style.opacity="1";
+	menuSuperior.style.transition="1s";
+	menuSuperior.style.pointerEvents="auto";
+
+	menuSuperiorMobile.style.opacity="1";
+	menuSuperiorMobile.style.transition="1s";
+	menuSuperiorMobile.style.pointerEvents="auto";	
+
+	sideMenu.style.opacity="1";
+	sideMenu.style.transition="1s";
+	sideMenu.style.pointerEvents="auto";		
+}
+
+function editaDespesaChangeStatus() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
+	var statusDespesa = document.getElementById('status_despesa_edicao');
+	var dataAgendamentoInput = document.getElementById('data_agendamento_input_edicao');
+	var dataPagamentoInput = document.getElementById('data_pagamento_input_edicao');	
+
+	if (statusDespesa.value == "PAGO") {
+		dataAgendamentoInput.style.color="#4444";
+		dataAgendamentoInput.value="";
+		dataAgendamentoInput.disabled=true;
+
+		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.disabled=false;
+		dataPagamentoInput.value=hoje;
+	} 
+
+	else if(statusDespesa.value == "PENDENTE") {
+		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.disabled=false;
+		dataAgendamentoInput.value=hoje;
+
+		dataPagamentoInput.style.color="#4444";
+		dataPagamentoInput.value="";
+		dataPagamentoInput.disabled=true;
+	}
+}
+
+function buildUrl(baseUrl, pagina, descricao, tipo, dataInicio, dataFim, mes, ano) {
+
+	var url = baseUrl + "?page=" + pagina;
+	var paginaList = document.getElementById('pagina_list');
+
+	if (descricao != null) {
+		baseUrl + "&descricao=" + descricao;
+	}		
+	else if (tipo != null) {
+		baseUrl + "&tipo=" + tipo;
+	}
+	else if (dataInicio != null && dataFim != null) {
+		baseUrl + "&dataInicio=" + dataInicio + "&dataFim=" + dataFim;
+	}
+	else if (mes != null && ano != null) {
+		baseUrl + "&mes=" + mes + "&ano=" + ano;	
+	}
+
+	paginaList.href=baseUrl;
+
+}
+
 function hideMessage(){
 	var alertas = document.getElementsByClassName('alert');
 	for(var i = 0; i < alertas.length; i++){
@@ -1309,4 +1555,41 @@ function ajustaTabela(){
 
 		}
 	}
+}
+
+function pageResponsiva(){
+	var pages = document.getElementsByClassName('page_number');
+	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
+	var PaginaSelecionada = parseInt(PaginaSelecionada)+1;
+	for(var i = 0; i < pages.length; i++){
+		pages[i].style.background="transparent";
+		pages[i].style.color="#FFFFFF";
+		if(pages[i].innerText == PaginaSelecionada){
+			pages[i].style.background="#82A886";
+			pages[i].style.color="#121212";
+		}
+	}
+
+	if((pages.length) == PaginaSelecionada){
+		document.getElementById('proxima').style.pointerEvents="none";
+		document.getElementById('proxima').style.borderColor="grey";
+		document.getElementById('proxima').style.color="grey";
+	}
+	else{
+		document.getElementById('proxima').style.pointerEvents="auto";
+		document.getElementById('proxima').style.borderColor="#82A886";
+		document.getElementById('proxima').style.color="#FFFFFF";
+	}
+
+	if(PaginaSelecionada == 1){
+		document.getElementById('anterior').style.pointerEvents="none";
+		document.getElementById('anterior').style.borderColor="grey";
+		document.getElementById('anterior').style.color="grey";
+	}
+	else{
+		document.getElementById('anterior').style.pointerEvents="auto";
+		document.getElementById('anterior').style.borderColor="#82A886";
+		document.getElementById('anterior').style.color="FFFFFF";
+	}
+
 }

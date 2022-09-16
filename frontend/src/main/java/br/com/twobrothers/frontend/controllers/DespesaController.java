@@ -9,26 +9,21 @@ import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.DespesaService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
-import br.com.twobrothers.frontend.utils.comparators.Despesa.ComparadorDeAgendamento;
-import br.com.twobrothers.frontend.utils.comparators.Despesa.ComparadorDeDataDePagamento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -52,7 +47,7 @@ public class DespesaController {
     }
 
     @GetMapping
-    public ModelAndView despesas(@PageableDefault(size = 10, page = 0) Pageable pageable,
+    public ModelAndView despesas(@PageableDefault(size = 10, page = 0, sort = {"dataAgendamento", "dataPagamento"}, direction = Sort.Direction.ASC) Pageable pageable,
                                  @RequestParam("descricao") Optional<String> descricao,
                                  @RequestParam("inicio") Optional<String> inicio,
                                  @RequestParam("fim") Optional<String> fim,
@@ -65,12 +60,16 @@ public class DespesaController {
                                  HttpServletRequest req) {
 
         String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/despesas?" + req.getQueryString();
 
         modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
         modelMap.addAttribute("baseUrl", baseUrl);
+        modelMap.addAttribute("queryString", req.getQueryString());
+        modelMap.addAttribute("completeUrl", completeUrl);
 
         List<DespesaEntity> despesasPaginadas = new ArrayList<>();
         List<DespesaEntity> despesasSemPaginacao = new ArrayList<>();
+        List<Integer> paginas = new ArrayList<>();
 
         try {
             despesasPaginadas = despesaService.filtroDespesas(
@@ -82,8 +81,8 @@ public class DespesaController {
                     mes.orElse(null),
                     ano.orElse(null));
 
-            Collections.sort(despesasPaginadas, new ComparadorDeDataDePagamento());
-            Collections.sort(despesasPaginadas, new ComparadorDeAgendamento());
+ //           Collections.sort(despesasPaginadas, new ComparadorDeDataDePagamento());
+ //           Collections.sort(despesasPaginadas, new ComparadorDeAgendamento());
 
             despesasSemPaginacao = despesaService.filtroDespesasSemPaginacao(
                     descricao.orElse(null),
@@ -92,6 +91,9 @@ public class DespesaController {
                     fim.orElse(null),
                     mes.orElse(null),
                     ano.orElse(null));
+
+            paginas = despesaService.calculaQuantidadePaginas(despesasSemPaginacao, pageable);
+
         }
         catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
@@ -99,6 +101,14 @@ public class DespesaController {
             return modelAndView;
         }
 
+        model.addAttribute("descricao", descricao.orElse(null));
+        model.addAttribute("dataInicio", inicio.orElse(null));
+        model.addAttribute("dataFim", fim.orElse(null));
+        model.addAttribute("mes", mes.orElse(null));
+        model.addAttribute("ano", ano.orElse(null));
+        model.addAttribute("tipo", tipo.orElse(null));
+        model.addAttribute("paginas", paginas);
+        model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("despesas", despesasPaginadas);
         model.addAttribute("pago", despesaService.calculaValorPago(despesasSemPaginacao));
         model.addAttribute("pendente", despesaService.calculaValorPendente(despesasSemPaginacao));
@@ -109,7 +119,10 @@ public class DespesaController {
     }
 
     @PostMapping
-    public ModelAndView novaDespesa(DespesaDTO despesa, ModelAndView modelAndView, RedirectAttributes redirAttrs) {
+    public ModelAndView novaDespesa(DespesaDTO despesa,
+                                    String query,
+                                    ModelAndView modelAndView,
+                                    RedirectAttributes redirAttrs) {
 
         String criaDespesa = despesaService.encaminhaParaCriacaoDoCrudService(despesa);
 
@@ -118,7 +131,7 @@ public class DespesaController {
         else
             redirAttrs.addFlashAttribute("ErroCadastro", criaDespesa);
 
-        modelAndView.setViewName("redirect:despesas");
+        modelAndView.setViewName("redirect:despesas?" + query);
         return modelAndView;
     }
 
@@ -127,4 +140,28 @@ public class DespesaController {
         modelAndView.setViewName("redirect:../" + despesaService.constroiUriFiltro(filtroDespesa));
         return modelAndView;
     }
+
+    @PostMapping("/deleta-{id}")
+    public ModelAndView filtraDespesa(@PathVariable Long id,
+                                      RedirectAttributes redirAttrs,
+                                      ModelAndView modelAndView,
+                                      String query) {
+        despesaCrudService.deletaDespesaPorId(id);
+        redirAttrs.addFlashAttribute("SucessoDelete", "Despesa deletada com sucesso");
+        modelAndView.setViewName("redirect:../despesas?" + query);
+        return modelAndView;
+    }
+
+    @PostMapping("/alterar")
+    public ModelAndView atualizaDespesa(DespesaDTO despesa,
+                                        RedirectAttributes redirAttrs,
+                                        ModelAndView modelAndView,
+                                        String query) {
+        despesaCrudService.atualizaPorId(despesa);
+        redirAttrs.addFlashAttribute("SucessoEdicao", "Despesa alterada com sucesso");
+        modelAndView.setViewName("redirect:../despesas?" + query);
+        return modelAndView;
+    }
+
+
 }

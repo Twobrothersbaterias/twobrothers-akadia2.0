@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
@@ -52,8 +55,6 @@ public class DespesaService {
                                            String dataFim,
                                            Integer mes,
                                            Integer ano) throws InvalidRequestException {
-        log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de direcionamento de filtro de despesas...");
         if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
         else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
         else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
@@ -68,8 +69,6 @@ public class DespesaService {
                                               String dataFim,
                                               Integer mes,
                                               Integer ano) throws InvalidRequestException {
-        log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de direcionamento de filtro de despesas...");
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
         else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
         else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
@@ -98,6 +97,24 @@ public class DespesaService {
         }
         return valor;
 
+    }
+
+    public List<Integer> calculaQuantidadePaginas(List<DespesaEntity> despesas, Pageable pageable) {
+        List<Integer> paginas = new ArrayList<>();
+        Integer contadorPaginas = 0;
+        Integer contador = 0;
+        paginas.add(contadorPaginas);
+        for (int i = 0; i < despesas.size(); i++) {
+
+            if (contador == pageable.getPageSize()) {
+                contadorPaginas++;
+                paginas.add(contadorPaginas);
+                contador = 0;
+            }
+            contador++;
+
+        }
+        return paginas;
     }
 
     public Integer pendentesHoje() {

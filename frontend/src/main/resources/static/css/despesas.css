@@ -262,7 +262,7 @@ li {
     justify-content: left;
 }
 
-.img, .img_div {
+.img, .img_div, .a_img{
     display: flex;
     justify-content: right;
     align-items: center;
@@ -271,7 +271,7 @@ li {
     object-fit: contain;
 }
 
-.img{
+.img, .a_img{
     margin-left: 25px;
 }
 
@@ -555,6 +555,10 @@ option {
     font-size: 1rem;
     border: 1px solid #82A886;
 }
+.nova_despesa_submit:hover {
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
 
 /* ===== ACIONAMENTO DE FILTROS DE BUSCA ===== */
 
@@ -649,6 +653,92 @@ option {
     justify-content: center;
 }
 
+/* ===== VISUALIZAÇÃO E EDIÇÃO DE DESPESA ===== */
+
+.conteudo_container_edita {
+    position: absolute;
+    top: 70px;    
+    padding: 30px;
+    background: #212121;
+    box-shadow: 10px 10px 30px #121212;
+}
+
+#novo_titulo {
+    color: #C3C8C8;
+}
+
+.conteudo_container_edita {
+    margin-top: 15px;
+}
+
+.edita_despesa_block {
+    margin: 0;
+}
+
+.edita_despesa_form, .edita_despesa_row_principal {
+    margin: 0;
+    padding: 0;    
+}
+
+.edita_despesa_form_row {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.edita_despesa_label {
+    color: #82A886;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 4px;
+}
+
+.edita_despesa_input {
+    border: 1px solid #82A886;
+    background: transparent;
+    padding: 3px 5px;
+    color: #C3C8C8;
+}
+
+#edita_despesa_label_agendamento {
+    color: #82A886;
+}
+
+#data_agendamento_input {
+    color: #4444;
+}
+
+option {
+    color: #212121;
+}
+
+#edita_despesa_third_row {
+    display: flex;
+    justify-content: center;
+}
+
+.edita_despesa_submit {
+    display: flex;
+    justify-content: center;
+    background: #82A886;
+    padding: 5px;
+    color: #212121;
+    font-size: 1rem;
+    border: 1px solid #82A886;
+}
+.edita_despesa_submit:hover {
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+.edita_despesa_subtitulo {
+    font-size: 1.15rem;
+    display: flex;
+    justify-content: left;
+    color: #82A886;
+    margin-bottom: 15px;
+}
 
 @keyframes pulse{
 

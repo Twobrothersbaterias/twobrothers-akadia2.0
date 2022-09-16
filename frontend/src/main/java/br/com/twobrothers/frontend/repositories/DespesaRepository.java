@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories;
 
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,9 +31,6 @@ public interface DespesaRepository extends JpaRepository<DespesaEntity, Long> {
 
     @Query("Select d From DespesaEntity d where d.dataPagamento = ?1 OR d.dataAgendamento <= ?1")
     List<DespesaEntity> buscaHoje(Pageable pageable, String hoje);
-
-    @Query("Select d From DespesaEntity d where d.dataAgendamento <= ?1")
-    List<DespesaEntity> buscaAgendadosHoje(Pageable pageable, String hoje);
 
     @Query("Select d From DespesaEntity d where d.descricao like %:descricao%")
     List<DespesaEntity> buscaPorDescricao(Pageable pageable, @Param("descricao") String descricao);

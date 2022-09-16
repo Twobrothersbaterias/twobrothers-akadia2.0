@@ -176,14 +176,14 @@ public class DespesaCrudService {
         return repository.buscaPorTipoSemPaginacao(tipo);
     }
 
-    public DespesaDTO atualizaPorId(Long id, DespesaDTO despesa) {
+    public DespesaDTO atualizaPorId(DespesaDTO despesa) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de atualização de despesa por id...");
 
-        Optional<DespesaEntity> despesaOptional = repository.findById(id);
+        Optional<DespesaEntity> despesaOptional = repository.findById(despesa.getId());
 
         if (despesaOptional.isEmpty()) {
-            throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + id);
+            throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + despesa.getId());
         }
 
         DespesaEntity despesaAtualizada = despesaOptional.get();
@@ -192,11 +192,16 @@ public class DespesaCrudService {
         validation.validaCorpoDaRequisicao(despesa);
 
         log.info("[PROGRESS] Setando atributos da variável despesaAtualizada com base nos valores recebidos na requisição...");
-        despesaAtualizada.setDataPagamento(despesa.getDataPagamento());
         despesaAtualizada.setStatusDespesa(despesa.getStatusDespesa());
         despesaAtualizada.setTipoDespesa(despesa.getTipoDespesa());
         despesaAtualizada.setDescricao(despesa.getDescricao());
-        despesaAtualizada.setDataAgendamento(despesa.getDataAgendamento());
+
+        if (despesa.getDataPagamento() == null) despesaAtualizada.setDataPagamento("Em aberto");
+        else despesaAtualizada.setDataPagamento(despesa.getDataPagamento());
+
+        if (despesa.getDataAgendamento() == null) despesaAtualizada.setDataAgendamento("Não possui");
+        else despesaAtualizada.setDataAgendamento(despesa.getDataAgendamento());
+
         despesaAtualizada.setValor(despesa.getValor());
 
         log.info("[PROGRESS] Salvando despesa atualizada na base de dados...");
@@ -206,7 +211,7 @@ public class DespesaCrudService {
         return modelMapper.mapper().map(despesaEntity, DespesaDTO.class);
     }
 
-    public Boolean deletaDespesaPorId(Long id) {
+    public void deletaDespesaPorId(Long id) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de remoção de despesa por id...");
         Optional<DespesaEntity> despesaOptional = repository.findById(id);
@@ -214,10 +219,11 @@ public class DespesaCrudService {
             log.info("[PROGRESS] Removendo despesa da base de dados...");
             repository.deleteById(id);
             log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return true;
         }
-        log.error("[ERROR] Não existe nenhuma despesa cadastrada com o id " + id);
-        throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + id);
+        else {
+            log.error("[ERROR] Não existe nenhuma despesa cadastrada com o id " + id);
+            throw new ObjectNotFoundException("Não existe nenhuma despesa cadastrada com o id " + id);
+        }
     }
 
 }
