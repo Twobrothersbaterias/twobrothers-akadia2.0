@@ -20,6 +20,10 @@ INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descrica
 
 DELETE FROM tb_despesa;
 
+# CARGA DE PATRIMONIOS
+INSERT INTO tb_patrimonio(nome, data_cadastro, tipo_patrimonio, status_patrimonio, data_agendamento, data_pagamento, valor, usuario_responsavel) VALUES
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', 'Não possui', '2022-09-18', 60000.0, 'admin');
+
 # CARGA DE ITENS PAGOS
 INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descricao, valor, status_despesa, tipo_despesa, id_usuario_responsavel) VALUES
 ('2028-01-01', '2028-01-01', null, 'Pago 1', 100.0, 'PAGO', 'VARIAVEL', 1),

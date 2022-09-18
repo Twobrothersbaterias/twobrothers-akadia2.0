@@ -29,15 +29,14 @@ public class PatrimonioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private LocalDateTime dataCadastro;
-
+    private String dataCadastro;
     @Enumerated(EnumType.STRING)
     private TipoPatrimonioEnum tipoPatrimonio;
-
     @Enumerated(EnumType.STRING)
     private StatusPatrimonioEnum statusPatrimonio;
     private String dataAgendamento;
+    private String dataPagamento;
     private Double valor;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
 }

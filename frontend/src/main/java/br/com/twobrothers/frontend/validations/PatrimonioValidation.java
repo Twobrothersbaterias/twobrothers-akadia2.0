@@ -24,6 +24,7 @@ public class PatrimonioValidation {
     public void validaCorpoDaRequisicao(PatrimonioDTO patrimonio) {
         validaSePossuiAtributosNulos(patrimonio);
         if (patrimonio.getDataAgendamento() != null) validaAtributoDataAgendamento(patrimonio.getDataAgendamento());
+        if (patrimonio.getDataPagamento() != null) validaAtributoDataAgendamento(patrimonio.getDataPagamento());
         log.warn("[VALIDAÇÃO - PATRIMONIO] Validação do objeto patrimonio finalizada com sucesso");
     }
 
@@ -36,7 +37,7 @@ public class PatrimonioValidation {
         if (patrimonio.getTipoPatrimonio() == null) atributosNulos.add("tipoPatrimonio");
         if (patrimonio.getStatusPatrimonio() == null) atributosNulos.add("statusPatrimonio");
         if (patrimonio.getValor() == null) atributosNulos.add("valor");
-        if (patrimonio.getIdUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
+        if (patrimonio.getUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do patrimonio falhou. A inserção de um ou mais atributos " +
@@ -52,19 +53,38 @@ public class PatrimonioValidation {
 
         LocalDate hoje = LocalDate.now();
 
-        if (!data.matches(DATE_REGEX))
-            throw new InvalidRequestException
-                    ("Validação do patrimoônio falhou. Motivo: o padrão da data de agendamento é inválido");
+        LocalDate dataAgendada = LocalDate.parse(data);
 
-        String dataDeAgendamento = data.replace("/", "-").split("-")[2] + "-"
-                + data.replace("/", "-").split("-")[1] + "-"
-                + data.replace("/", "-").split("-")[0];
-
-        LocalDate dataAgendada = LocalDate.parse(dataDeAgendamento);
-        if (dataAgendada.isBefore(hoje))
+        if (dataAgendada.isBefore(hoje)) {
+            log.error("[ERROR] Não é possível realizar um agendamento para uma data no passado");
             throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
+        }
 
         log.warn("Validação do atributo dataAgendamento OK");
+    }
+
+    public void validaAtributoDataPagamento(String data) {
+        log.info("[VALIDAÇÃO - PATRIMONIO] Inicializando validação do atributo dataPagamento...");
+
+        LocalDate hoje = LocalDate.now();
+        LocalDate dataPagamento = LocalDate.parse(data);
+
+        if (dataPagamento.isAfter(hoje)) {
+            log.error("[ERROR] Não é possível realizar um pagamento para uma data no futuro");
+            throw new InvalidRequestException("Não é possível realizar um pagamento para uma data no futuro");
+        }
+
+        log.warn("Validação do atributo pagamento OK");
+    }
+
+    public void validaRangeData(String inicio, String fim) {
+
+        LocalDate dataInicio = LocalDate.parse(inicio);
+        LocalDate dataFim = LocalDate.parse(fim);
+
+        if (dataInicio.isAfter(dataFim))
+            throw new InvalidRequestException("O conteúdo do campo data início não pode ser anterior ao campo data fim");
+
     }
 
 }

@@ -15,12 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
-
-import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 
 @Slf4j
 @Service
@@ -42,36 +38,37 @@ public class DespesaService {
         try {
             crudService.criaNovaDespesa(despesa);
             return null;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return e.getMessage();
         }
     }
 
     public List<DespesaEntity> filtroDespesas(Pageable pageable,
-                                           String descricao,
-                                           TipoDespesaEnum tipo,
-                                           String dataInicio,
-                                           String dataFim,
-                                           Integer mes,
-                                           Integer ano) throws InvalidRequestException {
-        if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
-        else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
-        else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
-        else return crudService.buscaHoje(pageable);
-    }
-
-    public List<DespesaEntity> filtroDespesasSemPaginacao(
                                               String descricao,
                                               TipoDespesaEnum tipo,
                                               String dataInicio,
                                               String dataFim,
                                               Integer mes,
                                               Integer ano) throws InvalidRequestException {
+        if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
+        else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
+        else if (dataInicio != null && dataFim != null)
+            return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else return crudService.buscaHoje(pageable);
+    }
+
+    public List<DespesaEntity> filtroDespesasSemPaginacao(
+            String descricao,
+            TipoDespesaEnum tipo,
+            String dataInicio,
+            String dataFim,
+            Integer mes,
+            Integer ano) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
         else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
-        else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+        else if (dataInicio != null && dataFim != null)
+            return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
         else return crudService.buscaHojeSemPaginacao();
     }
@@ -121,7 +118,7 @@ public class DespesaService {
         List<DespesaEntity> despesas = crudService.buscaAgendadosHojeSemPaginacao();
         Integer quantidade = 0;
         if (despesas != null && !despesas.isEmpty()) {
-            for (DespesaEntity despesa: despesas) {
+            for (DespesaEntity despesa : despesas) {
                 if (despesa.getStatusDespesa() == StatusDespesaEnum.PENDENTE) quantidade++;
             }
         }

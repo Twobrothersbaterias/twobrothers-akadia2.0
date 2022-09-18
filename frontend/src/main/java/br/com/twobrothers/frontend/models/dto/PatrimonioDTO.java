@@ -24,20 +24,14 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class PatrimonioDTO {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
-
+    private String dataCadastro;
     private String nome;
     private TipoPatrimonioEnum tipoPatrimonio;
     private StatusPatrimonioEnum statusPatrimonio;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dataAgendamento;
-
+    private String dataPagamento;
     private Double valor;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
 }

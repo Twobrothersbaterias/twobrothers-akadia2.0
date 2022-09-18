@@ -57,8 +57,10 @@ function responsive(){
 	var liA = document.getElementsByClassName('li_a');
 	var menuSuperiorMobileItem = document.getElementsByClassName('menu_superior_mobile_item');
 	var novaDespesaInput = document.getElementsByClassName('nova_despesa_input');
+	var editaItemInput = document.getElementsByClassName('edita_despesa_input');
 	var filtroBlock = document.getElementsByClassName('filtro_block');
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
+	var editaSubtitulo = document.getElementById('edita_despesa_subtitulo');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
@@ -81,7 +83,8 @@ function responsive(){
 		editaDespesaSegundaRow.style.marginBottom="25px";
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.5rem";	
-		editaDespesaSubmit.style.marginTop="0px";		
+		editaDespesaSubmit.style.marginTop="0px";
+		editaSubtitulo.style.fontSize="1rem";		
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -129,7 +132,13 @@ function responsive(){
 
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="none";
+		}
+		for(var i = 0; i < novaDespesaInput.length; i++) {
+			novaDespesaInput[i].style.marginBottom="0";
 		}	
+		for(var i = 0; i < editaItemInput.length; i++) {
+			editaItemInput[i].style.marginBottom="0";
+		}			
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
@@ -164,7 +173,8 @@ function responsive(){
 		editaDespesaSegundaRow.style.marginBottom="25px";	
 		containerEdita.style.fontSize="1rem";
 		editaTitulo.style.fontSize="1.3rem";	
-		editaDespesaSubmit.style.marginTop="0px";		
+		editaDespesaSubmit.style.marginTop="0px";
+		editaSubtitulo.style.fontSize="1rem";		
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -234,6 +244,12 @@ function responsive(){
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
 		}	
+		for(var i = 0; i < novaDespesaInput.length; i++) {
+			novaDespesaInput[i].style.marginBottom="0";
+		}	
+		for(var i = 0; i < editaItemInput.length; i++) {
+			editaItemInput[i].style.marginBottom="0";
+		}		
 
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";					
@@ -275,7 +291,8 @@ function responsive(){
 		editaDespesaSegundaRow.style.marginBottom="25px";
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.2rem";
-		editaDespesaSubmit.style.marginTop="0px";		
+		editaDespesaSubmit.style.marginTop="0px";
+		editaSubtitulo.style.fontSize="0.95rem";	
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -322,6 +339,12 @@ function responsive(){
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
 		}
+		for(var i = 0; i < novaDespesaInput.length; i++) {
+			novaDespesaInput[i].style.marginBottom="0";
+		}	
+		for(var i = 0; i < editaItemInput.length; i++) {
+			editaItemInput[i].style.marginBottom="0";
+		}		
 
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";		
@@ -346,7 +369,8 @@ function responsive(){
 		editaDespesaSegundaRow.style.marginBottom="25px";	
 		containerEdita.style.fontSize="0.90rem";	
 		editaTitulo.style.fontSize="1.2rem";		
-		editaDespesaSubmit.style.marginTop="0px";		
+		editaDespesaSubmit.style.marginTop="0px";
+		editaSubtitulo.style.fontSize="0.90rem";	
 
 		for(var i = 0; i < thPagamento.length; i++) {
 			thPagamento[i].style.paddingLeft="0px"
@@ -411,6 +435,9 @@ function responsive(){
 		for(var i = 0; i < novaDespesaInput.length; i++) {
 			novaDespesaInput[i].style.marginBottom="0";
 		}	
+		for(var i = 0; i < editaItemInput.length; i++) {
+			editaItemInput[i].style.marginBottom="0";
+		}		
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
 		}
@@ -436,6 +463,7 @@ function responsive(){
 		containerEdita.style.fontSize="0.90rem";
 		editaTitulo.style.fontSize="1.2rem";
 		editaDespesaSubmit.style.marginTop="5px";
+		editaSubtitulo.style.fontSize="0.85rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=true;
@@ -500,6 +528,9 @@ function responsive(){
 		for(var i = 0; i < novaDespesaInput.length; i++) {
 			novaDespesaInput[i].style.marginBottom="15px";
 		}
+		for(var i = 0; i < editaItemInput.length; i++) {
+			editaItemInput[i].style.marginBottom="15px";
+		}		
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
 		}
@@ -667,7 +698,6 @@ function changeStatus() {
 		dataPagamentoInput.value="";
 		dataPagamentoInput.disabled=true;
 	}
-
 }
 
 function reloadNovaDespesa() {
