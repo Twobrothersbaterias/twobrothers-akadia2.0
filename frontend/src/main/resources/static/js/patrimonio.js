@@ -1565,6 +1565,15 @@ function hideMessage(){
 
 function ajustaTabela(){
 
+	var informativoValorCaixa = document.getElementById('informativo_valor_caixa');
+
+	if (informativoValorCaixa.replace("R$ ", "") < 0.00) {
+		informativoValorCaixa.style.color="#F20a0a";
+	}
+	else {
+		informativoValorCaixa.style.color="#C3C8C8";
+	}
+
 	// Definindo propriedades
 	var line = document.getElementsByClassName('tr');
 	var columnScheduling = document.getElementsByClassName('td_scheduling');

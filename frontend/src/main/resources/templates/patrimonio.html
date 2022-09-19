@@ -264,16 +264,7 @@
 							<div class="informativo_chave">
 								Bruto: 
 							</div>
-							<div th:text="'R$ ' + ${bruto}" class="informativo_valor">
-								R$ 0.00
-							</div>	
-						</div>
-
-						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_pendente">
-							<div class="informativo_chave">
-								A receber: 
-							</div>
-							<div th:text="'R$ ' + ${pendente}" class="informativo_valor">
+							<div th:text="'R$ ' + ${bruto}" class="informativo_valor informativo_valor_bruto">
 								R$ 0.00
 							</div>	
 						</div>
@@ -282,16 +273,25 @@
 							<div class="informativo_chave">
 								Passivos: 
 							</div>
-							<div th:text="${passivos}" class="informativo_valor">
+							<div th:text="'R$' + ${passivos}" class="informativo_valor informativo_valor_passivo">
 								R$ 0.00
 							</div>
+						</div>						
+
+						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_pendente">
+							<div class="informativo_chave">
+								A receber: 
+							</div>
+							<div th:text="'R$ ' + ${pendente}" class="informativo_valor informativo_valor_pendente">
+								R$ 0.00
+							</div>	
 						</div>
 
 						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_passivos">
 							<div class="informativo_chave">
 								Caixa: 
 							</div>
-							<div th:text="${caixa}" class="informativo_valor">
+							<div th:text="'R$' + ${caixa}" class="informativo_valor informativo_valor_caixa" id="informativo_valor_caixa">
 								R$ 0.00
 							</div>
 						</div>	
@@ -608,13 +608,6 @@
 							</div>
 						</div><!-- PAGE_ROW-->
 					</div>
-
-
-
-
-
-
-
 				</div>
 
 			</main>
@@ -828,7 +821,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Descrição
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_patrimonio_input_edicao" required/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
 					</div>							
 
 					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="edita_item_third_block">

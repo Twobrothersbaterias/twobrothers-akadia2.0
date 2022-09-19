@@ -43,6 +43,15 @@ public class DespesaService {
         }
     }
 
+    public String encaminhaParaUpdateDoCrudService(DespesaDTO despesa) {
+        try {
+            crudService.atualizaPorId(despesa);
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public List<DespesaEntity> filtroDespesas(Pageable pageable,
                                               String descricao,
                                               TipoDespesaEnum tipo,

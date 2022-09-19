@@ -154,8 +154,14 @@ public class DespesaController {
                                         RedirectAttributes redirAttrs,
                                         ModelAndView modelAndView,
                                         String query) {
-        despesaCrudService.atualizaPorId(despesa);
-        redirAttrs.addFlashAttribute("SucessoEdicao", "Despesa alterada com sucesso");
+
+        String atualizaDespesa = despesaService.encaminhaParaUpdateDoCrudService(despesa);
+
+        if (atualizaDespesa == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da despesa salvo com sucesso");
+        else
+            redirAttrs.addFlashAttribute("ErroCadastro", atualizaDespesa);
+
         modelAndView.setViewName("redirect:../despesas?" + query);
         return modelAndView;
     }

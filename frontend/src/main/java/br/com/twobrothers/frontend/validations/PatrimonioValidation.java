@@ -1,6 +1,7 @@
 package br.com.twobrothers.frontend.validations;
 
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
+import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,14 +22,14 @@ import static br.com.twobrothers.frontend.utils.RegexPatterns.DATE_REGEX;
 @Slf4j
 public class PatrimonioValidation {
 
-    public void validaCorpoDaRequisicao(PatrimonioDTO patrimonio) {
-        validaSePossuiAtributosNulos(patrimonio);
+    public void validaCorpoDaRequisicao(PatrimonioDTO patrimonio, ValidationType validation) {
+        validaSePossuiAtributosNulos(patrimonio, validation);
         if (patrimonio.getDataAgendamento() != null) validaAtributoDataAgendamento(patrimonio.getDataAgendamento());
         if (patrimonio.getDataPagamento() != null) validaAtributoDataAgendamento(patrimonio.getDataPagamento());
         log.warn("[VALIDAÇÃO - PATRIMONIO] Validação do objeto patrimonio finalizada com sucesso");
     }
 
-    public void validaSePossuiAtributosNulos(PatrimonioDTO patrimonio) {
+    public void validaSePossuiAtributosNulos(PatrimonioDTO patrimonio, ValidationType validation) {
 
         log.info("[VALIDAÇÃO - PATRIMONIO] Inicializando validação de atributos obrigatórios nulos...");
         List<String> atributosNulos = new ArrayList<>();
@@ -37,7 +38,7 @@ public class PatrimonioValidation {
         if (patrimonio.getTipoPatrimonio() == null) atributosNulos.add("tipoPatrimonio");
         if (patrimonio.getStatusPatrimonio() == null) atributosNulos.add("statusPatrimonio");
         if (patrimonio.getValor() == null) atributosNulos.add("valor");
-        if (patrimonio.getUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
+        if (validation.equals(ValidationType.CREATE) && patrimonio.getUsuarioResponsavel() == null) atributosNulos.add("usuarioResponsavel");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do patrimonio falhou. A inserção de um ou mais atributos " +

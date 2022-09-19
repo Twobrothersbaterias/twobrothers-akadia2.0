@@ -43,6 +43,15 @@ public class PatrimonioService {
         }
     }
 
+    public String encaminhaParaUpdateDoCrudService(PatrimonioDTO patrimonio) {
+        try {
+            crudService.atualizaPorId(patrimonio);
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public List<PatrimonioEntity> filtroPatrimonios(Pageable pageable,
                                                     String descricao,
                                                     TipoPatrimonioEnum tipo,
@@ -78,6 +87,7 @@ public class PatrimonioService {
         Double valor = 0.0;
         if (patrimonios != null && !patrimonios.isEmpty()) {
             for (PatrimonioEntity patrimonio : patrimonios) {
+                System.err.println(patrimonio);
                 if (patrimonio.getStatusPatrimonio() == StatusPatrimonioEnum.PAGO
                 && patrimonio.getTipoPatrimonio() != TipoPatrimonioEnum.PASSIVO) valor += patrimonio.getValor();
             }
@@ -98,11 +108,10 @@ public class PatrimonioService {
     }
 
     public Double calculaValorPassivos(List<PatrimonioEntity> patrimonios) {
-
         Double valor = 0.0;
         if (patrimonios != null && !patrimonios.isEmpty()) {
             for (PatrimonioEntity patrimonio : patrimonios) {
-                if (patrimonio.getTipoPatrimonio() == TipoPatrimonioEnum.A_RECEBER
+                if (patrimonio.getTipoPatrimonio() == TipoPatrimonioEnum.PASSIVO
                 && patrimonio.getStatusPatrimonio() == StatusPatrimonioEnum.PAGO) valor += patrimonio.getValor();
             }
         }
@@ -111,7 +120,7 @@ public class PatrimonioService {
     }
 
     public Double calculaValorCaixa(List<PatrimonioEntity> patrimonios) {
-        return (calculaValorBruto(patrimonios) + calculaValorPendente(patrimonios)) - calculaValorPassivos(patrimonios);
+        return (calculaValorBruto(patrimonios)) - calculaValorPassivos(patrimonios);
     }
 
     public List<Integer> calculaQuantidadePaginas(List<PatrimonioEntity> patrimonios, Pageable pageable) {

@@ -41,11 +41,6 @@ public class PatrimonioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-//    @Bean
-//    public Function<String, String> currentUrlWithoutParam() {
-//        return param -> ServletUriComponentsBuilder.fromCurrentRequest().replaceQueryParam(param).toUriString();
-//    }
-
     @GetMapping
     public ModelAndView patrimonios(@PageableDefault(size = 10, page = 0, sort = {"dataAgendamento", "dataPagamento"}, direction = Sort.Direction.ASC) Pageable pageable,
                                     @RequestParam("descricao") Optional<String> descricao,
@@ -154,8 +149,14 @@ public class PatrimonioController {
                                            RedirectAttributes redirAttrs,
                                            ModelAndView modelAndView,
                                            String query) {
-        patrimonioCrudService.atualizaPorId(patrimonio);
-        redirAttrs.addFlashAttribute("SucessoEdicao", "Patrimônio alterado com sucesso");
+
+        String atualizaPatrimonio = patrimonioService.encaminhaParaUpdateDoCrudService(patrimonio);
+
+        if (atualizaPatrimonio == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro do patrimônio salvo com sucesso");
+        else
+            redirAttrs.addFlashAttribute("ErroCadastro", atualizaPatrimonio);
+
         modelAndView.setViewName("redirect:../patrimonios?" + query);
         return modelAndView;
     }

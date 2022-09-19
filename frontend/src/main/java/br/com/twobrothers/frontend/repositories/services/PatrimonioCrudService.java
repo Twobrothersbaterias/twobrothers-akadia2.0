@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
+import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.PatrimonioRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
@@ -57,7 +58,7 @@ public class PatrimonioCrudService {
         patrimonio.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
 
         log.info("[PROGRESS] Inicializando método de validação do patrimônio...");
-        validation.validaCorpoDaRequisicao(patrimonio);
+        validation.validaCorpoDaRequisicao(patrimonio, ValidationType.CREATE);
 
         log.info("[PROGRESS] Persistindo patrimonio na base de dados...");
         repository.save(modelMapper.mapper().map(patrimonio, PatrimonioEntity.class));
@@ -154,7 +155,7 @@ public class PatrimonioCrudService {
         PatrimonioEntity patrimonioAtualizado = patrimonioOptional.get();
 
         log.info("[PROGRESS] Inicializando método de validação do objeto PatrimonioDTO...");
-        validation.validaCorpoDaRequisicao(patrimonio);
+        validation.validaCorpoDaRequisicao(patrimonio, ValidationType.UPDATE);
 
         log.info("[PROGRESS] Setando atributos no objeto patrimonioAtualizado...");
 
