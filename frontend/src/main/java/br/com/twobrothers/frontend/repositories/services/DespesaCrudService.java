@@ -67,6 +67,9 @@ public class DespesaCrudService {
             repository.saveAll(criaDespesasDePersistencia(despesa));
         }
 
+        if (despesa.getDataPagamento() == null) despesa.setDataPagamento("Em aberto");
+        if (despesa.getDataAgendamento() == null) despesa.setDataAgendamento("Não possui");
+
         log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
         log.info("[PROGRESS] Persistindo despesa na base de dados...");
         DespesaEntity despesaEntity = repository.save(modelMapper.mapper().map(despesa, DespesaEntity.class));
@@ -77,7 +80,7 @@ public class DespesaCrudService {
         log.warn("[INFO] Método de criação de despesas de persistência acessado...");
 
         List<DespesaEntity> despesas = new ArrayList<>();
-        for (int i = 1; i < despesa.getPersistencia().getMeses() + 1; i++) {
+        for (int i = 1; i < despesa.getPersistencia().getMeses() +1; i++) {
             log.info("[PROGRESS] Acessando persistência da {}° despesa...", i);
 
             log.info("[PROGRESS] Realizando setagem de atributos do objeto despesa...");
