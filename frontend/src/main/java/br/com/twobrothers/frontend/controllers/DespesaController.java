@@ -81,9 +81,6 @@ public class DespesaController {
                     mes.orElse(null),
                     ano.orElse(null));
 
- //           Collections.sort(despesasPaginadas, new ComparadorDeDataDePagamento());
- //           Collections.sort(despesasPaginadas, new ComparadorDeAgendamento());
-
             despesasSemPaginacao = despesaService.filtroDespesasSemPaginacao(
                     descricao.orElse(null),
                     tipo.orElse(null),
@@ -157,8 +154,14 @@ public class DespesaController {
                                         RedirectAttributes redirAttrs,
                                         ModelAndView modelAndView,
                                         String query) {
-        despesaCrudService.atualizaPorId(despesa);
-        redirAttrs.addFlashAttribute("SucessoEdicao", "Despesa alterada com sucesso");
+
+        String atualizaDespesa = despesaService.encaminhaParaUpdateDoCrudService(despesa);
+
+        if (atualizaDespesa == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da despesa salvo com sucesso");
+        else
+            redirAttrs.addFlashAttribute("ErroCadastro", atualizaDespesa);
+
         modelAndView.setViewName("redirect:../despesas?" + query);
         return modelAndView;
     }

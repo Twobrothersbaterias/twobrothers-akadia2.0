@@ -22,3 +22,13 @@ management:
     web:
       exposure:
         - '*'
+
+#spring:
+#  mvc:
+#  pathmatch:
+#    matching-strategy: ant-path-matcher
+#  datasource:
+#    url: ${JDBC_DATASOURCE_URL}
+#  jpa:
+#    show-sql: true
+#    generate-ddl: true

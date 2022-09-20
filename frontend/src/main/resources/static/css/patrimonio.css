@@ -435,7 +435,7 @@ hr{
     padding: 0;
     width: 100%;
     display: flex;
-    justify-content: center;    
+    justify-content: center;
 }
 
 .pages{
@@ -481,7 +481,7 @@ hr{
 
 /* ===== FIM DAS PÁGINAS ===== */
 
-/* ===== CADASTRO DE NOVA DESPESA ===== */
+/* ===== CADASTRO DE NOVO ITEM ===== */
 
 .conteudo_container_novo {
     position: absolute;
@@ -494,7 +494,7 @@ hr{
     margin-right: auto;
     left: 0;
     right: 0;
-    text-align: center;        
+    text-align: center;    
 }
 
 #novo_titulo {
@@ -505,37 +505,37 @@ hr{
     margin-top: 15px;
 }
 
-.nova_despesa_block {
+.novo_item_block {
     margin: 0;
 }
 
-.nova_despesa_form, .nova_despesa_row_principal {
+.novo_item_form, .novo_item_row_principal {
     margin: 0;
     padding: 0;    
 }
 
-.nova_despesa_form_row {
+.novo_item_form_row {
     display: flex;
     justify-content: center;
     margin: 0;
     padding: 0;
 }
 
-.nova_despesa_label {
+.novo_item_label {
     color: #82A886;
     display: flex;
     justify-content: left;
     margin-bottom: 4px;
 }
 
-.nova_despesa_input {
+.novo_item_input {
     border: 1px solid #82A886;
     background: transparent;
     padding: 3px 5px;
     color: #C3C8C8;
 }
 
-#nova_despesa_label_agendamento {
+#novo_item_label_agendamento {
     color: #82A886;
 }
 
@@ -547,12 +547,12 @@ option {
     color: #212121;
 }
 
-#nova_despesa_third_row{
+#novo_item_third_row{
     display: flex;
     justify-content: center;
 }
 
-.nova_despesa_submit {
+.novo_item_submit {
     display: flex;
     justify-content: center;
     background: #82A886;
@@ -561,7 +561,7 @@ option {
     font-size: 1rem;
     border: 1px solid #82A886;
 }
-.nova_despesa_submit:hover {
+.novo_item_submit:hover {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
@@ -579,7 +579,7 @@ option {
     margin-right: auto;
     left: 0;
     right: 0;
-    text-align: center;        
+    text-align: center;    
 }
 
 #filtro_titulo {
@@ -665,7 +665,7 @@ option {
     justify-content: center;
 }
 
-/* ===== VISUALIZAÇÃO E EDIÇÃO DE DESPESA ===== */
+/* ===== VISUALIZAÇÃO E EDIÇÃO DE ITEM ===== */
 
 .conteudo_container_edita {
     position: absolute;
@@ -689,37 +689,37 @@ option {
     margin-top: 15px;
 }
 
-.edita_despesa_block {
+.edita_item_block {
     margin: 0;
 }
 
-.edita_despesa_form, .edita_despesa_row_principal {
+.edita_item_form, .edita_item_row_principal {
     margin: 0;
     padding: 0;    
 }
 
-.edita_despesa_form_row {
+.edita_item_form_row {
     display: flex;
     justify-content: center;
     margin: 0;
     padding: 0;
 }
 
-.edita_despesa_label {
+.edita_item_label {
     color: #82A886;
     display: flex;
     justify-content: left;
     margin-bottom: 4px;
 }
 
-.edita_despesa_input {
+.edita_item_input {
     border: 1px solid #82A886;
     background: transparent;
     padding: 3px 5px;
     color: #C3C8C8;
 }
 
-#edita_despesa_label_agendamento {
+#edita_item_label_agendamento {
     color: #82A886;
 }
 
@@ -731,12 +731,12 @@ option {
     color: #212121;
 }
 
-#edita_despesa_third_row {
+#edita_item_third_row {
     display: flex;
     justify-content: center;
 }
 
-.edita_despesa_submit {
+.edita_item_submit {
     display: flex;
     justify-content: center;
     background: #82A886;
@@ -745,12 +745,12 @@ option {
     font-size: 1rem;
     border: 1px solid #82A886;
 }
-.edita_despesa_submit:hover {
+.edita_item_submit:hover {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
 
-.edita_despesa_subtitulo {
+.edita_item_subtitulo {
     font-size: 1.15rem;
     display: flex;
     justify-content: left;

@@ -48,7 +48,7 @@ public class DespesaCrudService {
 
     DespesaValidation validation = new DespesaValidation();
 
-    public DespesaDTO criaNovaDespesa(DespesaDTO despesa) {
+    public void criaNovaDespesa(DespesaDTO despesa) {
 
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação de despesa...");
@@ -72,8 +72,7 @@ public class DespesaCrudService {
 
         log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
         log.info("[PROGRESS] Persistindo despesa na base de dados...");
-        DespesaEntity despesaEntity = repository.save(modelMapper.mapper().map(despesa, DespesaEntity.class));
-        return modelMapper.mapper().map(despesaEntity, DespesaDTO.class);
+        repository.save(modelMapper.mapper().map(despesa, DespesaEntity.class));
     }
 
     public List<DespesaEntity> criaDespesasDePersistencia(DespesaDTO despesa) {
@@ -122,7 +121,7 @@ public class DespesaCrudService {
 
     public List<DespesaEntity> buscaHoje(Pageable pageable) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de todas as despesas cadastradas hoje, pagas hoje ou agendadas para hoje...");
+        log.info("[STARTING] Iniciando método de busca de todas as despesas pagos hoje ou agendados para hoje...");
         LocalDate hoje = LocalDate.now();
         return repository.buscaHoje(pageable, hoje.toString());
     }
@@ -179,7 +178,7 @@ public class DespesaCrudService {
         return repository.buscaPorTipoSemPaginacao(tipo);
     }
 
-    public DespesaDTO atualizaPorId(DespesaDTO despesa) {
+    public void atualizaPorId(DespesaDTO despesa) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de atualização de despesa por id...");
 
@@ -208,10 +207,9 @@ public class DespesaCrudService {
         despesaAtualizada.setValor(despesa.getValor());
 
         log.info("[PROGRESS] Salvando despesa atualizada na base de dados...");
-        DespesaEntity despesaEntity = repository.save(despesaAtualizada);
+        repository.save(despesaAtualizada);
 
         log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-        return modelMapper.mapper().map(despesaEntity, DespesaDTO.class);
     }
 
     public void deletaDespesaPorId(Long id) {
