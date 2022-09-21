@@ -487,7 +487,7 @@ hr{
     position: absolute;
     top: 70px;    
     padding: 30px;
-    background: #212121;
+    background: #B3B4B5;
     box-shadow: 10px 10px 30px #121212;
     position: absolute;
     margin-left: auto;
@@ -498,70 +498,77 @@ hr{
 }
 
 #novo_titulo {
-    color: #C3C8C8;
+    color: #212121;
 }
 
 .conteudo_container_novo {
     margin-top: 15px;
 }
 
-.nova_despesa_block {
-    margin: 0;
+.novo_item_block {
+    margin-bottom: 10px;
 }
 
-.nova_despesa_form, .nova_despesa_row_principal {
+.novo_item_form, .novo_item_row_principal {
     margin: 0;
     padding: 0;    
 }
 
-.nova_despesa_form_row {
+.novo_item_form_row {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     margin: 0;
     padding: 0;
 }
 
-.nova_despesa_label {
-    color: #82A886;
+.novo_item_label {
+    color: #212121;
     display: flex;
     justify-content: left;
     margin-bottom: 4px;
 }
 
-.nova_despesa_input {
-    border: 1px solid #82A886;
+.novo_item_input {
+    border: 1px solid #949393;
     background: transparent;
     padding: 3px 5px;
-    color: #C3C8C8;
+    color: #212121;
 }
 
-#nova_despesa_label_agendamento {
-    color: #82A886;
+.subtitulo_novo {
+    font-weight: 600;
+    margin-bottom: 5px;
 }
+
 
 #data_agendamento_input {
     color: #4444;
+}
+
+.hr_novo {
+        
 }
 
 option {
     color: #212121;
 }
 
-#nova_despesa_third_row{
+#novo_item_third_row{
     display: flex;
     justify-content: center;
+    margin-top: 15px;
 }
 
-.nova_despesa_submit {
+.novo_item_submit {
     display: flex;
     justify-content: center;
-    background: #82A886;
-    padding: 5px;
-    color: #212121;
+    background: #424242;
+    padding: 8px 5px;
+    color: #B3B4B5;
     font-size: 1rem;
-    border: 1px solid #82A886;
+    border: 1px solid #424242;
 }
-.nova_despesa_submit:hover {
+.novo_item_submit:hover {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
@@ -572,7 +579,7 @@ option {
     position: absolute;
     top: 70px;    
     padding: 30px;
-    background: #212121;
+    background: #B3B4B5;
     box-shadow: 10px 10px 30px #121212;
     position: absolute;
     margin-left: auto;
@@ -583,7 +590,7 @@ option {
 }
 
 #filtro_titulo {
-    color: #C3C8C8;
+    color: #121212;
 }
 
 .conteudo_container_filtro {
@@ -607,17 +614,17 @@ option {
 }
 
 .filtro_label {
-    color: #82A886;
+    color: #121212;
     display: flex;
     justify-content: left;
     margin-bottom: 4px;
 }
 
 .filtro_input {
-    border: 1px solid #82A886;
+    border: 1px solid #949393;
     background: transparent;
     padding: 3px 5px;
-    color: #C3C8C8;    
+    color: #121212;    
 }
 
 .add_filtro_block {
@@ -630,10 +637,9 @@ option {
     display: flex;
     justify-content: center;   
     padding: 8px;
-    background: #82A886; 
+    background: #424242; 
     border: 1px solid transparent;
-    color: #212121;
-    box-shadow: 0px 0px 10px #121212;        
+    color: #B3B4B5;   
 }
 
 .add_filtro:hover {
@@ -648,16 +654,13 @@ option {
 }
 
 .filtro_tag {
-    background: #transparent;
     margin-right: 15px;
     display: flex;
     justify-content: center;
-    border: 1px solid #82A886;
-    color: #82A886;
-    border-radius: 15px;
+    border: 1px solid #212121;
+    color: #212121;
     opacity: 0.96;
-    padding: 8px 0;  
-    box-shadow: 0px 0px 10px #121212;    
+    padding: 8px 0;
 }
 
 .form_fantasma_filtro {
@@ -671,7 +674,7 @@ option {
     position: absolute;
     top: 70px;    
     padding: 30px;
-    background: #212121;
+    background: #B3B4B5;
     box-shadow: 10px 10px 30px #121212;
     position: absolute;
     margin-left: auto;
@@ -681,49 +684,50 @@ option {
     text-align: center;        
 }
 
-#novo_titulo {
-    color: #C3C8C8;
+#edita_titulo {
+    color: #212121;
 }
 
 .conteudo_container_edita {
     margin-top: 15px;
 }
 
-.edita_despesa_block {
-    margin: 0;
+.edita_item_block {
+    margin-bottom: 10px;
 }
 
-.edita_despesa_form, .edita_despesa_row_principal {
+.edita_item_form, .edita_item_row_principal {
     margin: 0;
     padding: 0;    
 }
 
-.edita_despesa_form_row {
+.edita_item_form_row {
     display: flex;
     justify-content: center;
     margin: 0;
     padding: 0;
 }
 
-.edita_despesa_label {
-    color: #82A886;
+.edita_item_label {
+    color: #212121;
     display: flex;
     justify-content: left;
     margin-bottom: 4px;
 }
 
-.edita_despesa_input {
-    border: 1px solid #82A886;
+.edita_item_input {
+    border: 1px solid #949393;
     background: transparent;
     padding: 3px 5px;
-    color: #C3C8C8;
+    color: #212121;
 }
 
-#edita_despesa_label_agendamento {
-    color: #82A886;
+.subtitulo_edita {
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
-#data_agendamento_input {
+#data_agendamento_input_edicao {
     color: #4444;
 }
 
@@ -731,26 +735,27 @@ option {
     color: #212121;
 }
 
-#edita_despesa_third_row {
+#edita_item_third_row {
     display: flex;
     justify-content: center;
+    margin-top: 15px;
 }
 
-.edita_despesa_submit {
+.edita_item_submit {
     display: flex;
     justify-content: center;
-    background: #82A886;
-    padding: 5px;
-    color: #212121;
+    background: #424242;
+    padding: 8px 5px;
+    color: #B3B4B5;
     font-size: 1rem;
-    border: 1px solid #82A886;
+    border: 1px solid #424242;
 }
-.edita_despesa_submit:hover {
+.edita_item_submit:hover {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
 
-.edita_despesa_subtitulo {
+.edita_item_subtitulo {
     font-size: 1.15rem;
     display: flex;
     justify-content: left;

@@ -646,103 +646,127 @@
 		</div>
 
 		<!-------------- NOVA_DESPESA ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden=true>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden>
 			
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">	
 
-				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_nova_despesa" id="novo_titulo">
+				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
 					Nova despesa
 				</h1>
 
 				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
 
-				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">					
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fechaNovaDespesa()"/>
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovaDespesa()"/>
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovaDespesa()"/>								
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovaDespesa()"/>						
+							
 				</div>	
 
 			</div>
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{despesas}" method="POST" th:object="${despesa}" class="nova_despesa_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{despesas}" method="POST" th:object="${despesa}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-				<div class="nova_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_primeira_row">
-
-					<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_first_block">
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Tipo
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Especificações
 						</label>
-						<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input" required>
-							<option value="FIXO">Fixo</option>
-							<option value="VARIAVEL">Variável</option>
-						</select>
-					</div>										
+					</div>	
+				</div>	
 
-					<div class="nova_despesa_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="nova_despesa_second_block">
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">		
+											
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Descrição
 						</label>
-						<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input" required/>
-					</div>							
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input" tabindex="1" required/>
+					</div>		
 
-					<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_third_block">
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Valor
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Tipo
 						</label>
-						<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor"  id="valor_despesa_input" required/>
-					</div>
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input" required>
+							<option value="FIXO">Fixo</option>
+							<option value="VARIAVEL" selected>Variável</option>
+						</select>
+					</div>	
 
-				</div>
-
-				<div class="nova_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_segunda_row">
-
-					<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12"  id="nova_despesa_fourth_block" >
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="novo_item_fourth_block" >
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Status
 						</label>
-						<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="changeStatus()" name="statusDespesa" id="status_despesa" required>
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="changeStatus()" name="statusDespesa" id="status_despesa" required>
 							<option value="PAGO">Pago</option>
 							<option value="PENDENTE">Pendente</option>
 						</select>
-					</div>										
-
-					<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_fifth_block">
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_label_data_pagamento">
-							Data pgto.
-						</label>
-						<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date" required/>
-					</div>							
-
-					<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="nova_despesa_sixth_block">
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_label_agendamento" disabled>
-							Agendamento
-						</label>
-						<input class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" required disabled/>
 					</div>	
 
-					<div class="nova_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="nova_despesa_seventh_block">
-						<label class="row nova_despesa_form_row nova_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_seventh_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Persistência
 						</label>
-						<select class="row nova_despesa_form_row nova_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input" name="persistencia" required>
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input" name="persistencia" required>
 							<option value="NAO">Não</option>
 							<option value="UM_MES">Um mês</option>
 							<option value="UM_TRIMESTRE">Um trimestre</option>
 							<option value="UM_SEMESTRE">Um semestre</option>
 							<option value="UM_ANO">Um ano</option>
 						</select>
+					</div>					
+
+				</div>
+
+				<hr class="hr_novo">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Pagamento
+						</label>
+					</div>	
+				</div>	
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">								
+
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_third_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Valor
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor"  id="valor_despesa_input" tabindex="2" required/>
+					</div>										
+
+													
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_fifth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento">
+							Data pgto.
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date" required/>
+					</div>							
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_sixth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_agendamento" disabled>
+							Agendamento
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" required disabled/>
 					</div>																	
 
 				</div>	
 
-				<div class="nova_despesa_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="nova_despesa_third_row">
+				<hr>
+
+				<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="submit" class="nova_despesa_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="nova_despesa_submit">
+					<button type="submit" tabindex="3" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
 						Salvar
 					</button>	
 
@@ -751,7 +775,7 @@
 		</div>	
 
 		<!-------------- FILTROS ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden=true>
+		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
@@ -763,9 +787,10 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fecharFiltro()"/>
-
 					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
+
 				</div>	
 
 			</div>						
@@ -902,110 +927,123 @@
 		</div>
 
 		<!-------------- EDITA_DESPESA ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden=true>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
 			
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">	
 
-				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_edita_despesa" id="edita_titulo">
-					Edita despesa
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+					Editar despesa
 				</h1>
 
-				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
-
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fecharEditaDespesa()"/>						
-				</div>	
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Despesa cadastrada no dia 21/07/1998 por admin" id="edita_info"/>	
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaDespesa()"/>						
+				</div>
 
 			</div>
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{despesas/alterar}" method="POST" th:object="${despesa}" class="edita_despesa_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<label class="row edita_item_form_row edita_item_label subtitulo_edita col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Especificações
+					</label>
+				</div>	
+			</div>			
 
-				<input type="text" id="id_input_edicao" name="id" hidden/>
+			<form th:action="@{despesas/alterar}" method="POST" th:object="${despesa}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-				<div class="edita_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_despesa_zero_row">
-					<div class="edita_despesa_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<h3 class="edita_despesa_subtitulo" id="edita_despesa_subtitulo"> 
-							Despesa criada dia 11/11/1111 por admin
-						</h3>	
-					</div>
-				</div>							
+				<input type="text" id="id_input_edicao" name="id" hidden/>					
 
-				<div class="edita_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_despesa_primeira_row">
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">									
 
-					<div class="edita_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="edita_despesa_first_block">
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="edita_item_second_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Descrição
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input_edicao" required/>
+					</div>	
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_first_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Tipo
 						</label>
-						<select class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input_edicao" required>
+						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input_edicao" required>
 							<option value="FIXO">Fixo</option>
 							<option value="VARIAVEL">Variável</option>
 						</select>
-					</div>										
+					</div>	
 
-					<div class="edita_despesa_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="edita_despesa_second_block">
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Descrição
-						</label>
-						<input class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input_edicao" required/>
-					</div>							
-
-					<div class="edita_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="edita_despesa_third_block">
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Valor
-						</label>
-						<input class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_despesa_input_edicao" name="valor" required/>
-					</div>
-
-				</div>
-
-				<div class="edita_despesa_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_despesa_segunda_row">
-
-					<div class="edita_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12"  id="edita_despesa_fourth_block" >
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="edita_item_fourth_block" >
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Status
 						</label>
-						<select class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="editaDespesaChangeStatus()" name="statusDespesa" id="status_despesa_edicao" required>
+						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="editaDespesaChangeStatus()" name="statusDespesa" id="status_despesa_edicao" required>
 							<option value="PAGO">Pago</option>
 							<option value="PENDENTE">Pendente</option>
 						</select>
-					</div>										
+					</div>																	
 
-					<div class="edita_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="edita_despesa_fifth_block">
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_despesa_label_data_pagamento">
-							Data pgto.
-						</label>
-						<input class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input_edicao" type="date" required/>
-					</div>							
-
-					<div class="edita_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6" id="edita_despesa_sixth_block">
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_despesa_label_agendamento" disabled>
-							Agendamento
-						</label>
-						<input class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input_edicao" type="date" required disabled/>
-					</div>	
-
-					<div class="edita_despesa_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="edita_despesa_seventh_block">
-						<label class="row edita_despesa_form_row edita_despesa_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_seventh_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Persistência
 						</label>
-						<select class="row edita_despesa_form_row edita_despesa_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input_edicao" name="persistencia" required>
+						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input_edicao" name="persistencia" required>
 							<option value="NAO">Não</option>
 							<option value="UM_MES">Um mês</option>
 							<option value="UM_TRIMESTRE">Um trimestre</option>
 							<option value="UM_SEMESTRE">Um semestre</option>
 							<option value="UM_ANO">Um ano</option>
 						</select>
-					</div>																	
+					</div>
 
 				</div>	
 
-				<div class="edita_despesa_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_despesa_third_row">
+				<hr class="hr_novo">
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label subtitulo_edita col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Pagamento
+						</label>
+					</div>	
+				</div>					
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">					
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_third_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Valor
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_despesa_input_edicao" name="valor" required/>
+					</div>
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_fifth_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento">
+							Data pgto.
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input_edicao" type="date" required/>
+					</div>							
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_sixth_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_agendamento" disabled>
+							Agendamento
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input_edicao" type="date" required disabled/>
+					</div>	
+
+																	
+
+				</div>	
+
+				<div class="edita_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_third_row">
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 
-					<button type="submit" class="edita_despesa_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="edita_despesa_submit">
+					<button type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
 						Salvar
 					</button>	
 

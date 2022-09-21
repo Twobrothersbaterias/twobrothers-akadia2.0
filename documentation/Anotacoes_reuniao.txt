@@ -55,3 +55,5 @@ Comunicação com a receita
 
 ====================================================
 
+Cálculo de distância no google maps
+

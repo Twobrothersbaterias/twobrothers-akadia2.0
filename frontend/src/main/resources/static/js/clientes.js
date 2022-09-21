@@ -140,7 +140,7 @@ function responsive(){
 		novoItemSubmit.style.marginTop="0px";
 
 		containerEdita.style.fontSize="1rem";
-		editaTitulo.style.fontSize="rem";	
+		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";	
 
 		filtroTitulo.style.fontSize="1.4rem";		

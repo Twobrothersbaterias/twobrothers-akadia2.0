@@ -24,21 +24,11 @@ function responsive(){
 	var containerNovo = document.getElementById('conteudo_container_novo');	
 	var novoTitulo	= document.getElementById('novo_titulo');
 
-	var firstBlock = document.getElementById('nova_despesa_first_block');
-	var fourthBlock = document.getElementById('nova_despesa_fourth_block');
-	var thirdBlock = document.getElementById('nova_despesa_third_block');
-	var seventhBlock = document.getElementById('nova_despesa_seventh_block');	
-	var novaDespesaSegundaRow = document.getElementById('nova_despesa_segunda_row');
-	var novaDespesaSubmit = document.getElementById('nova_despesa_submit');
+	var novaDespesaSubmit = document.getElementById('novo_item_submit');
 
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 	var editaTitulo	= document.getElementById('edita_titulo');
-	var editaFirstBlock = document.getElementById('edita_despesa_first_block');
-	var editaFourthBlock = document.getElementById('edita_despesa_fourth_block');
-	var editaThirdBlock = document.getElementById('edita_despesa_third_block');
-	var editaSeventhBlock = document.getElementById('edita_despesa_seventh_block');	
-	var editaDespesaSegundaRow = document.getElementById('edita_despesa_segunda_row');
-	var editaDespesaSubmit = document.getElementById('edita_despesa_submit');
+	var editaDespesaSubmit = document.getElementById('edita_item_submit');
 
 	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
@@ -56,11 +46,10 @@ function responsive(){
 	var formRemoveText = document.getElementsByClassName('form_remove_text');
 	var liA = document.getElementsByClassName('li_a');
 	var menuSuperiorMobileItem = document.getElementsByClassName('menu_superior_mobile_item');
-	var novaDespesaInput = document.getElementsByClassName('nova_despesa_input');
-	var editaItemInput = document.getElementsByClassName('edita_despesa_input');
+	var novaDespesaInput = document.getElementsByClassName('novo_item_input');
+	var editaItemInput = document.getElementsByClassName('edita_item_input');
 	var filtroBlock = document.getElementsByClassName('filtro_block');
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
-	var editaSubtitulo = document.getElementById('edita_despesa_subtitulo');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
@@ -73,18 +62,13 @@ function responsive(){
 		menuSuperior.style.height="55px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
-		novaDespesaSegundaRow.style.marginTop="20px"
-		novaDespesaSegundaRow.style.marginBottom="25px";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.5rem";	
 		novaDespesaSubmit.style.marginTop="0px";
 
-		editaDespesaSegundaRow.style.marginTop="20px"
-		editaDespesaSegundaRow.style.marginBottom="25px";
 		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.5rem";	
+		editaTitulo.style.fontSize="1.15rem";	
 		editaDespesaSubmit.style.marginTop="0px";
-		editaSubtitulo.style.fontSize="1rem";		
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -133,12 +117,6 @@ function responsive(){
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="none";
 		}
-		for(var i = 0; i < novaDespesaInput.length; i++) {
-			novaDespesaInput[i].style.marginBottom="0";
-		}	
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}			
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
@@ -162,19 +140,14 @@ function responsive(){
 		nomePerfil.style.fontSize="1.15rem";
 		menuSuperior.style.height="50px";
 		menuMobile.style.display="none";
-		informativoRow.style.justifyContent="center";
-		novaDespesaSegundaRow.style.marginTop="20px"
-		novaDespesaSegundaRow.style.marginBottom="25px";	
+		informativoRow.style.justifyContent="center";	
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.3rem";	
 		novaDespesaSubmit.style.marginTop="0px";
 
-		editaDespesaSegundaRow.style.marginTop="20px"
-		editaDespesaSegundaRow.style.marginBottom="25px";	
 		containerEdita.style.fontSize="1rem";
-		editaTitulo.style.fontSize="1.3rem";	
+		editaTitulo.style.fontSize="1.15rem";	
 		editaDespesaSubmit.style.marginTop="0px";
-		editaSubtitulo.style.fontSize="1rem";		
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -244,12 +217,6 @@ function responsive(){
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
 		}	
-		for(var i = 0; i < novaDespesaInput.length; i++) {
-			novaDespesaInput[i].style.marginBottom="0";
-		}	
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
 
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";					
@@ -281,18 +248,13 @@ function responsive(){
 		menuSuperior.style.height="50px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
-		novaDespesaSegundaRow.style.marginTop="20px"
-		novaDespesaSegundaRow.style.marginBottom="25px";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.2rem";
 		novaDespesaSubmit.style.marginTop="0px";
 
-		editaDespesaSegundaRow.style.marginTop="20px"
-		editaDespesaSegundaRow.style.marginBottom="25px";
 		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.2rem";
+		editaTitulo.style.fontSize="1rem";
 		editaDespesaSubmit.style.marginTop="0px";
-		editaSubtitulo.style.fontSize="0.95rem";	
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -339,12 +301,6 @@ function responsive(){
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
 		}
-		for(var i = 0; i < novaDespesaInput.length; i++) {
-			novaDespesaInput[i].style.marginBottom="0";
-		}	
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
 
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";		
@@ -359,18 +315,13 @@ function responsive(){
 		menuSuperior.style.height="45px";
 		menuMobile.style.display="flex";
 		informativoRow.style.justifyContent="center";
-		novaDespesaSegundaRow.style.marginTop="20px"
-		novaDespesaSegundaRow.style.marginBottom="25px";	
 		containerNovo.style.fontSize="0.90rem";	
 		novoTitulo.style.fontSize="1.2rem";		
 		novaDespesaSubmit.style.marginTop="0px";
 
-		editaDespesaSegundaRow.style.marginTop="20px"
-		editaDespesaSegundaRow.style.marginBottom="25px";	
 		containerEdita.style.fontSize="0.90rem";	
-		editaTitulo.style.fontSize="1.2rem";		
+		editaTitulo.style.fontSize="1rem";		
 		editaDespesaSubmit.style.marginTop="0px";
-		editaSubtitulo.style.fontSize="0.90rem";	
 
 		for(var i = 0; i < thPagamento.length; i++) {
 			thPagamento[i].style.paddingLeft="0px"
@@ -431,13 +382,7 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="8%";
 			}
 		}
-
-		for(var i = 0; i < novaDespesaInput.length; i++) {
-			novaDespesaInput[i].style.marginBottom="0";
-		}	
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
+		
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
 		}
@@ -454,16 +399,13 @@ function responsive(){
 		nomePerfil.style.fontSize="1rem";
 		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
-		novaDespesaSegundaRow.style.margin="0";	
 		containerNovo.style.fontSize="0.90rem";
 		novoTitulo.style.fontSize="1.2rem";
 		novaDespesaSubmit.style.marginTop="5px";
 
-		editaDespesaSegundaRow.style.margin="0";	
 		containerEdita.style.fontSize="0.90rem";
-		editaTitulo.style.fontSize="1.2rem";
+		editaTitulo.style.fontSize="1rem";
 		editaDespesaSubmit.style.marginTop="5px";
-		editaSubtitulo.style.fontSize="0.85rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=true;
@@ -524,13 +466,7 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="11.11%";	
 			}
 		}		
-
-		for(var i = 0; i < novaDespesaInput.length; i++) {
-			novaDespesaInput[i].style.marginBottom="15px";
-		}
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="15px";
-		}		
+		
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
 		}
@@ -633,12 +569,12 @@ function fechaNovaDespesa() {
 	statusDespesaInput.value="PAGO";
 	dataAgendamentoInput.value="";
 	persistenciaInput.value="NAO";
-	tipoDespesaInput.value="FIXO";
+	tipoDespesaInput.value="VARIAVEL";
 
 	dataAgendamentoInput.style.color="#4444";
 	dataAgendamentoInput.disabled=true;	
 
-	dataPagamentoInput.style.color="#C3C8C8";
+	dataPagamentoInput.style.color="#121212";
 	dataPagamentoInput.disabled=false;
 	dataPagamentoInput.value=hoje;	
 	
@@ -684,13 +620,13 @@ function changeStatus() {
 		dataAgendamentoInput.value="";
 		dataAgendamentoInput.disabled=true;
 
-		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.style.color="#121212";
 		dataPagamentoInput.disabled=false;
 		dataPagamentoInput.value=hoje;
 	} 
 
 	else if(statusDespesa.value == "PENDENTE") {
-		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.style.color="#121212";
 		dataAgendamentoInput.disabled=false;
 		dataAgendamentoInput.value=hoje;
 
@@ -723,7 +659,7 @@ function reloadNovaDespesa() {
 
 	descricaoDespesaInput.value="";
 	valorDespesaInput.value="";
-	tipoDespesaInput.value="FIXO";
+	tipoDespesaInput.value="VARIAVEL";
 	statusDespesaInput.value="PAGO";
 	dataPagamentoInput.value=hoje;
 	dataAgendamentoInput.value="";
@@ -841,7 +777,7 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		tipoInput.value="FIXO";
+		tipoInput.value="VARIAVEL";
 		tipo.hidden=true;
 
 	}
@@ -862,7 +798,7 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		tipoInput.value="FIXO";
+		tipoInput.value="VARIAVEL";
 		tipo.hidden=true;		
 	}
 	else if (filtroTipo.value == 'PERIODO') {
@@ -882,7 +818,7 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=false;
 
-		tipoInput.value="FIXO";
+		tipoInput.value="VARIAVEL";
 		tipo.hidden=true;
 		
 	}
@@ -903,7 +839,7 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		tipoInput.value="FIXO";
+		tipoInput.value="VARIAVEL";
 		tipo.hidden=false;
 		
 	}
@@ -927,7 +863,7 @@ function reloadFiltro() {
 	var data = (ano + '-' + mes + '-' + dia);
 
 	document.getElementById('filtro_input').disabled=false;
-	document.getElementById('filtro_input').style.border="1px solid #82A886";
+	document.getElementById('filtro_input').style.border="1px solid #949393";
 	document.getElementById('filtro_input').style.pointerEvents="auto";
 	document.getElementById('filtro_input').value="DESCRICAO";
 	document.getElementById('filtro_bt').hidden=false;
@@ -958,7 +894,7 @@ function reloadFiltro() {
 	document.getElementById('data_fim_filtro_input').value=data;
 	document.getElementById('mes_filtro_input').value=mes;
 	document.getElementById('ano_filtro_input').value=ano;
-	document.getElementById('tipo_filtro_input').value="FIXO";
+	document.getElementById('tipo_filtro_input').value="VARIAVEL";
 
 	document.getElementById('input_descricao_backend').value="";
 	document.getElementById('input_data_inicio_backend').value="";
@@ -1121,7 +1057,7 @@ function removerFiltro(filtro) {
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
 	var inputTipoBackend = document.getElementById('input_tipo_backend');	
 	
-	filtroTipo.style.border="1px solid #82A886";
+	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
 	filtroBt.disabled=false;
 	filtroBt.style.pointerEvents="auto";	
@@ -1260,8 +1196,8 @@ function efeitoRemoverFiltroLeave(filtro) {
 	if (filtro == 'descricao') {
 		filtroDescricao.style.transition="1s"
 		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #82A886"
-		filtroDescricao.style.color="#82A886";
+		filtroDescricao.style.border="1px solid #212121"
+		filtroDescricao.style.color="#212121";
 		filtroDescricao.innerText="Descrição";
 		filtroDescricao.innerText = 'Descrição: ' + inputDescricaoBackend.value;
 
@@ -1269,22 +1205,22 @@ function efeitoRemoverFiltroLeave(filtro) {
 	else if (filtro == 'data') {
 		filtroData.style.transition="1s"
 		filtroData.style.background="transparent";
-		filtroData.style.border="1px solid #82A886"
-		filtroData.style.color="#82A886";
+		filtroData.style.border="1px solid #212121"
+		filtroData.style.color="#212121";
 		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
 		filtroPeriodo.style.background="transparent";
-		filtroPeriodo.style.border="1px solid #82A886"
-		filtroPeriodo.style.color="#82A886";
+		filtroPeriodo.style.border="1px solid #212121"
+		filtroPeriodo.style.color="#212121";
 		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
 	}
 	else if (filtro == 'tipo') {
 		filtroTipo.style.transition="1s"
 		filtroTipo.style.background="transparent";
-		filtroTipo.style.border="1px solid #82A886"
-		filtroTipo.style.color="#82A886";
+		filtroTipo.style.border="1px solid #212121"
+		filtroTipo.style.color="#212121";
 		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
 	}		
 }
@@ -1407,7 +1343,7 @@ function fecharEditaDespesa() {
 	statusDespesaInput.value="PAGO";
 	dataAgendamentoInput.value="";
 	persistenciaInput.value="NAO";
-	tipoDespesaInput.value="FIXO";
+	tipoDespesaInput.value="VARIAVEL";
 
 	dataAgendamentoInput.style.color="#4444";
 	dataAgendamentoInput.disabled=true;	
