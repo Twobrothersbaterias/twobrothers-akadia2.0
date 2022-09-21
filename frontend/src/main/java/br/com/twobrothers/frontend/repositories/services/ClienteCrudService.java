@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.*;
 
@@ -44,7 +44,7 @@ public class ClienteCrudService {
     ClienteValidation validation = new ClienteValidation();
     EnderecoValidation enderecoValidation = new EnderecoValidation();
 
-    public ClienteDTO criaNovo(ClienteDTO cliente) {
+    public void criaNovo(ClienteDTO cliente) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
 
@@ -67,123 +67,103 @@ public class ClienteCrudService {
         }
 
         log.info("[PROGRESS] Salvando o cliente na base de dados...");
-        ClienteEntity clienteEntity = repository.save(modelMapper.mapper().map(cliente, ClienteEntity.class));
+        repository.save(modelMapper.mapper().map(cliente, ClienteEntity.class));
 
         log.info("[SUCCESS] Requisição finalizada com sucesso");
-        return modelMapper.mapper().map(clienteEntity, ClienteDTO.class);
-
     }
 
-    public List<ClienteDTO> buscaTodos() {
+    public List<ClienteEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de todos os clientes...");
-
-        if (!repository.findAll().isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll().stream()
-                    .map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhum cliente salvo na base de dados");
-        throw new ObjectNotFoundException("Não existe nenhum cliente salvo na base de dados.");
+        log.info("[STARTING] Iniciando método de busca de cliente por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
+        return repository.buscaPorRangeDeDataCadastroPaginado(pageable, dataInicio, dataFim);
     }
 
-    public List<ClienteDTO> buscaPorPaginacao(Pageable paginacao) {
+    public List<ClienteEntity> buscaPorPeriodo(Pageable pageable, Integer mes, Integer ano) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de cliente por paginação...");
-        if (!repository.findAll(paginacao).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll(paginacao)
-                    .getContent().stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
-        }
-        log.error("Nenhum cliente foi encontrado considerando os parâmetros da paginação...");
-        throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado na página indicada");
+        log.info("[STARTING] Iniciando método de busca de cliente por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodoPaginado(pageable, dataInicio.toString(), dataFim.toString());
     }
 
-    public List<ClienteDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+    public List<ClienteEntity> buscaHoje(Pageable pageable) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por range de cadastro...");
-
-        List<ClienteEntity> clientes = repository.buscaPorRangeDeDataCadastro(
-                (LocalDate.parse(dataInicio)).atTime(0, 0),
-                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
-
-        if (!clientes.isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return clientes.stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Nenhum cliente foi encontrado considerando os parâmetros recebidos");
-        throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado no range de datas indicado");
-
+        log.info("[STARTING] Iniciando método de busca de todos os clientes cadastrados hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojePaginado(pageable, hoje.toString());
     }
 
-    public ClienteDTO buscaPorId(Long id) {
+    public List<ClienteEntity> buscaPorNomeCompleto(Pageable pageable, String nomeCompleto) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por id...");
-        if (repository.findById(id).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.findById(id).get(), ClienteDTO.class);
-        }
-        log.error("[ERROR] Não existe nenhum cliente cadastrado no banco de dados com o id " + id);
-        throw new ObjectNotFoundException("Não existe nenhum cliente cadastrado no banco de dados com o id " + id);
+        log.info("[STARTING] Iniciando método de busca de cliente por nome...");
+        return repository.buscaPorNomeCompletoPaginado(pageable, nomeCompleto);
     }
 
-    public ClienteDTO buscaPorCpfCnpj(String cpfCnpj) {
+    public List<ClienteEntity> buscaPorCpfCnpj(Pageable pageable, String cpfCnpj) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de cliente por CPF/CNPJ");
-        if (repository.buscaPorCpfCnpj(cpfCnpj).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.buscaPorCpfCnpj(cpfCnpj).get(), ClienteDTO.class);
-        }
-        log.error("[ERROR] Nenhum cliente foi encontrado através do tributo CPF/CNPJ enviado");
-        throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo cpfCnpj enviado.");
+        log.info("[STARTING] Iniciando método de busca de cliente por cpfCnpj...");
+        return repository.buscaPorCpfCnpjPaginado(pageable, cpfCnpj);
     }
 
-    public ClienteDTO buscaPorEmail(String email) {
+    public List<ClienteEntity> buscaPorTelefone(Pageable pageable, String telefone) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de cliente por EMAIL");
-        if (repository.buscaPorEmail(email).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.buscaPorEmail(email).get(), ClienteDTO.class);
-        }
-        log.error("[ERROR] Nenhum cliente foi encontrado através do atributo EMAIL enviado");
-        throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo email enviado.");
+        log.info("[STARTING] Iniciando método de busca de cliente por telefone...");
+        return repository.buscaPorTelefonePaginado(pageable, telefone);
     }
 
-    public List<ClienteDTO> buscaPorTelefone(String telefone) {
+    public List<ClienteEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de cliente por TELEFONE");
-        if (!repository.buscaPorTelefone(telefone).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.buscaPorTelefone(telefone).stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Nenhum cliente foi encontrado através do atributo TELEFONE enviado");
-        throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo telefone enviado.");
+        log.info("[STARTING] Iniciando método de busca de cliente por range de data...");
+        return repository.buscaPorRangeDeDataCadastroSemPaginacao(dataInicio, dataFim);
     }
 
-    public List<ClienteDTO> buscaPorNomeCompleto(String nomeCompleto) {
+    public List<ClienteEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de cliente por NOME COMPLETO");
-        if (!repository.buscaPorNomeCompleto(nomeCompleto).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.buscaPorNomeCompleto(nomeCompleto).stream().map(x -> modelMapper.mapper().map(x, ClienteDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Nenhum cliente foi encontrado através do atributo nomeCompleto enviado");
-        throw new ObjectNotFoundException("Nenhum cliente foi encontrado através do atributo nomeCompleto enviado.");
+        log.info("[STARTING] Iniciando método de busca de cliente por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
     }
 
-    public ClienteDTO atualizaPorId(Long id, ClienteDTO cliente) {
+    public List<ClienteEntity> buscaHojeSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todos os clientes cadastrados hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojeSemPaginacao(hoje.toString());
+    }
+
+    public List<ClienteEntity> buscaPorNomeCompletoSemPaginacao(String nomeCompleto) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por nome...");
+        return repository.buscaPorNomeCompletoSemPaginacao(nomeCompleto);
+    }
+
+    public List<ClienteEntity> buscaPorCpfCnpjSemPaginacao(String cpfCnpj) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por cpfCnpj...");
+        return repository.buscaPorCpfCnpjSemPaginacao(cpfCnpj);
+    }
+
+    public List<ClienteEntity> buscaPorTelefoneSemPaginacao(String telefone) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de cliente por telefone...");
+        return repository.buscaPorTelefoneSemPaginacao(telefone);
+    }
+
+    public ClienteDTO atualizaPorId(ClienteDTO cliente) {
 
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Inicializando método de atualização de cliente...");
 
         log.info("[PROGRESS] Criando as variáveis do cliente: clienteOptional e clienteEncontrado...");
-        Optional<ClienteEntity> clienteOptional = repository.findById(id);
+        Optional<ClienteEntity> clienteOptional = repository.findById(cliente.getId());
         ClienteEntity clienteEncontrado;
 
         log.info("[PROGRESS] Criando o objeto clienteAtualizado setagem dos atributos...");
         ClienteEntity clienteAtualizado;
 
-        log.info("[PROGRESS] Verificando se um cliente com o id {} já existe na base de dados...", id);
+        log.info("[PROGRESS] Verificando se um cliente com o id {} já existe na base de dados...", cliente.getId());
         if (clienteOptional.isPresent()) {
 
             validation.validaCorpoRequisicao(cliente, repository, ValidationType.UPDATE);
@@ -226,27 +206,21 @@ public class ClienteCrudService {
 
     }
 
-    public Boolean deletaPorId(Long id) {
-
+    public void deletaPorId(Long id) {
         log.info(BARRA_DE_LOG);
         log.info("[INICIANDO] Inicializando método deletaPorId...");
-
         log.info("[PROGRESS] Buscando por um cliente com o id {}...", id);
         Optional<ClienteEntity> clienteOptional = repository.findById(id);
-
         if (clienteOptional.isPresent()) {
-
             log.warn("[INFO] Cliente encontrado.");
-
             log.info("[PROGRESS] Removendo o cliente da base de dados...");
             repository.deleteById(id);
-
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return true;
-
         }
-        log.error("[FAILURE] Cliente com o id {} não encontrado", id);
-        throw new ObjectNotFoundException(CLIENTE_NAO_ENCONTRADO);
+        else {
+            log.error("[FAILURE] Cliente com o id {} não encontrado", id);
+            throw new ObjectNotFoundException(CLIENTE_NAO_ENCONTRADO);
+        }
 
     }
 

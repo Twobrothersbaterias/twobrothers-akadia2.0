@@ -33,6 +33,7 @@ public class EnderecoEntity {
     private String logradouro;
     private Integer numero;
     private String bairro;
+    private String cidade;
     private String cep;
     private String complemento;
 
