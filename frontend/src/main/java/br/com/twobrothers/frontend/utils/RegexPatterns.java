@@ -22,7 +22,7 @@ public class RegexPatterns {
     public static final String EMAIL_REGEX_PATTERN =
             "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)" +
                     "+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-    public static final String POSTAL_CODE_REGEX_PATTERN = "[0-9]{5}-[0-9]{3}";
+    public static final String POSTAL_CODE_REGEX_PATTERN = "[0-9]{8}";
     public static final String STREET_NUMBER_REGEX_PATTERN = "[0-9]{1,5}";
     public static final String CPF_REGEX_PATTERN = "[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}";
     public static final String CNPJ_REGEX_PATTERN = "[0-9]{2}.[0-9]{3}.[0-9]{3}/000[1-9]-[0-9]{2}";

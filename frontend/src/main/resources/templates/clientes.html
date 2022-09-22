@@ -112,8 +112,16 @@
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
 
 				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11">
+
 					<li class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-6 li_menu_principal"></li>
+
 					<li th:text="'Olá, ' + ${username}" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 li_nome_perfil" id="nome_perfil">Olá, Guilherme</li>
+
+
+
+					<li class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
+						<img src="../static/img/logout.png" th:src="@{img/logout.png}" class="mobile_menu_img col-xl-4 col-lg-5 col-md-6 col-sm-7 col-9"/>
+					</li>
 				</ul>	
 			</div>
 
@@ -247,10 +255,10 @@
 						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
 							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
-							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/patrimonios}">
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/clientes}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}" onclick="abrirEditaPatrimonio()"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
 
 						</div>							
@@ -265,268 +273,279 @@
 							<table class="tabela col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tabela">
 
 								<thead class="thead col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead">
-
 									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
-
 										<th class="th th_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">Nome</th>
-
 										<th class="th th_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Cpf</th>
-
 										<th class="th th_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Telefone</th>
-
 										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Cadastro</th>
-
 										<th class="th th_usuario col-xl-2 col-lg-2 ">Responsável</th>
-
 										<th class="th th_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Gerado</th>
-
-										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
-										</th>											
-
+										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
 									</tr>
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-									<tr th:if="${#lists.isEmpty(patrimonios)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-										<td class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">Gabriel Lagrota</td>
-
-										<td class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">471.534.278-21</td>
-
-										<td class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">(11)97981-5415</td>
-
-										<td class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2">11/04/2021</td>
-
-										<td class="td td_usuario col-xl-2 col-lg-2">admin</td>
-
-										<td class="td td_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">R$ 180.000,00</td>	
-
+									<tr th:if="${#lists.isEmpty(clientes)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<td class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">...</td>
+										<td class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+										<td class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+										<td class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2">...</td>
+										<td class="td td_usuario col-xl-2 col-lg-2">...</td>
+										<td class="td td_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>	
 										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
-
 									</tr>											
 
-										<!--<tr th:each="patrimonio: ${patrimonios}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:each="cliente: ${clientes}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  hidden>
 
-											<td th:text="${patrimonio.statusPatrimonio}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" 
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
+										<td th:text="${cliente.nomeCompleto}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2" 
+											th:data-id="${cliente.id}" 
+											th:data-dataCadastro="${cliente.dataCadastro}"
+											th:data-dataNascimento="${cliente.dataNascimento}"
+											th:data-nomeCompleto="${cliente.nomeCompleto}" 
+											th:data-cpfCnpj="${cliente.cpfCnpj}" 
+											th:data-email="${cliente.email}" 
+											th:data-telefone="${cliente.telefone}"
+											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
+											th:data-logradouro="${cliente.endereco.logradouro}"
+											th:data-numero="${cliente.endereco.numero}"
+											th:data-bairro="${cliente.endereco.bairro}"
+											th:data-cidade="${cliente.endereco.cidade}"
+											th:data-cep="${cliente.endereco.cep}"
+											th:data-complemento="${cliente.endereco.complemento}"
+											th:data-estado="${cliente.endereco.estado}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+												this.getAttribute('data-dataNascimento'), 
+												this.getAttribute('data-nomeCompleto'), 
+												this.getAttribute('data-cpfCnpj'), 
+												this.getAttribute('data-email'), 
+												this.getAttribute('data-telefone'), 
+												this.getAttribute('data-usuarioResponsavel'), 
+												this.getAttribute('data-logradouro'), 
+												this.getAttribute('data-numero'), 
+												this.getAttribute('data-bairro'),
+												this.getAttribute('data-cidade'),
+												this.getAttribute('data-cep'),
+												this.getAttribute('data-complemento'),
+												this.getAttribute('data-estado'))">...</td>
 											
-											<td th:text="${patrimonio.nome}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
+										<td th:text="${cliente.cpfCnpj}" class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
+											th:data-id="${cliente.id}" 
+											th:data-dataCadastro="${cliente.dataCadastro}"
+											th:data-dataNascimento="${cliente.dataNascimento}"
+											th:data-nomeCompleto="${cliente.nomeCompleto}" 
+											th:data-cpfCnpj="${cliente.cpfCnpj}" 
+											th:data-email="${cliente.email}" 
+											th:data-telefone="${cliente.telefone}"
+											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
+											th:data-logradouro="${cliente.endereco.logradouro}"
+											th:data-numero="${cliente.endereco.numero}"
+											th:data-bairro="${cliente.endereco.bairro}"
+											th:data-cidade="${cliente.endereco.cidade}"
+											th:data-cep="${cliente.endereco.cep}"
+											th:data-complemento="${cliente.endereco.complemento}"
+											th:data-estado="${cliente.endereco.estado}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+												this.getAttribute('data-dataNascimento'), 
+												this.getAttribute('data-nomeCompleto'), 
+												this.getAttribute('data-cpfCnpj'), 
+												this.getAttribute('data-email'), 
+												this.getAttribute('data-telefone'), 
+												this.getAttribute('data-usuarioResponsavel'), 
+												this.getAttribute('data-logradouro'), 
+												this.getAttribute('data-numero'), 
+												this.getAttribute('data-bairro'),
+												this.getAttribute('data-cidade'),
+												this.getAttribute('data-cep'),
+												this.getAttribute('data-complemento'),
+												this.getAttribute('data-estado'))">...</td>
 											
-											<td th:text="'R$ ' + ${patrimonio.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
+										<td th:text="${cliente.telefone}" class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
+											th:data-id="${cliente.id}" 
+											th:data-dataCadastro="${cliente.dataCadastro}"
+											th:data-dataNascimento="${cliente.dataNascimento}"
+											th:data-nomeCompleto="${cliente.nomeCompleto}" 
+											th:data-cpfCnpj="${cliente.cpfCnpj}" 
+											th:data-email="${cliente.email}" 
+											th:data-telefone="${cliente.telefone}"
+											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
+											th:data-logradouro="${cliente.endereco.logradouro}"
+											th:data-numero="${cliente.endereco.numero}"
+											th:data-bairro="${cliente.endereco.bairro}"
+											th:data-cidade="${cliente.endereco.cidade}"
+											th:data-cep="${cliente.endereco.cep}"
+											th:data-complemento="${cliente.endereco.complemento}"
+											th:data-estado="${cliente.endereco.estado}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+												this.getAttribute('data-dataNascimento'), 
+												this.getAttribute('data-nomeCompleto'), 
+												this.getAttribute('data-cpfCnpj'), 
+												this.getAttribute('data-email'), 
+												this.getAttribute('data-telefone'), 
+												this.getAttribute('data-usuarioResponsavel'), 
+												this.getAttribute('data-logradouro'), 
+												this.getAttribute('data-numero'), 
+												this.getAttribute('data-bairro'),
+												this.getAttribute('data-cidade'),
+												this.getAttribute('data-cep'),
+												this.getAttribute('data-complemento'),
+												this.getAttribute('data-estado'))">...</td>
 											
-											<td th:text="${patrimonio.tipoPatrimonio.desc}" class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
+										<td th:text="${cliente.dataCadastro}" class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2"
+											th:data-id="${cliente.id}" 
+											th:data-dataCadastro="${cliente.dataCadastro}"
+											th:data-dataNascimento="${cliente.dataNascimento}"
+											th:data-nomeCompleto="${cliente.nomeCompleto}" 
+											th:data-cpfCnpj="${cliente.cpfCnpj}" 
+											th:data-email="${cliente.email}" 
+											th:data-telefone="${cliente.telefone}"
+											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
+											th:data-logradouro="${cliente.endereco.logradouro}"
+											th:data-numero="${cliente.endereco.numero}"
+											th:data-bairro="${cliente.endereco.bairro}"
+											th:data-cidade="${cliente.endereco.cidade}"
+											th:data-cep="${cliente.endereco.cep}"
+											th:data-complemento="${cliente.endereco.complemento}"
+											th:data-estado="${cliente.endereco.estado}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+												this.getAttribute('data-dataNascimento'), 
+												this.getAttribute('data-nomeCompleto'), 
+												this.getAttribute('data-cpfCnpj'), 
+												this.getAttribute('data-email'), 
+												this.getAttribute('data-telefone'), 
+												this.getAttribute('data-usuarioResponsavel'), 
+												this.getAttribute('data-logradouro'), 
+												this.getAttribute('data-numero'), 
+												this.getAttribute('data-bairro'),
+												this.getAttribute('data-cidade'),
+												this.getAttribute('data-cep'),
+												this.getAttribute('data-complemento'),
+												this.getAttribute('data-estado'))">...</td>
 
-											<td th:text="${patrimonio.usuarioResponsavel}" class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
+										<td th:text="${cliente.usuarioResponsavel}" class="td td_usuario td_usuario col-xl-2 col-lg-2"
+											th:data-id="${cliente.id}" 
+											th:data-dataCadastro="${cliente.dataCadastro}"
+											th:data-dataNascimento="${cliente.dataNascimento}"
+											th:data-nomeCompleto="${cliente.nomeCompleto}" 
+											th:data-cpfCnpj="${cliente.cpfCnpj}" 
+											th:data-email="${cliente.email}" 
+											th:data-telefone="${cliente.telefone}"
+											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
+											th:data-logradouro="${cliente.endereco.logradouro}"
+											th:data-numero="${cliente.endereco.numero}"
+											th:data-bairro="${cliente.endereco.bairro}"
+											th:data-cidade="${cliente.endereco.cidade}"
+											th:data-cep="${cliente.endereco.cep}"
+											th:data-complemento="${cliente.endereco.complemento}"
+											th:data-estado="${cliente.endereco.estado}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+												this.getAttribute('data-dataNascimento'), 
+												this.getAttribute('data-nomeCompleto'), 
+												this.getAttribute('data-cpfCnpj'), 
+												this.getAttribute('data-email'), 
+												this.getAttribute('data-telefone'), 
+												this.getAttribute('data-usuarioResponsavel'), 
+												this.getAttribute('data-logradouro'), 
+												this.getAttribute('data-numero'), 
+												this.getAttribute('data-bairro'),
+												this.getAttribute('data-cidade'),
+												this.getAttribute('data-cep'),
+												this.getAttribute('data-complemento'),
+												this.getAttribute('data-estado'))">...</td>
 
-											<td th:text="${patrimonio.dataCadastro}" class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
+										<td class="td td_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
+											th:data-id="${cliente.id}" 
+											th:data-dataCadastro="${cliente.dataCadastro}"
+											th:data-dataNascimento="${cliente.dataNascimento}"
+											th:data-nomeCompleto="${cliente.nomeCompleto}" 
+											th:data-cpfCnpj="${cliente.cpfCnpj}" 
+											th:data-email="${cliente.email}" 
+											th:data-telefone="${cliente.telefone}"
+											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
+											th:data-logradouro="${cliente.endereco.logradouro}"
+											th:data-numero="${cliente.endereco.numero}"
+											th:data-bairro="${cliente.endereco.bairro}"
+											th:data-cidade="${cliente.endereco.cidade}"
+											th:data-cep="${cliente.endereco.cep}"
+											th:data-complemento="${cliente.endereco.complemento}"
+											th:data-estado="${cliente.endereco.estado}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+												this.getAttribute('data-dataNascimento'), 
+												this.getAttribute('data-nomeCompleto'), 
+												this.getAttribute('data-cpfCnpj'), 
+												this.getAttribute('data-email'), 
+												this.getAttribute('data-telefone'), 
+												this.getAttribute('data-usuarioResponsavel'), 
+												this.getAttribute('data-logradouro'), 
+												this.getAttribute('data-numero'), 
+												this.getAttribute('data-bairro'),
+												this.getAttribute('data-cidade'),
+												this.getAttribute('data-cep'),
+												this.getAttribute('data-complemento'),
+												this.getAttribute('data-estado'))">...</td>
 
-											<td th:if="${patrimonio.dataAgendamento != null}" th:text="${patrimonio.dataAgendamento}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
+										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
 
-											<td th:unless="${patrimonio.dataAgendamento != null}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling" 
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">Nulo</td>		
+											<form method="POST" th:action="@{clientes/deleta-{id}(id = ${cliente.id})}" class="form_remove_img" id="form_remove_img">
+												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+												<button type="submit" class="col-lg-12 btn_excluir_img">
+													<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
+												</button>
+											</form>	
 
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
-												<form method="POST" th:action="@{patrimonios/deleta-{id}(id = ${patrimonio.id})}" class="form_remove_img" id="form_remove_img">
-													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
-													<button type="submit" class="col-lg-12 btn_excluir_img">
-														<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
-													</button>
-												</form>											
-												<form method="POST" th:action="@{patrimonios/deleta-{id}(id = ${patrimonio.id})}" class="form_remove_text" id="form_remove_text">
-													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
-													<button type="submit" class="col-lg-12 btn_excluir">
-														<div class="excluir_text" id="excluir_text">
+											<form method="POST" th:action="@{clientes/deleta-{id}(id = ${cliente.id})}" class="form_remove_text" id="form_remove_text">
+												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+												<button type="submit" class="col-lg-12 btn_excluir">
+													<div class="excluir_text" id="excluir_text">
 															Excluir
-														</div>
-													</button>
-												</form>
-											</td>
+													</div>
+												</button>
+											</form>
 
-										</tr>-->																	
-
-									</tbody>	
-
-								</table>
-								
-							</div><!-- TABELA_ALL (COLUNA) -->
+										</td>
+									</tr>																	
+								</tbody>	
+							</table>								
 						</div>
+					</div>
 
-						<!-- Início da paginação -->
-						<div class="row page_row">
+					<!-- Início da paginação -->
+					<div class="row page_row">
 
 							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
 
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<!--<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1})}" class="li_a page_click" id="anterior">	
+
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina-1})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
 										</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
 										</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
 										</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
-										</a>-->
+										</a>
 
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>																																								
 									</li>
@@ -535,40 +554,36 @@
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<!--<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>-->
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 									</li>
 
 									<li class="li page">
 
-										<!--<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina+1})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>-->
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
 
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																					
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																
 									</li>
-
 								</ul>
-
 							</div>
 						</div><!-- PAGE_ROW-->
 					</div>
 				</div>
-
 			</main>
-
 		</div>
 
 		<!-------------- FILTROS ------------>
@@ -713,7 +728,7 @@
 				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_cpf_tag" onclick="removerFiltro('cpf')" onmouseover="efeitoRemoverFiltro('cpf')" onmouseleave="efeitoRemoverFiltroLeave('cpf')"hidden>
 					CPF
 				</div>	
-				<form th:action="@{patrimonios/filtro}" method="POST" th:object="${filtroPatrimonio}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
+				<form th:action="@{clientes/filtro}" method="POST" th:object="${filtroCliente}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
 
 					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
@@ -735,7 +750,7 @@
 		</div>		
 
 		<!-------------- EDITA_ITEM ------------>
-		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita">
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
@@ -828,7 +843,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
 							Cep:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" onkeyup="consultaEndereco()" type="number"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="number"/>
 					</div>						
 
 					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
@@ -836,7 +851,32 @@
 							Estado:
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="edita_estado_input" type="text">
-							<option>SP</option>
+							<option value="AC">Acre</option>
+							<option value="AL">Alagoas</option>
+							<option value="AP">Amapá</option>
+							<option value="AM">Amazonas</option>
+							<option value="BA">Bahia</option>
+							<option value="CE">Ceará</option>
+							<option value="DF">Distrito Federal</option>
+							<option value="ES">Espírito Santo</option>
+							<option value="GO">Goiás</option>
+							<option value="MA">Maranhão</option>
+							<option value="MT">Mato Grosso</option>
+							<option value="MS">Mato Grosso do Sul</option>
+							<option value="MG">Minas Gerais</option>
+							<option value="PA">Pará</option>											
+							<option value="PB">Paraiba</option>
+							<option value="PR">Paraná</option>		
+							<option value="PI">Piaui</option>					
+							<option value="RJ">Rio de Janeiro</option>	
+							<option value="RN">Rio Grande do Norte</option>	
+							<option value="RS">Rio Grande do Sul</option>	
+							<option value="RO">Rondônia</option>													
+							<option value="RR">Roraima</option>		
+							<option value="SC">Santa Catarina</option>		
+							<option value="SP">São Paulo</option>		
+							<option value="SE">Sergipe</option>													
+							<option value="TO">Tocantins</option>	
 						</select>	
 					</div>
 
@@ -1005,7 +1045,32 @@
 							Estado:
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
-							<option>SP</option>
+							<option value="AC">Acre</option>
+							<option value="AL">Alagoas</option>
+							<option value="AP">Amapá</option>
+							<option value="AM">Amazonas</option>
+							<option value="BA">Bahia</option>
+							<option value="CE">Ceará</option>
+							<option value="DF">Distrito Federal</option>
+							<option value="ES">Espírito Santo</option>
+							<option value="GO">Goiás</option>
+							<option value="MA">Maranhão</option>
+							<option value="MT">Mato Grosso</option>
+							<option value="MS">Mato Grosso do Sul</option>
+							<option value="MG">Minas Gerais</option>
+							<option value="PA">Pará</option>											
+							<option value="PB">Paraiba</option>
+							<option value="PR">Paraná</option>		
+							<option value="PI">Piaui</option>					
+							<option value="RJ">Rio de Janeiro</option>	
+							<option value="RN">Rio Grande do Norte</option>	
+							<option value="RS">Rio Grande do Sul</option>	
+							<option value="RO">Rondônia</option>													
+							<option value="RR">Roraima</option>		
+							<option value="SC">Santa Catarina</option>		
+							<option value="SP" selected>São Paulo</option>		
+							<option value="SE">Sergipe</option>													
+							<option value="TO">Tocantins</option>													
 						</select>	
 					</div>
 
@@ -1064,7 +1129,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="button" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+					<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
 						Salvar
 					</button>	
 
@@ -1077,5 +1142,7 @@
 		</div>
 
 		<script type="text/javascript" th:src="@{js/clientes.js}" src="../static/js/clientes.js" defer></script>
+
 	</body>
-	</html>		
+
+</html>		

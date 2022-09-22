@@ -124,8 +124,8 @@ public class ClienteController {
     }
 
     @PostMapping("/filtro")
-    public ModelAndView filtraCliente(FiltroClienteDTO filtroClienteDTO, ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:../" + clienteService.constroiUriFiltro(filtroClienteDTO));
+    public ModelAndView filtraCliente(FiltroClienteDTO filtroCliente, ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:../" + clienteService.constroiUriFiltro(filtroCliente));
         return modelAndView;
     }
 

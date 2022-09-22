@@ -28,7 +28,7 @@ public class ClienteDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dataNascimento;
@@ -36,7 +36,7 @@ public class ClienteDTO {
     private String cpfCnpj;
     private String email;
     private String telefone;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
     private EnderecoDTO endereco;
 
     private List<OrdemDTO> ordens = new ArrayList<>();

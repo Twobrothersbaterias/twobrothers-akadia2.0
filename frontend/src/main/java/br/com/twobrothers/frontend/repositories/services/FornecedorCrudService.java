@@ -55,7 +55,7 @@ public class FornecedorCrudService {
         validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE);
 
         if (fornecedor.getEndereco() != null) {
-            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
+            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now().toString());
             enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
         }
 
@@ -156,7 +156,7 @@ public class FornecedorCrudService {
         if (fornecedor.getEndereco() != null) {
             enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
 
-            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now());
+            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now().toString());
             fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
         } else {
             fornecedorAtualizado.setEndereco(null);

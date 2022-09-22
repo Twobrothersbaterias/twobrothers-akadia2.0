@@ -69,7 +69,7 @@ public class EnderecoValidation {
 
     public void validaCep(String cep) {
         log.info("[VALIDAÇÃO - ENDEREÇO] Inicializando validação do atributo cep...");
-        if (!cep.matches(POSTAL_CODE_REGEX_PATTERN))
+        if (!cep.replace("-", "").matches(POSTAL_CODE_REGEX_PATTERN))
             throw new InvalidRequestException("Requisição inválida. O campo cep foi enviado com padrão incorreto");
         log.warn("Validação do atributo cep OK");
     }

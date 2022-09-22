@@ -55,4 +55,6 @@ INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descrica
 ('2028-01-01', null, '2028-01-01', 'Pago 12', 100.0, 'PENDENTE', 'VARIAVEL', 1);
 
  SELECT * FROM tb_despesa;
+ SELECT * FROM tb_cliente;
+  SELECT * FROM tb_endereco;
  SELECT * FROM tb_usuario;

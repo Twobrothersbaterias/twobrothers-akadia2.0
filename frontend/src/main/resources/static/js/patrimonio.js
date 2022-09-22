@@ -24,20 +24,10 @@ function responsive(){
 	var containerNovo = document.getElementById('conteudo_container_novo');	
 	var novoTitulo	= document.getElementById('novo_titulo');
 
-	var firstBlock = document.getElementById('novo_item_first_block');
-	var fourthBlock = document.getElementById('novo_item_fourth_block');
-	var thirdBlock = document.getElementById('novo_item_third_block');
-	var seventhBlock = document.getElementById('novo_item_seventh_block');	
-	var novoItemSegundaRow = document.getElementById('novo_item_segunda_row');
 	var novoItemSubmit = document.getElementById('novo_item_submit');
 
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 	var editaTitulo	= document.getElementById('edita_titulo');
-	var editaFirstBlock = document.getElementById('edita_item_first_block');
-	var editaFourthBlock = document.getElementById('edita_item_fourth_block');
-	var editaThirdBlock = document.getElementById('edita_item_third_block');
-	var editaSeventhBlock = document.getElementById('edita_item_seventh_block');	
-	var editaItemSegundaRow = document.getElementById('edita_item_segunda_row');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
 
 	var informativo = document.getElementsByClassName('informativo');
@@ -61,6 +51,7 @@ function responsive(){
 	var filtroBlock = document.getElementsByClassName('filtro_block');
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
+	var filtroTitulo = document.getElementById('filtro_titulo');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
@@ -69,23 +60,19 @@ function responsive(){
 		main.style.width="95.5%";
 		sideMenu.style.width="4.5%";
 		tituloSessao.style.fontSize="1.5rem";
-		nomePerfil.style.fontSize="1.25rem";
+		nomePerfil.style.fontSize="1.15rem";
 		menuSuperior.style.height="55px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
 
-		novoItemSegundaRow.style.marginTop="20px"
-		novoItemSegundaRow.style.marginBottom="25px";
 		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.5rem";	
-		novoItemSubmit.style.marginTop="0px";
+		novoTitulo.style.fontSize="1.15rem";	
 
-		editaItemSegundaRow.style.marginTop="20px"
-		editaItemSegundaRow.style.marginBottom="25px";
 		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.5rem";	
+		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
-		editaSubtitulo.style.fontSize="1rem";
+
+		filtroTitulo.style.fontSize="1.5rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -144,14 +131,7 @@ function responsive(){
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
 		}
-
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
-		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
+	
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";		
 	}
@@ -166,18 +146,14 @@ function responsive(){
 		menuSuperior.style.height="50px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
-		novoItemSegundaRow.style.marginTop="20px"
-		novoItemSegundaRow.style.marginBottom="25px";	
 		containerNovo.style.fontSize="1rem";
-		novoTitulo.style.fontSize="1.3rem";	
-		novoItemSubmit.style.marginTop="0px";
+		novoTitulo.style.fontSize="1.15rem";	
 
-		editaItemSegundaRow.style.marginTop="20px"
-		editaItemSegundaRow.style.marginBottom="25px";	
 		containerEdita.style.fontSize="1rem";
-		editaTitulo.style.fontSize="1.3rem";	
-		editaItemSubmit.style.marginTop="0px";	
-		editaSubtitulo.style.fontSize="1rem";
+		editaTitulo.style.fontSize="1.15rem";	
+		editaItemSubmit.style.marginTop="0px";
+
+		filtroTitulo.style.fontSize="1.4rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -248,14 +224,6 @@ function responsive(){
 			filtroBlock[i].style.marginBottom="0";
 		}	
 
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
-		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
-
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";					
 	}
@@ -286,18 +254,14 @@ function responsive(){
 		menuSuperior.style.height="50px";
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
-		novoItemSegundaRow.style.marginTop="20px"
-		novoItemSegundaRow.style.marginBottom="25px";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.2rem";
-		novoItemSubmit.style.marginTop="0px";
 
-		editaItemSegundaRow.style.marginTop="20px"
-		editaItemSegundaRow.style.marginBottom="25px";
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.2rem";
-		editaItemSubmit.style.marginTop="0px";	
-		editaSubtitulo.style.fontSize="0.95rem";	
+		editaItemSubmit.style.marginTop="0px";
+
+		filtroTitulo.style.fontSize="1.3rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
@@ -343,15 +307,7 @@ function responsive(){
 		}	
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
-		}
-
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
 		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
 
 		filtroBuscarBt.style.marginTop="0px";
 		filtroBuscarBt.style.justifyContent="left";		
@@ -365,19 +321,15 @@ function responsive(){
 		nomePerfil.style.fontSize="1rem";
 		menuSuperior.style.height="45px";
 		menuMobile.style.display="flex";
-		informativoRow.style.justifyContent="center";
-		novoItemSegundaRow.style.marginTop="20px"
-		novoItemSegundaRow.style.marginBottom="25px";	
+		informativoRow.style.justifyContent="center";	
 		containerNovo.style.fontSize="0.90rem";	
 		novoTitulo.style.fontSize="1.2rem";		
-		novoItemSubmit.style.marginTop="0px";
 
-		editaItemSegundaRow.style.marginTop="20px"
-		editaItemSegundaRow.style.marginBottom="25px";	
 		containerEdita.style.fontSize="0.90rem";	
 		editaTitulo.style.fontSize="1.2rem";		
 		editaItemSubmit.style.marginTop="0px";
-		editaSubtitulo.style.fontSize="0.90rem";
+
+		filtroTitulo.style.fontSize="1.2rem";
 
 		for(var i = 0; i < thPagamento.length; i++) {
 			thPagamento[i].style.paddingLeft="0px"
@@ -439,14 +391,6 @@ function responsive(){
 			}
 		}
 
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
-		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}
-
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
 		}
@@ -463,16 +407,14 @@ function responsive(){
 		nomePerfil.style.fontSize="1rem";
 		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
-		novoItemSegundaRow.style.margin="0";	
 		containerNovo.style.fontSize="0.90rem";
-		novoTitulo.style.fontSize="1.2rem";
-		novoItemSubmit.style.marginTop="5px";
+		novoTitulo.style.fontSize="1rem";
 
-		editaItemSegundaRow.style.margin="0";	
 		containerEdita.style.fontSize="0.90rem";
-		editaTitulo.style.fontSize="1.2rem";
+		editaTitulo.style.fontSize="1rem";
 		editaItemSubmit.style.marginTop="5px";
-		editaSubtitulo.style.fontSize="0.85rem";
+
+		filtroTitulo.style.fontSize="1.1rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=true;
@@ -534,14 +476,6 @@ function responsive(){
 			}
 		}		
 
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="15px";
-		}
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="15px";
-		}
-
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
 		}
@@ -578,7 +512,7 @@ function abrirNovoItem() {
 	var containerNovo = document.getElementById('conteudo_container_novo');
 
 	containerNovo.hidden=false;
-	data_pagamento_input.value=hoje;
+	document.getElementById('data_pagamento_input').value=hoje;
 
 	containerPrincipal.style.pointerEvents="none";
 	containerPrincipal.style.opacity="0.075";
@@ -634,7 +568,7 @@ function fechaNovoItem() {
 	dataAgendamentoInput.style.color="#4444";
 	dataAgendamentoInput.disabled=true;	
 
-	dataPagamentoInput.style.color="#C3C8C8";
+	dataPagamentoInput.style.color="#121212";
 	dataPagamentoInput.disabled=false;
 	dataPagamentoInput.value=hoje;	
 	
@@ -680,13 +614,13 @@ function changeTipo() {
 		dataAgendamentoInput.style.color="#4444";
 		dataAgendamentoInput.value="";
 		dataAgendamentoInput.disabled=true;
-		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.style.color="#121212";
 		dataPagamentoInput.disabled=false;
 		dataPagamentoInput.value=hoje;
 	}
 	else {
 		statusPatrimonio.value="PENDENTE";
-		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.style.color="#121212";
 		dataAgendamentoInput.disabled=false;
 		dataAgendamentoInput.value=hoje;
 		dataPagamentoInput.style.color="#4444";
@@ -717,12 +651,12 @@ function changeStatus() {
 		dataAgendamentoInput.style.color="#4444";
 		dataAgendamentoInput.value="";
 		dataAgendamentoInput.disabled=true;
-		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.style.color="#121212";
 		dataPagamentoInput.disabled=false;
 		dataPagamentoInput.value=hoje;
 	}
 	else {
-		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.style.color="#121212";
 		dataAgendamentoInput.disabled=false;
 		dataAgendamentoInput.value=hoje;
 		dataPagamentoInput.style.color="#4444";
@@ -958,7 +892,7 @@ function reloadFiltro() {
 	var data = (ano + '-' + mes + '-' + dia);
 
 	document.getElementById('filtro_input').disabled=false;
-	document.getElementById('filtro_input').style.border="1px solid #82A886";
+	document.getElementById('filtro_input').style.border="1px solid #949393";
 	document.getElementById('filtro_input').style.pointerEvents="auto";
 	document.getElementById('filtro_input').value="DESCRICAO";
 	document.getElementById('filtro_bt').hidden=false;
@@ -1152,7 +1086,7 @@ function removerFiltro(filtro) {
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
 	var inputTipoBackend = document.getElementById('input_tipo_backend');	
 	
-	filtroTipo.style.border="1px solid #82A886";
+	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
 	filtroBt.disabled=false;
 	filtroBt.style.pointerEvents="auto";	
@@ -1291,8 +1225,8 @@ function efeitoRemoverFiltroLeave(filtro) {
 	if (filtro == 'descricao') {
 		filtroDescricao.style.transition="1s"
 		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #82A886"
-		filtroDescricao.style.color="#82A886";
+		filtroDescricao.style.border="1px solid #212121"
+		filtroDescricao.style.color="#212121";
 		filtroDescricao.innerText="Descrição";
 		filtroDescricao.innerText = 'Descrição: ' + inputDescricaoBackend.value;
 
@@ -1300,22 +1234,22 @@ function efeitoRemoverFiltroLeave(filtro) {
 	else if (filtro == 'data') {
 		filtroData.style.transition="1s"
 		filtroData.style.background="transparent";
-		filtroData.style.border="1px solid #82A886"
-		filtroData.style.color="#82A886";
+		filtroData.style.border="1px solid #212121"
+		filtroData.style.color="#212121";
 		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
 		filtroPeriodo.style.background="transparent";
-		filtroPeriodo.style.border="1px solid #82A886"
-		filtroPeriodo.style.color="#82A886";
+		filtroPeriodo.style.border="1px solid #212121"
+		filtroPeriodo.style.color="#212121";
 		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
 	}
 	else if (filtro == 'tipo') {
 		filtroTipo.style.transition="1s"
 		filtroTipo.style.background="transparent";
-		filtroTipo.style.border="1px solid #82A886"
-		filtroTipo.style.color="#82A886";
+		filtroTipo.style.border="1px solid #212121"
+		filtroTipo.style.color="#212121";
 		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
 	}		
 }
@@ -1438,7 +1372,7 @@ function fecharEditaItem() {
 	dataAgendamentoInput.style.color="#4444";
 	dataAgendamentoInput.disabled=true;	
 
-	dataPagamentoInput.style.color="#C3C8C8";
+	dataPagamentoInput.style.color="#121212";
 	dataPagamentoInput.disabled=false;
 	dataPagamentoInput.value=hoje;	
 	
@@ -1482,12 +1416,12 @@ function editaItemChangeStatus() {
 		dataAgendamentoInput.style.color="#4444";
 		dataAgendamentoInput.value="";
 		dataAgendamentoInput.disabled=true;
-		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.style.color="#121212";
 		dataPagamentoInput.disabled=false;
 		dataPagamentoInput.value=hoje;
 	}
 	else {
-		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.style.color="#121212";
 		dataAgendamentoInput.disabled=false;
 		dataAgendamentoInput.value=hoje;
 		dataPagamentoInput.style.color="#4444";
@@ -1518,13 +1452,13 @@ function editaItemChangeTipo() {
 		dataAgendamentoInput.style.color="#4444";
 		dataAgendamentoInput.value="";
 		dataAgendamentoInput.disabled=true;
-		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.style.color="#121212";
 		dataPagamentoInput.disabled=false;
 		dataPagamentoInput.value=hoje;
 	}
 	else {
 		statusPatrimonio.value="PENDENTE";
-		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.style.color="#121212";
 		dataAgendamentoInput.disabled=false;
 		dataAgendamentoInput.value=hoje;
 		dataPagamentoInput.style.color="#4444";
@@ -1567,8 +1501,8 @@ function ajustaTabela(){
 
 	var informativoValorCaixa = document.getElementById('informativo_valor_caixa');
 
-	if (informativoValorCaixa.replace("R$ ", "") < 0.00) {
-		informativoValorCaixa.style.color="#F20a0a";
+	if (informativoValorCaixa.innerText.replace("R$ ", "") < 0.00) {
+		informativoValorCaixa.style.color="#D75353";
 	}
 	else {
 		informativoValorCaixa.style.color="#C3C8C8";

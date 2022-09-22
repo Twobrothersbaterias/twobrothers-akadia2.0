@@ -220,7 +220,7 @@ function responsive(){
 		novoItemSubmit.style.marginTop="0px";
 
 		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1rem";
+		editaTitulo.style.fontSize="1.2rem";
 		editaItemSubmit.style.marginTop="0px";
 
 		filtroTitulo.style.fontSize="1.3rem";		
@@ -1351,6 +1351,9 @@ function mostrarEndereco(dados) {
 	cidadeInput.value = dados.localidade;
 	logradouroInput.value=dados.logradouro;
 	bairroInput.value=dados.bairro;
+
+	document.getElementById('novo_item_label_numero').focus();
+
 }
 
 function pageResponsiva(){

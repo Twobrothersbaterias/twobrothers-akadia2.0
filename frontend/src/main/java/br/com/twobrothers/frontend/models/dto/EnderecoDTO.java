@@ -4,8 +4,6 @@ import br.com.twobrothers.frontend.models.enums.EstadoEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Gabriel Lagrota
  * @email gabriellagrota23@gmail.com
@@ -26,7 +24,7 @@ public class EnderecoDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     private String logradouro;
     private Integer numero;

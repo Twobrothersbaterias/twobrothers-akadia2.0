@@ -29,7 +29,7 @@ public class ClienteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private String dataNascimento;
     private String nomeCompleto;
 
@@ -39,7 +39,7 @@ public class ClienteEntity {
     private String email;
 
     private String telefone;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;

@@ -615,21 +615,20 @@
 		</div>
 
 		<!-------------- FILTROS ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
+		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro">
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
-				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_filtro" id="filtro_titulo">
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_filtro" id="filtro_titulo">
 					Filtros de busca
 				</h1>
 
-				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
-
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fecharFiltro()"/>
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
+
 				</div>	
 
 			</div>						
@@ -733,23 +732,23 @@
 
 			<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
 
-				<div class="filtro_tag col-xl-3 col-lg-3 col-md-4 col-sm-6 col-9" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
 					Descrição
 				</div>
 
-				<div class="filtro_tag col-xl-3 col-lg-4 col-md-5 col-sm-6 col-9" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
 					Data a data
 				</div>
 
-				<div class="filtro_tag col-xl-2 col-lg-3 col-md-4 col-sm-6 col-9" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
 					Periodo
 				</div>											
 
-				<div class="filtro_tag col-xl-2 col-lg-3 col-md-4 col-sm-6 col-9" id="filtro_tipo_tag" onclick="removerFiltro('tipo')" onmouseover="efeitoRemoverFiltro('tipo')" onmouseleave="efeitoRemoverFiltroLeave('tipo')"hidden>
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_tipo_tag" onclick="removerFiltro('tipo')" onmouseover="efeitoRemoverFiltro('tipo')" onmouseleave="efeitoRemoverFiltroLeave('tipo')"hidden>
 					Tipo
 				</div>														
 
-				<form th:action="@{patrimonios/filtro}" method="POST" th:object="${filtroPatrimonio}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-9" id="form_fantasma_filtro">
+				<form th:action="@{patrimonios/filtro}" method="POST" th:object="${filtroPatrimonio}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12" id="form_fantasma_filtro">
 
 					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
@@ -770,19 +769,19 @@
 		</div>		
 
 		<!-------------- EDITA_ITEM ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
-				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
 					Editar patrimônio
 				</h1>
 
-				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
-
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fecharEditaItem()"/>							
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Patrimônio criado dia 11/11/1111 por admin" onclick="fecharEditaItem()"/>	
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>				
 				</div>	
 
 			</div>
@@ -793,17 +792,24 @@
 
 				<input type="text" id="id_input_edicao" name="id" hidden/>
 
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_zero_row">
-					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<h3 class="edita_item_subtitulo" id="edita_item_subtitulo"> 
-							Patrimônio criado dia 11/11/1111 por admin
-						</h3>	
-					</div>
-				</div>							
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Especificações
+						</label>
+					</div>	
+				</div>					
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">
 
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="edita_item_first_block">
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="edita_item_second_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Descrição
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
+					</div>		
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_first_block">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Tipo
 						</label>
@@ -815,27 +821,9 @@
 							<option value="DUPLICATA">Duplicata</option>
 							<option value="A_RECEBER">A receber</option>
 						</select>
-					</div>										
+					</div>		
 
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="edita_item_second_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Descrição
-						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
-					</div>							
-
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="edita_item_third_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Valor
-						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" required/>
-					</div>
-
-				</div>
-
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_segunda_row">
-
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12"  id="edita_item_fourth_block" >
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="edita_item_fourth_block" >
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Status
 						</label>
@@ -843,16 +831,36 @@
 							<option value="PAGO">Em caixa</option>
 							<option value="PENDENTE">Pendente</option>
 						</select>
-					</div>										
+					</div>	
 
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" id="edita_item_fifth_block">
+				</div>
+
+				<hr class="hr_edita">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Pagamento
+						</label>
+					</div>	
+				</div>						
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">																			
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_third_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Valor
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" required/>
+					</div>
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_fifth_block">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento">
 							Data de entrada
 						</label>
 						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input_edicao" type="date" required/>
 					</div>							
 
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" id="edita_item_sixth_block">
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_sixth_block">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_agendamento" disabled>
 							Agendamento
 						</label>
@@ -865,30 +873,28 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 
-					<button type="submit" class="edita_item_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="edita_item_submit">
+					<button type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
 						Salvar
 					</button>	
 
 				</div>																				
 			</form>			
-		</div>			
+		</div>
 
 		<!-------------- NOVO_ITEM ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden>
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
-				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
 					Novo patrimônio
 				</h1>
 
-				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
-
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="fechaNovoItem()"/>
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>	
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovoItem()"/>				
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>								
 				</div>	
 
 			</div>
@@ -897,9 +903,24 @@
 
 			<form th:action="@{patrimonios}" method="POST" th:object="${patrimonio}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Especificações
+						</label>
+					</div>	
+				</div>					
+
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="novo_item_first_block">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Descrição
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" required/>
+					</div>						
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_first_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Tipo
 						</label>
@@ -911,27 +932,9 @@
 							<option value="DUPLICATA">Duplicata</option>
 							<option value="A_RECEBER">A receber</option>
 						</select>
-					</div>										
-
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Descrição
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" required/>
-					</div>							
-
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="novo_item_third_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Valor
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" id="valor_patrimonio_input"required/>
 					</div>
 
-				</div>
-
-				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_segunda_row">
-
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12"  id="novo_item_fourth_block" >
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_fourth_block" >
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Status
 						</label>
@@ -941,14 +944,37 @@
 						</select>
 					</div>
 
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" id="novo_item_fifth_block">
+				</div>
+
+				<hr class="hr_novo">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Pagamento
+						</label>
+					</div>	
+				</div>				
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">				
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_third_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Valor
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" id="valor_patrimonio_input"required/>
+					</div>
+
+
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_fifth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento">
 							Data de entrada:
 						</label>
 						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date" required/>
 					</div>							
 
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" id="novo_item_sixth_block">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_sixth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_agendamento" disabled>
 							Agendamento:
 						</label>
@@ -961,7 +987,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="submit" class="novo_item_submit col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4" id="novo_item_submit">
+					<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
 						Salvar
 					</button>	
 

@@ -6,8 +6,10 @@ import br.com.twobrothers.frontend.models.entities.ClienteEntity;
 import br.com.twobrothers.frontend.models.entities.EnderecoEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
+import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.ClienteValidation;
 import br.com.twobrothers.frontend.validations.EnderecoValidation;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +40,9 @@ public class ClienteCrudService {
     ClienteRepository repository;
 
     @Autowired
+    UsuarioRepository usuario;
+
+    @Autowired
     ModelMapperConfig modelMapper;
 
     ClienteValidation validation = new ClienteValidation();
@@ -48,8 +52,11 @@ public class ClienteCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
 
-        log.info("[PROGRESS] Setando a data de cadastro no cliente: {}", LocalDateTime.now());
-        cliente.setDataCadastro(LocalDateTime.now());
+        log.info("[PROGRESS] Setando a data de cadastro no cliente: {}", LocalDate.now());
+        cliente.setDataCadastro(LocalDate.now().toString());
+
+        log.info("[PROGRESS] Setando usuário responsável pelo cadastro do cliente...");
+        cliente.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuario).getUsername());
 
         log.info("[PROGRESS] Validando objeto do tipo ClienteDTO recebido por meio da requisição...");
         validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE);
@@ -59,7 +66,7 @@ public class ClienteCrudService {
             log.info("[INFO] Objeto do tipo EnderecoDTO detectado.");
 
             log.info("[PROGRESS] Setando data de cadastro do endereço...");
-            cliente.getEndereco().setDataCadastro(LocalDateTime.now());
+            cliente.getEndereco().setDataCadastro(LocalDate.now().toString());
 
             log.info("[PROGRESS] Validando objeto do tipo EnderecoDTO recebido dentro do objeto ClienteDTO...");
             enderecoValidation.validaCorpoRequisicao(cliente.getEndereco());
@@ -183,7 +190,7 @@ public class ClienteCrudService {
                 log.warn("[INFO] Endereço acoplado detectado.");
                 enderecoValidation.validaCorpoRequisicao(cliente.getEndereco());
                 log.info("[PROGRESS] Setando data de cadastro no endereço...");
-                cliente.getEndereco().setDataCadastro(LocalDateTime.now());
+                cliente.getEndereco().setDataCadastro(LocalDate.now().toString());
                 log.info("[PROGRESS] Acoplando objeto do tipo EnderecoDTO na variável clienteAtualizado...");
                 clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
             } else {

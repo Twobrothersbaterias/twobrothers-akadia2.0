@@ -4,7 +4,6 @@ import br.com.twobrothers.frontend.models.enums.EstadoEnum;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author Gabriel Lagrota
@@ -29,7 +28,7 @@ public class EnderecoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sq_endereco")
     private Long id;
 
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private String logradouro;
     private Integer numero;
     private String bairro;
