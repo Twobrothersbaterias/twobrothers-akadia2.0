@@ -1,0 +1,92 @@
+/* ===== ACIONAMENTO DE FILTROS DE BUSCA ===== */
+
+.conteudo_container_filtro {
+    position: absolute;
+    top: 70px;    
+    padding: 30px;
+    background: #B3B4B5;
+    box-shadow: 10px 10px 30px #121212;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+#filtro_titulo {
+    color: #212121;
+}
+
+.conteudo_container_filtro {
+    margin-top: 15px;
+}
+
+.filtro_block {
+    margin: 0;
+}
+
+.filtro_form, .filtro_row_principal {
+    margin: 0;
+    padding: 0;    
+}
+
+.filtro_form_row {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.filtro_label {
+    color: #212121;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 4px;
+}
+
+.filtro_input {
+    border: 1px solid #949393;
+    background: transparent;
+    padding: 3px 5px;
+    color: #212121;    
+}
+
+.add_filtro_block {
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+}
+
+.add_filtro {
+    display: flex;
+    justify-content: center;   
+    padding: 8px;
+    background: #424242; 
+    border: 1px solid transparent;
+    color: #B3B4B5;       
+}
+
+.add_filtro:hover {
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
+
+.filtro_row_tag {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.filtro_tag {
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #212121;
+    color: #212121;
+    opacity: 0.96;
+    padding: 8px 0; 
+}
+
+.form_fantasma_filtro {
+    display: flex;
+    justify-content: center;
+}

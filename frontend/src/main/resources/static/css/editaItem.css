@@ -1,0 +1,84 @@
+/* ===== VISUALIZAÇÃO E EDIÇÃO DE ITEM ===== */
+
+.conteudo_container_edita {
+    position: absolute;
+    top: 70px;    
+    padding: 30px;
+    padding-bottom: 15px;
+    background: #B3B4B5;
+    box-shadow: 10px 10px 30px #121212;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;      
+}
+
+#edita_titulo {
+    color: #212121;
+}
+
+.subtitulo_edita {
+    font-weight: 600;
+}
+
+.conteudo_container_edita {
+    margin-top: 15px;
+}
+
+.edita_item_block {
+    margin-bottom: 10px;
+}
+
+.edita_item_form, .edita_item_row_principal {
+    margin: 0;
+    padding: 0;    
+}
+
+.edita_item_form_row {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.edita_item_label {
+    color: #212121;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 4px;
+}
+
+.edita_item_input {
+    border: 1px solid #949393;
+    background: transparent;
+    padding: 3px 5px;
+    color: #212121;
+}
+
+#edita_item_third_row {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#data_agendamento_input_edicao {
+    color: #4444;
+}
+
+option {
+    color: #212121;
+}
+
+.edita_item_submit {
+    display: flex;
+    justify-content: center;
+    background: #424242;
+    padding: 8px 5px;
+    color: #B3B4B5;
+    font-size: 1rem;
+    border: 1px solid #424242;
+}
+.edita_item_submit:hover {
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}

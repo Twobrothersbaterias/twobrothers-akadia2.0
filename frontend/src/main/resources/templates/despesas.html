@@ -10,6 +10,15 @@
 		<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
 		<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
+		<link th:href="@{css/layout.css}" href="../static/css/layout.css" rel="stylesheet" />	
+		<link th:href="@{css/menuSuperior.css}" href="../static/css/menuSuperior.css" rel="stylesheet" />
+		<link th:href="@{css/menuSuperiorMobile.css}" href="../static/css/menuSuperiorMobile.css" rel="stylesheet" />
+		<link th:href="@{css/menuLateral.css}" href="../static/css/menuLateral.css" rel="stylesheet" />		
+		<link th:href="@{css/containerPrincipal.css}" href="../static/css/containerPrincipal.css" rel="stylesheet" />
+		<link th:href="@{css/tabela.css}" href="../static/css/tabela.css" rel="stylesheet" />
+		<link th:href="@{css/novoItem.css}" href="../static/css/novoItem.css" rel="stylesheet" />
+		<link th:href="@{css/filtroItem.css}" href="../static/css/filtroItem.css" rel="stylesheet" />
+		<link th:href="@{css/editaItem.css}" href="../static/css/editaItem.css" rel="stylesheet" />
 		<link th:href="@{css/despesas.css}" href="../static/css/despesas.css" rel="stylesheet" />
 		<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 
@@ -760,7 +769,7 @@
 
 				</div>	
 
-				<hr>
+				<hr class="hr_novo">
 
 				<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
 
@@ -927,7 +936,7 @@
 		</div>
 
 		<!-------------- EDITA_DESPESA ------------>
-		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" >
 			
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">	
 
@@ -1033,11 +1042,11 @@
 							Agendamento
 						</label>
 						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input_edicao" type="date" required disabled/>
-					</div>	
-
-																	
+					</div>												
 
 				</div>	
+
+				<hr class="hr_novo">
 
 				<div class="edita_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_third_row">
 

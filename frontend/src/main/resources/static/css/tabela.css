@@ -1,0 +1,163 @@
+/* ===== TABELA ===== */
+
+.row_tabela_all{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.tabela_all{
+    margin: 0;
+    padding: 0;
+    color: #82A886;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+.thead, .tbody{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.thead {
+    background: #212121;
+    color: #82A886;
+}
+
+.tbody {
+    color: #C3C8C8;
+}
+
+.tr{
+    border-bottom: 1px solid #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 4px solid transparent;
+    margin: 0px 0;
+}
+
+.th, .td{
+    margin: 0;
+    padding: 0;
+    padding: 8px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+
+.th{
+    font-size: 1.35rem;
+    text-align: left;
+}
+
+.td{
+    font-size: 0.90rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.td:hover{
+    cursor: pointer;
+}
+
+.td_pagamento, .th_pagamento{
+    justify-content: left;
+    padding-left: 10px;
+}
+
+.btn_excluir_img {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.excluir_img {
+    max-width: 70%; 
+    max-height: 100%;
+    object-fit: contain;    
+}
+
+.btn_excluir{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #82A886;
+    color: #82A886;
+    background: transparent;
+    padding: 5px 15px;
+}
+
+.excluir_img: hover {
+    cursor: pointer;
+    animation: pulse 1s infinite;
+}
+
+.btn_excluir:hover{
+    cursor: pointer;
+    animation: pulse 1s infinite;
+}
+
+/* ========= PÁGINAS ========= */
+
+.page_row{
+    margin: 20px 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pages{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+.ul{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+
+.li{
+    display: flex;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.li_proximo{
+    margin-right: 0;
+}
+
+.li_a{
+    text-decoration: none;
+    color: #82A886;
+    border: 1px solid #82A886;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.li_a:hover{
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    color: #82A886;
+}
