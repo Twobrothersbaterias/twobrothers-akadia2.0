@@ -3,9 +3,8 @@
 .side_menu {
     width: 4%;
     height: 100%;
-    background: #212121;
+    background: #171717;
     position: fixed;
-    box-shadow: 10px 10px 30px #121212;
 }
 
 .aside{
@@ -39,7 +38,7 @@
 }
 
 .sidebar_menu_img{
-    max-width: 100%; 
+    max-width: 90%; 
     max-height: 100%;
     object-fit: contain;
 }

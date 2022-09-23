@@ -27,15 +27,16 @@
 
 .thead {
     background: #212121;
-    color: #82A886;
+    color: #427F44;
 }
 
 .tbody {
-    color: #C3C8C8;
+    color: #212121;
+    background: transparent;
 }
 
 .tr{
-    border-bottom: 1px solid #1f1f1f;
+    border-bottom: 1px solid #4444;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,8 +150,9 @@
 
 .li_a{
     text-decoration: none;
-    color: #82A886;
-    border: 1px solid #82A886;
+    color: #427F44;
+    border: 1px solid #212121;
+    background: #212121;
     padding: 10px 20px;
     display: flex;
     justify-content: center;
@@ -159,5 +161,5 @@
 .li_a:hover{
     cursor: pointer;
     animation: pulse 2s infinite;
-    color: #82A886;
+    color: #427F44;
 }

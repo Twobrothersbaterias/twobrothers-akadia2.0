@@ -1,9 +1,9 @@
 /* MENU SUPERIOR */
 
 .menu_superior_1 {
-    background: #212121;
+    background: #171717;
     float: left;
-    box-shadow: 10px 10px 30px #121212;
+    box-shadow: 0px 0px 10px #121212;
     display: flex;
     justify-content: center;
     height: 55px;
@@ -12,39 +12,29 @@
     padding: 0;
 }
 
-ul{
+.menu_superior_1_ul{
     display: flex;
-    color: #82A886;
-    justify-content: center;
+    justify-content: right;
+    padding: 12px 0;
+    margin: 0;
 }
 
-li {
-    text-align: center;
+.menu_superior_li {
     float: left;
     display: flex;
-    justify-content: center;
+    justify-content: right;
+    margin: 0;
+    padding: 0;
 }
 
-.li_menu_principal {
-    display : flex;
-    align-items : center;
-    justify-content : center;
-    text-align: right;
+.menu_superior_img:hover {
+    animation: pulse 2s infinite;
+    cursor: pointer;
 }
 
-.li_nome_perfil {
-    display : flex;
-    align-items : center;
-    justify-content : right;
-    color: #82A886;
-}
-
-.li_img_perfil {
-    display: flex;
-}
-
-.img_logo, .img_perfil{
+.menu_superior_img {
     max-width: 100%; 
     max-height: 100%;
     object-fit: contain;
+    margin-left: 10px;
 }

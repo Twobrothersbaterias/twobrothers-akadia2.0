@@ -89,7 +89,7 @@
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{patrimonios}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/banknotes-green.png" th:src="@{img/banknotes-green.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+							<img src="../static/img/banknotes-darkgreen.png" th:src="@{img/banknotes-darkgreen.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 						</button>
 					</a>
 				</div>			
@@ -119,10 +119,19 @@
 			<!-- Menu superior 1 -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
 
-				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11">
-					<li class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-6 li_menu_principal"></li>
-					<li th:text="'Olá, ' + ${username}" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 li_nome_perfil" id="nome_perfil">Olá, Guilherme</li>
-				</ul>	
+				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" id="menu_superior_ul">
+
+					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+
+						<img src="../static/img/warning-gray.png" th:src="@{img/warning-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+						<img src="../static/img/logout-gray.png" th:src="@{img/logout-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+						<img src="../static/img/user-gray.png" th:src="@{img/user-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+					</li>
+
+				</ul>
 
 			</div>
 
@@ -193,7 +202,7 @@
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/banknotes-green.png" th:src="@{img/banknotes-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/banknotes-darkgreen.png" th:src="@{img/banknotes-darkgreen.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -255,7 +264,7 @@
 
 						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-darkgreen.png" th:src="@{img/add-darkgreen.png}" onclick="abrirNovoItem()"/>
 							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/patrimonios}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
@@ -358,7 +367,7 @@
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 									</tr>											
 
-										<tr th:each="patrimonio: ${patrimonios}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<tr th:each="patrimonio: ${patrimonios}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" hidden>
 
 											<td th:text="${patrimonio.statusPatrimonio}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" 
 											th:data-id="${patrimonio.id}" 
@@ -562,19 +571,18 @@
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1})}" class="li_a page_click" id="anterior">	
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
 										</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
 										</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">	
-											Anterior
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior" hidden>												Anterior
 										</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior" hidden>	
 											Anterior
 										</a>
 
@@ -587,13 +595,13 @@
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
@@ -601,13 +609,13 @@
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																					
 									</li>
@@ -778,7 +786,7 @@
 		</div>		
 
 		<!-------------- EDITA_ITEM ------------>
-		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" >
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 

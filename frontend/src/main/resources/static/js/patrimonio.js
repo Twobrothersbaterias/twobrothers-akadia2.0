@@ -15,8 +15,9 @@ function responsive(){
 	var main = document.getElementById('main');
 	var mainRow = document.getElementById('main_row');
 	var sideMenu = document.getElementById('side_menu');
-	var menuSuperior = document.getElementById('menu_superior')
-	var tituloSessao = document.getElementById('conteudo_titulo_text');
+	var conteudoTituloText = document.getElementById('conteudo_titulo_text');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorUl = document.getElementById('menu_superior_ul');
 	var nomePerfil = document.getElementById('nome_perfil');
 	var menuMobile = document.getElementById('menu_superior_mobile');
 	var informativoRow = document.getElementById('informativo_row');
@@ -56,12 +57,12 @@ function responsive(){
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
+		conteudoTituloText.style.fontSize="1.4rem";
 		sideMenu.style.display="block";
 		main.style.width="95.5%";
 		sideMenu.style.width="4.5%";
-		tituloSessao.style.fontSize="1.5rem";
-		nomePerfil.style.fontSize="1.15rem";
 		menuSuperior.style.height="55px";
+		menuSuperiorUl.style.padding="12px 0";		
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
 
@@ -110,11 +111,11 @@ function responsive(){
 		}		
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="1rem";
-			informativo[i].style.width="23.5%";
+			informativo[i].style.width="17%";
 			informativo[i].style.margin="0 7px";
 		}		
 		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="1rem";
+			liA[i].style.fontSize="0.85rem";
 			liA[i].style.padding="6px 10px";			
 		}	
 
@@ -138,12 +139,12 @@ function responsive(){
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
 
+		conteudoTituloText.style.fontSize="1.3rem";
 		sideMenu.style.display="block";
 		main.style.width="95%";
 		sideMenu.style.width="5%";
-		tituloSessao.style.fontSize="1.35rem";
-		nomePerfil.style.fontSize="1.15rem";
 		menuSuperior.style.height="50px";
+		menuSuperiorUl.style.padding="9px 0";		
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
 		containerNovo.style.fontSize="1rem";
@@ -207,7 +208,7 @@ function responsive(){
 			informativo[i].style.margin="0 5px";
 		}			
 		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.90rem";
+			liA[i].style.fontSize="0.80rem";
 			liA[i].style.padding="5px 10px";
 		}	
 		for(var i = 0; i < formRemoveImg.length; i++) {
@@ -249,16 +250,16 @@ function responsive(){
 			tdPagamento[i].style.justifyContent="center";
 		}		
 
-		tituloSessao.style.fontSize="1.35rem";
-		nomePerfil.style.fontSize="1.15rem";
+		conteudoTituloText.style.fontSize="1.2rem";
 		menuSuperior.style.height="50px";
+		menuSuperiorUl.style.padding="12px 0";		
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
 		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.2rem";
+		novoTitulo.style.fontSize="1.1rem";
 
 		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.2rem";
+		editaTitulo.style.fontSize="1.1rem";
 		editaItemSubmit.style.marginTop="0px";
 
 		filtroTitulo.style.fontSize="1.3rem";
@@ -294,7 +295,7 @@ function responsive(){
 			informativo[i].style.margin="7px";					
 		}			
 		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.80rem";
+			liA[i].style.fontSize="0.75rem";
 			liA[i].style.padding="5px 10px";			
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
@@ -315,11 +316,11 @@ function responsive(){
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
 
+		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
-		tituloSessao.style.fontSize="1rem";
-		nomePerfil.style.fontSize="1rem";
 		menuSuperior.style.height="45px";
+		menuSuperiorUl.style.padding="9px 0";		
 		menuMobile.style.display="flex";
 		informativoRow.style.justifyContent="center";	
 		containerNovo.style.fontSize="0.90rem";	
@@ -401,10 +402,9 @@ function responsive(){
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
 
+		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
-		tituloSessao.style.fontSize="1rem";
-		nomePerfil.style.fontSize="1rem";
 		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
 		containerNovo.style.fontSize="0.90rem";
@@ -1505,7 +1505,7 @@ function ajustaTabela(){
 		informativoValorCaixa.style.color="#D75353";
 	}
 	else {
-		informativoValorCaixa.style.color="#C3C8C8";
+		informativoValorCaixa.style.color="#427F44";
 	}
 
 	// Definindo propriedades
@@ -1595,33 +1595,33 @@ function pageResponsiva(){
 	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
 	var PaginaSelecionada = parseInt(PaginaSelecionada)+1;
 	for(var i = 0; i < pages.length; i++){
-		pages[i].style.background="transparent";
-		pages[i].style.color="#FFFFFF";
+		pages[i].style.background="#212121";
+		pages[i].style.color="#427F44";
 		if(pages[i].innerText == PaginaSelecionada){
-			pages[i].style.background="#82A886";
-			pages[i].style.color="#121212";
+			pages[i].style.background="#212121";
+			pages[i].style.color="#427F44";
 		}
 	}
 
 	if((pages.length) == PaginaSelecionada){
 		document.getElementById('proxima').style.pointerEvents="none";
-		document.getElementById('proxima').style.borderColor="grey";
+		document.getElementById('proxima').style.borderColor="#212121";
 		document.getElementById('proxima').style.color="grey";
 	}
 	else{
 		document.getElementById('proxima').style.pointerEvents="auto";
-		document.getElementById('proxima').style.borderColor="#82A886";
-		document.getElementById('proxima').style.color="#FFFFFF";
+		document.getElementById('proxima').style.borderColor="#212121";
+		document.getElementById('proxima').style.color="#427F44";
 	}
 
 	if(PaginaSelecionada == 1){
 		document.getElementById('anterior').style.pointerEvents="none";
-		document.getElementById('anterior').style.borderColor="grey";
-		document.getElementById('anterior').style.color="grey";
+		document.getElementById('anterior').style.borderColor="#212121";
+		document.getElementById('anterior').style.color="427F44";
 	}
 	else{
 		document.getElementById('anterior').style.pointerEvents="auto";
-		document.getElementById('anterior').style.borderColor="#82A886";
+		document.getElementById('anterior').style.borderColor="#212121";
 		document.getElementById('anterior').style.color="FFFFFF";
 	}
 }

@@ -50,7 +50,7 @@
 				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
 					<a href="#" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/people-green.png" th:src="@{img/people-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
+							<img src="../static/img/people-darkgreen.png" th:src="@{img/people-darkgreen.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
 						</button>
 					</a>	
 				</div>
@@ -120,18 +120,20 @@
 			<!-- Menu superior 1 -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
 
-				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11">
+				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" id="menu_superior_ul">
 
-					<li class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-6 li_menu_principal"></li>
+					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 
-					<li th:text="'Olá, ' + ${username}" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 li_nome_perfil" id="nome_perfil">Olá, Guilherme</li>
+						<img src="../static/img/warning-gray.png" th:src="@{img/warning-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
+						<img src="../static/img/logout-gray.png" th:src="@{img/logout-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
+						<img src="../static/img/user-gray.png" th:src="@{img/user-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
-					<li class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
-						<img src="../static/img/logout.png" th:src="@{img/logout.png}" class="mobile_menu_img col-xl-4 col-lg-5 col-md-6 col-sm-7 col-9"/>
 					</li>
-				</ul>	
+
+				</ul>
+
 			</div>
 
 			<!-- Menu superior mobile -->
@@ -151,7 +153,7 @@
 					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/people-green.png" th:src="@{img/people-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/people-darkgreen.png" th:src="@{img/people-darkgreen.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -263,7 +265,7 @@
 
 						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-darkgreen.png" th:src="@{img/add-darkgreen.png}" onclick="abrirNovoItem()"/>
 							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/clientes}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
