@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap:wrap;
+
 }
 
 .container_align{
@@ -30,7 +31,7 @@
 
 .conteudo_titulo_text {
     font-size: 1.5rem;
-    color: #427F44;
+    color: #C3C8C8;
     display: flex;
     justify-content: left;
 }
@@ -55,7 +56,7 @@
 
 hr{
     background: #494949;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 /* INFORMATIVOS */
@@ -68,19 +69,20 @@ hr{
 }
 
 .informativo {
-    border: 1px solid #444;
-    padding: 10px;
+    border-radius: 3px;
+    background: #303030;
+    padding: 12px 10px;
     display: flex;
-    justify-content: left;
-    color:  #444;
+    justify-content: center;
+    color:  #C3C8C8;
     margin: 0 auto;
 }
 
 .informativos_row {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .informativo_valor {
     margin-left: 7px;
-    color: #427F44;
+    color: #C3C8C8;
 }

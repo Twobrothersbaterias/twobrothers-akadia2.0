@@ -30,12 +30,12 @@ public class ProdutoEstoqueEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private String sigla;
     private String marcaBateria;
     private String especificacao;
     private Integer quantidadeMinima;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
     private Integer quantidade;
 
     @Enumerated(EnumType.STRING)

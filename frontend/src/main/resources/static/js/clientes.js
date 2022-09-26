@@ -53,7 +53,7 @@ function responsive(){
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
-		conteudoTituloText.style.fontSize="1.4rem";
+		conteudoTituloText.style.fontSize="1.5rem";
 		sideMenu.style.display="block";
 		main.style.width="95.5%";
 		sideMenu.style.width="4.5%";
@@ -130,8 +130,8 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.3rem";
 		sideMenu.style.display="block";
-		main.style.width="95%";
-		sideMenu.style.width="5%";
+		main.style.width="94%";
+		sideMenu.style.width="6%";
 		menuSuperior.style.height="50px";
 		menuSuperiorUl.style.padding="9px 0";		
 		menuMobile.style.display="none";
@@ -204,12 +204,12 @@ function responsive(){
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
-			main.style.width="94.5%";
-			sideMenu.style.width="5.5%";
+			main.style.width="93%";
+			sideMenu.style.width="7%";
 		}
 		else {
-			main.style.width="94.0%";
-			sideMenu.style.width="6%";	
+			main.style.width="92.5%";
+			sideMenu.style.width="7.5%";	
 		}
 
 		conteudoTituloText.style.fontSize="1.2rem";
@@ -1369,34 +1369,34 @@ function pageResponsiva(){
 	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
 	var PaginaSelecionada = parseInt(PaginaSelecionada)+1;
 	for(var i = 0; i < pages.length; i++){
-		pages[i].style.background="#212121";
-		pages[i].style.color="#427F44";
+		pages[i].style.background="#303030";
+		pages[i].style.color="#C3C8C8";
 		if(pages[i].innerText == PaginaSelecionada){
-			pages[i].style.background="#212121";
-			pages[i].style.color="#427F44";
+			pages[i].style.background="#303030";
+			pages[i].style.color="#C3C8C8";
 		}
 	}
 
 	if((pages.length) == PaginaSelecionada){
 		document.getElementById('proxima').style.pointerEvents="none";
-		document.getElementById('proxima').style.borderColor="#212121";
-		document.getElementById('proxima').style.color="grey";
+		document.getElementById('proxima').style.borderColor="#303030";
+		document.getElementById('proxima').style.color="C3C8C8";
 	}
 	else{
 		document.getElementById('proxima').style.pointerEvents="auto";
-		document.getElementById('proxima').style.borderColor="#212121";
-		document.getElementById('proxima').style.color="#427F44";
+		document.getElementById('proxima').style.borderColor="#303030";
+		document.getElementById('proxima').style.color="#C3C8C8";
 	}
 
 	if(PaginaSelecionada == 1){
 		document.getElementById('anterior').style.pointerEvents="none";
-		document.getElementById('anterior').style.borderColor="#212121";
-		document.getElementById('anterior').style.color="427F44";
+		document.getElementById('anterior').style.borderColor="#303030";
+		document.getElementById('anterior').style.color="#C3C8C8";
 	}
 	else{
 		document.getElementById('anterior').style.pointerEvents="auto";
-		document.getElementById('anterior').style.borderColor="#212121";
-		document.getElementById('anterior').style.color="FFFFFF";
+		document.getElementById('anterior').style.borderColor="#303030";
+		document.getElementById('anterior').style.color="C3C8C8";
 	}
 }
 

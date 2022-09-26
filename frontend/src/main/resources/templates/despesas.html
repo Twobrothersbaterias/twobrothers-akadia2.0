@@ -30,110 +30,91 @@
 
 		<div class="row main-row" id="main_row">
 
-			<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
-			<div class="container side_menu" id="side_menu">	
+		<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
+		<div class="container side_menu" id="side_menu">	
 
-					<div class="row side_menu_row" id="side_menu_row">
+			<div class="row side_menu_row" id="side_menu_row">
 
-						<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
+				<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
 
-							<a href="#" class="row aside_clicavel">
+					<a th:href="@{/}" class="row aside_clicavel">
 
-								<button type="button" class="img_button">
-									<img src="../static/img/home-gray.png" th:src="@{img/home-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>	
-							
-							</a>
+						<button type="button" class="img_button">
+							<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Página inicial"/>
+						</button>	
 
-						</div>
+					</a>
+				</div>
 
-						<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/people-gray.png" th:src="@{img/people-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
-							
-						</div>
+				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
+					<a th:href="@{/clientes}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
+						</button>
+					</a>	
+				</div>
 
-						<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/bag-gray.png" th:src="@{img/bag-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
+				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
+					<a th:href="@{/lancamentos}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Lançamentos"/>
+						</button>
+					</a>
+				</div>
 
-						</div>
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/estoque}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
+						</button>
+					</a>
+				</div>
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/box-gray.png" th:src="@{img/box-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/despesas}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/expenses-darkgreen.png" th:src="@{img/expenses-darkgreen.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
+						</button>
+					</a>
+				</div>
 
-						</div>
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/relatorios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
+						</button>
+					</a>
+				</div>					
 
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
-							
-							<a th:href="@{despesas}" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/expenses-darkgreen.png" th:src="@{img/expenses-darkgreen.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/patrimonios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
+						</button>
+					</a>
+				</div>			
 
-						</div>
-
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/pie-gray.png" th:src="@{img/pie-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
-
-						</div>					
-
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
-							
-							<a th:href="@{patrimonios}" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/banknotes-gray.png" th:src="@{img/banknotes-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
-
-						</div>			
-
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_despesas">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/collab-gray.png" th:src="@{img/collab-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
-
-						</div>						
-
-					</div>
-
-					<div class="row last">
-						<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-							
-							<a href="#" class="row aside_clicavel">
-								<button type="button" class="img_button">
-									<img src="../static/img/faq-gray.png" th:src="@{img/faq-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
-								</button>
-							</a>
-
-						</div>	
-					</div>
-
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/colaboradores}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+						</button>
+					</a>
+				</div>						
 			</div>
 
-			<main class="container main" id="main">
+			<div class="row last">
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/faq}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+						</button>
+					</a>
+				</div>	
+			</div>					
+		</div>
+
+		<main class="container main" id="main">
 
 			<!-- Menu superior 1 -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
@@ -142,112 +123,110 @@
 
 					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 
-						<img src="../static/img/warning-gray.png" th:src="@{img/warning-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
-						<img src="../static/img/logout-gray.png" th:src="@{img/logout-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
-						<img src="../static/img/user-gray.png" th:src="@{img/user-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
 					</li>
 
 				</ul>
-
 			</div>
 
-				<!-- Menu superior mobile -->
-				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+			<!-- Menu superior mobile -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/home-gray.png" th:src="@{img/home-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
-					</div>
-
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/people-gray.png" th:src="@{img/people-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
-					</div>
-
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/bag-gray.png" th:src="@{img/bag-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
-					</div>
-
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/box-gray.png" th:src="@{img/box-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
-					</div>		
-
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/expenses-darkgreen.png" th:src="@{img/expenses-darkgreen.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
 					</div>	
+				</div>
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/pie-gray.png" th:src="@{img/pie-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
 					</div>	
+				</div>
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/banknotes-gray.png" th:src="@{img/banknotes-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/lancamentos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
 					</div>	
+				</div>
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/collab-gray.png" th:src="@{img/collab-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
 					</div>	
+				</div>		
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/faq-gray.png" th:src="@{img/faq-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-								</button>	
-							</a>
-						</div>	
-					</div>																																							
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/expenses-darkgreen.png" th:src="@{img/expenses-darkgreen.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
 
-				</div>					
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>																													
+			</div>					
 
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
@@ -377,7 +356,9 @@
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 										</tr>										
 
-										<tr th:each="despesa: ${despesas}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" hidden>
+										<tr th:each="despesa: ${despesas}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+
+										>
 
 											<td th:text="${despesa.dataPagamento}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" 
 											th:data-id="${despesa.id}" 
@@ -597,19 +578,19 @@
 							<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/despesas(page=${pagina-1})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/despesas(page=${pagina-1})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/despesas(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/despesas(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/despesas(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/despesas(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/despesas(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/despesas(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
@@ -622,13 +603,13 @@
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/despesas(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 									
@@ -636,13 +617,13 @@
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/despesas(page=${pagina+1})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/despesas(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>	
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/despesas(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																					
 									</li>
@@ -656,7 +637,6 @@
 				</div>
 
 			</main>
-
 		</div>
 
 		<!-------------- NOVA_DESPESA ------------>

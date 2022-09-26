@@ -6,8 +6,7 @@ html {
 
 body{
     font-size: 1rem;
-    background-color: #C1BFBF;
-    background-image: linear-gradient(to right, #A9A9A9, #B5B4B4);
+    background-color: #212121;
     min-height: 100%;
 }
 

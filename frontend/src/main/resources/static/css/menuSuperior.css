@@ -1,15 +1,15 @@
 /* MENU SUPERIOR */
 
 .menu_superior_1 {
-    background: #171717;
+    background: #303030;
     float: left;
     box-shadow: 0px 0px 10px #121212;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     height: 55px;
     font-size: 1.25rem;
     margin: 0;
-    padding: 0;
+    padding: 0 20px;
 }
 
 .menu_superior_1_ul{

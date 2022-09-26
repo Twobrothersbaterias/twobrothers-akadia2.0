@@ -3,8 +3,9 @@
 .side_menu {
     width: 4%;
     height: 100%;
-    background: #171717;
+    background: #303030;
     position: fixed;
+    box-shadow: 0px 0px 10px #121212;
 }
 
 .aside{

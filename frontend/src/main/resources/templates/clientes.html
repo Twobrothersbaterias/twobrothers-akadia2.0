@@ -7,8 +7,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&
-	family=Berkshire+Swash&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
 	<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
 	<link th:href="@{css/layout.css}" href="../static/css/layout.css" rel="stylesheet" />
@@ -38,17 +37,17 @@
 
 				<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
 
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/}" class="row aside_clicavel">
 
 						<button type="button" class="img_button">
-							<img src="../static/img/home-gray.png" th:src="@{img/home-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Página inicial"/>
+							<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Página inicial"/>
 						</button>	
 
 					</a>
 				</div>
 
 				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/clientes}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/people-darkgreen.png" th:src="@{img/people-darkgreen.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
 						</button>
@@ -56,49 +55,49 @@
 				</div>
 
 				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/lancamentos}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/bag-gray.png" th:src="@{img/bag-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Lançamentos"/>
+							<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Lançamentos"/>
 						</button>
 					</a>
 				</div>
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/estoque}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/box-gray.png" th:src="@{img/box-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
+							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
 						</button>
 					</a>
 				</div>
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a th:href="@{despesas}" class="row aside_clicavel">
+					<a th:href="@{/despesas}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/expenses-gray.png" th:src="@{img/expenses-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
+							<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
 						</button>
 					</a>
 				</div>
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/relatorios}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/pie-gray.png" th:src="@{img/pie-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
+							<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
 						</button>
 					</a>
 				</div>					
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a th:href="@{patrimonios}" class="row aside_clicavel">
+					<a th:href="@{/patrimonios}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/banknotes-gray.png" th:src="@{img/banknotes-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
+							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
 						</button>
 					</a>
 				</div>			
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/colaboradores}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/collab-gray.png" th:src="@{img/collab-gray.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
+							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
 						</button>
 					</a>
 				</div>						
@@ -106,9 +105,9 @@
 
 			<div class="row last">
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a href="#" class="row aside_clicavel">
+					<a th:href="@{/faq}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/faq-gray.png" th:src="@{img/faq-gray.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
 						</button>
 					</a>
 				</div>	
@@ -124,16 +123,15 @@
 
 					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 
-						<img src="../static/img/warning-gray.png" th:src="@{img/warning-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
-						<img src="../static/img/logout-gray.png" th:src="@{img/logout-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
-						<img src="../static/img/user-gray.png" th:src="@{img/user-gray.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
 					</li>
 
 				</ul>
-
 			</div>
 
 			<!-- Menu superior mobile -->
@@ -141,9 +139,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/home-gray.png" th:src="@{img/home-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -151,7 +149,7 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<img src="../static/img/people-darkgreen.png" th:src="@{img/people-darkgreen.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
@@ -161,9 +159,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/lancamentos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/bag-gray.png" th:src="@{img/bag-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -171,9 +169,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/box-gray.png" th:src="@{img/box-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -181,9 +179,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/expenses-gray.png" th:src="@{img/expenses-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -191,9 +189,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/pie-gray.png" th:src="@{img/pie-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -201,9 +199,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/banknotes-gray.png" th:src="@{img/banknotes-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -211,9 +209,9 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/collab-gray.png" th:src="@{img/collab-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
@@ -221,14 +219,14 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a href="#" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/faq-gray.png" th:src="@{img/faq-gray.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 						</a>
 					</div>	
-				</div>																																							
-			</div>					
+				</div>																													
+			</div>				
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
@@ -306,7 +304,7 @@
 										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
 									</tr>											
 
-									<tr th:each="cliente: ${clientes}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  hidden>
+									<tr th:each="cliente: ${clientes}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 										<td th:text="${cliente.nomeCompleto}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2" 
 											th:data-id="${cliente.id}" 
@@ -540,19 +538,19 @@
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina-1})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina-1})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior" hidden>	
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
@@ -565,13 +563,13 @@
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}" hidden>1</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
@@ -579,13 +577,13 @@
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina+1})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima" hidden>Próximo</a>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima" hidden>Próximo</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																
 									</li>
