@@ -37,6 +37,8 @@ public class ProdutoEstoqueEntity {
     private Integer quantidadeMinima;
     private String usuarioResponsavel;
     private Integer quantidade;
+    private Double custoTotal;
+    private Double custoUnitario;
 
     @Enumerated(EnumType.STRING)
     private TipoProdutoEnum tipoProduto;

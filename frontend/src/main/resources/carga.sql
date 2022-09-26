@@ -54,7 +54,18 @@ INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descrica
 ('2028-01-01', null, '2028-01-01', 'Pago 12', 100.0, 'PENDENTE', 'VARIAVEL', 1),
 ('2028-01-01', null, '2028-01-01', 'Pago 12', 100.0, 'PENDENTE', 'VARIAVEL', 1);
 
+# CARGA DE PRODUTOS
+INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quantidade_minima, usuario_responsavel, quantidade, custo_total, custo_unitario, tipo_produto) values
+('2022-01-01', 'M220PD', '220PD', '220PD', 0, 'gui123', 2, 200.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M220PD', '220PD', '220PD', 0, 'gui123', 2, 200.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M220PD', '220PD', '220PD', 0, 'gui123', 2, 200.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M220PD', '220PD', '220PD', 0, 'gui123', 2, 200.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M220PD', '220PD', '220PD', 0, 'gui123', 2, 200.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M220PD', '220PD', '220PD', 0, 'gui123', 2, 200.0, 100.0, 'BATERIA');
+
  SELECT * FROM tb_despesa;
  SELECT * FROM tb_cliente;
-  SELECT * FROM tb_endereco;
+ SELECT * FROM tb_endereco;
  SELECT * FROM tb_usuario;
+
+DELETE FROM tb_produto;

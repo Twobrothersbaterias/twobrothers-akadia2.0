@@ -1,16 +1,15 @@
 package br.com.twobrothers.frontend.controllers;
 
-import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
-import br.com.twobrothers.frontend.models.dto.filters.FiltroPatrimonioDTO;
-import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
-import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
+import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
+import br.com.twobrothers.frontend.models.dto.filters.FiltroProdutoDTO;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
-import br.com.twobrothers.frontend.repositories.services.PatrimonioCrudService;
+import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
-import br.com.twobrothers.frontend.services.PatrimonioService;
+import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -20,54 +19,52 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Controller
-@RequestMapping("/patrimonios")
-public class PatrimonioController {
+@RequestMapping("/estoque")
+public class EstoqueController {
 
     @Autowired
-    PatrimonioService patrimonioService;
+    ProdutoEstoqueService produtoEstoqueService;
 
     @Autowired
-    PatrimonioCrudService patrimonioCrudService;
+    ProdutoEstoqueCrudService produtoEstoqueCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView patrimonios(@PageableDefault(size = 10, page = 0, sort = {"dataAgendamento", "dataPagamento"}, direction = Sort.Direction.ASC) Pageable pageable,
+    public ModelAndView Produtos(@PageableDefault(size = 10, page = 0, sort = {"quantidade"}, direction = Sort.Direction.ASC) Pageable pageable,
                                     @RequestParam("descricao") Optional<String> descricao,
                                     @RequestParam("inicio") Optional<String> inicio,
                                     @RequestParam("fim") Optional<String> fim,
                                     @RequestParam("mes") Optional<Integer> mes,
                                     @RequestParam("ano") Optional<Integer> ano,
-                                    @RequestParam("tipo") Optional<TipoPatrimonioEnum> tipo,
+                                    @RequestParam("tipo") Optional<TipoProdutoEnum> tipo,
                                     Model model, ModelAndView modelAndView,
                                     RedirectAttributes redirAttrs,
                                     ModelMap modelMap,
                                     HttpServletRequest req) {
 
         String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/patrimonios?" + req.getQueryString();
+        String completeUrl = baseUrl + "/estoque?" + req.getQueryString();
 
         modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
         modelMap.addAttribute("baseUrl", baseUrl);
         modelMap.addAttribute("queryString", req.getQueryString());
         modelMap.addAttribute("completeUrl", completeUrl);
 
-        List<PatrimonioEntity> patrimoniosPaginados = new ArrayList<>();
-        List<PatrimonioEntity> patrimoniosSemPaginacao = new ArrayList<>();
+        List<ProdutoEstoqueEntity> produtosPaginados = new ArrayList<>();
+        List<ProdutoEstoqueEntity> produtosSemPaginacao = new ArrayList<>();
         List<Integer> paginas = new ArrayList<>();
 
         try {
-            patrimoniosPaginados = patrimonioService.filtroPatrimonios(
+            produtosPaginados = produtoEstoqueService.filtroProdutos(
                     pageable,
                     descricao.orElse(null),
                     tipo.orElse(null),
@@ -76,7 +73,7 @@ public class PatrimonioController {
                     mes.orElse(null),
                     ano.orElse(null));
 
-            patrimoniosSemPaginacao = patrimonioService.filtroPatrimoniosSemPaginacao(
+            produtosSemPaginacao = produtoEstoqueService.filtroProdutosSemPaginacao(
                     descricao.orElse(null),
                     tipo.orElse(null),
                     inicio.orElse(null),
@@ -84,11 +81,11 @@ public class PatrimonioController {
                     mes.orElse(null),
                     ano.orElse(null));
 
-            paginas = patrimonioService.calculaQuantidadePaginas(patrimoniosSemPaginacao, pageable);
+            paginas = produtoEstoqueService.calculaQuantidadePaginas(produtosSemPaginacao, pageable);
 
         } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
-            modelAndView.setViewName("redirect:patrimonios");
+            modelAndView.setViewName("redirect:estoque");
             return modelAndView;
         }
 
@@ -100,64 +97,63 @@ public class PatrimonioController {
         model.addAttribute("tipo", tipo.orElse(null));
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("patrimonios", patrimoniosPaginados);
-        model.addAttribute("bruto", patrimonioService.calculaValorBruto(patrimoniosSemPaginacao));
-        model.addAttribute("pendente", patrimonioService.calculaValorPendente(patrimoniosSemPaginacao));
-        model.addAttribute("passivos", patrimonioService.calculaValorPassivos(patrimoniosSemPaginacao));
-        model.addAttribute("caixa", patrimonioService.calculaValorCaixa(patrimoniosSemPaginacao));
+        model.addAttribute("produtos", produtosPaginados);
+        model.addAttribute("bruto", produtoEstoqueService.calculaValorBruto(produtosSemPaginacao));
+        model.addAttribute("qtdeBaterias", produtoEstoqueService.calculaQtdBaterias(produtosSemPaginacao));
+        model.addAttribute("qtdeSucatas", produtoEstoqueService.calculaQtdSucatas(produtosSemPaginacao));
 
-        modelAndView.setViewName("patrimonio");
+        modelAndView.setViewName("estoque");
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView novoPatrimonio(PatrimonioDTO patrimonio,
-                                       String query,
-                                       ModelAndView modelAndView,
-                                       RedirectAttributes redirAttrs) {
+    public ModelAndView novoProduto(ProdutoEstoqueDTO produto,
+                                    String query,
+                                    ModelAndView modelAndView,
+                                    RedirectAttributes redirAttrs) {
 
-        String criaPatrimonio = patrimonioService.encaminhaParaCriacaoDoCrudService(patrimonio);
+        String criaProduto = produtoEstoqueService.encaminhaParaCriacaoDoCrudService(produto);
 
-        if (criaPatrimonio == null)
-            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro do patrimônio salvo com sucesso");
+        if (criaProduto == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro do produto salvo com sucesso");
         else
-            redirAttrs.addFlashAttribute("ErroCadastro", criaPatrimonio);
+            redirAttrs.addFlashAttribute("ErroCadastro", criaProduto);
 
-        modelAndView.setViewName("redirect:patrimonios?" + query);
+        modelAndView.setViewName("redirect:estoque?" + query);
         return modelAndView;
     }
 
     @PostMapping("/filtro")
-    public ModelAndView filtraPatrimonio(FiltroPatrimonioDTO filtroPatrimonio, ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:../" + patrimonioService.constroiUriFiltro(filtroPatrimonio));
+    public ModelAndView filtraProduto(FiltroProdutoDTO filtroProduto, ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:../" + produtoEstoqueService.constroiUriFiltro(filtroProduto));
         return modelAndView;
     }
 
     @PostMapping("/deleta-{id}")
-    public ModelAndView deletaPatrimonio(@PathVariable Long id,
+    public ModelAndView deletaProduto(@PathVariable Long id,
                                          RedirectAttributes redirAttrs,
                                          ModelAndView modelAndView,
                                          String query) {
-        patrimonioCrudService.deletaPorId(id);
-        redirAttrs.addFlashAttribute("SucessoDelete", "Patrimônio deletado com sucesso");
-        modelAndView.setViewName("redirect:../patrimonios?" + query);
+        produtoEstoqueCrudService.deletaPorId(id);
+        redirAttrs.addFlashAttribute("SucessoDelete", "Produto deletado com sucesso");
+        modelAndView.setViewName("redirect:../estoque?" + query);
         return modelAndView;
     }
 
     @PostMapping("/alterar")
-    public ModelAndView atualizaPatrimonio(PatrimonioDTO patrimonio,
+    public ModelAndView atualizaProduto(ProdutoEstoqueDTO produto,
                                            RedirectAttributes redirAttrs,
                                            ModelAndView modelAndView,
                                            String query) {
 
-        String atualizaPatrimonio = patrimonioService.encaminhaParaUpdateDoCrudService(patrimonio);
+        String atualizaProduto = produtoEstoqueService.encaminhaParaUpdateDoCrudService(produto);
 
-        if (atualizaPatrimonio == null)
-            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro do patrimônio salvo com sucesso");
+        if (atualizaProduto == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Atualização do produto realizada com sucesso");
         else
-            redirAttrs.addFlashAttribute("ErroCadastro", atualizaPatrimonio);
+            redirAttrs.addFlashAttribute("ErroCadastro", atualizaProduto);
 
-        modelAndView.setViewName("redirect:../patrimonios?" + query);
+        modelAndView.setViewName("redirect:../estoque?" + query);
         return modelAndView;
     }
 

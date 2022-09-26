@@ -27,7 +27,7 @@ public class ProdutoEstoqueDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     @JsonProperty(required = true)
     private String sigla;
@@ -42,10 +42,16 @@ public class ProdutoEstoqueDTO {
     private Integer quantidadeMinima;
 
     @JsonProperty(required = true)
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer quantidade;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Double custoTotal;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Double custoUnitario;
 
     @JsonProperty(required = true)
     private TipoProdutoEnum tipoProduto;

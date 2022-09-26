@@ -6,6 +6,7 @@ import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ProdutoEstoqueValidation {
         if (produtoEstoque.getSigla() == null) atributosNulos.add("sigla");
         if (produtoEstoque.getMarcaBateria() == null) atributosNulos.add("marcaBateria");
         if (produtoEstoque.getEspecificacao() == null) atributosNulos.add("especificacao");
-        if (produtoEstoque.getIdUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
+        if (produtoEstoque.getUsuarioResponsavel() == null) atributosNulos.add("usuarioResponsavel");
         if (produtoEstoque.getTipoProduto() == null) atributosNulos.add("tipoProduto");
 
         if (!atributosNulos.isEmpty())
@@ -87,4 +88,15 @@ public class ProdutoEstoqueValidation {
                     "Motivo: A quantidade mínima deve ser um valor numérico maior ou igual a 0 e menor ou igual a 200");
         log.warn("Validação do atributo quantidadeMinima OK");
     }
+
+    public void validaRangeData(String inicio, String fim) {
+
+        LocalDate dataInicio = LocalDate.parse(inicio);
+        LocalDate dataFim = LocalDate.parse(fim);
+
+        if (dataInicio.isAfter(dataFim))
+            throw new InvalidRequestException("O conteúdo do campo data início não pode ser anterior ao campo data fim");
+
+    }
+
 }

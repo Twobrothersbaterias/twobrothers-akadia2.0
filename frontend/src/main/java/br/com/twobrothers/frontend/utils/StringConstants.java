@@ -13,6 +13,7 @@ public class StringConstants {
     StringConstants(){}
 
     public static String URI_CLIENTES = "clientes?";
+    public static String URI_ESTOQUE = "estoque?";
 
     public static final String CLIENTE_NAO_ENCONTRADO_LOG = "[FALHA]  Cliente não encontrado";
     public static final String FORNECEDOR_NAO_ENCONTRADO_LOG = "[FALHA]  Fornecedor não encontrado";

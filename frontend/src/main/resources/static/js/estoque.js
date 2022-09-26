@@ -160,19 +160,12 @@ function responsive(){
 		}					
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
-			th[i].style.width="13.28%";				
+			th[i].style.fontSize="0.95rem";		
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";
-			td[i].style.width="13.28%";				
+			td[i].style.fontSize="0.95rem";		
 		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="7%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="7%";
-		}		
+
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.90rem";
 			informativo[i].style.width="23.5%";
@@ -236,18 +229,10 @@ function responsive(){
 		filtroTitulo.style.fontSize="1.3rem";
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";
-			th[i].style.width="13.42%";			
+			th[i].style.fontSize="0.85rem";	
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";
-			td[i].style.width="13.42%";			
-		}	
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="6%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="6%";
+			td[i].style.fontSize="0.85rem";	
 		}				
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.80rem";
@@ -303,18 +288,10 @@ function responsive(){
 
 		for(var i = 0; i < th.length; i++) {
 			th[i].style.fontSize="0.70rem";
-			th[i].style.width="15.66%";			
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";
-			td[i].style.width="15.66%";			
-		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="6%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="6%";
-		}					
+			td[i].style.fontSize="0.70rem";	
+		}				
 		for(var i = 0; i < informativo.length; i++) {
 			informativo[i].style.fontSize="0.68rem";
 			informativo[i].style.width="46%";
@@ -376,18 +353,10 @@ function responsive(){
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";
-			th[i].style.width="18.8%";
 		}
 		for(var i = 0; i < td.length; i++){
 			td[i].style.fontSize="0.60rem";
-			td[i].style.width="18.8%";
 		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="6%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="6%";
-		}						
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.58rem";
 			informativo[i].style.width="55%";
@@ -431,17 +400,6 @@ function responsive(){
 
 function abrirNovoItem() {
 
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -450,7 +408,6 @@ function abrirNovoItem() {
 	var containerNovo = document.getElementById('conteudo_container_novo');
 
 	containerNovo.hidden=false;
-	document.getElementById('data_pagamento_input').value=hoje;
 
 	containerPrincipal.style.pointerEvents="none";
 	containerPrincipal.style.opacity="0.075";
@@ -471,17 +428,6 @@ function abrirNovoItem() {
 
 function fechaNovoItem() {
 
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -489,26 +435,7 @@ function fechaNovoItem() {
 
 	var containerNovo = document.getElementById('conteudo_container_novo');	
 
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio');
-	var dataPagamentoInput = document.getElementById('data_pagamento_input');
-	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
-
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	statusPatrimonioInput.value="PAGO";
-	dataAgendamentoInput.value="";
-	tipoPatrimonioInput.value="ATIVO";
-
-	dataAgendamentoInput.style.color="#4444";
-	dataAgendamentoInput.disabled=true;	
-
-	dataPagamentoInput.style.color="#121212";
-	dataPagamentoInput.disabled=false;
-	dataPagamentoInput.value=hoje;	
+	reloadNovoItem();
 	
 	containerNovo.hidden=true;
 
@@ -529,106 +456,19 @@ function fechaNovoItem() {
 	sideMenu.style.pointerEvents="auto";		
 }
 
-function changeTipo() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input');
-	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
-	var dataPagamentoInput = document.getElementById('data_pagamento_input');	
-
-	if (tipoPatrimonio.value == "ATIVO") {
-		statusPatrimonio.value="PAGO";
-		dataAgendamentoInput.style.color="#4444";
-		dataAgendamentoInput.value="";
-		dataAgendamentoInput.disabled=true;
-		dataPagamentoInput.style.color="#121212";
-		dataPagamentoInput.disabled=false;
-		dataPagamentoInput.value=hoje;
-	}
-	else {
-		statusPatrimonio.value="PENDENTE";
-		dataAgendamentoInput.style.color="#121212";
-		dataAgendamentoInput.disabled=false;
-		dataAgendamentoInput.value=hoje;
-		dataPagamentoInput.style.color="#4444";
-		dataPagamentoInput.value="";
-		dataPagamentoInput.disabled=true;
-	}
-}
-
-function changeStatus() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input');
-	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
-	var dataPagamentoInput = document.getElementById('data_pagamento_input');	
-
-	if (statusPatrimonio.value == "PAGO") {
-		dataAgendamentoInput.style.color="#4444";
-		dataAgendamentoInput.value="";
-		dataAgendamentoInput.disabled=true;
-		dataPagamentoInput.style.color="#121212";
-		dataPagamentoInput.disabled=false;
-		dataPagamentoInput.value=hoje;
-	}
-	else {
-		dataAgendamentoInput.style.color="#121212";
-		dataAgendamentoInput.disabled=false;
-		dataAgendamentoInput.value=hoje;
-		dataPagamentoInput.style.color="#4444";
-		dataPagamentoInput.value="";
-		dataPagamentoInput.disabled=true;
-	}
-}
-
 function reloadNovoItem() {
+	var siglaProdutoInput = document.getElementById('sigla_produto_input');
+	var tipoProdutoInput = document.getElementById('tipo_produto_input');
+	var especificacaoProdutoInput = document.getElementById('especificacao_produto_input');
+	var marcaProdutoInput = document.getElementById('marca_produto_input');
+	var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input');
 
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
 
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 	
-
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio');
-	var dataPagamentoInput = document.getElementById('data_pagamento_input');
-	var dataAgendamentoInput = document.getElementById('data_agendamento_input');
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	tipoPatrimonioInput.value="ATIVO";
-	statusPatrimonioInput.value="PAGO";
-	dataPagamentoInput.value=hoje;
-	dataAgendamentoInput.value="";
+	siglaProdutoInput.value="";
+	tipoProdutoInput.value="BATERIA";
+	marcaProdutoInput.value="";
+	quantidadeMinimaProdutoInput.value="0";
+	especificacaoProdutoInput.value="";
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
@@ -1196,28 +1036,16 @@ function efeitoRemoverFiltroLeave(filtro) {
 
 function abrirEditaItem(
 							id, 
+							marcaBateria, 
+							especificacao, 
+							sigla, 
+							quantidadeMinima, 
+							quantidade, 
+							tipoProduto,
+							usuarioResponsavel,
 							dataCadastro, 
-							nome, 
-							tipoPatrimonio, 
-							statusPatrimonio, 
-							dataAgendamento, 
-							dataPagamento, 
-							valor, 
-							usuarioResponsavel) {
-
-	console.log(dataAgendamento);
-	console.log(dataPagamento);
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
+							custoUnitario,
+							custoTotal) {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -1250,42 +1078,20 @@ function abrirEditaItem(
 	var dataCadastroSplitada = dataCadastro.split("-");
 	if (dataCadastroSplitada.length == 3) {
 		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.innerText="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+		subtitulo.setAttribute("title", "Produto salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel);
 	}	
 
 	// SETANDO VALORES NOS CAMPOS
 	document.getElementById('id_input_edicao').value=id;
-	document.getElementById('tipo_patrimonio_input_edicao').value=tipoPatrimonio;
-	document.getElementById('descricao_patrimonio_input_edicao').value=nome;
-	document.getElementById('valor_patrimonio_input_edicao').value=valor;
-	document.getElementById('status_patrimonio_edicao').value=statusPatrimonio;
+	document.getElementById('sigla_produto_input_edicao').value=sigla;
+	document.getElementById('tipo_produto_input_edicao').value=tipoProduto;
+	document.getElementById('especificacao_produto_input_edicao').value=especificacao;
+	document.getElementById('marca_produto_input_edicao').value=marcaBateria;
+	document.getElementById('quantidadeMinima_produto_input_edicao').value=quantidadeMinima;
 
-	if (dataAgendamento != 'Não possui') {
-		document.getElementById('data_pagamento_input_edicao').value=dataPagamento;
-		document.getElementById('data_agendamento_input_edicao').style.color="#4444";
-		document.getElementById('data_agendamento_input_edicao').value="";
-		document.getElementById('data_agendamento_input_edicao').disabled=true;
-	}
-	else if (dataPagamento == 'Em aberto') {
-		document.getElementById('data_agendamento_input_edicao').value=dataAgendamento;
-		document.getElementById('data_pagamento_input_edicao').style.color="#4444";
-		document.getElementById('data_pagamento_input_edicao').value="";
-		document.getElementById('data_pagamento_input_edicao').disabled=true;
-	}
 }
 
 function fecharEditaItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -1294,25 +1100,17 @@ function fecharEditaItem() {
 
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input_edicao');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input_edicao');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input_edicao');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio_edicao');
-	var dataPagamentoInput = document.getElementById('data_pagamento_input_edicao');
-	var dataAgendamentoInput = document.getElementById('data_agendamento_input_edicao');
+	var siglaProdutoInput = document.getElementById('sigla_produto_input_edicao');
+	var tipoProdutoInput = document.getElementById('tipo_produto_input_edicao');
+	var especificacaoProdutoInput = document.getElementById('especificacao_produto_input_edicao');
+	var marcaProdutoInput = document.getElementById('marca_produto_input_edicao');
+	var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input_edicao');
 
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	statusPatrimonioInput.value="PAGO";
-	dataAgendamentoInput.value="";
-	tipoPatrimonioInput.value="ATIVO";
-
-	dataAgendamentoInput.style.color="#4444";
-	dataAgendamentoInput.disabled=true;	
-
-	dataPagamentoInput.style.color="#121212";
-	dataPagamentoInput.disabled=false;
-	dataPagamentoInput.value=hoje;	
+	siglaProdutoInput.value="";
+	tipoProdutoInput.value="BATERIA";
+	marcaProdutoInput.value="";
+	quantidadeMinimaProdutoInput.value="0";
+	especificacaoProdutoInput.value="";
 	
 	containerEdita.hidden=true;
 
@@ -1437,95 +1235,6 @@ function hideMessage(){
 
 function ajustaTabela(){
 
-	var informativoValorCaixa = document.getElementById('informativo_valor_caixa');
-
-	if (informativoValorCaixa.innerText.replace("R$ ", "") < 0.00) {
-		informativoValorCaixa.style.color="#D75353";
-	}
-	else {
-		informativoValorCaixa.style.color="#427F44";
-	}
-
-	// Definindo propriedades
-	var line = document.getElementsByClassName('tr');
-	var columnScheduling = document.getElementsByClassName('td_scheduling');
-	var columnPayment = document.getElementsByClassName('td_pagamento');
-	var columnData = document.getElementsByClassName('td_data');
-
-	for(var i = 0; i < line.length; i++) {
-
-		var columnSchedulingSplitted = columnScheduling[i].innerText.split("-");
-		if (columnSchedulingSplitted.length == 3) {
-			var convertedDate = columnSchedulingSplitted[2] + "/" + columnSchedulingSplitted[1] + "/" + columnSchedulingSplitted[0];
-			columnScheduling[i].innerText=convertedDate;
-		}
-
-		var columnPaymentSplitted = columnPayment[i].innerText.split("-");
-		if (columnPaymentSplitted.length == 3) {
-			var convertedDate = columnPaymentSplitted[2] + "/" + columnPaymentSplitted[1] + "/" + columnPaymentSplitted[0];
-			columnPayment[i].innerText=convertedDate;
-		}	
-		
-		var columnDataSplitted = columnData[i].innerText.split("-");
-		if (columnDataSplitted.length == 3) {
-			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
-			columnData[i].innerText=convertedDate;
-		}					
-
-		if(columnScheduling[i].innerText == "Nulo" || columnScheduling[i].innerText == "Não possui") {
-			
-			line[i].style.borderLeft="4px solid #5eff00";
-			columnScheduling[i].innerText="Não possui";
-			
-			if (columnPayment[i].innerText != "Em aberto" 
-				&& !columnPayment[i].innerText.includes("Pago ")) {
-
-				var dataPagamento = columnPayment[i].innerText;
-				columnPayment[i].innerText="Em caixa";
-			}
-
-		}
-
-		else {
-
-			const d = new Date();
-			var ano = d.getFullYear();
-			var mes = d.getMonth()+1;
-			var dia = d.getDate();
-
-			if(mes < 10){
-				var mes = '0' + mes;
-			}
-
-			var hoje = (dia + '/' + mes + '/' + ano); 
-
-			if(columnScheduling[i].innerText != "...") {
-				if(columnScheduling[i].innerText == hoje || columnScheduling[i].innerText == "Hoje"){
-					line[i].style.borderLeft="4px solid #ff5900";
-					columnPayment[i].style.color="#ff5900";
-					columnPayment[i].innerText="Vence hoje";
-					columnScheduling[i].style.color="#ff5900"
-					columnScheduling[i].innerText="Hoje"
-				}
-				else if(columnScheduling[i].innerText.split("/")[2] <= ano && 
-					columnScheduling[i].innerText.split("/")[1] <= mes && 
-					columnScheduling[i].innerText.split("/")[0] <= dia || 
-					columnScheduling[i].innerText == "Atrasado"){
-					line[i].style.borderLeft="4px solid #f20a0a";
-					columnScheduling[i].style.color="#f20a0a";
-					columnPayment[i].style.color="#f20a0a";
-					columnPayment[i].style.color="#F20a0a";
-					columnPayment[i].innerText="Atrasado";
-				}
-				else{
-					line[i].style.borderLeft="4px solid #ffdd00";
-					columnScheduling[i].style.color="#ffdd00";
-					columnPayment[i].innerText="Agendado";
-				}
-			}
-
-		}
-	}
 }
 
 function pageResponsiva(){

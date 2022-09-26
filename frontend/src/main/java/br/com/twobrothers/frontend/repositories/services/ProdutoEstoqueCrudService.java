@@ -2,11 +2,16 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
+import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
+import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
+import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.ProdutoEstoqueValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +20,20 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
 
 /**
  * @author Gabriel Lagrota
+ * @version 1.0
  * @email gabriellagrota23@gmail.com
  * @phone (11)97981-5415
  * @github https://github.com/LagrotaGabriel
- * @version 1.0
  * @since 30-08-22
  */
 @Slf4j
@@ -39,6 +44,9 @@ public class ProdutoEstoqueCrudService {
     ProdutoEstoqueRepository repository;
 
     @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
     ModelMapperConfig modelMapper;
 
     ProdutoEstoqueValidation validation = new ProdutoEstoqueValidation();
@@ -47,11 +55,19 @@ public class ProdutoEstoqueCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação...");
 
+        log.info("[PROGRESS] Setando data de cadastro do produto: {}...", LocalDateTime.now());
+        produto.setDataCadastro(LocalDate.now().toString());
+
+        log.info("[PROGRESS] Setando como zero o custo total e unitário do produto...");
+        produto.setCustoTotal(0.0);
+        produto.setCustoUnitario(0.0);
+
+        log.info("[PROGRESS] Setando o usuário responsável pelo cadastro do produto: {}...", UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        produto.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+
         log.info("[PROGRESS] Iniciando validação do objeto ProdutoDTO...");
         validation.validaCorpoRequisicao(produto, repository, ValidationType.CREATE);
 
-        log.info("[PROGRESS] Setando data de cadastro do produto: {}...", LocalDateTime.now());
-        produto.setDataCadastro(LocalDateTime.now());
         log.info("[PROGRESS] Setando quantidade do novo produto cadastrado para 0...");
         produto.setQuantidade(0);
 
@@ -65,78 +81,68 @@ public class ProdutoEstoqueCrudService {
         return modelMapper.mapper().map(produtoEstoqueEntity, ProdutoEstoqueDTO.class);
     }
 
-    public List<ProdutoEstoqueDTO> buscaTodos() {
+    public List<ProdutoEstoqueEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por todos os produtos...");
-        if (!repository.findAll().isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll().stream()
-                    .map(x -> modelMapper.mapper().map(x, ProdutoEstoqueDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhum produto salvo na base de dados");
-        throw new ObjectNotFoundException("Não existe nenhum produto salvo na base de dados.");
+        log.info("[STARTING] Iniciando método de busca de produto por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
+        return repository.buscaPorRangeDeData(pageable, dataInicio, dataFim);
     }
 
-    public List<ProdutoEstoqueDTO> buscaPorPaginacao(Pageable paginacao) {
+    public List<ProdutoEstoqueEntity> buscaPorPeriodo(Pageable pageable, Integer mes, Integer ano) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de produto por paginação...");
-        if (!repository.findAll(paginacao).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll(paginacao)
-                    .getContent().stream().map(x -> modelMapper.mapper().map(x, ProdutoEstoqueDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhum produto cadastrado na página indicada");
-        throw new ObjectNotFoundException("Não existe nenhum produto cadastrado na página indicada");
+        log.info("[STARTING] Iniciando método de busca de produto por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodo(pageable, dataInicio.toString(), dataFim.toString());
     }
 
-    public List<ProdutoEstoqueDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+    public List<ProdutoEstoqueEntity> buscaPorDescricao(Pageable pageable, String descricao) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de produto por range de data de cadastro...");
-
-        List<ProdutoEstoqueEntity> produtos = repository.buscaPorRangeDeDataCadastro(
-                (LocalDate.parse(dataInicio)).atTime(0, 0),
-                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
-
-        if (!produtos.isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return produtos.stream().map(x -> modelMapper.mapper().map(x, ProdutoEstoqueDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhum produto cadastrado no range de datas indicado");
-        throw new ObjectNotFoundException("Não existe nenhum produto cadastrado no range de datas indicado");
-
+        log.info("[STARTING] Iniciando método de busca de produto por descrição...");
+        return repository.buscaPorDescricao(pageable, descricao);
     }
 
-    public ProdutoEstoqueDTO buscaPorSigla(String sigla) {
+    public List<ProdutoEstoqueEntity> buscaPorTipo(Pageable pageable, TipoProdutoEnum tipo) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por sigla...");
-        if (repository.buscaPorSigla(sigla).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.buscaPorSigla(sigla).get(), ProdutoEstoqueDTO.class);
-        }
-        log.error("[ERRROR] Nenhum produto foi encontrado através do atributo sigla enviado");
-        throw new ObjectNotFoundException("Nenhum produto foi encontrado através do atributo sigla enviado.");
+        log.info("[STARTING] Iniciando método de busca de produtos por tipo...");
+        return repository.buscaPorTipo(pageable, tipo);
     }
 
-    public ProdutoEstoqueDTO buscaPorId(Long id) {
+    public List<ProdutoEstoqueEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por id...");
-        if (repository.findById(id).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.findById(id).get(), ProdutoEstoqueDTO.class);
-        }
-        log.error("[ERROR] Não existe nenhum produto cadastrado no banco de dados com o id {}", id);
-        throw new ObjectNotFoundException("Não existe nenhum produto cadastrado no banco de dados com o id " + id);
+        log.info("[STARTING] Iniciando método de busca de produto por range de data...");
+        return repository.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
     }
 
-    public ProdutoEstoqueDTO atualizaPorId(Long id, ProdutoEstoqueDTO produto) {
+    public List<ProdutoEstoqueEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de produto por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
+    }
+
+    public List<ProdutoEstoqueEntity> buscaPorDescricaoSemPaginacao(String descricao) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de produto por descrição...");
+        return repository.buscaPorDescricaoSemPaginacao(descricao);
+    }
+
+    public List<ProdutoEstoqueEntity> buscaPorTipoSemPaginacao(TipoProdutoEnum tipo) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de produto por tipo...");
+        return repository.buscaPorTipoSemPaginacao(tipo);
+    }
+
+    public ProdutoEstoqueDTO atualizaPorId(ProdutoEstoqueDTO produto) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de atualização de produto por id...");
 
-        Optional<ProdutoEstoqueEntity> produtoOptional = repository.findById(id);
+        Optional<ProdutoEstoqueEntity> produtoOptional = repository.findById(produto.getId());
 
         if (produtoOptional.isEmpty()) {
-            log.error("[ERROR] Não existe nenhum produto cadastrado com o id {}", id);
-            throw new ObjectNotFoundException("Não existe nenhum produto cadastrado com o id " + id);
+            log.error("[ERROR] Não existe nenhum produto cadastrado com o id {}", produto.getId());
+            throw new ObjectNotFoundException("Não existe nenhum produto cadastrado com o id " + produto.getId());
         }
 
         log.info("[PROGRESS] Atribuindo produto encontrado pelo id ao valor da variável produtoAtualizado...");
@@ -168,19 +174,18 @@ public class ProdutoEstoqueCrudService {
 
     }
 
-    public Boolean deletaPorId(Long id) {
+    public void deletaPorId(Long id) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de remoção de produto por id...");
-
         Optional<ProdutoEstoqueEntity> produtoOptional = repository.findById(id);
         if (produtoOptional.isPresent()) {
             log.info("[PROGRESS] Inicializando remoção do produto de id {}...", id);
             repository.deleteById(id);
             log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return true;
+        } else {
+            log.error("[ERROR] Nenhum produto foi encontrado com o id {}", id);
+            throw new ObjectNotFoundException("Não existe nenhum produto cadastrado com o id " + id);
         }
-        log.error("[ERROR] Nenhum produto foi encontrado com o id {}", id);
-        throw new ObjectNotFoundException("Não existe nenhum produto cadastrado com o id " + id);
     }
 
 }
