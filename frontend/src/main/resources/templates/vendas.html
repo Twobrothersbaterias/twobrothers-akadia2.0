@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Gabriel Lagrota">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+	<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
+	<link th:href="@{css/layout.css}" href="../static/css/layout.css" rel="stylesheet" />
+	<link th:href="@{css/menuSuperior.css}" href="../static/css/menuSuperior.css" rel="stylesheet" />
+	<link th:href="@{css/menuSuperiorMobile.css}" href="../static/css/menuSuperiorMobile.css" rel="stylesheet" />
+	<link th:href="@{css/menuLateral.css}" href="../static/css/menuLateral.css" rel="stylesheet" />
+	<link th:href="@{css/containerPrincipal.css}" href="../static/css/containerPrincipal.css" rel="stylesheet" />
+	<link th:href="@{css/tabela.css}" href="../static/css/tabela.css" rel="stylesheet" />
+	<link th:href="@{css/novoItem.css}" href="../static/css/novoItem.css" rel="stylesheet" />
+	<link th:href="@{css/filtroItem.css}" href="../static/css/filtroItem.css" rel="stylesheet" />
+	<link th:href="@{css/editaItem.css}" href="../static/css/editaItem.css" rel="stylesheet" />
+	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
+
+	<title>VALT | Vendas</title>
+
+</head>
+
+<body id="body">
+
+	<div class="row main-row" id="main_row">
+
+		<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
+		<div class="container side_menu" id="side_menu">	
+
+			<div class="row side_menu_row" id="side_menu_row">
+
+				<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
+
+					<a th:href="@{/}" class="row aside_clicavel">
+
+						<button type="button" class="img_button">
+							<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Página inicial"/>
+						</button>	
+
+					</a>
+				</div>
+
+				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
+					<a th:href="@{/clientes}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
+						</button>
+					</a>	
+				</div>
+
+				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
+					<a th:href="@{/lancamentos}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/bag-green.png" th:src="@{img/bag-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Lançamentos"/>
+						</button>
+					</a>
+				</div>
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/estoque}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
+						</button>
+					</a>
+				</div>
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/despesas}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
+						</button>
+					</a>
+				</div>
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/relatorios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
+						</button>
+					</a>
+				</div>					
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/patrimonios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
+						</button>
+					</a>
+				</div>			
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/colaboradores}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+						</button>
+					</a>
+				</div>						
+			</div>
+
+			<div class="row last">
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/faq}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+						</button>
+					</a>
+				</div>	
+			</div>					
+		</div>
+
+		<main class="container main" id="main">
+
+			<!-- Menu superior 1 -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
+
+				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" id="menu_superior_ul">
+
+					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+
+						<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+						<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+						<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+					</li>
+
+				</ul>
+			</div>
+
+			<!-- Menu superior mobile -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/lancamentos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/bag-green.png" th:src="@{img/bag-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/box-greey.png" th:src="@{img/box-greey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>		
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>																													
+			</div>				
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
+
+				<!-------------- CONTEUDO_CONTAINER ------------>
+				<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
+
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+
+						<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+							<p th:text="${SucessoCadastro}"></p>
+						</div>
+
+						<div th:if="${SucessoEdicao}" class="alert alert-success" id="SucessoEdicao" onclick="hideMessage()">
+							<p th:text="${SucessoEdicao}"></p>
+						</div>
+
+						<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
+							<p th:text="${ErroCadastro}"></p>
+						</div>			
+
+						<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
+							<p th:text="${ErroBusca}"></p>
+						</div>						
+
+						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
+							<p th:text="${SucessoDelete}"></p>
+						</div>									
+
+						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
+							Vendas
+						</h1>
+
+						<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
+
+						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/estoque}">
+								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+							</a>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
+
+						</div>							
+					</div>
+
+					<hr>
+
+					<div class="row informativos_row" id="informativo_row">
+
+						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_passivos">
+							<div class="informativo_chave">
+								Quantidade: 
+							</div>
+							<div th:text="${qtdeBaterias}" class="informativo_valor informativo_valor_passivo">
+								0
+							</div>
+						</div>	
+
+						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_passivos">
+							<div class="informativo_chave">
+								Bruto: 
+							</div>
+							<div th:text="${qtdeSucatas}" class="informativo_valor informativo_valor_passivo">
+								R$ 0.00
+							</div>
+						</div>							
+
+						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_bruto">
+							<div class="informativo_chave">
+								Custos: 
+							</div>
+							<div th:text="'R$ ' + ${bruto}" class="informativo_valor informativo_valor_bruto">
+								R$ 0.00
+							</div>	
+						</div>
+
+						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_bruto">
+							<div class="informativo_chave">
+								Líquido: 
+							</div>
+							<div th:text="'R$ ' + ${bruto}" class="informativo_valor informativo_valor_bruto">
+								R$ 0.00
+							</div>	
+						</div>						
+
+					</div>
+
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 row_tabela_all">
+
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 tabela_all" id="tabela_all">
+
+							<table class="tabela col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tabela">
+
+								<thead class="thead col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead">
+
+									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
+
+										<th class="th th_cod col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cod.</th>
+										<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Descrição</th>
+										<th class="th th_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Tipo</th>
+										<th class="th th_qtde col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="th_forma">Qtde.</th>
+										<th class="th th_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Custo u.</th>
+										<th class="th th_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Custo t.</th>
+										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>											
+									</tr>
+
+								</thead>
+
+								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+									<tr th:if="${#lists.isEmpty(produtos)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+										<td class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+										<td class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+
+										<td class="td td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+										<td class="td td_qtde td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
+										<td class="td td_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+										<td class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>			
+
+										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+									</tr>											
+
+										<tr th:each="produto: ${produtos}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+											<td th:text="${produto.sigla}" class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" 
+											th:data-id="${produto.id}" 
+											th:data-marcaBateria="${produto.marcaBateria}"
+											th:data-especificacao="${produto.especificacao}"
+											th:data-sigla="${produto.sigla}" 
+											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
+											th:data-quantidade="${produto.quantidade}" 
+											th:data-tipoProduto="${produto.tipoProduto}"
+											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
+											th:data-dataCadastro="${produto.dataCadastro}"
+											th:data-custoUnitario="${produto.custoUnitario}"
+											th:data-custoTotal="${produto.custoTotal}"
+											onclick="abrirEditaItem(
+												this.getAttribute('data-id'), 
+												this.getAttribute('data-marcaBateria'), 
+												this.getAttribute('data-especificacao'), 
+												this.getAttribute('data-sigla'), 
+												this.getAttribute('data-quantidadeMinima'), 
+												this.getAttribute('data-quantidade'), 
+												this.getAttribute('data-tipoProduto'), 
+												this.getAttribute('data-dataCadastro'), 
+												this.getAttribute('data-usuarioResponsavel'),
+												this.getAttribute('data-custoUnitario'),
+												this.getAttribute('data-custoTotal'))">...</td>
+											
+											<td th:text="${produto.marcaBateria} + ' - ' + ${produto.especificacao}" class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
+											th:data-id="${produto.id}" 
+											th:data-marcaBateria="${produto.marcaBateria}"
+											th:data-especificacao="${produto.especificacao}"
+											th:data-sigla="${produto.sigla}" 
+											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
+											th:data-quantidade="${produto.quantidade}" 
+											th:data-tipoProduto="${produto.tipoProduto}"
+											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
+											th:data-dataCadastro="${produto.dataCadastro}"
+											th:data-custoUnitario="${produto.custoUnitario}"
+											th:data-custoTotal="${produto.custoTotal}"
+											onclick="abrirEditaItem(
+												this.getAttribute('data-id'), 
+												this.getAttribute('data-marcaBateria'), 
+												this.getAttribute('data-especificacao'), 
+												this.getAttribute('data-sigla'), 
+												this.getAttribute('data-quantidadeMinima'), 
+												this.getAttribute('data-quantidade'), 
+												this.getAttribute('data-tipoProduto'), 
+												this.getAttribute('data-dataCadastro'), 
+												this.getAttribute('data-usuarioResponsavel'),
+												this.getAttribute('data-custoUnitario'),
+												this.getAttribute('data-custoTotal'))">...</td>
+											
+											<td th:text="${produto.tipoProduto.desc}" class="td td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+											th:data-id="${produto.id}" 
+											th:data-marcaBateria="${produto.marcaBateria}"
+											th:data-especificacao="${produto.especificacao}"
+											th:data-sigla="${produto.sigla}" 
+											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
+											th:data-quantidade="${produto.quantidade}" 
+											th:data-tipoProduto="${produto.tipoProduto}"
+											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
+											th:data-dataCadastro="${produto.dataCadastro}"
+											th:data-custoUnitario="${produto.custoUnitario}"
+											th:data-custoTotal="${produto.custoTotal}"
+											onclick="abrirEditaItem(
+												this.getAttribute('data-id'), 
+												this.getAttribute('data-marcaBateria'), 
+												this.getAttribute('data-especificacao'), 
+												this.getAttribute('data-sigla'), 
+												this.getAttribute('data-quantidadeMinima'), 
+												this.getAttribute('data-quantidade'), 
+												this.getAttribute('data-tipoProduto'), 
+												this.getAttribute('data-dataCadastro'), 
+												this.getAttribute('data-usuarioResponsavel'),
+												this.getAttribute('data-custoUnitario'),
+												this.getAttribute('data-custoTotal'))">...</td>
+											
+											<td th:text="${produto.quantidade}" class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											th:data-id="${produto.id}" 
+											th:data-marcaBateria="${produto.marcaBateria}"
+											th:data-especificacao="${produto.especificacao}"
+											th:data-sigla="${produto.sigla}" 
+											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
+											th:data-quantidade="${produto.quantidade}" 
+											th:data-tipoProduto="${produto.tipoProduto}"
+											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
+											th:data-dataCadastro="${produto.dataCadastro}"
+											th:data-custoUnitario="${produto.custoUnitario}"
+											th:data-custoTotal="${produto.custoTotal}"
+											onclick="abrirEditaItem(
+												this.getAttribute('data-id'), 
+												this.getAttribute('data-marcaBateria'), 
+												this.getAttribute('data-especificacao'), 
+												this.getAttribute('data-sigla'), 
+												this.getAttribute('data-quantidadeMinima'), 
+												this.getAttribute('data-quantidade'), 
+												this.getAttribute('data-tipoProduto'), 
+												this.getAttribute('data-dataCadastro'), 
+												this.getAttribute('data-usuarioResponsavel'),
+												this.getAttribute('data-custoUnitario'),
+												this.getAttribute('data-custoTotal'))">...</td>
+
+											<td th:text="'R$ ' + ${produto.custoUnitario}" class="td td_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+											th:data-id="${produto.id}" 
+											th:data-marcaBateria="${produto.marcaBateria}"
+											th:data-especificacao="${produto.especificacao}"
+											th:data-sigla="${produto.sigla}" 
+											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
+											th:data-quantidade="${produto.quantidade}" 
+											th:data-tipoProduto="${produto.tipoProduto}"
+											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
+											th:data-dataCadastro="${produto.dataCadastro}"
+											th:data-custoUnitario="${produto.custoUnitario}"
+											th:data-custoTotal="${produto.custoTotal}"
+											onclick="abrirEditaItem(
+												this.getAttribute('data-id'), 
+												this.getAttribute('data-marcaBateria'), 
+												this.getAttribute('data-especificacao'), 
+												this.getAttribute('data-sigla'), 
+												this.getAttribute('data-quantidadeMinima'), 
+												this.getAttribute('data-quantidade'), 
+												this.getAttribute('data-tipoProduto'), 
+												this.getAttribute('data-dataCadastro'), 
+												this.getAttribute('data-usuarioResponsavel'),
+												this.getAttribute('data-custoUnitario'),
+												this.getAttribute('data-custoTotal'))">...</td>
+
+											<td th:text="'R$ ' + ${produto.custoTotal}" class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+											th:data-id="${produto.id}" 
+											th:data-marcaBateria="${produto.marcaBateria}"
+											th:data-especificacao="${produto.especificacao}"
+											th:data-sigla="${produto.sigla}" 
+											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
+											th:data-quantidade="${produto.quantidade}" 
+											th:data-tipoProduto="${produto.tipoProduto}"
+											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
+											th:data-dataCadastro="${produto.dataCadastro}"
+											th:data-custoUnitario="${produto.custoUnitario}"
+											th:data-custoTotal="${produto.custoTotal}"
+											onclick="abrirEditaItem(
+												this.getAttribute('data-id'), 
+												this.getAttribute('data-marcaBateria'), 
+												this.getAttribute('data-especificacao'), 
+												this.getAttribute('data-sigla'), 
+												this.getAttribute('data-quantidadeMinima'), 
+												this.getAttribute('data-quantidade'), 
+												this.getAttribute('data-tipoProduto'), 
+												this.getAttribute('data-dataCadastro'), 
+												this.getAttribute('data-usuarioResponsavel'),
+												this.getAttribute('data-custoUnitario'),
+												this.getAttribute('data-custoTotal'))">...</td>
+
+											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
+												<form method="POST" th:action="@{estoque/deleta-{id}(id = ${produto.id})}" class="form_remove_img" id="form_remove_img">
+													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+													<button type="submit" class="col-lg-12 btn_excluir_img">
+														<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
+													</button>
+												</form>											
+												<form method="POST" th:action="@{estoque/deleta-{id}(id = ${produto.id})}" class="form_remove_text" id="form_remove_text">
+													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+													<button type="submit" class="col-lg-12 btn_excluir">
+														<div class="excluir_text" id="excluir_text">
+															Excluir
+														</div>
+													</button>
+												</form>
+											</td>
+
+										</tr>																	
+
+									</tbody>	
+
+								</table>
+								
+							</div><!-- TABELA_ALL (COLUNA) -->
+						</div>
+
+						<!-- Início da paginação -->
+						<div class="row page_row">
+
+							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
+
+								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+									<li class="li page">
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/estoque(page=${pagina-1})}" class="li_a page_click" id="anterior">	
+											Anterior
+										</a>
+
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
+											Anterior
+										</a>
+
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">												Anterior
+										</a>
+
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
+											Anterior
+										</a>
+
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
+											Anterior
+										</a>																																								
+									</li>
+
+									<div th:text="${pagina}" th:value="${pagina}" id="pegando_page" style="display:none"></div>			
+
+									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
+
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+
+									</li>
+
+									<li class="li page">
+
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/estoque(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
+
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
+
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
+
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																		
+									</li>
+
+								</ul>
+
+							</div>
+						</div><!-- PAGE_ROW-->
+					</div>
+				</div>
+
+			</main>
+
+		</div>
+
+		<!-------------- FILTROS ------------>
+		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_filtro" id="filtro_titulo">
+					Filtros de busca
+				</h1>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
+
+				</div>	
+
+			</div>						
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">		
+
+			<div class="filtro_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_primeira_row">							
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12" id="filtro_first_block">
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Tipo
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_input" onchange="filtroChange()">
+						<option value="DESCRICAO" id="tipo_filtro_option_descricao">Por descrição</option>
+						<option value="DATA" id="tipo_filtro_option_data">Data a data</option>
+						<option value="PERIODO" id="tipo_filtro_option_periodo">Por período</option>
+						<option value="TIPO" id="tipo_filtro_option_tipo">Por tipo</option>
+					</select>
+				</div>		
+
+				<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"  id="filtro_descricao_block">
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Descrição
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15"id="descricao_filtro_input"/>
+				</div>
+
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Data início
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
+				</div>	
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Data fim
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_fim_filtro_input"/>
+				</div>									
+
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Mês
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mes_filtro_input">
+						<option value="01">Janeiro</option>
+						<option value="02">Fevereiro</option>
+						<option value="03">Março</option>
+						<option value="04">Abril</option>
+						<option value="05">Maio</option>
+						<option value="06">Junho</option>
+						<option value="07">Julho</option>
+						<option value="08">Agosto</option>
+						<option value="09">Setembro</option>
+						<option value="10">Outubro</option>
+						<option value="11">Novembro</option>
+						<option value="12">Dezembro</option>
+					</select>
+				</div>
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_ano_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Ano
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="ano_filtro_input">
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>		
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_tipo_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Tipo
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tipo_filtro_input">
+						<option value="ATIVO">Ativo</option>
+						<option value="PASSIVO">Passivo</option>
+						<option value="CHEQUE">Cheque</option>
+						<option value="BOLETO">Boleto</option>
+						<option value="DUPLICATA">Duplicata</option>
+						<option value="A_RECEBER">A receber</option>
+					</select>
+				</div>															
+
+				<div class="filtro_block add_filtro_block col-xl-2 col-lg-2 col-md-3 col-sm-12 col-12"  id="filtro_second_block">			
+					<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
+						Adicionar
+					</button>				
+				</div>																
+			</div>		
+
+			<hr>
+
+			<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
+					Descrição
+				</div>
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+					Data a data
+				</div>
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+					Periodo
+				</div>											
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_tipo_tag" onclick="removerFiltro('tipo')" onmouseover="efeitoRemoverFiltro('tipo')" onmouseleave="efeitoRemoverFiltroLeave('tipo')"hidden>
+					Tipo
+				</div>														
+
+				<form th:action="@{estoque/filtro}" method="POST" th:object="${filtroProduto}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12" id="form_fantasma_filtro">
+
+					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
+					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
+					<input type="text" name="dataFim" id="input_data_fim_backend" hidden/>
+					<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
+					<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
+					<input type="text" name="tipo" id="input_tipo_backend" hidden/>
+
+					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
+						<button type="submit" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Buscar
+						</button>				
+					</div>		
+
+				</form>	
+
+			</div>				
+		</div>		
+
+		<!-------------- EDITA_ITEM ------------>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+					Editar produto
+				</h1>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Produto criado dia 11/11/1111 por admin" onclick="fecharEditaItem()" id="edita_item_subtitulo"/>	
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>				
+				</div>	
+
+			</div>
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+			<form th:action="@{estoque/alterar}" method="POST" th:object="${produto}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+				<input type="text" id="id_input_edicao" name="id" hidden/>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label subtitulo_edita col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Especificações
+						</label>
+					</div>	
+				</div>					
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="edita_item_second_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Sigla
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" name="sigla" id="sigla_produto_input_edicao" required/>
+					</div>						
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Tipo
+						</label>
+						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input_edicao" required>
+							<option value="BATERIA">Bateria</option>
+							<option value="SUCATA">Sucata</option>
+						</select>
+					</div>				
+
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Descrição
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="especificacao" id="especificacao_produto_input_edicao" required/>
+					</div>
+
+					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Marca
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="20" name="marcaBateria" id="marca_produto_input_edicao" required/>
+					</div>
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Mínimo
+						</label>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" min="0" max="50" value="0" name="quantidadeMinima" id="quantidadeMinima_produto_input_edicao" required/>
+					</div>		
+
+				</div>
+
+				<hr class="hr_novo">
+
+				<div class="edita_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_third_row">
+
+					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+
+					<button type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
+						Salvar
+					</button>	
+
+				</div>																				
+			</form>			
+		</div>
+
+		<!-------------- NOVO_ITEM ------------>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_novo" id="conteudo_container_novo">
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
+					Novo lançamento
+				</h1>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>	
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovoItem()"/>				
+
+				</div>	
+
+			</div>
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+			<form th:action="@{estoque}" method="POST" th:object="${produto}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Cliente
+						</label>
+					</div>	
+				</div>					
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Sigla
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" name="sigla" id="sigla_produto_input" required/>
+					</div>						
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Tipo
+						</label>
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input" required>
+							<option value="BATERIA">Bateria</option>
+							<option value="SUCATA">Sucata</option>
+						</select>
+					</div>				
+
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Descrição
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="especificacao" id="especificacao_produto_input" required/>
+					</div>
+
+					<div class="novo_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Marca
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="20" name="marcaBateria" id="marca_produto_input" required/>
+					</div>
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Mínimo
+						</label>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" min="0" max="50" value="0" name="quantidadeMinima" id="quantidadeMinima_produto_input" required/>
+					</div>						
+
+
+				</div>
+
+				<hr class="hr_novo">
+
+				<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
+
+					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>		
+
+					<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+						Salvar
+					</button>	
+
+				</div>																				
+			</form>			
+		</div>		
+
+		<div class="main_loader" id="main_loader">
+			<div class="loader"></div>
+		</div>
+
+		<script type="text/javascript" th:src="@{js/estoque.js}" src="../static/js/estoque.js" defer></script>
+	</body>
+	</html>		

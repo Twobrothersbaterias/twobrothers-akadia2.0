@@ -29,12 +29,13 @@ public class FornecedorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private String nome;
     private String cpfCnpj;
     private String telefone;
     private String email;
-    private Long idUsuarioResponsavel;
+    private String dataNascimento;
+    private String usuarioResponsavel;
 
     @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;

@@ -1,0 +1,32 @@
+.informativo_chave {
+	display: flex;
+	justify-content: center;
+	text-align: center;	
+}
+
+.informativo {
+	padding: 0;
+	border-radius: 3px;
+}
+
+.informativo:hover {
+	cursor: pointer;
+}
+
+.informativo_chave {
+	padding: 10px 0px;
+	color: #C3C8C8;
+	text-decoration: none;
+	border: 1px solid transparent;
+	font-size: 0.90rem;
+}
+
+.informativo_fornecedores {
+	background: #82A886;
+	color: #212121;
+	border-radius: 3px 0 0 3px;
+}
+
+.informativo_compras:hover {
+	color: #C3C8C8;
+}

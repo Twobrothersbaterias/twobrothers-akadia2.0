@@ -27,13 +27,14 @@ public class FornecedorDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     private String nome;
     private String cpfCnpj;
     private String telefone;
     private String email;
-    private Long idUsuarioResponsavel;
+    private String dataNascimento;
+    private String usuarioResponsavel;
     private EnderecoDTO endereco;
 
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();

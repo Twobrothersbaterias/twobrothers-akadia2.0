@@ -50,7 +50,7 @@ public class FornecedorCrudService {
         log.info("[STARTING] Iniciando método de criação");
 
         log.info("[PROGRESS] Setando a data de cadastro no fornecedor: {}", LocalDateTime.now());
-        fornecedor.setDataCadastro(LocalDateTime.now());
+        fornecedor.setDataCadastro(LocalDate.now().toString());
 
         validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE);
 

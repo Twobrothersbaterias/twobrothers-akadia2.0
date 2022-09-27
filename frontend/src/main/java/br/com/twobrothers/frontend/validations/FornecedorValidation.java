@@ -37,7 +37,7 @@ public class FornecedorValidation {
 
         if (fornecedor.getNome() == null) atributosNulos.add("nome");
         if (fornecedor.getTelefone() == null) atributosNulos.add("telefone");
-        if (fornecedor.getIdUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
+        if (fornecedor.getUsuarioResponsavel() == null) atributosNulos.add("usuarioResponsavel");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do fornecedor falhou. A inserção de um ou mais atributos " +
