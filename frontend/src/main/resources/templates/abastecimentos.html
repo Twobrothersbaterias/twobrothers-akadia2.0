@@ -19,10 +19,10 @@
 	<link th:href="@{css/novoItem.css}" href="../static/css/novoItem.css" rel="stylesheet" />
 	<link th:href="@{css/filtroItem.css}" href="../static/css/filtroItem.css" rel="stylesheet" />
 	<link th:href="@{css/editaItem.css}" href="../static/css/editaItem.css" rel="stylesheet" />
-	<link th:href="@{css/fornecedores.css}" href="../static/css/fornecedores.css" rel="stylesheet" />	
+	<link th:href="@{css/abastecimentos.css}" href="../static/css/abastecimentos.css" rel="stylesheet" />	
 	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 
-	<title>VALT | Fornecedores</title>
+	<title>VALT | Abastecimentos</title>
 
 </head>
 
@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
-					<a th:href="@{/fornecedores}" class="row aside_clicavel">
+					<a th:href="@{/clientes}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
 						</button>
@@ -274,7 +274,7 @@
 						</div>									
 
 						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
-							Fornecedores
+							Abastecimentos
 						</h1>
 
 						<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
@@ -316,17 +316,19 @@
 
 								<thead class="thead col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead">
 									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
-										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Cadastro</th>		
-										<th class="th th_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">Nome</th>
-										<th class="th th_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Cpf</th>
-										<th class="th th_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Telefone</th>
-										<th class="th th_endereco col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">Endereço</th>
+										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Data</th>
+										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Produto</th>
+										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Fornecedor</th>
+										<th class="th th_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Custo total</th>
+										<th class="th th_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Quantidade</th>
+										<th class="th th_endereco col-xl-2 col-lg-4 col-md-4 col-sm-4 col-4">Forma de pagamento</th>										
+										<th class="th th_endereco col-xl-2 col-lg-4 col-md-4 col-sm-4 col-4">Observação</th>
 										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
 									</tr>
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<tr th:if="${#lists.isEmpty(fornecedores)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:if="${#lists.isEmpty(abastecimentos)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										<td class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2">...</td>										
 										<td class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">...</td>
 										<td class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
@@ -335,183 +337,28 @@
 										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
 									</tr>											
 
-									<tr th:each="fornecedor: ${fornecedores}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:each="abastecimento: ${abastecimentos}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-										<td th:text="${fornecedor.dataCadastro}" class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2"
-											th:data-id="${fornecedor.id}" 
-											th:data-dataCadastro="${fornecedor.dataCadastro}"
-											th:data-dataNascimento="${fornecedor.dataNascimento}"
-											th:data-nomeCompleto="${fornecedor.nome}" 
-											th:data-cpfCnpj="${fornecedor.cpfCnpj}" 
-											th:data-email="${fornecedor.email}" 
-											th:data-telefone="${fornecedor.telefone}"
-											th:data-usuarioResponsavel="${fornecedor.usuarioResponsavel}"
-											th:data-logradouro="${fornecedor.endereco.logradouro}"
-											th:data-numero="${fornecedor.endereco.numero}"
-											th:data-bairro="${fornecedor.endereco.bairro}"
-											th:data-cidade="${fornecedor.endereco.cidade}"
-											th:data-cep="${fornecedor.endereco.cep}"
-											th:data-complemento="${fornecedor.endereco.complemento}"
-											th:data-estado="${fornecedor.endereco.estado}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-dataNascimento'), 
-												this.getAttribute('data-nomeCompleto'), 
-												this.getAttribute('data-cpfCnpj'), 
-												this.getAttribute('data-email'), 
-												this.getAttribute('data-telefone'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-logradouro'), 
-												this.getAttribute('data-numero'), 
-												this.getAttribute('data-bairro'),
-												this.getAttribute('data-cidade'),
-												this.getAttribute('data-cep'),
-												this.getAttribute('data-complemento'),
-												this.getAttribute('data-estado'))">...</td>
+										<td th:text="${abastecimento.dataCadastro}" class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2"
 
 										<td th:text="${fornecedor.nome}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2" 
-											th:data-id="${fornecedor.id}" 
-											th:data-dataCadastro="${fornecedor.dataCadastro}"
-											th:data-dataNascimento="${fornecedor.dataNascimento}"
-											th:data-nomeCompleto="${fornecedor.nome}" 
-											th:data-cpfCnpj="${fornecedor.cpfCnpj}" 
-											th:data-email="${fornecedor.email}" 
-											th:data-telefone="${fornecedor.telefone}"
-											th:data-usuarioResponsavel="${fornecedor.usuarioResponsavel}"
-											th:data-logradouro="${fornecedor.endereco.logradouro}"
-											th:data-numero="${fornecedor.endereco.numero}"
-											th:data-bairro="${fornecedor.endereco.bairro}"
-											th:data-cidade="${fornecedor.endereco.cidade}"
-											th:data-cep="${fornecedor.endereco.cep}"
-											th:data-complemento="${fornecedor.endereco.complemento}"
-											th:data-estado="${fornecedor.endereco.estado}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-dataNascimento'), 
-												this.getAttribute('data-nomeCompleto'), 
-												this.getAttribute('data-cpfCnpj'), 
-												this.getAttribute('data-email'), 
-												this.getAttribute('data-telefone'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-logradouro'), 
-												this.getAttribute('data-numero'), 
-												this.getAttribute('data-bairro'),
-												this.getAttribute('data-cidade'),
-												this.getAttribute('data-cep'),
-												this.getAttribute('data-complemento'),
-												this.getAttribute('data-estado'))">...</td>
 											
 										<td th:text="${fornecedor.cpfCnpj}" class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
-											th:data-id="${fornecedor.id}" 
-											th:data-dataCadastro="${fornecedor.dataCadastro}"
-											th:data-dataNascimento="${fornecedor.dataNascimento}"
-											th:data-nomeCompleto="${fornecedor.nome}" 
-											th:data-cpfCnpj="${fornecedor.cpfCnpj}" 
-											th:data-email="${fornecedor.email}" 
-											th:data-telefone="${fornecedor.telefone}"
-											th:data-usuarioResponsavel="${fornecedor.usuarioResponsavel}"
-											th:data-logradouro="${fornecedor.endereco.logradouro}"
-											th:data-numero="${fornecedor.endereco.numero}"
-											th:data-bairro="${fornecedor.endereco.bairro}"
-											th:data-cidade="${fornecedor.endereco.cidade}"
-											th:data-cep="${fornecedor.endereco.cep}"
-											th:data-complemento="${fornecedor.endereco.complemento}"
-											th:data-estado="${fornecedor.endereco.estado}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-dataNascimento'), 
-												this.getAttribute('data-nomeCompleto'), 
-												this.getAttribute('data-cpfCnpj'), 
-												this.getAttribute('data-email'), 
-												this.getAttribute('data-telefone'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-logradouro'), 
-												this.getAttribute('data-numero'), 
-												this.getAttribute('data-bairro'),
-												this.getAttribute('data-cidade'),
-												this.getAttribute('data-cep'),
-												this.getAttribute('data-complemento'),
-												this.getAttribute('data-estado'))">...</td>
 											
 										<td th:text="${fornecedor.telefone}" class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
-											th:data-id="${fornecedor.id}" 
-											th:data-dataCadastro="${fornecedor.dataCadastro}"
-											th:data-dataNascimento="${fornecedor.dataNascimento}"
-											th:data-nomeCompleto="${fornecedor.nome}" 
-											th:data-cpfCnpj="${fornecedor.cpfCnpj}" 
-											th:data-email="${fornecedor.email}" 
-											th:data-telefone="${fornecedor.telefone}"
-											th:data-usuarioResponsavel="${fornecedor.usuarioResponsavel}"
-											th:data-logradouro="${fornecedor.endereco.logradouro}"
-											th:data-numero="${fornecedor.endereco.numero}"
-											th:data-bairro="${fornecedor.endereco.bairro}"
-											th:data-cidade="${fornecedor.endereco.cidade}"
-											th:data-cep="${fornecedor.endereco.cep}"
-											th:data-complemento="${fornecedor.endereco.complemento}"
-											th:data-estado="${fornecedor.endereco.estado}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-dataNascimento'), 
-												this.getAttribute('data-nomeCompleto'), 
-												this.getAttribute('data-cpfCnpj'), 
-												this.getAttribute('data-email'), 
-												this.getAttribute('data-telefone'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-logradouro'), 
-												this.getAttribute('data-numero'), 
-												this.getAttribute('data-bairro'),
-												this.getAttribute('data-cidade'),
-												this.getAttribute('data-cep'),
-												this.getAttribute('data-complemento'),
-												this.getAttribute('data-estado'))">...</td>
 											
 										<td th:text="${fornecedor.endereco.logradouro} + ', ' + ${fornecedor.endereco.numero}" class="td td_endereco col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"
-											th:data-id="${fornecedor.id}" 
-											th:data-dataCadastro="${fornecedor.dataCadastro}"
-											th:data-dataNascimento="${fornecedor.dataNascimento}"
-											th:data-nomeCompleto="${fornecedor.nome}" 
-											th:data-cpfCnpj="${fornecedor.cpfCnpj}" 
-											th:data-email="${fornecedor.email}" 
-											th:data-telefone="${fornecedor.telefone}"
-											th:data-usuarioResponsavel="${fornecedor.usuarioResponsavel}"
-											th:data-logradouro="${fornecedor.endereco.logradouro}"
-											th:data-numero="${fornecedor.endereco.numero}"
-											th:data-bairro="${fornecedor.endereco.bairro}"
-											th:data-cidade="${fornecedor.endereco.cidade}"
-											th:data-cep="${fornecedor.endereco.cep}"
-											th:data-complemento="${fornecedor.endereco.complemento}"
-											th:data-estado="${fornecedor.endereco.estado}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-dataNascimento'), 
-												this.getAttribute('data-nomeCompleto'), 
-												this.getAttribute('data-cpfCnpj'), 
-												this.getAttribute('data-email'), 
-												this.getAttribute('data-telefone'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-logradouro'), 
-												this.getAttribute('data-numero'), 
-												this.getAttribute('data-bairro'),
-												this.getAttribute('data-cidade'),
-												this.getAttribute('data-cep'),
-												this.getAttribute('data-complemento'),
-												this.getAttribute('data-estado'))">...</td>
 
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
 
-											<form method="POST" th:action="@{fornecedores/deleta-{id}(id = ${fornecedor.id})}" class="form_remove_img" id="form_remove_img">
+											<form method="POST" th:action="@{abastecimentos/deleta-{id}(id = ${abastecimento.id})}" class="form_remove_img" id="form_remove_img">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 												<button type="submit" class="col-lg-12 btn_excluir_img">
 													<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
 												</button>
 											</form>	
 
-											<form method="POST" th:action="@{fornecedores/deleta-{id}(id = ${fornecedor.id})}" class="form_remove_text" id="form_remove_text">
+											<form method="POST" th:action="@{abastecimentos/deleta-{id}(id = ${abastecimento.id})}" class="form_remove_text" id="form_remove_text">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 												<button type="submit" class="col-lg-12 btn_excluir">
 													<div class="excluir_text" id="excluir_text">
@@ -738,7 +585,7 @@
 				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_cpf_tag" onclick="removerFiltro('cpf')" onmouseover="efeitoRemoverFiltro('cpf')" onmouseleave="efeitoRemoverFiltroLeave('cpf')"hidden>
 					CPF
 				</div>	
-				<form th:action="@{fornecedores/filtro}" method="POST" th:object="${filtroFornecedor}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
+				<form th:action="@{abastecimentos/filtro}" method="POST" th:object="${filtroAbastecimento}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
 
 					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
@@ -765,12 +612,12 @@
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
 				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
-					Editar fornecedor
+					Editar abastecimento
 				</h1>
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Fornecedor cadastrado no dia 21/07/1998 por admin" id="edita_info"/>											
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Abastecimento cadastrado no dia 21/07/1998 por admin" id="edita_info"/>											
 
 					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
 					
@@ -780,7 +627,7 @@
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{fornecedores/alterar}" method="POST" th:object="${fornecedor}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{abastecimentos/alterar}" method="POST" th:object="${abastecimento}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 				<input type="text" id="id_input_edicao" name="id" hidden/>			
 
@@ -794,10 +641,10 @@
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">								
 					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_fornecedor_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_abastecimento_input">
 							Nome
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nome" id="edita_descricao_fornecedor_input" required/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nome" id="edita_descricao_abastecimento_input" required/>
 					</div>							
 
 				</div>
@@ -805,17 +652,17 @@
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_fornecedor_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_abastecimento_input">
 							E-mail
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_fornecedor_input"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_abastecimento_input"/>
 					</div>									
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_fornecedor_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_abastecimento_input">
 							Telefone
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_fornecedor_input"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_abastecimento_input"/>
 					</div>
 				
 				</div>
@@ -959,7 +806,7 @@
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
 				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
-					Novo fornecedor
+					Novo abastecimento
 				</h1>
 
 				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
@@ -976,7 +823,7 @@
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">				
 
-			<form th:action="@{fornecedores}" method="POST" th:object="${fornecedor}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{abastecimentos}" method="POST" th:object="${abastecimento}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 					<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
@@ -988,10 +835,10 @@
 
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">								
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_fornecedor_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_abastecimento_input">
 							Nome
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nome" id="descricao_fornecedor_input" required/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nome" id="descricao_abastecimento_input" required/>
 					</div>							
 
 				</div>
@@ -999,17 +846,17 @@
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_third_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_fornecedor_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_abastecimento_input">
 							E-mail
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="email_fornecedor_input"/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="email_abastecimento_input"/>
 					</div>									
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_fornecedor_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_abastecimento_input">
 							Telefone
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="telefone_fornecedor_input"/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="telefone_abastecimento_input"/>
 					</div>
 				
 				</div>
@@ -1151,6 +998,6 @@
 			<div class="loader"></div>
 		</div>
 
-		<script type="text/javascript" th:src="@{js/fornecedores.js}" src="../static/js/fornecedores.js" defer></script>
+		<script type="text/javascript" th:src="@{js/abastecimentos.js}" src="../static/js/abastecimentos.js" defer></script>
 	</body>
 	</html>		

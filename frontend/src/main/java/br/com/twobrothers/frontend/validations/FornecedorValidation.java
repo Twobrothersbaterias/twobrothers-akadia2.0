@@ -6,6 +6,7 @@ import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,9 @@ public class FornecedorValidation {
     public void validaCorpoRequisicao(FornecedorDTO fornecedor, FornecedorRepository repository, ValidationType validationType) {
         validaSePossuiAtributosNulos(fornecedor);
         validaAtributoNome(fornecedor.getNome());
-        validaAtributoTelefone(fornecedor.getTelefone());
-        if (fornecedor.getCpfCnpj() != null) validaAtributoCpfCnpj(fornecedor.getCpfCnpj(), repository, validationType);
-        if (fornecedor.getEmail() != null) validaAtributoEmail(fornecedor.getEmail(), repository, validationType);
+//        validaAtributoTelefone(fornecedor.getTelefone());
+//        if (fornecedor.getCpfCnpj() != null) validaAtributoCpfCnpj(fornecedor.getCpfCnpj(), repository, validationType);
+//        if (fornecedor.getEmail() != null) validaAtributoEmail(fornecedor.getEmail(), repository, validationType);
     }
 
     public void validaSePossuiAtributosNulos(FornecedorDTO fornecedor) {
@@ -87,6 +88,16 @@ public class FornecedorValidation {
         if (!telefone.matches(PHONE_REGEX_PATTERN))
             throw new InvalidRequestException("Validação do telefone falhou. O valor enviado é inválido.");
         log.warn("Validação do atributo nome OK");
+    }
+
+    public void validaRangeData(String inicio, String fim) {
+
+        LocalDate dataInicio = LocalDate.parse(inicio);
+        LocalDate dataFim = LocalDate.parse(fim);
+
+        if (dataInicio.isAfter(dataFim))
+            throw new InvalidRequestException("O conteúdo do campo data início não pode ser anterior ao campo data fim");
+
     }
 
 }

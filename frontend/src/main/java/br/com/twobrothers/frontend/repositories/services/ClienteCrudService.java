@@ -40,7 +40,7 @@ public class ClienteCrudService {
     ClienteRepository repository;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     ModelMapperConfig modelMapper;
@@ -56,7 +56,7 @@ public class ClienteCrudService {
         cliente.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do cliente...");
-        cliente.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuario).getUsername());
+        cliente.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
 
         log.info("[PROGRESS] Validando objeto do tipo ClienteDTO recebido por meio da requisição...");
         validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE);
