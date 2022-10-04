@@ -107,6 +107,8 @@ public class ClienteService {
 
     public String constroiUriFiltro(FiltroClienteDTO filtroClienteDTO) {
 
+        URI_CLIENTES = "clientes?";
+
         if (filtroClienteDTO.getDescricao() != null && !filtroClienteDTO.getDescricao().equals("")) {
             URI_CLIENTES += "descricao=" + filtroClienteDTO.getDescricao();
         }
@@ -116,7 +118,7 @@ public class ClienteService {
         }
 
         if (filtroClienteDTO.getDataFim() != null && !filtroClienteDTO.getDataFim().equals("")) {
-            URI_CLIENTES += "fim=" + filtroClienteDTO.getDataFim();
+            URI_CLIENTES += "&fim=" + filtroClienteDTO.getDataFim();
         }
 
         if (filtroClienteDTO.getPeriodoMes() != null && !filtroClienteDTO.getPeriodoMes().equals("")) {
@@ -124,7 +126,7 @@ public class ClienteService {
         }
 
         if (filtroClienteDTO.getPeriodoAno() != null && !filtroClienteDTO.getPeriodoAno().equals("")) {
-            URI_CLIENTES += "ano=" + filtroClienteDTO.getPeriodoAno();
+            URI_CLIENTES += "&ano=" + filtroClienteDTO.getPeriodoAno();
         }
 
         if (filtroClienteDTO.getCpfCnpj() != null && !filtroClienteDTO.getCpfCnpj().equals("")) {

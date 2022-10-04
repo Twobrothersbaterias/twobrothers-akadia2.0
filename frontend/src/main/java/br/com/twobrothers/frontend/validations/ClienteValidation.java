@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.RegexPatterns.*;
-
 /**
  * @author Gabriel Lagrota
  * @email gabriellagrota23@gmail.com
@@ -24,24 +22,42 @@ import static br.com.twobrothers.frontend.utils.RegexPatterns.*;
 public class ClienteValidation {
 
     public void validaCorpoRequisicao(ClienteDTO cliente, ClienteRepository repository, ValidationType type) {
-        validaSePossuiAtributosNulos(cliente);
+        validaSePossuiAtributosNulos(cliente, type);
         validaAtributoNomeCompleto(cliente.getNomeCompleto());
+        if (cliente.getCpfCnpj() != null && type.equals(ValidationType.CREATE)) {
+            validaSeCpfCnpjJaExiste(cliente.getCpfCnpj(), repository);
+        }
+        if (cliente.getEmail() != null && type.equals(ValidationType.CREATE)) {
+            validaSeEmailJaExiste(cliente.getEmail(), repository);
+        }
         log.warn("[VALIDAÇÃO - CLIENTE] Validação do objeto cliente finalizada com sucesso");
     }
-
-    public void validaSePossuiAtributosNulos(ClienteDTO cliente) {
+    public void validaSePossuiAtributosNulos(ClienteDTO cliente, ValidationType type) {
 
         log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação de atributos obrigatórios nulos...");
         List<String> atributosNulos = new ArrayList<>();
 
         if (cliente.getNomeCompleto() == null) atributosNulos.add("nomeCompleto");
-        if (cliente.getUsuarioResponsavel() == null) atributosNulos.add("usuarioResponsavel");
+        if (type.equals(ValidationType.CREATE) && cliente.getUsuarioResponsavel() == null) atributosNulos.add("usuarioResponsavel");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do cliente falhou. A inserção de um ou mais atributos " +
                     "obrigatórios é necessária no corpo da requisição: " + atributosNulos);
 
         log.warn("Validação de atributos nulos OK");
+    }
+
+    public void validaSeCpfCnpjJaExiste(String cpfCnpj, ClienteRepository repository) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação de existência do campo CPF/CNPJ...");
+        if (repository.buscaPorCpfCnpj(cpfCnpj).isPresent())
+            throw new InvalidRequestException("O Cpf ou Cnpj digitado já existe");
+        log.warn("Validação de duplicidade de CPF/CNPJ OK");
+    }
+    public void validaSeEmailJaExiste(String email, ClienteRepository repository) {
+        log.info("[VALIDAÇÃO - CLIENTE] Inicializando validação de existência do campo EMAIL...");
+        if (repository.buscaPorEmail(email).isPresent())
+            throw new InvalidRequestException("O email digitado já existe");
+        log.warn("Validação de duplicidade de e-mail OK");
     }
 
     public void validaAtributoNomeCompleto(String nomeCompleto) {

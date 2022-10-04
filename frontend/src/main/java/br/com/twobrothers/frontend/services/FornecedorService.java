@@ -107,6 +107,8 @@ public class FornecedorService {
 
     public String constroiUriFiltro(FiltroFornecedorDTO filtroFornecedorDTO) {
 
+        URI_FORNECEDORES = "fornecedores?";
+
         if (filtroFornecedorDTO.getDescricao() != null && !filtroFornecedorDTO.getDescricao().equals("")) {
             URI_FORNECEDORES += "descricao=" + filtroFornecedorDTO.getDescricao();
         }
@@ -116,7 +118,7 @@ public class FornecedorService {
         }
 
         if (filtroFornecedorDTO.getDataFim() != null && !filtroFornecedorDTO.getDataFim().equals("")) {
-            URI_FORNECEDORES += "fim=" + filtroFornecedorDTO.getDataFim();
+            URI_FORNECEDORES += "&fim=" + filtroFornecedorDTO.getDataFim();
         }
 
         if (filtroFornecedorDTO.getPeriodoMes() != null && !filtroFornecedorDTO.getPeriodoMes().equals("")) {
@@ -124,7 +126,7 @@ public class FornecedorService {
         }
 
         if (filtroFornecedorDTO.getPeriodoAno() != null && !filtroFornecedorDTO.getPeriodoAno().equals("")) {
-            URI_FORNECEDORES += "ano=" + filtroFornecedorDTO.getPeriodoAno();
+            URI_FORNECEDORES += "&ano=" + filtroFornecedorDTO.getPeriodoAno();
         }
 
         if (filtroFornecedorDTO.getCpfCnpj() != null && !filtroFornecedorDTO.getCpfCnpj().equals("")) {

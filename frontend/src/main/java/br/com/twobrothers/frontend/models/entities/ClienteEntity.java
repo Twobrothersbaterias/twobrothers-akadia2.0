@@ -36,6 +36,7 @@ public class ClienteEntity {
     @Column(unique = true)
     private String cpfCnpj;
 
+    @Column(unique = true)
     private String email;
 
     private String telefone;

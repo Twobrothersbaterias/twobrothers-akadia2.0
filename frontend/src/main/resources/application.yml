@@ -1,5 +1,8 @@
 server:
   port: 8099
+  error:
+    whitelabel:
+      enabled: false
 spring:
   application:
     name: frontend

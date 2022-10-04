@@ -153,6 +153,8 @@ public class ProdutoEstoqueCrudService {
             throw new InvalidRequestException("O produto com a sigla " + produto.getSigla() + " já existe na base de dados");
         }
 
+        produto.setTipoProduto(produtoOptional.get().getTipoProduto());
+
         log.info("[PROGRESS] Iniciando método de validação do objeto produto...");
         validation.validaCorpoRequisicao(produto, repository, ValidationType.UPDATE);
 

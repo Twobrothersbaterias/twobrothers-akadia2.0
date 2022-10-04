@@ -36,8 +36,8 @@ public class EnderecoValidation {
         log.info("[VALIDAÇÃO - ENDEREÇO] Inicializando validação de atributos obrigatórios nulos...");
         List<String> atributosNulos = new ArrayList<>();
 
-        if (endereco.getLogradouro() == null) atributosNulos.add("logradouro");
-        if (endereco.getNumero() == null) atributosNulos.add("numero");
+        if (endereco.getLogradouro() == null) atributosNulos.add("Endereço: Logradouro");
+        if (endereco.getNumero() == null) atributosNulos.add("Endereço: Numero");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do endereço falhou. A inserção de um ou mais atributos " +

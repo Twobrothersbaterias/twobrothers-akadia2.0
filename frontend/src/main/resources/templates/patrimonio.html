@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
-					<a th:href="@{/fornecedores}" class="row aside_clicavel">
+					<a th:href="@{/clientes}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
 						</button>
@@ -55,9 +55,9 @@
 				</div>
 
 				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
-					<a th:href="@{/lancamentos}" class="row aside_clicavel">
+					<a th:href="@{/vendas}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Lançamentos"/>
+							<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Vendas"/>
 						</button>
 					</a>
 				</div>
@@ -95,7 +95,7 @@
 				</div>			
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a th:href="@{/colaboradores}" class="row aside_clicavel">
+					<a th:href="@{/fornecedores}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
 						</button>
@@ -167,7 +167,7 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/lancamentos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
@@ -217,6 +217,16 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>					
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
@@ -224,16 +234,6 @@
 						</a>
 					</div>	
 				</div>
-
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>	
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
@@ -281,7 +281,7 @@
 
 						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-darkgreen.png" th:src="@{img/add-darkgreen.png}" onclick="abrirNovoItem()"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
 							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/patrimonios}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
@@ -813,7 +813,7 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Patrimônio criado dia 11/11/1111 por admin" onclick="fecharEditaItem()"/>	
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Patrimônio criado dia 11/11/1111 por admin" onclick="fecharEditaItem()" id="patrimonio_info"/>	
 
 					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>				
 				</div>	

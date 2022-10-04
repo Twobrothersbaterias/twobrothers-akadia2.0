@@ -379,7 +379,7 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="9%";
 			}
 			else {
-				menuSuperiorMobileItem[i].style.width="11.11%";	
+				menuSuperiorMobileItem[i].style.width="10%";	
 			}
 		}		
 
@@ -1078,7 +1078,7 @@ function abrirEditaItem(
 	var dataCadastroSplitada = dataCadastro.split("-");
 	if (dataCadastroSplitada.length == 3) {
 		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.setAttribute("title", "Produto salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel);
+		subtitulo.title="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
 	}	
 
 	// SETANDO VALORES NOS CAMPOS
@@ -1242,7 +1242,8 @@ function pageResponsiva(){
 	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
 	var PaginaSelecionada = parseInt(PaginaSelecionada)+1;
 	for(var i = 0; i < pages.length; i++){
-		pages[i].style.background="#303030";
+		pages[i].style.border="1px solid #303030";
+		pages[i].style.background="transparent";
 		pages[i].style.color="#C3C8C8";
 		if(pages[i].innerText == PaginaSelecionada){
 			pages[i].style.background="#303030";
@@ -1253,7 +1254,7 @@ function pageResponsiva(){
 	if((pages.length) == PaginaSelecionada){
 		document.getElementById('proxima').style.pointerEvents="none";
 		document.getElementById('proxima').style.borderColor="#303030";
-		document.getElementById('proxima').style.color="C3C8C8";
+		document.getElementById('proxima').style.color="#212121";
 	}
 	else{
 		document.getElementById('proxima').style.pointerEvents="auto";
@@ -1264,12 +1265,12 @@ function pageResponsiva(){
 	if(PaginaSelecionada == 1){
 		document.getElementById('anterior').style.pointerEvents="none";
 		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="#C3C8C8";
+		document.getElementById('anterior').style.color="#212121";
 	}
 	else{
 		document.getElementById('anterior').style.pointerEvents="auto";
 		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="C3C8C8";
+		document.getElementById('anterior').style.color="#C3C8C8";
 	}
 }
 

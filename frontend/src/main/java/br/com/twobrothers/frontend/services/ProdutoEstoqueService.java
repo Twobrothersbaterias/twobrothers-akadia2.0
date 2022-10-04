@@ -128,6 +128,8 @@ public class ProdutoEstoqueService {
 
     public String constroiUriFiltro(FiltroProdutoDTO filtroProdutoDTO) {
 
+        URI_ESTOQUE = "estoque?";
+
         if (filtroProdutoDTO.getDescricao() != null && !filtroProdutoDTO.getDescricao().equals("")) {
             URI_ESTOQUE += "descricao=" + filtroProdutoDTO.getDescricao();
         }
@@ -137,7 +139,7 @@ public class ProdutoEstoqueService {
         }
 
         if (filtroProdutoDTO.getDataFim() != null && !filtroProdutoDTO.getDataFim().equals("")) {
-            URI_ESTOQUE += "fim=" + filtroProdutoDTO.getDataFim();
+            URI_ESTOQUE += "&fim=" + filtroProdutoDTO.getDataFim();
         }
 
         if (filtroProdutoDTO.getPeriodoMes() != null && !filtroProdutoDTO.getPeriodoMes().equals("")) {
@@ -145,7 +147,7 @@ public class ProdutoEstoqueService {
         }
 
         if (filtroProdutoDTO.getPeriodoAno() != null && !filtroProdutoDTO.getPeriodoAno().equals("")) {
-            URI_ESTOQUE += "ano=" + filtroProdutoDTO.getPeriodoAno();
+            URI_ESTOQUE += "&ano=" + filtroProdutoDTO.getPeriodoAno();
         }
 
         if (filtroProdutoDTO.getTipo() != null && !filtroProdutoDTO.getTipo().equals("")) {

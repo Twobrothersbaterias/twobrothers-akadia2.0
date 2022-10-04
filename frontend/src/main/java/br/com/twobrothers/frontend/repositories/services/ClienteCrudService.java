@@ -6,14 +6,18 @@ import br.com.twobrothers.frontend.models.entities.ClienteEntity;
 import br.com.twobrothers.frontend.models.entities.EnderecoEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
+import br.com.twobrothers.frontend.repositories.EnderecoRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import br.com.twobrothers.frontend.utils.TrataAtributosVazios;
 import br.com.twobrothers.frontend.validations.ClienteValidation;
 import br.com.twobrothers.frontend.validations.EnderecoValidation;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.*;
+import static br.com.twobrothers.frontend.utils.TrataAtributosVazios.*;
 
 /**
  * @author Gabriel Lagrota
@@ -43,6 +48,9 @@ public class ClienteCrudService {
     UsuarioRepository usuarioRepository;
 
     @Autowired
+    EnderecoRepository enderecoRepository;
+
+    @Autowired
     ModelMapperConfig modelMapper;
 
     ClienteValidation validation = new ClienteValidation();
@@ -52,18 +60,22 @@ public class ClienteCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
 
+        trataAtributosVaziosDoObjetoCliente(cliente);
+        trataAtributosVaziosDoObjetoEndereco(cliente.getEndereco());
+
         log.info("[PROGRESS] Setando a data de cadastro no cliente: {}", LocalDate.now());
         cliente.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do cliente...");
         cliente.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
 
-        log.info("[PROGRESS] Validando objeto do tipo ClienteDTO recebido por meio da requisição...");
+        log.info("[PROGRESS] Validando objeto do tipo ClienteDTO recebido por meio da requisição: {}", cliente);
         validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE);
 
         log.info("[PROGRESS] Verificando se o objeto ClienteDTO recebido por meio da requisição possui um objeto do tipo EnderecoDTO acoplado...");
-        if (cliente.getEndereco() != null) {
-            log.info("[INFO] Objeto do tipo EnderecoDTO detectado.");
+        if (!verificaSeEnderecoNulo(cliente.getEndereco())) {
+
+            log.info("[INFO] Objeto do tipo EnderecoDTO detectado: {}", cliente.getEndereco());
 
             log.info("[PROGRESS] Setando data de cadastro do endereço...");
             cliente.getEndereco().setDataCadastro(LocalDate.now().toString());
@@ -163,6 +175,9 @@ public class ClienteCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Inicializando método de atualização de cliente...");
 
+        trataAtributosVaziosDoObjetoCliente(cliente);
+        trataAtributosVaziosDoObjetoEndereco(cliente.getEndereco());
+
         log.info("[PROGRESS] Criando as variáveis do cliente: clienteOptional e clienteEncontrado...");
         Optional<ClienteEntity> clienteOptional = repository.findById(cliente.getId());
         ClienteEntity clienteEncontrado;
@@ -183,25 +198,47 @@ public class ClienteCrudService {
             clienteAtualizado.setNomeCompleto(cliente.getNomeCompleto());
             clienteAtualizado.setCpfCnpj(cliente.getCpfCnpj());
             clienteAtualizado.setTelefone(cliente.getTelefone());
+            clienteAtualizado.setEmail(cliente.getEmail());
             clienteAtualizado.setDataNascimento(cliente.getDataNascimento());
 
             log.info("[PROGRESS] Verificando se cliente possui objeto do tipo endereço acoplado...");
-            if (cliente.getEndereco() != null) {
+            if (!verificaSeEnderecoNulo(cliente.getEndereco())) {
                 log.warn("[INFO] Endereço acoplado detectado.");
                 enderecoValidation.validaCorpoRequisicao(cliente.getEndereco());
                 log.info("[PROGRESS] Setando data de cadastro no endereço...");
                 cliente.getEndereco().setDataCadastro(LocalDate.now().toString());
+
                 log.info("[PROGRESS] Acoplando objeto do tipo EnderecoDTO na variável clienteAtualizado...");
-                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
+//                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
+                clienteAtualizado.getEndereco().setLogradouro(cliente.getEndereco().getLogradouro());
+                clienteAtualizado.getEndereco().setNumero(cliente.getEndereco().getNumero());
+                clienteAtualizado.getEndereco().setBairro(cliente.getEndereco().getBairro());
+                clienteAtualizado.getEndereco().setCidade(cliente.getEndereco().getCidade());
+                clienteAtualizado.getEndereco().setComplemento(cliente.getEndereco().getComplemento());
+                clienteAtualizado.getEndereco().setCep(cliente.getEndereco().getCep());
+                cliente.getEndereco().setEstado(cliente.getEndereco().getEstado());
+
             } else {
                 log.warn("[INFO] Nenhum endereço foi detectado.");
 
                 log.info("[PROGRESS] Setando endereço da variável clienteAtualizado como null...");
-                clienteAtualizado.setEndereco(null);
+                clienteAtualizado.getEndereco().setLogradouro(null);
+                clienteAtualizado.getEndereco().setNumero(null);
+                clienteAtualizado.getEndereco().setBairro(null);
+                clienteAtualizado.getEndereco().setCidade(null);
+                clienteAtualizado.getEndereco().setComplemento(null);
+                clienteAtualizado.getEndereco().setCep(null);
             }
 
+            ClienteEntity clienteEntity;
+
             log.info("[PROGRESS] Iniciando persistência do cliente na base de dados...");
-            ClienteEntity clienteEntity = repository.save(clienteAtualizado);
+            try {
+                clienteEntity = repository.save(clienteAtualizado);
+            } catch (DataIntegrityViolationException exception) {
+                log.error(exception.toString());
+                throw new InvalidRequestException("O CPF/CNPJ ou o E-MAIL Inserido já existe na base de dados");
+            }
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
             return modelMapper.mapper().map(clienteEntity, ClienteDTO.class);
@@ -223,8 +260,7 @@ public class ClienteCrudService {
             log.info("[PROGRESS] Removendo o cliente da base de dados...");
             repository.deleteById(id);
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-        }
-        else {
+        } else {
             log.error("[FAILURE] Cliente com o id {} não encontrado", id);
             throw new ObjectNotFoundException(CLIENTE_NAO_ENCONTRADO);
         }

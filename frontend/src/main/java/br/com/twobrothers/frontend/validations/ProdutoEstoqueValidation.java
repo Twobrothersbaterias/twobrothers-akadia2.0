@@ -25,7 +25,7 @@ public class ProdutoEstoqueValidation {
                                       ProdutoEstoqueRepository repository,
                                       ValidationType validationType) {
 
-        validaSePossuiAtributosNulos(produtoEstoque);
+        validaSePossuiAtributosNulos(produtoEstoque, validationType);
         if (validationType == ValidationType.CREATE) validaSeSiglaJaExiste(produtoEstoque.getSigla(), repository);
         validaAtributoSigla(produtoEstoque.getSigla());
         validaAtributoMarcaBateria(produtoEstoque.getMarcaBateria());
@@ -34,15 +34,16 @@ public class ProdutoEstoqueValidation {
         log.warn("[VALIDAÇÃO - PRODUTO] Validação do objeto ProdutoEstoqueDTO finalizada com sucesso");
     }
 
-    public void validaSePossuiAtributosNulos(ProdutoEstoqueDTO produtoEstoque) {
+    public void validaSePossuiAtributosNulos(ProdutoEstoqueDTO produtoEstoque, ValidationType validationType) {
         log.info("[VALIDAÇÃO - PRODUTO] Inicializando validação de atributos obrigatórios nulos...");
         List<String> atributosNulos = new ArrayList<>();
 
-        if (produtoEstoque.getSigla() == null) atributosNulos.add("sigla");
-        if (produtoEstoque.getMarcaBateria() == null) atributosNulos.add("marcaBateria");
-        if (produtoEstoque.getEspecificacao() == null) atributosNulos.add("especificacao");
-        if (produtoEstoque.getUsuarioResponsavel() == null) atributosNulos.add("usuarioResponsavel");
-        if (produtoEstoque.getTipoProduto() == null) atributosNulos.add("tipoProduto");
+        if (produtoEstoque.getSigla() == null) atributosNulos.add("Sigla");
+        if (produtoEstoque.getMarcaBateria() == null) atributosNulos.add("Marca");
+        if (produtoEstoque.getEspecificacao() == null) atributosNulos.add("Especificação");
+        if (produtoEstoque.getUsuarioResponsavel() == null && validationType.equals(ValidationType.CREATE))
+            atributosNulos.add("Usuario Responsável");
+        if (produtoEstoque.getTipoProduto() == null) atributosNulos.add("Tipo do produto");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do produto falhou. A inserção de um ou mais atributos " +

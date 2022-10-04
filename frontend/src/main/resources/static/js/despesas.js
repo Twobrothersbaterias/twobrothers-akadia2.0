@@ -466,7 +466,7 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="9%";
 			}
 			else {
-				menuSuperiorMobileItem[i].style.width="11.11%";	
+				menuSuperiorMobileItem[i].style.width="10%";	
 			}
 		}		
 		
@@ -509,6 +509,10 @@ function abrirNovaDespesa() {
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var containerPrincipal = document.getElementById('conteudo_container');
@@ -547,6 +551,10 @@ function fechaNovaDespesa() {
 
 	if(mes < 10) {
 		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
 	}
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
@@ -611,6 +619,10 @@ function changeStatus() {
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var statusDespesa = document.getElementById('status_despesa');
@@ -649,6 +661,10 @@ function reloadNovaDespesa() {
 	if(mes < 10) {
 		var mes = '0' + mes;
 	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
 
 	var hoje = (ano + '-' + mes + '-' + dia); 	
 
@@ -1249,6 +1265,10 @@ function abrirEditaDespesa(
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var containerPrincipal = document.getElementById('conteudo_container');
@@ -1258,7 +1278,7 @@ function abrirEditaDespesa(
 
 	var containerEdita = document.getElementById('conteudo_container_edita');
 
-	var subtitulo = document.getElementById('edita_despesa_subtitulo');
+	var subtitulo = document.getElementById('edita_info');
 
 	containerEdita.hidden=false;
 
@@ -1282,7 +1302,7 @@ function abrirEditaDespesa(
 	var dataCadastroSplitada = dataCadastro.split("-");
 	if (dataCadastroSplitada.length == 3) {
 		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.innerText="Despesa criada dia " + dataUsParaDataBr + " por " + responsavel;
+		subtitulo.title="Despesa criada dia " + dataUsParaDataBr + " por " + responsavel;
 	}	
 
 	// SETANDO VALORES NOS CAMPOS
@@ -1298,15 +1318,19 @@ function abrirEditaDespesa(
 
 	if (status == 'PAGO') {
 		document.getElementById('data_pagamento_input_edicao').value=dataPagamento;
+		document.getElementById('data_pagamento_input_edicao').style.color="#212121";
 		document.getElementById('data_agendamento_input_edicao').style.color="#4444";
 		document.getElementById('data_agendamento_input_edicao').value="";
 		document.getElementById('data_agendamento_input_edicao').disabled=true;
+		document.getElementById('data_pagamento_input_edicao').disabled=false;;
 	}
 	else if (status == 'PENDENTE') {
 		document.getElementById('data_agendamento_input_edicao').value=dataAgendamento;
 		document.getElementById('data_pagamento_input_edicao').style.color="#4444";
+		document.getElementById('data_agendamento_input_edicao').style.color="#212121";
 		document.getElementById('data_pagamento_input_edicao').value="";
 		document.getElementById('data_pagamento_input_edicao').disabled=true;
+		document.getElementById('data_agendamento_input_edicao').disabled=false;
 	}
 	
 	document.getElementById('persistencia_input_edicao').value=persistencia;
@@ -1321,6 +1345,10 @@ function fecharEditaDespesa() {
 
 	if(mes < 10) {
 		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
 	}
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
@@ -1385,6 +1413,10 @@ function editaDespesaChangeStatus() {
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var statusDespesa = document.getElementById('status_despesa_edicao');
@@ -1396,13 +1428,13 @@ function editaDespesaChangeStatus() {
 		dataAgendamentoInput.value="";
 		dataAgendamentoInput.disabled=true;
 
-		dataPagamentoInput.style.color="#C3C8C8";
+		dataPagamentoInput.style.color="#121212";
 		dataPagamentoInput.disabled=false;
 		dataPagamentoInput.value=hoje;
 	} 
 
 	else if(statusDespesa.value == "PENDENTE") {
-		dataAgendamentoInput.style.color="#C3C8C8";
+		dataAgendamentoInput.style.color="#121212";
 		dataAgendamentoInput.disabled=false;
 		dataAgendamentoInput.value=hoje;
 
@@ -1495,6 +1527,10 @@ function ajustaTabela(){
 				var mes = '0' + mes;
 			}
 
+			if (dia < 10) {
+				var dia = '0' + dia;
+			}
+
 			var hoje = (dia + '/' + mes + '/' + ano); 
 
 			if(columnScheduling[i].innerText != "...") {
@@ -1531,7 +1567,8 @@ function pageResponsiva(){
 	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
 	var PaginaSelecionada = parseInt(PaginaSelecionada)+1;
 	for(var i = 0; i < pages.length; i++){
-		pages[i].style.background="#303030";
+		pages[i].style.border="1px solid #303030";
+		pages[i].style.background="transparent";
 		pages[i].style.color="#C3C8C8";
 		if(pages[i].innerText == PaginaSelecionada){
 			pages[i].style.background="#303030";
@@ -1542,7 +1579,7 @@ function pageResponsiva(){
 	if((pages.length) == PaginaSelecionada){
 		document.getElementById('proxima').style.pointerEvents="none";
 		document.getElementById('proxima').style.borderColor="#303030";
-		document.getElementById('proxima').style.color="C3C8C8";
+		document.getElementById('proxima').style.color="#212121";
 	}
 	else{
 		document.getElementById('proxima').style.pointerEvents="auto";
@@ -1553,11 +1590,11 @@ function pageResponsiva(){
 	if(PaginaSelecionada == 1){
 		document.getElementById('anterior').style.pointerEvents="none";
 		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="#C3C8C8";
+		document.getElementById('anterior').style.color="#212121";
 	}
 	else{
 		document.getElementById('anterior').style.pointerEvents="auto";
 		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="C3C8C8";
+		document.getElementById('anterior').style.color="#C3C8C8";
 	}
 }

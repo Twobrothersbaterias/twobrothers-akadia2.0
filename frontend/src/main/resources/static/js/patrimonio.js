@@ -472,7 +472,7 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="9%";
 			}
 			else {
-				menuSuperiorMobileItem[i].style.width="11.11%";	
+				menuSuperiorMobileItem[i].style.width="10%";	
 			}
 		}		
 
@@ -501,6 +501,10 @@ function abrirNovoItem() {
 	if(mes < 10) {
 		var mes = '0' + mes;
 	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
@@ -541,6 +545,10 @@ function fechaNovoItem() {
 	if(mes < 10) {
 		var mes = '0' + mes;
 	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
@@ -602,6 +610,10 @@ function changeTipo() {
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var statusPatrimonio = document.getElementById('status_patrimonio');
@@ -640,6 +652,10 @@ function changeStatus() {
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var statusPatrimonio = document.getElementById('status_patrimonio');
@@ -675,6 +691,10 @@ function reloadNovoItem() {
 	if(mes < 10) {
 		var mes = '0' + mes;
 	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
 
 	var hoje = (ano + '-' + mes + '-' + dia); 	
 
@@ -1267,9 +1287,6 @@ function abrirEditaItem(
 							valor, 
 							usuarioResponsavel) {
 
-	console.log(dataAgendamento);
-	console.log(dataPagamento);
-
 	const d = new Date();
 	var ano = d.getFullYear();
 	var mes = d.getMonth()+1;
@@ -1288,7 +1305,7 @@ function abrirEditaItem(
 
 	var containerEdita = document.getElementById('conteudo_container_edita');
 
-	var subtitulo = document.getElementById('edita_item_subtitulo');
+	var subtitulo = document.getElementById('patrimonio_info');
 
 	containerEdita.hidden=false;
 
@@ -1312,7 +1329,7 @@ function abrirEditaItem(
 	var dataCadastroSplitada = dataCadastro.split("-");
 	if (dataCadastroSplitada.length == 3) {
 		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.innerText="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+		subtitulo.title="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
 	}	
 
 	// SETANDO VALORES NOS CAMPOS
@@ -1345,6 +1362,10 @@ function fecharEditaItem() {
 
 	if(mes < 10) {
 		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
 	}
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
@@ -1406,6 +1427,10 @@ function editaItemChangeStatus() {
 		var mes = '0' + mes;
 	}
 
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
 	var statusPatrimonio = document.getElementById('status_patrimonio_edicao');
@@ -1439,6 +1464,10 @@ function editaItemChangeTipo() {
 	if(mes < 10) {
 		var mes = '0' + mes;
 	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
@@ -1505,7 +1534,7 @@ function ajustaTabela(){
 		informativoValorCaixa.style.color="#D75353";
 	}
 	else {
-		informativoValorCaixa.style.color="#427F44";
+		informativoValorCaixa.style.color="#C3C8C8";
 	}
 
 	// Definindo propriedades
@@ -1559,6 +1588,10 @@ function ajustaTabela(){
 				var mes = '0' + mes;
 			}
 
+			if(dia < 10) {
+				var dia = '0' + dia;
+			}			
+
 			var hoje = (dia + '/' + mes + '/' + ano); 
 
 			if(columnScheduling[i].innerText != "...") {
@@ -1595,7 +1628,8 @@ function pageResponsiva(){
 	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
 	var PaginaSelecionada = parseInt(PaginaSelecionada)+1;
 	for(var i = 0; i < pages.length; i++){
-		pages[i].style.background="#303030";
+		pages[i].style.border="1px solid #303030";
+		pages[i].style.background="transparent";
 		pages[i].style.color="#C3C8C8";
 		if(pages[i].innerText == PaginaSelecionada){
 			pages[i].style.background="#303030";
@@ -1606,7 +1640,7 @@ function pageResponsiva(){
 	if((pages.length) == PaginaSelecionada){
 		document.getElementById('proxima').style.pointerEvents="none";
 		document.getElementById('proxima').style.borderColor="#303030";
-		document.getElementById('proxima').style.color="C3C8C8";
+		document.getElementById('proxima').style.color="#212121";
 	}
 	else{
 		document.getElementById('proxima').style.pointerEvents="auto";
@@ -1617,12 +1651,12 @@ function pageResponsiva(){
 	if(PaginaSelecionada == 1){
 		document.getElementById('anterior').style.pointerEvents="none";
 		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="#C3C8C8";
+		document.getElementById('anterior').style.color="#212121";
 	}
 	else{
 		document.getElementById('anterior').style.pointerEvents="auto";
 		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="C3C8C8";
+		document.getElementById('anterior').style.color="#C3C8C8";
 	}
 }
 

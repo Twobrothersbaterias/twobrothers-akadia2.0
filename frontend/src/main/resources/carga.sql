@@ -1,4 +1,4 @@
-INSERT INTO tb_usuario(nome, nome_usuario, senha) VALUES('Gabriel', 'admin', '$2a$10$C7QV0ojH0CaUZVYzVNTVUuf2Jpeuxn9OyrJW85/NF0EGESWvsdvNe');
+INSERT INTO tb_usuario(nome, nome_usuario, senha) VALUES('Gabriel', 'admin', '$2a$10$uBaK8/xC8sY3zgD5ob/tceIVMIMzUq0eRf7q2/jpjRPyTEryET8ki');
 
 # CARGA DE ITENS ALEATÓRIOS
 INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descricao, valor, status_despesa, tipo_despesa, persistencia, usuario_responsavel) VALUES
@@ -69,3 +69,4 @@ INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quant
  SELECT * FROM tb_usuario;
 
 DELETE FROM tb_produto;
+DELETE FROM tb_cliente;

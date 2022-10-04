@@ -87,7 +87,6 @@ public class PatrimonioService {
         Double valor = 0.0;
         if (patrimonios != null && !patrimonios.isEmpty()) {
             for (PatrimonioEntity patrimonio : patrimonios) {
-                System.err.println(patrimonio);
                 if (patrimonio.getStatusPatrimonio() == StatusPatrimonioEnum.PAGO
                 && patrimonio.getTipoPatrimonio() != TipoPatrimonioEnum.PASSIVO) valor += patrimonio.getValor();
             }
