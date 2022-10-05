@@ -15,8 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 
 @Slf4j
 @Service
@@ -55,31 +60,23 @@ public class PatrimonioService {
     public List<PatrimonioEntity> filtroPatrimonios(Pageable pageable,
                                                     String descricao,
                                                     TipoPatrimonioEnum tipo,
-                                                    String dataInicio,
-                                                    String dataFim,
                                                     Integer mes,
                                                     Integer ano) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
         else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
-        else if (dataInicio != null && dataFim != null)
-            return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
-        else return crudService.buscaHoje(pageable);
+        else return crudService.buscaEsteMes(pageable);
     }
 
     public List<PatrimonioEntity> filtroPatrimoniosSemPaginacao(
             String descricao,
             TipoPatrimonioEnum tipo,
-            String dataInicio,
-            String dataFim,
             Integer mes,
             Integer ano) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
         else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
-        else if (dataInicio != null && dataFim != null)
-            return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
-        else return crudService.buscaHojeSemPaginacao();
+        else return crudService.buscaEsteMesSemPaginacao();
     }
 
     public Double calculaValorBruto(List<PatrimonioEntity> patrimonios) {
@@ -140,17 +137,6 @@ public class PatrimonioService {
         return paginas;
     }
 
-    public Integer pendentesHoje() {
-        List<PatrimonioEntity> patrimonios = crudService.buscaAgendadosHojeSemPaginacao();
-        Integer quantidade = 0;
-        if (patrimonios != null && !patrimonios.isEmpty()) {
-            for (PatrimonioEntity patrimonio : patrimonios) {
-                if (patrimonio.getStatusPatrimonio() == StatusPatrimonioEnum.PENDENTE) quantidade++;
-            }
-        }
-        return quantidade;
-    }
-
     public String constroiUriFiltro(FiltroPatrimonioDTO filtroPatrimonioDTO) {
 
         String uri = "patrimonios?";
@@ -186,6 +172,31 @@ public class PatrimonioService {
         }
 
         return uri;
+    }
+
+    public void cargaDePatrimonio() {
+
+        LocalDate dataAnterior = LocalDate.now().minusMonths(1);
+        int mesAnterior = LocalDate.now().minusMonths(1).getMonthValue();
+        LocalDate dataInicioMesAnterior = LocalDate.of(dataAnterior.getYear(), mesAnterior, 1);
+        LocalDate dataFimMesAnterior = LocalDate.of(dataAnterior.getYear(), mesAnterior, LocalDate.now().withMonth(mesAnterior).withYear(dataAnterior.getYear()).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+
+        List<PatrimonioDTO> patrimonios =
+                patrimonioRepository.buscaPorPeriodoSemPaginacao(
+                        dataInicioMesAnterior.toString(),
+                        dataFimMesAnterior.toString())
+                        .stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
+
+        List<PatrimonioEntity> patrimoniosAtualizados = new ArrayList<>();
+        for (PatrimonioDTO patrimonio: patrimonios) {
+            patrimonio.setId(null);
+            patrimonio.setStatusPatrimonio(StatusPatrimonioEnum.PENDENTE);
+            patrimonio.setDataCadastro(LocalDate.now().toString());
+            patrimoniosAtualizados.add(modelMapper.mapper().map(patrimonio, PatrimonioEntity.class));
+        }
+
+        patrimonioRepository.saveAll(patrimoniosAtualizados);
+
     }
 
 }

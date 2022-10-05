@@ -10,7 +10,6 @@ import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidReque
 import br.com.twobrothers.frontend.services.PatrimonioService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -20,13 +19,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Controller
 @RequestMapping("/patrimonios")
@@ -42,10 +39,8 @@ public class PatrimonioController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView patrimonios(@PageableDefault(size = 10, page = 0, sort = {"dataAgendamento", "dataPagamento"}, direction = Sort.Direction.ASC) Pageable pageable,
+    public ModelAndView patrimonios(@PageableDefault(size = 10, page = 0, sort = {"statusPatrimonio"}, direction = Sort.Direction.DESC) Pageable pageable,
                                     @RequestParam("descricao") Optional<String> descricao,
-                                    @RequestParam("inicio") Optional<String> inicio,
-                                    @RequestParam("fim") Optional<String> fim,
                                     @RequestParam("mes") Optional<Integer> mes,
                                     @RequestParam("ano") Optional<Integer> ano,
                                     @RequestParam("tipo") Optional<TipoPatrimonioEnum> tipo,
@@ -71,16 +66,12 @@ public class PatrimonioController {
                     pageable,
                     descricao.orElse(null),
                     tipo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
                     mes.orElse(null),
                     ano.orElse(null));
 
             patrimoniosSemPaginacao = patrimonioService.filtroPatrimoniosSemPaginacao(
                     descricao.orElse(null),
                     tipo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
                     mes.orElse(null),
                     ano.orElse(null));
 
@@ -93,8 +84,6 @@ public class PatrimonioController {
         }
 
         model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));
         model.addAttribute("tipo", tipo.orElse(null));
@@ -107,6 +96,15 @@ public class PatrimonioController {
         model.addAttribute("caixa", patrimonioService.calculaValorCaixa(patrimoniosSemPaginacao));
 
         modelAndView.setViewName("patrimonio");
+        return modelAndView;
+    }
+
+    @GetMapping("/patrimonio-carga")
+    public ModelAndView patrimonioCarga(ModelAndView modelAndView,
+                                        RedirectAttributes redirAttrs) {
+        patrimonioService.cargaDePatrimonio();
+        redirAttrs.addFlashAttribute("SucessoCadastro", "A carga de patrimônios foi realizada com sucesso");
+        modelAndView.setViewName("redirect:../patrimonios");
         return modelAndView;
     }
 

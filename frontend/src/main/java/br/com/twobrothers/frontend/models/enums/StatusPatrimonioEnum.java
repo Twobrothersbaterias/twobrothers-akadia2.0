@@ -16,7 +16,7 @@ import lombok.Getter;
 public enum StatusPatrimonioEnum {
 
     PENDENTE(0, "Pendente"),
-    PAGO(1, "Pago");
+    PAGO(1, "OK");
 
     private final int code;
     private final String desc;

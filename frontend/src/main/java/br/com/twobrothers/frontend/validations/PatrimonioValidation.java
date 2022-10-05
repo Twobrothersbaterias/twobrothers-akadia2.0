@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.RegexPatterns.DATE_REGEX;
-
 /**
  * @author Gabriel Lagrota
  * @email gabriellagrota23@gmail.com
@@ -24,8 +22,7 @@ public class PatrimonioValidation {
 
     public void validaCorpoDaRequisicao(PatrimonioDTO patrimonio, ValidationType validation) {
         validaSePossuiAtributosNulos(patrimonio, validation);
-        if (patrimonio.getDataAgendamento() != null) validaAtributoDataAgendamento(patrimonio.getDataAgendamento());
-        if (patrimonio.getDataPagamento() != null) validaAtributoDataAgendamento(patrimonio.getDataPagamento());
+        if (patrimonio.getDataEntrada() != null) validaAtributoDataPagamento(patrimonio.getDataEntrada());
         log.warn("[VALIDAÇÃO - PATRIMONIO] Validação do objeto patrimonio finalizada com sucesso");
     }
 
@@ -48,22 +45,6 @@ public class PatrimonioValidation {
 
     }
 
-    public void validaAtributoDataAgendamento(String data) {
-
-        log.info("[VALIDAÇÃO - PATRIMONIO] Inicializando validação do atributo dataAgendamento...");
-
-        LocalDate hoje = LocalDate.now();
-
-        LocalDate dataAgendada = LocalDate.parse(data);
-
-        if (dataAgendada.isBefore(hoje)) {
-            log.error("[ERROR] Não é possível realizar um agendamento para uma data no passado");
-            throw new InvalidRequestException("Não é possível realizar um agendamento para uma data no passado");
-        }
-
-        log.warn("Validação do atributo dataAgendamento OK");
-    }
-
     public void validaAtributoDataPagamento(String data) {
         log.info("[VALIDAÇÃO - PATRIMONIO] Inicializando validação do atributo dataPagamento...");
 
@@ -72,7 +53,7 @@ public class PatrimonioValidation {
 
         if (dataPagamento.isAfter(hoje)) {
             log.error("[ERROR] Não é possível realizar um pagamento para uma data no futuro");
-            throw new InvalidRequestException("Não é possível realizar um pagamento para uma data no futuro");
+            throw new InvalidRequestException("Não é possível definir uma data de entrada de um patrimônio para uma data futura");
         }
 
         log.warn("Validação do atributo pagamento OK");

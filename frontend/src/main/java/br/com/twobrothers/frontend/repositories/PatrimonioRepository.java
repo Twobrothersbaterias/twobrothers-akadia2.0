@@ -22,14 +22,8 @@ import java.util.List;
 public interface PatrimonioRepository extends JpaRepository<PatrimonioEntity, Long> {
 
     // Com paginação
-    @Query("Select p From PatrimonioEntity p where p.dataPagamento between ?1 and ?2 OR p.dataAgendamento between ?1 and ?2")
-    List<PatrimonioEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim);
-
-    @Query("Select p From PatrimonioEntity p where p.dataPagamento between ?1 and ?2 OR p.dataAgendamento between ?1 and ?2")
+    @Query("Select p From PatrimonioEntity p where p.dataCadastro between ?1 and ?2")
     List<PatrimonioEntity> buscaPorPeriodo(Pageable pageable, String dataInicio, String dataFim);
-
-    @Query("Select p From PatrimonioEntity p where p.dataPagamento = ?1 OR p.dataAgendamento <= ?1")
-    List<PatrimonioEntity> buscaHoje(Pageable pageable, String hoje);
 
     @Query("Select p From PatrimonioEntity p where p.nome like %:nome%")
     List<PatrimonioEntity> buscaPorDescricao(Pageable pageable, @Param("nome") String nome);
@@ -38,17 +32,8 @@ public interface PatrimonioRepository extends JpaRepository<PatrimonioEntity, Lo
     List<PatrimonioEntity> buscaPorTipo(Pageable pageable, TipoPatrimonioEnum tipo);
 
     // Sem paginação
-    @Query("Select p From PatrimonioEntity p where p.dataPagamento between ?1 and ?2 OR p.dataAgendamento between ?1 and ?2")
-    List<PatrimonioEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim);
-
-    @Query("Select p From PatrimonioEntity p where p.dataPagamento between ?1 and ?2 OR p.dataAgendamento between ?1 and ?2")
+    @Query("Select p From PatrimonioEntity p where p.dataCadastro between ?1 and ?2")
     List<PatrimonioEntity> buscaPorPeriodoSemPaginacao(String dataInicio, String dataFim);
-
-    @Query("Select p From PatrimonioEntity p where p.dataPagamento = ?1 OR p.dataAgendamento <= ?1")
-    List<PatrimonioEntity> buscaHojeSemPaginacao(String hoje);
-
-    @Query("Select p From PatrimonioEntity p where p.dataAgendamento <= ?1")
-    List<PatrimonioEntity> buscaAgendadosHojeSemPaginacao(String hoje);
 
     @Query("Select p From PatrimonioEntity p where p.nome like %:nome%")
     List<PatrimonioEntity> buscaPorDescricaoSemPaginacao(@Param("nome") String nome);

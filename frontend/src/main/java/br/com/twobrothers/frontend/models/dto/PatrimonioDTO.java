@@ -2,11 +2,9 @@ package br.com.twobrothers.frontend.models.dto;
 
 import br.com.twobrothers.frontend.models.enums.StatusPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Gabriel Lagrota
@@ -29,8 +27,7 @@ public class PatrimonioDTO {
     private String nome;
     private TipoPatrimonioEnum tipoPatrimonio;
     private StatusPatrimonioEnum statusPatrimonio;
-    private String dataAgendamento;
-    private String dataPagamento;
+    private String dataEntrada;
     private Double valor;
     private String usuarioResponsavel;
 

@@ -5,7 +5,6 @@ import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author Gabriel Lagrota
@@ -34,8 +33,7 @@ public class PatrimonioEntity {
     private TipoPatrimonioEnum tipoPatrimonio;
     @Enumerated(EnumType.STRING)
     private StatusPatrimonioEnum statusPatrimonio;
-    private String dataAgendamento;
-    private String dataPagamento;
+    private String dataEntrada;
     private Double valor;
     private String usuarioResponsavel;
 

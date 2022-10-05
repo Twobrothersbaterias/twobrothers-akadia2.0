@@ -293,7 +293,7 @@
 
 					<hr>
 
-					<div class="row informativos_row" id="informativo_row">
+					<div th:if="${!#lists.isEmpty(patrimonios)} or ${descricao} != null or ${mes} != null or ${ano} != null or ${tipo} != null" class="row informativos_row" id="informativo_row">
 
 						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_bruto">
 							<div class="informativo_chave">
@@ -308,14 +308,14 @@
 							<div class="informativo_chave">
 								Passivos: 
 							</div>
-							<div th:text="'R$' + ${passivos}" class="informativo_valor informativo_valor_passivo">
+							<div th:text="'R$ ' + ${passivos}" class="informativo_valor informativo_valor_passivo">
 								R$ 0.00
 							</div>
 						</div>						
 
 						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_pendente">
 							<div class="informativo_chave">
-								A receber: 
+								Pendentes: 
 							</div>
 							<div th:text="'R$ ' + ${pendente}" class="informativo_valor informativo_valor_pendente">
 								R$ 0.00
@@ -326,74 +326,83 @@
 							<div class="informativo_chave">
 								Caixa: 
 							</div>
-							<div th:text="'R$' + ${caixa}" class="informativo_valor informativo_valor_caixa" id="informativo_valor_caixa">
+							<div th:text="'R$ ' + ${caixa}" class="informativo_valor informativo_valor_caixa" id="informativo_valor_caixa">
 								R$ 0.00
 							</div>
 						</div>	
-
 					</div>
+
+					<div th:if="${#lists.isEmpty(patrimonios)} and ${descricao} == null and ${mes} == null and ${ano} == null and ${tipo} == null" class="lista_vazia col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="lista_vazia">
+
+						<h1 class="lista_vazia_titulo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center" id="lista_vazia_titulo">
+							Não há nenhum patrimônio cadastrado por aqui
+						</h1>
+
+						<p class="lista_vazia_texto col-xl-8 col-lg-10 col-md-10 col-sm-10 col-10 text-center" id="lista_vazia_texto">
+							Mas você pode salvar os patrimônios do mês anterior neste mês, com o status setado como "Pendente". Se é isso que você deseja, basta clicar no botão abaixo
+						</p>
+
+						<a href="#" th:href="@{patrimonios/patrimonio-carga}" class="lista_vazia_botao col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4 text-center" id="lista_vazia_botao">
+							Carregar itens
+						</a>	
+					</div>	
 
 					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 row_tabela_all">
 
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 tabela_all" id="tabela_all">
 
-							<table class="tabela col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tabela">
+							<table th:if="${!#lists.isEmpty(patrimonios)} or ${descricao} != null or ${mes} != null or ${ano} != null or ${tipo} != null" class="tabela col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tabela">
 
 								<thead class="thead col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead">
 
 									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
 
-										<th class="th th_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Status</th>
+										<th class="th th_status col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2">Status</th>
 
 										<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Descrição</th>
 
-										<th class="th th_valor col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
+										<th class="th th_valor col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3">Valor</th>
 
 										<th class="th th_forma col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="th_forma">Tipo</th>
 
-										<th class="th th_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Responsável</th>
+										<th class="th th_usuario col-xl-2 col-lg-2">Responsável</th>
 
-										<th class="th th_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cadastro</th>					
+										<th class="th th_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Cadastro</th>
 
-										<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Data ag.</th>
-
-										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
-										</th>											
-
+										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>											
 									</tr>	
+
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<tr th:if="${#lists.isEmpty(patrimonios)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-										<td class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+										<td class="td td_status col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2">...</td>
 
-										<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+										<td class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
 
-										<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+										<td class="td td_valor col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3">...</td>
 
-										<td class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+										<td class="td td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 
-										<td class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+										<td class="td td_usuario col-xl-2 col-lg-2">...</td>
 
-										<td class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>	
-
-										<td class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
+										<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-									</tr>											
 
-										<tr th:each="patrimonio: ${patrimonios}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									</tr>							
 
-											<td th:text="${patrimonio.statusPatrimonio}" class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" 
+										<tr th:each="patrimonio: ${patrimonios}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+											<td th:text="${patrimonio.statusPatrimonio.desc}" class="td td_status col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2" 
 											th:data-id="${patrimonio.id}" 
 											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
 											th:data-nome="${patrimonio.nome}"
 											th:data-valor="${patrimonio.valor}" 
 											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
+											th:data-dataEntrada="${patrimonio.dataEntrada}" 
 											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
 											th:data-dataCadastro="${patrimonio.dataCadastro}"
 											onclick="abrirEditaItem(
@@ -402,19 +411,17 @@
 												this.getAttribute('data-nome'), 
 												this.getAttribute('data-tipoPatrimonio'), 
 												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
+												this.getAttribute('data-dataEntrada'), 
 												this.getAttribute('data-valor'), 
 												this.getAttribute('data-usuarioResponsavel'))">...</td>
 											
-											<td th:text="${patrimonio.nome}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
+											<td th:text="${patrimonio.nome}" class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
 											th:data-id="${patrimonio.id}" 
 											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
 											th:data-nome="${patrimonio.nome}"
 											th:data-valor="${patrimonio.valor}" 
 											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
+											th:data-dataEntrada="${patrimonio.dataEntrada}" 
 											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
 											th:data-dataCadastro="${patrimonio.dataCadastro}"
 											onclick="abrirEditaItem(
@@ -423,19 +430,17 @@
 												this.getAttribute('data-nome'), 
 												this.getAttribute('data-tipoPatrimonio'), 
 												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
+												this.getAttribute('data-dataEntrada'), 
 												this.getAttribute('data-valor'), 
 												this.getAttribute('data-usuarioResponsavel'))">...</td>
 											
-											<td th:text="'R$ ' + ${patrimonio.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											<td th:text="'R$ ' + ${patrimonio.valor}" class="td td_valor col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"
 											th:data-id="${patrimonio.id}" 
 											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
 											th:data-nome="${patrimonio.nome}"
 											th:data-valor="${patrimonio.valor}" 
 											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
+											th:data-dataEntrada="${patrimonio.dataEntrada}" 
 											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
 											th:data-dataCadastro="${patrimonio.dataCadastro}"
 											onclick="abrirEditaItem(
@@ -444,19 +449,17 @@
 												this.getAttribute('data-nome'), 
 												this.getAttribute('data-tipoPatrimonio'), 
 												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
+												this.getAttribute('data-dataEntrada'), 
 												this.getAttribute('data-valor'), 
 												this.getAttribute('data-usuarioResponsavel'))">...</td>
 											
-											<td th:text="${patrimonio.tipoPatrimonio.desc}" class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											<td th:text="${patrimonio.tipoPatrimonio.desc}" class="td td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
 											th:data-id="${patrimonio.id}" 
 											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
 											th:data-nome="${patrimonio.nome}"
 											th:data-valor="${patrimonio.valor}" 
 											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
+											th:data-dataEntrada="${patrimonio.dataEntrada}" 
 											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
 											th:data-dataCadastro="${patrimonio.dataCadastro}"
 											onclick="abrirEditaItem(
@@ -465,19 +468,17 @@
 												this.getAttribute('data-nome'), 
 												this.getAttribute('data-tipoPatrimonio'), 
 												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
+												this.getAttribute('data-dataEntrada'), 
 												this.getAttribute('data-valor'), 
 												this.getAttribute('data-usuarioResponsavel'))">...</td>
 
-											<td th:text="${patrimonio.usuarioResponsavel}" class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											<td th:text="${patrimonio.usuarioResponsavel}" class="td td_usuario col-xl-2 col-lg-2"
 											th:data-id="${patrimonio.id}" 
 											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
 											th:data-nome="${patrimonio.nome}"
 											th:data-valor="${patrimonio.valor}" 
 											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
+											th:data-dataEntrada="${patrimonio.dataEntrada}" 
 											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
 											th:data-dataCadastro="${patrimonio.dataCadastro}"
 											onclick="abrirEditaItem(
@@ -486,19 +487,17 @@
 												this.getAttribute('data-nome'), 
 												this.getAttribute('data-tipoPatrimonio'), 
 												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
+												this.getAttribute('data-dataEntrada'), 
 												this.getAttribute('data-valor'), 
 												this.getAttribute('data-usuarioResponsavel'))">...</td>
 
-											<td th:text="${patrimonio.dataCadastro}" class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											<td th:text="${patrimonio.dataCadastro}" class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
 											th:data-id="${patrimonio.id}" 
 											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
 											th:data-nome="${patrimonio.nome}"
 											th:data-valor="${patrimonio.valor}" 
 											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
+											th:data-dataEntrada="${patrimonio.dataEntrada}" 
 											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
 											th:data-dataCadastro="${patrimonio.dataCadastro}"
 											onclick="abrirEditaItem(
@@ -507,52 +506,9 @@
 												this.getAttribute('data-nome'), 
 												this.getAttribute('data-tipoPatrimonio'), 
 												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
+												this.getAttribute('data-dataEntrada'), 
 												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
-
-											<td th:if="${patrimonio.dataAgendamento != null}" th:text="${patrimonio.dataAgendamento}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling"
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">...</td>
-
-											<td th:unless="${patrimonio.dataAgendamento != null}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling" 
-											th:data-id="${patrimonio.id}" 
-											th:data-tipoPatrimonio="${patrimonio.tipoPatrimonio}"
-											th:data-nome="${patrimonio.nome}"
-											th:data-valor="${patrimonio.valor}" 
-											th:data-statusPatrimonio="${patrimonio.statusPatrimonio}" 
-											th:data-dataPagamento="${patrimonio.dataPagamento}" 
-											th:data-dataAgendamento="${patrimonio.dataAgendamento}"
-											th:data-usuarioResponsavel="${patrimonio.usuarioResponsavel}"
-											th:data-dataCadastro="${patrimonio.dataCadastro}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-nome'), 
-												this.getAttribute('data-tipoPatrimonio'), 
-												this.getAttribute('data-statusPatrimonio'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-usuarioResponsavel'))">Nulo</td>		
+												this.getAttribute('data-usuarioResponsavel'))">...</td>	
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form method="POST" th:action="@{patrimonios/deleta-{id}(id = ${patrimonio.id})}" class="form_remove_img" id="form_remove_img">
@@ -570,8 +526,7 @@
 													</button>
 												</form>
 											</td>
-
-										</tr>																	
+										</tr>
 
 									</tbody>	
 
@@ -581,14 +536,14 @@
 						</div>
 
 						<!-- Início da paginação -->
-						<div class="row page_row">
+						<div th:if="${!#lists.isEmpty(patrimonios)}" class="row page_row">
 
 							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
 
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1})}" class="li_a page_click" id="anterior">	
+										<a th:if="${descricao} == null and ${tipo} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
@@ -597,10 +552,6 @@
 										</a>
 
 										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">												Anterior
-										</a>
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
-											Anterior
 										</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
@@ -612,13 +563,11 @@
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
@@ -626,13 +575,11 @@
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
 
 										<a th:if="${descricao}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
 
 										<a th:if="${tipo}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
 
 										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/patrimonios(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																					
 									</li>
@@ -642,6 +589,7 @@
 							</div>
 						</div><!-- PAGE_ROW-->
 					</div>
+
 				</div>
 
 			</main>
@@ -677,7 +625,6 @@
 					</label>
 					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_input" onchange="filtroChange()">
 						<option value="DESCRICAO" id="tipo_filtro_option_descricao">Por descrição</option>
-						<option value="DATA" id="tipo_filtro_option_data">Data a data</option>
 						<option value="PERIODO" id="tipo_filtro_option_periodo">Por período</option>
 						<option value="TIPO" id="tipo_filtro_option_tipo">Por tipo</option>
 					</select>
@@ -688,25 +635,7 @@
 						Descrição
 					</label>
 					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15"id="descricao_filtro_input"/>
-				</div>
-
-
-
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
-					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						Data início
-					</label>
-					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
-				</div>	
-
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
-					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						Data fim
-					</label>
-					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_fim_filtro_input"/>
-				</div>									
-
-
+				</div>								
 
 				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -770,10 +699,6 @@
 					Descrição
 				</div>
 
-				<div class="filtro_tag col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
-					Data a data
-				</div>
-
 				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
 					Periodo
 				</div>											
@@ -785,8 +710,6 @@
 				<form th:action="@{patrimonios/filtro}" method="POST" th:object="${filtroPatrimonio}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12" id="form_fantasma_filtro">
 
 					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
-					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
-					<input type="text" name="dataFim" id="input_data_fim_backend" hidden/>
 					<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
 					<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
 					<input type="text" name="tipo" id="input_tipo_backend" hidden/>
@@ -840,7 +763,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Descrição
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
+						<input tabindex="00" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
 					</div>		
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_first_block">
@@ -874,32 +797,25 @@
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						<label class="row novo_item_form_row novo_item_label subtitulo_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								Pagamento
+							Pagamento
 						</label>
 					</div>	
 				</div>						
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">																			
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_third_block">
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_third_block">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Valor
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" required/>
+						<input tabindex="01" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" required/>
 					</div>
 
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_fifth_block">
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_fifth_block">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento">
 							Data de entrada
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input_edicao" type="date" required/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input_edicao" type="date" required/>
 					</div>							
-
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_sixth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_agendamento" disabled>
-							Agendamento
-						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input_edicao" type="date" required disabled/>
-					</div>	
 
 				</div>
 
@@ -909,7 +825,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 
-					<button type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
+					<button tabindex="02" type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
 						Salvar
 					</button>	
 
@@ -953,7 +869,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Descrição
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" required/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" tabindex="00" required/>
 					</div>						
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_first_block">
@@ -994,28 +910,21 @@
 
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">				
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_third_block">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_third_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Valor
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" id="valor_patrimonio_input"required/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" tabindex="01" id="valor_patrimonio_input"required/>
 					</div>
 
 
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_fifth_block">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento">
 							Data de entrada:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date" required/>
-					</div>							
-
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_sixth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_agendamento" disabled>
-							Agendamento:
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" required disabled/>
-					</div>																
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input" type="date" required/>
+					</div>																				
 
 				</div>	
 
@@ -1025,7 +934,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>		
 
-					<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+					<button type="submit" tabindex="02" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
 						Salvar
 					</button>	
 

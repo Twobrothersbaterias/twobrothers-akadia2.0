@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
@@ -63,17 +62,9 @@ public class PatrimonioCrudService {
         log.info("[PROGRESS] Persistindo patrimonio na base de dados...");
         repository.save(modelMapper.mapper().map(patrimonio, PatrimonioEntity.class));
 
-        if (patrimonio.getDataPagamento() == null) patrimonio.setDataPagamento("Em aberto");
-        if (patrimonio.getDataAgendamento() == null) patrimonio.setDataAgendamento("Não possui");
+        if (patrimonio.getDataEntrada() == null) patrimonio.setDataEntrada("Em aberto");
 
         log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-    }
-
-    public List<PatrimonioEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
-        log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de patrimônio por range de data...");
-        validation.validaRangeData(dataInicio, dataFim);
-        return repository.buscaPorRangeDeData(pageable, dataInicio, dataFim);
     }
 
     public List<PatrimonioEntity> buscaPorPeriodo(Pageable pageable, Integer mes, Integer ano) {
@@ -82,13 +73,6 @@ public class PatrimonioCrudService {
         LocalDate dataInicio = LocalDate.of(ano, mes, 1);
         LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
         return repository.buscaPorPeriodo(pageable, dataInicio.toString(), dataFim.toString());
-    }
-
-    public List<PatrimonioEntity> buscaHoje(Pageable pageable) {
-        log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de todas as patrimônios pagos hoje ou agendados para hoje...");
-        LocalDate hoje = LocalDate.now();
-        return repository.buscaHoje(pageable, hoje.toString());
     }
 
     public List<PatrimonioEntity> buscaPorDescricao(Pageable pageable, String descricao) {
@@ -103,10 +87,18 @@ public class PatrimonioCrudService {
         return repository.buscaPorTipo(pageable, tipo);
     }
 
-    public List<PatrimonioEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
+    public List<PatrimonioEntity> buscaEsteMes(Pageable pageable) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de patrimônio por range de data...");
-        return repository.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+        log.info("[STARTING] Iniciando método de busca de patrimônio por período...");
+        LocalDate dataInicio = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
+        LocalDate dataFim =
+                LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(),
+                LocalDate.now()
+                        .withMonth(LocalDate.now().getMonthValue())
+                        .withYear(LocalDate.now().getYear())
+                        .with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+
+        return repository.buscaPorPeriodo(pageable, dataInicio.toString(), dataFim.toString());
     }
 
     public List<PatrimonioEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
@@ -115,20 +107,6 @@ public class PatrimonioCrudService {
         LocalDate dataInicio = LocalDate.of(ano, mes, 1);
         LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
         return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
-    }
-
-    public List<PatrimonioEntity> buscaHojeSemPaginacao() {
-        log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de todos os patrimônios pagos hoje ou agendados para hoje...");
-        LocalDate hoje = LocalDate.now();
-        return repository.buscaHojeSemPaginacao(hoje.toString());
-    }
-
-    public List<PatrimonioEntity> buscaAgendadosHojeSemPaginacao() {
-        log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de todas as patrimônios agendadas para hoje...");
-        LocalDate hoje = LocalDate.now();
-        return repository.buscaAgendadosHojeSemPaginacao(hoje.toString());
     }
 
     public List<PatrimonioEntity> buscaPorDescricaoSemPaginacao(String descricao) {
@@ -141,6 +119,20 @@ public class PatrimonioCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de patrimônio por tipo...");
         return repository.buscaPorTipoSemPaginacao(tipo);
+    }
+
+    public List<PatrimonioEntity> buscaEsteMesSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de patrimônio por período...");
+        LocalDate dataInicio = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
+        LocalDate dataFim =
+                LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(),
+                        LocalDate.now()
+                                .withMonth(LocalDate.now().getMonthValue())
+                                .withYear(LocalDate.now().getYear())
+                                .with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
     }
 
     public void atualizaPorId(PatrimonioDTO patrimonio) {
@@ -164,11 +156,8 @@ public class PatrimonioCrudService {
         patrimonioAtualizado.setNome(patrimonio.getNome());
         patrimonioAtualizado.setValor(patrimonio.getValor());
 
-        if (patrimonio.getDataPagamento() == null) patrimonioAtualizado.setDataPagamento("Em aberto");
-        else patrimonioAtualizado.setDataPagamento(patrimonio.getDataPagamento());
-
-        if (patrimonio.getDataAgendamento() == null) patrimonioAtualizado.setDataAgendamento("Não possui");
-        else patrimonioAtualizado.setDataAgendamento(patrimonio.getDataAgendamento());
+        if (patrimonio.getDataEntrada() == null) patrimonioAtualizado.setDataEntrada("Em aberto");
+        else patrimonioAtualizado.setDataEntrada(patrimonio.getDataEntrada());
 
         log.info("[PROGRESS] Atualizando patrimonio no banco de dados...");
         repository.save(patrimonioAtualizado);
