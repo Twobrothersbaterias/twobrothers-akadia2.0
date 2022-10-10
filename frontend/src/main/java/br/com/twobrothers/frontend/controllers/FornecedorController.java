@@ -27,7 +27,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/fornecedores")
 public class FornecedorController {
-
     @Autowired
     FornecedorService fornecedorService;
 
