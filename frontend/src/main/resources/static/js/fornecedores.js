@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+ajustaTabela();
 
 function responsive(){
 
@@ -50,6 +51,8 @@ function responsive(){
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
 
+	var informativoChave = document.getElementsByClassName('informativo_chave');
+
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
@@ -69,14 +72,25 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.5rem";			
+		filtroTitulo.style.fontSize="1.5rem";
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="9px 0px";
+		}		
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
+			th[i].style.fontSize="0.80rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.90rem";
+			td[i].style.fontSize="0.80rem";
 		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=false;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=false;
+		}		
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.85rem";
@@ -127,14 +141,25 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";	
 
-		filtroTitulo.style.fontSize="1.4rem";											
+		filtroTitulo.style.fontSize="1.4rem";
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="8px 0px";
+		}												
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.90rem";
+			th[i].style.fontSize="0.75rem";
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";		
+			td[i].style.fontSize="0.75rem";		
 		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=false;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=false;
+		}		
 	
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.80rem";
@@ -190,14 +215,25 @@ function responsive(){
 		editaTitulo.style.fontSize="1.1rem";
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.3rem";		
+		filtroTitulo.style.fontSize="1.3rem";
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="8px 0px";
+		}															
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";
+			th[i].style.fontSize="0.70rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
-		}	
+			td[i].style.fontSize="0.70rem";
+		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=true;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=true;
+		}		
 				
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.75rem";
@@ -205,7 +241,7 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="70%";			
+			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -243,14 +279,25 @@ function responsive(){
 		editaTitulo.style.fontSize="1.2rem";		
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.2rem";		
+		filtroTitulo.style.fontSize="1.2rem";
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="8px 0px";
+		}														
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.70rem";	
+			th[i].style.fontSize="0.65rem";	
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";	
+			td[i].style.fontSize="0.65rem";	
 		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=true;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=true;
+		}		
 		
 		for(var i = 0; i < liA.length; i++) {
 			liA[i].style.fontSize="0.70rem";
@@ -258,7 +305,7 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="65%";
+			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -304,7 +351,11 @@ function responsive(){
 		editaTitulo.style.fontSize="1rem";
 		editaItemSubmit.style.marginTop="5px";
 
-		filtroTitulo.style.fontSize="1.1rem";					
+		filtroTitulo.style.fontSize="1.1rem";
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="8px 0px";
+		}																		
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";
@@ -313,12 +364,20 @@ function responsive(){
 			td[i].style.fontSize="0.60rem";
 		}
 
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=true;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=true;
+		}		
+
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.60rem";
 			liA[i].style.padding="5px 10px";
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="60%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -1238,39 +1297,34 @@ function hideMessage(){
 	}
 }
 
-function consultaEndereco() {
+function mostrarEndereco(dados, tipo) {
 
-	let cep = document.querySelector('#cep_input');
+	if(tipo == "novo") {
+		var estadoInput = document.getElementById('estado_input');
+		var cidadeInput = document.getElementById('cidade_input');
+		var logradouroInput = document.getElementById('logradouro_input');
+		var bairroInput = document.getElementById('bairro_input');
 
-	if (cep.value.length != 8) {
-		return;
+		estadoInput.value=dados.uf;
+		cidadeInput.value = dados.localidade;
+		logradouroInput.value=dados.logradouro;
+		bairroInput.value=dados.bairro;
+
+		document.getElementById('novo_item_label_numero').focus();
 	}
+	else if(tipo == "edita") {
+		var estadoInput = document.getElementById('edita_estado_input');
+		var cidadeInput = document.getElementById('edita_cidade_input');
+		var logradouroInput = document.getElementById('edita_logradouro_input');
+		var bairroInput = document.getElementById('edita_bairro_input');
 
-	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
+		estadoInput.value=dados.uf;
+		cidadeInput.value = dados.localidade;
+		logradouroInput.value=dados.logradouro;
+		bairroInput.value=dados.bairro;
 
-	fetch(url).then(function(response){
-		response.json().then(function(data){
-			if(data.erro == undefined) {
-				mostrarEndereco(data);
-			}
-		})
-	});
-}
-
-function mostrarEndereco(dados) {
-
-	var estadoInput = document.getElementById('estado_input');
-	var cidadeInput = document.getElementById('cidade_input');
-	var logradouroInput = document.getElementById('logradouro_input');
-	var bairroInput = document.getElementById('bairro_input');
-
-	estadoInput.value=dados.uf;
-	cidadeInput.value = dados.localidade;
-	logradouroInput.value=dados.logradouro;
-	bairroInput.value=dados.bairro;
-
-	document.getElementById('novo_item_label_numero').focus();
-
+		document.getElementById('edita_numero_input').focus();		
+	}
 }
 
 function pageResponsiva(){
@@ -1309,6 +1363,20 @@ function pageResponsiva(){
 		document.getElementById('anterior').style.color="#C3C8C8";
 	}
 }
+
+function ajustaTabela(){
+	var line = document.getElementsByClassName('tr');	
+	var columnData = document.getElementsByClassName('td_cadastro');
+
+	for(var i = 0; i < line.length; i++) {
+
+		var columnDataSplitted = columnData[i].innerText.split("-");
+		if (columnDataSplitted.length == 3) {
+			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+			columnData[i].innerText=convertedDate;
+		}
+	}
+}	
 
 function doALoadOfStuff() {
 	document.getElementById('conteudo_container').style.transition="2s";

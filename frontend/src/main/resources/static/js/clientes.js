@@ -1384,7 +1384,6 @@ function mostrarEndereco(dados, tipo) {
 
 		document.getElementById('edita_numero_input').focus();		
 	}
-
 }
 
 function pageResponsiva(){

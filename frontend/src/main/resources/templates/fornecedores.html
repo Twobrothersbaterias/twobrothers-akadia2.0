@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
-					<a th:href="@{/fornecedores}" class="row aside_clicavel">
+					<a th:href="@{/clientes}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
 						</button>
@@ -95,7 +95,7 @@
 				</div>			
 
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a th:href="@{/colaboradores}" class="row aside_clicavel">
+					<a th:href="@{/fornecedores}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/battery-green.png" th:src="@{img/battery-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
 						</button>
@@ -217,6 +217,16 @@
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/battery-green.png" th:src="@{img/battery-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>					
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
@@ -224,16 +234,6 @@
 						</a>
 					</div>	
 				</div>
-
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/battery-green.png" th:src="@{img/battery-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>	
 
 				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
@@ -316,28 +316,37 @@
 
 								<thead class="thead col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead">
 									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
-										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Cadastro</th>		
-										<th class="th th_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">Nome</th>
-										<th class="th th_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Cpf</th>
-										<th class="th th_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Telefone</th>
+
+										<th class="th th_cadastro col-xl-1 col-lg-1" id="th_forma">Cadastro</th>	
+
+										<th class="th th_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3">Nome</th>
+
+										<th class="th th_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Cpf</th>
+
+										<th class="th th_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Telefone</th>
+
 										<th class="th th_endereco col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">Endereço</th>
+
 										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
+
 									</tr>
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 									<tr th:if="${#lists.isEmpty(fornecedores)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-										<td class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2">...</td>										
-										<td class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">...</td>
-										<td class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
-										<td class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+
+										<td class="td td_cadastro td_tipo col-xl-1 col-lg-1">...</td>										
+										<td class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3">...</td>
+										<td class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+										<td class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 										<td class="td td_endereco col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">...</td>
-										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
+										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+
 									</tr>											
 
 									<tr th:each="fornecedor: ${fornecedores}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-										<td th:text="${fornecedor.dataCadastro}" class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2"
+										<td th:text="${fornecedor.dataCadastro}" class="td td_cadastro td_tipo col-xl-1 col-lg-1"
 											th:data-id="${fornecedor.id}" 
 											th:data-dataCadastro="${fornecedor.dataCadastro}"
 											th:data-dataNascimento="${fornecedor.dataNascimento}"
@@ -370,7 +379,7 @@
 												this.getAttribute('data-complemento'),
 												this.getAttribute('data-estado'))">...</td>
 
-										<td th:text="${fornecedor.nome}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2" 
+										<td th:text="${fornecedor.nome}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3" 
 											th:data-id="${fornecedor.id}" 
 											th:data-dataCadastro="${fornecedor.dataCadastro}"
 											th:data-dataNascimento="${fornecedor.dataNascimento}"
@@ -403,7 +412,7 @@
 												this.getAttribute('data-complemento'),
 												this.getAttribute('data-estado'))">...</td>
 											
-										<td th:text="${fornecedor.cpfCnpj}" class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
+										<td th:text="${fornecedor.cpfCnpj}" class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
 											th:data-id="${fornecedor.id}" 
 											th:data-dataCadastro="${fornecedor.dataCadastro}"
 											th:data-dataNascimento="${fornecedor.dataNascimento}"
@@ -436,7 +445,7 @@
 												this.getAttribute('data-complemento'),
 												this.getAttribute('data-estado'))">...</td>
 											
-										<td th:text="${fornecedor.telefone}" class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3"
+										<td th:text="${fornecedor.telefone}" class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
 											th:data-id="${fornecedor.id}" 
 											th:data-dataCadastro="${fornecedor.dataCadastro}"
 											th:data-dataNascimento="${fornecedor.dataNascimento}"
@@ -853,7 +862,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
 							Cep:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="number"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="number" onkeyup="consultaEndereco('edita')"/>
 					</div>						
 
 					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
@@ -1047,7 +1056,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cep" for="cep_input">
 							Cep:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco()" type="number"/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" type="number"/>
 					</div>
 
 					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
