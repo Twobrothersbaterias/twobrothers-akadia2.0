@@ -1330,9 +1330,16 @@ function hideMessage(){
 	}
 }
 
-function consultaEndereco() {
+function consultaEndereco(tipo) {
 
-	let cep = document.querySelector('#cep_input');
+	let cep = null;
+
+	if(tipo == "novo") {
+		cep = document.querySelector('#cep_input');
+	}
+	else if(tipo == "edita") {
+		cep = document.querySelector('#edita_cep_input');
+	}
 
 	if (cep.value.length != 8) {
 		return;
@@ -1343,25 +1350,40 @@ function consultaEndereco() {
 	fetch(url).then(function(response){
 		response.json().then(function(data){
 			if(data.erro == undefined) {
-				mostrarEndereco(data);
+				mostrarEndereco(data, tipo);
 			}
 		})
 	});
 }
 
-function mostrarEndereco(dados) {
+function mostrarEndereco(dados, tipo) {
 
-	var estadoInput = document.getElementById('estado_input');
-	var cidadeInput = document.getElementById('cidade_input');
-	var logradouroInput = document.getElementById('logradouro_input');
-	var bairroInput = document.getElementById('bairro_input');
+	if(tipo == "novo") {
+		var estadoInput = document.getElementById('estado_input');
+		var cidadeInput = document.getElementById('cidade_input');
+		var logradouroInput = document.getElementById('logradouro_input');
+		var bairroInput = document.getElementById('bairro_input');
 
-	estadoInput.value=dados.uf;
-	cidadeInput.value = dados.localidade;
-	logradouroInput.value=dados.logradouro;
-	bairroInput.value=dados.bairro;
+		estadoInput.value=dados.uf;
+		cidadeInput.value = dados.localidade;
+		logradouroInput.value=dados.logradouro;
+		bairroInput.value=dados.bairro;
 
-	document.getElementById('novo_item_label_numero').focus();
+		document.getElementById('novo_item_label_numero').focus();
+	}
+	else if(tipo == "edita") {
+		var estadoInput = document.getElementById('edita_estado_input');
+		var cidadeInput = document.getElementById('edita_cidade_input');
+		var logradouroInput = document.getElementById('edita_logradouro_input');
+		var bairroInput = document.getElementById('edita_bairro_input');
+
+		estadoInput.value=dados.uf;
+		cidadeInput.value = dados.localidade;
+		logradouroInput.value=dados.logradouro;
+		bairroInput.value=dados.bairro;
+
+		document.getElementById('edita_numero_input').focus();		
+	}
 
 }
 
