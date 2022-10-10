@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,16 @@ public class AbastecimentoValidation {
             throw new InvalidRequestException("Validação do abastecimento falhou. Motivo: O campo observação deve possuir " +
                     "até 100 caracteres. Quantidade atual: " + observacao.length());
         log.warn("Validação do atributo observacao OK");
+    }
+
+    public void validaRangeData(String inicio, String fim) {
+
+        LocalDate dataInicio = LocalDate.parse(inicio);
+        LocalDate dataFim = LocalDate.parse(fim);
+
+        if (dataInicio.isAfter(dataFim))
+            throw new InvalidRequestException("O conteúdo do campo data início não pode ser anterior ao campo data fim");
+
     }
 
 }

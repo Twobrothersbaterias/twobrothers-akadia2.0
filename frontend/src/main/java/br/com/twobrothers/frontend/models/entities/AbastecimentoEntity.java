@@ -27,12 +27,12 @@ public class AbastecimentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private Integer quantidade;
     private Double custoUnitario;
     private Double custoTotal;
     private String observacao;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @Enumerated(EnumType.STRING)
     private FormaPagamentoEnum formaPagamento;

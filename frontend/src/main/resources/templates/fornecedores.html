@@ -282,7 +282,7 @@
 						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
 							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
-							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/estoque}">
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/fornecedores}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
 							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
@@ -300,7 +300,7 @@
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_chave informativo_fornecedores">
 								Fornecedores
 							</div>
-							<a href="#" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_chave informativo_compras">
+							<a th:href="@{/compras}" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_chave informativo_compras">
 								Compras
 							</a>		
 

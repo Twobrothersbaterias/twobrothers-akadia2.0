@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Gabriel Lagrota
  * @email gabriellagrota23@gmail.com
@@ -27,7 +25,7 @@ public class AbastecimentoDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     @JsonProperty(required = true)
     private Integer quantidade;

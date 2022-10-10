@@ -13,7 +13,7 @@ import br.com.twobrothers.frontend.services.enums.OperacaoEstoque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,12 +76,12 @@ public class GerenciamentoEstoqueService {
 
                 AbastecimentoEntity abastecimento = new AbastecimentoEntity
                         (null,
-                                LocalDateTime.now(),
+                                LocalDate.now().toString(),
                                 entradaOrdemDTO.getQuantidade(),
                                 0.0,
                                 0.0,
                                 "Abastecimento de troca",
-                                0L,
+                                "nulo", //TODO Arrumar
                                 null,
                                 produtoEstoque,
                                 null);

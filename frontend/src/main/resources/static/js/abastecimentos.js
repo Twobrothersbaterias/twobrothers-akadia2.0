@@ -30,6 +30,7 @@ function responsive(){
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
 
+	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
 	var thDataCadastro = document.getElementsByClassName('th_cadastro');
@@ -50,6 +51,9 @@ function responsive(){
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
 
+	var informativoChave = document.getElementsByClassName('key');
+	var informativosRow = document.getElementsByClassName('informativos_row');
+
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
@@ -69,14 +73,30 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.5rem";			
+		filtroTitulo.style.fontSize="1.5rem";
+
+		for(var i = 0; i < informativo.length; i++) {
+			informativo[i].style.margin="7px";
+			informativo[i].style.fontSize="0.90rem";
+		}						
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="10px 0px";
+		}						
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
+			th[i].style.fontSize="0.80rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.90rem";
+			td[i].style.fontSize="0.80rem";
 		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=false;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=false;
+		}				
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.85rem";
@@ -85,7 +105,7 @@ function responsive(){
 
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="none";
-		}	
+		}
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
@@ -127,14 +147,30 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";	
 
-		filtroTitulo.style.fontSize="1.4rem";											
+		filtroTitulo.style.fontSize="1.4rem";			
+
+		for(var i = 0; i < informativo.length; i++) {
+			informativo[i].style.margin="7px";
+			informativo[i].style.fontSize="0.85rem";
+		}		
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="8px 0px";
+		}														
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.90rem";
+			th[i].style.fontSize="0.75rem";
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";		
+			td[i].style.fontSize="0.75rem";		
 		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=false;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=false;
+		}				
 	
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.80rem";
@@ -190,14 +226,30 @@ function responsive(){
 		editaTitulo.style.fontSize="1.1rem";
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.3rem";		
+		filtroTitulo.style.fontSize="1.3rem";
+
+		for(var i = 0; i < informativo.length; i++) {
+			informativo[i].style.margin="7px";
+			informativo[i].style.fontSize="0.80rem";			
+		}		
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="9px 0px";
+		}					
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";
+			th[i].style.fontSize="0.70rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
-		}	
+			td[i].style.fontSize="0.70rem";
+		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=true;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=true;
+		}					
 				
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.75rem";
@@ -205,7 +257,7 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="70%";			
+			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -243,14 +295,30 @@ function responsive(){
 		editaTitulo.style.fontSize="1.2rem";		
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.2rem";		
+		filtroTitulo.style.fontSize="1.2rem";
+
+		for(var i = 0; i < informativo.length; i++) {
+			informativo[i].style.margin="7px";
+			informativo[i].style.fontSize="0.75rem";			
+		}		
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="9px 0px";
+		}					
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.70rem";	
+			th[i].style.fontSize="0.65rem";	
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";	
+			td[i].style.fontSize="0.65rem";	
 		}
+
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=true;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=true;
+		}		
 		
 		for(var i = 0; i < liA.length; i++) {
 			liA[i].style.fontSize="0.70rem";
@@ -258,7 +326,7 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="65%";
+			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -291,6 +359,15 @@ function responsive(){
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
 
+		for(var i = 0; i < informativo.length; i++) {
+			informativo[i].style.margin="7px";
+			informativo[i].style.fontSize="0.70rem";				
+		}		
+
+		for(var i = 0; i < informativosRow.length; i++) {		
+			informativosRow[i].style.marginBottom="20px";
+		}	
+
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -304,7 +381,11 @@ function responsive(){
 		editaTitulo.style.fontSize="1rem";
 		editaItemSubmit.style.marginTop="5px";
 
-		filtroTitulo.style.fontSize="1.1rem";					
+		filtroTitulo.style.fontSize="1.1rem";
+
+		for(var i = 0; i < informativoChave.length; i++) {
+			informativoChave[i].style.padding="9px 0px";
+		}								
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";
@@ -313,12 +394,20 @@ function responsive(){
 			td[i].style.fontSize="0.60rem";
 		}
 
+		for(var i = 0; i < thDataCadastro.length; i++){
+			thDataCadastro[i].hidden=true;
+		}
+		for(var i = 0; i < tdDataCadastro.length; i++){
+			tdDataCadastro[i].hidden=true;
+		}		
+
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.60rem";
 			liA[i].style.padding="5px 10px";
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="60%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {

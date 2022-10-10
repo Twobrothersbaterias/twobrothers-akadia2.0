@@ -19,11 +19,8 @@ public enum FormaPagamentoEnum {
     CREDITO(1, "Credito"),
     DEBITO(2, "Debito"),
     CHEQUE(3, "Cheque"),
-    TED(4, "TED"),
-    PIX(5, "PIX"),
-    BOLETO(6, "Boleto"),
-    FATURADO_PENDENTE(7, "Faturado - pendente"),
-    FATURADO_PAGO(8, "Faturado - pago");
+    PIX(4, "PIX"),
+    BOLETO(5, "Boleto");
 
     private final int code;
     private final String desc;

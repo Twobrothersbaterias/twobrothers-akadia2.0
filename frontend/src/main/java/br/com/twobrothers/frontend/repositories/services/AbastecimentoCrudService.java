@@ -9,7 +9,6 @@ import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
-import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.validations.AbastecimentoValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
@@ -69,7 +68,7 @@ public class AbastecimentoCrudService {
         }
 
         log.info("[PROGRESS] Setando data de cadastro no abastecimento: {}", LocalDateTime.now());
-        abastecimento.setDataCadastro(LocalDateTime.now());
+        abastecimento.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando o custo unitário do abastecimento...");
         abastecimento.setCustoUnitario(abastecimento.getCustoTotal() / abastecimento.getQuantidade());
@@ -102,58 +101,71 @@ public class AbastecimentoCrudService {
 
     }
 
-    public List<AbastecimentoDTO> buscaTodos() {
+    public List<AbastecimentoEntity> buscaPorRangeDeDataPaginado(Pageable pageable, String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de buscar todos os abastecimentos...");
-
-        log.info("[PROGRESS] Verificando se existem abastecimentos salvos na base de dados...");
-        if (!repository.findAll().isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll().stream()
-                    .map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhum abastecimento salvo no banco de dados");
-        throw new ObjectNotFoundException("Não existe nenhum abastecimento salvo na base de dados.");
+        log.info("[STARTING] Iniciando método de busca de abastecimento por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
+        return repository.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
     }
 
-    public List<AbastecimentoDTO> buscaPorPaginacao(Pageable paginacao) {
+    public List<AbastecimentoEntity> buscaPorPeriodoPaginado(Pageable pageable, Integer mes, Integer ano) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de abastecimentos por paginação...");
-        if (!repository.findAll(paginacao).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll(paginacao)
-                    .getContent().stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Nenhum abastecimento foi encontrado com os parâmetros recebidos");
-        throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado na página indicada");
+        log.info("[STARTING] Iniciando método de busca de abastecimento por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorRangeDeDataPaginado(pageable, dataInicio.toString(), dataFim.toString());
     }
 
-    public List<AbastecimentoDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+    public List<AbastecimentoEntity> buscaHojePaginado(Pageable pageable) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método busca de abastecimento por range de data de cadastro...");
-
-        List<AbastecimentoEntity> abastecimentos = repository.buscaPorRangeDeDataCadastro(
-                (LocalDate.parse(dataInicio)).atTime(0, 0),
-                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
-
-        if (!abastecimentos.isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return abastecimentos.stream().map(x -> modelMapper.mapper().map(x, AbastecimentoDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Nenhum abastecimento foi encontrado com os parâmetros recebidos");
-        throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no range de datas indicado");
-
+        log.info("[STARTING] Iniciando método de busca de todos as abastecimentos realizados hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojePaginado(pageable, hoje.toString());
     }
 
-    public AbastecimentoDTO buscaPorId(Long id) {
+    public List<AbastecimentoEntity> buscaPorFornecedorPaginado(Pageable pageable, String fornecedor) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de abastecimento por id...");
-        if (repository.findById(id).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.findById(id).get(), AbastecimentoDTO.class);
-        }
-        log.error("[ERROR] Nenhum abastecimento foi encontrado através do id {}", id);
-        throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado no banco de dados com o id " + id);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por fornecedor...");
+        return repository.buscaPorFornecedorPaginado(pageable, fornecedor);
+    }
+
+    public List<AbastecimentoEntity> buscaPorProdutoPaginado(Pageable pageable, String produto) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por produto...");
+        return repository.buscaPorFornecedorPaginado(pageable, produto);
+    }
+
+    public List<AbastecimentoEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
+        return repository.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+    }
+
+    public List<AbastecimentoEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorRangeDeDataSemPaginacao(dataInicio.toString(), dataFim.toString());
+    }
+
+    public List<AbastecimentoEntity> buscaHojeSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todos as abastecimentos realizados hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojeSemPaginacao(hoje.toString());
+    }
+
+    public List<AbastecimentoEntity> buscaPorFornecedorSemPaginacao(String fornecedor) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por fornecedor...");
+        return repository.buscaPorFornecedorSemPaginacao(fornecedor);
+    }
+    public List<AbastecimentoEntity> buscaPorProdutoSemPaginacao(String produto) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por produto...");
+        return repository.buscaPorFornecedorSemPaginacao(produto);
     }
 
 }
