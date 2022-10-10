@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+ajustaTabela();
 
 function responsive(){
 
@@ -1327,40 +1328,27 @@ function hideMessage(){
 	}
 }
 
-function consultaEndereco() {
+function ajustaTabela(){
+	var line = document.getElementsByClassName('tr');	
+	var columnData = document.getElementsByClassName('td_cadastro');
+	var columnValor = document.getElementsByClassName('td_custo');	
 
-	let cep = document.querySelector('#cep_input');
+	for(var i = 0; i < line.length; i++) {
 
-	if (cep.value.length != 8) {
-		return;
+
+		var columnDataSplitted = columnData[i].innerText.split("-");
+		if (columnDataSplitted.length == 3) {
+			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+			columnData[i].innerText=convertedDate;
+		}
+
+		if (!columnValor[i].innerText.includes('R$') && !columnValor[i].innerText.includes('...')) {
+			columnValor[i].innerText=
+				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		}
+
 	}
-
-	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
-
-	fetch(url).then(function(response){
-		response.json().then(function(data){
-			if(data.erro == undefined) {
-				mostrarEndereco(data);
-			}
-		})
-	});
-}
-
-function mostrarEndereco(dados) {
-
-	var estadoInput = document.getElementById('estado_input');
-	var cidadeInput = document.getElementById('cidade_input');
-	var logradouroInput = document.getElementById('logradouro_input');
-	var bairroInput = document.getElementById('bairro_input');
-
-	estadoInput.value=dados.uf;
-	cidadeInput.value = dados.localidade;
-	logradouroInput.value=dados.logradouro;
-	bairroInput.value=dados.bairro;
-
-	document.getElementById('novo_item_label_numero').focus();
-
-}
+}	
 
 function pageResponsiva(){
 	var pages = document.getElementsByClassName('page_number');

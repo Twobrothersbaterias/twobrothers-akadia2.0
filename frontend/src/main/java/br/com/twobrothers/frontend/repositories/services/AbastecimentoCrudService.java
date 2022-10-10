@@ -87,8 +87,14 @@ public class AbastecimentoCrudService {
 
         ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
 
+        log.info("[PROGRESS] Atualizando o custo total do produto em estoque...");
+        produtoEstoque.setCustoTotal(produtoEstoque.getCustoTotal() + abastecimento.getCustoTotal());
+
         log.info("[PROGRESS] Aumentando a quantidade de produtos em estoque com a quantidade passada no abastecimento...");
         produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + abastecimento.getQuantidade());
+
+        log.info("[PROGRESS] Atualizando o custo unitário do produto em estoque...");
+        produtoEstoque.setCustoUnitario(produtoEstoque.getCustoTotal() / produtoEstoque.getQuantidade());
 
         log.info("[PROGRESS] Adicionando abastecimento ao produto e produto ao abastecimento...");
         produtoEstoque.addAbastecimento(abastecimentoEntity);
