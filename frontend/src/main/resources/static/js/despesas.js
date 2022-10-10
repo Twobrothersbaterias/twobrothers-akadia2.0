@@ -1389,7 +1389,7 @@ function ajustaTabela(){
 
 	for(var i = 0; i < line.length; i++) {
 
-		if (!columnValor[i].innerText.includes('R$')) {
+		if (!columnValor[i].innerText.includes('R$') && !columnValor[i].innerText.includes('...')) {
 			columnValor[i].innerText=
 				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 		}

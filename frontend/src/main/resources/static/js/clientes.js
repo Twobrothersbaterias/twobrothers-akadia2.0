@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+ajustaTabela();
 
 function responsive(){
 
@@ -79,7 +80,6 @@ function responsive(){
 			tdDataCadastro[i].hidden=false;
 		}	
 
-
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].hidden=false;
 		}
@@ -89,10 +89,10 @@ function responsive(){
 		}									
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
+			th[i].style.fontSize="0.80rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.90rem";
+			td[i].style.fontSize="0.80rem";
 		}
 
 		for(var i = 0; i < liA.length; i++){
@@ -164,10 +164,10 @@ function responsive(){
 		}											
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.90rem";
+			th[i].style.fontSize="0.75rem";
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";		
+			td[i].style.fontSize="0.75rem";		
 		}
 	
 		for(var i = 0; i < liA.length; i++){
@@ -243,10 +243,10 @@ function responsive(){
 		}				
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";
+			th[i].style.fontSize="0.70rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
+			td[i].style.fontSize="0.70rem";
 		}	
 				
 		for(var i = 0; i < liA.length; i++){
@@ -255,7 +255,7 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="70%";			
+			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -312,10 +312,10 @@ function responsive(){
 		}				
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.70rem";	
+			th[i].style.fontSize="0.65rem";	
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";	
+			td[i].style.fontSize="0.65rem";	
 		}
 		
 		for(var i = 0; i < liA.length; i++) {
@@ -324,7 +324,7 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="65%";
+			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -401,6 +401,7 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="60%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -435,7 +436,6 @@ function responsive(){
 
 	}
 
-	ajustaTabela();
 	pageResponsiva();
 }
 
@@ -1405,8 +1405,15 @@ function pageResponsiva(){
 function ajustaTabela(){
 	var line = document.getElementsByClassName('tr');	
 	var columnData = document.getElementsByClassName('td_cadastro');
+	var columnValor = document.getElementsByClassName('td_gerado');
 
 	for(var i = 0; i < line.length; i++) {
+
+		if (!columnValor[i].innerText.includes('R$') && !columnValor[i].innerText.includes('...')) {
+			columnValor[i].innerText=
+				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		}
+
 		var columnDataSplitted = columnData[i].innerText.split("-");
 		if (columnDataSplitted.length == 3) {
 			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];

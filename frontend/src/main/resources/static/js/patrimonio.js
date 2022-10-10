@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+ajustaTabela();
 
 function responsive(){
 
@@ -95,15 +96,15 @@ function responsive(){
 		}
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
+			th[i].style.fontSize="0.80rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";
+			td[i].style.fontSize="0.80rem";
 		}
 		
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="1rem";
-			informativo[i].style.width="17%";
+			informativo[i].style.width="23.5%";
 			informativo[i].style.margin="0 7px";
 		}		
 		for(var i = 0; i < liA.length; i++){
@@ -166,10 +167,10 @@ function responsive(){
 		}					
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";		
+			th[i].style.fontSize="0.75rem";		
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";			
+			td[i].style.fontSize="0.75rem";			
 		}
 
 		for(var i = 0; i < informativo.length; i++){
@@ -245,10 +246,10 @@ function responsive(){
 		filtroTitulo.style.fontSize="1.3rem";	
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";	
+			th[i].style.fontSize="0.70rem";	
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";
+			td[i].style.fontSize="0.70rem";
 		}	
 
 		for(var i = 0; i < informativo.length; i++){
@@ -262,7 +263,7 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="70%";			
+			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -314,10 +315,10 @@ function responsive(){
 
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.70rem";
+			th[i].style.fontSize="0.65rem";
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";
+			td[i].style.fontSize="0.65rem";
 		}
 				
 		for(var i = 0; i < informativo.length; i++) {
@@ -331,7 +332,7 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="65%";
+			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -403,6 +404,7 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="60%";				
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -427,7 +429,6 @@ function responsive(){
 
 	}
 
-	ajustaTabela();
 	pageResponsiva();
 }
 
@@ -1286,16 +1287,15 @@ function ajustaTabela(){
 
 	// Definindo propriedades
 	var line = document.getElementsByClassName('tr');
-	var columnData = document.getElementsByClassName('td_data');
 	var columnStatus = document.getElementsByClassName('td_status');
+	var columnValor = document.getElementsByClassName('td_valor');
 
 	for(var i = 0; i < line.length; i++) {
-		
-		var columnDataSplitted = columnData[i].innerText.split("-");
-		if (columnDataSplitted.length == 3) {
-			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
-			columnData[i].innerText=convertedDate;
-		}
+
+		if (!columnValor[i].innerText.includes('R$') && !columnValor[i].innerText.includes('...')) {
+			columnValor[i].innerText=
+				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		}		
 
 		if (columnStatus[i].innerText == "Pendente") {
 			line[i].style.borderLeft="4px solid #f20a0a";

@@ -75,20 +75,11 @@ function responsive(){
 
 		filtroTitulo.style.fontSize="1.5rem";			
 
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="10px"
-			thPagamento[i].style.justifyContent="left";
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="10px";
-			tdPagamento[i].style.justifyContent="left";
-		}					
-
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
+			th[i].style.fontSize="0.80rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";
+			td[i].style.fontSize="0.80rem";
 		}
 
 		for(var i = 0; i < informativo.length; i++){
@@ -136,34 +127,13 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.4rem";		
-
-		for(var i = 0; i < thPagamento.length; i++) {
-			if (bodyWidth < 1100) {
-				thPagamento[i].style.paddingLeft="0px"
-				thPagamento[i].style.justifyContent="center";
-			}
-			else {
-				thPagamento[i].style.paddingLeft="10px"
-				thPagamento[i].style.justifyContent="left";
-			}
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			if (bodyWidth < 1100) {
-				tdPagamento[i].style.paddingLeft="0px";
-				tdPagamento[i].style.justifyContent="center";
-			}
-			else {
-				tdPagamento[i].style.paddingLeft="10px";
-				tdPagamento[i].style.justifyContent="left";				
-			}
-		}					
+		filtroTitulo.style.fontSize="1.4rem";						
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";		
+			th[i].style.fontSize="0.75rem";		
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";		
+			td[i].style.fontSize="0.75rem";		
 		}
 
 		for(var i = 0; i < informativo.length; i++){
@@ -203,16 +173,7 @@ function responsive(){
 		else {
 			main.style.width="92.5%";
 			sideMenu.style.width="7.5%";	
-		}
-
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="8px"
-			thPagamento[i].style.justifyContent="left";
 		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="8px";
-			tdPagamento[i].style.justifyContent="center";
-		}		
 
 		conteudoTituloText.style.fontSize="1.2rem";
 		menuSuperior.style.height="50px";
@@ -229,10 +190,10 @@ function responsive(){
 		filtroTitulo.style.fontSize="1.3rem";
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";	
+			th[i].style.fontSize="0.70rem";	
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";	
+			td[i].style.fontSize="0.70rem";	
 		}				
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.80rem";
@@ -245,7 +206,7 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="70%";			
+			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -277,20 +238,11 @@ function responsive(){
 
 		filtroTitulo.style.fontSize="1.2rem";
 
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="0px"
-			thPagamento[i].style.justifyContent="center";
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="0px";
-			tdPagamento[i].style.justifyContent="center";
-		}					
-
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.70rem";
+			th[i].style.fontSize="0.65rem";
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";	
+			td[i].style.fontSize="0.65rem";	
 		}				
 		for(var i = 0; i < informativo.length; i++) {
 			informativo[i].style.fontSize="0.68rem";
@@ -303,7 +255,7 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="65%";
+			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -340,16 +292,7 @@ function responsive(){
 		editaTitulo.style.fontSize="1rem";
 		editaItemSubmit.style.marginTop="5px";
 
-		filtroTitulo.style.fontSize="1.1rem";
-
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="0px"
-			thPagamento[i].style.justifyContent="center";
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="0px";
-			tdPagamento[i].style.justifyContent="center";
-		}		
+		filtroTitulo.style.fontSize="1.1rem";	
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";
@@ -368,6 +311,7 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="60%";		
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -1234,6 +1178,24 @@ function hideMessage(){
 }
 
 function ajustaTabela(){
+
+	var line = document.getElementsByClassName('tr');
+	var columnValorUnitario = document.getElementsByClassName('td_custoUnitario');
+	var columnValorTotal = document.getElementsByClassName('td_custoTotal');
+
+	for(var i = 0; i < line.length; i++) {
+
+		if (!columnValorUnitario[i].innerText.includes('R$') && !columnValorUnitario[i].innerText.includes('...')) {
+			columnValorUnitario[i].innerText=
+				parseFloat(columnValorUnitario[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		}
+
+		if (!columnValorTotal[i].innerText.includes('R$') && !columnValorTotal[i].innerText.includes('...')) {
+			columnValorTotal[i].innerText=
+				parseFloat(columnValorTotal[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		}
+				
+	}	
 
 }
 
