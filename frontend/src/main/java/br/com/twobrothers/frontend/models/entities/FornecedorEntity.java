@@ -31,8 +31,13 @@ public class FornecedorEntity {
 
     private String dataCadastro;
     private String nome;
+
+    @Column(unique = true)
     private String cpfCnpj;
+
     private String telefone;
+
+    @Column(unique = true)
     private String email;
     private String dataNascimento;
     private String usuarioResponsavel;

@@ -1297,6 +1297,32 @@ function hideMessage(){
 	}
 }
 
+function consultaEndereco(tipo) {
+
+	let cep = null;
+
+	if(tipo == "novo") {
+		cep = document.querySelector('#cep_input');
+	}
+	else if(tipo == "edita") {
+		cep = document.querySelector('#edita_cep_input');
+	}
+
+	if (cep.value.length != 8) {
+		return;
+	}
+
+	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
+
+	fetch(url).then(function(response){
+		response.json().then(function(data){
+			if(data.erro == undefined) {
+				mostrarEndereco(data, tipo);
+			}
+		})
+	});
+}
+
 function mostrarEndereco(dados, tipo) {
 
 	if(tipo == "novo") {
@@ -1367,8 +1393,13 @@ function pageResponsiva(){
 function ajustaTabela(){
 	var line = document.getElementsByClassName('tr');	
 	var columnData = document.getElementsByClassName('td_cadastro');
+	var columnEndereco = document.getElementsByClassName('td_endereco');	
 
 	for(var i = 0; i < line.length; i++) {
+
+		if (columnEndereco[i].innerText.includes('null,')) {
+			columnEndereco[i].innerText='';
+		}
 
 		var columnDataSplitted = columnData[i].innerText.split("-");
 		if (columnDataSplitted.length == 3) {

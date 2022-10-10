@@ -57,6 +57,7 @@ public class ClienteCrudService {
     EnderecoValidation enderecoValidation = new EnderecoValidation();
 
     public void criaNovo(ClienteDTO cliente) {
+
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
 
@@ -209,7 +210,6 @@ public class ClienteCrudService {
                 cliente.getEndereco().setDataCadastro(LocalDate.now().toString());
 
                 log.info("[PROGRESS] Acoplando objeto do tipo EnderecoDTO na variável clienteAtualizado...");
-//                clienteAtualizado.setEndereco(modelMapper.mapper().map(cliente.getEndereco(), EnderecoEntity.class));
                 clienteAtualizado.getEndereco().setLogradouro(cliente.getEndereco().getLogradouro());
                 clienteAtualizado.getEndereco().setNumero(cliente.getEndereco().getNumero());
                 clienteAtualizado.getEndereco().setBairro(cliente.getEndereco().getBairro());

@@ -2,7 +2,6 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
-import br.com.twobrothers.frontend.models.entities.EnderecoEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
@@ -14,6 +13,7 @@ import br.com.twobrothers.frontend.validations.EnderecoValidation;
 import br.com.twobrothers.frontend.validations.FornecedorValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.*;
+import static br.com.twobrothers.frontend.utils.TrataAtributosVazios.*;
 
 /**
  * @author Gabriel Lagrota
@@ -49,10 +50,13 @@ public class FornecedorCrudService {
     FornecedorValidation validation = new FornecedorValidation();
     EnderecoValidation enderecoValidation = new EnderecoValidation();
 
-    public FornecedorDTO criaNovo(FornecedorDTO fornecedor) {
+    public void criaNovo(FornecedorDTO fornecedor) {
 
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação");
+
+        trataAtributosVaziosDoObjetoFornecedor(fornecedor);
+        trataAtributosVaziosDoObjetoEndereco(fornecedor.getEndereco());
 
         log.info("[PROGRESS] Setando a data de cadastro no fornecedor: {}", LocalDateTime.now());
         fornecedor.setDataCadastro(LocalDate.now().toString());
@@ -60,19 +64,26 @@ public class FornecedorCrudService {
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do fornecedor...");
         fornecedor.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
 
+        log.info("[PROGRESS] Validando objeto do tipo FornecedorDTO recebido por meio da requisição: {}", fornecedor);
         validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE);
 
-        if (fornecedor.getEndereco() != null) {
-            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now().toString());
+        log.info("[PROGRESS] Verificando se o objeto FornecedorDTO recebido por meio da requisição possui um objeto do tipo EnderecoDTO acoplado...");
+        if (!verificaSeEnderecoNulo(fornecedor.getEndereco())) {
+
+            log.info("[INFO] Objeto do tipo EnderecoDTO detectado: {}", fornecedor.getEndereco());
+
+            log.info("[PROGRESS] Setando data de cadastro do endereço...");
+            fornecedor.getEndereco().setDataCadastro(LocalDate.now().toString());
+
+            log.info("[PROGRESS] Validando objeto do tipo EnderecoDTO recebido dentro do objeto FornecedorDTO...");
             enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
+
         }
 
         log.info("[PROGRESS] Salvando o fornecedor na base de dados...");
-        FornecedorEntity fornecedorEntity = repository.save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class));
+        repository.save(modelMapper.mapper().map(fornecedor, FornecedorEntity.class));
 
         log.info("[SUCCESS] Requisição finalizada com sucesso");
-        return modelMapper.mapper().map(fornecedorEntity, FornecedorDTO.class);
-
     }
 
     public List<FornecedorEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
@@ -159,6 +170,9 @@ public class FornecedorCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Inicializando método de atualização de fornecedor...");
 
+        trataAtributosVaziosDoObjetoFornecedor(fornecedor);
+        trataAtributosVaziosDoObjetoEndereco(fornecedor.getEndereco());
+
         log.info("[PROGRESS] Criando as variáveis do fornecedor: fornecedorOptional e fornecedorEncontrado...");
         Optional<FornecedorEntity> fornecedorOptional = repository.findById(fornecedor.getId());
         FornecedorEntity fornecedorEncontrado;
@@ -166,39 +180,67 @@ public class FornecedorCrudService {
         log.info("[PROGRESS] Criando o objeto fornecedorAtualizado setagem dos atributos...");
         FornecedorEntity fornecedorAtualizado;
 
-        log.info("[PROGRESS] Iniciando a validação do objeto fornecedor recebido via requisição...");
-        validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.UPDATE);
-
         log.info("[PROGRESS] Verificando se um fornecedor com o id {} já existe na base de dados...", fornecedor.getId());
-        if (fornecedorOptional.isEmpty()) {
-            log.info(FORNECEDOR_NAO_ENCONTRADO_LOG);
-            throw new InvalidRequestException(FORNECEDOR_NAO_ENCONTRADO);
+        if (fornecedorOptional.isPresent()) {
+
+            validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.UPDATE);
+
+            fornecedorEncontrado = fornecedorOptional.get();
+            log.warn("[INFO] Fornecedor encontrado: {}", fornecedorEncontrado.getNome());
+
+            log.info("[PROGRESS] Atualizando o fornecedor encontrado com os valores recebidos no corpo da requisição...");
+            fornecedorAtualizado = fornecedorEncontrado;
+            fornecedorAtualizado.setNome(fornecedor.getNome());
+            fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
+            fornecedorAtualizado.setTelefone(fornecedor.getTelefone());
+            fornecedorAtualizado.setEmail(fornecedor.getEmail());
+            fornecedorAtualizado.setDataNascimento(fornecedor.getDataNascimento());
+
+            log.info("[PROGRESS] Verificando se fornecedor possui objeto do tipo endereço acoplado...");
+            if (!verificaSeEnderecoNulo(fornecedor.getEndereco())) {
+                log.warn("[INFO] Endereço acoplado detectado.");
+                enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
+                log.info("[PROGRESS] Setando data de cadastro no endereço...");
+                fornecedor.getEndereco().setDataCadastro(LocalDate.now().toString());
+
+                log.info("[PROGRESS] Acoplando objeto do tipo EnderecoDTO na variável fornecedorAtualizado...");
+                fornecedorAtualizado.getEndereco().setLogradouro(fornecedor.getEndereco().getLogradouro());
+                fornecedorAtualizado.getEndereco().setNumero(fornecedor.getEndereco().getNumero());
+                fornecedorAtualizado.getEndereco().setBairro(fornecedor.getEndereco().getBairro());
+                fornecedorAtualizado.getEndereco().setCidade(fornecedor.getEndereco().getCidade());
+                fornecedorAtualizado.getEndereco().setComplemento(fornecedor.getEndereco().getComplemento());
+                fornecedorAtualizado.getEndereco().setCep(fornecedor.getEndereco().getCep());
+                fornecedor.getEndereco().setEstado(fornecedor.getEndereco().getEstado());
+
+            } else {
+                log.warn("[INFO] Nenhum endereço foi detectado.");
+
+                log.info("[PROGRESS] Setando endereço da variável fornecedorAtualizado como null...");
+                fornecedorAtualizado.getEndereco().setLogradouro(null);
+                fornecedorAtualizado.getEndereco().setNumero(null);
+                fornecedorAtualizado.getEndereco().setBairro(null);
+                fornecedorAtualizado.getEndereco().setCidade(null);
+                fornecedorAtualizado.getEndereco().setComplemento(null);
+                fornecedorAtualizado.getEndereco().setCep(null);
+            }
+
+            FornecedorEntity fornecedorEntity;
+
+            log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
+            try {
+                fornecedorEntity = repository.save(fornecedorAtualizado);
+            } catch (DataIntegrityViolationException exception) {
+                log.error(exception.toString());
+                throw new InvalidRequestException("O CPF/CNPJ ou o E-MAIL Inserido já existe na base de dados");
+            }
+
+            log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            return modelMapper.mapper().map(fornecedorEntity, FornecedorDTO.class);
+
         }
 
-        fornecedorEncontrado = fornecedorOptional.get();
-        log.warn("[INFO] Fornecedor encontrado: {}", fornecedorEncontrado.getNome());
-
-        log.info("[PROGRESS] Atualizando o fornecedor encontrado com os valores recebidos no corpo da requisição...");
-        fornecedorAtualizado = fornecedorEncontrado;
-        fornecedorAtualizado.setNome(fornecedor.getNome());
-        fornecedorAtualizado.setCpfCnpj(fornecedor.getCpfCnpj());
-        fornecedorAtualizado.setTelefone(fornecedor.getTelefone());
-        fornecedorAtualizado.setEmail(fornecedor.getEmail());
-
-        if (fornecedor.getEndereco() != null) {
-            enderecoValidation.validaCorpoRequisicao(fornecedor.getEndereco());
-
-            fornecedor.getEndereco().setDataCadastro(LocalDateTime.now().toString());
-            fornecedorAtualizado.setEndereco(modelMapper.mapper().map(fornecedor.getEndereco(), EnderecoEntity.class));
-        } else {
-            fornecedorAtualizado.setEndereco(null);
-        }
-
-        log.info("[PROGRESS] Iniciando persistência do fornecedor na base de dados...");
-        repository.save(fornecedorAtualizado);
-
-        log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
-        return modelMapper.mapper().map(fornecedorAtualizado, FornecedorDTO.class);
+        log.info(FORNECEDOR_NAO_ENCONTRADO_LOG);
+        throw new InvalidRequestException(FORNECEDOR_NAO_ENCONTRADO);
 
     }
 
