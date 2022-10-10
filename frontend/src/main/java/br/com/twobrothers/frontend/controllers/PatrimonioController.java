@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+
 @Controller
 @RequestMapping("/patrimonios")
 public class PatrimonioController {
@@ -90,10 +92,10 @@ public class PatrimonioController {
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("patrimonios", patrimoniosPaginados);
-        model.addAttribute("bruto", patrimonioService.calculaValorBruto(patrimoniosSemPaginacao));
-        model.addAttribute("pendente", patrimonioService.calculaValorPendente(patrimoniosSemPaginacao));
-        model.addAttribute("passivos", patrimonioService.calculaValorPassivos(patrimoniosSemPaginacao));
-        model.addAttribute("caixa", patrimonioService.calculaValorCaixa(patrimoniosSemPaginacao));
+        model.addAttribute("bruto", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorBruto(patrimoniosSemPaginacao)));
+        model.addAttribute("pendente", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorPendente(patrimoniosSemPaginacao)));
+        model.addAttribute("passivos", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorPassivos(patrimoniosSemPaginacao)));
+        model.addAttribute("caixa", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorCaixa(patrimoniosSemPaginacao)));
 
         modelAndView.setViewName("patrimonio");
         return modelAndView;

@@ -299,7 +299,7 @@
 								<div class="informativo_chave">
 									Pago: 
 								</div>
-								<div th:text="'R$ ' + ${pago}" class="informativo_valor">
+								<div th:text="${pago}" class="informativo_valor">
 									R$ 0.00
 								</div>	
 							</div>
@@ -308,7 +308,7 @@
 								<div class="informativo_chave">
 									Pendente: 
 								</div>
-								<div th:text="'R$ ' + ${pendente}" class="informativo_valor">
+								<div th:text="${pendente}" class="informativo_valor">
 									R$ 0.00
 								</div>	
 							</div>
@@ -335,17 +335,13 @@
 
 												<th class="th th_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Pagamento</th>
 
-												<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Descrição</th>
+												<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Descrição</th>
 
-												<th class="th th_valor col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
+												<th class="th th_valor col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3">Valor</th>
 
-												<th class="th th_forma col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="th_forma">Tipo</th>
+												<th class="th td_tipo col-xl-2 col-lg-2 col-md-2" id="th_tipo">Tipo</th>	
 
-												<th class="th th_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Responsável</th>
-
-												<th class="th th_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cadastro</th>					
-
-												<th class="th col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Data ag.</th>
+												<th class="th col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Data ag.</th>
 
 												<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 												</th>											
@@ -359,17 +355,13 @@
 
 											<td class="td td_pagamento col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 											
-											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+											<td class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
 											
-											<td class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td class="td td_value col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3">...</td>
 											
-											<td class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td class="td td_tipo col-xl-2 col-lg-2 col-md-2">...</td>
 
-											<td class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-
-											<td class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>	
-
-											<td class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
+											<td class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>			
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 										</tr>										
@@ -401,7 +393,7 @@
 												this.getAttribute('data-dataCadastro'), 
 												this.getAttribute('data-persistencia'))">...</td>
 											
-											<td th:text="${despesa.descricao}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
+											<td th:text="${despesa.descricao}" class="td td_description col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4"
 											th:data-id="${despesa.id}" 
 											th:data-tipoDespesa="${despesa.tipoDespesa}"
 											th:data-descricao="${despesa.descricao}"
@@ -424,7 +416,7 @@
 												this.getAttribute('data-dataCadastro'), 
 												this.getAttribute('data-persistencia'))">...</td>
 											
-											<td th:text="'R$ ' + ${despesa.valor}" class="td td_value col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											<td th:text="${despesa.valor}" class="td td_value col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3"
 											th:data-id="${despesa.id}" 
 											th:data-tipoDespesa="${despesa.tipoDespesa}"
 											th:data-descricao="${despesa.descricao}"
@@ -447,7 +439,7 @@
 												this.getAttribute('data-dataCadastro'), 
 												this.getAttribute('data-persistencia'))"											>...</td>
 											
-											<td th:text="${despesa.tipoDespesa.desc}" class="td td_tipo td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
+											<td th:text="${despesa.tipoDespesa.desc}" class="td td_tipo col-xl-2 col-lg-2 col-md-2"
 											th:data-id="${despesa.id}" 
 											th:data-tipoDespesa="${despesa.tipoDespesa}"
 											th:data-descricao="${despesa.descricao}"
@@ -470,53 +462,7 @@
 												this.getAttribute('data-dataCadastro'), 
 												this.getAttribute('data-persistencia'))"											>...</td>
 
-											<td th:text="${despesa.usuarioResponsavel}" class="td td_usuario col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${despesa.id}" 
-											th:data-tipoDespesa="${despesa.tipoDespesa}"
-											th:data-descricao="${despesa.descricao}"
-											th:data-valor="${despesa.valor}" 
-											th:data-statusDespesa="${despesa.statusDespesa}" 
-											th:data-dataPagamento="${despesa.dataPagamento}" 
-											th:data-dataAgendamento="${despesa.dataAgendamento}"
-											th:data-usuarioResponsavel="${despesa.usuarioResponsavel}"
-											th:data-dataCadastro="${despesa.dataCadastro}"
-											th:data-persistencia="${despesa.persistencia}"
-											onclick="abrirEditaDespesa(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-tipoDespesa'), 
-												this.getAttribute('data-descricao'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-statusDespesa'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-persistencia'))"											>...</td>
-
-											<td th:text="${despesa.dataCadastro}" class="td td_data col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${despesa.id}" 
-											th:data-tipoDespesa="${despesa.tipoDespesa}"
-											th:data-descricao="${despesa.descricao}"
-											th:data-valor="${despesa.valor}" 
-											th:data-statusDespesa="${despesa.statusDespesa}" 
-											th:data-dataPagamento="${despesa.dataPagamento}" 
-											th:data-dataAgendamento="${despesa.dataAgendamento}"
-											th:data-usuarioResponsavel="${despesa.usuarioResponsavel}"
-											th:data-dataCadastro="${despesa.dataCadastro}"
-											th:data-persistencia="${despesa.persistencia}"
-											onclick="abrirEditaDespesa(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-tipoDespesa'), 
-												this.getAttribute('data-descricao'), 
-												this.getAttribute('data-valor'), 
-												this.getAttribute('data-statusDespesa'), 
-												this.getAttribute('data-dataPagamento'), 
-												this.getAttribute('data-dataAgendamento'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-persistencia'))"											>...</td>
-
-											<td th:if="${despesa.dataAgendamento != null}" th:text="${despesa.dataAgendamento}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling"
+											<td th:if="${despesa.dataAgendamento != null}" th:text="${despesa.dataAgendamento}" class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" id="td_scheduling"
 											th:data-id="${despesa.id}" 
 											th:data-tipoDespesa="${despesa.tipoDespesa}"
 											th:data-descricao="${despesa.descricao}"
@@ -539,7 +485,7 @@
 												this.getAttribute('data-dataCadastro'), 
 												this.getAttribute('data-persistencia'))">...</td>
 
-											<td th:unless="${despesa.dataAgendamento != null}" class="td td_scheduling col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="td_scheduling" 
+											<td th:unless="${despesa.dataAgendamento != null}" class="td td_scheduling col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" id="td_scheduling" 
 											th:data-id="${despesa.id}" 
 											th:data-tipoDespesa="${despesa.tipoDespesa}"
 											th:data-descricao="${despesa.descricao}"

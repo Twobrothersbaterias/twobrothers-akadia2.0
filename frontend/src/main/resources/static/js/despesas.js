@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+ajustaTabela();
 
 function responsive(){
 
@@ -38,6 +39,8 @@ function responsive(){
 	var thUsuario = document.getElementsByClassName('th_usuario');
 	var tdData = document.getElementsByClassName('td_data');
 	var thData = document.getElementsByClassName('th_data');
+	var thTipo = document.getElementsByClassName('th_tipo');
+	var tdTipo = document.getElementsByClassName('td_tipo');
 	var tdPagamento = document.getElementsByClassName('td_pagamento');
 	var thPagamento = document.getElementsByClassName('th_pagamento');
 	var tdRemove = document.getElementsByClassName('td_checkbox');
@@ -72,42 +75,23 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.15rem";	
-		editaDespesaSubmit.style.marginTop="0px";
+		editaDespesaSubmit.style.marginTop="0px";		
 
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].hidden=false;
-			thData[i].hidden=false;
-		}	
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].hidden=false;
+		for(var i = 0; i < thTipo.length; i++) {
+			thTipo[i].hidden=false;
 		}
-		for(var i = 0; i < tdData.length; i++) {
-			tdData[i].hidden=false;
-		}				
 
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="10px"
-			thPagamento[i].style.justifyContent="left";
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="10px";
-			tdPagamento[i].style.justifyContent="left";
-		}					
+		for(var i = 0; i < tdTipo.length; i++) {
+			tdTipo[i].hidden=false;
+		}			
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
-			th[i].style.width="13.28%";
+			th[i].style.fontSize="0.80rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";
-			td[i].style.width="13.28%";	
+			td[i].style.fontSize="0.80rem";
 		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="7%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="7%";
-		}		
+
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="1rem";
 			informativo[i].style.width="17%";
@@ -151,54 +135,23 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";
 		editaTitulo.style.fontSize="1.15rem";	
-		editaDespesaSubmit.style.marginTop="0px";
+		editaDespesaSubmit.style.marginTop="0px";	
 
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].hidden=false;
-			thData[i].hidden=false;
-		}	
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].hidden=false;
-		}			
-		for(var i = 0; i < tdData.length; i++) {
-			tdData[i].hidden=false;
-		}				
+		for(var i = 0; i < thTipo.length; i++) {
+			thTipo[i].hidden=false;
+		}
 
-		for(var i = 0; i < thPagamento.length; i++) {
-			if (bodyWidth < 1100) {
-				thPagamento[i].style.paddingLeft="0px"
-				thPagamento[i].style.justifyContent="center";
-			}
-			else {
-				thPagamento[i].style.paddingLeft="10px"
-				thPagamento[i].style.justifyContent="left";
-			}
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			if (bodyWidth < 1100) {
-				tdPagamento[i].style.paddingLeft="0px";
-				tdPagamento[i].style.justifyContent="center";
-			}
-			else {
-				tdPagamento[i].style.paddingLeft="10px";
-				tdPagamento[i].style.justifyContent="left";				
-			}
-		}					
+		for(var i = 0; i < tdTipo.length; i++) {
+			tdTipo[i].hidden=false;
+		}								
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.95rem";
-			th[i].style.width="13.28%";				
+			th[i].style.fontSize="0.75rem";			
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.95rem";
-			td[i].style.width="13.28%";				
+			td[i].style.fontSize="0.75rem";		
 		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="7%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="7%";
-		}		
+
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.95rem";
 			informativo[i].style.width="25%";
@@ -238,15 +191,6 @@ function responsive(){
 			sideMenu.style.width="7.5%";	
 		}
 
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="8px"
-			thPagamento[i].style.justifyContent="left";
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="8px";
-			tdPagamento[i].style.justifyContent="center";
-		}		
-
 		conteudoTituloText.style.fontSize="1.2rem";
 		menuSuperior.style.height="50px";
 		menuSuperiorUl.style.padding="12px 0";		
@@ -258,33 +202,23 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.1rem";
-		editaDespesaSubmit.style.marginTop="0px";
+		editaDespesaSubmit.style.marginTop="0px";	
 
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].hidden=false;
-			thData[i].hidden=false;
+		for(var i = 0; i < thTipo.length; i++) {
+			thTipo[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdTipo.length; i++) {
+			tdTipo[i].hidden=false;
 		}	
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].hidden=false;
-		}		
-		for(var i = 0; i < tdData.length; i++) {
-			tdData[i].hidden=false;
-		}		
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.85rem";
-			th[i].style.width="13.42%";			
+			th[i].style.fontSize="0.70rem";		
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.85rem";
-			td[i].style.width="13.42%";			
+			td[i].style.fontSize="0.70rem";	
 		}	
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="6%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="6%";
-		}				
+			
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.85rem";
 			informativo[i].style.width="28.9%";	
@@ -296,7 +230,7 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="70%";			
+			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -327,40 +261,21 @@ function responsive(){
 		editaTitulo.style.fontSize="1.2rem";		
 		editaDespesaSubmit.style.marginTop="0px";
 
-		for(var i = 0; i < thPagamento.length; i++) {
-			thPagamento[i].style.paddingLeft="0px"
-			thPagamento[i].style.justifyContent="center";
-		}	
-		for(var i = 0; i < tdPagamento.length; i++) {
-			tdPagamento[i].style.paddingLeft="0px";
-			tdPagamento[i].style.justifyContent="center";
-		}		
-
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].hidden=true;
-			thData[i].hidden=false;
-		}	
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].hidden=true;
+		for(var i = 0; i < thTipo.length; i++) {
+			thTipo[i].hidden=true;
 		}
-		for(var i = 0; i < tdData.length; i++) {
-			tdData[i].hidden=false;
-		}				
+
+		for(var i = 0; i < tdTipo.length; i++) {
+			tdTipo[i].hidden=true;
+		}		
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.70rem";
-			th[i].style.width="15.66%";			
+			th[i].style.fontSize="0.65rem";		
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.70rem";
-			td[i].style.width="15.66%";			
+			td[i].style.fontSize="0.65rem";	
 		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="6%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="6%";
-		}					
+
 		for(var i = 0; i < informativo.length; i++) {
 			informativo[i].style.fontSize="0.68rem";
 			informativo[i].style.width="31.8%";
@@ -372,7 +287,7 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="65%";
+			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -410,16 +325,13 @@ function responsive(){
 		editaTitulo.style.fontSize="1rem";
 		editaDespesaSubmit.style.marginTop="5px";
 
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].hidden=true;
-			thData[i].hidden=true;
-		}	
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].hidden=true;
-		}		
-		for(var i = 0; i < tdData.length; i++) {
-			tdData[i].hidden=true;
-		}				
+		for(var i = 0; i < thTipo.length; i++) {
+			thTipo[i].hidden=true;
+		}
+
+		for(var i = 0; i < tdTipo.length; i++) {
+			tdTipo[i].hidden=true;
+		}						
 
 		for(var i = 0; i < thPagamento.length; i++) {
 			thPagamento[i].style.paddingLeft="0px"
@@ -432,18 +344,10 @@ function responsive(){
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";
-			th[i].style.width="18.8%";
 		}
 		for(var i = 0; i < td.length; i++){
 			td[i].style.fontSize="0.60rem";
-			td[i].style.width="18.8%";
 		}
-		for(var i = 0; i < thRemove.length; i++){
-			thRemove[i].style.width="6%";
-		}		
-		for(var i = 0; i < tdRemove.length; i++){
-			tdRemove[i].style.width="6%";
-		}						
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.58rem";
 			informativo[i].style.width="55%";
@@ -455,6 +359,7 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="60%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -479,7 +384,6 @@ function responsive(){
 
 	}
 
-	ajustaTabela();
 	pageResponsiva();
 
 }
@@ -1481,8 +1385,15 @@ function ajustaTabela(){
 	var columnScheduling = document.getElementsByClassName('td_scheduling');
 	var columnPayment = document.getElementsByClassName('td_pagamento');
 	var columnData = document.getElementsByClassName('td_data');
+	var columnValor = document.getElementsByClassName('td_value');
 
 	for(var i = 0; i < line.length; i++) {
+
+		if (!columnValor[i].innerText.includes('R$')) {
+			columnValor[i].innerText=
+				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		}
+
 
 		var columnSchedulingSplitted = columnScheduling[i].innerText.split("-");
 		if (columnSchedulingSplitted.length == 3) {
@@ -1494,13 +1405,7 @@ function ajustaTabela(){
 		if (columnPaymentSplitted.length == 3) {
 			var convertedDate = columnPaymentSplitted[2] + "/" + columnPaymentSplitted[1] + "/" + columnPaymentSplitted[0];
 			columnPayment[i].innerText=convertedDate;
-		}	
-		
-		var columnDataSplitted = columnData[i].innerText.split("-");
-		if (columnDataSplitted.length == 3) {
-			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
-			columnData[i].innerText=convertedDate;
-		}					
+		}				
 
 		if(columnScheduling[i].innerText == "Nulo" || columnScheduling[i].innerText == "Não possui") {
 			
@@ -1511,7 +1416,7 @@ function ajustaTabela(){
 				&& !columnPayment[i].innerText.includes("Pago ")) {
 
 				var dataPagamento = columnPayment[i].innerText;
-				columnPayment[i].innerText="Pago " + dataPagamento
+				columnPayment[i].innerText=dataPagamento
 			}
 
 		}

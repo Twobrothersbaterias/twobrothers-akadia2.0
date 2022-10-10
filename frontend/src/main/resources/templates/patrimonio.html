@@ -299,7 +299,7 @@
 							<div class="informativo_chave">
 								Bruto: 
 							</div>
-							<div th:text="'R$ ' + ${bruto}" class="informativo_valor informativo_valor_bruto">
+							<div th:text="${bruto}" class="informativo_valor informativo_valor_bruto">
 								R$ 0.00
 							</div>	
 						</div>
@@ -308,7 +308,7 @@
 							<div class="informativo_chave">
 								Passivos: 
 							</div>
-							<div th:text="'R$ ' + ${passivos}" class="informativo_valor informativo_valor_passivo">
+							<div th:text="${passivos}" class="informativo_valor informativo_valor_passivo">
 								R$ 0.00
 							</div>
 						</div>						
@@ -317,7 +317,7 @@
 							<div class="informativo_chave">
 								Pendentes: 
 							</div>
-							<div th:text="'R$ ' + ${pendente}" class="informativo_valor informativo_valor_pendente">
+							<div th:text="${pendente}" class="informativo_valor informativo_valor_pendente">
 								R$ 0.00
 							</div>	
 						</div>
@@ -326,7 +326,7 @@
 							<div class="informativo_chave">
 								Caixa: 
 							</div>
-							<div th:text="'R$ ' + ${caixa}" class="informativo_valor informativo_valor_caixa" id="informativo_valor_caixa">
+							<div th:text="${caixa}" class="informativo_valor informativo_valor_caixa" id="informativo_valor_caixa">
 								R$ 0.00
 							</div>
 						</div>	

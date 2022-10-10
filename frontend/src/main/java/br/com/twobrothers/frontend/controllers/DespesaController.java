@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+
 @Controller
 @RequestMapping("/despesas")
 public class DespesaController {
@@ -107,8 +109,8 @@ public class DespesaController {
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("despesas", despesasPaginadas);
-        model.addAttribute("pago", despesaService.calculaValorPago(despesasSemPaginacao));
-        model.addAttribute("pendente", despesaService.calculaValorPendente(despesasSemPaginacao));
+        model.addAttribute("pago", converteValorDoubleParaValorMonetario(despesaService.calculaValorPago(despesasSemPaginacao)));
+        model.addAttribute("pendente", converteValorDoubleParaValorMonetario(despesaService.calculaValorPendente(despesasSemPaginacao)));
         model.addAttribute("pagar", despesaService.pendentesHoje());
 
         modelAndView.setViewName("despesas");

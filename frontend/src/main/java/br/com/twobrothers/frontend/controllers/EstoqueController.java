@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+
 @Controller
 @RequestMapping("/estoque")
 public class EstoqueController {
@@ -98,7 +100,7 @@ public class EstoqueController {
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("produtos", produtosPaginados);
-        model.addAttribute("bruto", produtoEstoqueService.calculaValorBruto(produtosSemPaginacao));
+        model.addAttribute("bruto", converteValorDoubleParaValorMonetario(produtoEstoqueService.calculaValorBruto(produtosSemPaginacao)));
         model.addAttribute("qtdeBaterias", produtoEstoqueService.calculaQtdBaterias(produtosSemPaginacao));
         model.addAttribute("qtdeSucatas", produtoEstoqueService.calculaQtdSucatas(produtosSemPaginacao));
 
