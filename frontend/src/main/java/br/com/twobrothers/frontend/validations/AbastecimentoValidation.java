@@ -34,10 +34,9 @@ public class AbastecimentoValidation {
         log.info("[VALIDAÇÃO - ABASTECIMENTO] Inicializando validação de atributos obrigatórios nulos...");
         List<String> atributosNulos = new ArrayList<>();
 
-        if (abastecimento.getQuantidade() == null) atributosNulos.add("quantidade");
-        if (abastecimento.getCustoTotal() == null) atributosNulos.add("custoTotal");
-        if (abastecimento.getIdUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
-        if (abastecimento.getFormaPagamento() == null) atributosNulos.add("formaPagamento");
+        if (abastecimento.getQuantidade() == null) atributosNulos.add("Quantidade");
+        if (abastecimento.getCustoTotal() == null) atributosNulos.add("Custo total");
+        if (abastecimento.getFormaPagamento() == null) atributosNulos.add("Forma de pagamento");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do abastecimento falhou. A inserção de um ou mais atributos " +

@@ -410,8 +410,6 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
-											th:data-produto="${abastecimento.produto}"
-											th:data-fornecedor="${abastecimento.fornecedor}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -420,9 +418,7 @@
 												this.getAttribute('data-custoTotal'), 
 												this.getAttribute('data-observacao'), 
 												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'), 
-												this.getAttribute('data-produto'), 
-												this.getAttribute('data-fornecedor'))">...</td>
+												this.getAttribute('data-formaPagamento'))">...</td>
 
 										<td th:text="${abastecimento.produto.sigla}" class="td td_produto col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3" 		
 											th:data-id="${abastecimento.id}" 
@@ -433,8 +429,6 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
-											th:data-produto="${abastecimento.produto}"
-											th:data-fornecedor="${abastecimento.fornecedor}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -443,9 +437,7 @@
 												this.getAttribute('data-custoTotal'), 
 												this.getAttribute('data-observacao'), 
 												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'), 
-												this.getAttribute('data-produto'), 
-												this.getAttribute('data-fornecedor'))">...</td>
+												this.getAttribute('data-formaPagamento'))">...</td>
 
 										<td th:text="${abastecimento.fornecedor.nome}" class="td td_fornecedor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
 											th:data-id="${abastecimento.id}" 
@@ -456,8 +448,6 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
-											th:data-produto="${abastecimento.produto}"
-											th:data-fornecedor="${abastecimento.fornecedor}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -466,9 +456,7 @@
 												this.getAttribute('data-custoTotal'), 
 												this.getAttribute('data-observacao'), 
 												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'), 
-												this.getAttribute('data-produto'), 
-												this.getAttribute('data-fornecedor'))">...</td>
+												this.getAttribute('data-formaPagamento'))">...</td>
 
 										<td th:text="${abastecimento.quantidade}" class="td td_quantidade col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2"
 											th:data-id="${abastecimento.id}" 
@@ -479,8 +467,6 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
-											th:data-produto="${abastecimento.produto}"
-											th:data-fornecedor="${abastecimento.fornecedor}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -489,9 +475,7 @@
 												this.getAttribute('data-custoTotal'), 
 												this.getAttribute('data-observacao'), 
 												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'), 
-												this.getAttribute('data-produto'), 
-												this.getAttribute('data-fornecedor'))">...</td>
+												this.getAttribute('data-formaPagamento'))">...</td>
 
 										<td th:text="${abastecimento.custoTotal}" class="td td_custo col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3" 			
 											th:data-id="${abastecimento.id}" 
@@ -502,8 +486,6 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
-											th:data-produto="${abastecimento.produto}"
-											th:data-fornecedor="${abastecimento.fornecedor}"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -512,9 +494,7 @@
 												this.getAttribute('data-custoTotal'), 
 												this.getAttribute('data-observacao'), 
 												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'), 
-												this.getAttribute('data-produto'), 
-												this.getAttribute('data-fornecedor'))">...</td>	
+												this.getAttribute('data-formaPagamento'))">...</td>
 
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">	
 
@@ -993,60 +973,37 @@
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">				
 
-			<form th:action="@{abastecimentos}" method="POST" th:object="${abastecimento}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{compras}" method="POST" th:object="${abastecimento}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 					<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
 						<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Dados pessoais
+							Atribuições
 						</label>
 					</div>							
 				</div>
 
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">								
-					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"  id="novo_item_first_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_abastecimento_input">
-							Nome
+							Produto
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nome" id="descricao_abastecimento_input" required/>
-					</div>							
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="produto.id" id="descricao_abastecimento_input" required>
+							<option th:each="produto: ${produtos}" th:value="${produto.id}" th:text="${produto.sigla} + ' - ' + ${produto.especificacao}">...</option>
+						</select>
 
-				</div>
+					</div>		
 
-				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
-
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_third_block">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_third_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_abastecimento_input">
-							E-mail
+							Fornecedor
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="email_abastecimento_input"/>
-					</div>									
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="fornecedor.id" id="descricao_abastecimento_input" required>
+							<option th:each="fornecedor: ${fornecedores}" th:value="${fornecedor.id}" th:text="${fornecedor.nome}">...</option>
+						</select>
+					</div>													
 
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_abastecimento_input">
-							Telefone
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="telefone_abastecimento_input"/>
-					</div>
-				
 				</div>
-
-				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_segunda_row">										
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
-							Data de nascimento:
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="data_nascimento_input" type="date"/>
-					</div>							
-
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="cpfCnpj_input">
-							Cpf/Cnpj:
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="cpfCnpj_input" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
-					</div>																
-
-				</div>	
 
 				<hr class="hr_novo">	
 				
@@ -1055,100 +1012,51 @@
 					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 						<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
 							<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								Endereço
+								Pagamento
 							</label>
 						</div>							
 					</div>					
 
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="novo_item_sixth_block">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" id="novo_item_sixth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cep" for="cep_input">
-							Cep:
+							Quantidade:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco()" type="number"/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="quantidade" id="cep_input" onkeyup="consultaEndereco()" type="number"/>
 					</div>
 
-					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" id="novo_item_ninth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
-							Estado:
+							Pagamento:
 						</label>
-						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
-							<option value="AC">Acre</option>
-							<option value="AL">Alagoas</option>
-							<option value="AP">Amapá</option>
-							<option value="AM">Amazonas</option>
-							<option value="BA">Bahia</option>
-							<option value="CE">Ceará</option>
-							<option value="DF">Distrito Federal</option>
-							<option value="ES">Espírito Santo</option>
-							<option value="GO">Goiás</option>
-							<option value="MA">Maranhão</option>
-							<option value="MT">Mato Grosso</option>
-							<option value="MS">Mato Grosso do Sul</option>
-							<option value="MG">Minas Gerais</option>
-							<option value="PA">Pará</option>											
-							<option value="PB">Paraiba</option>
-							<option value="PR">Paraná</option>		
-							<option value="PI">Piaui</option>					
-							<option value="RJ">Rio de Janeiro</option>	
-							<option value="RN">Rio Grande do Norte</option>	
-							<option value="RS">Rio Grande do Sul</option>	
-							<option value="RO">Rondônia</option>													
-							<option value="RR">Roraima</option>		
-							<option value="SC">Santa Catarina</option>		
-							<option value="SP" selected>São Paulo</option>		
-							<option value="SE">Sergipe</option>													
-							<option value="TO">Tocantins</option>													
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="formaPagamento" id="estado_input" type="text">
+							<option value="DINHEIRO">Dinheiro</option>
+							<option value="CREDITO">Crédito</option>
+							<option value="DEBITO">Débito</option>
+							<option value="CHEQUE">Cheque</option>
+							<option value="PIX">Pix</option>
+							<option value="BOLETO">Boleto</option>					
 						</select>	
 					</div>
 
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8" id="novo_item_tenth_block">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" id="novo_item_tenth_block">
 
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cidade" for="cidade_input">
-							Cidade:
+							Valor:
 						</label>
 
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="cidade_input" type="text"/>
-					</div>						
-
-				</div>
-
-				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_terceira_row">
-
-					<div class="novo_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="novo_item_seventh_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_logradouro" for="logradouro_input">
-							Logradouro:
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="logradouro_input" type="text"/>
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="custoTotal" id="cidade_input" type="text"/>
 					</div>
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" id="novo_item_seventh_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_numero" for="numero_input">
-							Numero:
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="numero_input" type="number" min="0" max="99999"/>
-					</div>
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_tenth_block">
 
-				</div>				
-
-				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_quarta_row">
-
-					<div class="novo_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12" id="novo_item_eighth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_bairro" for="bairro_input">
-							Bairro:
-						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="bairro_input" type="text"/>
-					</div>							
-
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_eleventh_block">
-
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_complemento" for="complemento_input">
-							Complemento:
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cidade" for="cidade_input">
+							Observação:
 						</label>
 
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="complemento_input" type="text"/>
-					</div>					
+						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="observacao" id="cidade_input" type="text"/>
+					</div>										
 
-				</div>				
+				</div>			
 
 				<hr class="hr_novo">
 

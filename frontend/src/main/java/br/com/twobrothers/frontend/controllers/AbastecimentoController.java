@@ -8,6 +8,8 @@ import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.AbastecimentoService;
+import br.com.twobrothers.frontend.services.FornecedorService;
+import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +41,12 @@ public class AbastecimentoController {
 
     @Autowired
     AbastecimentoCrudService abastecimentoCrudService;
+
+    @Autowired
+    ProdutoEstoqueService produtoEstoqueService;
+
+    @Autowired
+    FornecedorService fornecedorService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -106,6 +114,8 @@ public class AbastecimentoController {
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("abastecimentos", abastecimentosPaginados);
+        model.addAttribute("produtos", produtoEstoqueService.buscaTodos());
+        model.addAttribute("fornecedores", fornecedorService.buscaTodos());
         model.addAttribute("especie", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.DINHEIRO)));
         model.addAttribute("credito", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.CREDITO)));
         model.addAttribute("debito", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.DEBITO)));
@@ -130,7 +140,7 @@ public class AbastecimentoController {
         else
             redirAttrs.addFlashAttribute("ErroCadastro", criaAbastecimento);
 
-        modelAndView.setViewName("redirect:abastecimentos?" + query);
+        modelAndView.setViewName("redirect:compras?" + query);
         return modelAndView;
     }
 

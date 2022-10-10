@@ -40,12 +40,12 @@ public class AbastecimentoDTO {
     private String observacao;
 
     @JsonProperty(required = true)
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
     @JsonProperty(required = true)
     private FormaPagamentoEnum formaPagamento;
 
     @JsonIgnore
-    private ProdutoEstoqueDTO produtoEstoque;
+    private ProdutoEstoqueDTO produto;
 
     @JsonIgnore
     private FornecedorDTO fornecedor;

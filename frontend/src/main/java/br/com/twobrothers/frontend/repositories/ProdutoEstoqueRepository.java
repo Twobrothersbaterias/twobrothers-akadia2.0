@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.repositories;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +22,9 @@ import java.util.Optional;
  */
 @Repository
 public interface ProdutoEstoqueRepository extends JpaRepository<ProdutoEstoqueEntity, Long> {
+
+    @Query("Select p From ProdutoEstoqueEntity p where p.tipoProduto = ?1")
+    List<ProdutoEstoqueEntity> buscaTodasBaterias(Sort sort, TipoProdutoEnum tipoProdutoEnum);
 
     @Query("Select p From ProdutoEstoqueEntity p where p.sigla = ?1")
     Optional<ProdutoEstoqueEntity> buscaPorSigla(String sigla);

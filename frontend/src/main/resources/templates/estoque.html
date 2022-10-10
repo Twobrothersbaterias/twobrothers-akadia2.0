@@ -468,7 +468,7 @@
 												this.getAttribute('data-custoUnitario'),
 												this.getAttribute('data-custoTotal'))">...</td>
 
-											<td th:text="'R$ ' + ${produto.custoUnitario}" class="td td_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+											<td th:text="${produto.custoUnitario}" class="td td_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
 											th:data-id="${produto.id}" 
 											th:data-marcaBateria="${produto.marcaBateria}"
 											th:data-especificacao="${produto.especificacao}"
@@ -493,7 +493,7 @@
 												this.getAttribute('data-custoUnitario'),
 												this.getAttribute('data-custoTotal'))">...</td>
 
-											<td th:text="'R$ ' + ${produto.custoTotal}" class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
+											<td th:text="${produto.custoTotal}" class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
 											th:data-id="${produto.id}" 
 											th:data-marcaBateria="${produto.marcaBateria}"
 											th:data-especificacao="${produto.especificacao}"

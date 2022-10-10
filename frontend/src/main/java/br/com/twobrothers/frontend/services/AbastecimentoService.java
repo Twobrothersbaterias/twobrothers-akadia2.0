@@ -37,7 +37,7 @@ public class AbastecimentoService {
 
     public String encaminhaParaCriacaoDoCrudService(AbastecimentoDTO abastecimento) {
         try {
-            crudService.criaNovo(abastecimento, abastecimento.getProdutoEstoque().getId(), abastecimento.getFornecedor().getId());
+            crudService.criaNovo(abastecimento, abastecimento.getProduto().getId(), abastecimento.getFornecedor().getId());
             return null;
         } catch (Exception e) {
             return e.getMessage();

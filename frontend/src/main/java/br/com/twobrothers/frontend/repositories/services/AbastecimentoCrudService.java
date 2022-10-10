@@ -8,7 +8,9 @@ import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
+import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.AbastecimentoValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,9 @@ public class AbastecimentoCrudService {
     ProdutoEstoqueRepository produtoEstoqueRepository;
 
     @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
     FornecedorRepository fornecedorRepository;
 
     @Autowired
@@ -53,6 +58,9 @@ public class AbastecimentoCrudService {
 
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação...");
+
+        log.info("[PROGRESS] Setando o usuário responsável no abastecimento: {}", UsuarioUtils.loggedUser(usuarioRepository));
+        abastecimento.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
 
         log.info("[PROGRESS] Validando objeto do tipo AbastecimentoDTO enviado via JSON...");
         validation.validaCorpoRequisicao(abastecimento);

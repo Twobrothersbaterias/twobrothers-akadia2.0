@@ -1394,7 +1394,6 @@ function ajustaTabela(){
 				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 		}
 
-
 		var columnSchedulingSplitted = columnScheduling[i].innerText.split("-");
 		if (columnSchedulingSplitted.length == 3) {
 			var convertedDate = columnSchedulingSplitted[2] + "/" + columnSchedulingSplitted[1] + "/" + columnSchedulingSplitted[0];
