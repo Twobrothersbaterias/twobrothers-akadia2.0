@@ -38,12 +38,6 @@ public class AbastecimentoService {
     public String encaminhaParaCriacaoDoCrudService(AbastecimentoDTO abastecimento) {
 
         Long idFornecedor = null;
-        Long idProduto = null;
-
-        if (abastecimento.getProduto() != null) {
-            idProduto = abastecimento.getProduto().getId();
-            abastecimento.setProduto(null);
-        }
 
         if (abastecimento.getFornecedor() != null) {
             idFornecedor = abastecimento.getFornecedor().getId();
@@ -51,8 +45,13 @@ public class AbastecimentoService {
         }
 
         try {
-            crudService.criaNovo(abastecimento, idProduto, idFornecedor);
-            return null;
+            if (abastecimento.getProduto() != null) {
+                crudService.criaNovo(abastecimento, abastecimento.getProduto().getId(), idFornecedor);
+                return null;
+            }
+            else {
+                return "É preciso inserir um produto para cadastrar uma compra";
+            }
         } catch (Exception e) {
             return e.getMessage();
         }
