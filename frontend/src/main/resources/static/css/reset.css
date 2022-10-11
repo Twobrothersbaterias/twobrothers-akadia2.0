@@ -46,3 +46,8 @@ table {
 body{
     max-height: 100vh;
 }
+
+option {
+    padding: 2px 0;
+    margin: 2px 0;
+}

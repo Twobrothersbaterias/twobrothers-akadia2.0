@@ -37,6 +37,7 @@ public class AbastecimentoValidation {
         if (abastecimento.getQuantidade() == null) atributosNulos.add("Quantidade");
         if (abastecimento.getCustoTotal() == null) atributosNulos.add("Custo total");
         if (abastecimento.getFormaPagamento() == null) atributosNulos.add("Forma de pagamento");
+        if (abastecimento.getProduto() == null) atributosNulos.add("Produto");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do abastecimento falhou. A inserção de um ou mais atributos " +

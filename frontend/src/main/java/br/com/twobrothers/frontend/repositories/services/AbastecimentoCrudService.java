@@ -71,7 +71,7 @@ public class AbastecimentoCrudService {
         }
 
         log.info("[PROGRESS] Verificando se fornecedor com o id {} existe na base de dados...", idFornecedor);
-        if (!fornecedorRepository.existsById(idFornecedor)) {
+        if (idFornecedor != null && !fornecedorRepository.existsById(idFornecedor)) {
             throw new InvalidRequestException("Não existe nenhum fornecedor com o id " + idFornecedor);
         }
 
@@ -102,12 +102,14 @@ public class AbastecimentoCrudService {
         log.info("[PROGRESS] Persistindo produto no banco de dados com o novo abastecimento na lista...");
         produtoEstoqueRepository.save(produtoEstoque);
 
-        log.info("[PROGRESS] Adicionando abastecimento ao fornecedor e fornecedor ao abastecimento...");
-        FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
-        fornecedor.addAbastecimento(abastecimentoEntity);
+        if (idFornecedor != null) {
+            log.info("[PROGRESS] Adicionando abastecimento ao fornecedor e fornecedor ao abastecimento...");
+            FornecedorEntity fornecedor = fornecedorRepository.findById(idFornecedor).get();
+            fornecedor.addAbastecimento(abastecimentoEntity);
 
-        log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo abastecimento na lista...");
-        fornecedorRepository.save(fornecedor);
+            log.info("[PROGRESS] Persistindo fornecedor no banco de dados com o novo abastecimento na lista...");
+            fornecedorRepository.save(fornecedor);
+        }
 
         log.info("[PROGRESS] Persistindo novo abastecimento na base de dados com relacionamento bidirecional finalizado...");
         log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);

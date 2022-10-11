@@ -505,18 +505,12 @@ function fechaNovoItem() {
 }
 
 function reloadNovoItem() {
-	document.getElementById('descricao_fornecedor_input').value="";
-	document.getElementById('email_fornecedor_input').value="";
-	document.getElementById('telefone_fornecedor_input').value="";
-	document.getElementById('data_nascimento_input').value="";
-	document.getElementById('cpfCnpj_input').value="";
-	document.getElementById('cep_input').value="";
-	document.getElementById('estado_input').value="SP";
-	document.getElementById('cidade_input').value="";
-	document.getElementById('logradouro_input').value="";
-	document.getElementById('numero_input').value="";
-	document.getElementById('bairro_input').value="";
-	document.getElementById('complemento_input').value="";
+	document.getElementById('produto_abastecimento_input').value="";
+	document.getElementById('fornecedor_abastecimento_input').value="";
+	document.getElementById('quantidade_input').value="";
+	document.getElementById('pagamento_input').value="DINHEIRO";
+	document.getElementById('valor_input').value="";
+	document.getElementById('observacao_input').value="";
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
@@ -1329,12 +1323,35 @@ function hideMessage(){
 }
 
 function ajustaTabela(){
+
+	var optionFornecedor = document.getElementsByClassName('option_fornecedor');
+
+	for (var i = 0; i < optionFornecedor.length; i++) {
+		var fornecedorContent = optionFornecedor[i].innerText;
+		if (fornecedorContent.includes('null')) {
+			optionFornecedor[i].innerText=fornecedorContent.replace('null,', '').replace('null', 'Sem endereço cadastrado');
+		}
+	}
+
+	if (document.getElementById('produto_abastecimento_input').length < 1) {
+		document.getElementById('produto_abastecimento_input').disabled=true;
+	}
+	else {
+		document.getElementById('produto_abastecimento_input').disabled=false;	
+	}
+
+	if (document.getElementById('fornecedor_abastecimento_input').length < 2) {
+		document.getElementById('fornecedor_abastecimento_input').disabled=true;
+	}
+	else {
+		document.getElementById('fornecedor_abastecimento_input').disabled=false;	
+	}
+
 	var line = document.getElementsByClassName('tr');	
 	var columnData = document.getElementsByClassName('td_cadastro');
 	var columnValor = document.getElementsByClassName('td_custo');	
 
 	for(var i = 0; i < line.length; i++) {
-
 
 		var columnDataSplitted = columnData[i].innerText.split("-");
 		if (columnDataSplitted.length == 3) {

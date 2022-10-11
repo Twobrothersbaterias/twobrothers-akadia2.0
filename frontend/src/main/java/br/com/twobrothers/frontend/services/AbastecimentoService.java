@@ -36,8 +36,16 @@ public class AbastecimentoService {
     ModelMapperConfig modelMapper;
 
     public String encaminhaParaCriacaoDoCrudService(AbastecimentoDTO abastecimento) {
+
+        Long idFornecedor = null;
+
+        if (abastecimento.getFornecedor() != null) {
+            idFornecedor = abastecimento.getFornecedor().getId();
+            abastecimento.setFornecedor(null);
+        }
+
         try {
-            crudService.criaNovo(abastecimento, abastecimento.getProduto().getId(), abastecimento.getFornecedor().getId());
+            crudService.criaNovo(abastecimento, abastecimento.getProduto().getId(), idFornecedor);
             return null;
         } catch (Exception e) {
             return e.getMessage();
@@ -60,10 +68,11 @@ public class AbastecimentoService {
                                                           Integer ano,
                                                           String fornecedor,
                                                           String produto) throws InvalidRequestException {
-        if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
+        if (dataInicio != null && dataFim != null)
+            return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, mes, ano);
-        else if(fornecedor != null) return crudService.buscaPorFornecedorPaginado(pageable, fornecedor);
-        else if(produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
+        else if (fornecedor != null) return crudService.buscaPorFornecedorPaginado(pageable, fornecedor);
+        else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
         else return crudService.buscaHojePaginado(pageable);
     }
 
@@ -74,10 +83,11 @@ public class AbastecimentoService {
             Integer ano,
             String fornecedor,
             String produto) throws InvalidRequestException {
-        if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+        if (dataInicio != null && dataFim != null)
+            return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
-        else if(fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
-        else if(produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
+        else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
+        else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
         else return crudService.buscaHojeSemPaginacao();
     }
 
@@ -101,7 +111,7 @@ public class AbastecimentoService {
 
     public Double calculaFormaPagamento(List<AbastecimentoEntity> abastecimentos, FormaPagamentoEnum formaPagamento) {
         Double valor = 0.0;
-        for(AbastecimentoEntity abastecimento: abastecimentos) {
+        for (AbastecimentoEntity abastecimento : abastecimentos) {
             if (abastecimento.getFormaPagamento().equals(formaPagamento)) valor += abastecimento.getCustoTotal();
         }
         return valor;

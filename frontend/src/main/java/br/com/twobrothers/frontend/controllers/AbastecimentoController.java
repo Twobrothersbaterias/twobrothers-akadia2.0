@@ -52,7 +52,7 @@ public class AbastecimentoController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
                                        @RequestParam("inicio") Optional<String> inicio,
                                        @RequestParam("fim") Optional<String> fim,
                                        @RequestParam("mes") Optional<Integer> mes,
