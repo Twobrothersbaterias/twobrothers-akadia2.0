@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
+import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -260,17 +262,14 @@ public class FornecedorCrudService {
 
             log.warn("[INFO] Fornecedor encontrado.");
 
-            List<AbastecimentoEntity> abastecimentos = fornecedorOptional.get().getAbastecimentos();
+            FornecedorEntity fornecedorEntity = fornecedorOptional.get();
+            fornecedorEntity.setAbastecimentos(new ArrayList<>());
+            repository.save(fornecedorEntity);
 
-            for (AbastecimentoEntity abastecimento: abastecimentos) {
-                fornecedorOptional.get().getAbastecimentos().remove(abastecimento);
-                abastecimento.setFornecedor(null);
-                abastecimentoRepository.save(abastecimento);
-                System.err.println(abastecimento);
-                System.err.println(fornecedorOptional.get());
+            for(AbastecimentoEntity abastecimentoEntity: abastecimentoRepository.buscaPorIdFornecedor(id)) {
+                abastecimentoEntity.setFornecedor(null);
+                abastecimentoRepository.save(abastecimentoEntity);
             }
-
-            repository.save(fornecedorOptional.get());
 
             log.info("[PROGRESS] Removendo o fornecedor da base de dados...");
             repository.deleteById(id);

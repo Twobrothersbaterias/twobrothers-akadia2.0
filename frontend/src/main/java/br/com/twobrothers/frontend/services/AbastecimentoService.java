@@ -38,6 +38,12 @@ public class AbastecimentoService {
     public String encaminhaParaCriacaoDoCrudService(AbastecimentoDTO abastecimento) {
 
         Long idFornecedor = null;
+        Long idProduto = null;
+
+        if (abastecimento.getProduto() != null) {
+            idProduto = abastecimento.getProduto().getId();
+            abastecimento.setProduto(null);
+        }
 
         if (abastecimento.getFornecedor() != null) {
             idFornecedor = abastecimento.getFornecedor().getId();
@@ -45,7 +51,7 @@ public class AbastecimentoService {
         }
 
         try {
-            crudService.criaNovo(abastecimento, abastecimento.getProduto().getId(), idFornecedor);
+            crudService.criaNovo(abastecimento, idProduto, idFornecedor);
             return null;
         } catch (Exception e) {
             return e.getMessage();

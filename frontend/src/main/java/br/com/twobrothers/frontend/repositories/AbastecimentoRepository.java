@@ -20,6 +20,9 @@ import java.util.List;
 @Repository
 public interface AbastecimentoRepository extends JpaRepository<AbastecimentoEntity, Long> {
 
+    @Query("Select a From AbastecimentoEntity a where a.fornecedor.id = ?1")
+    List<AbastecimentoEntity> buscaPorIdFornecedor(Long id);
+
     @Query("Select a From AbastecimentoEntity a where a.dataCadastro between ?1 and ?2")
     List<AbastecimentoEntity> buscaPorRangeDeDataPaginado(Pageable pageable, String dataInicio, String dataFim);
 

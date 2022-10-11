@@ -48,7 +48,7 @@ public class FornecedorEntity {
     @OneToMany(targetEntity = PrecoFornecedorEntity.class, mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<PrecoFornecedorEntity> precosFornecedor = new ArrayList<>();
 
-    @OneToMany(targetEntity = AbastecimentoEntity.class, mappedBy = "fornecedor", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(targetEntity = AbastecimentoEntity.class, mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<AbastecimentoEntity> abastecimentos = new ArrayList<>();
 
     public void addPrecoFornecedor(PrecoFornecedorEntity preco) {
