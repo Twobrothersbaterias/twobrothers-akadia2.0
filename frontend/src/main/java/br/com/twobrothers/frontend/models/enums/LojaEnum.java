@@ -16,7 +16,7 @@ import lombok.Getter;
 public enum LojaEnum {
 
     LOJA_1(0, "Loja 1"),
-    LOJA_2(1, "Loja 2");
+    LOJA_VALT(1, "Loja Valt");
 
     private final int code;
     private final String desc;

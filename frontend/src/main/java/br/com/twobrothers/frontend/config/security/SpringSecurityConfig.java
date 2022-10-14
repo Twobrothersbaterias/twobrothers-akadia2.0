@@ -63,4 +63,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // Construir
     }
 
+    public static void main(String[] args) {
+        System.err.println(new BCryptPasswordEncoder().encode("762"));
+    }
+
 }

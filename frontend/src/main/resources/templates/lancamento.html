@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Gabriel Lagrota">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+	<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
+	<link th:href="@{css/layout.css}" href="../static/css/layout.css" rel="stylesheet" />
+	<link th:href="@{css/menuSuperior.css}" href="../static/css/menuSuperior.css" rel="stylesheet" />
+	<link th:href="@{css/menuSuperiorMobile.css}" href="../static/css/menuSuperiorMobile.css" rel="stylesheet" />
+	<link th:href="@{css/menuLateral.css}" href="../static/css/menuLateral.css" rel="stylesheet" />
+	<link th:href="@{css/containerPrincipal.css}" href="../static/css/containerPrincipal.css" rel="stylesheet" />
+	<link th:href="@{css/tabela.css}" href="../static/css/tabela.css" rel="stylesheet" />
+	<link th:href="@{css/novoItem.css}" href="../static/css/novoItem.css" rel="stylesheet" />
+	<link th:href="@{css/filtroItem.css}" href="../static/css/filtroItem.css" rel="stylesheet" />
+	<link th:href="@{css/editaItem.css}" href="../static/css/editaItem.css" rel="stylesheet" />
+	<link th:href="@{css/lancamento.css}" href="../static/css/lancamento.css" rel="stylesheet" />
+	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
+
+	<title>VALT | Nova venda</title>
+
+</head>
+
+<body id="body">
+
+	<div class="row main-row" id="main_row">
+
+		<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
+		<div class="container side_menu" id="side_menu">	
+
+			<div class="row side_menu_row" id="side_menu_row">
+
+				<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
+
+					<a th:href="@{/}" class="row aside_clicavel">
+
+						<button type="button" class="img_button">
+							<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Página inicial"/>
+						</button>	
+
+					</a>
+				</div>
+
+				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
+					<a th:href="@{/clientes}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
+						</button>
+					</a>	
+				</div>
+
+				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
+					<a th:href="@{/vendas}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/bag-green.png" th:src="@{img/bag-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Vendas"/>
+						</button>
+					</a>
+				</div>
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/estoque}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
+						</button>
+					</a>
+				</div>
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/despesas}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
+						</button>
+					</a>
+				</div>
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/relatorios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
+						</button>
+					</a>
+				</div>					
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/patrimonios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
+						</button>
+					</a>
+				</div>			
+
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/colaboradores}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+						</button>
+					</a>
+				</div>						
+			</div>
+
+			<div class="row last">
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/faq}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+						</button>
+					</a>
+				</div>	
+			</div>					
+		</div>
+
+		<main class="container main" id="main">
+
+			<!-- Menu superior 1 -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
+
+				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" id="menu_superior_ul">
+
+					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+
+						<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+						<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+						<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+
+					</li>
+
+				</ul>
+			</div>
+
+			<!-- Menu superior mobile -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/bag-green.png" th:src="@{img/bag-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/box-greey.png" th:src="@{img/box-greey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>		
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>	
+
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>																													
+			</div>				
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
+
+				<!-------------- CONTEUDO_CONTAINER ------------>
+				<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
+
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+
+						<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+							<p th:text="${SucessoCadastro}"></p>
+						</div>
+
+						<div th:if="${SucessoEdicao}" class="alert alert-success" id="SucessoEdicao" onclick="hideMessage()">
+							<p th:text="${SucessoEdicao}"></p>
+						</div>
+
+						<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
+							<p th:text="${ErroCadastro}"></p>
+						</div>			
+
+						<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
+							<p th:text="${ErroBusca}"></p>
+						</div>						
+
+						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
+							<p th:text="${SucessoDelete}"></p>
+						</div>									
+
+						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
+							Novo lançamento
+						</h1>
+
+						<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
+
+						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/back-green.png" th:src="@{img/back-green.png}" onclick="abrirNovoItem()"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/search.png" th:src="@{img/search.png}" onclick="abrirNovoItem()"/>
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/estoque}">
+								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+							</a>
+
+						</div>	
+
+
+
+					</div>
+
+					<hr>
+
+					<form class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+
+							<h1 class="form_titulo form_titulo_cliente col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Informações do cliente
+							</h1>
+
+						</div>	
+
+						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
+							<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Nome
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									E-mail
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Telefone
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
+									Data de nascimento:
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="data_nascimento_input" type="date"/>
+							</div>							
+
+							<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="cpfCnpj_input">
+									Cpf/Cnpj:
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="cpfCnpj_input" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
+							</div>								
+						</div>		
+
+						<hr class="hr_novo">
+
+						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+
+							<h1 class="form_titulo form_titulo_cliente col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Endereço do cliente
+							</h1>
+
+						</div>
+
+						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
+							<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Cep
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-2 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
+									Estado:
+								</label>
+								<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
+									<option value="AC">Acre</option>
+									<option value="AL">Alagoas</option>
+									<option value="AP">Amapá</option>
+									<option value="AM">Amazonas</option>
+									<option value="BA">Bahia</option>
+									<option value="CE">Ceará</option>
+									<option value="DF">Distrito Federal</option>
+									<option value="ES">Espírito Santo</option>
+									<option value="GO">Goiás</option>
+									<option value="MA">Maranhão</option>
+									<option value="MT">Mato Grosso</option>
+									<option value="MS">Mato Grosso do Sul</option>
+									<option value="MG">Minas Gerais</option>
+									<option value="PA">Pará</option>											
+									<option value="PB">Paraiba</option>
+									<option value="PR">Paraná</option>		
+									<option value="PI">Piaui</option>					
+									<option value="RJ">Rio de Janeiro</option>	
+									<option value="RN">Rio Grande do Norte</option>	
+									<option value="RS">Rio Grande do Sul</option>	
+									<option value="RO">Rondônia</option>													
+									<option value="RR">Roraima</option>		
+									<option value="SC">Santa Catarina</option>		
+									<option value="SP" selected>São Paulo</option>		
+									<option value="SE">Sergipe</option>													
+									<option value="TO">Tocantins</option>													
+								</select>	
+							</div>
+
+							<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Cidade
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
+									Bairro
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>							
+
+							<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
+									Logradouro
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-1 col-lg-6 col-md-6 col-sm-6 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
+									Número
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>												
+
+							<div class="novo_item_block col-xl-5 col-lg-6 col-md-6 col-sm-6 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
+									Complemento
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+						</div>
+
+						<hr class="hr_novo">
+
+						<div class="progress_bar col-xl-12">
+
+							<div class="etapa etapa_um col-xl-4">
+
+							</div>
+
+							<div class="etapa etapa_dois col-xl-4">
+							</div>
+
+							<div class="etapa etapa_tres col-xl-4">
+							</div>													
+						</div>
+
+						<div class="container_button col-xl-12">
+							<button class="button button_proximo col-xl-6">
+								Avançar
+							</button>				
+						</div>
+
+					</form>		
+
+				</div>
+
+			</div>	
+
+		</main>
+
+	</div>	
+
+		<div class="main_loader" id="main_loader">
+			<div class="loader"></div>
+		</div>
+
+		<script type="text/javascript" th:src="@{js/lancamento.js}" src="../static/js/estoque.js" defer></script>
+	</body>
+	</html>		
