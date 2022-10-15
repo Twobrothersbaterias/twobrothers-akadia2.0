@@ -1,0 +1,132 @@
+.novo_block {
+	float: left;
+	padding: 0 10px;
+}
+
+.novo_left_block {
+	border-right: 1px solid #4444;
+}
+
+.novo_tabela_all {
+	padding: 0 15px;
+}
+
+.novo_item_submit {
+	margin: 0 10px;
+}
+
+.novo_thead, .novo_tbody, .novo_th, .novo_td, .novo_tr {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.novo_td {
+	color: #212121;
+}
+
+.total_entradas_container {
+	display: flex;
+	justify-content: center;
+	margin-top: 0px;
+}
+
+.total_entradas_block {
+	background: #303030;
+	color: #C3C8C8;
+	border: 1px solid transparent;
+	text-align: center;
+	padding: 7px 12px;
+	font-size: 1rem;
+	display: flex;
+	justify-content: center;
+}
+
+.total_entradas_chave {
+	text-align: left;
+	font-weight: 600;
+}
+
+.total_entradas_valor {
+	text-align: right;	
+}
+
+.total_pagamentos_container {
+	margin-top: 20px;
+}
+
+.total_pagamentos_block {
+	color: #303030;
+	text-align: left;
+	padding: 15px 15px;
+	padding-top: 0;
+	font-size: 0.95rem;
+	float: left;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+.total_pagamentos_block_text {
+	padding: 15px;	
+	border: 1px solid transparent;
+	background: #303030;
+	color: #C3C8C8;	
+	display: flex;
+	justify-content: left;
+	box-shadow: 0px 0px 2px #121212;		
+}
+
+.total_pagamentos_chave {
+	text-align: left;
+	font-weight: 600;
+}
+
+.total_pagamentos_valor {
+	text-align: right;
+}
+
+.venda_botoes_container {
+	padding: 15px;
+}
+
+.venda_botao_block {
+	float: left;	
+}
+
+.venda_botao {
+	padding: 10px;
+	border: 1px solid transparent;
+	background: #2f3d61;
+	font-weight: 600;
+	color: #C3C8C8;
+	box-shadow: 0px 0px 5px #121212;	
+}
+
+.venda_botao_finalizar_block {
+	margin-top: 15px;
+}
+
+.venda_botao_cancelar_block{
+	padding-right: 10px;
+}
+
+.venda_botao_resetar_block {
+	padding-left: 10px;
+}
+
+.venda_botao_cancelar {
+	background: #ba4c49;
+}
+
+.venda_botao_resetar {
+	float: right;
+	background: #ba4c49;
+}
+
+.novo_item_submit {
+	background: #303030;
+	color: #C3C8C8;
+	border: 1px solid transparent;
+	box-shadow: 0px 0px 3px #121212;		
+}
