@@ -851,7 +851,7 @@
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
 					<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
-						Cadastro do cliente
+						Primeira etapa
 					</h1>
 
 					<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
@@ -872,12 +872,12 @@
 				<form th:action="@{clientes}" method="POST" th:object="${cliente}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 					<!-- ETAPA DE PREENCHIMENTO DE DADOS DO CLIENTE -->
-					<div class="etapa etapa_cliente" id="etapa_cliente" hidden>
+					<div class="etapa etapa_cliente" id="etapa_cliente" >
 
 						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 							<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
 								<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									Dados pessoais
+									Dados pessoais do cliente
 								</label>
 							</div>							
 						</div>
@@ -934,7 +934,7 @@
 							<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 								<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
 									<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-										Endereço
+										Endereço do cliente
 									</label>
 								</div>							
 							</div>					
@@ -1031,15 +1031,23 @@
 
 						<hr class="hr_novo">
 
-						<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">							
 
-							<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+								<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-							<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
-								Próximo
-							</button>	
+								<div class="button_container button_container_inferior button_container_anterior">
+									<button type="submit" class="novo_bt novo_bt_anterior col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="anterior_etapa_cliente">
+										Anterior
+									</button>								
+								</div>
 
-						</div>	
+								<div class="button_container button_container_inferior button_container_proximo">
+									<button type="submit" class="novo_bt novo_bt_proximo col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="proximo_etapa_cliente">
+										Próximo
+									</button>
+								</div>
+
+							</div>	
 
 					</div>
 
@@ -1164,27 +1172,38 @@
 
 						<hr class="hr_novo">
 
-						<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-							<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">							
 
-							<button type="submit" class="novo_item_submit col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
-								Anterior
-							</button>
+								<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-							<button type="submit" class="novo_item_submit col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
-								Adicionar
-							</button>	
+								<div class="button_container button_container_superior button_container_add">
+									<button type="submit" class="novo_bt novo_bt_adicionar col-xl-12 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+										Adicionar item
+									</button>
+								</div>
 
-							<button type="submit" class="novo_item_submit col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
-								Próximo
-							</button>														
+								<div class="button_container button_container_inferior button_container_anterior">
+									<button type="submit" class="novo_bt novo_bt_anterior col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+										Anterior
+									</button>								
+								</div>
 
-						</div>					
+								<div class="button_container button_container_inferior button_container_proximo">
+									<button type="submit" class="novo_bt novo_bt_proximo col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+										Próximo
+									</button>
+								</div>
+
+							</div>
+
+						</div>
+
 					</div>
 
 					<!-- ETAPA DE PREENCHIMENTO DE DETALHES DA ORDEM -->
-					<div class="etapa etapa_detalhes" >
+					<div class="etapa etapa_detalhes" id="etapa_detalhes" hidden>
 
 						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
@@ -1276,17 +1295,89 @@
 								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 									Agendamento
 								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
+
+							<div class="novo_item_block col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Observação
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>																							
+
+						</div>
+
+						<hr class="hr_novo">						
+
+						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
+								<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									Pagamento
+								</label>
+							</div>
+						</div>	
+
+						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+							<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Forma de pagamento
+								</label>
 								<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
-									<option value="PADRAO_PRODUTO">Fulano</option>
-									<option value="PADRAO_SERVICO">Ciclano</option>
-									<option value="PADRAO_SERVICO">Deltrano</option>
+									<option value="PADRAO_PRODUTO">Dinheiro</option>
+									<option value="PADRAO_SERVICO">Débito</option>
+									<option value="PADRAO_SERVICO">Crédito</option>
+									<option value="PADRAO_SERVICO">Cheque</option>
+									<option value="PADRAO_SERVICO">Pix</option>
+									<option value="PADRAO_SERVICO">Boleto</option>
 								</select>
-							</div>																
+							</div>
 
+							<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Valor
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>																							
 
+							<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									Dt. agendamento
+								</label>
+								<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+							</div>
 
+							<div class="novo_item_block col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
+								<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+									.
+								</label>
+								<img src="../static/img/add-gray.png" class="col-xl-11"/>
+							</div>		
+									
+						</div>		
 
-						</div>					
+						<hr class="hr_novo">						
+
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">							
+								<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+
+								<div class="button_container button_container_inferior button_container_anterior">
+									<button type="submit" class="novo_bt novo_bt_anterior col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+										Anterior
+									</button>								
+								</div>
+
+								<div class="button_container button_container_inferior button_container_proximo">
+									<button type="submit" class="novo_bt novo_bt_proximo col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+										Próximo
+									</button>
+								</div>
+
+							</div>
+
+						</div>	
 
 
 					</div>	
@@ -1313,9 +1404,9 @@
 
 								<tr class="tr novo_tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-									<th class="th novo_th col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>		
+									<th class="th novo_th col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Qtd.</th>
 
-									<th class="th novo_th col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Qtd</th>	
+									<th class="th novo_th col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>			
 
 									<th class="th novo_th col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
 
@@ -1331,9 +1422,9 @@
 
 								<tr class="tr novo_tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-									<td class="td novo_td col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
 									<td class="td novo_td col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+									<td class="td novo_td col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 
 									<td class="td novo_td col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 
