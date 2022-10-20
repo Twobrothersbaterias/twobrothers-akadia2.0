@@ -160,3 +160,17 @@
 .button_container_proximo {
 	padding-left: 10px;
 }
+
+#anterior_primeira_etapa {
+	background: grey;
+	pointer-events: none;
+}
+
+#proximo_terceira_etapa {
+	background: grey;
+	pointer-events: none;
+}
+
+.novo_bt:hover {
+	animation: subpulse 2s infinite;
+}

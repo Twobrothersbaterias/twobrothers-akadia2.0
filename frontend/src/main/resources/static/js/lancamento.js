@@ -79,15 +79,6 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.15rem";	
-
-		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";
-
-		filtroTitulo.style.fontSize="1.5rem";
-
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="flex";
 		}
@@ -130,12 +121,7 @@ function responsive(){
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
 		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}
-	
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");

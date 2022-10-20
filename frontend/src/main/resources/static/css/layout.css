@@ -91,6 +91,20 @@ body{
 
 }
 
+@keyframes subpulse{
+
+    0%{
+        transform: scale(0.95);
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(0.95);
+    }
+
+}
+
 /* CONFIGS */
 
 input::-webkit-outer-spin-button,
