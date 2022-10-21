@@ -31,7 +31,7 @@ public class OrdemValidation {
         log.info("[VALIDAÇÃO - ORDEM] Inicializando validação de atributos obrigatórios nulos...");
         List<String> atributosNulos = new ArrayList<>();
 
-        if (ordem.getEmiteNfe() == null) atributosNulos.add("emiteNfe");
+        if (ordem.getTipoNfe() == null) atributosNulos.add("emiteNfe");
         if (ordem.getLoja() == null) atributosNulos.add("loja");
         if (ordem.getRetirada() == null) atributosNulos.add("retirada");
         if (ordem.getPagamentos() == null || ordem.getPagamentos().isEmpty()) atributosNulos.add("pagamentos");

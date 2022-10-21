@@ -1,6 +1,7 @@
 package br.com.twobrothers.frontend.models.entities;
 
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
+import br.com.twobrothers.frontend.models.enums.NfeEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,7 +34,7 @@ public class OrdemEntity {
 
     private LocalDateTime dataCadastro;
     private String veiculo;
-    private Boolean emiteNfe;
+    private NfeEnum tipoNfe;
     private Long idUsuarioResponsavel;
 
     @Enumerated(EnumType.STRING)

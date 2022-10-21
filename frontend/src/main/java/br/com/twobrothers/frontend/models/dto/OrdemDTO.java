@@ -1,6 +1,7 @@
 package br.com.twobrothers.frontend.models.dto;
 
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
+import br.com.twobrothers.frontend.models.enums.NfeEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -33,7 +34,7 @@ public class OrdemDTO {
     private String veiculo;
 
     @JsonProperty(required = true)
-    private Boolean emiteNfe;
+    private NfeEnum tipoNfe;
 
     @JsonProperty(required = true)
     private Long idUsuarioResponsavel;

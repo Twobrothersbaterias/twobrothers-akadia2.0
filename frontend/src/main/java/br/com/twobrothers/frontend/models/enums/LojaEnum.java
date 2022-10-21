@@ -15,8 +15,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LojaEnum {
 
-    LOJA_1(0, "Loja 1"),
-    LOJA_VALT(1, "Loja Valt");
+    PONTO_1(0, "Loja 1"),
+    PONTO_VALT(1, "Loja Valt"),
+    PONTO_MOBILE(2, "Lançamento mobile");
 
     private final int code;
     private final String desc;
