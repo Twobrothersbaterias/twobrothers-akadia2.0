@@ -231,32 +231,16 @@
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
 				<!-------------- CONTEUDO_CONTAINER ------------>
-				<form th:action="@{ordem}" method="POST" th:object="${ordem}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
+				<form th:action="@{lancamento}" th:object="${ordem}" method="POST" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
 
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
-						<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+						<div class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
 							<p th:text="${SucessoCadastro}"></p>
 						</div>
 
-						<div th:if="${SucessoEdicao}" class="alert alert-success" id="SucessoEdicao" onclick="hideMessage()">
-							<p th:text="${SucessoEdicao}"></p>
-						</div>
-
-						<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
-							<p th:text="${ErroCadastro}"></p>
-						</div>			
-
-						<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
-							<p th:text="${ErroBusca}"></p>
-						</div>						
-
-						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
-							<p th:text="${SucessoDelete}"></p>
-						</div>
-
 						<div class="col-xl-3 select_superior_container">
-							<select class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
+							<select class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoNfe">
 								<option class="option" value="SEM_NOTA">Sem nota fiscal</option>
 								<option class="option" value="NFE">Com NFe</option>
 								<option class="option" value="DANFE">Com DANFE</option>
@@ -264,7 +248,7 @@
 						</div>								
 
 						<div class="col-xl-3 select_superior_container">
-							<select class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
+							<select class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" name="loja">
 								<option class="option" value="PONTO_1">PDV - Loja 1</option>
 								<option class="option" value="PONTO_VALT">PDV - Loja VALT</option>
 								<option class="option" value="PONTO_MOBILE">Lançamento mobile</option>
@@ -272,7 +256,7 @@
 						</div>
 
 						<div class="col-xl-3 select_superior_container">
-							<select class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
+							<select class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" name="retirada.statusRetirada">
 								<option class="option" value="LOJA_FISICA">Ordem presencial</option>
 								<option class="option" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
 								<option class="option" value="ENTREGA_ENTREGUE">Pedido entregue</option>
@@ -319,7 +303,7 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Nome
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="cliente.nomeCompleto" required/>
 										</div>
 
 										<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
@@ -335,29 +319,30 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												E-mail
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="cliente.email" required/>
 										</div>
 
 										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Telefone
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="cliente.telefone"/>
 										</div>
 
 										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Data de nascimento:
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="data_nascimento_input" type="date"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.dataNascimento" type="date"/>
 										</div>							
 
 										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="cpfCnpj_input">
 												Cpf/Cnpj:
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="cpfCnpj_input" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
-										</div>								
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.cpfCnpj" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
+										</div>
+
 									</div>		
 
 									<hr class="hr_novo">
@@ -368,7 +353,7 @@
 
 						<div class="col-xl-6 container_pai">
 
-							<div class="col-xl-12 novo_container" id="terceiro_container">
+							<form class="col-xl-12 novo_container" id="terceiro_container">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -385,7 +370,7 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Tipo
 											</label>
-											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
+											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_tipo_produto" onchange="trocaTipoDaEntrada()">
 												<option value="PADRAO_PRODUTO">Entrada padrão</option>
 												<option value="PADRAO_SERVICO">Entrada de serviço</option>
 												<option value="GARANTIA">Entrada de garantia</option>
@@ -397,37 +382,37 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Possui troca
 											</label>
-											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
-												<option value="PADRAO_PRODUTO">Sim</option>
-												<option value="GARANTIA">Não</option>
+											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_tipo_entrada">
+												<option value="TROCA">Sim</option>
+												<option value="COMUM">Não</option>
 											</select>
 												
 										</div>
 
-										<div class="novo_item_block col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
-												Sigla
+												Produto
 											</label>
-											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
-												<option value="PADRAO_PRODUTO">...</option>
-											</select>
-												
+											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="select_produto">
+
+												<option th:each="produto: ${produtos}" th:value="${produto.id}" th:text="${produto.sigla} + ' - ' + ${produto.especificacao} + ' | Qtde: ' + ${produto.quantidade}" class="option_produto" value="...">...</option>							
+
+												<option id="option_servico" value="Serviço" hidden>Serviço</option>											
+											</select>				
 										</div>							
 
 										<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Valor
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
-												
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" id="input_valor" value="0.00"/>
 										</div>
 
-										<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Qtde
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
-												
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade"/>
 										</div>									
 
 									</div>	
@@ -435,7 +420,7 @@
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
 
-											<button type="button" class="botao_adicionar col-xl-12">
+											<button type="button" onclick="addNovoProduto()" class="botao_adicionar col-xl-12">
 												Adicionar produto
 											</button>	
 
@@ -446,7 +431,9 @@
 									<hr class="hr_novo">
 
 								</div>
-							</div>
+
+							</form>
+
 						</div>	
 
 						<div class="col-xl-12 container_pai">
@@ -468,14 +455,14 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Cep
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" type="number"/>
 										</div>
 
 										<div class="novo_item_block col-xl-4 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
 												Estado:
 											</label>
-											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
+											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.estado" id="estado_input">
 												<option value="AC">Acre</option>
 												<option value="AL">Alagoas</option>
 												<option value="AP">Amapá</option>
@@ -509,36 +496,37 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Cidade
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cidade"/>
 										</div>
 
 										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Bairro
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.bairro"/>
 										</div>							
 
 										<div class="novo_item_block col-xl-8 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Logradouro
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.logradouro"/>
 										</div>
 
 										<div class="novo_item_block col-xl-2 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Número
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.numero"/>
 										</div>												
 
 										<div class="novo_item_block col-xl-10 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Complemento
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.complemento"/>
 										</div>
+
 									</div>	
 
 									<hr class="hr_novo">	
@@ -564,13 +552,14 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Forma de pagamento
 											</label>
-											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
-												<option value="PADRAO_PRODUTO">Dinheiro</option>
-												<option value="PADRAO_SERVICO">Débito</option>
-												<option value="PADRAO_SERVICO">Crédito</option>
-												<option value="PADRAO_SERVICO">Cheque</option>
-												<option value="PADRAO_SERVICO">Pix</option>
-												<option value="PADRAO_SERVICO">Boleto</option>
+											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="select_forma_pagamento" onchange="trocaFormaDePagamento()">
+												<option id="option_dinheiro" value="DINHEIRO">Dinheiro</option>
+												<option value="DEBITO">Débito</option>
+												<option value="CREDITO">Crédito</option>
+												<option value="CHEQUE">Cheque</option>
+												<option value="PIX">Pix</option>
+												<option value="FATURADO">Faturado</option>
+												<option value="BOLETO">Boleto</option>
 											</select>
 										</div>
 
@@ -578,27 +567,27 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Valor
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" value="0.0" id="input_valor_pagamento"/>
 										</div>																							
 
 										<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_dt_agendamento" for="descricao_cliente_input">
 												Dt. agendamento
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="input_dt_agendamento" disabled/>
 										</div>
 
 										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Observação
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+											<input type="text" maxlength="40" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_observacao"/>
 										</div>	
 
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 											<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
 
-												<button type="button" class="botao_adicionar col-xl-12">
+												<button type="button" onclick="addNovoPagamento()" class="botao_adicionar col-xl-12">
 													Adicionar pagamento
 												</button>	
 
@@ -632,58 +621,45 @@
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">										
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
-											<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
-												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
-													Tipo
-												</label>
-												<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
-													<option value="PADRAO_PRODUTO">Presencial</option>
-													<option value="PADRAO_SERVICO">Em trânsito</option>
-													<option value="PADRAO_SERVICO">Entregue</option>
-												</select>
-											</div>
-
-											<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 													Tec. entrada
 												</label>
-												<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
+												<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="retirada.tecnicoEntrada">
 													<option value="PADRAO_PRODUTO">Fulano</option>
 													<option value="PADRAO_SERVICO">Ciclano</option>
 													<option value="PADRAO_SERVICO">Deltrano</option>
 												</select>
 											</div>
 
-											<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 													Tec. saída
 												</label>
-												<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required>
+												<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="retirada.tecnicoSaida">
 													<option value="PADRAO_PRODUTO">Fulano</option>
 													<option value="PADRAO_SERVICO">Ciclano</option>
 													<option value="PADRAO_SERVICO">Deltrano</option>
 												</select>
 											</div>		
 
-											<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 													Agendamento
 												</label>
-												<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+												<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" name="retirada.dataAgendamento"/>
 											</div>																		
 
-											<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 													Veículo
 												</label>
-												<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+												<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="veiculo"/>
 													
-											</div>
+											</div>										
 
 										</div>
 									</div>
-
-									<hr class="hr_novo" style="margin-top: 15px;">	
 
 								</div>	
 
@@ -697,7 +673,16 @@
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
+									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
+
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" hidden>
+
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_pagamentos" name="pagamentosString"/>
+
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_entradas" name="entradasString"/>		
+													
+										</div>	
+
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 											<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
 
@@ -721,183 +706,187 @@
 
 					<hr>
 
-				</form>
+					<div class="col-xl-12 novo_infos" id="novo_infos">
 
-				<div class="col-xl-12 novo_infos" id="novo_infos" hidden>
+							<div class="col-xl-6 sub_container_pai container_pai_tabela container_tabela_produtos">
 
-						<div class="col-xl-6 sub_container_pai container_pai_tabela container_tabela_produtos">
-
-							<div class="col-xl-12 titulo_tabela">
-								LISTAGEM DE PRODUTOS
-							</div>
-
-							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela">								
-
-									<table class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-										<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-												<th class="th_novo col-xl-2
-												col-lg-2 col-md-2 col-sm-2 col-2">Qtd.</th>
-
-												<th class="th_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>			
-
-												<th class="th_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
-
-												<th class="th_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Troca</th>	
-
-												<th class="th_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2"></th>										
-
-											</tr>
-
-										</thead>
-
-										<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-												<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2">
-													<img class="col-xl-5" src="../static/img/minus-green.png"/>
-												</td>									
-
-											</tr>
-
-										</tbody>							
-									</table>
-
-							</div>		
-						</div>
-
-						<div class="col-xl-6 sub_container_pai container_pai_tabela container_tabela_pagamentos">
-
-							<div class="col-xl-12 titulo_tabela">
-								LISTAGEM DE PAGAMENTOS
-							</div>
-
-							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela">								
-
-									<table class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-										<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-												<th class="th_novo col-xl-2
-												col-lg-2 col-md-2 col-sm-2 col-2">Qtd.</th>
-
-												<th class="th_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>			
-
-												<th class="th_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
-
-												<th class="th_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Troca</th>	
-
-												<th class="th_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2"></th>										
-
-											</tr>
-
-										</thead>
-
-										<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-												<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-												<td class="td_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2">
-													<img class="col-xl-5" src="../static/img/minus-green.png"/>
-												</td>									
-
-											</tr>
-
-										</tbody>							
-									</table>
-
-							</div>
-						</div>			
-
-						<div class="col-xl-12 sub_container_pai">
-
-							<div class="informativo_pai">
-
-								<div class="col-xl-3 container_informativo">
-
-									<div class="col-xl-11 novo_container sub_container_informativo">
-
-										<div class="col-xl-6 informativo_campo informativo_campo_chave">
-											Total:
-										</div>
-										<div class="col-xl-6 informativo_campo informativo_campo_valor">
-											R$ 0.00
-										</div>	
-
-									</div>
-
+								<div class="col-xl-12 titulo_tabela">
+									LISTAGEM DE PRODUTOS
 								</div>
 
-								<div class="col-xl-3 container_informativo">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela">								
 
-									<div class="col-xl-11 novo_container sub_container_informativo">
+										<table class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-										<div class="col-xl-6 informativo_campo informativo_campo_chave">
-											Pago:
-										</div>
-										<div class="col-xl-6 informativo_campo informativo_campo_valor">
-											R$ 0.00
-										</div>	
+											<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-									</div>
+												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+													<th class="th_novo col-xl-2
+													col-lg-2 col-md-2 col-sm-2 col-2">Qtd.</th>
+
+													<th class="th_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>			
+
+													<th class="th_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
+
+													<th class="th_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Troca</th>	
+
+													<th class="th_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2"></th>										
+
+												</tr>
+
+											</thead>
+
+											<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+													<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2">
+														<img class="col-xl-5" th:src="@{img/minus-green.png}" src="../static/img/minus-green.png"/>
+													</td>									
+
+												</tr>
+
+											</tbody>							
+										</table>
 
 								</div>		
+							</div>
 
-								<div class="col-xl-3 container_informativo">
+							<div class="col-xl-6 sub_container_pai container_pai_tabela container_tabela_pagamentos">
 
-									<div class="col-xl-11 novo_container sub_container_informativo">
-
-										<div class="col-xl-6 informativo_campo informativo_campo_chave">
-											Troco:
-										</div>
-										<div class="col-xl-6 informativo_campo informativo_campo_valor">
-											R$ 0.00
-										</div>	
-
-									</div>
-
+								<div class="col-xl-12 titulo_tabela">
+									LISTAGEM DE PAGAMENTOS
 								</div>
 
-								<div class="col-xl-3 container_informativo">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela">								
 
-									<div class="col-xl-11 novo_container sub_container_informativo">
+										<table class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-										<div class="col-xl-6 informativo_campo informativo_campo_chave">
-											Resta pagar:
+											<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+													<th class="th_novo col-xl-2
+													col-lg-2 col-md-2 col-sm-2 col-2">Qtd.</th>
+
+													<th class="th_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>			
+
+													<th class="th_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
+
+													<th class="th_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Troca</th>	
+
+													<th class="th_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2"></th>										
+
+												</tr>
+
+											</thead>
+
+											<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+													<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2">
+														<img class="col-xl-5" th:src="@{img/minus-green.png}" src="../static/img/minus-green.png"/>
+													</td>									
+
+												</tr>
+
+											</tbody>							
+										</table>
+
+								</div>
+							</div>
+
+							<div class="col-xl-12 sub_container_pai">
+
+								<hr>
+
+								<div class="informativo_pai">
+
+									<div class="col-xl-3 container_informativo">
+
+										<div class="col-xl-11 novo_container sub_container_informativo">
+
+											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+												Total:
+											</div>
+											<div class="col-xl-6 informativo_campo informativo_campo_valor">
+												R$ 0.00
+											</div>	
+
 										</div>
-										<div class="col-xl-6 informativo_campo informativo_campo_valor">
-											R$ 0.00
-										</div>	
 
 									</div>
 
-								</div>			
+									<div class="col-xl-3 container_informativo">
 
-							</div>																	
-						</div>
-				</div>	
+										<div class="col-xl-11 novo_container sub_container_informativo">
+
+											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+												Pago:
+											</div>
+											<div class="col-xl-6 informativo_campo informativo_campo_valor">
+												R$ 0.00
+											</div>	
+
+										</div>
+
+									</div>		
+
+									<div class="col-xl-3 container_informativo">
+
+										<div class="col-xl-11 novo_container sub_container_informativo">
+
+											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+												Troco:
+											</div>
+											<div class="col-xl-6 informativo_campo informativo_campo_valor">
+												R$ 0.00
+											</div>	
+
+										</div>
+
+									</div>
+
+									<div class="col-xl-3 container_informativo">
+
+										<div class="col-xl-11 novo_container sub_container_informativo">
+
+											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+												Resta pagar:
+											</div>
+											<div class="col-xl-6 informativo_campo informativo_campo_valor">
+												R$ 0.00
+											</div>	
+
+										</div>
+
+									</div>			
+
+								</div>																	
+							</div>
+					</div>					
+
+				</form>
+
+	
 
 			</div>	
 

@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.models.entities;
 
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import br.com.twobrothers.frontend.models.enums.NfeEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -50,8 +51,14 @@ public class OrdemEntity {
     @OneToMany(targetEntity = PagamentoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PagamentoEntity> pagamentos = new ArrayList<>();
 
+    @Transient
+    private String pagamentosString;
+
     @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();
+
+    @Transient
+    private String entradasString;
 
     public void addEntrada(EntradaOrdemEntity entrada) {
         entrada.setOrdem(this);

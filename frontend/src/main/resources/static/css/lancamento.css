@@ -42,18 +42,6 @@
 	color: #303030;
 }
 
-.progress_bar {
-	display: flex;
-	justify-content: left;
-	border: 1px solid #4ae857;
-}
-
-.etapa {
-	height: 15px;
-	margin: 0 1px;
-  animation-fill-mode:both;	
-}
-
 .hr_novo {
 	background: #c3c8c8;
 }
@@ -72,10 +60,13 @@
 	font-weight: 600;
 	color: #C3C8C8;
 	box-shadow: 2px 2px 3px #121212;
+	text-decoration: none;
+	text-align: center;
 }
 
 .botao_adicionar:hover {
-	animation: subpulse 2s infinite;
+	animation: none;
+	color: #C3C8C8;
 }
 
 .hr_novo {
@@ -114,10 +105,11 @@
 
 #botao_finalizar {
 	background: #ba4c49;
+	padding: 15px;
 }
 
-.container_pai_tabela {
-	margin-bottom: 25px;
+#botao_finalizar:hover {
+	animation: none;
 }
 
 .container_tabela {
@@ -184,16 +176,16 @@
 }
 
 .novo_infos {
-	padding: 35px 20px;
+	padding: 0px 20px;
 	float: left;
-	margin-bottom: 35px;
-	box-shadow: 0px 0px 25px #121212;
-	background-image: linear-gradient(to right, #C3C8C8, #d1cdcd);
+	margin-bottom: 30px;
 	font-size: 0.90rem;
 }
 
 .sub_container_pai {
 	float: left;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .titulo_tabela {
@@ -226,6 +218,15 @@
 .option {
 	color: #C3C8C8;
 	text-align: center;
+}
+
+#label_dt_agendamento {
+	color: #4444;
+}
+
+#input_dt_agendamento {
+	border: 1px solid #4444;
+	color: #4444;
 }
 
 @keyframes progressBar {

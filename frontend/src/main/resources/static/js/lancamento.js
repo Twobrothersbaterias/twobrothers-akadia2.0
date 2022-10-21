@@ -426,952 +426,268 @@ function responsive(){
 	pageResponsiva();
 }
 
-/* ================== CONFIGURAÇÕES DA SUB-TELA NOVO ITEM ====================== */
 
-function abrirNovoItem() {
+/* ================== TRATAMENTO DE ADIÇÃO DE PRODUTOS ====================== */
 
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
+function trocaTipoDaEntrada() {
 
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
+	var tipoDaEntrada = document.getElementById('input_tipo_produto');
 
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
+	var selectProduto = document.getElementById('select_produto');
 
-	var hoje = (ano + '-' + mes + '-' + dia); 
+	var optionServico = document.getElementById('option_servico');
+	var optionProdutos = document.getElementsByClassName('option_produto');
+	var inputQuantidade = document.getElementById('input_quantidade');	
 
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');
+	if(tipoDaEntrada.value == "PADRAO_SERVICO") {
 
-	var containerNovo = document.getElementById('conteudo_container_novo');
-
-	containerNovo.hidden=false;
-	document.getElementById('data_pagamento_input').value=hoje;
-
-	containerPrincipal.style.pointerEvents="none";
-	containerPrincipal.style.opacity="0.075";
-	containerPrincipal.style.transition="1s";
-
-	menuSuperior.style.pointerEvents="none";
-	menuSuperior.style.opacity="0.1";
-	menuSuperior.style.transition="1s";
-
-	menuSuperiorMobile.style.pointerEvents="none";
-	menuSuperiorMobile.style.opacity="0.1";
-	menuSuperiorMobile.style.transition="1s";	
-
-	sideMenu.style.pointerEvents="none";
-	sideMenu.style.opacity="0.1";
-	sideMenu.style.transition="1s";		
-}
-
-function proximaEtapa() {
-
-	var titulo = document.getElementById('novo_titulo');	
-
-	var etapaCliente = document.getElementById('etapa_cliente');
-	var etapaEntradas = document.getElementById('etapa_entradas');
-	var etapaDetalhes = document.getElementById('etapa_detalhes');
-
-	var anteriorSegundaEtapa = document.getElementById('anterior_segunda_etapa');
-	var anteriorTerceiraEtapa = document.getElementById('anterior_terceira_etapa');
-
-	var proximoPrimeiraEtapa = document.getElementById('proximo_primeira_etapa');
-	var proximoSegundaEtapa = document.getElementById('proximo_segunda_etapa');
-	var proximoTerceiraEtapa = document.getElementById('proximo_terceira_etapa');
-
-	if (etapaCliente.hidden != true) {
-
-		titulo.innerText="Segunda etapa - Adição de produtos";
-
-		etapaCliente.hidden=true;
-		etapaEntradas.hidden=false;
-		etapaDetalhes.hidden=true;
-
-	}
-	else if (etapaEntradas.hidden != true) {
-
-		titulo.innerText="Terceira etapa - Pagamento e retirada";
-
-		etapaCliente.hidden=true;
-		etapaEntradas.hidden=true;
-		etapaDetalhes.hidden=false;
-
-	}
-
-}
-
-function etapaAnterior() {
-
-	var titulo = document.getElementById('novo_titulo');
-
-	var etapaCliente = document.getElementById('etapa_cliente');
-	var etapaEntradas = document.getElementById('etapa_entradas');
-	var etapaDetalhes = document.getElementById('etapa_detalhes');
-
-	var anteriorSegundaEtapa = document.getElementById('anterior_segunda_etapa');
-	var anteriorTerceiraEtapa = document.getElementById('anterior_terceira_etapa');
-
-	var proximoPrimeiraEtapa = document.getElementById('proximo_primeira_etapa');
-	var proximoSegundaEtapa = document.getElementById('proximo_segunda_etapa');
-	var proximoTerceiraEtapa = document.getElementById('proximo_terceira_etapa');
-
-	if (etapaEntradas.hidden != true) {
-
-		titulo.innerText="Primeira etapa - Cadastro do cliente";
-
-		etapaCliente.hidden=false;
-		etapaEntradas.hidden=true;
-		etapaDetalhes.hidden=true;
-
-	}
-	else if (etapaDetalhes.hidden != true) {
-
-		titulo.innerText="Segunda etapa - Adição de produtos";
-
-		etapaCliente.hidden=true;
-		etapaEntradas.hidden=false;
-		etapaDetalhes.hidden=true;
-
-	}	
-
-}
-
-function fechaNovoItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');	
-
-	var containerNovo = document.getElementById('conteudo_container_novo');	
-
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');
-
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	statusPatrimonioInput.value="PAGO";
-	tipoPatrimonioInput.value="ATIVO";
-
-	dataEntradaInput.style.color="#121212";
-	dataEntradaInput.disabled=false;
-	dataEntradaInput.value=hoje;	
-	
-	containerNovo.hidden=true;
-
-	containerPrincipal.style.opacity="1";
-	containerPrincipal.style.transition="1s";
-	containerPrincipal.style.pointerEvents="auto";
-
-	menuSuperior.style.opacity="1";
-	menuSuperior.style.transition="1s";
-	menuSuperior.style.pointerEvents="auto";
-
-	menuSuperiorMobile.style.opacity="1";
-	menuSuperiorMobile.style.transition="1s";
-	menuSuperiorMobile.style.pointerEvents="auto";	
-
-	sideMenu.style.opacity="1";
-	sideMenu.style.transition="1s";
-	sideMenu.style.pointerEvents="auto";		
-}
-
-function changeTipo() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');	
-
-	if (tipoPatrimonio.value == "ATIVO") {
-		statusPatrimonio.value="PAGO";
-		dataEntradaInput.style.color="#121212";
-		dataEntradaInput.disabled=false;
-		dataEntradaInput.value=hoje;
-	}
-	else {
-		statusPatrimonio.value="PENDENTE";
-		dataEntradaInput.style.color="#4444";
-		dataEntradaInput.value="";
-		dataEntradaInput.disabled=true;
-	}
-}
-
-function changeStatus() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');	
-
-	if (statusPatrimonio.value == "PAGO") {
-		dataEntradaInput.style.color="#121212";
-		dataEntradaInput.disabled=false;
-		dataEntradaInput.value=hoje;
-	}
-	else {
-		dataEntradaInput.style.color="#4444";
-		dataEntradaInput.value="";
-		dataEntradaInput.disabled=true;
-	}
-}
-
-function reloadNovoItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 	
-
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	tipoPatrimonioInput.value="ATIVO";
-	statusPatrimonioInput.value="PAGO";
-	dataEntradaInput.value=hoje;
-}
-
-/* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
-
-function abrirFiltro() {
-
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');
-
-	var containerFiltro = document.getElementById('conteudo_container_filtro');
-
-	containerFiltro.hidden=false;
-
-	containerPrincipal.style.pointerEvents="none";
-	containerPrincipal.style.opacity="0.075";
-	containerPrincipal.style.transition="1s";
-
-	menuSuperior.style.pointerEvents="none";
-	menuSuperior.style.opacity="0.1";
-	menuSuperior.style.transition="1s";
-
-	menuSuperiorMobile.style.pointerEvents="none";
-	menuSuperiorMobile.style.opacity="0.1";
-	menuSuperiorMobile.style.transition="1s";	
-
-	sideMenu.style.pointerEvents="none";
-	sideMenu.style.opacity="0.1";
-	sideMenu.style.transition="1s";		
-}
-
-function fecharFiltro() {
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');	
-
-	var containerFiltro = document.getElementById('conteudo_container_filtro');	
-
-	reloadFiltro();
-	
-	containerFiltro.hidden=true;
-
-	containerPrincipal.style.opacity="1";
-	containerPrincipal.style.transition="1s";
-	containerPrincipal.style.pointerEvents="auto";
-
-	menuSuperior.style.opacity="1";
-	menuSuperior.style.transition="1s";
-	menuSuperior.style.pointerEvents="auto";
-
-	menuSuperiorMobile.style.opacity="1";
-	menuSuperiorMobile.style.transition="1s";
-	menuSuperiorMobile.style.pointerEvents="auto";	
-
-	sideMenu.style.opacity="1";
-	sideMenu.style.transition="1s";
-	sideMenu.style.pointerEvents="auto";		
-}
-
-function filtroChange() {
-
-	var filtroTipo = document.getElementById('filtro_input');
-
-	var descricaoBlock = document.getElementById('filtro_descricao_block');
-	var descricaoInput = document.getElementById('descricao_filtro_input');
-
-	var mesBlock = document.getElementById('filtro_mes_block');
-	var mesInput = document.getElementById('mes_filtro_input');
-
-	var anoBlock = document.getElementById('filtro_ano_block');
-	var anoInput = document.getElementById('ano_filtro_input');
-
-	var tipo = document.getElementById('filtro_tipo_block');
-	var tipoInput = document.getElementById('tipo_filtro_input');	
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if (dia < 10) {
-		dia = '0'+dia;
-	}
-
-	if(mes < 10){
-		mes = '0'+mes;
-	}
-
-	var data = (ano + '-' + mes + '-' + dia);
-
-	if (filtroTipo.value == 'DESCRICAO') {
-
-		descricaoBlock.hidden=false;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		tipoInput.value="FIXO";
-		tipo.hidden=true;
-
-	}
-	else if (filtroTipo.value == 'PERIODO') {
-
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=false;
-
-		anoInput.value=ano;
-		anoBlock.hidden=false;
-
-		tipoInput.value="FIXO";
-		tipo.hidden=true;
-		
-	}
-	else if (filtroTipo.value == 'TIPO') {
-
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		tipoInput.value="FIXO";
-		tipo.hidden=false;
-		
-	}
-}
-
-function reloadFiltro() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if (dia < 10) {
-		dia = '0'+dia;
-	}
-
-	if(mes < 10){
-		mes = '0'+mes;
-	}
-
-	var data = (ano + '-' + mes + '-' + dia);
-
-	document.getElementById('filtro_input').disabled=false;
-	document.getElementById('filtro_input').style.border="1px solid #949393";
-	document.getElementById('filtro_input').style.pointerEvents="auto";
-	document.getElementById('filtro_input').value="DESCRICAO";
-	document.getElementById('filtro_bt').hidden=false;
-	document.getElementById('filtro_bt').disabled=false;
-	document.getElementById('filtro_bt').style.pointerEvents="auto";
-	document.getElementById('filtro_buscar_bt').hidden=true;
-
-	document.getElementById('tipo_filtro_option_descricao').hidden=false;
-	document.getElementById('filtro_descricao_block').hidden=false;	
-	document.getElementById('filtro_descricao_tag').hidden=true;
-
-	document.getElementById('tipo_filtro_option_periodo').hidden=false;
-	document.getElementById('filtro_mes_block').hidden=true;	
-	document.getElementById('filtro_ano_block').hidden=true;	
-	document.getElementById('filtro_periodo_tag').hidden=true;		
-
-	document.getElementById('tipo_filtro_option_tipo').hidden=false;
-	document.getElementById('filtro_tipo_block').hidden=true;	
-	document.getElementById('filtro_tipo_tag').hidden=true;	
-
-	document.getElementById('descricao_filtro_input').value="";
-	document.getElementById('mes_filtro_input').value=mes;
-	document.getElementById('ano_filtro_input').value=ano;
-	document.getElementById('tipo_filtro_input').value="FIXO";
-
-	document.getElementById('input_descricao_backend').value="";
-	document.getElementById('input_periodo_mes_backend').value="";
-	document.getElementById('input_periodo_ano_backend').value="";
-	document.getElementById('input_tipo_backend').value="";	
-}
-
-function addFiltro() {
-
-	var filtroTipo = document.getElementById('filtro_input');
-	var filtroBt = document.getElementById('filtro_bt');
-	var buscarBt = document.getElementById('filtro_buscar_bt');
-
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
-
-	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
-	var periodoMesBlock = document.getElementById('filtro_mes_block');	
-	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
-	var periodoTag = document.getElementById('filtro_periodo_tag');		
-
-	var optionTipo = document.getElementById('tipo_filtro_option_tipo');
-	var tipoBlock = document.getElementById('filtro_tipo_block');	
-	var tipoTag = document.getElementById('filtro_tipo_tag');	
-
-	var inputDescricaoFiltro = document.getElementById('descricao_filtro_input');
-	var inputMesFiltro = document.getElementById('mes_filtro_input');
-	var inputAnoFiltro = document.getElementById('ano_filtro_input');
-	var inputTipoFiltro = document.getElementById('tipo_filtro_input');
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
-	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
-	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTipoBackend = document.getElementById('input_tipo_backend');
-
-	if (filtroTipo.value == 'DESCRICAO') {
-		if (inputDescricaoFiltro.value != "") {
-			optionDescricao.hidden=true;
-			descricaoBlock.hidden=true;
-			descricaoTag.hidden=false;
-			descricaoTag.innerText = "Descrição: " + inputDescricaoFiltro.value;
-			filtroTipo.value="";
-			inputDescricaoBackend.value=inputDescricaoFiltro.value;
-
-			filtroBt.hidden=true;
-			buscarBt.hidden=false;
-			filtroTipo.style.border="1px solid grey";
-			filtroTipo.disabled=true;
-			filtroBt.disabled=true;
-			filtroBt.style.pointerEvents="none";				
+		optionServico.hidden=false;
+		for(var i = 0; i < optionProdutos.length; i++) {
+			optionProdutos[i].hidden=true;
 		}
-	}
-	else if (filtroTipo.value == 'PERIODO') {
-		optionPeriodo.hidden=true;
 
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
+		optionServico.selected=true;
 
-		periodoTag.hidden=false;
-		periodoTag.innerText = 'Mês ' + inputMesFiltro.value + ' de ' + inputAnoFiltro.value;
-
-		filtroTipo.value="";
-		inputMesBackend.value=inputMesFiltro.value;
-		inputAnoBackend.value=inputAnoFiltro.value;
-
-		filtroBt.hidden=true;
-		buscarBt.hidden=false;
-		filtroTipo.style.border="1px solid grey";
-		filtroTipo.disabled=true;
-		filtroBt.disabled=true;
-		filtroBt.style.pointerEvents="none";		
-	}
-	else if (filtroTipo.value == 'TIPO') {
-		optionTipo.hidden=true;
-		tipoBlock.hidden=true;
-
-		tipoTag.hidden=false;
-		tipoTag.innerText = 'Tipo: ' + inputTipoFiltro.value;
-
-		filtroTipo.value="";
-		inputTipoBackend.value=inputTipoFiltro.value;
-
-		filtroBt.hidden=true;
-		buscarBt.hidden=false;
-		filtroTipo.style.border="1px solid grey";
-		filtroTipo.disabled=true;
-		filtroBt.disabled=true;
-		filtroBt.style.pointerEvents="none";		
-	}					
-}
-
-function removerFiltro(filtro) {
-
-	var filtroTipo = document.getElementById('filtro_input');
-	var filtroBt = document.getElementById('filtro_bt');
-	var buscarBt = document.getElementById('filtro_buscar_bt');
-
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
-
-	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
-	var periodoMesBlock = document.getElementById('filtro_mes_block');	
-	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
-	var periodoTag = document.getElementById('filtro_periodo_tag');		
-
-	var optionTipo = document.getElementById('tipo_filtro_option_tipo');
-	var tipoBlock = document.getElementById('filtro_tipo_block');	
-	var tipoTag = document.getElementById('filtro_tipo_tag');	
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
-	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
-	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTipoBackend = document.getElementById('input_tipo_backend');	
-	
-	filtroTipo.style.border="1px solid #949393";
-	filtroTipo.disabled=false;
-	filtroBt.disabled=false;
-	filtroBt.style.pointerEvents="auto";	
-
-	if (filtro == 'descricao') {		
-
-		optionDescricao.hidden=false;
-
-		descricaoBlock.hidden=false;
-
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-		tipoBlock.hidden=true;
-
-		descricaoTag.hidden=true;
-
-		filtroTipo.value="DESCRICAO";
-
-		inputDescricaoBackend.value="";
-	}
-	else if (filtro == 'periodo') {
-		optionPeriodo.hidden=false;
-
-		descricaoBlock.hidden=true;
-		periodoMesBlock.hidden=false;
-		periodoAnoBlock.hidden=false;
-		tipoBlock.hidden=true;
-
-		periodoTag.hidden=true;
-		filtroTipo.value="PERIODO";
-
-		inputMesBackend.value="";
-		inputAnoBackend.value="";
-	}
-	else if (filtro == 'tipo') {
-		optionTipo.hidden=false;
-
-		descricaoBlock.hidden=true;
-
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-		tipoBlock.hidden=false;
-
-		tipoTag.hidden=true;
-
-		filtroTipo.value="TIPO";
-
-		inputTipoBackend.value="";
-	}	
-
-	buscarBt.hidden=true;		
-	filtroBt.hidden=false;
-}
-
-function efeitoRemoverFiltro(filtro) {
-
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
-	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTipo = document.getElementById('filtro_tipo_tag');	
-
-
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="0.5s"
-		filtroDescricao.style.background="#AA3C3C";
-		filtroDescricao.style.border="1px solid #AA3C3C";
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Remover";
-		filtroDescricao.style.cursor="pointer";
-
-	}	
-	else if (filtro == 'periodo') {
-		filtroPeriodo.style.transition="0.5s"
-		filtroPeriodo.style.background="#AA3C3C";
-		filtroPeriodo.style.border="1px solid #AA3C3C";
-		filtroPeriodo.style.color="#212121";
-		filtroPeriodo.innerText="Remover";
-		filtroPeriodo.style.cursor="pointer";
-	}
-	else if (filtro == 'tipo') {
-		filtroTipo.style.transition="0.5s"
-		filtroTipo.style.background="#AA3C3C";
-		filtroTipo.style.border="1px solid #AA3C3C";
-		filtroTipo.style.color="#212121";
-		filtroTipo.innerText="Remover";
-		filtroTipo.style.cursor="pointer";
-	}			
-}
-
-function efeitoRemoverFiltroLeave(filtro) {
-
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
-	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTipo = document.getElementById('filtro_tipo_tag');		
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
-	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
-	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTipoBackend = document.getElementById('input_tipo_backend');	
-
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="1s"
-		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #212121"
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Descrição";
-		filtroDescricao.innerText = 'Descrição: ' + inputDescricaoBackend.value;
-
-	}
-	else if (filtro == 'periodo') {
-		filtroPeriodo.style.transition="1s"
-		filtroPeriodo.style.background="transparent";
-		filtroPeriodo.style.border="1px solid #212121"
-		filtroPeriodo.style.color="#212121";
-		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
-	}
-	else if (filtro == 'tipo') {
-		filtroTipo.style.transition="1s"
-		filtroTipo.style.background="transparent";
-		filtroTipo.style.border="1px solid #212121"
-		filtroTipo.style.color="#212121";
-		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
-	}		
-}
-
-/* ================== CONFIGURAÇÕES DA SUB-TELA EDITA ITEM ====================== */
-
-function abrirEditaItem(
-							id, 
-							dataCadastro, 
-							nome, 
-							tipoPatrimonio, 
-							statusPatrimonio, 
-							dataEntrada, 
-							valor, 
-							usuarioResponsavel) {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');
-
-	var containerEdita = document.getElementById('conteudo_container_edita');
-
-	var subtitulo = document.getElementById('patrimonio_info');
-
-	containerEdita.hidden=false;
-
-	containerPrincipal.style.pointerEvents="none";
-	containerPrincipal.style.opacity="0.075";
-	containerPrincipal.style.transition="1s";
-
-	menuSuperior.style.pointerEvents="none";
-	menuSuperior.style.opacity="0.1";
-	menuSuperior.style.transition="1s";
-
-	menuSuperiorMobile.style.pointerEvents="none";
-	menuSuperiorMobile.style.opacity="0.1";
-	menuSuperiorMobile.style.transition="1s";	
-
-	sideMenu.style.pointerEvents="none";
-	sideMenu.style.opacity="0.1";
-	sideMenu.style.transition="1s";
-
-	// CONVERTENDO DATA PARA PADRÃO BR
-	var dataCadastroSplitada = dataCadastro.split("-");
-	if (dataCadastroSplitada.length == 3) {
-		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.title="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
-	}	
-
-	// SETANDO VALORES NOS CAMPOS
-	document.getElementById('id_input_edicao').value=id;
-	document.getElementById('tipo_patrimonio_input_edicao').value=tipoPatrimonio;
-	document.getElementById('descricao_patrimonio_input_edicao').value=nome;
-	document.getElementById('valor_patrimonio_input_edicao').value=valor;
-	document.getElementById('status_patrimonio_edicao').value=statusPatrimonio;
-	document.getElementById('data_pagamento_input_edicao').value=dataEntrada;
-}
-
-function fecharEditaItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');	
-
-	var containerEdita = document.getElementById('conteudo_container_edita');	
-
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input_edicao');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input_edicao');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input_edicao');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio_edicao');
-	var dataEntradaInput = document.getElementById('data_pagamento_input_edicao');
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	statusPatrimonioInput.value="PAGO";
-	tipoPatrimonioInput.value="ATIVO";
-
-	dataEntradaInput.style.color="#121212";
-	dataEntradaInput.disabled=false;
-	dataEntradaInput.value=hoje;	
-	
-	containerEdita.hidden=true;
-
-	containerPrincipal.style.opacity="1";
-	containerPrincipal.style.transition="1s";
-	containerPrincipal.style.pointerEvents="auto";
-
-	menuSuperior.style.opacity="1";
-	menuSuperior.style.transition="1s";
-	menuSuperior.style.pointerEvents="auto";
-
-	menuSuperiorMobile.style.opacity="1";
-	menuSuperiorMobile.style.transition="1s";
-	menuSuperiorMobile.style.pointerEvents="auto";	
-
-	sideMenu.style.opacity="1";
-	sideMenu.style.transition="1s";
-	sideMenu.style.pointerEvents="auto";		
-}
-
-function editaItemChangeStatus() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio_edicao');
-	var dataEntradaInput = document.getElementById('data_pagamento_input_edicao');	
-
-	if (statusPatrimonio.value == "PAGO") {
-		dataEntradaInput.style.color="#121212";
-		dataEntradaInput.disabled=false;
-		dataEntradaInput.value=hoje;
 	}
 	else {
-		dataEntradaInput.style.color="#4444";
-		dataEntradaInput.value="";
-		dataEntradaInput.disabled=true;
-	}	
-}
 
-function editaItemChangeTipo() {
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio_edicao');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input_edicao');
-	var dataEntradaInput = document.getElementById('data_pagamento_input_edicao');	
-
-	if (tipoPatrimonio.value == "ATIVO") {
-		statusPatrimonio.value="PAGO";
-		dataEntradaInput.style.color="#121212";
-		dataEntradaInput.disabled=false;
-		dataEntradaInput.value=hoje;
-	}
-	else {
-		statusPatrimonio.value="PENDENTE";
-		dataEntradaInput.style.color="#4444";
-		dataEntradaInput.value="";
-		dataEntradaInput.disabled=true;
-	}
-}
-
-/* ================== MISC ====================== */
-
-function buildUrl(baseUrl, pagina, descricao, tipo, mes, ano) {
-
-	var url = baseUrl + "?page=" + pagina;
-	var paginaList = document.getElementById('pagina_list');
-
-	if (descricao != null) {
-		baseUrl + "&descricao=" + descricao;
-	}		
-	else if (tipo != null) {
-		baseUrl + "&tipo=" + tipo;
-	}
-	else if (mes != null && ano != null) {
-		baseUrl + "&mes=" + mes + "&ano=" + ano;	
-	}
-
-	paginaList.href=baseUrl;
-}
-
-function hideMessage(){
-	var alertas = document.getElementsByClassName('alert');
-	for(var i = 0; i < alertas.length; i++){
-		alertas[i].hidden=true;
-	}
-}
-
-function ajustaTabela(){
-
-	var informativoValorCaixa = document.getElementById('informativo_valor_caixa');
-
-	if (informativoValorCaixa != null) {
-		if (informativoValorCaixa.innerText.replace("R$ ", "") < 0.00) {
-			informativoValorCaixa.style.color="#D75353";
+		optionServico.hidden=true;
+		for(var i = 0; i < optionProdutos.length; i++) {
+			optionProdutos[i].hidden=false;
 		}
-		else {
-			informativoValorCaixa.style.color="#C3C8C8";
+
+		optionProdutos[0].selected=true;
+
+	}
+}
+
+function validaNovoProduto() {
+
+	var erros = "Ocorreu o seguinte erro na adição do produto ou serviço:\n";
+
+	var inputProduto = document.getElementById('select_produto').value;
+	var inputValor = document.getElementById('input_valor').value;
+	var inputQuantidade = document.getElementById('input_quantidade').value;
+
+	if (inputProduto == "..." || inputProduto == null || inputProduto == "") {
+		erros += "- O campo produto não pode ser vazio\n";
+	}
+
+	if(inputValor.replace(" ", "") == "" || inputValor == null) {
+		erros += "- O campo valor não pode ser vazio\n";
+	}
+	if(parseFloat(inputValor) < 0) {
+		erros += "- O campo valor não pode ser menor do que zero\n";
+	}
+	if(inputQuantidade.replace(" ", "") == "" || inputQuantidade == null) {
+		erros += "- O campo quantidade não pode ser vazio\n";
+	}
+	if(parseInt(inputQuantidade) < 1) {
+		erros += "- O campo quantidade não pode ser menor do que 1";
+	}
+
+	if (erros != "Ocorreu o seguinte erro na adição do produto ou serviço:\n") {
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade > 1) {
+			erros = erros.replace("Ocorreu o seguinte erro", "Ocorreram os seguintes erros");
+		}
+
+		alert(erros);
+		return false;
+
+	}
+	else {
+		return true;
+	}
+}
+
+function resetNovoProduto() {
+
+	var inputTipoProduto = document.getElementById('input_tipo_produto');
+	var inputTipoEntrada = document.getElementById('input_tipo_entrada');
+	var inputProduto = document.getElementById('select_produto');
+	var inputValor = document.getElementById('input_valor');
+	var inputQuantidade = document.getElementById('input_quantidade');
+	var optionProdutos = document.getElementsByClassName('option_produto');
+	var optionServico = document.getElementById('option_servico');
+
+	inputTipoProduto.value="PADRAO_PRODUTO";
+	inputTipoEntrada.value="TROCA";
+	inputValor.value=0.00;
+	inputQuantidade.value=0;
+
+	optionServico.hidden=true;
+	for(var i = 0; i < optionProdutos.length; i++) {
+		optionProdutos[i].hidden=false;
+	}
+
+	optionProdutos[0].selected=true;
+
+}
+
+function addNovoProduto() {
+
+	if (validaNovoProduto()) {
+
+		var string = "ENTRADA|";
+
+		var inputTipoProduto = document.getElementById('input_tipo_produto');
+		var inputTipoEntrada = document.getElementById('input_tipo_entrada');
+		var inputProduto = document.getElementById('select_produto');
+		var inputValor = document.getElementById('input_valor');
+		var inputQuantidade = document.getElementById('input_quantidade');
+
+		var inputEntradas = document.getElementById('input_entradas');
+
+		string += inputTipoProduto.value
+		+ "|" + inputTipoEntrada.value
+		+ "|" + inputProduto.value 
+		+ "|" + inputValor.value 
+		+ "|" + inputQuantidade.value + "|";
+
+		inputEntradas.value = inputEntradas.value + string;
+
+		resetNovoProduto();
+
+		document.getElementById('sucessoCadastro').hidden=false;
+		document.getElementById('sucessoCadastro').innerText="Nova entrada inserida à ordem com sucesso";		
+
+	}
+}
+
+/* ================== TRATAMENTO DE ADIÇÃO DE PAGAMENTOS ====================== */
+
+function trocaFormaDePagamento() {
+
+	var selectFormaPagamento = document.getElementById('select_forma_pagamento');
+	var inputDataAgendamento = document.getElementById('input_dt_agendamento');
+	var labelDataAgendamento = document.getElementById('label_dt_agendamento');
+
+	if (selectFormaPagamento.value == "FATURADO") {
+
+		inputDataAgendamento.disabled=false;
+
+		inputDataAgendamento.style.color="#303030";
+		inputDataAgendamento.style.border="1px solid grey";
+
+		labelDataAgendamento.style.color="#303030";
+
+	}
+	else {
+
+		inputDataAgendamento.disabled=true;
+
+		inputDataAgendamento.style.color="#4444";
+		inputDataAgendamento.style.border="1px solid #4444";
+
+		labelDataAgendamento.style.color="#4444";		
+
+	}
+
+}
+
+function validaNovoPagamento() {
+
+	var erros = "Ocorreu o seguinte erro na adição do pagamento:\n";
+
+	var inputValor = document.getElementById('input_valor_pagamento').value;
+	var inputDataAgendamento = document.getElementById('input_dt_agendamento').value;
+
+	if(inputValor.replace(" ", "") == "" || inputValor == null) {
+		erros += "- O campo valor não pode ser vazio\n";
+	}
+	if(parseFloat(inputValor) < 0) {
+		erros += "- O campo valor não pode ser menor do que zero\n";
+	}
+	if(inputDataAgendamento != null && inputDataAgendamento != "") {
+		if(inputDataAgendamento.split("-").length < 3) {
+			erros += "- O campo data de agendamento deve possuir dia mês e ano";		
 		}
 	}
 
-	// Definindo propriedades
-	var line = document.getElementsByClassName('tr');
-	var columnStatus = document.getElementsByClassName('td_status');
-	var columnValor = document.getElementsByClassName('td_valor');
+	if (erros != "Ocorreu o seguinte erro na adição do pagamento:\n") {
+		var quantidade = 0
 
-	for(var i = 0; i < line.length; i++) {
-
-		if (!columnValor[i].innerText.includes('R$') && !columnValor[i].innerText.includes('...')) {
-			columnValor[i].innerText=
-				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-		}		
-
-		if (columnStatus[i].innerText == "Pendente") {
-			line[i].style.borderLeft="4px solid #f20a0a";
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
 		}
-		else if (columnStatus[i].innerText == "OK") {
-			line[i].style.borderLeft="4px solid #5eff00";
-		}		
+
+		if (quantidade > 1) {
+			erros = erros.replace("Ocorreu o seguinte erro", "Ocorreram os seguintes erros");
+		}
+
+		alert(erros);
+		return false;
 
 	}
+	else {
+		return true;
+	}	
+
 }
+
+function resetNovoPagamento() {
+
+	var inputFormaPagamento = document.getElementById('select_forma_pagamento');
+	var inputValorPagamento = document.getElementById('input_valor_pagamento');
+	var labelDataAgendamento = document.getElementById('label_dt_agendamento');
+	var inputDataAgendamento = document.getElementById('input_dt_agendamento');
+	var inputObservacao = document.getElementById('input_observacao');
+
+	document.getElementById('option_dinheiro').selected=true;
+
+	inputValorPagamento.value=0.0;
+	inputObservacao.value="";
+
+	inputDataAgendamento.disabled=false;
+
+	inputDataAgendamento.style.color="#303030";
+	inputDataAgendamento.style.border="1px solid grey";
+
+	labelDataAgendamento.style.color="#303030";
+
+	inputDataAgendamento.value="";	
+}
+
+function addNovoPagamento() {
+
+	if (validaNovoPagamento()) {
+
+		var string = "PAGAMENTO|";
+
+		var inputFormaPagamento = document.getElementById('select_forma_pagamento');
+		var inputValorPagamento = document.getElementById('input_valor_pagamento');
+		var inputDataAgendamento = document.getElementById('input_dt_agendamento');
+		var inputObservacao = document.getElementById('input_observacao');
+
+		var inputPagamentos = document.getElementById('input_pagamentos');
+
+		string += inputFormaPagamento.value
+		+ "|" + inputValorPagamento.value
+		+ "|" + inputDataAgendamento.value 
+		+ "|" + inputObservacao.value + "|";
+
+		inputPagamentos.value = inputPagamentos.value + string;
+
+		resetNovoPagamento();
+
+		document.getElementById('sucessoCadastro').hidden=false;
+		document.getElementById('sucessoCadastro').innerText="Novo pagamento inserido à ordem com sucesso";
+
+	}	
+
+}
+
+/* ============================= Miscelânia ================================== */
 
 function pageResponsiva(){
 	if (document.getElementById('pegando_page') != null) {
@@ -1409,6 +725,13 @@ function pageResponsiva(){
 			document.getElementById('anterior').style.borderColor="#303030";
 			document.getElementById('anterior').style.color="#C3C8C8";
 		}
+	}
+}
+
+function hideMessage() {
+	var alertas = document.getElementsByClassName('alert');
+	for(var i = 0; i < alertas.length; i++){
+		alertas[i].hidden=true;
 	}
 }
 

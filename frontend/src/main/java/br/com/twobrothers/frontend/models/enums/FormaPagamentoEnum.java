@@ -20,7 +20,9 @@ public enum FormaPagamentoEnum {
     DEBITO(2, "Debito"),
     CHEQUE(3, "Cheque"),
     PIX(4, "PIX"),
-    BOLETO(5, "Boleto");
+
+    FATURADO(5, "Faturado"),
+    BOLETO(6, "Boleto");
 
     private final int code;
     private final String desc;

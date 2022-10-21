@@ -49,7 +49,11 @@ public class OrdemDTO {
     private RetiradaDTO retirada;
 
     private List<PagamentoDTO> pagamentos = new ArrayList<>();
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String pagamentosString;
 
     private List<EntradaOrdemDTO> entradas = new ArrayList<>();
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String entradasString;
 
 }
