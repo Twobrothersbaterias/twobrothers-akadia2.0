@@ -33,7 +33,6 @@ public class RetiradaDTO {
     private String dataAgendamento;
 
     private String tecnicoEntrada;
-    private String tecnicoSaida;
     private StatusRetiradaEnum statusRetirada;
 
     @JsonIgnore

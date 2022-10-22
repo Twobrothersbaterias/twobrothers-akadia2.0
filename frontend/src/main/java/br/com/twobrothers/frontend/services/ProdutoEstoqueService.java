@@ -9,6 +9,7 @@ import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_ESTOQUE;
 
@@ -129,6 +131,12 @@ public class ProdutoEstoqueService {
 
     public List<ProdutoEstoqueEntity> buscaTodos() {
         return produtoEstoqueRepository.buscaTodasBaterias(Sort.by("sigla"), TipoProdutoEnum.BATERIA);
+    }
+
+    public ProdutoEstoqueDTO buscaPorId(Long id) {
+        if (produtoEstoqueRepository.findById(id).isPresent())
+            return modelMapper.mapper().map(produtoEstoqueRepository.findById(id), ProdutoEstoqueDTO.class);
+        throw new ObjectNotFoundException("O produto inserido na ordem não foi encontrado");
     }
 
     public String constroiUriFiltro(FiltroProdutoDTO filtroProdutoDTO) {

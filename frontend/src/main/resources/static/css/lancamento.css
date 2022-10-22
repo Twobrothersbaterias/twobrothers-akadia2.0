@@ -5,7 +5,7 @@
 .novo_all {
 	padding: 35px 20px;
 	float: left;
-	margin-bottom: 35px;
+	margin-bottom: 15px;
 	padding-bottom: 0;
 	box-shadow: 0px 0px 25px #121212;
 	background-image: linear-gradient(to right, #C3C8C8, #d1cdcd);
@@ -85,9 +85,9 @@
 	display: flex;
 	justify-content: center;
 	background: #303030;
-	font-weight: 400;
-	color: #C3C8C8;
-
+	font-weight: 600;
+	color: #c3c8c8;
+	box-shadow: 0px 0px 3px #121212;	
 }
 
 .informativo_campo_chave {
@@ -104,12 +104,19 @@
 }
 
 #botao_finalizar {
-	background: #ba4c49;
+	background: #2f3d61;
+	margin-top: 30px;
 	padding: 15px;
 }
 
 #botao_finalizar:hover {
 	animation: none;
+}
+
+.container_tabela {
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 
 .container_tabela {
@@ -130,6 +137,10 @@
     padding: 0;
 }
 
+.tbody_novo {
+	background: #212121;
+}
+
 .tr_novo{
     border-bottom: 1px solid #4444;
     display: flex;
@@ -137,6 +148,7 @@
     align-items: center;
     border-left: 4px solid transparent;
     margin: 0px 0;
+    padding: 3px 0;
 }
 
 .th_novo, .td_novo{
@@ -159,20 +171,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #212121;
+    color: #C3C8C8;
     padding: 10px 0; 
-    font-size: 0.90rem;  
+    font-size: 0.90rem;    
 }
 
 .container_tabela {
 	margin: 0;
-	padding: 0 30px;
+	padding: 0 15px;
 	margin-top: 15px;
+}
+
+.tabela_novo {
+	box-shadow: 2px 2px 5px #121212;		
 }
 
 .thead_novo {
 	background: #303030;
 	color: #C3C8C8;
+	font-weight: 600;
 }
 
 .novo_infos {
@@ -185,7 +202,7 @@
 .sub_container_pai {
 	float: left;
 	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 }
 
 .titulo_tabela {
@@ -209,6 +226,7 @@
 	color: #C3C8C8;
 	font-weight: 600;
 	border: 1px solid transparent;
+	box-shadow: 0px 0px 2px #121212;
 }
 
 .buscar_cliente:hover {
@@ -227,6 +245,14 @@
 #input_dt_agendamento {
 	border: 1px solid #4444;
 	color: #4444;
+}
+
+.infos {
+	margin-top: 30px;
+}
+
+#hr {
+	margin-bottom: 0;
 }
 
 @keyframes progressBar {

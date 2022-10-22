@@ -529,14 +529,13 @@ function resetNovoProduto() {
 	}
 
 	optionProdutos[0].selected=true;
-
 }
 
 function addNovoProduto() {
 
 	if (validaNovoProduto()) {
 
-		var string = "ENTRADA|";
+		var string = "ENTRADA=";
 
 		var inputTipoProduto = document.getElementById('input_tipo_produto');
 		var inputTipoEntrada = document.getElementById('input_tipo_entrada');
@@ -547,14 +546,15 @@ function addNovoProduto() {
 		var inputEntradas = document.getElementById('input_entradas');
 
 		string += inputTipoProduto.value
-		+ "|" + inputTipoEntrada.value
-		+ "|" + inputProduto.value 
-		+ "|" + inputValor.value 
-		+ "|" + inputQuantidade.value + "|";
+		+ ";" + inputTipoEntrada.value
+		+ ";" + inputProduto.value 
+		+ ";" + inputValor.value 
+		+ ";" + inputQuantidade.value + ";";
 
 		inputEntradas.value = inputEntradas.value + string;
 
 		resetNovoProduto();
+		calculaInformativos();
 
 		document.getElementById('sucessoCadastro').hidden=false;
 		document.getElementById('sucessoCadastro').innerText="Nova entrada inserida à ordem com sucesso";		
@@ -590,7 +590,6 @@ function trocaFormaDePagamento() {
 		labelDataAgendamento.style.color="#4444";		
 
 	}
-
 }
 
 function validaNovoPagamento() {
@@ -632,7 +631,6 @@ function validaNovoPagamento() {
 	else {
 		return true;
 	}	
-
 }
 
 function resetNovoPagamento() {
@@ -662,7 +660,7 @@ function addNovoPagamento() {
 
 	if (validaNovoPagamento()) {
 
-		var string = "PAGAMENTO|";
+		var string = "PAGAMENTO=";
 
 		var inputFormaPagamento = document.getElementById('select_forma_pagamento');
 		var inputValorPagamento = document.getElementById('input_valor_pagamento');
@@ -672,20 +670,73 @@ function addNovoPagamento() {
 		var inputPagamentos = document.getElementById('input_pagamentos');
 
 		string += inputFormaPagamento.value
-		+ "|" + inputValorPagamento.value
-		+ "|" + inputDataAgendamento.value 
-		+ "|" + inputObservacao.value + "|";
+		+ ";" + inputValorPagamento.value
+		+ ";" + inputDataAgendamento.value 
+		+ ";" + inputObservacao.value + ";";
 
 		inputPagamentos.value = inputPagamentos.value + string;
 
 		resetNovoPagamento();
+		calculaInformativos();
 
 		document.getElementById('sucessoCadastro').hidden=false;
 		document.getElementById('sucessoCadastro').innerText="Novo pagamento inserido à ordem com sucesso";
 
 	}	
+}
+
+/* ================== TRATAMENTO DE INFORMATIVOS ====================== */
+
+function calculaInformativos() {
+
+	var totalEntradas = 0;
+	var totalPagamentos = 0;
+
+	var inputPagamentos = document.getElementById('input_pagamentos');
+	var inputEntradas = document.getElementById('input_entradas');
+
+	console.log(inputPagamentos.value);
+	console.log(inputEntradas.value);
+
+	var inputPagamentosSplitPai = inputPagamentos.value.split("PAGAMENTO=");
+	var inputEntradasSplitPai = inputEntradas.value.split("ENTRADA=");
+
+	for(var i = 1; i < inputEntradasSplitPai.length; i++) {
+		totalEntradas += parseFloat(inputEntradasSplitPai[i].split(";")[3]);
+	}
+
+	for(var i = 1; i < inputPagamentosSplitPai.length; i++) {
+		totalPagamentos += parseFloat(inputPagamentosSplitPai[i].split(";")[1]);
+	}
+
+	document.getElementById('informativo_total').innerText=totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+	document.getElementById('informativo_pago').innerText=totalPagamentos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+	var troco = 0;
+	if (totalPagamentos - totalEntradas > 0) {
+		troco = totalPagamentos - totalEntradas;
+		informativo_troco.style.color="#ba4c49";
+	}
+	else {
+		informativo_troco.style.color="#2e8c4e";
+	}
+	
+	var restaPagar = 0;
+	if (totalEntradas - totalPagamentos > 0) {
+		restaPagar = totalEntradas - totalPagamentos;
+		informativo_resta.style.color="#ba4c49"
+	}
+	else {
+		informativo_resta.style.color="#2e8c4e";
+	}
+
+	document.getElementById('informativo_troco').innerText=troco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+	document.getElementById('informativo_resta').innerText=restaPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
 
 }
+
+
 
 /* ============================= Miscelânia ================================== */
 

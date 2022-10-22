@@ -29,6 +29,6 @@ public class PagamentoDTO {
     private FormaPagamentoEnum formaPagamento;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private OrdemEntity ordem;
+    private OrdemDTO ordem;
 
 }

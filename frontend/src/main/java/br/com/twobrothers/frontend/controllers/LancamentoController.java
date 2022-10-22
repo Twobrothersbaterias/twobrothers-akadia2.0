@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,9 @@ public class LancamentoController {
     @PostMapping
     public ModelAndView lancamentoPost(ModelAndView modelAndView, OrdemDTO ordem) {
 
-        System.err.println(ordem);
+        ordem = ConversorDeDados.converteStringEntradaParaListaDeObjetos(produtoEstoqueService, ordem, ordem.getEntradasString());
+        ordem = ConversorDeDados.converteStringPagamentoParaListaDeObjetos(ordem, ordem.getPagamentosString());
+
         modelAndView.setViewName("/lancamento");
         return modelAndView;
     }
