@@ -10,8 +10,6 @@ import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class ConversorDeDados {
@@ -28,11 +26,16 @@ public class ConversorDeDados {
         return dataSplitada[2] + "/" + dataSplitada[1] + "/" + dataSplitada[0];
     }
 
-    public static OrdemDTO converteStringEntradaParaListaDeObjetos(ProdutoEstoqueService produtoEstoqueService, OrdemDTO ordem, String entradasString) {
+    public static void cargaEntradasPagamentos(ProdutoEstoqueService produtoEstoqueService, OrdemDTO ordem) {
 
-        List<EntradaOrdemDTO> entradasList = new ArrayList<>();
+        converteStringEntradaParaListaDeObjetos(produtoEstoqueService, ordem);
+        converteStringPagamentoParaListaDeObjetos(ordem);
 
-        String[] entradasSplitadas = entradasString.split("ENTRADA=");
+    }
+
+    private static void converteStringEntradaParaListaDeObjetos(ProdutoEstoqueService produtoEstoqueService, OrdemDTO ordem) {
+
+        String[] entradasSplitadas = ordem.getEntradasString().split("ENTRADA=");
 
         for(int i = 1; i < entradasSplitadas.length; i++) {
 
@@ -53,15 +56,11 @@ public class ConversorDeDados {
 
         }
 
-        return ordem;
-
     }
 
-    public static OrdemDTO converteStringPagamentoParaListaDeObjetos(OrdemDTO ordem, String pagamentosString) {
+    private static void converteStringPagamentoParaListaDeObjetos(OrdemDTO ordem) {
 
-        List<PagamentoDTO> pagamentosList = new ArrayList<>();
-
-        String[] pagamentosSplitados = pagamentosString.split("PAGAMENTO=");
+        String[] pagamentosSplitados = ordem.getPagamentosString().split("PAGAMENTO=");
 
         for(int i = 1; i < pagamentosSplitados.length; i++) {
 
@@ -70,13 +69,12 @@ public class ConversorDeDados {
 
             pagamento.setFormaPagamento(FormaPagamentoEnum.valueOf(pagamentoSplitado[0]));
             pagamento.setValor(Double.valueOf(pagamentoSplitado[1]));
+            pagamento.setDataAgendamento(pagamentoSplitado[2]);
 
-            if (pagamentoSplitado[2].equals("") || pagamentoSplitado[2].isEmpty()) {
-                pagamento.setDataAgendamento("Não possui");
+            if (pagamentoSplitado[2].equals("Sem agendamento")) {
                 pagamento.setDataPagamento(LocalDate.now().toString());
             }
             else {
-                pagamento.setDataAgendamento(pagamentoSplitado[2]);
                 pagamento.setDataPagamento("Em aberto");
             }
 
@@ -86,8 +84,6 @@ public class ConversorDeDados {
             ordem.getPagamentos().add(pagamento);
 
         }
-
-        return ordem;
 
     }
 

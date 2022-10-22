@@ -12,7 +12,9 @@ import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.services.GerenciamentoEstoqueService;
+import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.services.enums.OperacaoEstoque;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import br.com.twobrothers.frontend.validations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,9 @@ public class OrdemCrudService {
     GerenciamentoEstoqueService gerenciamentoEstoqueService;
 
     @Autowired
+    ProdutoEstoqueService produtoEstoqueService;
+
+    @Autowired
     ModelMapperConfig modelMapper;
 
     OrdemValidation validation = new OrdemValidation();
@@ -70,6 +75,9 @@ public class OrdemCrudService {
 
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de criação...");
+
+        log.info("[PROGRESS] Realizando conversão das strings contendo as entradas e os pagamentos para objetos...");
+        ConversorDeDados.cargaEntradasPagamentos(produtoEstoqueService, ordem);
 
         log.info("[PROGRESS] Validando objeto do tipo OrdemDTO enviado via JSON...");
         validation.validaCorpoRequisicao(ordem);

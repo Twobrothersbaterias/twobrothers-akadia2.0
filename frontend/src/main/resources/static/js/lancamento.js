@@ -669,10 +669,21 @@ function addNovoPagamento() {
 
 		var inputPagamentos = document.getElementById('input_pagamentos');
 
+		var obsValue = inputObservacao.value;
+		var dataAgendamentoValue = inputDataAgendamento.value;
+
+		if (obsValue == "") {
+			obsValue = "Sem observação";
+		}
+
+		if (dataAgendamentoValue == "") {
+			dataAgendamentoValue = "Sem agendamento"
+		}
+
 		string += inputFormaPagamento.value
 		+ ";" + inputValorPagamento.value
-		+ ";" + inputDataAgendamento.value 
-		+ ";" + inputObservacao.value + ";";
+		+ ";" + dataAgendamentoValue 
+		+ ";" + obsValue + ";";
 
 		inputPagamentos.value = inputPagamentos.value + string;
 
