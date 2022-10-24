@@ -26,9 +26,7 @@ public class LancamentoController {
 
         model.addAttribute("produtos", produtoEstoqueService.buscaTodos());
 
-        System.err.println(produtoEstoqueService.buscaTodos());
-
-        modelAndView.setViewName("/lancamento");
+        modelAndView.setViewName("lancamento");
 
         return modelAndView;
 
@@ -39,7 +37,7 @@ public class LancamentoController {
 
         ordemCrudService.criaNovo(ordem);
 
-        modelAndView.setViewName("/lancamento");
+        modelAndView.setViewName("redirect:/lancamento");
         return modelAndView;
     }
 

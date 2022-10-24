@@ -303,14 +303,14 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Nome
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="cliente.nomeCompleto" required/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="cliente.nomeCompleto"/>
 										</div>
 
 										<div class="novo_item_block col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input" style="color: #C3C8C8;">
 												.
 											</label>
-											<button class="row novo_item_form_row novo_item_input buscar_cliente col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="button" name="nomeCompleto" id="descricao_cliente_input" required>
+											<button class="row novo_item_form_row novo_item_input buscar_cliente col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="button" name="nomeCompleto" id="descricao_cliente_input">
 												?
 											</button>	
 										</div>										
@@ -328,7 +328,7 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Telefone
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="cliente.telefone"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="cliente.telefone" pattern="^\\([1-9]{2}\\)[9]{0,1}[1-9]{1}[0-9]{3}\\-[0-9]{4}$" id="input_telefone" onkeyup="tratamentoCampoTelefone()"/>
 										</div>
 
 										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
@@ -342,7 +342,7 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="cpfCnpj_input">
 												Cpf/Cnpj:
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.cpfCnpj" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.cpfCnpj" id="input_cpfCnpj" onkeyup="tratamentoCampoCpfCnpj()" type="text"/>
 										</div>
 
 									</div>		
@@ -381,7 +381,7 @@
 										</div>
 
 										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input" id="label_tipo_entrada">
 												Possui troca
 											</label>
 											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_tipo_entrada">
@@ -397,7 +397,14 @@
 											</label>
 											<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="select_produto">
 
-												<option th:each="produto: ${produtos}" th:value="${produto.id}" th:text="${produto.sigla} + ' - ' + ${produto.especificacao} + ' | Qtde: ' + ${produto.quantidade}" class="option_produto" value="...">...</option>							
+												<option
+												th:each="produto: ${produtos}" 
+												th:value="${produto.id}" 
+												th:text="${produto.sigla}
+															+ ' | Qtde: ' 
+															+ ${produto.quantidade}" 
+												class="option_produto" 
+												value="...">...</option>							
 
 												<option id="option_servico" value="Serviço" hidden>Serviço</option>											
 											</select>				
@@ -411,10 +418,10 @@
 										</div>
 
 										<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input" id="label_quantidade">
 												Qtde
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidadeSeVazia()" onblur="resetQuantidade()" />
 										</div>									
 
 									</div>	
@@ -457,7 +464,7 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Cep
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" type="number"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cep" id="cep_input" onkeyup="consultaEndereco()" type="number"/>
 										</div>
 
 										<div class="novo_item_block col-xl-4 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
@@ -498,30 +505,29 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 												Cidade
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cidade"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="cidade_input" name="cliente.endereco.cidade"/>
 										</div>
 
 										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Bairro
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.bairro"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="bairro_input" name="cliente.endereco.bairro"/>
 										</div>							
 
 										<div class="novo_item_block col-xl-8 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Logradouro
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.logradouro"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="logradouro_input" name="cliente.endereco.logradouro"/>
 										</div>
 
 										<div class="novo_item_block col-xl-2 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Número
 											</label>
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.numero"/>
+											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_numero" name="cliente.endereco.numero"/>
 										</div>												
-
 										<div class="novo_item_block col-xl-10 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 												Complemento
@@ -645,7 +651,7 @@
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 													E-mail
 												</label>
-												<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="cliente.email" required/>
+												<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="cliente.email" onkeyup="tratamentoCampoEmail()" id="input_email"/>
 											</div>	
 
 											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">

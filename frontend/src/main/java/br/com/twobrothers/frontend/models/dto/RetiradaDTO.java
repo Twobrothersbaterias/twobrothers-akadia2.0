@@ -25,7 +25,7 @@ public class RetiradaDTO {
 
     private Long id;
 
-    private LocalDateTime dataRetirada;
+    private String dataRetirada;
 
     private String observacao;
 

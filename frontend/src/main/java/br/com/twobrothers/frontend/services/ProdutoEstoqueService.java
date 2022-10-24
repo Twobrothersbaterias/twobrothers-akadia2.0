@@ -135,7 +135,7 @@ public class ProdutoEstoqueService {
 
     public ProdutoEstoqueDTO buscaPorId(Long id) {
         if (produtoEstoqueRepository.findById(id).isPresent())
-            return modelMapper.mapper().map(produtoEstoqueRepository.findById(id), ProdutoEstoqueDTO.class);
+            return modelMapper.mapper().map(produtoEstoqueRepository.findById(id).get(), ProdutoEstoqueDTO.class);
         throw new ObjectNotFoundException("O produto inserido na ordem não foi encontrado");
     }
 

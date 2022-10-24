@@ -32,6 +32,18 @@ public class TrataAtributosVazios {
         if (enderecoDTO.getBairro().isEmpty()) enderecoDTO.setBairro(null);
     }
 
+    public static boolean verificaSeClienteNulo(ClienteDTO clienteDTO) {
+
+        if (clienteDTO == null) return true;
+
+        return clienteDTO.getNomeCompleto() == null
+                && clienteDTO.getEmail() == null
+                && clienteDTO.getTelefone() == null
+                && clienteDTO.getDataNascimento() == null
+                && clienteDTO.getCpfCnpj() == null;
+
+    }
+
     public static boolean verificaSeEnderecoNulo(EnderecoDTO enderecoDTO) {
 
         if (enderecoDTO == null) return true;

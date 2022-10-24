@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+calculaInformativos();
 
 function responsive(){
 
@@ -437,7 +438,12 @@ function trocaTipoDaEntrada() {
 
 	var optionServico = document.getElementById('option_servico');
 	var optionProdutos = document.getElementsByClassName('option_produto');
-	var inputQuantidade = document.getElementById('input_quantidade');	
+
+	var labelTipoEntrada = document.getElementById('label_tipo_entrada');
+	var inputTipoEntrada = document.getElementById('input_tipo_entrada');
+
+	var labelQuantidade = document.getElementById('label_quantidade')
+	var inputQuantidade = document.getElementById('input_quantidade');
 
 	if(tipoDaEntrada.value == "PADRAO_SERVICO") {
 
@@ -448,6 +454,16 @@ function trocaTipoDaEntrada() {
 
 		optionServico.selected=true;
 
+		labelTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.borderColor="#4444";
+		inputTipoEntrada.disabled=true;
+
+		labelQuantidade.style.color="#4444";
+		inputQuantidade.style.color="#4444";
+		inputQuantidade.style.borderColor="#4444";
+		inputQuantidade.disabled=true;
+
 	}
 	else {
 
@@ -457,6 +473,16 @@ function trocaTipoDaEntrada() {
 		}
 
 		optionProdutos[0].selected=true;
+
+		labelTipoEntrada.style.color="#303030";
+		inputTipoEntrada.style.color="#303030";
+		inputTipoEntrada.style.borderColor="grey";
+		inputTipoEntrada.disabled=false;
+
+		labelQuantidade.style.color="#303030";
+		inputQuantidade.style.color="#303030";
+		inputQuantidade.style.borderColor="grey";
+		inputQuantidade.disabled=false;
 
 	}
 }
@@ -529,6 +555,17 @@ function resetNovoProduto() {
 	}
 
 	optionProdutos[0].selected=true;
+
+	labelTipoEntrada.style.color="#303030";
+	inputTipoEntrada.style.color="#303030";
+	inputTipoEntrada.style.borderColor="grey";
+	inputTipoEntrada.disabled=false;
+
+	labelQuantidade.style.color="#303030";
+	inputQuantidade.style.color="#303030";
+	inputQuantidade.style.borderColor="grey";
+	inputQuantidade.disabled=false;	
+
 }
 
 function addNovoProduto() {
@@ -744,12 +781,144 @@ function calculaInformativos() {
 	document.getElementById('informativo_troco').innerText=troco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 	document.getElementById('informativo_resta').innerText=restaPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
+}
+
+/* ================== TRATAMENTO DE INPUTS ====================== */
+
+/* TRATAMENTO DO CAMPO QUANTIDADE */
+
+function tratamentoCampoQuantidade() {
+
+	var inputQuantidade = document.getElementById('input_quantidade');
+	var selectProduto = document.getElementById('select_produto');
+	var campoProduto = 0.0;
+
+	if(selectProduto.value != 'Serviço') {
+
+		if (selectProduto.value == "..." || selectProduto == "") {
+			campoProduto = 0.0;
+		}
+		else {
+			var campoProduto = 
+			parseInt(((selectProduto.options[selectProduto.selectedIndex].text)
+				.split("|")[1]).replace(/\s/g, '').replace("Qtde:", ""));
+		}
+
+		if (parseInt(inputQuantidade.value) > campoProduto) {
+			inputQuantidade.style.background="#f5aea9";
+		}
+		else {
+			inputQuantidade.style.background="transparent";
+		}
+
+	}
+}
+
+function resetQuantidadeSeVazia() {
+	if (document.getElementById('input_quantidade').value == "") {
+		document.getElementById('input_quantidade').value = 0;
+	}	
+}
+
+/* TRATAMENTO DO CAMPO EMAIL */
+
+function tratamentoCampoEmail() {
+
+	var emailRegex =  new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)" +
+                    "+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+
+	var inputEmail = document.getElementById('input_email');
+
+	if (inputEmail.value != "") {
+
+		if (emailRegex.test(inputEmail.value)) {
+			inputEmail.style.background="transparent";
+		}
+		else {
+			inputEmail.style.background="#f5aea9";			
+		}
+
+	}
 
 }
 
+/* TRATAMENTO DO CAMPO TELEFONE */
 
+function tratamentoCampoTelefone() {
+
+	var telefoneRegex =  new RegExp("^\\([1-9]{2}\\)[9]{0,1}[1-9]{1}[0-9]{3}\\-[0-9]{4}$");
+
+	var inputTelefone = document.getElementById('input_telefone');
+
+	if (inputTelefone.value != "") {
+
+		if (telefoneRegex.test(inputTelefone.value)) {
+			inputTelefone.style.background="transparent";
+		}
+		else {
+			inputTelefone.style.background="#f5aea9";
+		}
+
+	}
+
+}
+
+function tratamentoCampoCpfCnpj() {
+
+	var cnpjRegex =  new RegExp("[0-9]{2}.[0-9]{3}.[0-9]{3}/000[1-9]-[0-9]{2}");
+	var cpfRegex =  new RegExp("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}");
+
+	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
+
+	if (inputCpfCnpj.value != "") {
+
+		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
+			inputCpfCnpj.style.background="transparent";
+		}
+		else {
+			inputCpfCnpj.style.background="#f5aea9";
+		}
+
+	}
+}
 
 /* ============================= Miscelânia ================================== */
+
+function consultaEndereco() {
+
+	var cep = document.querySelector('#cep_input');
+
+
+	if (cep.value.length != 8) {
+		return;
+	}
+
+	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
+
+	fetch(url).then(function(response){
+		response.json().then(function(data){
+			if(data.erro == undefined) {
+				mostrarEndereco(data);
+			}
+		})
+	});
+}
+
+function mostrarEndereco(dados) {
+
+	var estadoInput = document.getElementById('estado_input');
+	var cidadeInput = document.getElementById('cidade_input');
+	var logradouroInput = document.getElementById('logradouro_input');
+	var bairroInput = document.getElementById('bairro_input');
+
+	estadoInput.value=dados.uf;
+	cidadeInput.value = dados.localidade;
+	logradouroInput.value=dados.logradouro;
+	bairroInput.value=dados.bairro;
+
+	document.getElementById('input_numero').focus();
+
+}
 
 function pageResponsiva(){
 	if (document.getElementById('pegando_page') != null) {

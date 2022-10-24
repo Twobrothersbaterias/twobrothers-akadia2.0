@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.validations;
 
 import br.com.twobrothers.frontend.models.dto.PagamentoDTO;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -20,6 +21,8 @@ import static br.com.twobrothers.frontend.utils.RegexPatterns.DATE_REGEX;
 @Slf4j
 public class PagamentoValidation {
 
+    //TODO ARRUMAR VALIDATIONS
+
     public void validaCorpoRequisicaoEmMassa(List<PagamentoDTO> pagamentos) {
         for (PagamentoDTO pagamentoDTO : pagamentos) {
             validaCorpoRequisicao(pagamentoDTO);
@@ -29,26 +32,28 @@ public class PagamentoValidation {
 
     public void validaCorpoRequisicao(PagamentoDTO pagamentoDTO) {
         validaSePossuiAtributosNulos(pagamentoDTO);
-        if (pagamentoDTO.getDataPagamento() != null) validaAtributoDataPagamento(pagamentoDTO.getDataPagamento());
-        if (pagamentoDTO.getDataAgendamento() != null) validaAtributoDataAgendamento(pagamentoDTO.getDataAgendamento());
+//        if (pagamentoDTO.getDataPagamento() != null && !pagamentoDTO.getDataPagamento().equals("Em aberto"))
+//            validaAtributoDataPagamento(pagamentoDTO.getDataPagamento());
+//        if (pagamentoDTO.getDataAgendamento() != null && !pagamentoDTO.getDataAgendamento().equals("Sem agendamento"))
+//            validaAtributoDataAgendamento(pagamentoDTO.getDataAgendamento());
         log.warn("[VALIDAÇÃO - PAGAMENTO] Validação do objeto pagamento finalizada com sucesso");
     }
 
     public void validaSePossuiAtributosNulos(PagamentoDTO pagamentoDTO) {
         log.info("[VALIDAÇÃO - PAGAMENTO] Inicializando validação de atributos obrigatórios nulos...");
 
-        if (pagamentoDTO.getDataAgendamento() != null) {
+        if (pagamentoDTO.getDataAgendamento() != null && !pagamentoDTO.getDataAgendamento().equals("Sem agendamento")) {
 
-            if (pagamentoDTO.getDataPagamento() != null)
-                throw new InvalidRequestException("Não é possível cadastrar a data de pagamento em um agendamento");
+//            if (pagamentoDTO.getDataPagamento() != null && !pagamentoDTO.getDataPagamento().isEmpty())
+//                throw new InvalidRequestException("Não é possível cadastrar a data de pagamento em um agendamento");
 
-            if (pagamentoDTO.getFormaPagamento() != null)
+            if (pagamentoDTO.getFormaPagamento() != null && !pagamentoDTO.getDataPagamento().isEmpty())
                 throw new InvalidRequestException("Não é possível cadastrar a forma de pagamento em um agendamento");
         } else {
-            if (pagamentoDTO.getDataAgendamento() != null)
-                throw new InvalidRequestException("Não é possível cadastrar uma data de agendamento em um pagamento que já foi realizado");
+//            if (pagamentoDTO.getDataAgendamento() != null && !pagamentoDTO.getDataAgendamento().isEmpty() && !pagamentoDTO.getDataAgendamento().equals("Sem agendamento"))
+//                throw new InvalidRequestException("Não é possível cadastrar uma data de agendamento em um pagamento que já foi realizado");
 
-            if (pagamentoDTO.getFormaPagamento() == null)
+            if (pagamentoDTO.getFormaPagamento() == null && !pagamentoDTO.getDataPagamento().isEmpty())
                 throw new InvalidRequestException("A forma de pagamento não pode ser nula");
         }
 
@@ -64,7 +69,7 @@ public class PagamentoValidation {
 
         LocalDate hoje = LocalDate.now();
 
-        if (!dataPagamento.matches(DATE_REGEX))
+        if (dataPagamento.matches(DATE_REGEX))
             throw new InvalidRequestException("Validação do pagamento falhou. Motivo: o padrão da data de pagamento é inválido");
 
         String dataDoPagamento = dataPagamento.replace("/", "-").split("-")[2] + "-"

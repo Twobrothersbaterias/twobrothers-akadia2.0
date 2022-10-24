@@ -15,6 +15,7 @@ import br.com.twobrothers.frontend.services.GerenciamentoEstoqueService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.services.enums.OperacaoEstoque;
 import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.utils.TrataAtributosVazios;
 import br.com.twobrothers.frontend.validations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
+import static br.com.twobrothers.frontend.utils.TrataAtributosVazios.verificaSeClienteNulo;
 
 /**
  * @author Gabriel Lagrota
@@ -92,8 +94,10 @@ public class OrdemCrudService {
 
         ClienteEntity clienteEntity = new ClienteEntity();
 
+        TrataAtributosVazios.trataAtributosVaziosDoObjetoCliente(ordem.getCliente());
+
         log.info("[PROGRESS] Verificando se cliente passado pelo corpo da requisição é nulo...");
-        if (ordem.getCliente() != null) {
+        if (!verificaSeClienteNulo(ordem.getCliente())) {
 
             log.info("[PROGRESS] Iniciando validação do objeto ClienteDTO recebido pela requisição...");
             clienteValidation.validaCorpoRequisicao(ordem.getCliente(), clienteRepository, ValidationType.UPDATE);
@@ -180,6 +184,7 @@ public class OrdemCrudService {
 
             log.info("[PROGRESS] Persistindo as entradas no banco de dados SEM o produto e SEM a ordem...");
             entradaOrdemDTO.setProduto(null);
+            entradaOrdemDTO.setOrdem(null); //ADIÇÃO DE TESTE
             EntradaOrdemEntity entradaOrdemEntity =
                     entradaOrdemRepository.save(modelMapper.mapper().map(entradaOrdemDTO, EntradaOrdemEntity.class));
 
@@ -201,8 +206,8 @@ public class OrdemCrudService {
         ordemEntity.setDataCadastro(LocalDateTime.now());
 
         if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.LOJA_FISICA)) {
-            log.info("[PROGRESS] Setando a data de retirada da ordem: {}...", LocalDateTime.now());
-            ordem.getRetirada().setDataRetirada(LocalDateTime.now());
+            log.info("[PROGRESS] Setando a data de retirada da ordem: {}...", LocalDate.now().toString());
+            ordem.getRetirada().setDataRetirada(LocalDate.now().toString());
         }
 
         log.info("[PROGRESS] Setando a retirada recebida pela requisição ao objeto ordemEntity...");

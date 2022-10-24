@@ -28,7 +28,7 @@ public class RetiradaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataRetirada;
+    private String dataRetirada;
     private String observacao;
     private String dataAgendamento;
     private String tecnicoEntrada;
