@@ -445,6 +445,8 @@ function trocaTipoDaEntrada() {
 	var labelQuantidade = document.getElementById('label_quantidade')
 	var inputQuantidade = document.getElementById('input_quantidade');
 
+	var botaoAddProduto = document.getElementById('botao_add_produto');	
+
 	if(tipoDaEntrada.value == "PADRAO_SERVICO") {
 
 		optionServico.hidden=false;
@@ -463,6 +465,11 @@ function trocaTipoDaEntrada() {
 		inputQuantidade.style.color="#4444";
 		inputQuantidade.style.borderColor="#4444";
 		inputQuantidade.disabled=true;
+
+		inputQuantidade.style.background="transparent";
+		inputQuantidade.value=0;
+		botaoAddProduto.disabled=false;
+		botaoAddProduto.style.background="#2f3d61";		
 
 	}
 	else {
@@ -508,7 +515,7 @@ function validaNovoProduto() {
 	if(inputQuantidade.replace(" ", "") == "" || inputQuantidade == null) {
 		erros += "- O campo quantidade não pode ser vazio\n";
 	}
-	if(parseInt(inputQuantidade) < 1) {
+	if(parseInt(inputQuantidade) < 1  && inputProduto != "Serviço") {
 		erros += "- O campo quantidade não pode ser menor do que 1";
 	}
 
@@ -543,6 +550,8 @@ function resetNovoProduto() {
 	var inputQuantidade = document.getElementById('input_quantidade');
 	var optionProdutos = document.getElementsByClassName('option_produto');
 	var optionServico = document.getElementById('option_servico');
+	var labelTipoEntrada = document.getElementById('label_tipo_entrada');
+	var labelQuantidade = document.getElementById('label_quantidade');
 
 	inputTipoProduto.value="PADRAO_PRODUTO";
 	inputTipoEntrada.value="TROCA";
@@ -792,6 +801,7 @@ function tratamentoCampoQuantidade() {
 	var inputQuantidade = document.getElementById('input_quantidade');
 	var selectProduto = document.getElementById('select_produto');
 	var campoProduto = 0.0;
+	var botaoAddProduto = document.getElementById('botao_add_produto');
 
 	if(selectProduto.value != 'Serviço') {
 
@@ -806,9 +816,15 @@ function tratamentoCampoQuantidade() {
 
 		if (parseInt(inputQuantidade.value) > campoProduto) {
 			inputQuantidade.style.background="#f5aea9";
+			botaoAddProduto.disabled=true;
+			botaoAddProduto.style.background="grey";
+			return false;
 		}
 		else {
 			inputQuantidade.style.background="transparent";
+			botaoAddProduto.disabled=false;
+			botaoAddProduto.style.background="#2f3d61";
+			return true;
 		}
 
 	}
@@ -833,9 +849,11 @@ function tratamentoCampoEmail() {
 
 		if (emailRegex.test(inputEmail.value)) {
 			inputEmail.style.background="transparent";
+			return true;
 		}
 		else {
 			inputEmail.style.background="#f5aea9";			
+			return false;
 		}
 
 	}
@@ -854,9 +872,11 @@ function tratamentoCampoTelefone() {
 
 		if (telefoneRegex.test(inputTelefone.value)) {
 			inputTelefone.style.background="transparent";
+			return true;
 		}
 		else {
 			inputTelefone.style.background="#f5aea9";
+			return false;
 		}
 
 	}
@@ -882,9 +902,123 @@ function tratamentoCampoCpfCnpj() {
 	}
 }
 
+function tratamentoCampoCep() {
+
+	var cepRegex = new RegExp("[0-9]{8}");
+
+	var inputCep = document.getElementById('cep_input');
+
+	if (inputCep.value != "") {
+
+		if (cepRegex.test(inputCep.value)) {
+			inputCep.style.background="transparent";
+		}
+		else {
+			inputCep.style.background="#f5aea9";
+		}
+	}
+}
+
+/* VALIDAÇÃO DE TODOS OS CAMPOS */
+function validacaoCampos() {
+
+	var botaoFinalizar = document.getElementById('botao_finalizar');
+
+	var inputPagamentos = document.getElementById('input_pagamentos');
+	var inputEntradas = document.getElementById('input_entradas');
+
+	var inputPagamentosSplitted = inputPagamentos.value.split("PAGAMENTO=");
+	var inputEntradasSplitted = inputEntradas.value.split("ENTRADA=");
+
+	var totEntradas = 0.0;
+	var totPagamentos = 0.0;
+
+	for(var i = 1; i < inputEntradasSplitted.length; i++) {
+		totEntradas += parseFloat(inputEntradasSplitted[i].split(";")[3]);
+	}
+
+	for(var i = 1; i < inputPagamentosSplitted.length; i++) {
+		totPagamentos += parseFloat(inputPagamentosSplitted[i].split(";")[1]);
+	}
+
+	/* ======================================================================= */
+
+	var inputTelefone = document.getElementById('input_telefone');
+	var inputEmail = document.getElementById('input_email');
+	var inputCep = document.getElementById('cep_input');
+
+	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
+
+	if(inputTelefone.value != "" && !tratamentoCampoTelefone()) {
+		erros += "- Telefone com padrão incorreto\n";
+	}
+	if(inputEmail.value != "" && !tratamentoCampoEmail()) {
+		erros += "- Email com padrão incorreto\n";
+	}
+	if(inputCep.value != "" && !tratamentoCampoCep()) {
+		erros += "- Cep com padrão incorreto\n";
+	}
+	if(inputPagamentos.value == "") {
+		erros += "- Nenhum pagamento adicionado à ordem\n";
+	}
+	if(inputEntradas.value == "") {
+		erros += "- Nenhuma entrada adicionada à ordem\n";
+	}
+
+
+
+
+
+	if (erros != "Ocorreram alguns erros no lançamento da ordem:\n") {
+
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade > 1) {
+			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
+		}
+
+		alert(erros);
+		return false;
+
+	}
+	else {
+
+		if (totEntradas > totPagamentos) {
+			if (confirm("O valor pago é menor do que o valor dos lançamentos." + 
+				"\n====================================\nTotal da ordem:                 " 
+				+ totEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
+				+ "\nValor pago:                        " + totPagamentos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+				+ "\nValor em aberto:                " + (parseFloat(totEntradas) - parseFloat(totPagamentos)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+				+ "\n====================================\nDeseja prosseguir mesmo assim?") == true) {
+				botaoFinalizar.type="submit";
+			}
+		}
+		else if (totEntradas < totPagamentos) {
+			if (confirm("O valor pago é maior do que o valor dos lançamentos." + 
+				"\n====================================\nTotal da ordem:                 " 
+				+ totEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
+				+ "\nValor pago:                        " + totPagamentos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+				+ "\nTroco pendente:                " + (parseFloat(totPagamentos) - parseFloat(totEntradas)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+				+ "\n====================================\nDeseja prosseguir mesmo assim?") == true) {
+				botaoFinalizar.type="submit";
+			}
+		}
+
+	}
+
+}
+
 /* ============================= Miscelânia ================================== */
 
 function consultaEndereco() {
+
+	tratamentoCampoCep();
 
 	var cep = document.querySelector('#cep_input');
 
