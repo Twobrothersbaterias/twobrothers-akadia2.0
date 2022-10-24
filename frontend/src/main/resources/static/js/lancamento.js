@@ -4,6 +4,16 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 calculaInformativos();
 
+document.onkeydown=function(){
+	console.log(window.event.keyCode);
+    if(window.event.keyCode=='121') {
+        validacaoCampos();
+    }
+    else if(window.event.keyCode=="120") {
+    	avancarBloco();
+    }
+}
+
 function responsive(){
 
 	document.getElementById('main_loader').style.display="none";
@@ -579,17 +589,17 @@ function resetNovoProduto() {
 
 function addNovoProduto() {
 
-	if (validaNovoProduto()) {
-
-		var string = "ENTRADA=";
-
 		var inputTipoProduto = document.getElementById('input_tipo_produto');
 		var inputTipoEntrada = document.getElementById('input_tipo_entrada');
 		var inputProduto = document.getElementById('select_produto');
 		var inputValor = document.getElementById('input_valor');
 		var inputQuantidade = document.getElementById('input_quantidade');
 
-		var inputEntradas = document.getElementById('input_entradas');
+		var inputEntradas = document.getElementById('input_entradas');	
+
+	if (validaNovoProduto()) {
+
+		var string = "ENTRADA=";
 
 		string += inputTipoProduto.value
 		+ ";" + inputTipoEntrada.value
@@ -1138,6 +1148,63 @@ function resetValorPagamentoSeVazio() {
 }
 
 /* ============================= Miscelânia ================================== */
+
+function avancarBloco() {
+
+	var idAtual = (document.activeElement.id);
+	console.log(idAtual);
+	if(idAtual == "input_tipoNfe" 
+		|| idAtual == "input_ponto" 
+		|| idAtual == "input_tipo_retirada") {
+		document.getElementById('input_nome').focus();
+	}
+	else if(
+		idAtual == "input_nome"
+		|| idAtual == "input_veiculo"
+		|| idAtual == "input_telefone"
+		|| idAtual == "input_dataNascimento"
+		|| idAtual == "input_cpfCnpj") {
+		document.getElementById('cep_input').focus();
+	}
+	else if(
+		idAtual == "cep_input"
+		|| idAtual == "estado_input"
+		|| idAtual == "cidade_input"
+		|| idAtual == "bairro_input"
+		|| idAtual == "logradouro_input"
+		|| idAtual == "input_numero"
+		|| idAtual == "input_complemento") {
+		document.getElementById('select_tecnico').focus();
+	}
+	else if(
+		idAtual == "select_tecnico"
+		|| idAtual == "input_agendamento_retirada"
+		|| idAtual == "input_email"
+		|| idAtual == "input_retirada_observacao") {
+		document.getElementById('input_tipo_produto').focus();
+	}
+	else if(
+		idAtual == "input_tipo_produto"
+		|| idAtual == "input_tipo_entrada"
+		|| idAtual == "select_produto"
+		|| idAtual == "input_valor"
+		|| idAtual == "input_quantidade"
+		|| idAtual == "botao_add_produto") {
+		document.getElementById('select_forma_pagamento').focus();
+	}
+	else if(
+		idAtual == "select_forma_pagamento"
+		|| idAtual == "input_valor_pagamento" 
+		|| idAtual == "input_observacao"
+		|| idAtual == "input_dt_agendamento"
+		|| idAtual == "botao_add_pagamento") {
+		document.getElementById('botao_finalizar').focus();
+	}
+	else {
+		document.getElementById('input_tipoNfe').focus();
+	}
+
+}
 
 function mudaTipoDaEntrega() {
 
