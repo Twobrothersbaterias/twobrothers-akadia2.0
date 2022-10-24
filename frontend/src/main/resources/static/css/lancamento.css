@@ -255,6 +255,15 @@
 	margin-bottom: 0;
 }
 
+#label_agendamento_retirada {
+	color: #4444;
+}
+
+#input_agendamento_retirada {
+	border: 1px solid #4444;
+	color: #4444;
+}
+
 @keyframes progressBar {
   0% { width: 0; }
   100% { width: 33%; }

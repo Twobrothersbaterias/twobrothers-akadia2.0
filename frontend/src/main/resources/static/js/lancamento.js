@@ -789,7 +789,6 @@ function calculaInformativos() {
 
 	document.getElementById('informativo_troco').innerText=troco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 	document.getElementById('informativo_resta').innerText=restaPagar.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
 }
 
 /* ================== TRATAMENTO DE INPUTS ====================== */
@@ -830,14 +829,7 @@ function tratamentoCampoQuantidade() {
 	}
 }
 
-function resetQuantidadeSeVazia() {
-	if (document.getElementById('input_quantidade').value == "") {
-		document.getElementById('input_quantidade').value = 0;
-	}	
-}
-
 /* TRATAMENTO DO CAMPO EMAIL */
-
 function tratamentoCampoEmail() {
 
 	var emailRegex =  new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)" +
@@ -858,15 +850,20 @@ function tratamentoCampoEmail() {
 
 	}
 
+	else {
+		inputEmail.style.background="transparent";
+		return true;
+	}
 }
 
 /* TRATAMENTO DO CAMPO TELEFONE */
-
 function tratamentoCampoTelefone() {
 
 	var telefoneRegex =  new RegExp("^\\([1-9]{2}\\)[9]{0,1}[1-9]{1}[0-9]{3}\\-[0-9]{4}$");
 
 	var inputTelefone = document.getElementById('input_telefone');
+
+	inputTelefone.value = inputTelefone.value.replace(/([a-zA-Z ])/g, "");
 
 	if (inputTelefone.value != "") {
 
@@ -880,9 +877,13 @@ function tratamentoCampoTelefone() {
 		}
 
 	}
-
+	else {
+		inputTelefone.style.background="transparent";
+		return true;
+	}
 }
 
+/* TRATAMENTO DO CAMPO CPF CNPJ */
 function tratamentoCampoCpfCnpj() {
 
 	var cnpjRegex =  new RegExp("[0-9]{2}.[0-9]{3}.[0-9]{3}/000[1-9]-[0-9]{2}");
@@ -890,18 +891,27 @@ function tratamentoCampoCpfCnpj() {
 
 	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
 
+	inputCpfCnpj.value = inputCpfCnpj.value.replace(/([a-zA-Z ])/g, "");
+
 	if (inputCpfCnpj.value != "") {
 
 		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
 			inputCpfCnpj.style.background="transparent";
+			return true;
 		}
 		else {
 			inputCpfCnpj.style.background="#f5aea9";
+			return false;
 		}
 
 	}
+	else {
+		inputCpfCnpj.style.background="transparent";
+		return true;
+	}
 }
 
+/* TRATAMENTO DO CAMPO CEP */
 function tratamentoCampoCep() {
 
 	var cepRegex = new RegExp("[0-9]{8}");
@@ -912,10 +922,87 @@ function tratamentoCampoCep() {
 
 		if (cepRegex.test(inputCep.value)) {
 			inputCep.style.background="transparent";
+			return true;
 		}
 		else {
 			inputCep.style.background="#f5aea9";
+			return false;
 		}
+	}
+	else {
+		inputCep.style.background="transparent";
+		return true;
+	}
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO CLIENTE */
+function validacaoDoObjetoCliente() {
+
+	var inputNome = document.getElementById('input_nome');
+	var inputTelefone = document.getElementById('input_telefone');
+	var inputEmail = document.getElementById('input_email');
+	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
+	var inputDataNascimento = document.getElementById('input_dataNascimento');
+
+	if(inputTelefone.value != "" 
+		|| inputEmail.value != "" 
+		|| inputCpfCnpj.value != "" 
+		|| inputDataNascimento.value != "") {
+
+		if(inputNome.value == "") {
+			inputNome.style.background="#f5aea9";
+			return false;			
+		}
+		else {
+			inputNome.style.background="transparent";
+			return true;			
+		}
+
+	}
+
+	else {
+		inputNome.style.background="transparent";
+		return true;		
+	}
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO ENDEREÇO */
+function validacaoDoObjetoEndereco() {
+
+	var inputCep = document.getElementById('cep_input');
+	var inputCidade = document.getElementById('cidade_input');
+	var inputBairro = document.getElementById('bairro_input');
+	var inputLogradouro = document.getElementById('logradouro_input');
+	var inputNumero = document.getElementById('input_numero');
+	var inputComplemento = document.getElementById('input_complemento');
+
+	if(inputCep.value != "" 
+		|| inputCidade.value != "" 
+		|| inputBairro.value != "" 
+		|| inputLogradouro.value != ""
+		|| inputNumero.value != ""
+		|| inputComplemento.value != "") {
+
+		if(inputLogradouro.value == "") {
+			inputLogradouro.style.background="#f5aea9";	
+		}
+		else {
+			inputLogradouro.style.background="transparent";		
+		}
+
+		if(inputNumero.value == "") {
+			inputNumero.style.background="#f5aea9";		
+		}
+		else {
+			inputNumero.style.background="transparent";		
+		}		
+
+	}
+
+	else {
+		inputLogradouro.style.background="transparent";
+		inputNumero.style.background="transparent";		
+		return true;		
 	}
 }
 
@@ -946,6 +1033,7 @@ function validacaoCampos() {
 	var inputTelefone = document.getElementById('input_telefone');
 	var inputEmail = document.getElementById('input_email');
 	var inputCep = document.getElementById('cep_input');
+	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 
@@ -958,6 +1046,9 @@ function validacaoCampos() {
 	if(inputCep.value != "" && !tratamentoCampoCep()) {
 		erros += "- Cep com padrão incorreto\n";
 	}
+	if(inputCpfCnpj.value != "" && !tratamentoCampoCpfCnpj()) {
+		erros += "- CPF/CNPJ com padrão incorreto\n";
+	}	
 	if(inputPagamentos.value == "") {
 		erros += "- Nenhum pagamento adicionado à ordem\n";
 	}
@@ -965,12 +1056,7 @@ function validacaoCampos() {
 		erros += "- Nenhuma entrada adicionada à ordem\n";
 	}
 
-
-
-
-
 	if (erros != "Ocorreram alguns erros no lançamento da ordem:\n") {
-
 		var quantidade = 0
 
 		for (var i = 0; i < erros.length; i++) {
@@ -979,16 +1065,15 @@ function validacaoCampos() {
 		  }
 		}
 
-		if (quantidade > 1) {
+		if (quantidade == 1) {
 			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
 		}
 
 		alert(erros);
 		return false;
-
 	}
-	else {
 
+	else {
 		if (totEntradas > totPagamentos) {
 			if (confirm("O valor pago é menor do que o valor dos lançamentos." + 
 				"\n====================================\nTotal da ordem:                 " 
@@ -1011,10 +1096,59 @@ function validacaoCampos() {
 		}
 
 	}
+}
 
+/* ================== RESETS ====================== */
+
+/* RESETA QUANTIDADE SE VAZIA */
+function resetQuantidadeSeVazia() {
+	if (document.getElementById('input_quantidade').value == "") {
+		document.getElementById('input_quantidade').value = 0;
+	}	
+}
+
+/* RESETA VALOR SE VAZIO */
+function resetValorSeVazio() {
+	if (document.getElementById('input_valor').value == "") {
+		document.getElementById('input_valor').value = 0.0;
+	}
+}
+
+function resetValorPagamentoSeVazio() {
+	if (document.getElementById('input_valor_pagamento').value == "") {
+		document.getElementById('input_valor_pagamento').value = 0.0;
+	}	
 }
 
 /* ============================= Miscelânia ================================== */
+
+function mudaTipoDaEntrega() {
+
+
+
+	var inputTipoRetirada = document.getElementById('input_tipo_retirada');
+	var inputAgendamentoRetirada = document.getElementById('input_agendamento_retirada');
+	var labelAgendamentoRetirada = document.getElementById('label_agendamento_retirada');
+	if(inputTipoRetirada.value == "LOJA_FISICA") {
+		inputAgendamentoRetirada.disabled=true;
+		inputAgendamentoRetirada.style.borderColor="#4444";
+		inputAgendamentoRetirada.style.color="#4444";
+		labelAgendamentoRetirada.style.color="#4444"
+	}
+	else if(inputTipoRetirada.value == "ENTREGA_EM_TRANSITO") {
+		inputAgendamentoRetirada.disabled=false;
+		inputAgendamentoRetirada.style.borderColor="grey";
+		inputAgendamentoRetirada.style.color="#303030";
+		labelAgendamentoRetirada.style.color="#303030"
+	}
+	else if(inputTipoRetirada.value == "ENTREGA_ENTREGUE") {
+		inputAgendamentoRetirada.disabled=true;
+		inputAgendamentoRetirada.style.borderColor="#4444";
+		inputAgendamentoRetirada.style.color="#4444";
+		labelAgendamentoRetirada.style.color="#4444"
+	}
+
+}
 
 function consultaEndereco() {
 
@@ -1048,6 +1182,7 @@ function mostrarEndereco(dados) {
 	estadoInput.value=dados.uf;
 	cidadeInput.value = dados.localidade;
 	logradouroInput.value=dados.logradouro;
+	logradouroInput.style.background="transparent";
 	bairroInput.value=dados.bairro;
 
 	document.getElementById('input_numero').focus();
