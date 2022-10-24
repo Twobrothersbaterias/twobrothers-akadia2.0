@@ -29,7 +29,7 @@ public class OrdemDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     private String veiculo;
 

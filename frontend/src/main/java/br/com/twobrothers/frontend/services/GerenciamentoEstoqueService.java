@@ -61,10 +61,10 @@ public class GerenciamentoEstoqueService {
         produtoEstoqueRepository.save(produtoEstoque);
     }
 
-    public void verificaSeExiste(EntradaOrdemDTO entradaOrdemDTO) {
+    public boolean verificaSeExiste(EntradaOrdemDTO entradaOrdemDTO) {
         Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
                 produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
-        if (produtoEstoqueEntityOptional.isPresent()) return;
+        if (produtoEstoqueEntityOptional.isPresent()) return true;
         throw new ObjectNotFoundException("Não existe nenhum produto com a sigla " + entradaOrdemDTO.getProduto().getSigla());
     }
 

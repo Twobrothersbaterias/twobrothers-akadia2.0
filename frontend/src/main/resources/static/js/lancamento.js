@@ -602,9 +602,16 @@ function addNovoProduto() {
 		resetNovoProduto();
 		calculaInformativos();
 
+		inputValor.style.background="transparent";
+
 		document.getElementById('sucessoCadastro').hidden=false;
 		document.getElementById('sucessoCadastro').innerText="Nova entrada inserida à ordem com sucesso";		
 
+		inputTipoProduto.focus();
+
+	}
+	else {
+		inputTipoProduto.focus();
 	}
 }
 
@@ -650,6 +657,9 @@ function validaNovoPagamento() {
 	}
 	if(parseFloat(inputValor) < 0) {
 		erros += "- O campo valor não pode ser menor do que zero\n";
+	}
+	if(parseFloat(inputValor) == 0) {
+		erros += "- O campo valor não pode ser igual a zero\n";
 	}
 	if(inputDataAgendamento != null && inputDataAgendamento != "") {
 		if(inputDataAgendamento.split("-").length < 3) {
@@ -739,7 +749,11 @@ function addNovoPagamento() {
 		document.getElementById('sucessoCadastro').hidden=false;
 		document.getElementById('sucessoCadastro').innerText="Novo pagamento inserido à ordem com sucesso";
 
-	}	
+		inputFormaPagamento.focus();
+	}
+	else {
+		inputFormaPagamento.focus();
+	}
 }
 
 /* ================== TRATAMENTO DE INFORMATIVOS ====================== */
@@ -1094,6 +1108,9 @@ function validacaoCampos() {
 				botaoFinalizar.type="submit";
 			}
 		}
+		else {
+			botaoFinalizar.type="submit";
+		}
 
 	}
 }
@@ -1124,8 +1141,6 @@ function resetValorPagamentoSeVazio() {
 
 function mudaTipoDaEntrega() {
 
-
-
 	var inputTipoRetirada = document.getElementById('input_tipo_retirada');
 	var inputAgendamentoRetirada = document.getElementById('input_agendamento_retirada');
 	var labelAgendamentoRetirada = document.getElementById('label_agendamento_retirada');
@@ -1147,7 +1162,6 @@ function mudaTipoDaEntrega() {
 		inputAgendamentoRetirada.style.color="#4444";
 		labelAgendamentoRetirada.style.color="#4444"
 	}
-
 }
 
 function consultaEndereco() {

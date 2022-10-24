@@ -203,7 +203,7 @@ public class OrdemCrudService {
         log.warn("[INFO] Iteração finalizada com sucesso");
 
         log.info("[PROGRESS] Setando data de cadastro da ordem: {}...", LocalDateTime.now());
-        ordemEntity.setDataCadastro(LocalDateTime.now());
+        ordemEntity.setDataCadastro(LocalDate.now().toString());
 
         if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.LOJA_FISICA)) {
             log.info("[PROGRESS] Setando a data de retirada da ordem: {}...", LocalDate.now().toString());

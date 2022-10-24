@@ -22,7 +22,6 @@ public class EntradaOrdemValidation {
 
     public void validaCorpoRequisicao(EntradaOrdemDTO entradaOrdemDTO) {
         validaSePossuiAtributosNulos(entradaOrdemDTO);
-        validaAtributoQuantidade(entradaOrdemDTO.getQuantidade());
         validaAtributoValor(entradaOrdemDTO.getValor());
     }
 
@@ -41,13 +40,6 @@ public class EntradaOrdemValidation {
                     "obrigatórios é necessária no corpo da requisição: " + atributosNulos);
 
         log.warn("Validação de atributos nulos OK");
-    }
-
-    public void validaAtributoQuantidade(Integer quantidade) {
-        log.info("[VALIDAÇÃO - ENTRADA] Inicializando validação do atributo quantidade...");
-        if (!quantidade.toString().matches(QUANTIDADE_REGEX))
-            throw new InvalidRequestException("Atributo quantidade passado na entradaOrdem inválido");
-        log.warn("Validação do atributo quantidade OK");
     }
 
     public void validaAtributoValor(Double valor) {

@@ -33,7 +33,7 @@ public class OrdemEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sq_ordem")
     private Long id;
 
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private String veiculo;
     private NfeEnum tipoNfe;
     private Long idUsuarioResponsavel;
