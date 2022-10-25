@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.entities.*;
+import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -235,55 +237,48 @@ public class OrdemCrudService {
 
     }
 
-    public List<OrdemDTO> buscaTodos() {
+    public List<OrdemEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de buscar todas as ordens...");
-        if (!repository.findAll().isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll().stream()
-                    .map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhuma ordem salva na base de dados...");
-        throw new ObjectNotFoundException("Não existe nenhuma ordem salva na base de dados.");
+        log.info("[STARTING] Iniciando método de busca de ordem por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
+        return repository.buscaPorPeriodoPaginado(pageable, dataInicio, dataFim);
     }
 
-    public List<OrdemDTO> buscaPorPaginacao(Pageable paginacao) {
+    public List<OrdemEntity> buscaPorPeriodo(Pageable pageable, Integer mes, Integer ano) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por paginação...");
-        if (!repository.findAll(paginacao).isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return repository.findAll(paginacao)
-                    .getContent().stream().map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
-        }
-        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada na página indicada");
+        log.info("[STARTING] Iniciando método de busca de ordem por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodoPaginado(pageable, dataInicio.toString(), dataFim.toString());
     }
 
-    public List<OrdemDTO> buscaPorRangeDeDataCadastro(String dataInicio, String dataFim) {
+    public List<OrdemEntity> buscaHojePaginado(Pageable pageable) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca por ordens por range de data de cadastro...");
-
-        List<OrdemEntity> ordens = repository.buscaPorRangeDeDataCadastro(
-                (LocalDate.parse(dataInicio)).atTime(0, 0),
-                (LocalDate.parse(dataFim)).atTime(23, 59, 59, 999999999));
-
-        if (!ordens.isEmpty()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return ordens.stream().map(x -> modelMapper.mapper().map(x, OrdemDTO.class)).collect(Collectors.toList());
-        }
-        log.error("[ERROR] Não existe nenhuma ordem cadastrada no range de datas indicado");
-        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada no range de datas indicado");
-
+        log.info("[STARTING] Iniciando método de busca de todas as ordens cadastradas hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojePaginado(pageable, hoje.toString());
     }
 
-    public OrdemDTO buscaPorId(Long id) {
+    public List<OrdemEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
-        log.info("[STARTING] Iniciando método de busca de ordem por id......");
-        if (repository.findById(id).isPresent()) {
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
-            return modelMapper.mapper().map(repository.findById(id).get(), OrdemDTO.class);
-        }
-        log.error("[ERROR] Não existe nenhuma ordem cadastrada no banco de dados com o id {}", id);
-        throw new ObjectNotFoundException("Não existe nenhuma ordem cadastrada no banco de dados com o id " + id);
+        log.info("[STARTING] Iniciando método de busca de ordem por range de data...");
+        validation.validaRangeData(dataInicio, dataFim);
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio, dataFim);
+    }
+
+    public List<OrdemEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
+    }
+
+    public List<OrdemEntity> buscaHojeSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todas as ordens cadastradas hoje...");
+        LocalDate hoje = LocalDate.now();
+        return repository.buscaHojeSemPaginacao(hoje.toString());
     }
 
     public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {

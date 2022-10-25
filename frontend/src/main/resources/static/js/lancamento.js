@@ -775,9 +775,6 @@ function calculaInformativos() {
 	var inputPagamentos = document.getElementById('input_pagamentos');
 	var inputEntradas = document.getElementById('input_entradas');
 
-	console.log(inputPagamentos.value);
-	console.log(inputEntradas.value);
-
 	var inputPagamentosSplitPai = inputPagamentos.value.split("PAGAMENTO=");
 	var inputEntradasSplitPai = inputEntradas.value.split("ENTRADA=");
 
@@ -834,6 +831,8 @@ function escolhaCliente() {
 
 	var optionSelecionada = document.getElementById(id);
 
+	resetaCliente();
+
 	document.getElementById('input_nome').value=optionSelecionada.getAttribute('data-nome');
 	document.getElementById('input_telefone').value=optionSelecionada.getAttribute('data-telefone');
 	document.getElementById('input_email').value=optionSelecionada.getAttribute('data-email');
@@ -847,6 +846,22 @@ function escolhaCliente() {
 	document.getElementById('logradouro_input').value=optionSelecionada.getAttribute('data-endereco-logradouro');
 	document.getElementById('input_numero').value=optionSelecionada.getAttribute('data-endereco-numero');
 	document.getElementById('input_complemento').value=optionSelecionada.getAttribute('data-endereco-complemento');
+}
+
+function resetaCliente() {
+	document.getElementById('input_nome').value="";
+	document.getElementById('input_telefone').value="";
+	document.getElementById('input_email').value="";
+	document.getElementById('input_cpfCnpj').value="";
+	document.getElementById('input_dataNascimento').value="";
+
+	document.getElementById('cep_input').value="";
+	document.getElementById('estado_input').value="SP";
+	document.getElementById('cidade_input').value="";
+	document.getElementById('bairro_input').value="";
+	document.getElementById('logradouro_input').value="";
+	document.getElementById('input_complemento').value="";	
+	document.getElementById('input_numero').value="";
 }
 
 /* TRATAMENTO DO CAMPO QUANTIDADE */
@@ -1184,7 +1199,6 @@ function resetValorPagamentoSeVazio() {
 function avancarBloco() {
 
 	var idAtual = (document.activeElement.id);
-	console.log(idAtual);
 	if(idAtual == "input_tipoNfe" 
 		|| idAtual == "input_ponto" 
 		|| idAtual == "input_tipo_retirada") {

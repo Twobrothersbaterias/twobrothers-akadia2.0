@@ -5,6 +5,7 @@ import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,16 @@ public class OrdemValidation {
             entradaOrdemValidation.validaCorpoRequisicao(entradaOrdem);
         }
         log.warn("Validação das entradas da ordem OK");
+    }
+
+    public void validaRangeData(String inicio, String fim) {
+
+        LocalDate dataInicio = LocalDate.parse(inicio);
+        LocalDate dataFim = LocalDate.parse(fim);
+
+        if (dataInicio.isAfter(dataFim))
+            throw new InvalidRequestException("O conteúdo do campo data início não pode ser anterior ao campo data fim");
+
     }
 
 }

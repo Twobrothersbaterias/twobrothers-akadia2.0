@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/lancamento")
@@ -38,11 +39,13 @@ public class LancamentoController {
     }
 
     @PostMapping
-    public ModelAndView lancamentoPost(ModelAndView modelAndView, OrdemDTO ordem) {
+    public ModelAndView lancamentoPost(ModelAndView modelAndView,
+                                       RedirectAttributes redirAttrs,
+                                       OrdemDTO ordem) {
 
         ordemCrudService.criaNovo(ordem);
-
-        modelAndView.setViewName("redirect:/lancamento");
+        redirAttrs.addFlashAttribute("SucessoCadastro", "Ordem cadastrada com sucesso");
+        modelAndView.setViewName("redirect:/vendas");
         return modelAndView;
     }
 

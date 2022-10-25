@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.StringConstants.URI_FORNECEDORES;
+import static br.com.twobrothers.frontend.utils.StringConstants.URI_ORDENS;
 
 @Slf4j
 @Service
@@ -112,37 +112,37 @@ public class FornecedorService {
 
     public String constroiUriFiltro(FiltroFornecedorDTO filtroFornecedorDTO) {
 
-        URI_FORNECEDORES = "fornecedores?";
+        URI_ORDENS = "fornecedores?";
 
         if (filtroFornecedorDTO.getDescricao() != null && !filtroFornecedorDTO.getDescricao().equals("")) {
-            URI_FORNECEDORES += "descricao=" + filtroFornecedorDTO.getDescricao();
+            URI_ORDENS += "descricao=" + filtroFornecedorDTO.getDescricao();
         }
 
         if (filtroFornecedorDTO.getDataInicio() != null && !filtroFornecedorDTO.getDataInicio().equals("")) {
-            URI_FORNECEDORES += "inicio=" + filtroFornecedorDTO.getDataInicio();
+            URI_ORDENS += "inicio=" + filtroFornecedorDTO.getDataInicio();
         }
 
         if (filtroFornecedorDTO.getDataFim() != null && !filtroFornecedorDTO.getDataFim().equals("")) {
-            URI_FORNECEDORES += "&fim=" + filtroFornecedorDTO.getDataFim();
+            URI_ORDENS += "&fim=" + filtroFornecedorDTO.getDataFim();
         }
 
         if (filtroFornecedorDTO.getPeriodoMes() != null && !filtroFornecedorDTO.getPeriodoMes().equals("")) {
-            URI_FORNECEDORES += "mes=" + filtroFornecedorDTO.getPeriodoMes();
+            URI_ORDENS += "mes=" + filtroFornecedorDTO.getPeriodoMes();
         }
 
         if (filtroFornecedorDTO.getPeriodoAno() != null && !filtroFornecedorDTO.getPeriodoAno().equals("")) {
-            URI_FORNECEDORES += "&ano=" + filtroFornecedorDTO.getPeriodoAno();
+            URI_ORDENS += "&ano=" + filtroFornecedorDTO.getPeriodoAno();
         }
 
         if (filtroFornecedorDTO.getCpfCnpj() != null && !filtroFornecedorDTO.getCpfCnpj().equals("")) {
-            URI_FORNECEDORES += "cpfCnpj=" + filtroFornecedorDTO.getCpfCnpj();
+            URI_ORDENS += "cpfCnpj=" + filtroFornecedorDTO.getCpfCnpj();
         }
 
         if (filtroFornecedorDTO.getTelefone() != null && !filtroFornecedorDTO.getTelefone().equals("")) {
-            URI_FORNECEDORES += "telefone=" + filtroFornecedorDTO.getTelefone();
+            URI_ORDENS += "telefone=" + filtroFornecedorDTO.getTelefone();
         }
 
-        return URI_FORNECEDORES;
+        return URI_ORDENS;
     }
 
 }

@@ -14,8 +14,7 @@ public class StringConstants {
 
     public static String URI_CLIENTES = "clientes?";
     public static String URI_ESTOQUE = "estoque?";
-    public static String URI_FORNECEDORES = "fornecedores?";
-
+    public static String URI_ORDENS = "fornecedores?";
     public static String URI_ABASTECIMENTO = "compras?";
 
     public static final String CLIENTE_NAO_ENCONTRADO_LOG = "[FALHA]  Cliente não encontrado";
