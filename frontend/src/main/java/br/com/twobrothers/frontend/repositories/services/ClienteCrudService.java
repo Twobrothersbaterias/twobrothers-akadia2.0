@@ -19,6 +19,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -55,6 +56,10 @@ public class ClienteCrudService {
 
     ClienteValidation validation = new ClienteValidation();
     EnderecoValidation enderecoValidation = new EnderecoValidation();
+
+    public List<ClienteEntity> buscaTodos() {
+        return repository.findAll(Sort.by("nomeCompleto"));
+    }
 
     public void criaNovo(ClienteDTO cliente) {
 

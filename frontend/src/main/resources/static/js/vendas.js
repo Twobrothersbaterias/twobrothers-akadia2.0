@@ -79,13 +79,6 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.15rem";	
-
-		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";
-
 		filtroTitulo.style.fontSize="1.5rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {

@@ -298,20 +298,40 @@
 
 									</div>	
 
-									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
-										<div class="novo_item_block col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_nome">
-												Nome
-											</label>
-											<input tabindex="4" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" id="input_nome" name="cliente.nomeCompleto" oninput="validacaoDoObjetoCliente()" />
-										</div>
+									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 
-										<div class="novo_item_block col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input" style="color: #C3C8C8;">
-												.
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
+												Cliente
 											</label>
-											<img class="row novo_item_form_row img_busca_cliente col-xl-12" src="../static/img/add-green.png"/>
-										</div>
+											<input tabindex="4" list="clientes" name="cliente.nomeCompleto" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" id="input_nome" oninput="validacaoDoObjetoCliente()" autocomplete="off" onchange="escolhaCliente()">
+
+											<datalist id="clientes">
+
+											  <option 
+											  th:value="'Id ' + ${cliente.id} + ' | ' + ${cliente.nomeCompleto}" 
+											  th:text="'CPF: ' + ${cliente.cpfCnpj}" 
+											  class="option_cliente" 
+											  th:each="cliente: ${clientes}" 
+											  th:data-id="${cliente.id}"
+											  th:data-nome="${cliente.nomeCompleto}"
+											  th:data-telefone="${cliente.telefone}"
+											  th:data-email="${cliente.email}"
+											  th:data-cpfCnpj="${cliente.cpfCnpj}"
+											  th:data-nascimento="${cliente.dataNascimento}"
+											  th:data-endereco-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											  th:data-endereco-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : 'SP'"
+											  th:data-endereco-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											  th:data-endereco-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											  th:data-endereco-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											  th:data-endereco-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											  th:data-endereco-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											  th:id=${cliente.id}>
+											  </option>
+											  
+											</datalist>			
+
+										</div>	
 
 										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
 											
@@ -399,9 +419,7 @@
 												<option
 												th:each="produto: ${produtos}" 
 												th:value="${produto.id}" 
-												th:text="${produto.sigla}
-															+ ' | Qtde: ' 
-															+ ${produto.quantidade}" 
+												th:text="'Qtd: ' + ${produto.quantidade} + ' | ' + ${produto.sigla}"
 												class="option_produto" 
 												value="...">...</option>							
 

@@ -148,6 +148,12 @@ public class OrdemCrudService {
 
         }
 
+        else {
+            log.warn("[INFO] Nenhum cliente foi recebido no corpo da requisição");
+
+            log.info("[PROGRESS] Setando cliente do objeto ordem como nulo...");
+            ordem.setCliente(null);
+        }
         log.info("[PROGRESS] Iniciando validação em massa da relação ENTRADA -> PRODUTO...");
         gerenciamentoEstoqueService.validacoesEmMassa(ordem.getEntradas());
 
