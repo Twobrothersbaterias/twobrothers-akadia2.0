@@ -21,7 +21,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name = "tb_produto_ordem")
+@Table(name = "tb_entrada")
 @SequenceGenerator(allocationSize = 1, sequenceName = "sq_produto_ordem", name = "produto_ordem")
 public class EntradaOrdemEntity {
 

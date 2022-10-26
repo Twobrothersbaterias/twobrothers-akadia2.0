@@ -2,7 +2,6 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
-calculaInformativos();
 
 document.onkeydown=function(){
     if(window.event.keyCode=='121') {
@@ -434,6 +433,8 @@ function responsive(){
 	}
 
 	pageResponsiva();
+	calculaInformativos();
+	ajustaMinMaxDosInputsData();
 }
 
 
@@ -1194,6 +1195,37 @@ function resetValorPagamentoSeVazio() {
 	}	
 }
 
+/* ====================== Ajuste MIN e MAX das datas ========================= */
+
+function ajustaMinMaxDosInputsData() {
+
+	var inputDataNascimento = document.getElementById('input_dataNascimento');
+	var inputAgendamentoPagamento = document.getElementById('input_dt_agendamento');
+	var inputAgendamentoRetirada = document.getElementById('input_agendamento_retirada');
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
+	var hoje = (ano + '-' + mes + '-' + dia); 	
+
+	inputDataNascimento.max=hoje;	
+	inputDataNascimento.min='1900-01-01';
+
+	inputAgendamentoPagamento.min=hoje;
+	inputAgendamentoRetirada.min=hoje;	
+
+}
+
 /* ============================= Miscelânia ================================== */
 
 function avancarBloco() {
@@ -1313,7 +1345,6 @@ function mostrarEndereco(dados) {
 	bairroInput.value=dados.bairro;
 
 	document.getElementById('input_numero').focus();
-
 }
 
 function pageResponsiva(){

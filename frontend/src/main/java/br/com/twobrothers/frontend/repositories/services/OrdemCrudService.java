@@ -164,6 +164,9 @@ public class OrdemCrudService {
         log.info("[PROGRESS] Iniciando validação do objeto RetiradaDTO recebido acoplado no objeto OrdemDTO...");
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
 
+        if (ordem.getRetirada().getDataAgendamento() == null) ordem.getRetirada().setDataAgendamento("Não possui");
+        if (ordem.getRetirada().getDataRetirada() == null) ordem.getRetirada().setDataRetirada("Em aberto");
+
         log.info("[PROGRESS] Iniciando validação em massa da relação ORDEM -> PAGAMENTO...");
         pagamentoValidation.validaCorpoRequisicaoEmMassa(ordem.getPagamentos());
 

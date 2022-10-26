@@ -263,7 +263,8 @@
 
 						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/lancamento}">
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" 
+							th:href="${queryString != null} ? @{/lancamento?} + ${queryString} : @{/lancamento}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
 							</a>
 							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/vendas}">
@@ -398,22 +399,22 @@
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/estoque(page=${pagina-1})}" class="li_a page_click" id="anterior">	
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/vendas(page=${pagina-1})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/vendas(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">												Anterior
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/vendas(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">												Anterior
 										</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/vendas(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>
 
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/estoque(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/vendas(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
 											Anterior
 										</a>																																								
 									</li>
@@ -422,29 +423,29 @@
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/vendas(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/vendas(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/vendas(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/vendas(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/estoque(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/vendas(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
 
 									</li>
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/estoque(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/vendas(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
+										<a th:if="${descricao}" th:href="@{__${baseUrl}__/vendas(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
 
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
+										<a th:if="${tipo}" th:href="@{__${baseUrl}__/vendas(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
 
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/vendas(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
 
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/estoque(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																		
+										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/vendas(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																		
 									</li>
 
 								</ul>
@@ -592,7 +593,7 @@
 					Tipo
 				</div>														
 
-				<form th:action="@{estoque/filtro}" method="POST" th:object="${filtroProduto}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12" id="form_fantasma_filtro">
+				<form th:action="@{vendas/filtro}" method="POST" th:object="${filtroProduto}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-6 col-12" id="form_fantasma_filtro">
 
 					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>

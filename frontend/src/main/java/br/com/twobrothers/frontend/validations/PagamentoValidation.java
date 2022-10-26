@@ -42,26 +42,26 @@ public class PagamentoValidation {
     public void validaSePossuiAtributosNulos(PagamentoDTO pagamentoDTO) {
         log.info("[VALIDAÇÃO - PAGAMENTO] Inicializando validação de atributos obrigatórios nulos...");
 
-        if (pagamentoDTO.getDataAgendamento() != null && !pagamentoDTO.getDataAgendamento().equals("Sem agendamento")) {
+//        if (pagamentoDTO.getDataAgendamento() != null && !pagamentoDTO.getDataAgendamento().equals("Sem agendamento")) {
 
 //            if (pagamentoDTO.getDataPagamento() != null && !pagamentoDTO.getDataPagamento().isEmpty())
 //                throw new InvalidRequestException("Não é possível cadastrar a data de pagamento em um agendamento");
 
-            if (pagamentoDTO.getFormaPagamento() != null && !pagamentoDTO.getDataPagamento().isEmpty())
-                throw new InvalidRequestException("Não é possível cadastrar a forma de pagamento em um agendamento");
-        } else {
+//            if (pagamentoDTO.getFormaPagamento() != null && !pagamentoDTO.getDataPagamento().isEmpty())
+//                throw new InvalidRequestException("Não é possível cadastrar a forma de pagamento em um agendamento");
+//        } else {
 //            if (pagamentoDTO.getDataAgendamento() != null && !pagamentoDTO.getDataAgendamento().isEmpty() && !pagamentoDTO.getDataAgendamento().equals("Sem agendamento"))
 //                throw new InvalidRequestException("Não é possível cadastrar uma data de agendamento em um pagamento que já foi realizado");
 
-            if (pagamentoDTO.getFormaPagamento() == null && !pagamentoDTO.getDataPagamento().isEmpty())
-                throw new InvalidRequestException("A forma de pagamento não pode ser nula");
-        }
-
-        if (pagamentoDTO.getValor() == null)
-            throw new InvalidRequestException("O campo valor não pode ser nulo");
-
-
-        log.warn("Validação de atributos nulos OK");
+//            if (pagamentoDTO.getFormaPagamento() == null && !pagamentoDTO.getDataPagamento().isEmpty())
+//                throw new InvalidRequestException("A forma de pagamento não pode ser nula");
+//        }
+//
+//        if (pagamentoDTO.getValor() == null)
+//            throw new InvalidRequestException("O campo valor não pode ser nulo");
+//
+//
+//        log.warn("Validação de atributos nulos OK");
     }
 
     public void validaAtributoDataPagamento(String dataPagamento) {

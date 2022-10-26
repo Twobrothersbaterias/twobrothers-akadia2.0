@@ -26,6 +26,9 @@ public class UsuarioEntity implements UserDetails {
     private String nomeUsuario;
     private String senha;
 
+    @Enumerated(EnumType.STRING)
+    private PrivilegioEnum privilegio;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<PerfilEntity> perfis = new ArrayList<>();
 
