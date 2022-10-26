@@ -256,8 +256,16 @@
 	color: #4444;
 }
 
-.icones {
-	max-width: 28.5%;
+.conteudo_titulo_item {
+	display: flex;
+	justify-content: center;
+	float: left;
+}
+
+.img_div {
+	display: flex;
+	justify-content: right;
+	float: right;
 }
 
 @keyframes progressBar {

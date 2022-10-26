@@ -52,6 +52,7 @@ public class OrdemController {
         String completeUrl = baseUrl + "/vendas?" + req.getQueryString();
 
         modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
         modelMap.addAttribute("baseUrl", baseUrl);
         modelMap.addAttribute("queryString", req.getQueryString());
         modelMap.addAttribute("completeUrl", completeUrl);

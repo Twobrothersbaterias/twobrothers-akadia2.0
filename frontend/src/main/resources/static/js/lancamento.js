@@ -29,178 +29,43 @@ function responsive(){
 	var menuSuperiorUl = document.getElementById('menu_superior_ul');
 	var nomePerfil = document.getElementById('nome_perfil');
 	var menuMobile = document.getElementById('menu_superior_mobile');
-	var informativoRow = document.getElementById('informativo_row');
-	var excluirText = document.getElementById('excluir_text');
-	var containerNovo = document.getElementById('conteudo_container_novo');	
-	var novoTitulo	= document.getElementById('novo_titulo');
 
-	var novoItemSubmit = document.getElementById('novo_item_submit');
-
-	var containerEdita = document.getElementById('conteudo_container_edita');	
-	var editaTitulo	= document.getElementById('edita_titulo');
-	var editaItemSubmit = document.getElementById('edita_item_submit');
-
-	var informativo = document.getElementsByClassName('informativo');
-	var th = document.getElementsByClassName('th');
-	var td = document.getElementsByClassName('td');
-	var novoTh = document.getElementsByClassName('novo_th');
-	var novoTd = document.getElementsByClassName('novo_td');	
-	var tdUsuario = document.getElementsByClassName('td_usuario');
-	var thUsuario = document.getElementsByClassName('th_usuario');
-	var tdData = document.getElementsByClassName('td_data');
-	var thData = document.getElementsByClassName('th_data');
-	var tdPagamento = document.getElementsByClassName('td_pagamento');
-	var thPagamento = document.getElementsByClassName('th_pagamento');
-	var tdRemove = document.getElementsByClassName('td_checkbox');
-	var thRemove = document.getElementsByClassName('th_remove');	
-	var btnExcluir = document.getElementsByClassName('btn_excluir');
-	var formRemoveImg = document.getElementsByClassName('form_remove_img');
-	var formRemoveText = document.getElementsByClassName('form_remove_text');
-	var liA = document.getElementsByClassName('li_a');
-	var menuSuperiorMobileItem = document.getElementsByClassName('menu_superior_mobile_item');
-	var novoItemInput = document.getElementsByClassName('novo_item_input');
-	var editaItemInput = document.getElementsByClassName('edita_item_input');
-	var filtroBlock = document.getElementsByClassName('filtro_block');
-	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
-	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
-	var filtroTitulo = document.getElementById('filtro_titulo');
-	var listaVaziaTitulo = document.getElementById('lista_vazia_titulo');
-	var listaVaziaTexto = document.getElementById('lista_vazia_texto');
-	var listaVaziaBotao = document.getElementById('lista_vazia_botao');
+	var divIcones = document.getElementsByClassName('img_div');
+	var selectSuperiorContainer = document.getElementsByClassName('select_superior_container');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
-		conteudoTituloText.style.fontSize="1.5rem";
 		sideMenu.style.display="block";
 		main.style.width="95.5%";
 		sideMenu.style.width="4.5%";
 		menuSuperior.style.height="55px";
 		menuSuperiorUl.style.padding="12px 0";		
 		menuMobile.style.display="none";
-		if (informativoRow != null) {
-			informativoRow.style.justifyContent="center";
+
+		for(var i = 0; i < divIcones.length; i++) {
+			divIcones[i].style.padding="9px 0";
 		}
 
-		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.75rem";
-			listaVaziaTexto.style.fontSize="1rem";
-			listaVaziaBotao.style.fontSize="1rem";
+		for (var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.margin="0";
 		}
-
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].style.display="flex";
-		}
-
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].style.display="flex";
-		}
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.80rem";
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
-		}
-
-		for(var i = 0; i < novoTh.length; i++){
-			novoTh[i].style.fontSize="1rem";
-		}
-		for(var i = 0; i < novoTd.length; i++){
-			novoTd[i].style.fontSize="1rem";
-		}		
-		
-		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="1rem";
-			informativo[i].style.width="23.5%";
-			informativo[i].style.margin="0 7px";
-		}		
-		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.85rem";
-			liA[i].style.padding="6px 10px";			
-		}	
-
-		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="none";
-		}	
-
-		for(var i = 0; i < btnExcluir.length; i++) {
-			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
-			btnExcluir[i].style.padding="4px 6px";
-			btnExcluir[i].innerText="Excluir";
-		}		
 
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
 
-		conteudoTituloText.style.fontSize="1.3rem";
 		sideMenu.style.display="block";
 		main.style.width="94%";
 		sideMenu.style.width="6%";
 		menuSuperior.style.height="50px";
 		menuSuperiorUl.style.padding="9px 0";		
 		menuMobile.style.display="none";
-		if (informativoRow != null) {
-			informativoRow.style.justifyContent="center";
-		}
 
-		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.5rem";
-			listaVaziaTexto.style.fontSize="1rem";
-			listaVaziaBotao.style.fontSize="1rem";
-		}
-
-		containerNovo.style.fontSize="1rem";
-		novoTitulo.style.fontSize="1.15rem";	
-
-		containerEdita.style.fontSize="1rem";
-		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";
-
-		filtroTitulo.style.fontSize="1.4rem";
-
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].style.display="flex";
-		}
-
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].style.display="flex";
-		}					
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.75rem";		
+		for(var i = 0; i < divIcones.length; i++) {
+			divIcones[i].style.padding="8px 0";
 		}		
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.75rem";			
-		}
-
-		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.90rem";
-			informativo[i].style.width="23.5%";
-			informativo[i].style.margin="0 5px";
-		}			
-		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.80rem";
-			liA[i].style.padding="5px 10px";
-		}	
-		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="none";
-		}	
-
-		for(var i = 0; i < btnExcluir.length; i++) {
-			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
-			btnExcluir[i].style.padding="4px 6px";
-			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}	
-
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";					
+				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Médio');	
@@ -215,220 +80,46 @@ function responsive(){
 			sideMenu.style.width="7.5%";	
 		}
 
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].style.display="none";
-		}
-
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].style.display="none";
-		}		
-
-		conteudoTituloText.style.fontSize="1.2rem";
 		menuSuperior.style.height="50px";
 		menuSuperiorUl.style.padding="12px 0";		
-		menuMobile.style.display="none";
+		menuMobile.style.display="none";	
 
-		if (informativoRow != null) {
-			informativoRow.style.justifyContent="center";
-		}
-
-		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.5rem";
-			listaVaziaTexto.style.fontSize="1rem";
-			listaVaziaBotao.style.fontSize="1rem";
-		}
-
-
-		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.1rem";
-
-		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.1rem";
-		editaItemSubmit.style.marginTop="0px";
-
-		filtroTitulo.style.fontSize="1.3rem";	
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.70rem";	
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.70rem";
-		}	
-
-		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.80rem";
-			informativo[i].style.width="40%";	
-			informativo[i].style.margin="7px";					
+		for(var i = 0; i < divIcones.length; i++) {
+			divIcones[i].style.padding="6px 0";
 		}			
-		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.75rem";
-			liA[i].style.padding="5px 10px";			
-		}		
-		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="50%";			
-		}	
-
-		for(var i = 0; i < btnExcluir.length; i++) {
-			btnExcluir[i].style.display="none";
-		}	
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}	
-
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
 
-		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		menuSuperior.style.height="45px";
 		menuSuperiorUl.style.padding="9px 0";		
 		menuMobile.style.display="flex";
 
-		if (informativoRow != null) {
-			informativoRow.style.justifyContent="center";
-		}
-
-		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.2rem";
-			listaVaziaTexto.style.fontSize="0.90rem";
-			listaVaziaBotao.style.fontSize="0.90rem";
-		}
-
-		containerNovo.style.fontSize="0.90rem";	
-		novoTitulo.style.fontSize="1.2rem";		
-
-		containerEdita.style.fontSize="0.90rem";	
-		editaTitulo.style.fontSize="1.2rem";		
-		editaItemSubmit.style.marginTop="0px";
-
-		filtroTitulo.style.fontSize="1.2rem";
-
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].style.display="none";
-		}
-
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].style.display="none";
-		}		
-
-
-		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.65rem";
-		}
-		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.65rem";
-		}
-				
-		for(var i = 0; i < informativo.length; i++) {
-			informativo[i].style.fontSize="0.68rem";
-			informativo[i].style.width="46%";
-			informativo[i].style.margin="7px";			
-		}
-		for(var i = 0; i < liA.length; i++) {
-			liA[i].style.fontSize="0.70rem";
-			liA[i].style.padding="5px 8px";
+		for(var i = 0; i < divIcones.length; i++) {
+			divIcones[i].style.paddingTop="20px";
+			divIcones[i].style.paddingRight="10px";
 		}			
-		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="55%";
-		}	
 
-		for(var i = 0; i < btnExcluir.length; i++) {
-			btnExcluir[i].style.display="none";
-		}		
-		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
-			if (bodyWidth > 670) {
-				menuSuperiorMobileItem[i].style.width="7.05%";
-			}
-			else {
-				menuSuperiorMobileItem[i].style.width="8%";
-			}
-		}
-
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="20px";
-		}
-
-		filtroBuscarBt.style.marginTop="20px";
-		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
 
-		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
-		containerNovo.style.fontSize="0.90rem";
-		novoTitulo.style.fontSize="1rem";
 
-		containerEdita.style.fontSize="0.90rem";
-		editaTitulo.style.fontSize="1rem";
-		editaItemSubmit.style.marginTop="5px";
-
-		filtroTitulo.style.fontSize="1.1rem";
-
-		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.2rem";
-			listaVaziaTexto.style.fontSize="0.90rem";
-			listaVaziaBotao.style.fontSize="0.90rem";
+		for(var i = 0; i < divIcones.length; i++) {
+			divIcones[i].style.paddingTop="10px";
+			divIcones[i].style.paddingRight="20px";
 		}
 
-
-		for(var i = 0; i < thUsuario.length; i++) {
-			thUsuario[i].style.display="none";
-		}
-
-		for(var i = 0; i < tdUsuario.length; i++) {
-			tdUsuario[i].style.display="none";
+		for (var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.marginBottom="10px";
 		}		
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.60rem";
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.60rem";
-		}
-
-		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.58rem";
-			informativo[i].style.width="55%";
-			informativo[i].style.margin="0 auto 10px auto";
-		}	
-		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.60rem";
-			liA[i].style.padding="5px 10px";
-		}
-		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="60%";				
-		}	
-
-		for(var i = 0; i < btnExcluir.length; i++) {
-			btnExcluir[i].style.display="none";
-		}		
-
-		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
-			if (bodyWidth > 470) {
-				menuSuperiorMobileItem[i].style.width="9%";
-			}
-			else {
-				menuSuperiorMobileItem[i].style.width="10%";	
-			}
-		}		
-
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="20px";
-		}
-
-		filtroBuscarBt.style.marginTop="20px";
-		filtroBuscarBt.style.justifyContent="center";
 
 	}
 
@@ -618,6 +309,7 @@ function addNovoProduto() {
 		document.getElementById('sucessoCadastro').innerText="Nova entrada inserida à ordem com sucesso";		
 
 		inputTipoProduto.focus();
+		AjustaTabelaDeProdutos(string);
 
 	}
 	else {
@@ -712,12 +404,11 @@ function resetNovoPagamento() {
 	inputValorPagamento.value=0.0;
 	inputObservacao.value="";
 
-	inputDataAgendamento.disabled=false;
+	inputDataAgendamento.disabled=true;
+	inputDataAgendamento.style.color="#4444";
+	inputDataAgendamento.style.border="1px solid #4444";
 
-	inputDataAgendamento.style.color="#303030";
-	inputDataAgendamento.style.border="1px solid grey";
-
-	labelDataAgendamento.style.color="#303030";
+	labelDataAgendamento.style.color="#4444";
 
 	inputDataAgendamento.value="";	
 }
@@ -1223,6 +914,90 @@ function ajustaMinMaxDosInputsData() {
 
 	inputAgendamentoPagamento.min=hoje;
 	inputAgendamentoRetirada.min=hoje;	
+}
+
+/* ====================== Ajuste na tabela ========================= */
+
+function exibeTabela() {
+
+	var containerInformativoAll = document.getElementById('container_informativo_all');
+	
+	if(containerInformativoAll.hidden==true) {
+		containerInformativoAll.hidden=false;
+		containerInformativoAll.style.transition="2s";
+		$("#eye").attr("src","img/eye-green.png");
+		$("#eye").attr("th:src", "@{img/eye-green.png}");
+	}	
+	else if(containerInformativoAll.hidden==false) {
+		containerInformativoAll.hidden=true;
+		containerInformativoAll.style.transition="2s";
+		$("#eye").attr("src","img/eye-grey.png");
+		$("#eye").attr("th:src", "@{img/eye-grey.png}");
+	}	
+}
+
+function AjustaTabelaDeProdutos(inputEntradas) {
+
+	var totalEntradas = 0;
+
+	var inputEntradasSplitPai = inputEntradas.split("ENTRADA=");
+
+	document.getElementById('tr_base').hidden=true;
+
+	for(var i = 1; i < inputEntradasSplitPai.length; i++) {
+
+		console.log(inputEntradasSplitPai[i]);
+
+		var tipo = null;
+
+		if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_SERVICO") {
+			tipo = "Serviço"
+		}
+		else if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_PRODUTO") {
+			tipo = "Produto";
+		}
+		else {
+			tipo = "Garantia"
+		}
+
+		$(table).find('tbody').append(
+			"<tr class='tr_novo_body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>" +
+				"<td class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>" 
+					+ tipo +
+				"</td>" +
+				"<td class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
+					+ (inputEntradasSplitPai[i].split(";")[2]) + 
+				"</td>" +
+				"<td class='td_novo td_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'>" 
+					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
+				"<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'>" 
+					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+//				"<td class='td_novo td_excluir col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2' onclick='removeItemTb(" + (parseInt(document.getElementsByClassName('td_excluir').length)) + ")'>" +
+//					"<img class='col-xl-2' th:src='@{img/minus-green.png}' th:src='img/minus-green.png' src='../static/img/minus-green.png'/>" + 
+//				"</td>" +
+			"</tr>");
+	}
+}
+
+function removeItemTb(item) {
+
+	var inputEntradas = document.getElementById('input_entradas');
+
+	var entrada = (inputEntradas.value.split("ENTRADA="))[item];
+
+	console.log(entrada);
+
+	if(inputEntradas.value.includes(entrada)) {
+		inputEntradas.value=inputEntradas.value.replace("ENTRADA=" + entrada, "");
+	}
+
+	document.getElementsByClassName('tr_novo_body')[parseInt(item)-1].parentNode.removeChild(document.getElementsByClassName('tr_novo_body')[parseInt(item)-1]);
+	calculaInformativos();
+
+	console.log(document.getElementsByClassName('tr_novo_body').length);
+	if (document.getElementsByClassName('tr_novo_body').length < 1) {
+		document.getElementById('tr_base').hidden=false;
+	}
 
 }
 
@@ -1281,7 +1056,6 @@ function avancarBloco() {
 	else {
 		document.getElementById('input_tipoNfe').focus();
 	}
-
 }
 
 function mudaTipoDaEntrega() {

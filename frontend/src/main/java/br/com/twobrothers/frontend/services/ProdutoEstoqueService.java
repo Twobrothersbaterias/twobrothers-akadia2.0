@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_ESTOQUE;
 
@@ -133,9 +132,9 @@ public class ProdutoEstoqueService {
         return produtoEstoqueRepository.buscaTodasBaterias(Sort.by("sigla"), TipoProdutoEnum.BATERIA);
     }
 
-    public ProdutoEstoqueDTO buscaPorId(Long id) {
-        if (produtoEstoqueRepository.findById(id).isPresent())
-            return modelMapper.mapper().map(produtoEstoqueRepository.findById(id).get(), ProdutoEstoqueDTO.class);
+    public ProdutoEstoqueDTO buscaPorSigla(String sigla) {
+        if (produtoEstoqueRepository.buscaPorSigla(sigla).isPresent())
+            return modelMapper.mapper().map(produtoEstoqueRepository.buscaPorSigla(sigla).get(), ProdutoEstoqueDTO.class);
         throw new ObjectNotFoundException("O produto inserido na ordem não foi encontrado");
     }
 

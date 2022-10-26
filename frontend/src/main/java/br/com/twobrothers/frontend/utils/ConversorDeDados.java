@@ -46,7 +46,7 @@ public class ConversorDeDados {
             entrada.setTipoEntrada(TipoEntradaEnum.valueOf(entradaSplitada[1]));
 
             if (entradaSplitada[2].equals("Serviço")) entrada.setProduto(null);
-            else entrada.setProduto(produtoEstoqueService.buscaPorId(Long.parseLong(entradaSplitada[2])));
+            else entrada.setProduto(produtoEstoqueService.buscaPorSigla(entradaSplitada[2]));
 
             entrada.setValor(Double.parseDouble(entradaSplitada[3]));
             entrada.setQuantidade(Integer.parseInt(entradaSplitada[4]));

@@ -5,6 +5,8 @@ window.onresize = doALoadOfStuff;
 
 function responsive(){
 
+	console.log('Privilégio: ' + document.getElementById('body').getAttribute('data-privilegio'))
+
 	document.getElementById('main_loader').style.display="none";
 	document.getElementById('main_row').style.display="flex";
 
@@ -150,13 +152,6 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-		containerNovo.style.fontSize="1rem";
-		novoTitulo.style.fontSize="1.15rem";	
-
-		containerEdita.style.fontSize="1rem";
-		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";
-
 		filtroTitulo.style.fontSize="1.4rem";
 
 		for(var i = 0; i < thUsuario.length; i++) {
@@ -236,14 +231,6 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-
-		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.1rem";
-
-		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.1rem";
-		editaItemSubmit.style.marginTop="0px";
-
 		filtroTitulo.style.fontSize="1.3rem";	
 
 		for(var i = 0; i < th.length; i++){
@@ -296,13 +283,6 @@ function responsive(){
 			listaVaziaTexto.style.fontSize="0.90rem";
 			listaVaziaBotao.style.fontSize="0.90rem";
 		}
-
-		containerNovo.style.fontSize="0.90rem";	
-		novoTitulo.style.fontSize="1.2rem";		
-
-		containerEdita.style.fontSize="0.90rem";	
-		editaTitulo.style.fontSize="1.2rem";		
-		editaItemSubmit.style.marginTop="0px";
 
 		filtroTitulo.style.fontSize="1.2rem";
 
@@ -363,13 +343,7 @@ function responsive(){
 		main.style.width="100%";
 		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
-		containerNovo.style.fontSize="0.90rem";
-		novoTitulo.style.fontSize="1rem";
-
-		containerEdita.style.fontSize="0.90rem";
-		editaTitulo.style.fontSize="1rem";
-		editaItemSubmit.style.marginTop="5px";
-
+		
 		filtroTitulo.style.fontSize="1.1rem";
 
 		if(listaVaziaTitulo != null) {

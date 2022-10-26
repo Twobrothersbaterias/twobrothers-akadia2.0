@@ -95,7 +95,8 @@ public class GerenciamentoEstoqueService {
                 ProdutoEstoqueEntity produtoEstoqueEntity = produtosInseridos.get(produtosInseridos.indexOf(produtoEstoque));
                 produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
                 if (produtoEstoqueEntity.getQuantidade() < 0)
-                    throw new InvalidRequestException("A quantidade passada pela ordem é maior do que a que existe em estoque");
+                    throw new InvalidRequestException("A quantidade do produto" + produtoEstoqueEntity.getSigla() +
+                            "passada pela ordem é maior do que a que existe em estoque");
             }
         }
 

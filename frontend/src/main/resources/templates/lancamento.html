@@ -22,6 +22,8 @@
 	<link th:href="@{css/lancamento.css}" href="../static/css/lancamento.css" rel="stylesheet" />
 	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+
 	<title>VALT | Nova venda</title>
 
 </head>
@@ -35,7 +37,7 @@
 
 			<div class="row side_menu_row" id="side_menu_row">
 
-				<div tabindex="-1" class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
+				<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
 
 					<a th:href="@{/}" class="row aside_clicavel">
 
@@ -46,7 +48,7 @@
 					</a>
 				</div>
 
-				<div tabindex="-1" class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
+				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
 					<a th:href="@{/clientes}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
@@ -54,7 +56,7 @@
 					</a>	
 				</div>
 
-				<div tabindex="-1" class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
+				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
 					<a th:href="@{/vendas}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/bag-green.png" th:src="@{img/bag-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Vendas"/>
@@ -62,7 +64,7 @@
 					</a>
 				</div>
 
-				<div tabindex="-1" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/estoque}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
@@ -70,7 +72,7 @@
 					</a>
 				</div>
 
-				<div tabindex="-1" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/despesas}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
@@ -78,7 +80,7 @@
 					</a>
 				</div>
 
-				<div tabindex="-1" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/relatorios}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
@@ -86,7 +88,7 @@
 					</a>
 				</div>					
 
-				<div tabindex="-1" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/patrimonios}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
@@ -94,7 +96,7 @@
 					</a>
 				</div>			
 
-				<div tabindex="-1" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/colaboradores}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
@@ -103,7 +105,7 @@
 				</div>						
 			</div>
 
-			<div tabindex="-1" class="row last">
+			<div class="row last">
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/faq}" class="row aside_clicavel">
 						<button type="button" class="img_button">
@@ -123,9 +125,14 @@
 
 					<li class="menu_superior_li col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 
-						<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<img th:if="${privilegio} != 'Vendedor'" src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
-						<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
+						<form class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3" th:action="@{/logout}" method="POST">
+							<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="submit">
+								<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						</form>
 
 						<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3"/>
 
@@ -137,7 +144,7 @@
 			<!-- Menu superior mobile -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -147,7 +154,7 @@
 					</div>	
 				</div>
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -157,7 +164,7 @@
 					</div>	
 				</div>
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -167,7 +174,7 @@
 					</div>	
 				</div>
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -177,7 +184,7 @@
 					</div>	
 				</div>		
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -187,7 +194,7 @@
 					</div>	
 				</div>	
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -197,7 +204,7 @@
 					</div>	
 				</div>	
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -207,7 +214,7 @@
 					</div>	
 				</div>	
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -217,7 +224,7 @@
 					</div>	
 				</div>	
 
-				<div tabindex="-1" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -235,58 +242,61 @@
 
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
-						<div class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
-							<p th:text="${SucessoCadastro}"></p>
+						<div class="conteudo_titulo_container">
+
+							<div class="conteudo_titulo_item alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
+								<p th:text="${SucessoCadastro}"></p>
+							</div>
+
+							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
+								<select tabindex="1" id="input_tipoNfe" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="tipoNfe">
+									<option class="option" value="SEM_NOTA">Sem nota fiscal</option>
+									<option class="option" value="NFE">Com NFe</option>
+									<option class="option" value="DANFE">Com DANFE</option>
+								</select>
+							</div>								
+
+							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
+								<select tabindex="2" id="input_ponto" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="loja">
+									<option class="option" value="PONTO_1">PDV - Loja 1</option>
+									<option class="option" value="PONTO_VALT">PDV - Loja VALT</option>
+									<option class="option" value="PONTO_MOBILE">Lançamento mobile</option>
+								</select>
+							</div>
+
+							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
+								<select tabindex="3" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="retirada.statusRetirada" id="input_tipo_retirada" onchange="mudaTipoDaEntrega()">
+									<option class="option" value="LOJA_FISICA">Ordem presencial</option>
+									<option class="option" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
+									<option class="option" value="ENTREGA_ENTREGUE">Pedido entregue</option>
+								</select>
+							</div>													
+
+							<div tabindex="-1" class="conteudo_titulo_item img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-2">
+
+								<img tabindex="-1" class="icones col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6 img" id="eye" src="../static/img/eye-grey.png" th:src="@{img/eye-grey.png}" onclick="exibeTabela()"/>
+
+								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6" th:href="@{/lancamento}">
+									<img tabindex="-1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+								</a>
+
+								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6" th:href="@{/vendas}">
+									<img tabindex="-1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}"/>
+								</a>
+
+							</div>	
 						</div>
 
-						<div class="col-xl-3 select_superior_container">
-							<select tabindex="1" id="input_tipoNfe" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoNfe">
-								<option class="option" value="SEM_NOTA">Sem nota fiscal</option>
-								<option class="option" value="NFE">Com NFe</option>
-								<option class="option" value="DANFE">Com DANFE</option>
-							</select>
-						</div>								
-
-						<div class="col-xl-3 select_superior_container">
-							<select tabindex="2" id="input_ponto" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" name="loja">
-								<option class="option" value="PONTO_1">PDV - Loja 1</option>
-								<option class="option" value="PONTO_VALT">PDV - Loja VALT</option>
-								<option class="option" value="PONTO_MOBILE">Lançamento mobile</option>
-							</select>
-						</div>
-
-						<div class="col-xl-3 select_superior_container">
-							<select tabindex="3" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12" name="retirada.statusRetirada" id="input_tipo_retirada" onchange="mudaTipoDaEntrega()">
-								<option class="option" value="LOJA_FISICA">Ordem presencial</option>
-								<option class="option" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
-								<option class="option" value="ENTREGA_ENTREGUE">Pedido entregue</option>
-							</select>
-						</div>													
-
-						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text" hidden>
-							Lançamento de ordem
-						</h1>
-
-						<div class="col-xl-2 col-lg-8 col-md-7 col-sm-7 col-5"></div>
-
-						<div tabindex="-1" class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
-
-							<img tabindex="-1" class="icones col-xl-4 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/eye-grey.png" th:src="@{img/eye-grey.png}" onclick="abrirNovoItem()"/>
-							<a tabindex="-1" class="icones a_img col-xl-4 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/estoque}">
-								<img tabindex="-1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
-							</a>
-							<img tabindex="-1" class="icones col-xl-4 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="abrirNovoItem()"/>
-
-						</div>	
 					</div>
 
 					<hr>
 
-					<div class="novo_all">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_all">
 
 						
-						<div class="col-xl-6 container_pai">
-							<div class="col-xl-12 novo_container" id="primeiro_container">
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 container_pai">
+
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="primeiro_container">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -330,10 +340,9 @@
 											  </option>
 											  
 											</datalist>			
-
 										</div>	
 
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_veiculo">
 													Veículo
@@ -343,7 +352,7 @@
 													
 										</div>										
 
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"  id="novo_item_first_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_telefone">
 												Telefone
 											</label>
@@ -357,7 +366,7 @@
 											<input tabindex="7" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.dataNascimento" id="input_dataNascimento" oninput="validacaoDoObjetoCliente()" type="date"/>
 										</div>							
 
-										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_fifth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="input_cpfCnpj">
 												Cpf/Cnpj:
 											</label>
@@ -372,9 +381,9 @@
 							</div>						
 						</div>					
 
-						<div class="col-xl-6 container_pai">
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 container_pai">
 
-							<form class="col-xl-12 novo_container" id="terceiro_container">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="terceiro_container">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -387,7 +396,7 @@
 									</div>	
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_tipo_produto">
 												Tipo
 											</label>
@@ -399,7 +408,7 @@
 												
 										</div>
 
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_tipo_entrada" id="label_tipo_entrada">
 												Possui troca
 											</label>
@@ -410,7 +419,7 @@
 												
 										</div>
 
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Produto
 											</label>
@@ -418,7 +427,7 @@
 
 												<option
 												th:each="produto: ${produtos}" 
-												th:value="${produto.id}" 
+												th:value="${produto.sigla}"  
 												th:text="'Qtd: ' + ${produto.quantidade} + ' | ' + ${produto.sigla}"
 												class="option_produto" 
 												value="...">...</option>							
@@ -427,26 +436,25 @@
 											</select>				
 										</div>							
 
-										<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_valor">
 												Valor
 											</label>
 											<input tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
 										</div>
 
-										<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_quantidade" id="label_quantidade">
 												Qtde
 											</label>
 											<input tabindex="24" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
 										</div>									
-
 									</div>	
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
 
-											<button tabindex="25" type="button" onclick="addNovoProduto()" id="botao_add_produto" class="botao_adicionar col-xl-12">
+											<button tabindex="25" type="button" onclick="addNovoProduto()" id="botao_add_produto" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 												Adicionar produto
 											</button>	
 
@@ -458,13 +466,13 @@
 
 								</div>
 
-							</form>
+							</div>
 
 						</div>	
 
-						<div class="col-xl-12 container_pai">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai">
 
-							<div class="col-xl-6 novo_container" id="segundo_container">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 novo_container" id="segundo_container">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -477,14 +485,14 @@
 									</div>
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
-										<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"  id="novo_item_first_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="cep_input">
 												Cep
 											</label>
 											<input tabindex="9" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cep" id="cep_input" onkeyup="consultaEndereco()" oninput="validacaoDoObjetoEndereco()" type="number"/>
 										</div>
 
-										<div class="novo_item_block col-xl-4 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_ninth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
 												Estado:
 											</label>
@@ -518,21 +526,21 @@
 											</select>	
 										</div>
 
-										<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"  id="novo_item_first_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="cidade_input">
 												Cidade
 											</label>
 											<input tabindex="11" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="cidade_input" name="cliente.endereco.cidade" oninput="validacaoDoObjetoEndereco()"/>
 										</div>
 
-										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="bairro_input">
 												Bairro
 											</label>
 											<input tabindex="12" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="bairro_input" name="cliente.endereco.bairro" oninput="validacaoDoObjetoEndereco()"/>
 										</div>							
 
-										<div class="novo_item_block col-xl-8 col-lg-6 col-md-6 col-sm-6 col-12">
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="logradouro_input">
 												Logradouro
 											</label>
@@ -561,7 +569,7 @@
 
 							</div>
 
-							<div class="col-xl-6 novo_container" id="">
+							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 novo_container" id="">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -574,7 +582,7 @@
 									</div>
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
-										<div class="novo_item_block col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_forma_pagamento">
 												Forma de pagamento
 											</label>
@@ -589,7 +597,7 @@
 											</select>
 										</div>
 
-										<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_valor_pagamento">
 												Valor
 											</label>
@@ -613,7 +621,7 @@
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 											<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
 
-												<button tabindex="30" type="button" onclick="addNovoPagamento()" class="botao_adicionar col-xl-12" id="botao_add_pagamento">
+												<button tabindex="30" type="button" onclick="addNovoPagamento()" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="botao_add_pagamento">
 													Adicionar pagamento
 												</button>	
 
@@ -630,9 +638,9 @@
 
 						</div>
 
-						<div class="col-xl-12 container_pai">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai">
 
-							<div class="col-xl-12 novo_container" id="">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -647,7 +655,7 @@
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">										
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
-											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_tecnico">
 													Tecnico
 												</label>
@@ -658,26 +666,25 @@
 												</select>
 											</div>	
 
-											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_agendamento_retirada" for="input_agendamento_retirada">
 													Agendamento
 												</label>
 												<input tabindex="17" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="input_agendamento_retirada" name="retirada.dataAgendamento" disabled/>
 											</div>
 
-											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+											<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"  id="novo_item_first_block">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_email">
 													E-mail
 												</label>
 												<input tabindex="18" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="cliente.email" onkeyup="tratamentoCampoEmail()" oninput="validacaoDoObjetoCliente()" id="input_email"/>
 											</div>	
 
-											<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_retirada_observacao">
 													Observação
 												</label>
 												<input tabindex="19" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_retirada_observacao" name="retirada.observacao"/>
-													
 											</div>										
 
 										</div>
@@ -689,9 +696,9 @@
 							
 						</div>
 
-						<div class="col-xl-12 container_pai">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai">
 
-							<div class="col-xl-12 novo_container" id="">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -715,13 +722,13 @@
 
 					</div>
 
-					<div class="col-xl-12 novo_infos" id="novo_infos">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_infos" id="novo_infos">
 
-						<div class="col-xl-12 sub_container_pai container_pai_tabela container_tabela_produtos" hidden>
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 sub_container_pai container_pai_tabela container_tabela_produtos" id="container_informativo_all" hidden>
 
 								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela">								
 
-										<table class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<table id="table" class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 											<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -731,14 +738,13 @@
 													<th class="th_novo col-xl-2
 													col-lg-2 col-md-2 col-sm-2 col-2">Tipo</th>
 
-													<th class="th_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">Produto</th>	
+													<th class="th_novo col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">Produto</th>	
 
-													<th class="th_novo col-xl-2
-													col-lg-2 col-md-2 col-sm-2 col-2">Qtd.</th>		
+													<th class="th_novo col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Qtd.</th>		
 
-													<th class="th_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">Valor</th>
+													<th class="th_novo col-xl-3 col-lg-3 col-md-3 col-sm-3 col-2">Valor</th>
 
-													<th class="th_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2"></th>										
+													<!--<th class="th_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2"></th>						-->				
 
 												</tr>
 
@@ -746,20 +752,19 @@
 
 											<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+												<tr id="tr_base" class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-													<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+													<td class="td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 
-													<td class="td_novo col-xl-4 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+													<td class="td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">...</td>
 
-													<td class="td_novo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+													<td class="td_novo td_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
 
-													<td class="td_novo col-xl-3 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+													<td class="td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
 
-													<td class="td_novo col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2">
+													<!--<td class="td_novo td_excluir col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2" onclick="removeItemTb()">
 														<img class="col-xl-2" th:src="@{img/minus-green.png}" src="../static/img/minus-green.png"/>
-													</td>									
-
+													</td>-->								
 												</tr>
 
 											</tbody>							
@@ -768,18 +773,18 @@
 
 						</div>
 
-						<div class="col-xl-12 infos sub_container_pai">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 infos sub_container_pai">
 
 							<div class="informativo_pai">
 
-									<div class="col-xl-3 container_informativo">
+									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 container_informativo">
 
-										<div class="col-xl-11 novo_container sub_container_informativo">
+										<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 novo_container sub_container_informativo">
 
-											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_chave">
 												Total:
 											</div>
-											<div class="col-xl-6 informativo_campo informativo_campo_valor" id="informativo_total" style="color: #2e8c4e">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_valor" id="informativo_total" style="color: #2e8c4e">
 												R$ 0.00
 											</div>	
 
@@ -787,14 +792,14 @@
 
 									</div>
 
-									<div class="col-xl-3 container_informativo">
+									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 container_informativo">
 
-										<div class="col-xl-11 novo_container sub_container_informativo">
+										<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 novo_container sub_container_informativo">
 
-											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_chave">
 												Pago:
 											</div>
-											<div class="col-xl-6 informativo_campo informativo_campo_valor" id="informativo_pago" style="color: #2e8c4e">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_valor" id="informativo_pago" style="color: #2e8c4e">
 												R$ 0.00
 											</div>	
 
@@ -802,14 +807,14 @@
 
 									</div>		
 
-									<div class="col-xl-3 container_informativo">
+									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 container_informativo">
 
-										<div class="col-xl-11 novo_container sub_container_informativo">
+										<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 novo_container sub_container_informativo">
 
-											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_chave">
 												Troco:
 											</div>
-											<div class="col-xl-6 informativo_campo informativo_campo_valor" id="informativo_troco" style="color: #2e8c4e">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_valor" id="informativo_troco" style="color: #2e8c4e">
 												R$ 0.00
 											</div>	
 
@@ -817,14 +822,14 @@
 
 									</div>
 
-									<div class="col-xl-3 container_informativo">
+									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 container_informativo">
 
-										<div class="col-xl-11 novo_container sub_container_informativo">
+										<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 novo_container sub_container_informativo">
 
-											<div class="col-xl-6 informativo_campo informativo_campo_chave">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_chave">
 												Resta pagar:
 											</div>
-											<div class="col-xl-6 informativo_campo informativo_campo_valor" id="informativo_resta" style="color: #2e8c4e">
+											<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 informativo_campo informativo_campo_valor" id="informativo_resta" style="color: #2e8c4e">
 												R$ 0.00
 											</div>	
 
@@ -837,7 +842,7 @@
 						<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 							
 							<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">				
-								<button tabindex="31" type="button" class="botao_adicionar col-xl-12" id="botao_finalizar" onclick="validacaoCampos()">
+								<button tabindex="31" type="button" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="botao_finalizar" onclick="validacaoCampos()">
 									Finalizar venda
 								</button>
 							</div>

@@ -1,10 +1,12 @@
 package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
+import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.services.OrdemService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LancamentoController {
 
     @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
     ProdutoEstoqueService produtoEstoqueService;
 
     @Autowired
     ClienteCrudService clienteCrudService;
-
-    @Autowired
-    OrdemCrudService ordemCrudService;
 
     @Autowired
     OrdemService ordemService;
@@ -34,6 +36,7 @@ public class LancamentoController {
     public ModelAndView lancamentoGet(ModelAndView modelAndView,
                                       Model model) {
 
+        model.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
         model.addAttribute("produtos", produtoEstoqueService.buscaTodos());
         model.addAttribute("clientes", clienteCrudService.buscaTodos());
 
