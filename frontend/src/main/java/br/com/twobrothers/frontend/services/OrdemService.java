@@ -1,6 +1,8 @@
 package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
+import br.com.twobrothers.frontend.models.dto.DespesaDTO;
+import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
@@ -34,6 +36,15 @@ public class OrdemService {
 
     @Autowired
     ModelMapperConfig modelMapper;
+
+    public String encaminhaParaCriacaoDoCrudService(OrdemDTO ordem) {
+        try {
+            crudService.criaNovo(ordem);
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 
     public List<OrdemEntity> filtroOrdens(
             Pageable pageable,

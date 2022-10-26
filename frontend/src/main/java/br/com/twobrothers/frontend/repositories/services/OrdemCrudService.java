@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
-import static br.com.twobrothers.frontend.utils.TrataAtributosVazios.verificaSeClienteNulo;
+import static br.com.twobrothers.frontend.utils.TrataAtributosVazios.*;
 
 /**
  * @author Gabriel Lagrota
@@ -131,8 +131,10 @@ public class OrdemCrudService {
                 clienteEntity.setDataCadastro(LocalDateTime.now().toString());
             }
 
+            trataAtributosVaziosDoObjetoEndereco(ordem.getCliente().getEndereco());
+
             log.info("[PROGRESS] Verificando se o endereço do cliente foi passado na requisição...");
-            if (ordem.getCliente().getEndereco() != null) {
+            if (!verificaSeEnderecoNulo(ordem.getCliente().getEndereco())) {
                 log.warn("[INFO] Endereço detectado: {}", ordem.getCliente().getEndereco());
 
                 log.info("[PROGRESS] Iniciando validação do objeto EnderecoDTO recebido pela requisição...");

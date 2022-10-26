@@ -1,8 +1,10 @@
 package br.com.twobrothers.frontend.controllers;
 
+import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
+import br.com.twobrothers.frontend.services.OrdemService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class LancamentoController {
     @Autowired
     OrdemCrudService ordemCrudService;
 
+    @Autowired
+    OrdemService ordemService;
+
     @GetMapping
     public ModelAndView lancamentoGet(ModelAndView modelAndView, Model model) {
 
@@ -43,10 +48,16 @@ public class LancamentoController {
                                        RedirectAttributes redirAttrs,
                                        OrdemDTO ordem) {
 
-        ordemCrudService.criaNovo(ordem);
-        redirAttrs.addFlashAttribute("SucessoCadastro", "Ordem cadastrada com sucesso");
-        modelAndView.setViewName("redirect:/vendas");
+        String criaOrdem = ordemService.encaminhaParaCriacaoDoCrudService(ordem);
+
+        if (criaOrdem == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da ordem salvo com sucesso");
+        else
+            redirAttrs.addFlashAttribute("ErroCadastro", criaOrdem);
+
+        modelAndView.setViewName("redirect:vendas");
         return modelAndView;
+
     }
 
 }

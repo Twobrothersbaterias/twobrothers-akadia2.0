@@ -431,6 +431,7 @@ function responsive(){
 	}
 
 	pageResponsiva();
+	ajustaTabela();
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA NOVO ITEM ====================== */
@@ -1318,6 +1319,57 @@ function editaItemChangeTipo() {
 	}
 }
 
+/* ============================ AJUSTES DA TABELA ================================ */
+
+function ajustaTabela(){
+
+	ajustaCamposTotalQuantidade();
+	ajustaDatas();
+
+}
+
+function ajustaCamposTotalQuantidade() {
+	var trContent = document.getElementsByClassName('tr_content');
+	var ordemId = null;
+
+	for(var i = 0; i < trContent.length; i++) {
+
+		var totalEntradas = 0.0;
+		var totalQuantidade = 0;
+
+		ordemId = trContent[i].getAttribute('data-ordemId');
+
+		var entradaValorCampo = document.getElementsByClassName('entradas_valor_' + ordemId);
+		var entradaQuantidadeCampo = document.getElementsByClassName('entradas_quantidade_' + ordemId);
+
+		for(var j = 0; j < entradaValorCampo.length; j++) {
+			totalEntradas += parseFloat(entradaValorCampo[j].innerText);
+		}		
+		for(var k = 0; k < entradaQuantidadeCampo.length; k++) {
+			totalQuantidade += parseInt(entradaQuantidadeCampo[k].innerText);
+		}
+
+		document.getElementById('td_total_' + ordemId).innerText=totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+		document.getElementById('td_quantidade_' + ordemId).innerText=totalQuantidade;
+
+	}	
+}
+
+function ajustaDatas() {
+
+	var dataCadastro = document.getElementsByClassName('td_data');
+
+	for(var i = 0; i < dataCadastro.length; i++) {
+	
+		var dataCadastroSplitada = dataCadastro[i].innerText.split("-");
+		if (dataCadastroSplitada.length == 3) {
+			var dataUsParaDataBr = dataCadastroSplitada[2] + "/" + dataCadastroSplitada[1] + "/" + dataCadastroSplitada[0];
+			dataCadastro[i].innerText=dataUsParaDataBr;
+		}	
+
+	}
+}
+
 /* ================== MISC ====================== */
 
 function buildUrl(baseUrl, pagina, descricao, tipo, mes, ano) {
@@ -1342,41 +1394,6 @@ function hideMessage(){
 	var alertas = document.getElementsByClassName('alert');
 	for(var i = 0; i < alertas.length; i++){
 		alertas[i].hidden=true;
-	}
-}
-
-function ajustaTabela(){
-
-	var informativoValorCaixa = document.getElementById('informativo_valor_caixa');
-
-	if (informativoValorCaixa != null) {
-		if (informativoValorCaixa.innerText.replace("R$ ", "") < 0.00) {
-			informativoValorCaixa.style.color="#D75353";
-		}
-		else {
-			informativoValorCaixa.style.color="#C3C8C8";
-		}
-	}
-
-	// Definindo propriedades
-	var line = document.getElementsByClassName('tr');
-	var columnStatus = document.getElementsByClassName('td_status');
-	var columnValor = document.getElementsByClassName('td_valor');
-
-	for(var i = 0; i < line.length; i++) {
-
-		if (!columnValor[i].innerText.includes('R$') && !columnValor[i].innerText.includes('...')) {
-			columnValor[i].innerText=
-				parseFloat(columnValor[i].innerText).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-		}		
-
-		if (columnStatus[i].innerText == "Pendente") {
-			line[i].style.borderLeft="4px solid #f20a0a";
-		}
-		else if (columnStatus[i].innerText == "OK") {
-			line[i].style.borderLeft="4px solid #5eff00";
-		}		
-
 	}
 }
 

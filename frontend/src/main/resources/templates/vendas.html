@@ -301,7 +301,7 @@
 							<div class="informativo_chave">
 								Custos: 
 							</div>
-							<div th:text="'R$ ' + ${custo}" class="informativo_valor informativo_valor_bruto">
+							<div th:text="${custo}" class="informativo_valor informativo_valor_bruto">
 								R$ 0.00
 							</div>	
 						</div>
@@ -310,7 +310,7 @@
 							<div class="informativo_chave">
 								Líquido: 
 							</div>
-							<div th:text="'R$ ' + ${liquido}" class="informativo_valor informativo_valor_bruto">
+							<div th:text="${liquido}" class="informativo_valor informativo_valor_bruto">
 								R$ 0.00
 							</div>	
 						</div>						
@@ -327,196 +327,51 @@
 
 									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
 
-										<th class="th th_cod col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cod.</th>
-										<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Descrição</th>
-										<th class="th th_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Tipo</th>
-										<th class="th th_qtde col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="th_forma">Qtde.</th>
-										<th class="th th_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Custo u.</th>
-										<th class="th th_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Custo t.</th>
-										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>											
+										<th class="th th_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Status</th>
+										<th class="th th_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Data</th>
+										<th class="th th_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Tecnico</th>
+										<th class="th th_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3" id="th_forma">Total</th>
+										<th class="th th_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Qtd</th>
+										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
 									</tr>
 
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-									<tr th:if="${#lists.isEmpty(produtos)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-										<td class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-
-										<td class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
-
-										<td class="td td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-										<td class="td td_qtde td_tipo col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
-
-										<td class="td td_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-										<td class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>			
-
-										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+									<tr th:if="${#lists.isEmpty(ordens)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<td class="td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+										<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+										<td class="td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+										<td class="td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+										<td class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>		
+										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 									</tr>											
 
-										<tr th:each="produto: ${produtos}"class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:each="ordem: ${ordens}" th:data-ordemId="${ordem.id}" class="tr tr_content col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td th:text="${produto.sigla}" class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" 
-											th:data-id="${produto.id}" 
-											th:data-marcaBateria="${produto.marcaBateria}"
-											th:data-especificacao="${produto.especificacao}"
-											th:data-sigla="${produto.sigla}" 
-											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
-											th:data-quantidade="${produto.quantidade}" 
-											th:data-tipoProduto="${produto.tipoProduto}"
-											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
-											th:data-dataCadastro="${produto.dataCadastro}"
-											th:data-custoUnitario="${produto.custoUnitario}"
-											th:data-custoTotal="${produto.custoTotal}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-marcaBateria'), 
-												this.getAttribute('data-especificacao'), 
-												this.getAttribute('data-sigla'), 
-												this.getAttribute('data-quantidadeMinima'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-tipoProduto'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-usuarioResponsavel'),
-												this.getAttribute('data-custoUnitario'),
-												this.getAttribute('data-custoTotal'))">...</td>
-											
-											<td th:text="${produto.marcaBateria} + ' - ' + ${produto.especificacao}" class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
-											th:data-id="${produto.id}" 
-											th:data-marcaBateria="${produto.marcaBateria}"
-											th:data-especificacao="${produto.especificacao}"
-											th:data-sigla="${produto.sigla}" 
-											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
-											th:data-quantidade="${produto.quantidade}" 
-											th:data-tipoProduto="${produto.tipoProduto}"
-											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
-											th:data-dataCadastro="${produto.dataCadastro}"
-											th:data-custoUnitario="${produto.custoUnitario}"
-											th:data-custoTotal="${produto.custoTotal}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-marcaBateria'), 
-												this.getAttribute('data-especificacao'), 
-												this.getAttribute('data-sigla'), 
-												this.getAttribute('data-quantidadeMinima'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-tipoProduto'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-usuarioResponsavel'),
-												this.getAttribute('data-custoUnitario'),
-												this.getAttribute('data-custoTotal'))">...</td>
-											
-											<td th:text="${produto.tipoProduto.desc}" class="td td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
-											th:data-id="${produto.id}" 
-											th:data-marcaBateria="${produto.marcaBateria}"
-											th:data-especificacao="${produto.especificacao}"
-											th:data-sigla="${produto.sigla}" 
-											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
-											th:data-quantidade="${produto.quantidade}" 
-											th:data-tipoProduto="${produto.tipoProduto}"
-											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
-											th:data-dataCadastro="${produto.dataCadastro}"
-											th:data-custoUnitario="${produto.custoUnitario}"
-											th:data-custoTotal="${produto.custoTotal}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-marcaBateria'), 
-												this.getAttribute('data-especificacao'), 
-												this.getAttribute('data-sigla'), 
-												this.getAttribute('data-quantidadeMinima'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-tipoProduto'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-usuarioResponsavel'),
-												this.getAttribute('data-custoUnitario'),
-												this.getAttribute('data-custoTotal'))">...</td>
-											
-											<td th:text="${produto.quantidade}" class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"
-											th:data-id="${produto.id}" 
-											th:data-marcaBateria="${produto.marcaBateria}"
-											th:data-especificacao="${produto.especificacao}"
-											th:data-sigla="${produto.sigla}" 
-											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
-											th:data-quantidade="${produto.quantidade}" 
-											th:data-tipoProduto="${produto.tipoProduto}"
-											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
-											th:data-dataCadastro="${produto.dataCadastro}"
-											th:data-custoUnitario="${produto.custoUnitario}"
-											th:data-custoTotal="${produto.custoTotal}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-marcaBateria'), 
-												this.getAttribute('data-especificacao'), 
-												this.getAttribute('data-sigla'), 
-												this.getAttribute('data-quantidadeMinima'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-tipoProduto'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-usuarioResponsavel'),
-												this.getAttribute('data-custoUnitario'),
-												this.getAttribute('data-custoTotal'))">...</td>
+											<div th:each="entrada: ${ordem.entradas}" class="entradas" id="entradas" hidden>
 
-											<td th:text="'R$ ' + ${produto.custoUnitario}" class="td td_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
-											th:data-id="${produto.id}" 
-											th:data-marcaBateria="${produto.marcaBateria}"
-											th:data-especificacao="${produto.especificacao}"
-											th:data-sigla="${produto.sigla}" 
-											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
-											th:data-quantidade="${produto.quantidade}" 
-											th:data-tipoProduto="${produto.tipoProduto}"
-											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
-											th:data-dataCadastro="${produto.dataCadastro}"
-											th:data-custoUnitario="${produto.custoUnitario}"
-											th:data-custoTotal="${produto.custoTotal}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-marcaBateria'), 
-												this.getAttribute('data-especificacao'), 
-												this.getAttribute('data-sigla'), 
-												this.getAttribute('data-quantidadeMinima'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-tipoProduto'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-usuarioResponsavel'),
-												this.getAttribute('data-custoUnitario'),
-												this.getAttribute('data-custoTotal'))">...</td>
+												<div th:class="'entradas_valor_' + ${ordem.id}" th:value="${entrada.valor}" th:text="${entrada.valor}" hidden></div>
 
-											<td th:text="'R$ ' + ${produto.custoTotal}" class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2"
-											th:data-id="${produto.id}" 
-											th:data-marcaBateria="${produto.marcaBateria}"
-											th:data-especificacao="${produto.especificacao}"
-											th:data-sigla="${produto.sigla}" 
-											th:data-quantidadeMinima="${produto.quantidadeMinima}" 
-											th:data-quantidade="${produto.quantidade}" 
-											th:data-tipoProduto="${produto.tipoProduto}"
-											th:data-usuarioResponsavel="${produto.usuarioResponsavel}"
-											th:data-dataCadastro="${produto.dataCadastro}"
-											th:data-custoUnitario="${produto.custoUnitario}"
-											th:data-custoTotal="${produto.custoTotal}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-marcaBateria'), 
-												this.getAttribute('data-especificacao'), 
-												this.getAttribute('data-sigla'), 
-												this.getAttribute('data-quantidadeMinima'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-tipoProduto'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-usuarioResponsavel'),
-												this.getAttribute('data-custoUnitario'),
-												this.getAttribute('data-custoTotal'))">...</td>
+												<div th:class="'entradas_quantidade_' + ${ordem.id}" th:value=${entrada.quantidade} th:text="${entrada.quantidade}" hidden></div>
+
+											</div>
+
+											<td th:text="${ordem.retirada.statusRetirada}" class="td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td th:text="${ordem.dataCadastro}" class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+											<td th:text="${ordem.retirada.tecnicoEntrada}" class="td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+											<td th:id="'td_total_' + ${ordem.id}" class="td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+											<td th:id="'td_quantidade_' + ${ordem.id}" class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
-												<form method="POST" th:action="@{estoque/deleta-{id}(id = ${produto.id})}" class="form_remove_img" id="form_remove_img">
+												<form method="POST" th:action="@{vendas/deleta-{id}(id = ${ordem.id})}" class="form_remove_img" id="form_remove_img">
 													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 													<button type="submit" class="col-lg-12 btn_excluir_img">
 														<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
 													</button>
 												</form>											
-												<form method="POST" th:action="@{estoque/deleta-{id}(id = ${produto.id})}" class="form_remove_text" id="form_remove_text">
+												<form method="POST" th:action="@{vendas/deleta-{id}(id = ${ordem.id})}" class="form_remove_text" id="form_remove_text">
 													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 													<button type="submit" class="col-lg-12 btn_excluir">
 														<div class="excluir_text" id="excluir_text">
