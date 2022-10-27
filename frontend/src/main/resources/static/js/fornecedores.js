@@ -464,15 +464,33 @@ function fechaNovoItem() {
 
 function reloadNovoItem() {
 	document.getElementById('descricao_fornecedor_input').value="";
+	document.getElementById('descricao_fornecedor_input').style.background="transparent";
+
 	document.getElementById('email_fornecedor_input').value="";
+	document.getElementById('email_fornecedor_input').style.background="transparent";
+
 	document.getElementById('telefone_fornecedor_input').value="";
+	document.getElementById('telefone_fornecedor_input').style.background="transparent";
+
 	document.getElementById('data_nascimento_input').value="";
+
 	document.getElementById('cpfCnpj_input').value="";
+	document.getElementById('cpfCnpj_input').style.background="transparent";
+
 	document.getElementById('cep_input').value="";
+	document.getElementById('cep_input').style.background="transparent";
+
 	document.getElementById('estado_input').value="SP";
+
 	document.getElementById('cidade_input').value="";
+	document.getElementById('cidade_input').style.background="transparent";
+
 	document.getElementById('logradouro_input').value="";
+	document.getElementById('logradouro_input').style.background="transparent";	
+
 	document.getElementById('numero_input').value="";
+	document.getElementById('numero_input').style.background="transparent";	
+
 	document.getElementById('bairro_input').value="";
 	document.getElementById('complemento_input').value="";
 }
@@ -1243,20 +1261,393 @@ function fecharEditaItem() {
 
 function reloadEditaItem() {
 	document.getElementById('edita_descricao_fornecedor_input').value="";
+	document.getElementById('edita_descricao_fornecedor_input').style.background="transparent";
+
 	document.getElementById('edita_email_fornecedor_input').value="";
+	document.getElementById('edita_email_fornecedor_input').style.background="transparent";
+
 	document.getElementById('edita_telefone_fornecedor_input').value="";
+	document.getElementById('edita_telefone_fornecedor_input').style.background="transparent";
+
 	document.getElementById('edita_data_nascimento_input').value="";
+
 	document.getElementById('edita_cpfCnpj_input').value="";
+	document.getElementById('edita_cpfCnpj_input').style.background="transparent";
+
 	document.getElementById('edita_cep_input').value="";
+	document.getElementById('edita_cep_input').style.background="transparent";
+
 	document.getElementById('edita_estado_input').value="SP";
+
 	document.getElementById('edita_cidade_input').value="";
+	document.getElementById('edita_cidade_input').style.background="transparent";
+
 	document.getElementById('edita_logradouro_input').value="";
+	document.getElementById('edita_logradouro_input').style.background="transparent";	
+
 	document.getElementById('edita_numero_input').value="";
+	document.getElementById('edita_numero_input').style.background="transparent";	
+	
 	document.getElementById('edita_bairro_input').value="";
-	document.getElementById('edita_complemento_input').value="";
+	document.getElementById('edita_complemento_input').value="";	
+}
+
+/* ================== TRATAMENTO DE INPUTS ====================== */
+
+/* TRATAMENTO DO CAMPO EMAIL */
+function tratamentoCampoEmail(tipo) {
+
+	var emailRegex =  new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)" +
+                    "+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+
+	var inputEmail = document.getElementById('input_email');
+
+	if(tipo == "novo") {
+		var inputEmail = document.getElementById('email_fornecedor_input');
+	}
+	else {
+		var inputEmail = document.getElementById('edita_email_fornecedor_input');
+	}
+
+	if (inputEmail.value != "") {
+
+		if (emailRegex.test(inputEmail.value)) {
+			inputEmail.style.background="transparent";
+			return true;
+		}
+		else {
+			inputEmail.style.background="#f5aea9";			
+			return false;
+		}
+
+	}
+
+	else {
+		inputEmail.style.background="transparent";
+		return true;
+	}
+}
+
+/* TRATAMENTO DO CAMPO TELEFONE */
+function tratamentoCampoTelefone(tipo) {
+
+	var telefoneRegex =  new RegExp("^\\([1-9]{2}\\)[9]{0,1}[1-9]{1}[0-9]{3}\\-[0-9]{4}$");
+
+	if(tipo == "novo") {
+		var inputTelefone = document.getElementById('telefone_fornecedor_input');
+	}
+	else {
+		var inputTelefone = document.getElementById('edita_telefone_fornecedor_input');
+	}
+
+	inputTelefone.value = inputTelefone.value.replace(/([a-zA-Z ])/g, "");
+
+	if (inputTelefone.value != "") {
+
+		if (telefoneRegex.test(inputTelefone.value)) {
+			inputTelefone.style.background="transparent";
+			return true;
+		}
+		else {
+			inputTelefone.style.background="#f5aea9";
+			return false;
+		}
+
+	}
+	else {
+		inputTelefone.style.background="transparent";
+		return true;
+	}
+}
+
+/* TRATAMENTO DO CAMPO CPF CNPJ */
+function tratamentoCampoCpfCnpj(tipo) {
+
+	var cnpjRegex =  new RegExp("[0-9]{2}.[0-9]{3}.[0-9]{3}/000[1-9]-[0-9]{2}");
+	var cpfRegex =  new RegExp("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}");
+
+	if(tipo == "novo") {
+		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
+	}
+	else {
+		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
+	}
+
+	inputCpfCnpj.value = inputCpfCnpj.value.replace(/([a-zA-Z ])/g, "");
+
+	if (inputCpfCnpj.value != "") {
+
+		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
+			inputCpfCnpj.style.background="transparent";
+			return true;
+		}
+		else {
+			inputCpfCnpj.style.background="#f5aea9";
+			return false;
+		}
+
+	}
+	else {
+		inputCpfCnpj.style.background="transparent";
+		return true;
+	}
+}
+
+/* TRATAMENTO DO CAMPO CEP */
+function tratamentoCampoCep(tipo) {
+
+	console.log('CEP');
+
+	var cepRegex = new RegExp("[0-9]{8}");
+
+	if (tipo == "novo") {
+		var inputCep = document.getElementById('cep_input');
+	}
+	else {
+		var inputCep = document.getElementById('edita_cep_input');
+	}
+
+	if (inputCep.value != "") {
+
+		if (cepRegex.test(inputCep.value)) {
+			inputCep.style.background="transparent";
+			return true;
+		}
+		else {
+			inputCep.style.background="#f5aea9";
+			return false;
+		}
+	}
+	else {
+		inputCep.style.background="transparent";
+		return true;
+	}
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO FORNECEDOR */
+function validacaoDoObjetoFornecedor(tipo) {
+
+	if(tipo == "novo") {
+		var inputNome = document.getElementById('descricao_fornecedor_input');
+		var inputTelefone = document.getElementById('telefone_fornecedor_input');
+		var inputEmail = document.getElementById('email_fornecedor_input');
+		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
+		var inputDataNascimento = document.getElementById('data_nascimento_input');
+	}
+	else {
+		var inputNome = document.getElementById('edita_descricao_fornecedor_input');
+		var inputTelefone = document.getElementById('edita_telefone_fornecedor_input');
+		var inputEmail = document.getElementById('edita_email_fornecedor_input');
+		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
+		var inputDataNascimento = document.getElementById('edita_data_nascimento_input');		
+	}
+
+	if(inputTelefone.value != "" 
+		|| inputEmail.value != "" 
+		|| inputCpfCnpj.value != "" 
+		|| inputDataNascimento.value != "") {
+
+		if(inputNome.value == "") {
+			inputNome.style.background="#f5aea9";
+			return false;			
+		}
+		else {
+			inputNome.style.background="transparent";
+			return true;			
+		}
+
+	}
+
+	else {
+		inputNome.style.background="transparent";
+		return true;		
+	}
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO ENDEREÇO */
+function validacaoDoObjetoEndereco(tipo) {
+
+	if(tipo == "novo") {
+		var inputCep = document.getElementById('cep_input');
+		var inputCidade = document.getElementById('cidade_input');
+		var inputBairro = document.getElementById('bairro_input');
+		var inputLogradouro = document.getElementById('logradouro_input');
+		var inputNumero = document.getElementById('numero_input');
+		var inputComplemento = document.getElementById('complemento_input');
+	}
+	else {
+		var inputCep = document.getElementById('edita_cep_input');
+		var inputCidade = document.getElementById('edita_cidade_input');
+		var inputBairro = document.getElementById('edita_bairro_input');
+		var inputLogradouro = document.getElementById('edita_logradouro_input');
+		var inputNumero = document.getElementById('edita_numero_input');
+		var inputComplemento = document.getElementById('edita_complemento_input');		
+	}
+
+	tratamentoCampoCep(tipo);
+
+	if(inputCep.value != "" 
+		|| inputCidade.value != "" 
+		|| inputBairro.value != "" 
+		|| inputLogradouro.value != ""
+		|| inputNumero.value != ""
+		|| inputComplemento.value != "") {
+
+		if(inputLogradouro.value == "") {
+			inputLogradouro.style.background="#f5aea9";	
+		}
+		else {
+			inputLogradouro.style.background="transparent";		
+		}
+
+		if(inputNumero.value == "") {
+			inputNumero.style.background="#f5aea9";
+		}
+		else {
+			inputNumero.style.background="transparent";		
+		}
+
+	}
+
+	else {
+		inputLogradouro.style.background="transparent";
+		inputNumero.style.background="transparent";		
+		return true;	
+	}
+}
+
+/* VALIDAÇÃO DE TODOS OS CAMPOS */
+function validacaoCampos(tipo) {
+
+	var inputNome = null;
+	var inputTelefone = null;
+	var inputEmail = null;
+	var inputCep = null;
+	var inputCpfCnpj = null;
+	var botaoFinalizar = null;
+	var inputCep = null;
+	var inputCidade = null;
+	var inputBairro = null;
+	var inputLogradouro = null;
+	var inputNumero = null;
+	var inputComplemento = null;
+
+	if (tipo == "novo") {
+		inputNome = document.getElementById('descricao_fornecedor_input');
+		inputTelefone = document.getElementById('telefone_fornecedor_input');
+		inputEmail = document.getElementById('email_fornecedor_input');
+		inputCep = document.getElementById('cep_input');
+		inputCpfCnpj = document.getElementById('cpfCnpj_input');
+		botaoFinalizar = document.getElementById('novo_item_submit');
+
+		inputCep = document.getElementById('cep_input');
+		inputCidade = document.getElementById('cidade_input');
+		inputBairro = document.getElementById('bairro_input');
+		inputLogradouro = document.getElementById('logradouro_input');
+		inputNumero = document.getElementById('numero_input');
+		inputComplemento = document.getElementById('complemento_input');		
+	}	
+	else {
+		inputNome = document.getElementById('descricao_fornecedor_input');
+		inputTelefone = document.getElementById('edita_telefone_fornecedor_input');
+		inputEmail = document.getElementById('edita_email_fornecedor_input');
+		inputCep = document.getElementById('edita_cep_input');
+		inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
+		botaoFinalizar = document.getElementById('edita_item_submit');
+
+		inputCep = document.getElementById('edita_cep_input');
+		inputCidade = document.getElementById('edita_cidade_input');
+		inputBairro = document.getElementById('edita_bairro_input');
+		inputLogradouro = document.getElementById('edita_logradouro_input');
+		inputNumero = document.getElementById('edita_numero_input');
+		inputComplemento = document.getElementById('edita_complemento_input');			
+	}
+
+	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
+
+	console.log(inputCep.value);
+
+	if(inputTelefone.value != "" && !tratamentoCampoTelefone(tipo)) {
+		erros += "- Telefone com padrão incorreto\n";
+	}
+	if(inputEmail.value != "" && !tratamentoCampoEmail(tipo)) {
+		erros += "- Email com padrão incorreto\n";
+	}
+	if(inputCep.value != "" && !tratamentoCampoCep(tipo)) {
+		erros += "- Cep com padrão incorreto\n";
+	}
+	if(inputCpfCnpj.value != "" && !tratamentoCampoCpfCnpj(tipo)) {
+		erros += "- CPF/CNPJ com padrão incorreto\n";
+	}	
+	if(inputNome.value == "" || inputNome == null) {
+		erros += "- O campo nome não pode ser vazio\n";
+	}
+	if(inputCep.value != "" 
+		|| inputCidade.value != "" 
+		|| inputBairro.value != "" 
+		|| inputLogradouro.value != ""
+		|| inputNumero.value != ""
+		|| inputComplemento.value != "") {
+
+		if(inputLogradouro.value == "" || inputLogradouro.value == null) {
+			erros += "- Ao preencher o endereço, o campo logradouro é obrigatório\n"
+		}
+		if(inputNumero.value == "" || inputNumero.value == null) {
+			erros += "- Ao preencher o endereço, o campo número é obrigatório\n"
+		}		
+
+	}
+
+	if (erros != "Ocorreram alguns erros no lançamento da ordem:\n") {
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade == 1) {
+			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
+		}
+
+		alert(erros);
+		return false;
+	}
+	else {
+		botaoFinalizar.type="submit";
+		return true;
+	}
 }
 
 /* ================== MISC ====================== */
+
+function ajustaMinMaxDosInputsData() {
+
+	var inputDataNascimento = document.getElementById('data_nascimento_input');
+	var editainputDataNascimento = document.getElementById('edita_data_nascimento_input');
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
+	var hoje = (ano + '-' + mes + '-' + dia); 	
+
+	inputDataNascimento.max=hoje;	
+	inputDataNascimento.min='1900-01-01';
+
+	editainputDataNascimento.max=hoje;	
+	editainputDataNascimento.min='1900-01-01';
+}
 
 function buildUrl(baseUrl, pagina, descricao, tipo, dataInicio, dataFim, mes, ano) {
 
@@ -1315,6 +1706,7 @@ function consultaEndereco(tipo) {
 function mostrarEndereco(dados, tipo) {
 
 	if(tipo == "novo") {
+		var cepInput = document.getElementById('cep_input');
 		var estadoInput = document.getElementById('estado_input');
 		var cidadeInput = document.getElementById('cidade_input');
 		var logradouroInput = document.getElementById('logradouro_input');
@@ -1325,9 +1717,13 @@ function mostrarEndereco(dados, tipo) {
 		logradouroInput.value=dados.logradouro;
 		bairroInput.value=dados.bairro;
 
+		cepInput.style.background="transparent";
+		logradouroInput.style.background="transparent";		
+
 		document.getElementById('novo_item_label_numero').focus();
 	}
 	else if(tipo == "edita") {
+		var cepInput = document.getElementById('edita_cep_input');
 		var estadoInput = document.getElementById('edita_estado_input');
 		var cidadeInput = document.getElementById('edita_cidade_input');
 		var logradouroInput = document.getElementById('edita_logradouro_input');
@@ -1337,6 +1733,9 @@ function mostrarEndereco(dados, tipo) {
 		cidadeInput.value = dados.localidade;
 		logradouroInput.value=dados.logradouro;
 		bairroInput.value=dados.bairro;
+
+		cepInput.style.background="transparent";
+		logradouroInput.style.background="transparent";		
 
 		document.getElementById('edita_numero_input').focus();		
 	}

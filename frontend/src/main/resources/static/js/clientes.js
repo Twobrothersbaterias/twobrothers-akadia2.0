@@ -499,15 +499,33 @@ function fechaNovoItem() {
 
 function reloadNovoItem() {
 	document.getElementById('descricao_cliente_input').value="";
+	document.getElementById('descricao_cliente_input').style.background="transparent";
+
 	document.getElementById('email_cliente_input').value="";
+	document.getElementById('email_cliente_input').style.background="transparent";
+
 	document.getElementById('telefone_cliente_input').value="";
+	document.getElementById('telefone_cliente_input').style.background="transparent";
+
 	document.getElementById('data_nascimento_input').value="";
+
 	document.getElementById('cpfCnpj_input').value="";
+	document.getElementById('cpfCnpj_input').style.background="transparent";
+
 	document.getElementById('cep_input').value="";
+	document.getElementById('cep_input').style.background="transparent";
+
 	document.getElementById('estado_input').value="SP";
+
 	document.getElementById('cidade_input').value="";
+	document.getElementById('cidade_input').style.background="transparent";
+
 	document.getElementById('logradouro_input').value="";
+	document.getElementById('logradouro_input').style.background="transparent";	
+
 	document.getElementById('numero_input').value="";
+	document.getElementById('numero_input').style.background="transparent";	
+
 	document.getElementById('bairro_input').value="";
 	document.getElementById('complemento_input').value="";
 }
@@ -1277,15 +1295,33 @@ function fecharEditaItem() {
 
 function reloadEditaItem() {
 	document.getElementById('edita_descricao_cliente_input').value="";
+	document.getElementById('edita_descricao_cliente_input').style.background="transparent";
+
 	document.getElementById('edita_email_cliente_input').value="";
+	document.getElementById('edita_email_cliente_input').style.background="transparent";
+
 	document.getElementById('edita_telefone_cliente_input').value="";
+	document.getElementById('edita_telefone_cliente_input').style.background="transparent";
+
 	document.getElementById('edita_data_nascimento_input').value="";
+
 	document.getElementById('edita_cpfCnpj_input').value="";
+	document.getElementById('edita_cpfCnpj_input').style.background="transparent";
+
 	document.getElementById('edita_cep_input').value="";
+	document.getElementById('edita_cep_input').style.background="transparent";
+
 	document.getElementById('edita_estado_input').value="SP";
+
 	document.getElementById('edita_cidade_input').value="";
+	document.getElementById('edita_cidade_input').style.background="transparent";
+
 	document.getElementById('edita_logradouro_input').value="";
+	document.getElementById('edita_logradouro_input').style.background="transparent";	
+
 	document.getElementById('edita_numero_input').value="";
+	document.getElementById('edita_numero_input').style.background="transparent";	
+	
 	document.getElementById('edita_bairro_input').value="";
 	document.getElementById('edita_complemento_input').value="";
 }
@@ -1479,6 +1515,8 @@ function validacaoDoObjetoEndereco(tipo) {
 		var inputNumero = document.getElementById('edita_numero_input');
 		var inputComplemento = document.getElementById('edita_complemento_input');		
 	}
+
+	tratamentoCampoCep(tipo);
 
 	if(inputCep.value != "" 
 		|| inputCidade.value != "" 

@@ -985,6 +985,11 @@ function validacaoCampos() {
 	var inputTelefone = document.getElementById('input_telefone');
 	var inputEmail = document.getElementById('input_email');
 	var inputCep = document.getElementById('cep_input');
+	var inputCidade = document.getElementById('cidade_input');
+	var inputBairro = document.getElementById('bairro_input');
+	var inputLogradouro = document.getElementById('logradouro_input');
+	var inputNumero = document.getElementById('input_numero');
+	var inputComplemento = document.getElementById('input_complemento');	
 	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
@@ -1007,6 +1012,21 @@ function validacaoCampos() {
 	if(inputEntradas.value == "") {
 		erros += "- Nenhuma entrada adicionada à ordem\n";
 	}
+	if(inputCep.value != "" 
+		|| inputCidade.value != "" 
+		|| inputBairro.value != "" 
+		|| inputLogradouro.value != ""
+		|| inputNumero.value != ""
+		|| inputComplemento.value != "") {
+
+		if(inputLogradouro.value == "" || inputLogradouro.value == null) {
+			erros += "- Ao preencher o endereço, o campo logradouro é obrigatório\n"
+		}
+		if(inputNumero.value == "" || inputNumero.value == null) {
+			erros += "- Ao preencher o endereço, o campo número é obrigatório\n"
+		}		
+
+	}	
 
 	if (erros != "Ocorreram alguns erros no lançamento da ordem:\n") {
 		var quantidade = 0
