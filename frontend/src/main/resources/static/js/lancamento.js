@@ -26,22 +26,33 @@ function responsive(){
 	var sideMenu = document.getElementById('side_menu');
 	var conteudoTituloText = document.getElementById('conteudo_titulo_text');
 	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorUl = document.getElementById('menu_superior_ul');
 	var nomePerfil = document.getElementById('nome_perfil');
 	var menuMobile = document.getElementById('menu_superior_mobile');
 
 	var divIcones = document.getElementsByClassName('img_div');
 	var selectSuperiorContainer = document.getElementsByClassName('select_superior_container');
 
+	var conteudoTituloItem = document.getElementsByClassName('conteudo_titulo_item');	
+	var formTitulo = document.getElementsByClassName('form_titulo');
+	var containerInformativo = document.getElementsByClassName('container_informativo');
+	var selectSuperiorContainer = document.getElementsByClassName('select_superior_container');
+
+	var th = document.getElementsByClassName('th_novo');
+	var td = document.getElementsByClassName('td_novo');
+	var thTipo = document.getElementsByClassName('th_novo_tipo');
+	var tdTipo = document.getElementsByClassName('td_tipo');
+
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
 		sideMenu.style.display="block";
 		main.style.width="95.5%";
-		sideMenu.style.width="4.5%";
-		menuSuperior.style.height="55px";
-		menuSuperiorUl.style.padding="12px 0";		
+		sideMenu.style.width="4.5%";	
 		menuMobile.style.display="none";
+
+		for(var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.justifyContent="left";
+		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.padding="9px 0";
@@ -49,7 +60,35 @@ function responsive(){
 
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.margin="0";
+			containerInformativo[i].style.fontSize="0.90rem";
 		}
+
+		for (var i = 0 ; i < containerInformativo.length; i++) {
+			containerInformativo[i].padding="0";
+		}
+
+		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
+			conteudoTituloItem[i].style.fontSize="0.90rem";
+		}
+
+		for (var i = 0 ; i < formTitulo.length; i++) {
+			formTitulo[i].style.fontSize="1.3rem";
+		}			
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.80rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.80rem";
+		}
+
+		for(var i = 0; i < thTipo.length; i++){
+			thTipo[i].hidden=false;
+		}
+		for(var i = 0; i < tdTipo.length; i++){
+			tdTipo[i].hidden=false;
+		}
+
 
   		const parent = document.getElementById('container_all');
   		if(parent.children[2].id == "container_endereco") {
@@ -67,14 +106,43 @@ function responsive(){
 
 		sideMenu.style.display="block";
 		main.style.width="94%";
-		sideMenu.style.width="6%";
-		menuSuperior.style.height="50px";
-		menuSuperiorUl.style.padding="9px 0";		
+		sideMenu.style.width="6%";	
 		menuMobile.style.display="none";
+
+		for(var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.justifyContent="left";
+		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.padding="8px 0";
 		}		
+
+		for (var i = 0 ; i < containerInformativo.length; i++) {
+			containerInformativo[i].style.padding="0";
+			containerInformativo[i].style.fontSize="0.85rem";
+		}	
+
+		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
+			conteudoTituloItem[i].style.fontSize="0.85rem";
+		}
+
+		for (var i = 0 ; i < formTitulo.length; i++) {
+			formTitulo[i].style.fontSize="1.25rem";
+		}
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.75rem";			
+		}		
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.75rem";		
+		}	
+
+		for(var i = 0; i < thTipo.length; i++){
+			thTipo[i].hidden=false;
+		}
+		for(var i = 0; i < tdTipo.length; i++){
+			tdTipo[i].hidden=false;
+		}									
 
   		const parent = document.getElementById('container_all');
   		if(parent.children[2].id == "container_endereco") {
@@ -100,8 +168,37 @@ function responsive(){
 			sideMenu.style.width="7.5%";	
 		}
 
-		menuSuperior.style.height="50px";
-		menuSuperiorUl.style.padding="12px 0";		
+		for(var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.justifyContent="left";
+		}				
+
+		for (var i = 0 ; i < containerInformativo.length; i++) {
+			containerInformativo[i].style.padding="0";
+			containerInformativo[i].style.fontSize="0.80rem";
+		}	
+
+		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
+			conteudoTituloItem[i].style.fontSize="0.80rem";
+		}	
+
+		for (var i = 0 ; i < formTitulo.length; i++) {
+			formTitulo[i].style.fontSize="1.20rem";
+		}	
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.70rem";		
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.70rem";	
+		}
+
+		for(var i = 0; i < thTipo.length; i++){
+			thTipo[i].hidden=false;
+		}
+		for(var i = 0; i < tdTipo.length; i++){
+			tdTipo[i].hidden=false;
+		}											
+	
 		menuMobile.style.display="none";	
 
 		for(var i = 0; i < divIcones.length; i++) {
@@ -118,15 +215,44 @@ function responsive(){
 		console.log('Pequeno');	
 
 		sideMenu.style.display="none";
-		main.style.width="100%";
-		menuSuperior.style.height="45px";
-		menuSuperiorUl.style.padding="9px 0";		
+		main.style.width="100%";	
 		menuMobile.style.display="flex";
+
+		for(var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.justifyContent="center";
+		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.paddingTop="20px";
 			divIcones[i].style.paddingRight="10px";
-		}		
+		}
+
+		for (var i = 0 ; i < containerInformativo.length; i++) {
+			containerInformativo[i].style.padding="0 14px";
+			containerInformativo[i].style.fontSize="0.75rem";
+		}
+
+		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
+			conteudoTituloItem[i].style.fontSize="0.75rem";
+		}			
+
+		for (var i = 0 ; i < formTitulo.length; i++) {
+			formTitulo[i].style.fontSize="1.15rem";
+		}
+
+		for(var i = 0; i < th.length; i++) {
+			th[i].style.fontSize="0.65rem";		
+		}
+		for(var i = 0; i < td.length; i++) {
+			td[i].style.fontSize="0.65rem";	
+		}	
+
+		for(var i = 0; i < thTipo.length; i++){
+			thTipo[i].hidden=true;
+		}
+		for(var i = 0; i < tdTipo.length; i++){
+			tdTipo[i].hidden=true;
+		}										
 
   		const parent = document.getElementById('container_all');
   		parent.insertBefore(
@@ -138,8 +264,11 @@ function responsive(){
 
 		sideMenu.style.display="none";
 		main.style.width="100%";
-		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
+
+		for(var i = 0; i < selectSuperiorContainer.length; i++) {
+			selectSuperiorContainer[i].style.justifyContent="center";
+		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.paddingTop="10px";
@@ -149,6 +278,33 @@ function responsive(){
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.marginBottom="10px";
 		}	
+
+		for (var i = 0 ; i < containerInformativo.length; i++) {
+			containerInformativo[i].style.padding="0 14px";
+			containerInformativo[i].style.fontSize="0.70rem";
+		}
+
+		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
+			conteudoTituloItem[i].style.fontSize="0.70rem";
+		}	
+
+		for (var i = 0 ; i < formTitulo.length; i++) {
+			formTitulo[i].style.fontSize="1.10rem";
+		}	
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.60rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.60rem";
+		}
+
+		for(var i = 0; i < thTipo.length; i++){
+			thTipo[i].hidden=true;
+		}
+		for(var i = 0; i < tdTipo.length; i++){
+			tdTipo[i].hidden=true;
+		}								
 
   		const parent = document.getElementById('container_all');
   		parent.insertBefore(
@@ -1001,9 +1157,9 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 				"<td class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
 					+ (inputEntradasSplitPai[i].split(";")[2]) + 
 				"</td>" +
-				"<td class='td_novo td_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'>" 
+				"<td class='td_novo td_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
 					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
-				"<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'>" 
+				"<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
 					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
 			"</tr>");		
 	}

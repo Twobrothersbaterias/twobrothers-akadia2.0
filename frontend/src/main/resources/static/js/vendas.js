@@ -3,10 +3,9 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 
+console.log('Privilégio: ' + document.getElementById('body').getAttribute('data-privilegio'));
+
 function responsive(){
-
-	console.log('Privilégio: ' + document.getElementById('body').getAttribute('data-privilegio'))
-
 	document.getElementById('main_loader').style.display="none";
 	document.getElementById('main_row').style.display="flex";
 
@@ -18,8 +17,6 @@ function responsive(){
 	var mainRow = document.getElementById('main_row');
 	var sideMenu = document.getElementById('side_menu');
 	var conteudoTituloText = document.getElementById('conteudo_titulo_text');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorUl = document.getElementById('menu_superior_ul');
 	var nomePerfil = document.getElementById('nome_perfil');
 	var menuMobile = document.getElementById('menu_superior_mobile');
 	var informativoRow = document.getElementById('informativo_row');
@@ -67,9 +64,7 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1.5rem";
 		sideMenu.style.display="block";
 		main.style.width="95.5%";
-		sideMenu.style.width="4.5%";
-		menuSuperior.style.height="55px";
-		menuSuperiorUl.style.padding="12px 0";		
+		sideMenu.style.width="4.5%";	
 		menuMobile.style.display="none";
 		if (informativoRow != null) {
 			informativoRow.style.justifyContent="center";
@@ -138,9 +133,7 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1.3rem";
 		sideMenu.style.display="block";
 		main.style.width="94%";
-		sideMenu.style.width="6%";
-		menuSuperior.style.height="50px";
-		menuSuperiorUl.style.padding="9px 0";		
+		sideMenu.style.width="6%";	
 		menuMobile.style.display="none";
 		if (informativoRow != null) {
 			informativoRow.style.justifyContent="center";
@@ -216,9 +209,7 @@ function responsive(){
 			tdUsuario[i].style.display="none";
 		}		
 
-		conteudoTituloText.style.fontSize="1.2rem";
-		menuSuperior.style.height="50px";
-		menuSuperiorUl.style.padding="12px 0";		
+		conteudoTituloText.style.fontSize="1.2rem";	
 		menuMobile.style.display="none";
 
 		if (informativoRow != null) {
@@ -269,9 +260,7 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
-		main.style.width="100%";
-		menuSuperior.style.height="45px";
-		menuSuperiorUl.style.padding="9px 0";		
+		main.style.width="100%";	
 		menuMobile.style.display="flex";
 
 		if (informativoRow != null) {
@@ -341,9 +330,8 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
-		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
-		
+
 		filtroTitulo.style.fontSize="1.1rem";
 
 		if(listaVaziaTitulo != null) {

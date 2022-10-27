@@ -67,6 +67,7 @@ public class AbastecimentoController {
         String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
         String completeUrl = baseUrl + "/abastecimentos?" + req.getQueryString();
 
+        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
         modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
         modelMap.addAttribute("baseUrl", baseUrl);
         modelMap.addAttribute("queryString", req.getQueryString());

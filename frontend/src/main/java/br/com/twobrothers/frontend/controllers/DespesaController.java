@@ -64,6 +64,7 @@ public class DespesaController {
         String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
         String completeUrl = baseUrl + "/despesas?" + req.getQueryString();
 
+        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
         modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
         modelMap.addAttribute("baseUrl", baseUrl);
         modelMap.addAttribute("queryString", req.getQueryString());

@@ -17,8 +17,6 @@ function responsive(){
 	var mainRow = document.getElementById('main_row');
 	var sideMenu = document.getElementById('side_menu');
 	var conteudoTituloText = document.getElementById('conteudo_titulo_text');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorUl = document.getElementById('menu_superior_ul');
 	var nomePerfil = document.getElementById('nome_perfil');
 	var menuMobile = document.getElementById('menu_superior_mobile');
 	var excluirText = document.getElementById('excluir_text');
@@ -58,8 +56,6 @@ function responsive(){
 		sideMenu.style.display="block";
 		main.style.width="95.5%";
 		sideMenu.style.width="4.5%";
-		menuSuperior.style.height="55px";
-		menuSuperiorUl.style.padding="12px 0";
 		menuMobile.style.display="none";
 
 		containerNovo.style.fontSize="1rem";		
@@ -131,9 +127,7 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1.3rem";
 		sideMenu.style.display="block";
 		main.style.width="94%";
-		sideMenu.style.width="6%";
-		menuSuperior.style.height="50px";
-		menuSuperiorUl.style.padding="9px 0";		
+		sideMenu.style.width="6%";		
 		menuMobile.style.display="none";
 
 		containerNovo.style.fontSize="1rem";
@@ -213,8 +207,6 @@ function responsive(){
 		}
 
 		conteudoTituloText.style.fontSize="1.2rem";
-		menuSuperior.style.height="50px";
-		menuSuperiorUl.style.padding="12px 0";
 		menuMobile.style.display="none";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.1rem";
@@ -282,8 +274,6 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
-		menuSuperior.style.height="45px";
-		menuSuperiorUl.style.padding="9px 0";	
 		menuMobile.style.display="flex";	
 		containerNovo.style.fontSize="0.90rem";	
 		novoTitulo.style.fontSize="1.2rem";		
@@ -360,7 +350,6 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
-		menuSuperior.style.height="40px";
 		menuMobile.style.display="flex";
 		containerNovo.style.fontSize="0.90rem";
 		novoTitulo.style.fontSize="1rem";
