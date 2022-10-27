@@ -272,6 +272,7 @@
 	float: right;
 }
 
+
 @keyframes progressBar {
   0% { width: 0; }
   100% { width: 33%; }
