@@ -22,6 +22,8 @@
 	<link th:href="@{css/fornecedores.css}" href="../static/css/fornecedores.css" rel="stylesheet" />	
 	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 	<title>VALT | Fornecedores</title>
 
 </head>
@@ -796,7 +798,9 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Fornecedor cadastrado no dia 21/07/1998 por admin" id="edita_info"/>											
+					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="info_clicavel">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Fornecedor cadastrado no dia 21/07/1998 por admin" id="edita_info"/>		
+					</a>								
 
 					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
 					
@@ -1073,7 +1077,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cep" for="cep_input">
 							Cep:
 						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" oninput="validacaoDoObjetoEndereco('novo')" onkeyup="consultaEndereco('novo')" type="text"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" type="text"/>
 					</div>
 
 					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">

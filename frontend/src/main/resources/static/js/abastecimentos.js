@@ -565,8 +565,8 @@ function filtroChange() {
 
 	var filtroTipo = document.getElementById('filtro_input');
 
-	var descricaoBlock = document.getElementById('filtro_descricao_block');
-	var descricaoInput = document.getElementById('descricao_filtro_input');
+	var produtoBlock = document.getElementById('filtro_produto_block');
+	var produtoInput = document.getElementById('produto_filtro_input');
 
 	var dataInicio = document.getElementById('filtro_data_inicio_block');
 	var dataInicioInput = document.getElementById('data_inicio_filtro_input');
@@ -580,11 +580,8 @@ function filtroChange() {
 	var anoBlock = document.getElementById('filtro_ano_block');
 	var anoInput = document.getElementById('ano_filtro_input');
 
-	var telefoneBlock = document.getElementById('filtro_telefone_block');
-	var telefoneInput = document.getElementById('telefone_filtro_input');
-
-	var cpfBlock = document.getElementById('filtro_cpf_block');
-	var cpfInput = document.getElementById('cpf_filtro_input');	
+	var fornecedorBlock = document.getElementById('filtro_fornecedor_block');
+	var fornecedorInput = document.getElementById('fornecedor_filtro_input');	
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -601,9 +598,9 @@ function filtroChange() {
 
 	var data = (ano + '-' + mes + '-' + dia);
 
-	if (filtroTipo.value == 'DESCRICAO') {
+	if (filtroTipo.value == 'PRODUTO') {
 
-		descricaoBlock.hidden=false;
+		produtoBlock.hidden=false;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=true;
@@ -617,17 +614,14 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
+		fornecedorInput.value="";
+		fornecedorBlock.hidden=true;
 
 	}
 	else if (filtroTipo.value == 'DATA') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		produtoInput.value="";
+		produtoBlock.hidden=true;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=false;
@@ -641,16 +635,13 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
+		fornecedorInput.value="";
+		fornecedorBlock.hidden=true;
 	}
 	else if (filtroTipo.value == 'PERIODO') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		produtoInput.value="";
+		produtoBlock.hidden=true;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=true;
@@ -664,17 +655,15 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=false;
 
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
+		fornecedorInput.value="";
+		fornecedorBlock.hidden=true;
 		
 	}
-	else if (filtroTipo.value == 'TELEFONE') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+	else if (filtroTipo.value == 'FORNECEDOR') {
+
+		produtoInput.value="";
+		produtoBlock.hidden=true;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=true;
@@ -688,34 +677,7 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		telefoneBlock.hidden=false;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
-		
-	}
-
-	else if (filtroTipo.value == 'CPF') {
-
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
-
-		dataInicioInput.value=data;
-		dataInicio.hidden=true;
-
-		dataFimInput.value=data;
-		dataFim.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfBlock.hidden=false;
+		fornecedorBlock.hidden=false;
 		
 	}	
 }
@@ -740,17 +702,17 @@ function reloadFiltro() {
 	document.getElementById('filtro_input').disabled=false;
 	document.getElementById('filtro_input').style.border="1px solid #949393";
 	document.getElementById('filtro_input').style.pointerEvents="auto";
-	document.getElementById('filtro_input').value="DESCRICAO";
+	document.getElementById('filtro_input').value="PRODUTO";
 	document.getElementById('filtro_bt').hidden=false;
 	document.getElementById('filtro_bt').disabled=false;
 	document.getElementById('filtro_bt').style.pointerEvents="auto";
 	document.getElementById('filtro_buscar_bt').hidden=true;
 
-	document.getElementById('tipo_filtro_option_descricao').hidden=false;
-	document.getElementById('filtro_descricao_block').hidden=false;	
-	document.getElementById('filtro_descricao_tag').hidden=true;
-	document.getElementById('descricao_filtro_input').value="";
-	document.getElementById('input_descricao_backend').value="";
+	document.getElementById('tipo_filtro_option_produto').hidden=false;
+	document.getElementById('filtro_produto_block').hidden=false;	
+	document.getElementById('filtro_produto_tag').hidden=true;
+	document.getElementById('produto_filtro_input').value="";
+	document.getElementById('input_produto_backend').value="";
 
 	document.getElementById('tipo_filtro_option_data').hidden=false;
 	document.getElementById('filtro_data_inicio_block').hidden=true;
@@ -770,17 +732,11 @@ function reloadFiltro() {
 	document.getElementById('input_periodo_ano_backend').value="";	
 	document.getElementById('filtro_periodo_tag').hidden=true;
 
-	document.getElementById('tipo_filtro_option_telefone').hidden=false;
-	document.getElementById('filtro_telefone_block').hidden=true;
-	document.getElementById('filtro_telefone_tag').hidden=true;
-	document.getElementById('telefone_filtro_input').value="";
-	document.getElementById('input_telefone_backend').value="";	
-
-	document.getElementById('tipo_filtro_option_cpf').hidden=false;
-	document.getElementById('filtro_cpf_block').hidden=true;
-	document.getElementById('filtro_cpf_tag').hidden=true;	
-	document.getElementById('cpf_filtro_input').value="";
-	document.getElementById('input_cpf_backend').value="";	
+	document.getElementById('tipo_filtro_option_fornecedor').hidden=false;
+	document.getElementById('filtro_fornecedor_block').hidden=true;
+	document.getElementById('filtro_fornecedor_tag').hidden=true;	
+	document.getElementById('fornecedor_filtro_input').value="";
+	document.getElementById('input_fornecedor_backend').value="";	
 }
 
 function addFiltro() {
@@ -789,9 +745,9 @@ function addFiltro() {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optionProduto = document.getElementById('tipo_filtro_option_produto');
+	var produtoBlock = document.getElementById('filtro_produto_block');	
+	var produtoTag = document.getElementById('filtro_produto_tag');
 
 	var optionData = document.getElementById('tipo_filtro_option_data');
 	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
@@ -803,38 +759,32 @@ function addFiltro() {
 	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
 	var periodoTag = document.getElementById('filtro_periodo_tag');		
 
-	var optionTelefone = document.getElementById('tipo_filtro_option_telefone');
-	var telefoneBlock = document.getElementById('filtro_telefone_block');	
-	var telefoneTag = document.getElementById('filtro_telefone_tag');	
+	var optionFornecedor = document.getElementById('tipo_filtro_option_fornecedor');
+	var fornecedorBlock = document.getElementById('filtro_fornecedor_block');	
+	var fornecedorTag = document.getElementById('filtro_fornecedor_tag');	
 
-	var optionCpf = document.getElementById('tipo_filtro_option_cpf');
-	var cpfBlock = document.getElementById('filtro_cpf_block');	
-	var cpfTag = document.getElementById('filtro_cpf_tag');	
-
-	var inputDescricaoFiltro = document.getElementById('descricao_filtro_input');
+	var inputProdutoFiltro = document.getElementById('produto_filtro_input');
 	var inputDataInicioFiltro = document.getElementById('data_inicio_filtro_input');
 	var inputDataFimFiltro = document.getElementById('data_fim_filtro_input');
 	var inputMesFiltro = document.getElementById('mes_filtro_input');
 	var inputAnoFiltro = document.getElementById('ano_filtro_input');
-	var inputTelefoneFiltro = document.getElementById('telefone_filtro_input');
-	var inputCpfFiltro = document.getElementById('cpf_filtro_input');
+	var inputFornecedorFiltro = document.getElementById('fornecedor_filtro_input');
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTelefoneBackend = document.getElementById('input_telefone_backend');
-	var inputCpfBackend = document.getElementById('input_cpf_backend');
+	var inputFornecedorBackend = document.getElementById('input_fornecedor_backend');
 
-	if (filtroTipo.value == 'DESCRICAO') {
-		if (inputDescricaoFiltro.value != "") {
-			optionDescricao.hidden=true;
-			descricaoBlock.hidden=true;
-			descricaoTag.hidden=false;
-			descricaoTag.innerText = "Nome: " + inputDescricaoFiltro.value;
+	if (filtroTipo.value == 'PRODUTO') {
+		if (inputProdutoFiltro.value != "") {
+			optionProduto.hidden=true;
+			produtoBlock.hidden=true;
+			produtoTag.hidden=false;
+			produtoTag.innerText = "Produto: " + inputProdutoFiltro.value;
 			filtroTipo.value="";
-			inputDescricaoBackend.value=inputDescricaoFiltro.value;
+			inputProdutoBackend.value=inputProdutoFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -892,35 +842,16 @@ function addFiltro() {
 		filtroBt.disabled=true;
 		filtroBt.style.pointerEvents="none";		
 	}
-	else if (filtroTipo.value == 'TELEFONE') {
-		if (inputTelefoneFiltro.value != "") {		
-			optionTelefone.hidden=true;
-			telefoneBlock.hidden=true;
+	else if (filtroTipo.value == 'FORNECEDOR') {
+		if (inputFornecedorFiltro.value != "") {
+			optionFornecedor.hidden=true;
+			fornecedorBlock.hidden=true;
 
-			telefoneTag.hidden=false;
-			telefoneTag.innerText = 'Telefone: ' + inputTelefoneFiltro.value;
-
-			filtroTipo.value="";
-			inputTelefoneBackend.value=inputTelefoneFiltro.value;
-
-			filtroBt.hidden=true;
-			buscarBt.hidden=false;
-			filtroTipo.style.border="1px solid grey";
-			filtroTipo.disabled=true;
-			filtroBt.disabled=true;
-			filtroBt.style.pointerEvents="none";		
-		}
-	}
-	else if (filtroTipo.value == 'CPF') {
-		if (inputCpfFiltro.value != "") {
-			optionCpf.hidden=true;
-			cpfBlock.hidden=true;
-
-			cpfTag.hidden=false;
-			cpfTag.innerText = 'CPF: ' + inputCpfFiltro.value;
+			fornecedorTag.hidden=false;
+			fornecedorTag.innerText = 'Fornecedor: ' + inputFornecedorFiltro.value;
 
 			filtroTipo.value="";
-			inputCpfBackend.value=inputCpfFiltro.value;
+			inputFornecedorBackend.value=inputFornecedorFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -938,9 +869,9 @@ function removerFiltro(filtro) {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optionProduto = document.getElementById('tipo_filtro_option_produto');
+	var produtoBlock = document.getElementById('filtro_produto_block');	
+	var produtoTag = document.getElementById('filtro_produto_tag');
 
 	var optionData = document.getElementById('tipo_filtro_option_data');
 	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
@@ -952,57 +883,52 @@ function removerFiltro(filtro) {
 	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
 	var periodoTag = document.getElementById('filtro_periodo_tag');		
 
-	var optionTelefone = document.getElementById('tipo_filtro_option_telefone');
-	var telefoneBlock = document.getElementById('filtro_telefone_block');	
-	var telefoneTag = document.getElementById('filtro_telefone_tag');
+	var optionFornecedor = document.getElementById('tipo_filtro_option_fornecedor');
+	var fornecedorBlock = document.getElementById('filtro_fornecedor_block');	
+	var fornecedorTag = document.getElementById('filtro_fornecedor_tag');		
 
-	var optionCpf = document.getElementById('tipo_filtro_option_cpf');
-	var cpfBlock = document.getElementById('filtro_cpf_block');	
-	var cpfTag = document.getElementById('filtro_cpf_tag');		
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTelefoneBackend = document.getElementById('input_telefone_backend');	
-	var inputCpfBackend = document.getElementById('input_cpf_backend');	
+	var inputFornecedorBackend = document.getElementById('input_fornecedor_backend');	
 	
 	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
 	filtroBt.disabled=false;
 	filtroBt.style.pointerEvents="auto";	
 
-	if (filtro == 'descricao') {		
+	if (filtro == 'produto') {		
 
-		optionDescricao.hidden=false;
+		optionProduto.hidden=false;
 
-		descricaoBlock.hidden=false;
+		produtoBlock.hidden=false;
 
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 		telefoneBlock.hidden=true;
-		cpfBlock.hidden=true;
+		fornecedorBlock.hidden=true;
 
-		descricaoTag.hidden=true;
+		produtoTag.hidden=true;
 
-		filtroTipo.value="DESCRICAO";
+		filtroTipo.value="PRODUTO";
 
-		inputDescricaoBackend.value="";
+		inputProdutoBackend.value="";
 	}
 	else if (filtro == 'data') {
 		optionData.hidden=false;
 		optionPeriodo.hidden=false;
 
-		descricaoBlock.hidden=true;
+		produtoBlock.hidden=true;
 		dataInicioBlock.hidden=false;
 		dataFimBlock.hidden=false;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 		telefoneBlock.hidden=true;
-		cpfBlock.hidden=true;
+		fornecedorBlock.hidden=true;
 
 		dataTag.hidden=true;
 		filtroTipo.value="DATA";
@@ -1014,13 +940,12 @@ function removerFiltro(filtro) {
 		optionData.hidden=false;
 		optionPeriodo.hidden=false;
 
-		descricaoBlock.hidden=true;
+		produtoBlock.hidden=true;
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=false;
 		periodoAnoBlock.hidden=false;
-		telefoneBlock.hidden=true;
-		cpfBlock.hidden=true;
+		fornecedorBlock.hidden=true;
 
 		periodoTag.hidden=true;
 		filtroTipo.value="PERIODO";
@@ -1028,41 +953,21 @@ function removerFiltro(filtro) {
 		inputMesBackend.value="";
 		inputAnoBackend.value="";
 	}
-	else if (filtro == 'telefone') {
-		optionTelefone.hidden=false;
+	else if (filtro == 'fornecedor') {
 
-		descricaoBlock.hidden=true;
-
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-		cpfBlock.hidden=true;
-
-		telefoneBlock.hidden=false;
-		telefoneTag.hidden=true;
-
-		filtroTipo.value="TELEFONE";
-
-		inputTelefoneBackend.value="";
-	}
-	else if (filtro == 'cpf') {
-		optionTelefone.hidden=false;
-
-		descricaoBlock.hidden=true;
+		produtoBlock.hidden=true;
 
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
-		telefoneBlock.hidden=true;
 
-		cpfBlock.hidden=false;
-		cpfTag.hidden=true;
+		fornecedorBlock.hidden=false;
+		fornecedorTag.hidden=true;
 
-		filtroTipo.value="CPF";
+		filtroTipo.value="FORNECEDOR";
 
-		inputCpfBackend.value="";
+		inputFornecedorBackend.value="";
 	}	
 
 	buscarBt.hidden=true;		
@@ -1071,20 +976,19 @@ function removerFiltro(filtro) {
 
 function efeitoRemoverFiltro(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtroProduto = document.getElementById('filtro_produto_tag');
 	var filtroData = document.getElementById('filtro_data_tag');	
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTelefone = document.getElementById('filtro_telefone_tag');
-	var filtroCpf = document.getElementById('filtro_cpf_tag');
+	var filtroFornecedor = document.getElementById('filtro_fornecedor_tag');
 
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="0.5s"
-		filtroDescricao.style.background="#AA3C3C";
-		filtroDescricao.style.border="1px solid #AA3C3C";
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Remover";
-		filtroDescricao.style.cursor="pointer";
+	if (filtro == 'produto') {
+		filtroProduto.style.transition="0.5s"
+		filtroProduto.style.background="#AA3C3C";
+		filtroProduto.style.border="1px solid #AA3C3C";
+		filtroProduto.style.color="#212121";
+		filtroProduto.innerText="Remover";
+		filtroProduto.style.cursor="pointer";
 
 	}
 	else if (filtro == 'data') {
@@ -1103,47 +1007,37 @@ function efeitoRemoverFiltro(filtro) {
 		filtroPeriodo.innerText="Remover";
 		filtroPeriodo.style.cursor="pointer";
 	}
-	else if (filtro == 'telefone') {
-		filtroTelefone.style.transition="0.5s"
-		filtroTelefone.style.background="#AA3C3C";
-		filtroTelefone.style.border="1px solid #AA3C3C";
-		filtroTelefone.style.color="#212121";
-		filtroTelefone.innerText="Remover";
-		filtroTelefone.style.cursor="pointer";
-	}
-	else if (filtro == 'cpf') {
-		filtroCpf.style.transition="0.5s"
-		filtroCpf.style.background="#AA3C3C";
-		filtroCpf.style.border="1px solid #AA3C3C";
-		filtroCpf.style.color="#212121";
-		filtroCpf.innerText="Remover";
-		filtroCpf.style.cursor="pointer";
+	else if (filtro == 'fornecedor') {
+		filtroFornecedor.style.transition="0.5s"
+		filtroFornecedor.style.background="#AA3C3C";
+		filtroFornecedor.style.border="1px solid #AA3C3C";
+		filtroFornecedor.style.color="#212121";
+		filtroFornecedor.innerText="Remover";
+		filtroFornecedor.style.cursor="pointer";
 	}			
 }
 
 function efeitoRemoverFiltroLeave(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtroProduto = document.getElementById('filtro_produto_tag');
 	var filtroData = document.getElementById('filtro_data_tag');
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTelefone = document.getElementById('filtro_telefone_tag');
-	var filtroCpf = document.getElementById('filtro_cpf_tag');	
+	var filtroFornecedor = document.getElementById('filtro_fornecedor_tag');	
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTelefoneBackend = document.getElementById('input_telefone_backend');
-	var inputCpfBackend = document.getElementById('input_cpf_backend');
+	var inputFornecedorBackend = document.getElementById('input_fornecedor_backend');
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="1s"
-		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #212121"
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Descrição";
-		filtroDescricao.innerText = 'Nome: ' + inputDescricaoBackend.value;
+	if (filtro == 'produto') {
+		filtroProduto.style.transition="1s"
+		filtroProduto.style.background="transparent";
+		filtroProduto.style.border="1px solid #212121"
+		filtroProduto.style.color="#212121";
+		filtroProduto.innerText="Descrição";
+		filtroProduto.innerText = 'Nome: ' + inputProdutoBackend.value;
 
 	}
 	else if (filtro == 'data') {
@@ -1160,19 +1054,12 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroPeriodo.style.color="#212121";
 		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
 	}
-	else if (filtro == 'telefone') {
-		filtroTelefone.style.transition="1s"
-		filtroTelefone.style.background="transparent";
-		filtroTelefone.style.border="1px solid #212121"
-		filtroTelefone.style.color="#212121";
-		filtroTelefone.innerText = 'Telefone: ' + inputTelefoneBackend.value;
-	}
-	else if (filtro == 'cpf') {
-		filtroCpf.style.transition="1s"
-		filtroCpf.style.background="transparent";
-		filtroCpf.style.border="1px solid #212121"
-		filtroCpf.style.color="#212121";
-		filtroCpf.innerText = 'Telefone: ' + inputCpfBackend.value;
+	else if (filtro == 'fornecedor') {
+		filtroFornecedor.style.transition="1s"
+		filtroFornecedor.style.background="transparent";
+		filtroFornecedor.style.border="1px solid #212121"
+		filtroFornecedor.style.color="#212121";
+		filtroFornecedor.innerText = 'Fornecedor: ' + inputFornecedorBackend.value;
 	}		
 }
 
@@ -1285,22 +1172,22 @@ function reloadEditaItem() {
 
 /* ================== MISC ====================== */
 
-function buildUrl(baseUrl, pagina, descricao, tipo, dataInicio, dataFim, mes, ano) {
+function buildUrl(baseUrl, pagina, produto, dataInicio, dataFim, mes, ano, fornecedor) {
 
 	var url = baseUrl + "?page=" + pagina;
 	var paginaList = document.getElementById('pagina_list');
 
-	if (descricao != null) {
-		baseUrl + "&descricao=" + descricao;
+	if (produto != null) {
+		baseUrl + "&produto=" + produto;
 	}		
-	else if (tipo != null) {
-		baseUrl + "&tipo=" + tipo;
-	}
 	else if (dataInicio != null && dataFim != null) {
 		baseUrl + "&dataInicio=" + dataInicio + "&dataFim=" + dataFim;
 	}
 	else if (mes != null && ano != null) {
 		baseUrl + "&mes=" + mes + "&ano=" + ano;	
+	}
+	else if(fornecedor != null) {
+		baseUrl + "&fornecedor=" + fornecedor;
 	}
 
 	paginaList.href=baseUrl;

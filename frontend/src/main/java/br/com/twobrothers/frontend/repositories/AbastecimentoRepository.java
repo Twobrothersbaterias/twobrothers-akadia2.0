@@ -29,6 +29,9 @@ public interface AbastecimentoRepository extends JpaRepository<AbastecimentoEnti
     @Query("Select a From AbastecimentoEntity a where a.produto.sigla like %:produto%")
     List<AbastecimentoEntity> buscaPorProdutoPaginado(Pageable pageable, @Param("produto") String produto);
 
+    @Query("Select a From AbastecimentoEntity a where a.fornecedor.id = ?1")
+    List<AbastecimentoEntity> buscaPorFornecedorIdPaginado(Pageable pageable, Long id);
+
     @Query("Select a From AbastecimentoEntity a where a.fornecedor.nome like %:fornecedor%")
     List<AbastecimentoEntity> buscaPorFornecedorPaginado(Pageable pageable, @Param("fornecedor") String fornecedor);
 
@@ -39,6 +42,9 @@ public interface AbastecimentoRepository extends JpaRepository<AbastecimentoEnti
 
     @Query("Select a From AbastecimentoEntity a where a.produto.sigla like %:produto%")
     List<AbastecimentoEntity> buscaPorProdutoSemPaginacao(@Param("produto") String produto);
+
+    @Query("Select a From AbastecimentoEntity a where a.fornecedor.id = ?1")
+    List<AbastecimentoEntity> buscaPorFornecedorIdSemPaginacao(Long id);
 
     @Query("Select a From AbastecimentoEntity a where a.fornecedor.nome like %:fornecedor%")
     List<AbastecimentoEntity> buscaPorFornecedorSemPaginacao(@Param("fornecedor") String fornecedor);

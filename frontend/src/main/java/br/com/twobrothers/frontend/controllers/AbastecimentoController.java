@@ -40,9 +40,6 @@ public class AbastecimentoController {
     AbastecimentoService abastecimentoService;
 
     @Autowired
-    AbastecimentoCrudService abastecimentoCrudService;
-
-    @Autowired
     ProdutoEstoqueService produtoEstoqueService;
 
     @Autowired
@@ -57,6 +54,7 @@ public class AbastecimentoController {
                                        @RequestParam("fim") Optional<String> fim,
                                        @RequestParam("mes") Optional<Integer> mes,
                                        @RequestParam("ano") Optional<Integer> ano,
+                                       @RequestParam("fornecedorId") Optional<String> fornecedorId,
                                        @RequestParam("fornecedor") Optional<String> fornecedor,
                                        @RequestParam("produto") Optional<String> produto,
                                        Model model, ModelAndView modelAndView,
@@ -85,6 +83,7 @@ public class AbastecimentoController {
                     fim.orElse(null),
                     mes.orElse(null),
                     ano.orElse(null),
+                    fornecedorId.orElse(null),
                     fornecedor.orElse(null),
                     produto.orElse(null));
 
@@ -93,6 +92,7 @@ public class AbastecimentoController {
                     fim.orElse(null),
                     mes.orElse(null),
                     ano.orElse(null),
+                    fornecedorId.orElse(null),
                     fornecedor.orElse(null),
                     produto.orElse(null));
 
@@ -110,6 +110,7 @@ public class AbastecimentoController {
         model.addAttribute("fim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));
+        model.addAttribute("fornecedorId", fornecedorId.orElse(null));
         model.addAttribute("fornecedor", fornecedor.orElse(null));
         model.addAttribute("produto", produto.orElse(null));
         model.addAttribute("paginas", paginas);

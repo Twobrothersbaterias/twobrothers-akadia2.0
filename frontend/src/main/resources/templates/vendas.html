@@ -92,7 +92,15 @@
 							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
 						</button>
 					</a>
-				</div>			
+				</div>
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/fornecedores}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+						</button>
+					</a>
+				</div>					
 
 				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/colaboradores}" class="row aside_clicavel">
@@ -102,6 +110,8 @@
 					</a>
 				</div>						
 			</div>
+
+
 
 			<div class="row last">
 				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
@@ -222,7 +232,17 @@
 							</button>	
 						</a>
 					</div>	
-				</div>	
+				</div>
+
+				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+						</a>
+					</div>	
+				</div>					
 
 				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
@@ -243,7 +263,7 @@
 						</a>
 					</div>	
 				</div>																													
-			</div>				
+			</div>						
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 

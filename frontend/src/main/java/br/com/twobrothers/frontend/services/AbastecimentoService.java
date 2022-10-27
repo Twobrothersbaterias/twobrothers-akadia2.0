@@ -71,11 +71,13 @@ public class AbastecimentoService {
                                                           String dataFim,
                                                           Integer mes,
                                                           Integer ano,
+                                                          String fornecedorId,
                                                           String fornecedor,
                                                           String produto) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, mes, ano);
+        else if(fornecedorId != null) return crudService.buscaPorFornecedorIdPaginado(pageable, fornecedorId);
         else if (fornecedor != null) return crudService.buscaPorFornecedorPaginado(pageable, fornecedor);
         else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
         else return crudService.buscaHojePaginado(pageable);
@@ -86,11 +88,13 @@ public class AbastecimentoService {
             String dataFim,
             Integer mes,
             Integer ano,
+            String fornecedorId,
             String fornecedor,
             String produto) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (fornecedorId != null) return crudService.buscaPorFornecedorIdSemPaginacao(fornecedorId);
         else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
         else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
         else return crudService.buscaHojeSemPaginacao();

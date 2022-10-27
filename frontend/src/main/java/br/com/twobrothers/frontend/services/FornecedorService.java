@@ -63,8 +63,7 @@ public class FornecedorService {
             String cpfCnpj,
             String telefone) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorNomeCompleto(pageable, descricao);
-        else if (dataInicio != null && dataFim != null)
-            return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
+        else if (dataInicio != null && dataFim != null) return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
         else if (cpfCnpj != null) return crudService.buscaPorCpfCnpj(pageable, cpfCnpj);
         else if (telefone != null) return crudService.buscaPorTelefone(pageable, telefone);

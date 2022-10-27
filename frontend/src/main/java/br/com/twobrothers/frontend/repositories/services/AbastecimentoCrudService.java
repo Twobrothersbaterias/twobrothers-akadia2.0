@@ -140,6 +140,12 @@ public class AbastecimentoCrudService {
         return repository.buscaHojePaginado(pageable, hoje.toString());
     }
 
+    public List<AbastecimentoEntity> buscaPorFornecedorIdPaginado(Pageable pageable, String fornecedorId) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por fornecedorId: {}", fornecedorId);
+        return repository.buscaPorFornecedorIdPaginado(pageable, Long.parseLong(fornecedorId));
+    }
+
     public List<AbastecimentoEntity> buscaPorFornecedorPaginado(Pageable pageable, String fornecedor) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de abastecimento por fornecedor...");
@@ -149,7 +155,7 @@ public class AbastecimentoCrudService {
     public List<AbastecimentoEntity> buscaPorProdutoPaginado(Pageable pageable, String produto) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de abastecimento por produto...");
-        return repository.buscaPorFornecedorPaginado(pageable, produto);
+        return repository.buscaPorProdutoPaginado(pageable, produto);
     }
 
     public List<AbastecimentoEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
@@ -174,6 +180,12 @@ public class AbastecimentoCrudService {
         return repository.buscaHojeSemPaginacao(hoje.toString());
     }
 
+    public List<AbastecimentoEntity> buscaPorFornecedorIdSemPaginacao(String fornecedorId) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por fornecedorId...");
+        return repository.buscaPorFornecedorIdSemPaginacao(Long.parseLong(fornecedorId));
+    }
+
     public List<AbastecimentoEntity> buscaPorFornecedorSemPaginacao(String fornecedor) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de abastecimento por fornecedor...");
@@ -182,7 +194,7 @@ public class AbastecimentoCrudService {
     public List<AbastecimentoEntity> buscaPorProdutoSemPaginacao(String produto) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de abastecimento por produto...");
-        return repository.buscaPorFornecedorSemPaginacao(produto);
+        return repository.buscaPorProdutoSemPaginacao(produto);
     }
 
 }

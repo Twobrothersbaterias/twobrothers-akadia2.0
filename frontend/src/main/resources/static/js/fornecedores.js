@@ -1219,6 +1219,8 @@ function abrirEditaItem(
 		document.getElementById('edita_info').title="Fornecedor cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
 	}
 
+	// SETANDO VALORES NOS CAMPOS
+	$('#info_clicavel').attr("href", "/compras?fornecedorId=" + id);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('edita_descricao_fornecedor_input').value=nomeCompleto;
 	document.getElementById('edita_email_fornecedor_input').value=email;
@@ -1408,7 +1410,6 @@ function tratamentoCampoCep(tipo) {
 	}
 
 	var fraseSemCaracteresEspeciais = inputCep.value.normalize("NFD").replace(/[^a-zA-Z0-9s]/g, "")
-
 	inputCep.value = fraseSemCaracteresEspeciais.replace(/([a-zA-Z ])/g, "");	
 
 	if (inputCep.value != "") {
@@ -1552,7 +1553,7 @@ function validacaoCampos(tipo) {
 		inputComplemento = document.getElementById('complemento_input');		
 	}	
 	else {
-		inputNome = document.getElementById('descricao_fornecedor_input');
+		inputNome = document.getElementById('edita_descricao_fornecedor_input');
 		inputTelefone = document.getElementById('edita_telefone_fornecedor_input');
 		inputEmail = document.getElementById('edita_email_fornecedor_input');
 		inputCep = document.getElementById('edita_cep_input');

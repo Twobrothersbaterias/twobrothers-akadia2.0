@@ -1583,7 +1583,7 @@ function validacaoCampos(tipo) {
 		inputComplemento = document.getElementById('complemento_input');		
 	}	
 	else {
-		inputNome = document.getElementById('descricao_cliente_input');
+		inputNome = document.getElementById('edita_descricao_cliente_input');
 		inputTelefone = document.getElementById('edita_telefone_cliente_input');
 		inputEmail = document.getElementById('edita_email_cliente_input');
 		inputCep = document.getElementById('edita_cep_input');
