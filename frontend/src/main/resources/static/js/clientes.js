@@ -1439,6 +1439,9 @@ function tratamentoCampoCep(tipo) {
 		var inputCep = document.getElementById('edita_cep_input');
 	}
 
+	var fraseSemCaracteresEspeciais = inputCep.value.normalize("NFD").replace(/[^a-zA-Z0-9s]/g, "")
+	inputCep.value = fraseSemCaracteresEspeciais.replace(/([a-zA-Z ])/g, "");		
+
 	if (inputCep.value != "") {
 
 		if (cepRegex.test(inputCep.value)) {
