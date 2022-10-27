@@ -302,7 +302,7 @@
 							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/compras}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
+							<img th:if="${privilegio} != 'Vendedor'" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
 
 						</div>							
@@ -427,15 +427,28 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
+											th:data-produtoId="${abastecimento.produto != null} ? ${abastecimento.produto.id} : ''"
+											th:data-produtoSigla="${abastecimento.produto != null} ? ${abastecimento.produto.sigla} : ''"
+											th:data-produtoEspecificacao="${abastecimento.produto != null} ? ${abastecimento.produto.especificacao} : ''"
+											th:data-produtoQuantidade="${abastecimento.produto != null} ? ${abastecimento.produto.quantidade} : ''"
+											th:data-fornecedorId="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.id} : ''"
+											th:data-fornecedorNome="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.nome} : ''"
 											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-custoUnitario'), 
-												this.getAttribute('data-custoTotal'), 
-												this.getAttribute('data-observacao'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'))">...</td>
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-quantidade'),
+											this.getAttribute('data-custoUnitario'),
+											this.getAttribute('data-custoTotal'),
+											this.getAttribute('data-observacao'),
+											this.getAttribute('data-usuarioResponsavel'),
+											this.getAttribute('data-formaPagamento'),
+											this.getAttribute('data-produtoId'),
+											this.getAttribute('data-produtoSigla'),
+											this.getAttribute('data-produtoEspecificacao'),
+											this.getAttribute('data-produtoQuantidade'),
+											this.getAttribute('data-fornecedorId'),
+											this.getAttribute('data-fornecedorNome')
+											)">...</td>												
 
 										<td th:text="${abastecimento.produto.sigla}" class="td td_produto col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3" 		
 											th:data-id="${abastecimento.id}" 
@@ -446,17 +459,30 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
+											th:data-produtoId="${abastecimento.produto != null} ? ${abastecimento.produto.id} : ''"
+											th:data-produtoSigla="${abastecimento.produto != null} ? ${abastecimento.produto.sigla} : ''"
+											th:data-produtoEspecificacao="${abastecimento.produto != null} ? ${abastecimento.produto.especificacao} : ''"
+											th:data-produtoQuantidade="${abastecimento.produto != null} ? ${abastecimento.produto.quantidade} : ''"
+											th:data-fornecedorId="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.id} : ''"
+											th:data-fornecedorNome="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.nome} : ''"
 											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-custoUnitario'), 
-												this.getAttribute('data-custoTotal'), 
-												this.getAttribute('data-observacao'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'))">...</td>
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-quantidade'),
+											this.getAttribute('data-custoUnitario'),
+											this.getAttribute('data-custoTotal'),
+											this.getAttribute('data-observacao'),
+											this.getAttribute('data-usuarioResponsavel'),
+											this.getAttribute('data-formaPagamento'),
+											this.getAttribute('data-produtoId'),
+											this.getAttribute('data-produtoSigla'),
+											this.getAttribute('data-produtoEspecificacao'),
+											this.getAttribute('data-produtoQuantidade'),
+											this.getAttribute('data-fornecedorId'),
+											this.getAttribute('data-fornecedorNome')
+											)">...</td>					
 
-										<td th:if="${abastecimento.fornecedor == null}" class="td td_fornecedor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
+										<td th:text="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.nome} : '...'" class="td td_fornecedor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
 											th:data-id="${abastecimento.id}" 
 											th:data-dataCadastro="${abastecimento.dataCadastro}"
 											th:data-quantidade="${abastecimento.quantidade}"
@@ -465,34 +491,28 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
+											th:data-produtoId="${abastecimento.produto != null} ? ${abastecimento.produto.id} : ''"
+											th:data-produtoSigla="${abastecimento.produto != null} ? ${abastecimento.produto.sigla} : ''"
+											th:data-produtoEspecificacao="${abastecimento.produto != null} ? ${abastecimento.produto.especificacao} : ''"
+											th:data-produtoQuantidade="${abastecimento.produto != null} ? ${abastecimento.produto.quantidade} : ''"
+											th:data-fornecedorId="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.id} : ''"
+											th:data-fornecedorNome="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.nome} : ''"
 											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-custoUnitario'), 
-												this.getAttribute('data-custoTotal'), 
-												this.getAttribute('data-observacao'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'))"></td>												
-
-										<td th:if="${abastecimento.fornecedor != null}" th:text="${abastecimento.fornecedor.nome}" class="td td_fornecedor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
-											th:data-id="${abastecimento.id}" 
-											th:data-dataCadastro="${abastecimento.dataCadastro}"
-											th:data-quantidade="${abastecimento.quantidade}"
-											th:data-custoUnitario="${abastecimento.custoUnitario}" 
-											th:data-custoTotal="${abastecimento.custoTotal}" 
-											th:data-observacao="${abastecimento.observacao}" 
-											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
-											th:data-formaPagamento="${abastecimento.formaPagamento}"
-											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-custoUnitario'), 
-												this.getAttribute('data-custoTotal'), 
-												this.getAttribute('data-observacao'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'))">...</td>
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-quantidade'),
+											this.getAttribute('data-custoUnitario'),
+											this.getAttribute('data-custoTotal'),
+											this.getAttribute('data-observacao'),
+											this.getAttribute('data-usuarioResponsavel'),
+											this.getAttribute('data-formaPagamento'),
+											this.getAttribute('data-produtoId'),
+											this.getAttribute('data-produtoSigla'),
+											this.getAttribute('data-produtoEspecificacao'),
+											this.getAttribute('data-produtoQuantidade'),
+											this.getAttribute('data-fornecedorId'),
+											this.getAttribute('data-fornecedorNome')
+											)">...</td>	
 
 										<td th:text="${abastecimento.quantidade}" class="td td_quantidade col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2"
 											th:data-id="${abastecimento.id}" 
@@ -503,15 +523,28 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
+											th:data-produtoId="${abastecimento.produto != null} ? ${abastecimento.produto.id} : ''"
+											th:data-produtoSigla="${abastecimento.produto != null} ? ${abastecimento.produto.sigla} : ''"
+											th:data-produtoEspecificacao="${abastecimento.produto != null} ? ${abastecimento.produto.especificacao} : ''"
+											th:data-produtoQuantidade="${abastecimento.produto != null} ? ${abastecimento.produto.quantidade} : ''"
+											th:data-fornecedorId="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.id} : ''"
+											th:data-fornecedorNome="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.nome} : ''"
 											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-custoUnitario'), 
-												this.getAttribute('data-custoTotal'), 
-												this.getAttribute('data-observacao'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'))">...</td>
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-quantidade'),
+											this.getAttribute('data-custoUnitario'),
+											this.getAttribute('data-custoTotal'),
+											this.getAttribute('data-observacao'),
+											this.getAttribute('data-usuarioResponsavel'),
+											this.getAttribute('data-formaPagamento'),
+											this.getAttribute('data-produtoId'),
+											this.getAttribute('data-produtoSigla'),
+											this.getAttribute('data-produtoEspecificacao'),
+											this.getAttribute('data-produtoQuantidade'),
+											this.getAttribute('data-fornecedorId'),
+											this.getAttribute('data-fornecedorNome')
+											)">...</td>	
 
 										<td th:text="${abastecimento.custoTotal}" class="td td_custo col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3" 			
 											th:data-id="${abastecimento.id}" 
@@ -522,15 +555,28 @@
 											th:data-observacao="${abastecimento.observacao}" 
 											th:data-usuarioResponsavel="${abastecimento.usuarioResponsavel}"
 											th:data-formaPagamento="${abastecimento.formaPagamento}"
+											th:data-produtoId="${abastecimento.produto != null} ? ${abastecimento.produto.id} : ''"
+											th:data-produtoSigla="${abastecimento.produto != null} ? ${abastecimento.produto.sigla} : ''"
+											th:data-produtoEspecificacao="${abastecimento.produto != null} ? ${abastecimento.produto.especificacao} : ''"
+											th:data-produtoQuantidade="${abastecimento.produto != null} ? ${abastecimento.produto.quantidade} : ''"
+											th:data-fornecedorId="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.id} : ''"
+											th:data-fornecedorNome="${abastecimento.fornecedor != null} ? ${abastecimento.fornecedor.nome} : ''"
 											onclick="abrirEditaItem(
-												this.getAttribute('data-id'), 
-												this.getAttribute('data-dataCadastro'), 
-												this.getAttribute('data-quantidade'), 
-												this.getAttribute('data-custoUnitario'), 
-												this.getAttribute('data-custoTotal'), 
-												this.getAttribute('data-observacao'), 
-												this.getAttribute('data-usuarioResponsavel'), 
-												this.getAttribute('data-formaPagamento'))">...</td>
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-quantidade'),
+											this.getAttribute('data-custoUnitario'),
+											this.getAttribute('data-custoTotal'),
+											this.getAttribute('data-observacao'),
+											this.getAttribute('data-usuarioResponsavel'),
+											this.getAttribute('data-formaPagamento'),
+											this.getAttribute('data-produtoId'),
+											this.getAttribute('data-produtoSigla'),
+											this.getAttribute('data-produtoEspecificacao'),
+											this.getAttribute('data-produtoQuantidade'),
+											this.getAttribute('data-fornecedorId'),
+											this.getAttribute('data-fornecedorNome')
+											)">...</td>	
 
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">	
 
@@ -771,7 +817,7 @@
 				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_cpf_tag" onclick="removerFiltro('cpf')" onmouseover="efeitoRemoverFiltro('cpf')" onmouseleave="efeitoRemoverFiltroLeave('cpf')"hidden>
 					CPF
 				</div>	
-				<form th:action="@{abastecimentos/filtro}" method="POST" th:object="${filtroAbastecimento}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
+				<form th:action="@{compras/filtro}" method="POST" th:object="${filtroAbastecimento}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
 
 					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
 					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
@@ -808,7 +854,6 @@
 					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Compra cadastrada no dia 21/07/1998 por admin" id="edita_info"/>						
 
 					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaEditaItem()"/>
-					
 				</div>	
 
 			</div>
@@ -816,6 +861,8 @@
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">				
 
 			<form th:action="@{compras}" method="POST" th:object="${abastecimento}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+				<input type="text" id="id_input_edicao" name="id" hidden/>
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 					<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
@@ -844,7 +891,7 @@
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="fornecedor.id" id="fornecedor_abastecimento_input">
 
-							<option class="option_fornecedor" th:value=null>Sem fornecedor</option>
+							<option class="option_fornecedor" value="null" th:value="null">Sem fornecedor</option>
 							<option class="option_fornecedor" th:each="fornecedor: ${fornecedores}" th:value="${fornecedor.id}" th:text="${fornecedor.nome} + ' | Endereço: ' + ${fornecedor.endereco.logradouro} + ', ' + ${fornecedor.endereco.numero}">...</option>
 
 						</select>
@@ -864,14 +911,14 @@
 						</div>							
 					</div>					
 
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidade_input">
 							Quantidade:
 						</label>
 						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="quantidade" id="quantidade_input" type="number" step="1" min="1" max="1000" required/>
 					</div>
 
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="pagamento_input">
 							Pagamento:
 						</label>
@@ -885,7 +932,7 @@
 						</select>	
 					</div>
 
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_input">
 							Valor:
@@ -894,7 +941,7 @@
 						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="custoTotal" id="valor_input" type="number" step="0.01" min="0" max="10000000" required/>
 					</div>
 
-					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12">
 
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="observacao_input">
 							Observação:
@@ -991,14 +1038,14 @@
 						</div>							
 					</div>					
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidade_input">
 							Quantidade:
 						</label>
 						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="quantidade" id="quantidade_input" type="number" step="1" min="1" max="1000" required/>
 					</div>
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="pagamento_input">
 							Pagamento:
 						</label>
@@ -1012,7 +1059,7 @@
 						</select>	
 					</div>
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_input">
 							Valor:
@@ -1021,7 +1068,7 @@
 						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="custoTotal" id="valor_input" type="number" step="0.01" min="0" max="10000000" required/>
 					</div>
 
-					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12">
 
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="observacao_input">
 							Observação:

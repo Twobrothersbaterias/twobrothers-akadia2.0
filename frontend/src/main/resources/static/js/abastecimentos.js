@@ -1181,19 +1181,18 @@ function efeitoRemoverFiltroLeave(filtro) {
 function abrirEditaItem(
 							id, 
 							dataCadastro,
-							dataNascimento,
-							nomeCompleto, 
-							cpfCnpj,
-							email, 
-							telefone, 
+							quantidade,
+							custoUnitario, 
+							custoTotal,
+							observacao, 
 							usuarioResponsavel,
-							logradouro,
-							numero,
-							bairro,
-							cidade,
-							cep,
-							complemento,
-							estado) {
+							formaPagamento,
+							produtoId,
+							produtoSigla,
+							produtoEspecificacao,
+							produtoQuantidade,
+							fornecedorId,
+							fornecedorNome) {
 
 
 	var containerPrincipal = document.getElementById('conteudo_container');
@@ -1227,21 +1226,30 @@ function abrirEditaItem(
 	}
 
 	document.getElementById('id_input_edicao').value=id;
-	document.getElementById('edita_descricao_fornecedor_input').value=nomeCompleto;
-	document.getElementById('edita_email_fornecedor_input').value=email;
-	document.getElementById('edita_telefone_fornecedor_input').value=telefone;
-	document.getElementById('edita_data_nascimento_input').value=dataNascimento;
-	document.getElementById('edita_cpfCnpj_input').value=cpfCnpj;
-	document.getElementById('edita_cep_input').value=cep;
-	document.getElementById('edita_estado_input').value=estado;
-	document.getElementById('edita_cidade_input').value=cidade;
-	document.getElementById('edita_logradouro_input').value=logradouro;
-	document.getElementById('edita_numero_input').value=numero;
-	document.getElementById('edita_bairro_input').value=bairro;
-	document.getElementById('edita_complemento_input').value=complemento;
+	document.getElementById('produto_abastecimento_input').value=produtoId;
+
+	if(fornecedorId == '' || fornecedorId == null) { 
+		document.getElementById('fornecedor_abastecimento_input').value = ''; 
+	}
+	else {
+		for (var i = 0; document.getElementsByClassName('option_fornecedor').length > i; i++) {
+			if (document.getElementsByClassName('option_fornecedor')[i].value == fornecedorId) {
+				document.getElementById('fornecedor_abastecimento_input').value=document.getElementsByClassName('option_fornecedor')[i].value; 
+			}
+			else {
+				document.getElementById('fornecedor_abastecimento_input').value='';
+			}
+		}
+	}
+
+	document.getElementById('quantidade_input').value=quantidade;
+	document.getElementById('pagamento_input').value=formaPagamento;
+	document.getElementById('valor_input').value=custoTotal;
+	document.getElementById('observacao_input').value=observacao;
+
 }
 
-function fecharEditaItem() {
+function fechaEditaItem() {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -1267,18 +1275,12 @@ function fecharEditaItem() {
 }
 
 function reloadEditaItem() {
-	document.getElementById('edita_descricao_fornecedor_input').value="";
-	document.getElementById('edita_email_fornecedor_input').value="";
-	document.getElementById('edita_telefone_fornecedor_input').value="";
-	document.getElementById('edita_data_nascimento_input').value="";
-	document.getElementById('edita_cpfCnpj_input').value="";
-	document.getElementById('edita_cep_input').value="";
-	document.getElementById('edita_estado_input').value="SP";
-	document.getElementById('edita_cidade_input').value="";
-	document.getElementById('edita_logradouro_input').value="";
-	document.getElementById('edita_numero_input').value="";
-	document.getElementById('edita_bairro_input').value="";
-	document.getElementById('edita_complemento_input').value="";
+	document.getElementById('quantidade_input').value='';
+	document.getElementById('pagamento_input').value='';
+	document.getElementById('valor_input').value='';
+	document.getElementById('observacao_input').value='';
+	document.getElementById('produto_abastecimento_input').value='';
+	document.getElementById('fornecedor_abastecimento_input').value = '';
 }
 
 /* ================== MISC ====================== */

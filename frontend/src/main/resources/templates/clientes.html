@@ -302,7 +302,7 @@
 							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/clientes}">
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
+							<img th:if="${privilegio} != 'Vendedor'" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
 
 						</div>							
@@ -832,7 +832,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_cliente_input">
 							Nome
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input" required/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input"  oninput="validacaoDoObjetoCliente('edita')" required/>
 					</div>							
 
 				</div>
@@ -843,14 +843,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_cliente_input">
 							E-mail
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input"  onkeyup="tratamentoCampoEmail('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>									
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_cliente_input">
 							Telefone
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>
 				
 				</div>
@@ -860,14 +860,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_data_nascimento_input">
 							Data de nascimento:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>							
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cpfCnpj_input">
 							Cpf/Cnpj:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('edita')" oninput="validacaoDoObjetoCliente('edita')" type="text"/>
 					</div>																
 
 				</div>	
@@ -888,7 +888,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
 							Cep:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="number" onkeyup="consultaEndereco('edita')"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="number" onkeyup="consultaEndereco('edita')" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>						
 
 					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
@@ -931,7 +931,7 @@
 							Cidade:
 						</label>
 
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>						
 
 				</div>
@@ -942,14 +942,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_logradouro_input">
 							Logradouro:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_numero_input">
 							Numero:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>
 
 				</div>				
@@ -960,7 +960,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_bairro_input">
 							Bairro:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>							
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -969,7 +969,7 @@
 							Complemento:
 						</label>
 
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text"/>
+						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>					
 
 				</div>				
@@ -980,7 +980,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
+					<button type="button" onclick="validacaoCampos('edita')" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
 						Salvar
 					</button>	
 
@@ -1026,7 +1026,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 							Nome
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" required/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" oninput="validacaoDoObjetoCliente('novo')" required/>
 					</div>							
 
 				</div>
@@ -1037,14 +1037,14 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_cliente_input">
 							E-mail
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="email_cliente_input"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="email_cliente_input" onkeyup="tratamentoCampoEmail('novo')" oninput="validacaoDoObjetoCliente('novo')"/>
 					</div>									
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_second_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
 							Telefone
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="telefone_cliente_input"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="telefone_cliente_input" onkeyup="tratamentoCampoTelefone('novo')" oninput="validacaoDoObjetoCliente('novo')"/>
 					</div>
 				
 				</div>
@@ -1054,14 +1054,14 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
 							Data de nascimento:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="data_nascimento_input" type="date"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="data_nascimento_input" type="date"  oninput="validacaoDoObjetoCliente('novo')"/>
 					</div>							
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="cpfCnpj_input">
 							Cpf/Cnpj:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="cpfCnpj_input" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" title="Digite um CPF no formato: xxx.xxx.xxx-xx" type="text"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="cpfCnpj_input"  onkeyup="tratamentoCampoCpfCnpj('novo')" oninput="validacaoDoObjetoCliente('novo')" type="text"/>
 					</div>																
 
 				</div>	
@@ -1082,14 +1082,14 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cep" for="cep_input">
 							Cep:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" type="number"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" oninput="validacaoDoObjetoEndereco('novo')" type="number"/>
 					</div>						
 
 					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
 							Estado:
 						</label>
-						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
+						<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
 							<option value="AC">Acre</option>
 							<option value="AL">Alagoas</option>
 							<option value="AP">Amapá</option>
@@ -1125,7 +1125,7 @@
 							Cidade:
 						</label>
 
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="cidade_input" type="text"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="cidade_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>
 					</div>						
 
 				</div>
@@ -1136,14 +1136,14 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_logradouro" for="logradouro_input">
 							Logradouro:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="logradouro_input" type="text"/>	
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>	
 					</div>
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" id="novo_item_seventh_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_numero" for="numero_input">
 							Numero:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="numero_input" type="number" min="0" max="99999"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('novo')"/>
 					</div>
 
 				</div>				
@@ -1154,7 +1154,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_bairro" for="bairro_input">
 							Bairro:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="bairro_input" type="text"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="bairro_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>
 					</div>							
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_eleventh_block">
@@ -1163,7 +1163,7 @@
 							Complemento:
 						</label>
 
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="complemento_input" type="text"/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="complemento_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>
 					</div>					
 
 				</div>				
@@ -1174,7 +1174,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+					<button type="button" onclick="validacaoCampos('novo')" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
 						Salvar
 					</button>	
 

@@ -1015,6 +1015,7 @@ function abrirEditaItem(
 	}	
 
 	// SETANDO VALORES NOS CAMPOS
+	$('#info_clicavel').attr("href", "/compras?produto=" + sigla);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('sigla_produto_input_edicao').value=sigla;
 	document.getElementById('tipo_produto_input_edicao').value=tipoProduto;
