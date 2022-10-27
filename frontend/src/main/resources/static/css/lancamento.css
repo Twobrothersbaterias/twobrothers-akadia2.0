@@ -53,7 +53,7 @@
 }
 
 .botao_adicionar {
-	margin-top: 18px;
+	margin-top: 20px;
 	border: none;
 	padding: 10px 0;
 	background: #2f3d61;
@@ -62,6 +62,10 @@
 	box-shadow: 2px 2px 3px #121212;
 	text-decoration: none;
 	text-align: center;
+}
+
+#botao_add_pagamento {
+	margin-top: 18px;
 }
 
 .botao_adicionar:hover {

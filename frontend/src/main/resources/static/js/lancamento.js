@@ -51,6 +51,16 @@ function responsive(){
 			selectSuperiorContainer[i].style.margin="0";
 		}
 
+  		const parent = document.getElementById('container_all');
+  		if(parent.children[2].id == "container_endereco") {
+  			parent.insertBefore(
+  				document.getElementById("container_endereco"), parent.children[2]);			
+  		}
+  		else {
+  			parent.insertBefore(
+  				document.getElementById("container_produto"), parent.children[1]);	  			
+  		}		
+
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
@@ -65,6 +75,16 @@ function responsive(){
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.padding="8px 0";
 		}		
+
+  		const parent = document.getElementById('container_all');
+  		if(parent.children[2].id == "container_endereco") {
+  			parent.insertBefore(
+  				document.getElementById("container_endereco"), parent.children[2]);			
+  		}
+  		else {
+  			parent.insertBefore(
+  				document.getElementById("container_produto"), parent.children[1]);	  			
+  		}
 				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
@@ -86,8 +106,13 @@ function responsive(){
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.padding="6px 0";
-		}			
-	
+		}
+
+  		const parent = document.getElementById('container_all');
+  		parent.insertBefore(
+  			document.getElementById("container_endereco"), parent.children[1]);		
+
+
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
@@ -101,7 +126,11 @@ function responsive(){
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.paddingTop="20px";
 			divIcones[i].style.paddingRight="10px";
-		}			
+		}		
+
+  		const parent = document.getElementById('container_all');
+  		parent.insertBefore(
+  			document.getElementById("container_endereco"), parent.children[1]);			
 
 	}
 	else if(bodyWidth < 540){
@@ -119,7 +148,11 @@ function responsive(){
 
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.marginBottom="10px";
-		}		
+		}	
+
+  		const parent = document.getElementById('container_all');
+  		parent.insertBefore(
+  			document.getElementById("container_endereco"), parent.children[1]);			
 
 	}
 
@@ -972,10 +1005,7 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
 				"<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'>" 
 					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
-//				"<td class='td_novo td_excluir col-xl-1 col-lg-2 col-md-2 col-sm-2 col-2' onclick='removeItemTb(" + (parseInt(document.getElementsByClassName('td_excluir').length)) + ")'>" +
-//					"<img class='col-xl-2' th:src='@{img/minus-green.png}' th:src='img/minus-green.png' src='../static/img/minus-green.png'/>" + 
-//				"</td>" +
-			"</tr>");
+			"</tr>");		
 	}
 }
 

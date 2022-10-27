@@ -291,10 +291,10 @@
 
 					<hr>
 
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_all">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_all" id="container_all">
 
-						
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 container_pai">
+						<!-- DADOS DO CLIENTE -->
+						<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 col-6 container_pai" id="container_cliente">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="primeiro_container">
 
@@ -342,7 +342,7 @@
 											</datalist>			
 										</div>	
 
-										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
 											
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_veiculo">
 													Veículo
@@ -366,7 +366,7 @@
 											<input tabindex="7" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.dataNascimento" id="input_dataNascimento" oninput="validacaoDoObjetoCliente()" type="date"/>
 										</div>							
 
-										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_fifth_block">
+										<div class="novo_item_block col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12" id="novo_item_fifth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="input_cpfCnpj">
 												Cpf/Cnpj:
 											</label>
@@ -381,7 +381,8 @@
 							</div>						
 						</div>					
 
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 container_pai">
+						<!-- ADIÇÃO DE NOVO PRODUTO -->
+						<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 col-6 container_pai" id="container_produto">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="terceiro_container">
 
@@ -467,12 +468,12 @@
 								</div>
 
 							</div>
-
 						</div>	
 
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai">
+						<!-- ENDEREÇO DO CLIENTE -->
+						<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 container_pai" id="container_endereco">
 
-							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 novo_container" id="segundo_container">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="segundo_container">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -566,10 +567,13 @@
 									<hr class="hr_novo">	
 
 								</div>
+							</div>						
+						</div>
 
-							</div>
+						<!-- PAGAMENTOS -->
+						<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 container_pai" id="container_pagamentos">
 
-							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 novo_container" id="">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="">
 
 								<div class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -633,12 +637,11 @@
 									<hr class="hr_novo">
 
 								</div>	
+							</div>								
+						</div>						
 
-							</div>							
-
-						</div>
-
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai">
+						<!-- RETIRADA -->
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai" id="container_retirada">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="">
 
@@ -655,7 +658,7 @@
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">										
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
-											<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+											<div class="novo_item_block col-xl-4 col-lg-4 col-md-8 col-sm-4 col-4">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_tecnico">
 													Tecnico
 												</label>
@@ -673,14 +676,14 @@
 												<input tabindex="17" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="input_agendamento_retirada" name="retirada.dataAgendamento" disabled/>
 											</div>
 
-											<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"  id="novo_item_first_block">
+											<div class="novo_item_block col-xl-4 col-lg-4 col-md-6 col-sm-4 col-4"  id="novo_item_first_block">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_email">
 													E-mail
 												</label>
 												<input tabindex="18" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="cliente.email" onkeyup="tratamentoCampoEmail()" oninput="validacaoDoObjetoCliente()" id="input_email"/>
 											</div>	
 
-											<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="novo_item_block col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_retirada_observacao">
 													Observação
 												</label>
@@ -693,10 +696,10 @@
 								</div>	
 
 							</div>								
-							
 						</div>
 
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai">
+						<!-- Entradas e pagamentos ocultos -->
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_pai" id="container_oculto">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container" id="">
 
@@ -717,7 +720,6 @@
 									<hr id="hr" class="hr_novo">	
 
 								</div>	
-	
 						</div>
 
 					</div>
