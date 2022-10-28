@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+buildUrlPages();
 
 document.onkeydown=function(){
     if(window.event.keyCode=='27') {
@@ -1483,6 +1484,87 @@ function ajustaDatas() {
 }
 
 /* ================== MISC ====================== */
+
+function buildUrlPages() {
+
+	var paginaAtual = document.getElementById('pagina_atual');
+	var tipoFiltro = document.getElementById('tipo_filtro');
+
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var periodoMes = document.getElementById('back_mes');
+	var periodoAno = document.getElementById('back_ano');	
+	var produto = document.getElementById('back_produto');		
+	var bairro = document.getElementById('back_bairro');			
+
+	var pageNumber = document.getElementsByClassName('page_number');
+
+	if(tipoFiltro.value == 'data') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		}
+	}
+
+	else if(tipoFiltro.value == 'periodo') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+
+		
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		}
+	}
+
+	else if(tipoFiltro.value == 'produto') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&produto=" + produto.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&produto=" + produto.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&produto=" + produto.value);
+		}
+	}
+
+	else if(tipoFiltro.value == 'bairro') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&bairro=" + bairro.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&bairro=" + bairro.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&bairro=" + bairro.value);
+		}					
+	}
+
+	else {
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1));
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1));
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
+		}		
+	}	
+}
 
 function buildUrl(baseUrl, pagina, produto, bairro, mes, ano) {
 

@@ -96,6 +96,14 @@ public class OrdemController {
             return modelAndView;
         }
 
+        model.addAttribute("tipoFiltro", "hoje");
+
+        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
+        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
+        if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
+        if (bairro.isPresent()) model.addAttribute("tipoFiltro", "bairro");
+
+        model.addAttribute("totalItens", ordensSemPaginacao.size());
         model.addAttribute("dataInicio", inicio.orElse(null));
         model.addAttribute("dataFim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
