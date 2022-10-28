@@ -282,6 +282,10 @@
 	justify-content: left;
 }
 
+#sucessoCadastro {
+	top: 25px;
+	opacity: 1;
+}
 
 @keyframes progressBar {
   0% { width: 0; }

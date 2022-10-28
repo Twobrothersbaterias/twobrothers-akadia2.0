@@ -258,11 +258,11 @@
 
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
-						<div class="conteudo_titulo_container">
+						<div class="conteudo_titulo_item alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
+							<p th:text="${SucessoCadastro}"></p>
+						</div>						
 
-							<div class="conteudo_titulo_item alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
-								<p th:text="${SucessoCadastro}"></p>
-							</div>
+						<div class="conteudo_titulo_container">
 
 							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
 								<select tabindex="1" id="input_tipoNfe" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="tipoNfe">
@@ -330,7 +330,17 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Cliente
 											</label>
-											<input tabindex="4" list="clientes" name="cliente.nomeCompleto" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" id="input_nome" oninput="validacaoDoObjetoCliente()" autocomplete="off" onchange="escolhaCliente()">
+											<input 
+											tabindex="4" 
+											list="clientes" 
+											name="cliente.nomeCompleto" 
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+											type="text" 
+											maxlength="25" 
+											id="input_nome" 
+											oninput="validacaoDoObjetoCliente()" 
+											autocomplete="off"
+											onchange="escolhaCliente()">
 
 											<datalist id="clientes">
 
@@ -355,7 +365,8 @@
 											  th:id=${cliente.id}>
 											  </option>
 											  
-											</datalist>			
+											</datalist>	
+
 										</div>	
 
 										<div class="novo_item_block col-xl-6 col-lg-12 col-md-6 col-sm-12 col-12">

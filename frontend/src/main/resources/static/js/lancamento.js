@@ -499,6 +499,7 @@ function addNovoProduto() {
 
 		inputTipoProduto.focus();
 		AjustaTabelaDeProdutos(string);
+		responsive();
 
 	}
 	else {
@@ -696,41 +697,42 @@ function calculaInformativos() {
 
 /* ESCOLHENDO CLIENTE DA LISTA */
 function escolhaCliente() {
+	if(document.getElementById('input_nome').value.includes(" | ")) {
 
-	var optionCliente = document.getElementsByClassName('option_cliente');
-	var inputCliente = document.getElementById('input_nome');
-	var inputClienteSplitado = inputCliente.value.split("|");
-	var id = inputClienteSplitado[0].replace(/\s/g, '').replace("Id", "");
+		var optionCliente = document.getElementsByClassName('option_cliente');
+		var inputCliente = document.getElementById('input_nome');
+		var inputClienteSplitado = inputCliente.value.split("|");
+		var id = inputClienteSplitado[0].replace(/\s/g, '').replace("Id", "");
 
-	var idSelecionado = null
+		var idSelecionado = null
 
-	for(var i = 0; i < optionCliente.length; i++) {
-		if (optionCliente[i].id == id) {
-			idSelecionado = id;
+		for(var i = 0; i < optionCliente.length; i++) {
+			if (optionCliente[i].id == id) {
+				idSelecionado = id;
+			}
 		}
+
+		var optionSelecionada = document.getElementById(id);
+
+		resetaCliente();
+
+		document.getElementById('input_nome').value=optionSelecionada.getAttribute('data-nome');
+		document.getElementById('input_telefone').value=optionSelecionada.getAttribute('data-telefone');
+		document.getElementById('input_email').value=optionSelecionada.getAttribute('data-email');
+		document.getElementById('input_cpfCnpj').value=optionSelecionada.getAttribute('data-cpfCnpj');
+		document.getElementById('input_dataNascimento').value=optionSelecionada.getAttribute('data-nascimento');
+
+		document.getElementById('cep_input').value=optionSelecionada.getAttribute('data-endereco-cep');
+		document.getElementById('estado_input').value=optionSelecionada.getAttribute('data-endereco-estado');
+		document.getElementById('cidade_input').value=optionSelecionada.getAttribute('data-endereco-cidade');
+		document.getElementById('bairro_input').value=optionSelecionada.getAttribute('data-endereco-bairro');
+		document.getElementById('logradouro_input').value=optionSelecionada.getAttribute('data-endereco-logradouro');
+		document.getElementById('input_numero').value=optionSelecionada.getAttribute('data-endereco-numero');
+		document.getElementById('input_complemento').value=optionSelecionada.getAttribute('data-endereco-complemento');
 	}
-
-	var optionSelecionada = document.getElementById(id);
-
-	resetaCliente();
-
-	document.getElementById('input_nome').value=optionSelecionada.getAttribute('data-nome');
-	document.getElementById('input_telefone').value=optionSelecionada.getAttribute('data-telefone');
-	document.getElementById('input_email').value=optionSelecionada.getAttribute('data-email');
-	document.getElementById('input_cpfCnpj').value=optionSelecionada.getAttribute('data-cpfCnpj');
-	document.getElementById('input_dataNascimento').value=optionSelecionada.getAttribute('data-nascimento');
-
-	document.getElementById('cep_input').value=optionSelecionada.getAttribute('data-endereco-cep');
-	document.getElementById('estado_input').value=optionSelecionada.getAttribute('data-endereco-estado');
-	document.getElementById('cidade_input').value=optionSelecionada.getAttribute('data-endereco-cidade');
-	document.getElementById('bairro_input').value=optionSelecionada.getAttribute('data-endereco-bairro');
-	document.getElementById('logradouro_input').value=optionSelecionada.getAttribute('data-endereco-logradouro');
-	document.getElementById('input_numero').value=optionSelecionada.getAttribute('data-endereco-numero');
-	document.getElementById('input_complemento').value=optionSelecionada.getAttribute('data-endereco-complemento');
 }
 
 function resetaCliente() {
-	document.getElementById('input_nome').value="";
 	document.getElementById('input_telefone').value="";
 	document.getElementById('input_email').value="";
 	document.getElementById('input_cpfCnpj').value="";
