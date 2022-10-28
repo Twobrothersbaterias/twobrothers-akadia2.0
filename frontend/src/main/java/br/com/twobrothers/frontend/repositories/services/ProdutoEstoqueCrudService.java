@@ -2,12 +2,11 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
-import br.com.twobrothers.frontend.models.entities.OrdemEntity;
-import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.entities.*;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
+import br.com.twobrothers.frontend.repositories.EntradaOrdemRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -44,6 +43,9 @@ public class ProdutoEstoqueCrudService {
 
     @Autowired
     ProdutoEstoqueRepository repository;
+
+    @Autowired
+    EntradaOrdemRepository entradaOrdemRepository;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -196,6 +198,16 @@ public class ProdutoEstoqueCrudService {
         log.info("[STARTING] Iniciando método de remoção de produto por id...");
         Optional<ProdutoEstoqueEntity> produtoOptional = repository.findById(id);
         if (produtoOptional.isPresent()) {
+
+            ProdutoEstoqueEntity produto = produtoOptional.get();
+
+            if (produto.getEntradas() != null && !produto.getEntradas().isEmpty()) {
+                List<EntradaOrdemEntity> entradasDoProduto = produto.getEntradas();
+                for(int i = 0; i < entradasDoProduto.size(); i++) {
+                    remocaoDeProdutoDaEntrada(entradasDoProduto.get(i));
+                }
+            }
+
             log.info("[PROGRESS] Inicializando remoção do produto de id {}...", id);
             repository.deleteById(id);
             log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
@@ -203,6 +215,14 @@ public class ProdutoEstoqueCrudService {
             log.error("[ERROR] Nenhum produto foi encontrado com o id {}", id);
             throw new ObjectNotFoundException("Não existe nenhum produto cadastrado com o id " + id);
         }
+    }
+
+    private void remocaoDeProdutoDaEntrada(EntradaOrdemEntity entrada) {
+        ProdutoEstoqueEntity produtoEstoqueEntity = entrada.getProduto();
+        produtoEstoqueEntity.removeEntrada(entrada);
+        entrada.setQuantidade(0);
+        entrada.setValor(0.0);
+        entradaOrdemRepository.save(entrada);
     }
 
 }
