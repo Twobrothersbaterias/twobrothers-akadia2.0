@@ -3,9 +3,13 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
+import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.services.AbastecimentoService;
 import br.com.twobrothers.frontend.services.FornecedorService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
@@ -17,10 +21,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
+import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
 
 @Controller
 @RequestMapping("/compras")
@@ -37,6 +40,9 @@ public class AbastecimentoController {
 
     @Autowired
     AbastecimentoService abastecimentoService;
+
+    @Autowired
+    AbastecimentoCrudService abastecimentoCrudService;
 
     @Autowired
     ProdutoEstoqueService produtoEstoqueService;
@@ -174,32 +180,32 @@ public class AbastecimentoController {
         return modelAndView;
     }
 
-//    @PostMapping("/deleta-{id}")
-//    public ModelAndView deletaAbastecimento(@PathVariable Long id,
-//                                            RedirectAttributes redirAttrs,
-//                                            ModelAndView modelAndView,
-//                                            String query) {
-//        abastecimentoCrudService.deletaPorId(id);
-//        redirAttrs.addFlashAttribute("SucessoDelete", "Compra removida com sucesso");
-//        modelAndView.setViewName("redirect:../abastecimentos?" + query);
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/alterar")
-//    public ModelAndView atualizaAbastecimento(AbastecimentoDTO abastecimento,
-//                                              RedirectAttributes redirAttrs,
-//                                              ModelAndView modelAndView,
-//                                              String query) {
-//
-//        String atualizaAbastecimento = abastecimentoService.encaminhaParaUpdateDoCrudService(abastecimento);
-//
-//        if (atualizaAbastecimento == null)
-//            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da compra realizado salvo com sucesso");
-//        else
-//            redirAttrs.addFlashAttribute("ErroCadastro", atualizaAbastecimento);
-//
-//        modelAndView.setViewName("redirect:../abastecimentos?" + query);
-//        return modelAndView;
-//    }
+    @PostMapping("/deleta-{id}")
+    public ModelAndView deletaAbastecimento(@PathVariable Long id,
+                                            RedirectAttributes redirAttrs,
+                                            ModelAndView modelAndView,
+                                            String query) {
+        abastecimentoCrudService.deletaPorId(id);
+        redirAttrs.addFlashAttribute("SucessoDelete", "Compra removida com sucesso");
+        modelAndView.setViewName("redirect:../compras?" + query);
+        return modelAndView;
+    }
+
+    @PostMapping("/alterar")
+    public ModelAndView atualizaAbastecimento(AbastecimentoDTO abastecimento,
+                                              RedirectAttributes redirAttrs,
+                                              ModelAndView modelAndView,
+                                              String query) {
+
+        String atualizaAbastecimento = abastecimentoService.encaminhaParaUpdateDoCrudService(abastecimento);
+
+        if (atualizaAbastecimento == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da compra realizado salvo com sucesso");
+        else
+            redirAttrs.addFlashAttribute("ErroCadastro", atualizaAbastecimento);
+
+        modelAndView.setViewName("redirect:../compras?" + query);
+        return modelAndView;
+    }
 
 }

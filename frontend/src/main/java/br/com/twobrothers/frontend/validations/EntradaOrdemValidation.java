@@ -22,7 +22,6 @@ public class EntradaOrdemValidation {
 
     public void validaCorpoRequisicao(EntradaOrdemDTO entradaOrdemDTO) {
         validaSePossuiAtributosNulos(entradaOrdemDTO);
-        validaAtributoValor(entradaOrdemDTO.getValor());
     }
 
     public void validaSePossuiAtributosNulos(EntradaOrdemDTO entradaOrdemDTO) {
@@ -40,13 +39,6 @@ public class EntradaOrdemValidation {
                     "obrigatórios é necessária no corpo da requisição: " + atributosNulos);
 
         log.warn("Validação de atributos nulos OK");
-    }
-
-    public void validaAtributoValor(Double valor) {
-        log.info("[VALIDAÇÃO - ENTRADA] Inicializando validação do atributo valor...");
-        if (valor < 0.0 || valor > 99999.0)
-            throw new InvalidRequestException("Atributo valor inválido. O valor deve estar entre 0.0 e 9999.0");
-        log.warn("Validação do atributo valor OK");
     }
 
 }

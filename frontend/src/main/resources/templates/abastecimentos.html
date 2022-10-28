@@ -615,14 +615,14 @@
 
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">	
 
-											<form method="POST" th:action="@{abastecimentos/deleta-{id}(id = ${abastecimento.id})}" class="form_remove_img" id="form_remove_img">
+											<form method="POST" th:action="@{compras/deleta-{id}(id = ${abastecimento.id})}" class="form_remove_img" id="form_remove_img">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 												<button type="submit" class="col-lg-12 btn_excluir_img">
 													<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
 												</button>
 											</form>	
 
-											<form method="POST" th:action="@{abastecimentos/deleta-{id}(id = ${abastecimento.id})}" class="form_remove_text" id="form_remove_text">
+											<form method="POST" th:action="@{compras/deleta-{id}(id = ${abastecimento.id})}" class="form_remove_text" id="form_remove_text">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 												<button type="submit" class="col-lg-12 btn_excluir">
 													<div class="excluir_text" id="excluir_text">
@@ -678,7 +678,8 @@
 								</ul>
 
 							</div>
-						</div><!-- PAGE_ROW-->
+						</div>
+
 					</div>
 				</div>
 

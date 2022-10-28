@@ -57,14 +57,14 @@ public class AbastecimentoService {
         }
     }
 
-//    public String encaminhaParaUpdateDoCrudService(AbastecimentoDTO abastecimento) {
-//        try {
-//            crudService.atualizaPorId(abastecimento);
-//            return null;
-//        } catch (Exception e) {
-//            return e.getMessage();
-//        }
-//    }
+    public String encaminhaParaUpdateDoCrudService(AbastecimentoDTO abastecimento) {
+        try {
+            crudService.atualizaPorId(abastecimento);
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 
     public List<AbastecimentoEntity> filtroAbastecimentos(Pageable pageable,
                                                           String dataInicio,

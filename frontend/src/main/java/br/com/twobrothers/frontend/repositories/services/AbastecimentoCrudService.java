@@ -2,15 +2,19 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
+import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
+import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
+import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.AbastecimentoValidation;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
@@ -89,14 +94,17 @@ public class AbastecimentoCrudService {
 
         ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.findById(idProduto).get();
 
-        log.info("[PROGRESS] Atualizando o custo total do produto em estoque...");
-        produtoEstoque.setCustoTotal(produtoEstoque.getCustoTotal() + abastecimento.getCustoTotal());
 
-        log.info("[PROGRESS] Aumentando a quantidade de produtos em estoque com a quantidade passada no abastecimento...");
-        produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + abastecimento.getQuantidade());
+        // TODO CONFIRMAR LÓGICA COM CLIENTE
 
-        log.info("[PROGRESS] Atualizando o custo unitário do produto em estoque...");
-        produtoEstoque.setCustoUnitario(produtoEstoque.getCustoTotal() / produtoEstoque.getQuantidade());
+//        log.info("[PROGRESS] Atualizando o custo total do produto em estoque...");
+//        produtoEstoque.setCustoTotal(produtoEstoque.getCustoTotal() + abastecimento.getCustoTotal());
+//
+//        log.info("[PROGRESS] Aumentando a quantidade de produtos em estoque com a quantidade passada no abastecimento...");
+//        produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + abastecimento.getQuantidade());
+//
+//        log.info("[PROGRESS] Atualizando o custo unitário do produto em estoque...");
+//        produtoEstoque.setCustoUnitario(produtoEstoque.getCustoTotal() / produtoEstoque.getQuantidade());
 
         log.info("[PROGRESS] Adicionando abastecimento ao produto e produto ao abastecimento...");
         produtoEstoque.addAbastecimento(abastecimentoEntity);
@@ -209,5 +217,57 @@ public class AbastecimentoCrudService {
         log.info("[STARTING] Iniciando método de busca sem paginação de abastecimento por forma de pagamento: {}", formaPagamento);
         return repository.buscaPorFormaPagamentoSemPaginacao(FormaPagamentoEnum.valueOf(formaPagamento));
     }
+
+    public AbastecimentoDTO atualizaPorId(AbastecimentoDTO abastecimento) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de atualização de abastecimento por id...");
+
+        Optional<AbastecimentoEntity> abastecimentoOptional = repository.findById(abastecimento.getId());
+
+        if (abastecimentoOptional.isEmpty()) {
+            log.error("[ERROR] Não existe nenhum abastecimento cadastrado com o id {}", abastecimento.getId());
+            throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado com o id " + abastecimento.getId());
+        }
+
+        log.info("[PROGRESS] Atribuindo abastecimento encontrado pelo id ao valor da variável abastecimentoAtualizado...");
+        AbastecimentoEntity abastecimentoAtualizado = abastecimentoOptional.get();
+
+        if (produtoEstoqueRepository.buscaPorSigla(abastecimento.getProduto().getSigla()).isEmpty()) {
+            throw new InvalidRequestException("O produto com a sigla " + abastecimento.getProduto().getSigla() + " não foi encontrado na base de dados");
+        }
+
+        log.info("[PROGRESS] Iniciando método de validação do objeto abastecimento...");
+        validation.validaCorpoRequisicao(abastecimento);
+
+        log.info("[PROGRESS] Inicializando setagem e atualização dos atributos da variável abastecimentoAtualizado com base" +
+                "no objeto abastecimento recebido pela requisição...");
+        abastecimentoAtualizado.setProduto(produtoEstoqueRepository.buscaPorSigla(abastecimento.getProduto().getSigla()).get());
+        abastecimentoAtualizado.setFornecedor(modelMapper.mapper().map(abastecimento.getFornecedor(), FornecedorEntity.class));
+        abastecimentoAtualizado.setObservacao(abastecimento.getObservacao());
+        abastecimentoAtualizado.setFormaPagamento(abastecimento.getFormaPagamento());
+        abastecimentoAtualizado.setQuantidade(abastecimento.getQuantidade());
+
+        log.info("[PROGRESS] Persistindo abastecimento atualizado na base de dados...");
+        AbastecimentoEntity abastecimentoEntity = repository.save(abastecimentoAtualizado);
+
+        log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        return modelMapper.mapper().map(abastecimentoEntity, AbastecimentoDTO.class);
+
+    }
+
+    public void deletaPorId(Long id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de remoção de abastecimento por id...");
+        Optional<AbastecimentoEntity> abastecimentoOptional = repository.findById(id);
+        if (abastecimentoOptional.isPresent()) {
+            log.info("[PROGRESS] Inicializando remoção do abastecimento de id {}...", id);
+            repository.deleteById(id);
+            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+        } else {
+            log.error("[ERROR] Nenhum abastecimento foi encontrado com o id {}", id);
+            throw new ObjectNotFoundException("Não existe nenhum abastecimento cadastrado com o id " + id);
+        }
+    }
+
 
 }
