@@ -187,6 +187,9 @@ public class PatrimonioService {
                         dataFimMesAnterior.toString())
                         .stream().map(x -> modelMapper.mapper().map(x, PatrimonioDTO.class)).collect(Collectors.toList());
 
+        if (patrimonios.isEmpty())
+            throw new InvalidRequestException("Não existe nenhum item no mês anterior para realizar a carga");
+
         List<PatrimonioEntity> patrimoniosAtualizados = new ArrayList<>();
         for (PatrimonioDTO patrimonio: patrimonios) {
             patrimonio.setId(null);

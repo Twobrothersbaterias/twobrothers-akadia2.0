@@ -553,7 +553,7 @@
 						</div>
 
 						<!-- Início da paginação -->
-						<div class="row page_row">
+						<div th:if="${!#lists.isEmpty(patrimonios)} or ${descricao} != null or ${mes} != null or ${ano} != null or ${tipo} != null" class="row page_row">
 
 							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
 

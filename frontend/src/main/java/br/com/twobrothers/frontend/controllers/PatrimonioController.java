@@ -111,10 +111,17 @@ public class PatrimonioController {
     @GetMapping("/patrimonio-carga")
     public ModelAndView patrimonioCarga(ModelAndView modelAndView,
                                         RedirectAttributes redirAttrs) {
-        patrimonioService.cargaDePatrimonio();
-        redirAttrs.addFlashAttribute("SucessoCadastro", "A carga de patrimônios foi realizada com sucesso");
-        modelAndView.setViewName("redirect:../patrimonios");
-        return modelAndView;
+        try {
+            patrimonioService.cargaDePatrimonio();
+            redirAttrs.addFlashAttribute("SucessoCadastro", "A carga de patrimônios foi realizada com sucesso");
+            modelAndView.setViewName("redirect:../patrimonios");
+            return modelAndView;
+        }
+        catch (InvalidRequestException e) {
+            redirAttrs.addFlashAttribute("ErroCadastro", e.getMessage());
+            modelAndView.setViewName("redirect:../patrimonios");
+            return modelAndView;
+        }
     }
 
     @PostMapping
