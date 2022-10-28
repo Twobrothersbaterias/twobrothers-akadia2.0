@@ -403,14 +403,21 @@ function reloadNovoItem() {
 	var tipoProdutoInput = document.getElementById('tipo_produto_input');
 	var especificacaoProdutoInput = document.getElementById('especificacao_produto_input');
 	var marcaProdutoInput = document.getElementById('marca_produto_input');
+	var quantidadeProdutoInput = document.getElementById('quantidade_produto_input');
 	var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input');
-
+	var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input');
+	var valorTotalProdutoInput = document.getElementById('valor_total_produto_input');
 
 	siglaProdutoInput.value="";
 	tipoProdutoInput.value="BATERIA";
 	marcaProdutoInput.value="";
 	quantidadeMinimaProdutoInput.value="0";
 	especificacaoProdutoInput.value="";
+	quantidadeProdutoInput.value="0";
+	valorUnitarioProdutoInput.value="0";
+	valorTotalProdutoInput.value="0";
+
+	resetCores('novo');
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
@@ -1033,7 +1040,10 @@ function abrirEditaItem(
 	document.getElementById('tipo_produto_input_edicao').value=tipoProduto;
 	document.getElementById('especificacao_produto_input_edicao').value=especificacao;
 	document.getElementById('marca_produto_input_edicao').value=marcaBateria;
+	document.getElementById('quantidade_produto_input_edicao').value=quantidade;
 	document.getElementById('quantidadeMinima_produto_input_edicao').value=quantidadeMinima;
+	document.getElementById('valor_unitario_produto_input_edicao').value=custoUnitario;
+	document.getElementById('valor_total_produto_input_edicao').value=custoTotal;
 }
 
 function fecharEditaItem() {
@@ -1049,13 +1059,20 @@ function fecharEditaItem() {
 	var tipoProdutoInput = document.getElementById('tipo_produto_input_edicao');
 	var especificacaoProdutoInput = document.getElementById('especificacao_produto_input_edicao');
 	var marcaProdutoInput = document.getElementById('marca_produto_input_edicao');
+	var quantidadeProdutoInput = document.getElementById('quantidade_produto_input_edicao');
 	var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input_edicao');
+	var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input_edicao');
+	var valorTotalProdutoInput = document.getElementById('valor_total_produto_input_edicao');
 
 	siglaProdutoInput.value="";
 	tipoProdutoInput.value="BATERIA";
 	marcaProdutoInput.value="";
 	quantidadeMinimaProdutoInput.value="0";
 	especificacaoProdutoInput.value="";
+	quantidadeProdutoInput.value="0";
+	valorUnitarioProdutoInput.value="0";
+	valorTotalProdutoInput.value="0";
+	resetCores('edita');
 	
 	containerEdita.hidden=true;
 
@@ -1146,6 +1163,156 @@ function editaItemChangeTipo() {
 		dataPagamentoInput.value="";
 		dataPagamentoInput.disabled=true;
 	}
+}
+
+/* ================== TRATAMENTO DE INPUTS E VALIDAÇÕES ====================== */
+
+function resetCores(tipo) {
+
+	if(tipo == "novo") {
+		var siglaProdutoInput = document.getElementById('sigla_produto_input');
+		var especificacaoProdutoInput = document.getElementById('especificacao_produto_input');
+		var marcaProdutoInput = document.getElementById('marca_produto_input');
+		var quantidadeProdutoInput = document.getElementById('quantidade_produto_input');
+		var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input');
+		var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input');
+		var valorTotalProdutoInput = document.getElementById('valor_total_produto_input');
+	}
+	else {
+		var siglaProdutoInput = document.getElementById('sigla_produto_input_edicao');
+		var tipoProdutoInput = document.getElementById('tipo_produto_input_edicao');
+		var especificacaoProdutoInput = document.getElementById('especificacao_produto_input_edicao');
+		var marcaProdutoInput = document.getElementById('marca_produto_input_edicao');
+		var quantidadeProdutoInput = document.getElementById('quantidade_produto_input_edicao');
+		var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input_edicao');
+		var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input_edicao');
+		var valorTotalProdutoInput = document.getElementById('valor_total_produto_input_edicao');	
+	}
+
+	siglaProdutoInput.style.background="transparent";
+	especificacaoProdutoInput.style.background="transparent";
+	marcaProdutoInput.style.background="transparent";
+	quantidadeProdutoInput.style.background="transparent";
+	quantidadeMinimaProdutoInput.style.background="transparent";
+	valorUnitarioProdutoInput.style.background="transparent";
+	valorTotalProdutoInput.style.background="transparent";
+
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO CLIENTE */
+function validacaoDoObjetoProduto(submitar, tipo) {
+
+	var erros = "Ocorreram alguns erros no cadastro do produto:\n";
+
+	if(tipo == "novo") {
+		var siglaProdutoInput = document.getElementById('sigla_produto_input');
+		var especificacaoProdutoInput = document.getElementById('especificacao_produto_input');
+		var marcaProdutoInput = document.getElementById('marca_produto_input');
+		var quantidadeProdutoInput = document.getElementById('quantidade_produto_input');
+		var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input');
+		var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input');
+		var valorTotalProdutoInput = document.getElementById('valor_total_produto_input');
+		var botaoFinalizar = document.getElementById('novo_item_submit');
+	}
+	else {
+		var siglaProdutoInput = document.getElementById('sigla_produto_input_edicao');
+		var tipoProdutoInput = document.getElementById('tipo_produto_input_edicao');
+		var especificacaoProdutoInput = document.getElementById('especificacao_produto_input_edicao');
+		var marcaProdutoInput = document.getElementById('marca_produto_input_edicao');
+		var quantidadeProdutoInput = document.getElementById('quantidade_produto_input_edicao');
+		var quantidadeMinimaProdutoInput = document.getElementById('quantidadeMinima_produto_input_edicao');
+		var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input_edicao');
+		var valorTotalProdutoInput = document.getElementById('valor_total_produto_input_edicao');	
+		var botaoFinalizar = document.getElementById('edita_item_submit');	
+	}
+
+	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
+	if(siglaProdutoInput.value != "" 
+			|| especificacaoProdutoInput.value != "" 
+			|| marcaProdutoInput.value != "" 
+			|| quantidadeProdutoInput.value != 0
+			|| quantidadeMinimaProdutoInput.value != 0
+			|| valorUnitarioProdutoInput.value != 0
+			|| valorTotalProdutoInput.value != 0) {
+
+		if(especificacaoProdutoInput.value == "") {
+			especificacaoProdutoInput.style.background="#f5aea9";	
+			erros += "- O preenchimento do campo descrição é obrigatório\n";	
+		}
+		else {
+			especificacaoProdutoInput.style.background="transparent";		
+		}
+
+		if(marcaProdutoInput.value == "") {
+			marcaProdutoInput.style.background="#f5aea9";
+			erros += "- O preenchimento do campo marca é obrigatório\n";		
+		}
+		else {
+			marcaProdutoInput.style.background="transparent";		
+		}		
+
+		if(siglaProdutoInput.value == "") {
+			siglaProdutoInput.style.background="#f5aea9";
+			erros += "- O preenchimento do campo sigla é obrigatório\n";	
+		}
+		else {
+			siglaProdutoInput.style.background="transparent";		
+		}	
+	}
+
+	else {
+		siglaProdutoInput.style.background="transparent";
+		especificacaoProdutoInput.style.background="transparent";
+		marcaProdutoInput.style.background="transparent";	
+	}
+
+	// REALIZA VERIFICAÇÃO SE QUANTIDADE É NULA QUANDO VALOR UNITÁRIO É DIGITADO
+	if(valorUnitarioProdutoInput.value != 0 || valorTotalProdutoInput.value != 0) {
+
+		if(quantidadeProdutoInput.value != 0 ) {
+			quantidadeProdutoInput.style.background="transparent";
+			valorTotalProdutoInput.value = 
+				parseFloat(quantidadeProdutoInput.value) * parseFloat(valorUnitarioProdutoInput.value);
+		}
+		else {
+			erros += "- Ao preencher o campo valor unitário, o campo quantidade torna-se obrigatório\n";
+			quantidadeProdutoInput.style.background="#f5aea9";
+			valorTotalProdutoInput.value = 0;
+		}
+
+	}
+
+	if(submitar == true) {
+		submitProduto(tipo, erros, botaoFinalizar);
+	}
+
+}
+
+/* REALIZA SUBMIT DO PRODUTO */
+function submitProduto(tipo, erros, botaoFinalizar) {
+
+	// VALIDAÇÃO FINAL
+	if (erros != "Ocorreram alguns erros no cadastro do produto:\n") {
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade == 1) {
+			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
+		}
+
+		alert(erros);
+		return false;
+	}
+	else {
+		botaoFinalizar.type="submit";
+		return true;
+	}	
+
 }
 
 /* ================== MISC ====================== */

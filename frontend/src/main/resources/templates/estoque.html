@@ -732,6 +732,7 @@
 					</label>
 					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tipo_filtro_input">
 						<option value="BATERIA">Bateria</option>
+						<option value="SUCATA">Sucata</option>
 					</select>
 				</div>															
 
@@ -822,42 +823,123 @@
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">
 
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="edita_item_second_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="sigla_produto_input_edicao">
 							Sigla
 						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" name="sigla" id="sigla_produto_input_edicao" required/>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="text" maxlength="15" 
+						name="sigla" 
+						id="sigla_produto_input_edicao"
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						required/>
 					</div>						
 
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="color:grey">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" hidden>
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Tipo
 						</label>
-						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input_edicao" style="border:1px solid grey;color:grey" disabled>
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input_edicao" required>
 							<option value="BATERIA">Bateria</option>
 						</select>
 					</div>				
 
-					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Descrição
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="especificacao" id="especificacao_produto_input_edicao" required/>
-					</div>
-
-					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-8 col-md-8 col-sm-8 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="marca_produto_input_edicao">
 							Marca
 						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="20" name="marcaBateria" id="marca_produto_input_edicao" required/>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="text" 
+						maxlength="20" 
+						name="marcaBateria" 
+						id="marca_produto_input_edicao" 
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						required/>
 					</div>
 
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="especificacao_produto_input_edicao">
+							Descrição
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="text"
+						maxlength="30" 
+						name="especificacao" 
+						id="especificacao_produto_input_edicao" 
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						required/>
+					</div>					
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidade_produto_input_edicao">
+							Quantidade
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number" 
+						min="0" 
+						step="1"
+						value="0" 
+						name="quantidade" 
+						id="quantidade_produto_input_edicao" 
+						oninput="validacaoDoObjetoProduto(false, 'edita')"/>
+					</div>						
+
+					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidadeMinima_produto_input_edicao">
 							Mínimo
 						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" min="0" max="50" value="0" name="quantidadeMinima" id="quantidadeMinima_produto_input_edicao" required/>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number" 
+						min="0" 
+						step="1"
+						value="0" 
+						name="quantidadeMinima" 
+						id="quantidadeMinima_produto_input_edicao" 
+						oninput="validacaoDoObjetoProduto(false, 'edita')"/>
 					</div>		
+
+					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_unitario_produto_input_edicao">
+							Valor unitário
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number" 
+						min="0" 
+						value="0" 
+						step="0.1"
+						name="custoUnitario" 
+						id="valor_unitario_produto_input_edicao" 
+						oninput="validacaoDoObjetoProduto(false, 'edita')"/>
+					</div>	
+
+					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_total_produto_input_edicao">
+							Valor total
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number" 
+						min="0" 
+						ste="0.1"
+						value="0" 
+						name="custoTotal" 
+						id="valor_total_produto_input_edicao" 
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						readonly/>
+					</div>			
 
 				</div>
 
@@ -867,7 +949,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 
-					<button type="submit" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
+					<button type="button" onclick="validacaoDoObjetoProduto(true, 'edita')" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
 						Salvar
 					</button>	
 
@@ -908,42 +990,123 @@
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="sigla_produto_input">
 							Sigla
 						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" name="sigla" id="sigla_produto_input" required/>
+						<input
+						 autocomplete="off" 
+						 class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+						  type="text" 
+						  maxlength="15" 
+						  name="sigla" 
+						  id="sigla_produto_input" 
+						  oninput="validacaoDoObjetoProduto(false, 'novo')"
+						  required/>
 					</div>						
 
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" hidden>
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Tipo
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input" required>
 							<option value="BATERIA">Bateria</option>
-							<option value="SUCATA">Sucata</option>
 						</select>
 					</div>				
 
-					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Descrição
-						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="especificacao" id="especificacao_produto_input" required/>
-					</div>
-
-					<div class="novo_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-8 col-md-8 col-sm-8 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="marca_produto_input">
 							Marca
 						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="20" name="marcaBateria" id="marca_produto_input" required/>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="text" maxlength="20" 
+						name="marcaBateria" 
+						id="marca_produto_input" 
+						oninput="validacaoDoObjetoProduto(false, 'novo')"
+						required/>
 					</div>
 
-					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="especificacao_produto_input">
+							Descrição
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="text" 
+						maxlength="30" 
+						name="especificacao" 
+						id="especificacao_produto_input" 
+						oninput="validacaoDoObjetoProduto(false, 'novo')"
+						required/>
+					</div>					
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidade_produto_input">
+							Quantidade
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number" 
+						min="0" 
+						value="0"
+						step="1"
+						name="quantidade" 
+						id="quantidade_produto_input" 
+						oninput="validacaoDoObjetoProduto(false, 'novo')"
+						required/>
+					</div>						
+
+					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidadeMinima_produto_input">
 							Mínimo
 						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" min="0" max="50" value="0" name="quantidadeMinima" id="quantidadeMinima_produto_input" required/>
-					</div>						
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number"
+						min="0" 
+						value="0" 
+						step="1"
+						name="quantidadeMinima" 
+						id="quantidadeMinima_produto_input" 
+						oninput="validacaoDoObjetoProduto(false, 'novo')"
+						required/>
+					</div>		
+
+					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_unitario_produto_input">
+							Valor unitário
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number" 
+						min="0"
+						value="0" 
+						step="0.01"
+						name="custoUnitario" 
+						id="valor_unitario_produto_input" 
+						oninput="validacaoDoObjetoProduto(false, 'novo')"/>
+					</div>	
+
+					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_total_produto_input">
+							Valor total
+						</label>
+						<input 
+						autocomplete="off" 
+						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+						type="number"
+						min="0"
+						value="0" 
+						step="0.01"
+						name="custoTotal" 
+						id="valor_total_produto_input" 
+						readonly />
+					</div>															
 
 
 				</div>
@@ -954,7 +1117,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>		
 
-					<button type="submit" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+					<button type="button" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" onclick="validacaoDoObjetoProduto(true, 'novo')" id="novo_item_submit">
 						Salvar
 					</button>	
 
