@@ -5,7 +5,6 @@ import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
-import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.AbastecimentoService;
 import br.com.twobrothers.frontend.services.FornecedorService;
@@ -57,6 +56,7 @@ public class AbastecimentoController {
                                        @RequestParam("fornecedorId") Optional<String> fornecedorId,
                                        @RequestParam("fornecedor") Optional<String> fornecedor,
                                        @RequestParam("produto") Optional<String> produto,
+                                       @RequestParam("meio") Optional<String> meio,
                                        Model model, ModelAndView modelAndView,
                                        RedirectAttributes redirAttrs,
                                        ModelMap modelMap,
@@ -85,7 +85,8 @@ public class AbastecimentoController {
                     ano.orElse(null),
                     fornecedorId.orElse(null),
                     fornecedor.orElse(null),
-                    produto.orElse(null));
+                    produto.orElse(null),
+                    meio.orElse(null));
 
             abastecimentosSemPaginacao = abastecimentoService.filtroAbastecimentosSemPaginacao(
                     inicio.orElse(null),
@@ -94,9 +95,8 @@ public class AbastecimentoController {
                     ano.orElse(null),
                     fornecedorId.orElse(null),
                     fornecedor.orElse(null),
-                    produto.orElse(null));
-
-            paginas = abastecimentoService.calculaQuantidadePaginas(abastecimentosSemPaginacao, pageable);
+                    produto.orElse(null),
+                    meio.orElse(null));
 
         }
 
@@ -106,6 +106,27 @@ public class AbastecimentoController {
             return modelAndView;
         }
 
+        model.addAttribute("tipoFiltro", "hoje");
+        model.addAttribute("meioAtivo", null);
+
+        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
+        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
+        if (fornecedorId.isPresent()) model.addAttribute("tipoFiltro", "fornecedorId");
+        if (fornecedor.isPresent()) model.addAttribute("tipoFiltro", "fornecedor");
+        if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
+
+        if (meio.isPresent()) model.addAttribute("meioAtivo", meio.orElse(null));
+
+        if (meio.isPresent()) {
+            abastecimentosSemPaginacao = abastecimentoService
+                    .filtraFormaDePagamentoSemPaginacao(abastecimentosSemPaginacao, meio.orElse(null));
+            abastecimentosPaginados = abastecimentoService
+                    .filtraFormaDePagamentoPaginada(pageable, abastecimentosSemPaginacao, meio.orElse(null));
+        }
+
+        paginas = abastecimentoService.calculaQuantidadePaginas(abastecimentosSemPaginacao, pageable);
+
+        model.addAttribute("totalItens", abastecimentosSemPaginacao.size());
         model.addAttribute("inicio", inicio.orElse(null));
         model.addAttribute("fim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
@@ -113,6 +134,7 @@ public class AbastecimentoController {
         model.addAttribute("fornecedorId", fornecedorId.orElse(null));
         model.addAttribute("fornecedor", fornecedor.orElse(null));
         model.addAttribute("produto", produto.orElse(null));
+        model.addAttribute("meio", meio.orElse(null));
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("abastecimentos", abastecimentosPaginados);

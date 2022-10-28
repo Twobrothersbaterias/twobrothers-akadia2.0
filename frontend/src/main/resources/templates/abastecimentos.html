@@ -22,6 +22,8 @@
 	<link th:href="@{css/abastecimentos.css}" href="../static/css/abastecimentos.css" rel="stylesheet" />	
 	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 	<title>VALT | Abastecimentos</title>
 
 </head>
@@ -331,25 +333,53 @@
 
 					<div class="row informativos_row" id="informativo_row">
 
-						<div class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo">
+						<input th:value=${tipoFiltro} id="tipo_filtro" hidden>
+						<input th:value=${meioAtivo} id="meio_ativo" hidden>
+						<input th:value=${pagina} id="pagina_atual" hidden>
+						<input th:value="'TOTAL DE PAGINAS: ' + ${paginas}" id="total_paginas" hidden>
+						<input th:value="'TOTAL DE ITENS: ' + ${totalItens}" id="total_itens" hidden>
+
+						<div th:if="${tipoFiltro == 'data'}">
+							<input th:value="${inicio}" id="back_inicio" hidden>
+							<input th:value="${fim}" id="back_fim" hidden>
+						</div>
+
+						<div th:if="${tipoFiltro == 'periodo'}">
+							<input th:value="${mes}" id="back_mes" hidden>
+							<input th:value="${ano}" id="back_ano" hidden>
+						</div>								
+
+						<div th:if="${tipoFiltro == 'fornecedorId'}">
+							<input th:value="${fornecedorId}" id="back_fornecedorId" hidden>
+						</div>			
+
+						<div th:if="${tipoFiltro == 'fornecedor'}">
+							<input th:value="${fornecedor}" id="back_fornecedor" hidden>
+						</div>			
+
+						<div th:if="${tipoFiltro == 'produto'}">
+							<input th:value="${produto}" id="back_produto" hidden>
+						</div>																					
+
+						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo" id="especie">
 							<div class="informativo_chave">
 								Espécie: 
 							</div>
 							<div th:text="${especie}" class="informativo_valor">
 								R$ 0.00
 							</div>	
-						</div>
+						</a>
 
-						<div class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo">
+						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo" id="credito">
 							<div class="informativo_chave">
 								Crédito: 
 							</div>
 							<div th:text="${credito}" class="informativo_valor">
 								R$ 0.00
 							</div>
-						</div>						
+						</a>						
 
-						<div class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo">
+						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo" id="debito">
 
 							<div class="informativo_chave">
 								Débito: 
@@ -358,27 +388,27 @@
 							<div th:text="${debito}" class="informativo_valor">
 								R$ 0.00
 							</div>	
-						</div>						
+						</a>						
 
-						<div class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo">
+						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo" id="cheque">
 							<div class="informativo_chave">
 								Cheque: 
 							</div>
 							<div th:text="${cheque}" class="informativo_valor">
 								R$ 0.00
 							</div>	
-						</div>
+						</a>
 
-						<div class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo">
+						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo" id="pix">
 							<div class="informativo_chave">
 								Pix: 
 							</div>
 							<div th:text="${pix}" class="informativo_valor">
 								R$ 0.00
 							</div>
-						</div>						
+						</a>						
 
-						<div class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo">
+						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-10 informativo" id="boleto">
 
 							<div class="informativo_chave">
 								Boleto: 
@@ -387,7 +417,8 @@
 							<div th:text="${boleto}" class="informativo_valor">
 								R$ 0.00
 							</div>	
-						</div>						
+						</a>
+
 					</div>
 
 					<hr>												
@@ -619,45 +650,29 @@
 								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 									<li class="li page">
-										<a th:if="${produto} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/compras(page=${pagina-1})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>
 
-										<a th:if="${produto}" th:href="@{__${baseUrl}__/compras(page=${pagina-1}, produto=${produto})}" class="li_a page_click" id="anterior">	
+										<a class="li_a page_click" id="anterior">
 											Anterior
-										</a>
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/compras(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>
-
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/compras(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>																																								
+										</a>																						
 									</li>
 
 									<div th:text="${pagina}" th:value="${pagina}" id="pegando_page" style="display:none"></div>			
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${produto} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/compras(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${produto}" th:href="@{__${baseUrl}__/compras(page=${numeroPagina}, produto=${produto})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/compras(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/compras(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a
+										class="li_a page_number page_click" 
+										th:data-numeroPagina="${numeroPagina}"
+										th:text="${numeroPagina+1}">1</a>
 
 									</li>
 
-									<li class="li page">
+									<li class="li page">			
 
-										<a th:if="${produto} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/compras(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a class="li_a page_click" id="proxima">
+											Próximo
+										</a>	
 
-										<a th:if="${produto}" th:href="@{__${baseUrl}__/compras(page=${pagina+1}, produto=${produto})}" class="li_a page_click" id="proxima">Próximo</a>	
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/compras(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
-
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/compras(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																		
 									</li>
 
 								</ul>

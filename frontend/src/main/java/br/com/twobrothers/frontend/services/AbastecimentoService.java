@@ -11,7 +11,7 @@ import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudServic
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -73,13 +73,15 @@ public class AbastecimentoService {
                                                           Integer ano,
                                                           String fornecedorId,
                                                           String fornecedor,
-                                                          String produto) throws InvalidRequestException {
+                                                          String produto,
+                                                          String meio) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, mes, ano);
         else if(fornecedorId != null) return crudService.buscaPorFornecedorIdPaginado(pageable, fornecedorId);
         else if (fornecedor != null) return crudService.buscaPorFornecedorPaginado(pageable, fornecedor);
         else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
+        else if (meio != null) return crudService.buscaPorFormaDePagamentoPaginado(pageable, meio);
         else return crudService.buscaHojePaginado(pageable);
     }
 
@@ -90,13 +92,15 @@ public class AbastecimentoService {
             Integer ano,
             String fornecedorId,
             String fornecedor,
-            String produto) throws InvalidRequestException {
+            String produto,
+            String meio) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
         else if (fornecedorId != null) return crudService.buscaPorFornecedorIdSemPaginacao(fornecedorId);
         else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
         else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
+        else if (meio != null) return crudService.buscaPorFormaDePagamentoSemPaginacao(meio);
         else return crudService.buscaHojeSemPaginacao();
     }
 
@@ -156,5 +160,58 @@ public class AbastecimentoService {
 
         return URI_ABASTECIMENTO;
     }
+
+    public List<AbastecimentoEntity> filtraFormaDePagamentoSemPaginacao(List<AbastecimentoEntity> abastecimentos,
+                                                                        String formaPagamento) {
+
+        FormaPagamentoEnum formaPagamentoEnum = null;
+        List<AbastecimentoEntity> abastecimentoEntities = new ArrayList<>();
+
+        try{
+            formaPagamentoEnum = FormaPagamentoEnum.valueOf(formaPagamento);
+        }
+        catch (Exception e) {
+            throw new InvalidRequestException("Parâmetro meio inserido na URL é inválido");
+        }
+
+        for (AbastecimentoEntity abastecimento: abastecimentos) {
+            if (abastecimento.getFormaPagamento().equals(formaPagamentoEnum)) abastecimentoEntities.add(abastecimento);
+        }
+
+        return abastecimentoEntities;
+    }
+
+    public List<AbastecimentoEntity> filtraFormaDePagamentoPaginada(Pageable pageableParam,
+                                                                    List<AbastecimentoEntity> abastecimentos,
+                                                                    String formaPagamento) {
+
+        FormaPagamentoEnum formaPagamentoEnum = null;
+        List<AbastecimentoEntity> abastecimentoEntities = new ArrayList<>();
+
+        try{
+            formaPagamentoEnum = FormaPagamentoEnum.valueOf(formaPagamento);
+        }
+        catch (Exception e) {
+            throw new InvalidRequestException("Parâmetro meio inserido na URL é inválido");
+        }
+
+        for (AbastecimentoEntity abastecimento: abastecimentos) {
+            if (abastecimento.getFormaPagamento().equals(formaPagamentoEnum))
+                abastecimentoEntities.add(abastecimento);
+        }
+
+        Pageable pageable = PageRequest.of(
+                pageableParam.getPageNumber(),
+                pageableParam.getPageSize(),
+                pageableParam.getSort());
+
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), abastecimentoEntities.size());
+        final Page<AbastecimentoEntity> page =
+                new PageImpl<>(abastecimentoEntities.subList(start, end), pageable, abastecimentoEntities.size());
+
+        return page.toList();
+    }
+
 
 }

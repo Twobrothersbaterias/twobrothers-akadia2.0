@@ -5,6 +5,7 @@ import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
@@ -158,6 +159,12 @@ public class AbastecimentoCrudService {
         return repository.buscaPorProdutoPaginado(pageable, produto);
     }
 
+    public List<AbastecimentoEntity> buscaPorFormaDePagamentoPaginado(Pageable pageable, String formaPagamento) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de abastecimento por forma de pagamento: {}", formaPagamento);
+        return repository.buscaPorFormaPagamentoPaginado(pageable, FormaPagamentoEnum.valueOf(formaPagamento));
+    }
+
     public List<AbastecimentoEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de abastecimento por range de data...");
@@ -195,6 +202,12 @@ public class AbastecimentoCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de abastecimento por produto...");
         return repository.buscaPorProdutoSemPaginacao(produto);
+    }
+
+    public List<AbastecimentoEntity> buscaPorFormaDePagamentoSemPaginacao(String formaPagamento) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca sem paginação de abastecimento por forma de pagamento: {}", formaPagamento);
+        return repository.buscaPorFormaPagamentoSemPaginacao(FormaPagamentoEnum.valueOf(formaPagamento));
     }
 
 }

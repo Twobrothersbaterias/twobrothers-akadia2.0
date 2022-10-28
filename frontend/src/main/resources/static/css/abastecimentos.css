@@ -23,7 +23,12 @@
 }
 
 .informativo {
-	box-shadow: 0px 0px 5px #121212;	
+	box-shadow: 0px 0px 5px #121212;
+	text-decoration: none;
+}
+.informativo:hover {
+	color: #C3C8C8;
+	cursor: pointer;
 }
 
 .opcoes_row {

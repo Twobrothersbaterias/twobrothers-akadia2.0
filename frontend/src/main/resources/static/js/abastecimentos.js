@@ -3,6 +3,8 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
+buildUrlPagamentos();
+buildUrlPages();
 
 document.onkeydown=function(){
     if(window.event.keyCode=='27') {
@@ -1179,6 +1181,205 @@ function reloadEditaItem() {
 }
 
 /* ================== MISC ====================== */
+
+function buildUrlPagamentos() {
+
+	var tipoFiltro = document.getElementById('tipo_filtro');
+
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+
+	var periodoMes = document.getElementById('back_mes');
+	var periodoAno = document.getElementById('back_ano');	
+
+	var fornecedorId = document.getElementById('back_fornecedorId');		
+
+	var fornecedor = document.getElementById('back_fornecedor');			
+
+	var produto = document.getElementById('back_produto');	
+
+	if(tipoFiltro.value == 'data') {
+		$('#especie').attr("href", "/compras?inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=DINHEIRO");
+		$('#credito').attr("href", "/compras?inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=CREDITO");
+		$('#debito').attr("href", "/compras?inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=DEBITO");
+		$('#cheque').attr("href", "/compras?inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=CHEQUE");
+		$('#pix').attr("href", "/compras?inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=PIX");
+		$('#boleto').attr("href", "/compras?inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=BOLETO");
+	}
+	else if(tipoFiltro.value == 'periodo') {
+		$('#especie').attr("href", "/compras?mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=DINHEIRO");
+		$('#credito').attr("href", "/compras?mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=CREDITO");
+		$('#debito').attr("href", "/compras?mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=DEBITO");
+		$('#cheque').attr("href", "/compras?mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=CHEQUE");
+		$('#pix').attr("href", "/compras?mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=PIX");
+		$('#boleto').attr("href", "/compras?mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=BOLETO");								
+	}
+	else if(tipoFiltro.value == 'fornecedorId') {
+		$('#especie').attr("href", "/compras?fornecedorId=" + fornecedorId.value + "&meio=DINHEIRO");
+		$('#credito').attr("href", "/compras?fornecedorId=" + fornecedorId.value + "&meio=CREDITO");
+		$('#debito').attr("href", "/compras?fornecedorId=" + fornecedorId.value + "&meio=DEBITO");
+		$('#cheque').attr("href", "/compras?fornecedorId=" + fornecedorId.value + "&meio=CHEQUE");
+		$('#pix').attr("href", "/compras?fornecedorId=" + fornecedorId.value + "&meio=PIX");
+		$('#boleto').attr("href", "/compras?fornecedorId=" + fornecedorId.value + "&meio=BOLETO");								
+	}	
+	else if(tipoFiltro.value == 'fornecedor') {
+		$('#especie').attr("href", "/compras?fornecedor=" + fornecedor.value + "&meio=DINHEIRO");
+		$('#credito').attr("href", "/compras?fornecedor=" + fornecedor.value + "&meio=CREDITO");
+		$('#debito').attr("href", "/compras?fornecedor=" + fornecedor.value + "&meio=DEBITO");
+		$('#cheque').attr("href", "/compras?fornecedor=" + fornecedor.value + "&meio=CHEQUE");
+		$('#pix').attr("href", "/compras?fornecedor=" + fornecedor.value + "&meio=PIX");
+		$('#boleto').attr("href", "/compras?fornecedor=" + fornecedor.value + "&meio=BOLETO");								
+	}
+	else if(tipoFiltro.value == 'produto') {
+		$('#especie').attr("href", "/compras?produto=" + produto.value + "&meio=DINHEIRO");
+		$('#credito').attr("href", "/compras?produto=" + produto.value + "&meio=CREDITO");
+		$('#debito').attr("href", "/compras?produto=" + produto.value + "&meio=DEBITO");
+		$('#cheque').attr("href", "/compras?produto=" + produto.value + "&meio=CHEQUE");
+		$('#pix').attr("href", "/compras?produto=" + produto.value + "&meio=PIX");
+		$('#boleto').attr("href", "/compras?produto=" + produto.value + "&meio=BOLETO");								
+	}
+
+}
+
+function buildUrlPages() {
+
+	var paginaAtual = document.getElementById('pagina_atual');
+	var tipoFiltro = document.getElementById('tipo_filtro');
+	var meioAtivo = document.getElementById('meio_ativo');
+
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var periodoMes = document.getElementById('back_mes');
+	var periodoAno = document.getElementById('back_ano');	
+	var fornecedorId = document.getElementById('back_fornecedorId');		
+	var fornecedor = document.getElementById('back_fornecedor');			
+	var produto = document.getElementById('back_produto');	
+
+	var pageNumber = document.getElementsByClassName('page_number');
+
+	if(tipoFiltro.value == 'data') {
+		
+		if (meioAtivo == null || meioAtivo == "") {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		}
+		else {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=" + meioAtivo.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=" + meioAtivo.value);
+		}
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			if (meioAtivo.value == null || meioAtivo.value == "") {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+			}	
+			else {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value + "&meio=" + meioAtivo.value);				
+			}		
+		}
+	}
+
+	else if(tipoFiltro.value == 'periodo') {
+		
+		if (meioAtivo.value == null || meioAtivo.value == "") {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		}
+		else {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=" + meioAtivo.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=" + meioAtivo.value);
+		}
+		
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			if (meioAtivo.value == null || meioAtivo.value == "") {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+			}	
+			else {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value + "&meio=" + meioAtivo.value);				
+			}		
+		}
+	}
+
+	else if(tipoFiltro.value == 'fornecedorId') {
+		if (meioAtivo.value == null || meioAtivo.value == "") {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&fornecedorId=" + fornecedorId.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&fornecedorId=" + fornecedorId.value);
+		}
+		else {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&fornecedorId=" + fornecedorId.value + "&meio=" + meioAtivo.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&fornecedorId=" + fornecedorId.value + "&meio=" + meioAtivo.value);	
+		}
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			if (meioAtivo.value == null || meioAtivo.value == "") {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedorId=" + fornecedorId.value);
+			}	
+			else {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedorId=" + fornecedorId.value + "&meio=" + meioAtivo.value);				
+			}		
+		}
+	}
+
+	else if(tipoFiltro.value == 'fornecedor') {
+		if (meioAtivo.value == null || meioAtivo.value == "") {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&fornecedor=" + fornecedor.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&fornecedor=" + fornecedor.value);
+		}
+		else {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&fornecedor=" + fornecedor.value + "&meio=" + meioAtivo.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&fornecedor=" + fornecedor.value + "&meio=" + meioAtivo.value);	
+		}
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			if (meioAtivo.value == null || meioAtivo.value == "") {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedor=" + fornecedor.value);
+			}	
+			else {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedor=" + fornecedor.value + "&meio=" + meioAtivo.value);				
+			}		
+		}					
+	}
+
+	else if(tipoFiltro.value == 'produto') {
+		if (meioAtivo.value == null || meioAtivo.value == "") {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&produto=" + produto.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&produto=" + produto.value);
+		}
+		else {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1)  + "&produto=" + produto.value + "&meio=" + meioAtivo.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1)  + "&produto=" + produto.value + "&meio=" + meioAtivo.value);	
+		}
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			if (meioAtivo.value == null || meioAtivo.value == "") {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&produto=" + produto.value);
+			}	
+			else {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&produto=" + produto.value + "&meio=" + meioAtivo.value);				
+			}		
+		}								
+	}
+
+}
 
 function buildUrl(baseUrl, pagina, produto, dataInicio, dataFim, mes, ano, fornecedor) {
 

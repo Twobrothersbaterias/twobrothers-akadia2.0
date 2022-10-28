@@ -1,6 +1,7 @@
 package br.com.twobrothers.frontend.repositories;
 
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
+import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -37,6 +38,11 @@ public interface AbastecimentoRepository extends JpaRepository<AbastecimentoEnti
 
     @Query("Select a From AbastecimentoEntity a where a.dataCadastro = ?1")
     List<AbastecimentoEntity> buscaHojePaginado(Pageable pageable, String hoje);
+
+    @Query("Select a From AbastecimentoEntity a where a.formaPagamento = ?1")
+    List<AbastecimentoEntity> buscaPorFormaPagamentoPaginado(Pageable pageable, FormaPagamentoEnum formaPagamento);
+
+    // SEM PAGINAÇÃO
     @Query("Select a From AbastecimentoEntity a where a.dataCadastro between ?1 and ?2")
     List<AbastecimentoEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim);
 
@@ -51,5 +57,8 @@ public interface AbastecimentoRepository extends JpaRepository<AbastecimentoEnti
 
     @Query("Select a From AbastecimentoEntity a where a.dataCadastro = ?1")
     List<AbastecimentoEntity> buscaHojeSemPaginacao(String hoje);
+
+    @Query("Select a From AbastecimentoEntity a where a.formaPagamento = ?1")
+    List<AbastecimentoEntity> buscaPorFormaPagamentoSemPaginacao(FormaPagamentoEnum formaPagamento);
 
 }
