@@ -438,7 +438,7 @@
 												this.getAttribute('data-custoUnitario'),
 												this.getAttribute('data-custoTotal'))">...</td>
 											
-											<td th:text="${produto.marcaBateria} + ' - ' + ${produto.especificacao}" class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
+											<td th:text="${produto.especificacao}" class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
 											th:data-id="${produto.id}" 
 											th:data-marcaBateria="${produto.marcaBateria}"
 											th:data-especificacao="${produto.especificacao}"
@@ -889,7 +889,8 @@
 						value="0" 
 						name="quantidade" 
 						id="quantidade_produto_input_edicao" 
-						oninput="validacaoDoObjetoProduto(false, 'edita')"/>
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						required/>
 					</div>						
 
 					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -905,7 +906,8 @@
 						value="0" 
 						name="quantidadeMinima" 
 						id="quantidadeMinima_produto_input_edicao" 
-						oninput="validacaoDoObjetoProduto(false, 'edita')"/>
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						required/>
 					</div>		
 
 					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -921,7 +923,8 @@
 						step="0.1"
 						name="custoUnitario" 
 						id="valor_unitario_produto_input_edicao" 
-						oninput="validacaoDoObjetoProduto(false, 'edita')"/>
+						oninput="validacaoDoObjetoProduto(false, 'edita')"
+						required/>
 					</div>	
 
 					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -938,7 +941,8 @@
 						name="custoTotal" 
 						id="valor_total_produto_input_edicao" 
 						oninput="validacaoDoObjetoProduto(false, 'edita')"
-						readonly/>
+						readonly
+						required/>
 					</div>			
 
 				</div>
@@ -1089,7 +1093,8 @@
 						step="0.01"
 						name="custoUnitario" 
 						id="valor_unitario_produto_input" 
-						oninput="validacaoDoObjetoProduto(false, 'novo')"/>
+						oninput="validacaoDoObjetoProduto(false, 'novo')"
+						required/>
 					</div>	
 
 					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -1105,7 +1110,8 @@
 						step="0.01"
 						name="custoTotal" 
 						id="valor_total_produto_input" 
-						readonly />
+						readonly 
+						required/>
 					</div>															
 
 

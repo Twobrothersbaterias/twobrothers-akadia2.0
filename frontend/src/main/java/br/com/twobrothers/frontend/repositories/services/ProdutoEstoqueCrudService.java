@@ -62,18 +62,18 @@ public class ProdutoEstoqueCrudService {
         log.info("[PROGRESS] Setando data de cadastro do produto: {}...", LocalDateTime.now());
         produto.setDataCadastro(LocalDate.now().toString());
 
-        log.info("[PROGRESS] Setando como zero o custo total e unitário do produto...");
-        produto.setCustoTotal(0.0);
-        produto.setCustoUnitario(0.0);
+        log.info("[PROGRESS] Setando como zero o custo total e unitário do produto se forem nulos...");
+        if (produto.getCustoTotal() == null) produto.setCustoTotal(0.0);
+        if (produto.getCustoUnitario() == null) produto.setCustoUnitario(0.0);
+
+        log.info("[PROGRESS] Setando quantidade do novo produto cadastrado para 0 se for nulo...");
+        if (produto.getQuantidade() == null) produto.setQuantidade(0);
 
         log.info("[PROGRESS] Setando o usuário responsável pelo cadastro do produto: {}...", UsuarioUtils.loggedUser(usuarioRepository).getUsername());
         produto.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
 
         log.info("[PROGRESS] Iniciando validação do objeto ProdutoDTO...");
         validation.validaCorpoRequisicao(produto, repository, ValidationType.CREATE);
-
-        log.info("[PROGRESS] Setando quantidade do novo produto cadastrado para 0...");
-        produto.setQuantidade(0);
 
         if (produto.getQuantidadeMinima() == null) produto.setQuantidadeMinima(0);
 
@@ -181,6 +181,9 @@ public class ProdutoEstoqueCrudService {
         produtoAtualizado.setEspecificacao(produto.getEspecificacao());
         produtoAtualizado.setMarcaBateria(produto.getMarcaBateria());
         produtoAtualizado.setTipoProduto(produto.getTipoProduto());
+        produtoAtualizado.setQuantidade(produto.getQuantidade());
+        produtoAtualizado.setCustoUnitario(produto.getCustoUnitario());
+        produtoAtualizado.setCustoTotal(produto.getCustoTotal());
 
         if (produto.getQuantidadeMinima() == null) produtoAtualizado.setQuantidadeMinima(0);
         else produtoAtualizado.setQuantidadeMinima(produto.getQuantidadeMinima());
