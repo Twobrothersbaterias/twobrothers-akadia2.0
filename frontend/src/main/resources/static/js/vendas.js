@@ -3,6 +3,12 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 
+document.onkeydown=function(){
+    if(window.event.keyCode=='27') {
+        fecharFiltro();
+    }
+}
+
 console.log('Privilégio: ' + document.getElementById('body').getAttribute('data-privilegio'));
 
 function responsive(){
@@ -1453,8 +1459,10 @@ function ajustaCamposTotalQuantidade() {
 			totalQuantidade += parseInt(entradaQuantidadeCampo[k].innerText);
 		}
 
-		document.getElementById('td_total_' + ordemId).innerText=totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-		document.getElementById('td_quantidade_' + ordemId).innerText=totalQuantidade;
+		if(ordemId != null) {
+			document.getElementById('td_total_' + ordemId).innerText=totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+			document.getElementById('td_quantidade_' + ordemId).innerText=totalQuantidade;
+		}
 
 	}	
 }

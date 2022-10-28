@@ -36,6 +36,9 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
     @Query("Select o From OrdemEntity o where o.cliente.endereco.bairro like %:bairro%")
     List<OrdemEntity> buscaPorBairroPaginado(Pageable pageable, @Param("bairro") String bairro);
 
+    @Query("Select o From OrdemEntity o where o.cliente.id = ?1")
+    List<OrdemEntity> buscaPorClientePaginado(Pageable pageable, Long cliente);
+
     @Query("Select o From OrdemEntity o where o.dataCadastro = ?1")
     List<OrdemEntity> buscaHojeSemPaginacao(String hoje);
 
@@ -44,5 +47,8 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
 
     @Query("Select o From OrdemEntity o where o.cliente.endereco.bairro like %:bairro%")
     List<OrdemEntity> buscaPorBairroSemPaginacao( @Param("bairro") String bairro);
+
+    @Query("Select o From OrdemEntity o where o.cliente.id = ?1")
+    List<OrdemEntity> buscaPorClienteSemPaginacao(Long cliente);
 
 }

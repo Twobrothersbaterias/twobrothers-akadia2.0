@@ -48,6 +48,7 @@ public class EstoqueController {
                                     @RequestParam("mes") Optional<Integer> mes,
                                     @RequestParam("ano") Optional<Integer> ano,
                                     @RequestParam("tipo") Optional<TipoProdutoEnum> tipo,
+                                    @RequestParam("fornecedor") Optional<String> fornecedor,
                                     Model model, ModelAndView modelAndView,
                                     RedirectAttributes redirAttrs,
                                     ModelMap modelMap,
@@ -74,7 +75,8 @@ public class EstoqueController {
                     inicio.orElse(null),
                     fim.orElse(null),
                     mes.orElse(null),
-                    ano.orElse(null));
+                    ano.orElse(null),
+                    fornecedor.orElse(null));
 
             produtosSemPaginacao = produtoEstoqueService.filtroProdutosSemPaginacao(
                     descricao.orElse(null),
@@ -82,7 +84,8 @@ public class EstoqueController {
                     inicio.orElse(null),
                     fim.orElse(null),
                     mes.orElse(null),
-                    ano.orElse(null));
+                    ano.orElse(null),
+                    fornecedor.orElse(null));
 
             paginas = produtoEstoqueService.calculaQuantidadePaginas(produtosSemPaginacao, pageable);
 

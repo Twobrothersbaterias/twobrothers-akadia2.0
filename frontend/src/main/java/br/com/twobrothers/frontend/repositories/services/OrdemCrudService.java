@@ -5,7 +5,6 @@ import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.entities.*;
-import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
@@ -26,12 +25,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
@@ -130,7 +127,7 @@ public class OrdemCrudService {
 
                 log.info("[PROGRESS] Setando valor do cliente recebido na requisição através da ordem na variável clienteEntity...");
                 clienteEntity = modelMapper.mapper().map(ordem.getCliente(), ClienteEntity.class);
-                clienteEntity.setDataCadastro(LocalDateTime.now().toString());
+                clienteEntity.setDataCadastro(LocalDate.now().toString());
             }
 
             trataAtributosVaziosDoObjetoEndereco(ordem.getCliente().getEndereco());
@@ -145,8 +142,8 @@ public class OrdemCrudService {
                 log.info("[PROGRESS] Setando endereço no clienteEntity...");
                 clienteEntity.setEndereco(modelMapper.mapper().map(ordem.getCliente().getEndereco(), EnderecoEntity.class));
 
-                log.info("[PROGRESS] Setando data de cadastro no endereço: {}...", LocalDateTime.now());
-                clienteEntity.getEndereco().setDataCadastro(LocalDateTime.now().toString());
+                log.info("[PROGRESS] Setando data de cadastro no endereço: {}...", LocalDate.now());
+                clienteEntity.getEndereco().setDataCadastro(LocalDate.now().toString());
             } else {
                 log.warn("[INFO] Nenhum endereço foi encontrado dentro do objeto cliente recebido via requisição");
                 clienteEntity.setEndereco(null);
@@ -225,7 +222,7 @@ public class OrdemCrudService {
 
         log.warn("[INFO] Iteração finalizada com sucesso");
 
-        log.info("[PROGRESS] Setando data de cadastro da ordem: {}...", LocalDateTime.now());
+        log.info("[PROGRESS] Setando data de cadastro da ordem: {}...", LocalDate.now());
         ordemEntity.setDataCadastro(LocalDate.now().toString());
 
         if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.LOJA_FISICA)) {
@@ -286,6 +283,12 @@ public class OrdemCrudService {
         return repository.buscaPorBairroPaginado(pageable, bairro);
     }
 
+    public List<OrdemEntity> buscaPorClientePaginado(Pageable pageable, String cliente) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por cliente...");
+        return repository.buscaPorClientePaginado(pageable, Long.parseLong(cliente));
+    }
+
     public List<OrdemEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de ordem por range de data...");
@@ -319,6 +322,12 @@ public class OrdemCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de ordem por bairro...");
         return repository.buscaPorBairroSemPaginacao(bairro);
+    }
+
+    public List<OrdemEntity> buscaPorClienteSemPaginacao(String cliente) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por cliente...");
+        return repository.buscaPorClienteSemPaginacao(Long.parseLong(cliente));
     }
 
     public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {

@@ -4,6 +4,14 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 
+document.onkeydown=function(){
+    if(window.event.keyCode=='27') {
+        fechaNovoItem();
+        fecharFiltro();
+        fechaEditaItem();
+    }
+}
+
 function responsive(){
 
 	document.getElementById('main_loader').style.display="none";

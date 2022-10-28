@@ -4,6 +4,14 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 
+document.onkeydown=function(){
+    if(window.event.keyCode=='27') {
+        fechaNovoItem();
+        fecharFiltro();
+        fecharEditaItem();
+    }
+}
+
 function responsive(){
 
 	document.getElementById('main_loader').style.display="none";
@@ -1221,6 +1229,7 @@ function abrirEditaItem(
 
 	// SETANDO VALORES NOS CAMPOS
 	$('#info_clicavel').attr("href", "/compras?fornecedorId=" + id);
+	//$('#info_clicavel_produtos').attr("href", "/estoque?fornecedor=" + id);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('edita_descricao_fornecedor_input').value=nomeCompleto;
 	document.getElementById('edita_email_fornecedor_input').value=email;

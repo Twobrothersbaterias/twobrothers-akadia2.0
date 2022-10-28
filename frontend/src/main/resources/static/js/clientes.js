@@ -5,6 +5,14 @@ window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
 ajustaTabela();
 
+document.onkeydown=function(){
+    if(window.event.keyCode=='27') {
+        fechaNovoItem();
+        fecharFiltro();
+        fecharEditaItem();
+    }
+}
+
 function responsive(){
 
 	document.getElementById('main_loader').style.display="none";
@@ -1223,7 +1231,6 @@ function abrirEditaItem(
 							complemento,
 							estado) {
 
-
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -1247,12 +1254,15 @@ function abrirEditaItem(
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";
 
-	var dataCadastroSplitada = dataCadastro.split("-");
-	if (dataCadastroSplitada.length == 3) {
-		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		document.getElementById('edita_info').title="Cliente cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+	if(dataCadastro != null) {
+		var dataCadastroSplitada = dataCadastro.split("-");
+		if (dataCadastroSplitada.length == 3) {
+			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
+			document.getElementById('edita_info').title="Cliente cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+		}
 	}
 
+	$('#giro').attr("href", "/vendas?cliente=" + id);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('edita_descricao_cliente_input').value=nomeCompleto;
 	document.getElementById('edita_email_cliente_input').value=email;

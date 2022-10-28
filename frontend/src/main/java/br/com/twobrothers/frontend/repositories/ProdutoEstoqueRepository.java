@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories;
 
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,6 +42,8 @@ public interface ProdutoEstoqueRepository extends JpaRepository<ProdutoEstoqueEn
 
     @Query("Select p From ProdutoEstoqueEntity p where p.tipoProduto = ?1")
     List<ProdutoEstoqueEntity> buscaPorTipo(Pageable pageable, TipoProdutoEnum tipo);
+
+    Page<ProdutoEstoqueEntity> findByPrecosFornecedorFornecedorId(Pageable pageable, Long id);
 
     // Sem paginação
     @Query("Select p From ProdutoEstoqueEntity p where p.dataCadastro between ?1 and ?2")

@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
+import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
@@ -15,6 +16,7 @@ import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.ProdutoEstoqueValidation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -108,6 +110,12 @@ public class ProdutoEstoqueCrudService {
         return repository.buscaPorTipo(pageable, tipo);
     }
 
+    public List<ProdutoEstoqueEntity> buscaPorFornecedor(Pageable pageable, String id) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de produtos por fornecedor...");
+        return repository.findByPrecosFornecedorFornecedorId(pageable, Long.parseLong(id)).toList();
+    }
+
     public List<ProdutoEstoqueEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de produto por range de data...");
@@ -132,6 +140,13 @@ public class ProdutoEstoqueCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de produto por tipo...");
         return repository.buscaPorTipoSemPaginacao(tipo);
+    }
+
+    public List<ProdutoEstoqueEntity> buscaPorFornecedorSemPaginacao(String id) {
+        log.info(BARRA_DE_LOG);
+        Pageable pageable = PageRequest.of(0, 999999);
+        log.info("[STARTING] Iniciando método de busca de produtos por fornecedor...");
+        return repository.findByPrecosFornecedorFornecedorId(pageable, Long.parseLong(id)).toList();
     }
 
     public ProdutoEstoqueDTO atualizaPorId(ProdutoEstoqueDTO produto) {

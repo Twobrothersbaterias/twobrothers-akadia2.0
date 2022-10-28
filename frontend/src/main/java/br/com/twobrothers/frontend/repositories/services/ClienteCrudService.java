@@ -4,9 +4,11 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
 import br.com.twobrothers.frontend.models.entities.EnderecoEntity;
+import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.EnderecoRepository;
+import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
@@ -49,7 +51,7 @@ public class ClienteCrudService {
     UsuarioRepository usuarioRepository;
 
     @Autowired
-    EnderecoRepository enderecoRepository;
+    OrdemRepository ordemRepository;
 
     @Autowired
     ModelMapperConfig modelMapper;
@@ -262,6 +264,16 @@ public class ClienteCrudService {
         Optional<ClienteEntity> clienteOptional = repository.findById(id);
         if (clienteOptional.isPresent()) {
             log.warn("[INFO] Cliente encontrado.");
+
+            ClienteEntity cliente = clienteOptional.get();
+
+            if (cliente.getOrdens() != null && !cliente.getOrdens().isEmpty()) {
+                List<OrdemEntity> ordensDoCliente = cliente.getOrdens();
+                for(int i = 0; i < ordensDoCliente.size(); i++) {
+                    remocaoDeClienteDaOrdem(ordensDoCliente.get(i));
+                }
+            }
+
             log.info("[PROGRESS] Removendo o cliente da base de dados...");
             repository.deleteById(id);
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
@@ -270,6 +282,12 @@ public class ClienteCrudService {
             throw new ObjectNotFoundException(CLIENTE_NAO_ENCONTRADO);
         }
 
+    }
+
+    private void remocaoDeClienteDaOrdem(OrdemEntity ordem) {
+        ClienteEntity clienteEntity = ordem.getCliente();
+        clienteEntity.removeOrdem(ordem);
+        ordemRepository.save(ordem);
     }
 
 }

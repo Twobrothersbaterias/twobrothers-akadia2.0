@@ -62,12 +62,14 @@ public class ProdutoEstoqueService {
             String dataInicio,
             String dataFim,
             Integer mes,
-            Integer ano) throws InvalidRequestException {
+            Integer ano,
+            String fornecedor) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
         else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (fornecedor != null) return crudService.buscaPorFornecedor(pageable, fornecedor);
         else return produtoEstoqueRepository.findAll(pageable).toList();
     }
 
@@ -77,12 +79,14 @@ public class ProdutoEstoqueService {
             String dataInicio,
             String dataFim,
             Integer mes,
-            Integer ano) throws InvalidRequestException {
+            Integer ano,
+            String fornecedor) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
         else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
         else return produtoEstoqueRepository.findAll();
     }
 

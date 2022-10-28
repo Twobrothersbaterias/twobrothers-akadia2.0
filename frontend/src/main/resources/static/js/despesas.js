@@ -4,6 +4,14 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 
+document.onkeydown=function(){
+    if(window.event.keyCode=='27') {
+        fechaNovaDespesa();
+        fecharFiltro();
+        fecharEditaDespesa();
+    }
+}
+
 function responsive(){
 
 	document.getElementById('main_loader').style.display="none";
@@ -1192,11 +1200,13 @@ function abrirEditaDespesa(
 	sideMenu.style.transition="1s";
 
 	// CONVERTENDO DATA PARA PADRÃO BR
-	var dataCadastroSplitada = dataCadastro.split("-");
-	if (dataCadastroSplitada.length == 3) {
-		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.title="Despesa criada dia " + dataUsParaDataBr + " por " + responsavel;
-	}	
+	if(dataCadastro != null) {
+		var dataCadastroSplitada = dataCadastro.split("-");
+		if (dataCadastroSplitada.length == 3) {
+			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
+			subtitulo.title="Despesa criada dia " + dataUsParaDataBr + " por " + responsavel;
+		}	
+	}
 
 	// SETANDO VALORES NOS CAMPOS
 	document.getElementById('id_input_edicao').value=id;

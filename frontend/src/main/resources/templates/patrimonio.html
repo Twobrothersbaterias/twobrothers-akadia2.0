@@ -97,7 +97,7 @@
 				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/fornecedores}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Fornecedores"/>
 						</button>
 					</a>
 				</div>				
@@ -162,105 +162,109 @@
 			<!-- Menu superior mobile -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+				<div class="container_menu_mobile">				
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>		
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>	
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>		
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>	
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/banknotes-green.png" th:src="@{img/banknotes-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>	
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/banknotes-green.png" th:src="@{img/banknotes-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>					
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>					
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>																													
+
+				</div>																														
 			</div>				
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
@@ -628,7 +632,7 @@
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Descrição
 					</label>
-					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15"id="descricao_filtro_input"/>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15"id="descricao_filtro_input"/>
 				</div>								
 
 				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
@@ -757,7 +761,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Descrição
 						</label>
-						<input tabindex="00" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
+						<input autocomplete="off" tabindex="00" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" required/>
 					</div>		
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_first_block">
@@ -801,14 +805,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Valor
 						</label>
-						<input tabindex="01" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" required/>
+						<input autocomplete="off" tabindex="01" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" required/>
 					</div>
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_fifth_block">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento">
 							Data de entrada
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input_edicao" type="date" required/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input_edicao" type="date" required/>
 					</div>							
 
 				</div>
@@ -863,7 +867,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Descrição
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" tabindex="00" required/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" tabindex="00" required/>
 					</div>						
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_first_block">
@@ -908,7 +912,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Valor
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" tabindex="01" id="valor_patrimonio_input"required/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" tabindex="01" id="valor_patrimonio_input"required/>
 					</div>
 
 
@@ -917,7 +921,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento">
 							Data de entrada:
 						</label>
-						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input" type="date" required/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input" type="date" required/>
 					</div>																				
 
 				</div>	

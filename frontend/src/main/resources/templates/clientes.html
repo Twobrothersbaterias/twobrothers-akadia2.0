@@ -22,6 +22,8 @@
 	<link th:href="@{css/clientes.css}" href="../static/css/clientes.css" rel="stylesheet" />
 	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	
+
 	<title>VALT | Clientes</title>
 
 </head>
@@ -97,7 +99,7 @@
 				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/fornecedores}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Fornecedores"/>
 						</button>
 					</a>
 				</div>				
@@ -162,104 +164,108 @@
 			<!-- Menu superior mobile -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+				<div class="container_menu_mobile">				
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/people-green.png" th:src="@{img/people-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/people-green.png" th:src="@{img/people-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>		
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>	
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>		
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>	
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>	
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
 					</div>	
-				</div>					
 
-				<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
-				</div>
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>					
 
-				<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
-					<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-						<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
-						</a>
-					</div>	
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
 				</div>																													
 			</div>		
 
@@ -350,13 +356,13 @@
 											th:data-email="${cliente.email}" 
 											th:data-telefone="${cliente.telefone}"
 											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
-											th:data-logradouro="${cliente.endereco.logradouro}"
-											th:data-numero="${cliente.endereco.numero}"
-											th:data-bairro="${cliente.endereco.bairro}"
-											th:data-cidade="${cliente.endereco.cidade}"
-											th:data-cep="${cliente.endereco.cep}"
-											th:data-complemento="${cliente.endereco.complemento}"
-											th:data-estado="${cliente.endereco.estado}"
+											th:data-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											th:data-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											th:data-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											th:data-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											th:data-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											th:data-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											th:data-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : ''"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -383,13 +389,13 @@
 											th:data-email="${cliente.email}" 
 											th:data-telefone="${cliente.telefone}"
 											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
-											th:data-logradouro="${cliente.endereco.logradouro}"
-											th:data-numero="${cliente.endereco.numero}"
-											th:data-bairro="${cliente.endereco.bairro}"
-											th:data-cidade="${cliente.endereco.cidade}"
-											th:data-cep="${cliente.endereco.cep}"
-											th:data-complemento="${cliente.endereco.complemento}"
-											th:data-estado="${cliente.endereco.estado}"
+											th:data-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											th:data-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											th:data-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											th:data-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											th:data-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											th:data-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											th:data-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : ''"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -416,13 +422,13 @@
 											th:data-email="${cliente.email}" 
 											th:data-telefone="${cliente.telefone}"
 											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
-											th:data-logradouro="${cliente.endereco.logradouro}"
-											th:data-numero="${cliente.endereco.numero}"
-											th:data-bairro="${cliente.endereco.bairro}"
-											th:data-cidade="${cliente.endereco.cidade}"
-											th:data-cep="${cliente.endereco.cep}"
-											th:data-complemento="${cliente.endereco.complemento}"
-											th:data-estado="${cliente.endereco.estado}"
+											th:data-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											th:data-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											th:data-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											th:data-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											th:data-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											th:data-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											th:data-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : ''"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -449,13 +455,13 @@
 											th:data-email="${cliente.email}" 
 											th:data-telefone="${cliente.telefone}"
 											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
-											th:data-logradouro="${cliente.endereco.logradouro}"
-											th:data-numero="${cliente.endereco.numero}"
-											th:data-bairro="${cliente.endereco.bairro}"
-											th:data-cidade="${cliente.endereco.cidade}"
-											th:data-cep="${cliente.endereco.cep}"
-											th:data-complemento="${cliente.endereco.complemento}"
-											th:data-estado="${cliente.endereco.estado}"
+											th:data-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											th:data-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											th:data-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											th:data-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											th:data-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											th:data-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											th:data-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : ''"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -482,13 +488,13 @@
 											th:data-email="${cliente.email}" 
 											th:data-telefone="${cliente.telefone}"
 											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
-											th:data-logradouro="${cliente.endereco.logradouro}"
-											th:data-numero="${cliente.endereco.numero}"
-											th:data-bairro="${cliente.endereco.bairro}"
-											th:data-cidade="${cliente.endereco.cidade}"
-											th:data-cep="${cliente.endereco.cep}"
-											th:data-complemento="${cliente.endereco.complemento}"
-											th:data-estado="${cliente.endereco.estado}"
+											th:data-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											th:data-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											th:data-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											th:data-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											th:data-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											th:data-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											th:data-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : ''"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -515,13 +521,13 @@
 											th:data-email="${cliente.email}" 
 											th:data-telefone="${cliente.telefone}"
 											th:data-usuarioResponsavel="${cliente.usuarioResponsavel}"
-											th:data-logradouro="${cliente.endereco.logradouro}"
-											th:data-numero="${cliente.endereco.numero}"
-											th:data-bairro="${cliente.endereco.bairro}"
-											th:data-cidade="${cliente.endereco.cidade}"
-											th:data-cep="${cliente.endereco.cep}"
-											th:data-complemento="${cliente.endereco.complemento}"
-											th:data-estado="${cliente.endereco.estado}"
+											th:data-logradouro="${cliente.endereco != null} ? ${cliente.endereco.logradouro} : ''"
+											th:data-numero="${cliente.endereco != null} ? ${cliente.endereco.numero} : ''"
+											th:data-bairro="${cliente.endereco != null} ? ${cliente.endereco.bairro} : ''"
+											th:data-cidade="${cliente.endereco != null} ? ${cliente.endereco.cidade} : ''"
+											th:data-cep="${cliente.endereco != null} ? ${cliente.endereco.cep} : ''"
+											th:data-complemento="${cliente.endereco != null} ? ${cliente.endereco.complemento} : ''"
+											th:data-estado="${cliente.endereco != null} ? ${cliente.endereco.estado} : ''"
 											onclick="abrirEditaItem(
 												this.getAttribute('data-id'), 
 												this.getAttribute('data-dataCadastro'), 
@@ -673,7 +679,7 @@
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Descrição
 					</label>
-					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="descricao_filtro_input"/>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="descricao_filtro_input"/>
 				</div>
 
 
@@ -731,7 +737,7 @@
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Telefone
 					</label>
-					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="telefone_filtro_input"/>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="telefone_filtro_input"/>
 						
 				</div>
 
@@ -739,7 +745,7 @@
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						CPF/CNPJ
 					</label>
-					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" id="cpf_filtro_input"/>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" id="cpf_filtro_input"/>
 						
 				</div>																			
 
@@ -805,7 +811,9 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>											
+					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="giro">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/money.png" th:src="@{img/money.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>		
+					</a>
 
 					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
 					
@@ -832,7 +840,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_cliente_input">
 							Nome
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input" oninput="validacaoDoObjetoCliente('edita')" required/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input" oninput="validacaoDoObjetoCliente('edita')" required/>
 					</div>							
 
 				</div>
@@ -843,14 +851,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_cliente_input">
 							E-mail
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input" onkeyup="tratamentoCampoEmail('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input" onkeyup="tratamentoCampoEmail('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>									
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_cliente_input">
 							Telefone
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>
 				
 				</div>
@@ -860,14 +868,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_data_nascimento_input">
 							Data de nascimento:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>							
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cpfCnpj_input">
 							Cpf/Cnpj:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('edita')" oninput="validacaoDoObjetoCliente('edita')" type="text"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('edita')" oninput="validacaoDoObjetoCliente('edita')" type="text"/>
 					</div>																
 
 				</div>	
@@ -888,7 +896,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
 							Cep:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="text" onkeyup="consultaEndereco('edita')" oninput="validacaoDoObjetoEndereco('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="text" onkeyup="consultaEndereco('edita')" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>						
 
 					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
@@ -931,7 +939,7 @@
 							Cidade:
 						</label>
 
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>						
 
 				</div>
@@ -942,14 +950,14 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_logradouro_input">
 							Logradouro:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_numero_input">
 							Numero:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>
 
 				</div>				
@@ -960,7 +968,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_bairro_input">
 							Bairro:
 						</label>
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>							
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -969,7 +977,7 @@
 							Complemento:
 						</label>
 
-						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
 					</div>					
 
 				</div>				

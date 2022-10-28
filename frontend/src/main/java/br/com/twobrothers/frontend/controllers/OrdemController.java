@@ -49,6 +49,7 @@ public class OrdemController {
                                @RequestParam("ano") Optional<Integer> ano,
                                @RequestParam("produto") Optional<String> produto,
                                @RequestParam("bairro") Optional<String> bairro,
+                               @RequestParam("cliente") Optional<String> cliente,
                                Model model, ModelAndView modelAndView,
                                RedirectAttributes redirAttrs,
                                ModelMap modelMap,
@@ -75,7 +76,8 @@ public class OrdemController {
                     mes.orElse(null),
                     ano.orElse(null),
                     produto.orElse(null),
-                    bairro.orElse(null));
+                    bairro.orElse(null),
+                    cliente.orElse(null));
 
             ordensSemPaginacao = ordemService.filtroOrdensSemPaginacao(
                     inicio.orElse(null),
@@ -83,7 +85,8 @@ public class OrdemController {
                     mes.orElse(null),
                     ano.orElse(null),
                     produto.orElse(null),
-                    bairro.orElse(null));
+                    bairro.orElse(null),
+                    cliente.orElse(null));
 
             paginas = ordemService.calculaQuantidadePaginas(ordensSemPaginacao, pageable);
 

@@ -3,6 +3,14 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 
+document.onkeydown=function(){
+    if(window.event.keyCode=='27') {
+        fechaNovoItem();
+        fecharFiltro();
+        fecharEditaItem();
+    }
+}
+
 function responsive(){
 
 	document.getElementById('main_loader').style.display="none";
@@ -1008,11 +1016,13 @@ function abrirEditaItem(
 	sideMenu.style.transition="1s";
 
 	// CONVERTENDO DATA PARA PADRÃO BR
-	var dataCadastroSplitada = dataCadastro.split("-");
-	if (dataCadastroSplitada.length == 3) {
-		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		subtitulo.title="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
-	}	
+	if(dataCadastro != null) {
+		var dataCadastroSplitada = dataCadastro.split("-");
+		if (dataCadastroSplitada.length == 3) {
+			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
+			subtitulo.title="Patrimônio salvo dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+		}	
+	}
 
 	// SETANDO VALORES NOS CAMPOS
 	$('#info_clicavel').attr("href", "/compras?produto=" + sigla);
