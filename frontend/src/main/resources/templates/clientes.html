@@ -294,7 +294,34 @@
 
 						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
 							<p th:text="${SucessoDelete}"></p>
-						</div>									
+						</div>
+
+						<input th:value=${tipoFiltro} id="tipo_filtro" hidden>
+						<input th:value=${pagina} id="pagina_atual" hidden>
+						<input th:value="'TOTAL DE PAGINAS: ' + ${paginas}" id="total_paginas" hidden>
+						<input th:value="'TOTAL DE ITENS: ' + ${totalItens}" id="total_itens" hidden>
+
+						<div th:if="${tipoFiltro == 'data'}">
+							<input th:value="${inicio}" id="back_inicio" hidden>
+							<input th:value="${fim}" id="back_fim" hidden>
+						</div>
+
+						<div th:if="${tipoFiltro == 'periodo'}">
+							<input th:value="${mes}" id="back_mes" hidden>
+							<input th:value="${ano}" id="back_ano" hidden>
+						</div>								
+
+						<div th:if="${tipoFiltro == 'descricao'}">
+							<input th:value="${descricao}" id="back_descricao" hidden>
+						</div>			
+
+						<div th:if="${tipoFiltro == 'cpfCnpj'}">
+							<input th:value="${cpfCnpj}" id="back_cpfCnpj" hidden>
+						</div>			
+
+						<div th:if="${tipoFiltro == 'telefone'}">
+							<input th:value="${telefone}" id="back_telefone" hidden>
+						</div>														
 
 						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
 							Clientes
@@ -571,8 +598,8 @@
 						</div>
 					</div>
 
-					<!-- Início da paginação -->
-					<div class="row page_row">
+						<!-- Início da paginação -->
+						<div class="row page_row">
 
 							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
 
@@ -580,59 +607,35 @@
 
 									<li class="li page">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina-1})}" class="li_a page_click" id="anterior">	
+										<a class="li_a page_click" id="anterior">
 											Anterior
-										</a>
-
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${descricao})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>
-
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, descricao=${tipo})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>
-
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${pagina-1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="anterior">	
-											Anterior
-										</a>																																								
+										</a>																						
 									</li>
 
 									<div th:text="${pagina}" th:value="${pagina}" id="pegando_page" style="display:none"></div>			
 
 									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${descricao})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, descricao=${tipo})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
-
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${numeroPagina}, mes=${mes}, ano=${ano})}" class="li_a page_number page_click" th:text="${numeroPagina+1}">1</a>
+										<a
+										class="li_a page_number page_click" 
+										th:data-numeroPagina="${numeroPagina}"
+										th:text="${numeroPagina+1}">1</a>
 
 									</li>
 
-									<li class="li page">
+									<li class="li page">			
 
-										<a th:if="${descricao} == null and ${tipo} == null and ${dataInicio} == null and ${dataFim} == null and ${mes} == null and ${ano} == null" th:href="@{__${baseUrl}__/clientes(page=${pagina+1})}" class="li_a page_click" id="proxima">Próximo</a>
+										<a class="li_a page_click" id="proxima">
+											Próximo
+										</a>	
 
-										<a th:if="${descricao}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${descricao})}" class="li_a page_click" id="proxima">Próximo</a>	
-
-										<a th:if="${tipo}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, descricao=${tipo})}" class="li_a page_click" id="proxima">Próximo</a>	
-
-										<a th:if="${dataInicio} and ${dataFim}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, inicio=${dataInicio}, fim=${dataFim})}" class="li_a page_click" id="proxima">Próximo</a>
-
-										<a th:if="${mes} and ${ano}" th:href="@{__${baseUrl}__/clientes(page=${pagina+1}, mes=${mes}, ano=${ano})}" class="li_a page_click" id="proxima">Próximo</a>																																
 									</li>
+
 								</ul>
+
 							</div>
-						</div><!-- PAGE_ROW-->
-					</div>
+						</div>
+
 				</div>
 			</main>
 		</div>

@@ -86,6 +86,12 @@ public class PatrimonioController {
             return modelAndView;
         }
 
+        model.addAttribute("tipoFiltro", "mesAtual");
+
+        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
+        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
+        if (tipo.isPresent()) model.addAttribute("tipoFiltro", "tipo");
+
         model.addAttribute("descricao", descricao.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));

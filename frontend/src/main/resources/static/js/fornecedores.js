@@ -3,6 +3,7 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
+buildUrlPages();
 
 document.onkeydown=function(){
     if(window.event.keyCode=='27') {
@@ -1682,6 +1683,104 @@ function buildUrl(baseUrl, pagina, descricao, tipo, dataInicio, dataFim, mes, an
 	}
 
 	paginaList.href=baseUrl;
+}
+
+function buildUrlPages() {
+
+	var paginaAtual = document.getElementById('pagina_atual');
+	var tipoFiltro = document.getElementById('tipo_filtro');
+
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var periodoMes = document.getElementById('back_mes');
+	var periodoAno = document.getElementById('back_ano');	
+	var descricao = document.getElementById('back_descricao');		
+	var cpfCnpj = document.getElementById('back_cpfCnpj');			
+	var telefone = document.getElementById('back_telefone');	
+
+	var pageNumber = document.getElementsByClassName('page_number');
+
+	if(tipoFiltro.value == 'data') {
+
+		$('#anterior').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		$('#proxima').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/fornecedores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'periodo') {
+
+		$('#anterior').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		$('#proxima').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+
+		
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/fornecedores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'descricao') {
+
+		$('#anterior').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
+		$('#proxima').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/fornecedores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'cpfCnpj') {
+
+		$('#anterior').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) - 1)  + "&cpfCnpj=" + cpfCnpj.value);
+		$('#proxima').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) + 1)  + "&cpfCnpj=" + cpfCnpj.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/fornecedores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&cpfCnpj=" + cpfCnpj.value);
+		}					
+	}
+
+	else if(tipoFiltro.value == 'telefone') {
+
+		$('#anterior').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) - 1)  + "&telefone=" + telefone.value);
+		$('#proxima').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) + 1)  + "&telefone=" + telefone.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/fornecedores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&telefone=" + telefone.value);
+		}	
+
+	}
+	else {
+		$('#anterior').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) - 1));
+		$('#proxima').attr("href", "/fornecedores?page=" + (parseInt(paginaAtual.value) + 1));
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/fornecedores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
+		}		
+	}	
 }
 
 function hideMessage(){

@@ -3,6 +3,7 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
+buildUrlPages();
 
 document.onkeydown=function(){
     if(window.event.keyCode=='27') {
@@ -1245,6 +1246,76 @@ function editaItemChangeTipo() {
 }
 
 /* ================== MISC ====================== */
+
+function buildUrlPages() {
+
+	var paginaAtual = document.getElementById('pagina_atual');
+	var tipoFiltro = document.getElementById('tipo_filtro');
+
+	var descricao = document.getElementById('back_descricao');
+	var periodoMes = document.getElementById('back_mes');
+	var periodoAno = document.getElementById('back_ano');	
+	var tipo = document.getElementById('back_tipo');		
+
+	var pageNumber = document.getElementsByClassName('page_number');
+
+	if(tipoFiltro.value == 'descricao') {
+
+		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
+		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'periodo') {
+
+		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+
+		
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'tipo') {
+
+		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&tipo=" + tipo.value);
+		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&tipo=" + tipo.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&tipo=" + tipo.value);
+		}
+
+	}
+
+	else {
+
+		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1));
+		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1));
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
+		}		
+	}
+
+}
 
 function buildUrl(baseUrl, pagina, descricao, tipo, mes, ano) {
 

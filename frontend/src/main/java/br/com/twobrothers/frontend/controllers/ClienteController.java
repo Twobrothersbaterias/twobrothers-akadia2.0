@@ -92,6 +92,15 @@ public class ClienteController {
             return modelAndView;
         }
 
+        model.addAttribute("tipoFiltro", "hoje");
+
+        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
+        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
+        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
+        if (cpfCnpj.isPresent()) model.addAttribute("tipoFiltro", "cpfCnpj");
+        if (telefone.isPresent()) model.addAttribute("tipoFiltro", "telefone");
+
+        model.addAttribute("totalItens", clientesSemPaginacao.size());
         model.addAttribute("descricao", descricao.orElse(null));
         model.addAttribute("dataInicio", inicio.orElse(null));
         model.addAttribute("dataFim", fim.orElse(null));

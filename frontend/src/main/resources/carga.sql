@@ -22,9 +22,24 @@ INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descrica
 DELETE FROM tb_despesa;
 
 # CARGA DE PATRIMONIOS
-INSERT INTO tb_patrimonio(nome, data_cadastro, tipo_patrimonio, status_patrimonio, data_agendamento, data_pagamento, valor, usuario_responsavel) VALUES
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', 'Não possui', '2022-09-18', 60000.0, 'admin');
-
+INSERT INTO tb_patrimonio(nome, data_cadastro, tipo_patrimonio, status_patrimonio, data_entrada, valor, usuario_responsavel) VALUES
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 60000.0, 'admin'),
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 50000.0, 'admin'),
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 40000.0, 'admin'),
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 30000.0, 'admin'),
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 20000.0, 'admin'),
+    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 10000.0, 'admin'),
+    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 650000.0, 'admin'),
+    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 550000.0, 'admin'),
+    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 450000.0, 'admin'),
+    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 350000.0, 'admin'),
+    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 250000.0, 'admin'),
+    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 150000.0, 'admin'),
+    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 1500000.0, 'admin'),
+    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 950000.0, 'admin'),
+    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 550000.0, 'admin'),
+    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 150000.0, 'admin'),
+    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 21000.0, 'admin');
 # CARGA DE PRODUTOS
 INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quantidade_minima, usuario_responsavel, quantidade, custo_total, custo_unitario, tipo_produto) values
 ('2022-01-01', 'AGF65', 'AGF65', 'AGF65', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA'),

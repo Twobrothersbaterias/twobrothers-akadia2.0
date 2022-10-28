@@ -1238,6 +1238,14 @@ function buildUrlPagamentos() {
 		$('#pix').attr("href", "/compras?produto=" + produto.value + "&meio=PIX");
 		$('#boleto').attr("href", "/compras?produto=" + produto.value + "&meio=BOLETO");								
 	}
+	else {
+		$('#especie').attr("href", "/compras?meio=DINHEIRO");
+		$('#credito').attr("href", "/compras?meio=CREDITO");
+		$('#debito').attr("href", "/compras?meio=DEBITO");
+		$('#cheque').attr("href", "/compras?meio=CHEQUE");
+		$('#pix').attr("href", "/compras?meio=PIX");
+		$('#boleto').attr("href", "/compras?meio=BOLETO");		
+	}
 
 }
 
@@ -1378,6 +1386,29 @@ function buildUrlPages() {
 			}		
 		}								
 	}
+	else {
+		if (meioAtivo.value == null || meioAtivo.value == "") {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1));
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1));
+		}
+		else {
+			$('#anterior').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) - 1) + "&meio=" + meioAtivo.value);
+			$('#proxima').attr("href", "/compras?page=" + (parseInt(paginaAtual.value) + 1) + "&meio=" + meioAtivo.value);	
+		}		
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			if (meioAtivo.value == null || meioAtivo.value == "") {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
+			}	
+			else {
+				$('#' + idPagina).attr("href", "/compras?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&meio=" + meioAtivo.value);				
+			}
+		}		
+	}	
 
 }
 

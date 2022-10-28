@@ -3,6 +3,7 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
+buildUrlPages();
 
 document.onkeydown=function(){
     if(window.event.keyCode=='27') {
@@ -1347,6 +1348,90 @@ function editaDespesaChangeStatus() {
 	}
 }
 
+function buildUrlPages() {
+
+	var paginaAtual = document.getElementById('pagina_atual');
+	var tipoFiltro = document.getElementById('tipo_filtro');
+
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var periodoMes = document.getElementById('back_mes');
+	var periodoAno = document.getElementById('back_ano');	
+	var descricao = document.getElementById('back_descricao');		
+	var tipo = document.getElementById('back_tipo');	
+
+	var pageNumber = document.getElementsByClassName('page_number');
+
+	if(tipoFiltro.value == 'data') {
+
+		$('#voltar').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		$('#proxima').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			console.log(pageNumber[i]);
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/despesas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'periodo') {
+
+		$('#voltar').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		$('#proxima').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+
+		
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/despesas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'descricao') {
+
+		$('#voltar').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
+		$('#proxima').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/despesas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
+		}
+
+	}
+
+	else if(tipoFiltro.value == 'tipo') {
+
+		$('#voltar').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) - 1)  + "&tipo=" + tipo.value);
+		$('#proxima').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) + 1)  + "&tipo=" + tipo.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/despesas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&tipo=" + tipo.value);
+		}					
+	}
+	else {
+		$('#voltar').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) - 1));
+		$('#proxima').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) + 1));
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/despesas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
+		}		
+	}	
+
+}
+
 function buildUrl(baseUrl, pagina, descricao, tipo, dataInicio, dataFim, mes, ano) {
 
 	var url = baseUrl + "?page=" + pagina;
@@ -1491,13 +1576,13 @@ function pageResponsiva(){
 	}
 
 	if(PaginaSelecionada == 1){
-		document.getElementById('anterior').style.pointerEvents="none";
-		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="#212121";
+		document.getElementById('voltar').style.pointerEvents="none";
+		document.getElementById('voltar').style.borderColor="#303030";
+		document.getElementById('voltar').style.color="#212121";
 	}
 	else{
-		document.getElementById('anterior').style.pointerEvents="auto";
-		document.getElementById('anterior').style.borderColor="#303030";
-		document.getElementById('anterior').style.color="#C3C8C8";
+		document.getElementById('voltar').style.pointerEvents="auto";
+		document.getElementById('voltar').style.borderColor="#303030";
+		document.getElementById('voltar').style.color="#C3C8C8";
 	}
 }
