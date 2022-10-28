@@ -734,8 +734,14 @@ function filtroChange() {
 
 	var filtroTipo = document.getElementById('filtro_input');
 
-	var descricaoBlock = document.getElementById('filtro_descricao_block');
-	var descricaoInput = document.getElementById('descricao_filtro_input');
+	var produtoBlock = document.getElementById('filtro_produto_block');
+	var produtoInput = document.getElementById('produto_filtro_input');
+
+	var dataInicio = document.getElementById('filtro_data_inicio_block');
+	var dataInicioInput = document.getElementById('data_inicio_filtro_input');
+
+	var dataFim = document.getElementById('filtro_data_fim_block');
+	var dataFimInput = document.getElementById('data_fim_filtro_input');	
 
 	var mesBlock = document.getElementById('filtro_mes_block');
 	var mesInput = document.getElementById('mes_filtro_input');
@@ -743,8 +749,8 @@ function filtroChange() {
 	var anoBlock = document.getElementById('filtro_ano_block');
 	var anoInput = document.getElementById('ano_filtro_input');
 
-	var tipo = document.getElementById('filtro_tipo_block');
-	var tipoInput = document.getElementById('tipo_filtro_input');	
+	var bairro = document.getElementById('filtro_bairro_block');
+	var bairroInput = document.getElementById('bairro_filtro_input');	
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -761,9 +767,15 @@ function filtroChange() {
 
 	var data = (ano + '-' + mes + '-' + dia);
 
-	if (filtroTipo.value == 'DESCRICAO') {
+	if (filtroTipo.value == 'PRODUTO') {
 
-		descricaoBlock.hidden=false;
+		produtoBlock.hidden=false;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;		
 
 		mesInput.value=mes;
 		mesBlock.hidden=true;
@@ -771,14 +783,41 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		tipoInput.value="FIXO";
-		tipo.hidden=true;
+		bairroInput.value="";
+		bairro.hidden=true;
 
+	}
+	else if (filtroTipo.value == 'DATA') {
+
+		produtoInput.value="";
+		produtoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=false;
+
+		dataFimInput.value=data;
+		dataFim.hidden=false;		
+
+		mesInput.value=mes;
+		mesBlock.hidden=true;
+
+		anoInput.value=ano;
+		anoBlock.hidden=true;
+
+		bairroInput.value="";
+		bairro.hidden=true;
+		
 	}
 	else if (filtroTipo.value == 'PERIODO') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		produtoInput.value="";
+		produtoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;		
 
 		mesInput.value=mes;
 		mesBlock.hidden=false;
@@ -786,14 +825,20 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=false;
 
-		tipoInput.value="FIXO";
-		tipo.hidden=true;
+		bairroInput.value="";
+		bairro.hidden=true;
 		
 	}
-	else if (filtroTipo.value == 'TIPO') {
+	else if (filtroTipo.value == 'BAIRRO') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		produtoInput.value="";
+		produtoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;		
 
 		mesInput.value=mes;
 		mesBlock.hidden=true;
@@ -801,8 +846,7 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		tipoInput.value="FIXO";
-		tipo.hidden=false;
+		bairro.hidden=false;
 		
 	}
 }
@@ -827,34 +871,43 @@ function reloadFiltro() {
 	document.getElementById('filtro_input').disabled=false;
 	document.getElementById('filtro_input').style.border="1px solid #949393";
 	document.getElementById('filtro_input').style.pointerEvents="auto";
-	document.getElementById('filtro_input').value="DESCRICAO";
+	document.getElementById('filtro_input').value="PRODUTO";
 	document.getElementById('filtro_bt').hidden=false;
 	document.getElementById('filtro_bt').disabled=false;
 	document.getElementById('filtro_bt').style.pointerEvents="auto";
 	document.getElementById('filtro_buscar_bt').hidden=true;
 
-	document.getElementById('tipo_filtro_option_descricao').hidden=false;
-	document.getElementById('filtro_descricao_block').hidden=false;	
-	document.getElementById('filtro_descricao_tag').hidden=true;
+	document.getElementById('tipo_filtro_option_produto').hidden=false;
+	document.getElementById('filtro_produto_block').hidden=false;	
+	document.getElementById('filtro_produto_tag').hidden=true;
 
 	document.getElementById('tipo_filtro_option_periodo').hidden=false;
 	document.getElementById('filtro_mes_block').hidden=true;	
 	document.getElementById('filtro_ano_block').hidden=true;	
 	document.getElementById('filtro_periodo_tag').hidden=true;		
 
-	document.getElementById('tipo_filtro_option_tipo').hidden=false;
-	document.getElementById('filtro_tipo_block').hidden=true;	
-	document.getElementById('filtro_tipo_tag').hidden=true;	
+	document.getElementById('tipo_filtro_option_bairro').hidden=false;
+	document.getElementById('filtro_bairro_block').hidden=true;	
+	document.getElementById('filtro_bairro_tag').hidden=true;	
 
-	document.getElementById('descricao_filtro_input').value="";
+	document.getElementById('produto_filtro_input').value="";
 	document.getElementById('mes_filtro_input').value=mes;
 	document.getElementById('ano_filtro_input').value=ano;
-	document.getElementById('tipo_filtro_input').value="FIXO";
+	document.getElementById('bairro_filtro_input').value="";
 
-	document.getElementById('input_descricao_backend').value="";
+	document.getElementById('input_produto_backend').value="";
 	document.getElementById('input_periodo_mes_backend').value="";
 	document.getElementById('input_periodo_ano_backend').value="";
-	document.getElementById('input_tipo_backend').value="";	
+	document.getElementById('input_bairro_backend').value="";	
+
+	document.getElementById('tipo_filtro_option_data').hidden=false;
+	document.getElementById('filtro_data_inicio_block').hidden=true;
+	document.getElementById('data_inicio_filtro_input').value=data;
+	document.getElementById('input_data_inicio_backend').value="";
+	document.getElementById('filtro_data_fim_block').hidden=true;	
+	document.getElementById('data_fim_filtro_input').value=data;
+	document.getElementById('input_data_fim_backend').value="";
+	document.getElementById('filtro_data_tag').hidden=true;	
 }
 
 function addFiltro() {
@@ -863,37 +916,46 @@ function addFiltro() {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optionProduto = document.getElementById('tipo_filtro_option_produto');
+	var produtoBlock = document.getElementById('filtro_produto_block');	
+	var produtoTag = document.getElementById('filtro_produto_tag');
+
+	var optionData = document.getElementById('tipo_filtro_option_data');
+	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
+	var dataFimBlock = document.getElementById('filtro_data_fim_block');	
+	var dataTag = document.getElementById('filtro_data_tag');		
 
 	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
 	var periodoMesBlock = document.getElementById('filtro_mes_block');	
 	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
 	var periodoTag = document.getElementById('filtro_periodo_tag');		
 
-	var optionTipo = document.getElementById('tipo_filtro_option_tipo');
-	var tipoBlock = document.getElementById('filtro_tipo_block');	
-	var tipoTag = document.getElementById('filtro_tipo_tag');	
+	var optionBairro = document.getElementById('tipo_filtro_option_bairro');
+	var bairroBlock = document.getElementById('filtro_bairro_block');	
+	var bairroTag = document.getElementById('filtro_bairro_tag');	
 
-	var inputDescricaoFiltro = document.getElementById('descricao_filtro_input');
+	var inputProdutoFiltro = document.getElementById('produto_filtro_input');
+	var inputDataInicioFiltro = document.getElementById('data_inicio_filtro_input');
+	var inputDataFimFiltro = document.getElementById('data_fim_filtro_input');		
 	var inputMesFiltro = document.getElementById('mes_filtro_input');
 	var inputAnoFiltro = document.getElementById('ano_filtro_input');
-	var inputTipoFiltro = document.getElementById('tipo_filtro_input');
+	var inputBairroFiltro = document.getElementById('bairro_filtro_input');
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
+	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
+	var inputDataFimBackend = document.getElementById('input_data_fim_backend');	
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTipoBackend = document.getElementById('input_tipo_backend');
+	var inputBairroBackend = document.getElementById('input_bairro_backend');
 
-	if (filtroTipo.value == 'DESCRICAO') {
-		if (inputDescricaoFiltro.value != "") {
-			optionDescricao.hidden=true;
-			descricaoBlock.hidden=true;
-			descricaoTag.hidden=false;
-			descricaoTag.innerText = "Descrição: " + inputDescricaoFiltro.value;
+	if (filtroTipo.value == 'PRODUTO') {
+		if (inputProdutoFiltro.value != "") {
+			optionProduto.hidden=true;
+			produtoBlock.hidden=true;
+			produtoTag.hidden=false;
+			produtoTag.innerText = "Produto: " + inputProdutoFiltro.value;
 			filtroTipo.value="";
-			inputDescricaoBackend.value=inputDescricaoFiltro.value;
+			inputProdutoBackend.value=inputProdutoFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -903,7 +965,38 @@ function addFiltro() {
 			filtroBt.style.pointerEvents="none";				
 		}
 	}
+	else if (filtroTipo.value == 'DATA') {
+		optionData.hidden=true;
+		optionPeriodo.hidden=true;
+
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+
+		dataTag.hidden=false;
+		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+
+		filtroTipo.value="";
+		inputDataInicioBackend.value=inputDataInicioFiltro.value;
+		inputDataFimBackend.value=inputDataFimFiltro.value;
+
+		filtroBt.hidden=true;
+		buscarBt.hidden=false;
+		filtroTipo.style.border="1px solid grey";
+		filtroTipo.disabled=true;
+		filtroBt.disabled=true;
+		filtroBt.style.pointerEvents="none";			
+	}	
 	else if (filtroTipo.value == 'PERIODO') {
+
+		optionData.hidden=true;
+		optionPeriodo.hidden=true;
+
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+
 		optionPeriodo.hidden=true;
 
 		periodoMesBlock.hidden=true;
@@ -923,15 +1016,15 @@ function addFiltro() {
 		filtroBt.disabled=true;
 		filtroBt.style.pointerEvents="none";		
 	}
-	else if (filtroTipo.value == 'TIPO') {
-		optionTipo.hidden=true;
-		tipoBlock.hidden=true;
+	else if (filtroTipo.value == 'BAIRRO') {
+		optionBairro.hidden=true;
+		bairroBlock.hidden=true;
 
-		tipoTag.hidden=false;
-		tipoTag.innerText = 'Tipo: ' + inputTipoFiltro.value;
+		bairroTag.hidden=false;
+		bairroTag.innerText = 'Bairro: ' + inputBairroFiltro.value;
 
 		filtroTipo.value="";
-		inputTipoBackend.value=inputTipoFiltro.value;
+		inputBairroBackend.value=inputBairroFiltro.value;
 
 		filtroBt.hidden=true;
 		buscarBt.hidden=false;
@@ -948,52 +1041,82 @@ function removerFiltro(filtro) {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optionProduto = document.getElementById('tipo_filtro_option_produto');
+	var produtoBlock = document.getElementById('filtro_produto_block');	
+	var produtoTag = document.getElementById('filtro_produto_tag');
+
+	var optionData = document.getElementById('tipo_filtro_option_data');
+	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
+	var dataFimBlock = document.getElementById('filtro_data_fim_block');	
+	var dataTag = document.getElementById('filtro_data_tag');		
 
 	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
 	var periodoMesBlock = document.getElementById('filtro_mes_block');	
 	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
 	var periodoTag = document.getElementById('filtro_periodo_tag');		
 
-	var optionTipo = document.getElementById('tipo_filtro_option_tipo');
-	var tipoBlock = document.getElementById('filtro_tipo_block');	
-	var tipoTag = document.getElementById('filtro_tipo_tag');	
+	var optionBairro = document.getElementById('tipo_filtro_option_bairro');
+	var bairroBlock = document.getElementById('filtro_bairro_block');	
+	var bairroTag = document.getElementById('filtro_bairro_tag');	
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
+	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
+	var inputDataFimBackend = document.getElementById('input_data_fim_backend');	
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTipoBackend = document.getElementById('input_tipo_backend');	
+	var inputBairroBackend = document.getElementById('input_bairro_backend');	
 	
 	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
 	filtroBt.disabled=false;
 	filtroBt.style.pointerEvents="auto";	
 
-	if (filtro == 'descricao') {		
+	if (filtro == 'produto') {		
 
-		optionDescricao.hidden=false;
+		optionProduto.hidden=false;
 
-		descricaoBlock.hidden=false;
+		produtoBlock.hidden=false;
 
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
-		tipoBlock.hidden=true;
+		bairroBlock.hidden=true;
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;		
 
-		descricaoTag.hidden=true;
+		produtoTag.hidden=true;
 
-		filtroTipo.value="DESCRICAO";
+		filtroTipo.value="PRODUTO";
 
-		inputDescricaoBackend.value="";
+		inputProdutoBackend.value="";
 	}
-	else if (filtro == 'periodo') {
+	else if (filtro == 'data') {
+		optionData.hidden=false;
 		optionPeriodo.hidden=false;
 
-		descricaoBlock.hidden=true;
+		produtoBlock.hidden=true;
+		dataInicioBlock.hidden=false;
+		dataFimBlock.hidden=false;
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+		bairroBlock.hidden=true;
+
+		dataTag.hidden=true;
+		filtroTipo.value="DATA";
+
+		inputDataInicioBackend.value="";
+		inputDataFimBackend.value="";
+	}	
+	else if (filtro == 'periodo') {
+
+		optionData.hidden=false;
+		optionPeriodo.hidden=false;
+
+		produtoBlock.hidden=true;
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;		
 		periodoMesBlock.hidden=false;
 		periodoAnoBlock.hidden=false;
-		tipoBlock.hidden=true;
+		bairroBlock.hidden=true;
 
 		periodoTag.hidden=true;
 		filtroTipo.value="PERIODO";
@@ -1001,20 +1124,21 @@ function removerFiltro(filtro) {
 		inputMesBackend.value="";
 		inputAnoBackend.value="";
 	}
-	else if (filtro == 'tipo') {
-		optionTipo.hidden=false;
+	else if (filtro == 'bairro') {
+		optionBairro.hidden=false;
 
-		descricaoBlock.hidden=true;
-
+		produtoBlock.hidden=true;
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
-		tipoBlock.hidden=false;
+		bairroBlock.hidden=false;
 
-		tipoTag.hidden=true;
+		bairroTag.hidden=true;
 
-		filtroTipo.value="TIPO";
+		filtroTipo.value="BAIRRO";
 
-		inputTipoBackend.value="";
+		inputBairroBackend.value="";
 	}	
 
 	buscarBt.hidden=true;		
@@ -1023,20 +1147,29 @@ function removerFiltro(filtro) {
 
 function efeitoRemoverFiltro(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtroProduto = document.getElementById('filtro_produto_tag');
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTipo = document.getElementById('filtro_tipo_tag');	
+	var filtroBairro = document.getElementById('filtro_bairro_tag');
+	var filtroData = document.getElementById('filtro_data_tag');			
 
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="0.5s"
-		filtroDescricao.style.background="#AA3C3C";
-		filtroDescricao.style.border="1px solid #AA3C3C";
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Remover";
-		filtroDescricao.style.cursor="pointer";
+	if (filtro == 'produto') {
+		filtroProduto.style.transition="0.5s"
+		filtroProduto.style.background="#AA3C3C";
+		filtroProduto.style.border="1px solid #AA3C3C";
+		filtroProduto.style.color="#212121";
+		filtroProduto.innerText="Remover";
+		filtroProduto.style.cursor="pointer";
 
-	}	
+	}
+	else if (filtro == 'data') {
+		filtroData.style.transition="0.5s"
+		filtroData.style.background="#AA3C3C";
+		filtroData.style.border="1px solid #AA3C3C";
+		filtroData.style.color="#212121";
+		filtroData.innerText="Remover";
+		filtroData.style.cursor="pointer";
+	}			
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="0.5s"
 		filtroPeriodo.style.background="#AA3C3C";
@@ -1045,36 +1178,45 @@ function efeitoRemoverFiltro(filtro) {
 		filtroPeriodo.innerText="Remover";
 		filtroPeriodo.style.cursor="pointer";
 	}
-	else if (filtro == 'tipo') {
-		filtroTipo.style.transition="0.5s"
-		filtroTipo.style.background="#AA3C3C";
-		filtroTipo.style.border="1px solid #AA3C3C";
-		filtroTipo.style.color="#212121";
-		filtroTipo.innerText="Remover";
-		filtroTipo.style.cursor="pointer";
+	else if (filtro == 'bairro') {
+		filtroBairro.style.transition="0.5s"
+		filtroBairro.style.background="#AA3C3C";
+		filtroBairro.style.border="1px solid #AA3C3C";
+		filtroBairro.style.color="#212121";
+		filtroBairro.innerText="Remover";
+		filtroBairro.style.cursor="pointer";
 	}			
 }
 
 function efeitoRemoverFiltroLeave(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtroProduto = document.getElementById('filtro_produto_tag');
+	var filtroData = document.getElementById('filtro_data_tag');	
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTipo = document.getElementById('filtro_tipo_tag');		
+	var filtroBairro = document.getElementById('filtro_bairro_tag');		
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
+	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
+	var inputDataFimBackend = document.getElementById('input_data_fim_backend');	
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTipoBackend = document.getElementById('input_tipo_backend');	
+	var inputBairroBackend = document.getElementById('input_bairro_backend');	
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="1s"
-		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #212121"
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Descrição";
-		filtroDescricao.innerText = 'Descrição: ' + inputDescricaoBackend.value;
-
+	if (filtro == 'produto') {
+		filtroProduto.style.transition="1s"
+		filtroProduto.style.background="transparent";
+		filtroProduto.style.border="1px solid #212121"
+		filtroProduto.style.color="#212121";
+		filtroProduto.innerText="Descrição";
+		filtroProduto.innerText = 'Produto: ' + inputProdutoBackend.value;
 	}
+	else if (filtro == 'data') {
+		filtroData.style.transition="1s"
+		filtroData.style.background="transparent";
+		filtroData.style.border="1px solid #212121"
+		filtroData.style.color="#212121";
+		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+	}	
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
 		filtroPeriodo.style.background="transparent";
@@ -1082,12 +1224,12 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroPeriodo.style.color="#212121";
 		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
 	}
-	else if (filtro == 'tipo') {
-		filtroTipo.style.transition="1s"
-		filtroTipo.style.background="transparent";
-		filtroTipo.style.border="1px solid #212121"
-		filtroTipo.style.color="#212121";
-		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
+	else if (filtro == 'bairro') {
+		filtroBairro.style.transition="1s"
+		filtroBairro.style.background="transparent";
+		filtroBairro.style.border="1px solid #212121"
+		filtroBairro.style.color="#212121";
+		filtroBairro.innerText = 'Bairro: ' + inputBairroBackend.value;
 	}		
 }
 
@@ -1334,16 +1476,16 @@ function ajustaDatas() {
 
 /* ================== MISC ====================== */
 
-function buildUrl(baseUrl, pagina, descricao, tipo, mes, ano) {
+function buildUrl(baseUrl, pagina, produto, bairro, mes, ano) {
 
 	var url = baseUrl + "?page=" + pagina;
 	var paginaList = document.getElementById('pagina_list');
 
-	if (descricao != null) {
-		baseUrl + "&descricao=" + descricao;
+	if (produto != null) {
+		baseUrl + "&produto=" + produto;
 	}		
-	else if (tipo != null) {
-		baseUrl + "&tipo=" + tipo;
+	else if (bairro != null) {
+		baseUrl + "&bairro=" + bairro;
 	}
 	else if (mes != null && ano != null) {
 		baseUrl + "&mes=" + mes + "&ano=" + ano;	

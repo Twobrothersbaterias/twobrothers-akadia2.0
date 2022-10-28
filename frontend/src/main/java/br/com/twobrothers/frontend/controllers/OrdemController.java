@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -37,12 +38,17 @@ public class OrdemController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    OrdemRepository ordemRepository;
+
     @GetMapping
     public ModelAndView ordens(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
                                @RequestParam("inicio") Optional<String> inicio,
                                @RequestParam("fim") Optional<String> fim,
                                @RequestParam("mes") Optional<Integer> mes,
                                @RequestParam("ano") Optional<Integer> ano,
+                               @RequestParam("produto") Optional<String> produto,
+                               @RequestParam("bairro") Optional<String> bairro,
                                Model model, ModelAndView modelAndView,
                                RedirectAttributes redirAttrs,
                                ModelMap modelMap,
@@ -67,13 +73,17 @@ public class OrdemController {
                     inicio.orElse(null),
                     fim.orElse(null),
                     mes.orElse(null),
-                    ano.orElse(null));
+                    ano.orElse(null),
+                    produto.orElse(null),
+                    bairro.orElse(null));
 
             ordensSemPaginacao = ordemService.filtroOrdensSemPaginacao(
                     inicio.orElse(null),
                     fim.orElse(null),
                     mes.orElse(null),
-                    ano.orElse(null));
+                    ano.orElse(null),
+                    produto.orElse(null),
+                    bairro.orElse(null));
 
             paginas = ordemService.calculaQuantidadePaginas(ordensSemPaginacao, pageable);
 
@@ -87,6 +97,9 @@ public class OrdemController {
         model.addAttribute("dataFim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));
+        model.addAttribute("produto", produto.orElse(null));
+        model.addAttribute("bairro", bairro.orElse(null));
+
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("quantidadeVendida", ordemService.calculaQuantidadeVendida(ordensSemPaginacao));

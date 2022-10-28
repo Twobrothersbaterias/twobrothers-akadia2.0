@@ -1016,13 +1016,13 @@ function abrirEditaItem(
 
 	// SETANDO VALORES NOS CAMPOS
 	$('#info_clicavel').attr("href", "/compras?produto=" + sigla);
+	$('#info_clicavel_money').attr("href", "/vendas?produto=" + sigla);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('sigla_produto_input_edicao').value=sigla;
 	document.getElementById('tipo_produto_input_edicao').value=tipoProduto;
 	document.getElementById('especificacao_produto_input_edicao').value=especificacao;
 	document.getElementById('marca_produto_input_edicao').value=marcaBateria;
 	document.getElementById('quantidadeMinima_produto_input_edicao').value=quantidadeMinima;
-
 }
 
 function fecharEditaItem() {

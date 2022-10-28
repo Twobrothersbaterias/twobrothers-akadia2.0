@@ -62,9 +62,13 @@ public class GerenciamentoEstoqueService {
     }
 
     public boolean verificaSeExiste(EntradaOrdemDTO entradaOrdemDTO) {
-        Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
-                produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
-        if (produtoEstoqueEntityOptional.isPresent()) return true;
+        if(entradaOrdemDTO.getProduto() != null) {
+            Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
+                    produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
+            if (produtoEstoqueEntityOptional.isPresent()) return true;
+        }
+        else return true;
+
         throw new ObjectNotFoundException("Não existe nenhum produto com a sigla " + entradaOrdemDTO.getProduto().getSigla());
     }
 
@@ -84,19 +88,23 @@ public class GerenciamentoEstoqueService {
         ProdutoEstoqueEntity produtoEstoque = new ProdutoEstoqueEntity();
 
         for (EntradaOrdemDTO entradaOrdemDTO : entradas) {
-            if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
-                produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
-                produtosInseridos.add(produtoEstoque);
+            if (entradaOrdemDTO.getProduto() != null) {
+                if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
+                    produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
+                    produtosInseridos.add(produtoEstoque);
+                }
             }
         }
 
         for (EntradaOrdemDTO entradaOrdemDTO : entradas) {
-            if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
-                ProdutoEstoqueEntity produtoEstoqueEntity = produtosInseridos.get(produtosInseridos.indexOf(produtoEstoque));
-                produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
-                if (produtoEstoqueEntity.getQuantidade() < 0)
-                    throw new InvalidRequestException("A quantidade do produto" + produtoEstoqueEntity.getSigla() +
-                            "passada pela ordem é maior do que a que existe em estoque");
+            if (entradaOrdemDTO.getProduto() != null) {
+                if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
+                    ProdutoEstoqueEntity produtoEstoqueEntity = produtosInseridos.get(produtosInseridos.indexOf(produtoEstoque));
+                    produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
+                    if (produtoEstoqueEntity.getQuantidade() < 0)
+                        throw new InvalidRequestException("A quantidade do produto" + produtoEstoqueEntity.getSigla() +
+                                "passada pela ordem é maior do que a que existe em estoque");
+                }
             }
         }
 

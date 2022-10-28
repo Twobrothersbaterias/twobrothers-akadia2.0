@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.repositories.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
+import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.entities.*;
 import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
@@ -20,6 +21,7 @@ import br.com.twobrothers.frontend.utils.TrataAtributosVazios;
 import br.com.twobrothers.frontend.validations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -173,40 +175,48 @@ public class OrdemCrudService {
         log.info("[PROGRESS] Iniciando iteração por todas as entradas recebidas na requisição...");
         for (EntradaOrdemDTO entradaOrdemDTO : ordem.getEntradas()) {
 
-            log.info("[PROGRESS] Iniciando validação do objeto ProdutoDTO de sigla {} recebido pela requisição através" +
-                    "do objeto OrdemDTO -> EntradaDTO...", entradaOrdemDTO.getProduto().getSigla());
-            produtoEstoqueValidation.validaCorpoRequisicao
-                    (entradaOrdemDTO.getProduto(), produtoEstoqueRepository, ValidationType.UPDATE);
+            Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional = null;
 
-            log.info("[PROGRESS] Iniciando verificação se objeto Produto DTO {} existe na base de dados...",
-                    entradaOrdemDTO.getProduto().getSigla());
-            Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
-                    produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
+            if (entradaOrdemDTO.getProduto() != null) {
+                log.info("[PROGRESS] Iniciando validação do objeto ProdutoDTO de sigla {} recebido pela requisição através" +
+                        "do objeto OrdemDTO -> EntradaDTO...", entradaOrdemDTO.getProduto().getSigla());
+                produtoEstoqueValidation.validaCorpoRequisicao
+                        (entradaOrdemDTO.getProduto(), produtoEstoqueRepository, ValidationType.UPDATE);
 
-            if (produtoEstoqueEntityOptional.isEmpty()) {
-                log.error("[ERROR] O produto informado de sigla {} não existe na base de dados",
+                log.info("[PROGRESS] Iniciando verificação se objeto Produto DTO {} existe na base de dados...",
                         entradaOrdemDTO.getProduto().getSigla());
-                throw new ObjectNotFoundException("O produto buscado não existe na base de dados");
-            }
+                produtoEstoqueEntityOptional =
+                        produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
 
-            log.info("[PROGRESS] Iniciando acionamento do serviço de gerenciamento e alteração de estoque...");
-            gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(entradaOrdemDTO, OperacaoEstoque.CRIACAO);
+                if (produtoEstoqueEntityOptional.isEmpty()) {
+                    log.error("[ERROR] O produto informado de sigla {} não existe na base de dados",
+                            entradaOrdemDTO.getProduto().getSigla());
+                    throw new ObjectNotFoundException("O produto buscado não existe na base de dados");
+                }
+
+                log.info("[PROGRESS] Iniciando acionamento do serviço de gerenciamento e alteração de estoque...");
+                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(entradaOrdemDTO, OperacaoEstoque.CRIACAO);
+            }
 
             log.info("[PROGRESS] Persistindo ordem no banco de dados e atribuindo seu retorno à variável ordemEntity...");
             ordemEntity = repository.save(ordemEntity);
 
             log.info("[PROGRESS] Persistindo as entradas no banco de dados SEM o produto e SEM a ordem...");
+            ProdutoEstoqueDTO produto = entradaOrdemDTO.getProduto();
             entradaOrdemDTO.setProduto(null);
             entradaOrdemDTO.setOrdem(null); //ADIÇÃO DE TESTE
             EntradaOrdemEntity entradaOrdemEntity =
                     entradaOrdemRepository.save(modelMapper.mapper().map(entradaOrdemDTO, EntradaOrdemEntity.class));
 
-            log.info("[PROGRESS] Adicionando o produto à ordem e a ordem ao produto...");
-            ProdutoEstoqueEntity produtoEstoqueEntity = produtoEstoqueEntityOptional.get();
-            produtoEstoqueEntity.addEntrada(entradaOrdemEntity);
+            if(produto != null) {
+                log.info("[PROGRESS] Adicionando o produto à ordem e a ordem ao produto...");
+                ProdutoEstoqueEntity produtoEstoqueEntity = produtoEstoqueEntityOptional.get();
+                produtoEstoqueEntity.addEntrada(entradaOrdemEntity);
 
-            log.info("[PROGRESS] Atualizando o produto na base de dados com a entrada acoplada...");
-            produtoEstoqueRepository.save(produtoEstoqueEntity);
+
+                log.info("[PROGRESS] Atualizando o produto na base de dados com a entrada acoplada...");
+                produtoEstoqueRepository.save(produtoEstoqueEntity);
+            }
 
             log.info("[PROGRESS] Adicionando entrada à ordem e ordem à entrada...");
             ordemEntity.addEntrada(entradaOrdemEntity);
@@ -264,6 +274,18 @@ public class OrdemCrudService {
         return repository.buscaHojePaginado(pageable, hoje.toString());
     }
 
+    public List<OrdemEntity> buscaPorProdutoPaginado(Pageable pageable, String produto) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por produto...");
+        return repository.findByEntradasProdutoSigla(pageable, produto).toList();
+    }
+
+    public List<OrdemEntity> buscaPorBairroPaginado(Pageable pageable, String bairro) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por bairro...");
+        return repository.buscaPorBairroPaginado(pageable, bairro);
+    }
+
     public List<OrdemEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de ordem por range de data...");
@@ -284,6 +306,19 @@ public class OrdemCrudService {
         log.info("[STARTING] Iniciando método de busca de todas as ordens cadastradas hoje...");
         LocalDate hoje = LocalDate.now();
         return repository.buscaHojeSemPaginacao(hoje.toString());
+    }
+
+    public List<OrdemEntity> buscaPorProdutoSemPaginacao(String produto) {
+        log.info(BARRA_DE_LOG);
+        Pageable pageable = PageRequest.of(0, 999999);
+        log.info("[STARTING] Iniciando método de busca de ordem por produto...");
+        return repository.findByEntradasProdutoSigla(pageable, produto).toList();
+    }
+
+    public List<OrdemEntity> buscaPorBairroSemPaginacao(String bairro) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por bairro...");
+        return repository.buscaPorBairroSemPaginacao(bairro);
     }
 
     public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {

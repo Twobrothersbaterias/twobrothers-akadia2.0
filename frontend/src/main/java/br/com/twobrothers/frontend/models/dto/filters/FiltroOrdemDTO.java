@@ -14,5 +14,7 @@ public class FiltroOrdemDTO {
     String dataFim;
     String periodoMes;
     String periodoAno;
+    String produto;
+    String bairro;
 }
 

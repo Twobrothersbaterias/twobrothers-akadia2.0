@@ -51,10 +51,14 @@ public class OrdemService {
             String dataInicio,
             String dataFim,
             Integer mes,
-            Integer ano) throws InvalidRequestException {
+            Integer ano,
+            String produto,
+            String bairro) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
+        else if (bairro != null) return crudService.buscaPorBairroPaginado(pageable, bairro);
         else return crudService.buscaHojePaginado(pageable);
     }
 
@@ -62,10 +66,14 @@ public class OrdemService {
             String dataInicio,
             String dataFim,
             Integer mes,
-            Integer ano) throws InvalidRequestException {
+            Integer ano,
+            String produto,
+            String bairro) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
+        else if (bairro != null) return crudService.buscaPorBairroSemPaginacao(bairro);
         else return crudService.buscaHojeSemPaginacao();
     }
 
@@ -119,7 +127,9 @@ public class OrdemService {
         if (ordens != null && !ordens.isEmpty()) {
             for (OrdemEntity ordem : ordens) {
                 for(EntradaOrdemEntity entrada : ordem.getEntradas()) {
-                    custo += (entrada.getProduto().getCustoUnitario() * entrada.getQuantidade());
+                    if (entrada.getProduto() != null) {
+                        custo += (entrada.getProduto().getCustoUnitario() * entrada.getQuantidade());
+                    }
                 }
             }
         }
@@ -128,7 +138,7 @@ public class OrdemService {
 
     public String constroiUriFiltro(FiltroOrdemDTO filtroOrdemDTO) {
 
-        URI_ORDENS = "ordens?";
+        URI_ORDENS = "vendas?";
 
         if (filtroOrdemDTO.getDataInicio() != null && !filtroOrdemDTO.getDataInicio().equals("")) {
             URI_ORDENS += "inicio=" + filtroOrdemDTO.getDataInicio();
@@ -144,6 +154,14 @@ public class OrdemService {
 
         if (filtroOrdemDTO.getPeriodoAno() != null && !filtroOrdemDTO.getPeriodoAno().equals("")) {
             URI_ORDENS += "&ano=" + filtroOrdemDTO.getPeriodoAno();
+        }
+
+        if (filtroOrdemDTO.getProduto() != null && !filtroOrdemDTO.getProduto().equals("")) {
+            URI_ORDENS += "produto=" + filtroOrdemDTO.getProduto();
+        }
+
+        if (filtroOrdemDTO.getBairro() != null && !filtroOrdemDTO.getBairro().equals("")) {
+            URI_ORDENS += "bairro=" + filtroOrdemDTO.getBairro();
         }
 
         return URI_ORDENS;
