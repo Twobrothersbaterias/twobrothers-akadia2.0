@@ -20,6 +20,12 @@ function responsive(){
 	bodyWidth = document.getElementById('body').clientWidth;
 	bodyHeight = document.getElementById('body').clientHeight;
 
+	var indicadorEdicao = document.getElementById('indicador_edicao');
+
+	if(indicadorEdicao != null) {
+		setupEdicao();
+	}
+
 	/* Ajustando content */
 	var main = document.getElementById('main');
 	var mainRow = document.getElementById('main_row');
@@ -1210,6 +1216,51 @@ function removeItemTb(item) {
 		document.getElementById('tr_base').hidden=false;
 	}
 
+}
+
+/* ====================== Setup de edição ========================= */
+
+function setupEdicao() {
+
+	setupSelects();
+
+}
+
+function setupSelects() {
+	var setupTipoNfe = document.getElementById('setup_tipoNfe');
+	var setupLoja = document.getElementById('setup_loja');
+	var setupStatusRetirada = document.getElementById('setup_statusRetirada');
+
+	var optionNfe = document.getElementsByClassName('option_nfe');
+	var optionLoja = document.getElementsByClassName('option_loja');
+	var optionStatusRetirada = document.getElementsByClassName('option_status_retirada');	
+
+	if (setupTipoNfe.value != null) {
+		for(var i = 0; i < optionNfe.length; i++) {
+			console.log(optionNfe[i].value);
+			if (optionNfe[i].value == setupTipoNfe.value) {
+				optionNfe[i].selected=true;
+			}
+		}
+	}
+
+	if (setupLoja.value != null) {
+		for(var i = 0; i < optionLoja.length; i++) {
+			console.log(optionLoja[i].value);
+			if (optionLoja[i].value == setupLoja.value) {
+				optionLoja[i].selected=true;
+			}
+		}
+	}	
+
+	if (setupStatusRetirada.value != null) {
+		for(var i = 0; i < optionStatusRetirada.length; i++) {
+			console.log(optionStatusRetirada[i].value);
+			if (optionStatusRetirada[i].value == setupStatusRetirada.value) {
+				optionStatusRetirada[i].selected=true;
+			}
+		}
+	}	
 }
 
 /* ============================= Miscelânia ================================== */

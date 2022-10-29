@@ -108,7 +108,7 @@ function responsive(){
 		}		
 		
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="1rem";
+			informativo[i].style.fontSize="0.90rem";
 			informativo[i].style.width="23.5%";
 			informativo[i].style.margin="0 7px";
 		}		
@@ -170,7 +170,7 @@ function responsive(){
 		}
 
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.90rem";
+			informativo[i].style.fontSize="0.80rem";
 			informativo[i].style.width="23.5%";
 			informativo[i].style.margin="0 5px";
 		}			
@@ -239,7 +239,7 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.80rem";
+			informativo[i].style.fontSize="0.70rem";
 			informativo[i].style.width="40%";	
 			informativo[i].style.margin="7px";					
 		}			
@@ -299,7 +299,7 @@ function responsive(){
 		}
 				
 		for(var i = 0; i < informativo.length; i++) {
-			informativo[i].style.fontSize="0.68rem";
+			informativo[i].style.fontSize="0.65rem";
 			informativo[i].style.width="46%";
 			informativo[i].style.margin="7px";			
 		}
@@ -364,7 +364,7 @@ function responsive(){
 		}
 
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.58rem";
+			informativo[i].style.fontSize="0.60rem";
 			informativo[i].style.width="55%";
 			informativo[i].style.margin="0 auto 10px auto";
 		}	
@@ -1436,6 +1436,7 @@ function ajustaTabela(){
 
 	ajustaCamposTotalQuantidade();
 	ajustaDatas();
+	ajustaUrlEdicao();
 
 }
 
@@ -1481,6 +1482,28 @@ function ajustaDatas() {
 		}	
 
 	}
+}
+
+function ajustaUrlEdicao() {
+
+	var linhasTabela = document.getElementsByClassName('tr_content');	
+
+	for (var i = 0; i < linhasTabela.length; i++) {
+
+		var ordemId = linhasTabela[i].getAttribute('data-ordemId');
+
+		var itensLinha = document.getElementsByClassName('td_' + ordemId);
+
+		for (var j = 0; j < itensLinha.length; j++) {
+			$(itensLinha[j]).attr("onClick", "editaVenda('/lancamento?id=" + ordemId + "')");
+		}
+
+	}
+
+}
+
+function editaVenda(url) {
+	window.location.href=url;
 }
 
 /* ================== MISC ====================== */

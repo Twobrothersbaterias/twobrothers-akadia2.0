@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroFornecedorDTO;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
+import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.FornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -111,8 +112,17 @@ public class FornecedorController {
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("fornecedores", fornecedoresPaginados);
 
-        modelAndView.setViewName("fornecedores");
+        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+            modelAndView.setViewName("fornecedores");
+        }
+        else {
+            modelAndView.setViewName("redirect:/");
+            redirAttrs.addFlashAttribute("ErroCadastro",
+                    "Você não possui o privilégio necessário para acessar a página de controle de fornecedores");
+        }
+
         return modelAndView;
+
     }
 
     @PostMapping

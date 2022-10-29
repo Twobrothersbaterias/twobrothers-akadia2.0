@@ -64,7 +64,7 @@
 					</a>
 				</div>
 
-				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/estoque}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
@@ -273,26 +273,42 @@
 						<div class="conteudo_titulo_container">
 
 							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
-								<select tabindex="1" id="input_tipoNfe" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="tipoNfe">
-									<option class="option" value="SEM_NOTA">Sem nota fiscal</option>
-									<option class="option" value="NFE">Com NFe</option>
-									<option class="option" value="DANFE">Com DANFE</option>
+								<select
+								th:value="${ordemEdicao != null} and ${ordemEdicao.tipoNfe != null} ? ${ordemEdicao.tipoNfe} : ''"							
+								tabindex="1"
+								id="input_tipoNfe"
+								class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
+								name="tipoNfe">
+									<option class="option option_nfe" value="SEM_NOTA">Sem nota fiscal</option>
+									<option class="option option_nfe" value="NFE">Com NFe</option>
+									<option class="option option_nfe" value="DANFE">Com DANFE</option>
 								</select>
 							</div>								
 
 							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
-								<select tabindex="2" id="input_ponto" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="loja">
-									<option class="option" value="PONTO_1">PDV - Loja 1</option>
-									<option class="option" value="PONTO_VALT">PDV - Loja VALT</option>
-									<option class="option" value="PONTO_MOBILE">Lançamento mobile</option>
+								<select
+								th:value="${ordemEdicao != null} and ${ordemEdicao.loja != null} ? ${ordemEdicao.loja} : ''"
+								tabindex="2"
+								id="input_ponto"
+								class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
+								name="loja">
+									<option class="option option_loja" value="PONTO_1">PDV - Loja 1</option>
+									<option class="option option_loja" value="PONTO_VALT">PDV - Loja VALT</option>
+									<option class="option option_loja" value="PONTO_MOBILE">Lançamento mobile</option>
 								</select>
 							</div>
 
 							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
-								<select tabindex="3" class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" name="retirada.statusRetirada" id="input_tipo_retirada" onchange="mudaTipoDaEntrega()">
-									<option class="option" value="LOJA_FISICA">Ordem presencial</option>
-									<option class="option" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
-									<option class="option" value="ENTREGA_ENTREGUE">Pedido entregue</option>
+								<select
+								th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''"				
+								tabindex="3"
+								class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
+								name="retirada.statusRetirada"
+								id="input_tipo_retirada"
+								onchange="mudaTipoDaEntrega()">
+									<option class="option option_status_retirada" value="LOJA_FISICA">Ordem presencial</option>
+									<option class="option option_status_retirada" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
+									<option class="option option_status_retirada" value="ENTREGA_ENTREGUE">Pedido entregue</option>
 								</select>
 							</div>													
 
@@ -334,11 +350,18 @@
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 
+										<input 	
+										th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} 
+														? ${ordemEdicao.cliente.nomeCompleto} : ''" 
+										name="cliente.id" hidden>
+
 										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Cliente
 											</label>
-											<input 
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null}
+														? ${ordemEdicao.cliente.nomeCompleto} : ''"
 											tabindex="4" 
 											list="clientes" 
 											name="cliente.nomeCompleto" 
@@ -383,7 +406,13 @@
 													Veículo
 											</label>
 											
-											<input autocomplete="off" tabindex="5" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_veiculo" name="veiculo"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.veiculo != null}
+														? ${ordemEdicao.veiculo} : ''" 
+											autocomplete="off" 
+											tabindex="5" 
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_veiculo" 
+											name="veiculo"/>
 													
 										</div>										
 
@@ -391,21 +420,45 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_telefone">
 												Telefone
 											</label>
-											<input autocomplete="off" tabindex="6" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="cliente.telefone" id="input_telefone" onkeyup="tratamentoCampoTelefone()" oninput="validacaoDoObjetoCliente()"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.telefone != null} ? ${ordemEdicao.cliente.telefone} : ''"
+											autocomplete="off" 
+											tabindex="6" 
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" 
+											maxlength="16" 
+											name="cliente.telefone" 
+											id="input_telefone" 
+											onkeyup="tratamentoCampoTelefone()" 
+											oninput="validacaoDoObjetoCliente()"/>
 										</div>
 
 										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="input_dataNascimento">
 												Data de nascimento:
 											</label>
-											<input autocomplete="off" tabindex="7" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.dataNascimento" id="input_dataNascimento" oninput="validacaoDoObjetoCliente()" type="date"/>
+											<input 
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.dataNascimento != null} ? ${ordemEdicao.cliente.dataNascimento} : ''"
+											autocomplete="off" 
+											tabindex="7" 
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.dataNascimento" 
+											id="input_dataNascimento" 
+											oninput="validacaoDoObjetoCliente()" 
+											type="date"/>
 										</div>							
 
 										<div class="novo_item_block col-xl-6 col-lg-12 col-md-6 col-sm-12 col-12" id="novo_item_fifth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="input_cpfCnpj">
 												Cpf/Cnpj:
 											</label>
-											<input autocomplete="off" tabindex="8" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.cpfCnpj" id="input_cpfCnpj" onkeyup="tratamentoCampoCpfCnpj()" oninput="validacaoDoObjetoCliente()" type="text"/>
+											<input 
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.cpfCnpj != null} ? ${ordemEdicao.cliente.cpfCnpj} : ''"
+											autocomplete="off" 
+											tabindex="8" 
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.cpfCnpj" 
+											id="input_cpfCnpj" 
+											onkeyup="tratamentoCampoCpfCnpj()" 
+											oninput="validacaoDoObjetoCliente()" 
+											type="text"/>
 										</div>
 
 									</div>		
@@ -459,7 +512,10 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Produto
 											</label>
-											<select tabindex="22" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="select_produto">
+											<select
+											tabindex="22"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="select_produto">
 
 												<option
 												th:each="produto: ${produtos}" 
@@ -525,14 +581,27 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="cep_input">
 												Cep
 											</label>
-											<input autocomplete="off" tabindex="9" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cep" id="cep_input" onkeyup="consultaEndereco()" oninput="validacaoDoObjetoEndereco()" type="text"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.cep != null} ? ${ordemEdicao.cliente.endereco.cep} : ''"
+											autocomplete="off"
+											tabindex="9"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.cep" 
+											id="cep_input"
+											onkeyup="consultaEndereco()"
+											oninput="validacaoDoObjetoEndereco()"
+											type="text"/>
 										</div>
 
 										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_ninth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
 												Estado:
 											</label>
-											<select tabindex="10" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cliente.endereco.estado" id="estado_input">
+											<select 
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.estado != null} ? ${ordemEdicao.cliente.endereco.estado} : ''"											
+											tabindex="10"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											name="cliente.endereco.estado"
+											id="estado_input">
 												<option value="AC">Acre</option>
 												<option value="AL">Alagoas</option>
 												<option value="AP">Amapá</option>
@@ -566,35 +635,70 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="cidade_input">
 												Cidade
 											</label>
-											<input autocomplete="off" tabindex="11" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="cidade_input" name="cliente.endereco.cidade" oninput="validacaoDoObjetoEndereco()"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.cidade != null} ? ${ordemEdicao.cliente.endereco.cidade} : ''"											
+											autocomplete="off"
+											tabindex="11"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="cidade_input"
+											name="cliente.endereco.cidade"
+											oninput="validacaoDoObjetoEndereco()"/>
 										</div>
 
 										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="bairro_input">
 												Bairro
 											</label>
-											<input autocomplete="off" tabindex="12" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="bairro_input" name="cliente.endereco.bairro" oninput="validacaoDoObjetoEndereco()"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.bairro != null} ? ${ordemEdicao.cliente.endereco.bairro} : ''"											
+											autocomplete="off"
+											tabindex="12"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="bairro_input"
+											name="cliente.endereco.bairro"
+											oninput="validacaoDoObjetoEndereco()"/>
 										</div>							
 
 										<div class="novo_item_block col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="logradouro_input">
 												Logradouro
 											</label>
-											<input autocomplete="off" tabindex="13" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="logradouro_input" name="cliente.endereco.logradouro" oninput="validacaoDoObjetoEndereco()"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.logradouro != null} ? ${ordemEdicao.cliente.endereco.logradouro} : ''"
+											autocomplete="off"
+											tabindex="13"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="logradouro_input"
+											name="cliente.endereco.logradouro"
+											oninput="validacaoDoObjetoEndereco()"/>
 										</div>
 
 										<div class="novo_item_block col-xl-2 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="input_numero">
 												Número
 											</label>
-											<input autocomplete="off" tabindex="14" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_numero" name="cliente.endereco.numero" oninput="validacaoDoObjetoEndereco()"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.numero != null} ? ${ordemEdicao.cliente.endereco.numero} : ''"											
+											autocomplete="off"
+											tabindex="14"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="input_numero"
+											name="cliente.endereco.numero"
+											oninput="validacaoDoObjetoEndereco()"/>
 										</div>	
 
 										<div class="novo_item_block col-xl-10 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="input_complemento">
 												Complemento
 											</label>
-											<input autocomplete="off" tabindex="15" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_complemento" name="cliente.endereco.complemento" oninput="validacaoDoObjetoEndereco()"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.complemento != null} ? ${ordemEdicao.cliente.endereco.complemento} : ''"
+											autocomplete="off"
+											tabindex="15"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="input_complemento"
+											name="cliente.endereco.complemento"
+											oninput="validacaoDoObjetoEndereco()"/>
 										</div>
 
 									</div>	
@@ -697,7 +801,12 @@
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_tecnico">
 													Tecnico
 												</label>
-												<select tabindex="16" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="select_tecnico" name="retirada.tecnicoEntrada">
+												<select
+												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.tecnicoEntrada != null} ? ${ordemEdicao.retirada.tecnicoEntrada} : ''"												
+												tabindex="16"
+												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+												id="select_tecnico"
+												name="retirada.tecnicoEntrada">
 													<option value="Fulano">Fulano</option>
 													<option value="Ciclano">Ciclano</option>
 													<option value="Deltrano">Deltrano</option>
@@ -708,21 +817,44 @@
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_agendamento_retirada" for="input_agendamento_retirada">
 													Agendamento
 												</label>
-												<input tabindex="17" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="input_agendamento_retirada" name="retirada.dataAgendamento" disabled/>
+												<input
+												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} ? ${ordemEdicao.retirada.dataAgendamento} : ''"													
+												tabindex="17"
+												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+												type="date"
+												id="input_agendamento_retirada"
+												name="retirada.dataAgendamento"
+												disabled/>
 											</div>
 
 											<div class="novo_item_block col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12"  id="novo_item_first_block">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_email">
 													E-mail
 												</label>
-												<input tabindex="18" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="cliente.email" onkeyup="tratamentoCampoEmail()" oninput="validacaoDoObjetoCliente()" id="input_email"/>
+												<input
+												th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.email != null} ? ${ordemEdicao.cliente.email} : ''"												
+												autocomplete="off" 
+												tabindex="18"
+												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+												type="email"
+												maxlength="35"
+												name="cliente.email"
+												onkeyup="tratamentoCampoEmail()"
+												oninput="validacaoDoObjetoCliente()"
+												id="input_email"/>
 											</div>	
 
 											<div class="novo_item_block col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_retirada_observacao">
 													Observação
 												</label>
-												<input tabindex="19" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_retirada_observacao" name="retirada.observacao"/>
+												<input
+												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.observacao != null} ? ${ordemEdicao.retirada.observacao} : ''"											
+												autocomplete="off" 
+												tabindex="19"
+												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+												id="input_retirada_observacao"
+												name="retirada.observacao"/>
 											</div>										
 
 										</div>
@@ -744,9 +876,17 @@
 
 										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" hidden>
 
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_pagamentos" name="pagamentosString"/>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.pagamentosString != null} ? ${ordemEdicao.pagamentosString} : ''"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="input_pagamentos"
+											name="pagamentosString"/>
 
-											<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_entradas" name="entradasString"/>		
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.entradasString != null} ? ${ordemEdicao.entradasString} : ''"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="input_entradas"
+											name="entradasString"/>		
 													
 										</div>																		
 
@@ -888,6 +1028,16 @@
 						</div>							
 					</div>							
 				</form>
+
+				<div th:if="${ordemEdicao}" id="indicador_edicao" hidden>
+
+					<input th:value="${ordemEdicao != null} and ${ordemEdicao.tipoNfe != null} ? ${ordemEdicao.tipoNfe} : ''" id="setup_tipoNfe">
+
+					<input th:value="${ordemEdicao != null} and ${ordemEdicao.loja != null} ? ${ordemEdicao.loja} : ''" id="setup_loja">
+
+					<input th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''" id="setup_statusRetirada">
+
+				</div>
 	
 			</div>	
 

@@ -424,11 +424,39 @@
 
 											</div>
 
-											<td th:text="${ordem.retirada.statusRetirada}" class="td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											<td th:text="${ordem.dataCadastro}" class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-											<td th:text="${ordem.retirada.tecnicoEntrada}" class="td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
-											<td th:id="'td_total_' + ${ordem.id}" class="td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
-											<td th:id="'td_quantidade_' + ${ordem.id}" class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+											<td 
+											th:text="${ordem.retirada.statusRetirada}" 
+											th:class="'td_' + ${ordem.id} + ' td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'" 
+											class="td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+												...
+											</td>
+
+											<td 
+											th:text="${ordem.dataCadastro}"
+											th:class="'td_' + ${ordem.id} + ' td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'"
+											class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">	...
+											</td>
+
+											<td 
+											th:text="${ordem.retirada.tecnicoEntrada}" 
+											th:class="'td_' + ${ordem.id} + ' td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'"
+											class="td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+												...
+											</td>
+
+											<td 
+											th:id="'td_total_' + ${ordem.id}" 
+											th:class="'td_' + ${ordem.id} + ' td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'" 
+											class="td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+												...
+											</td>
+
+											<td 
+											th:id="'td_quantidade_' + ${ordem.id}" 
+											th:class="'td_' + ${ordem.id} + ' td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'"
+											class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+												...
+											</td>
 
 											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form method="POST" th:action="@{vendas/deleta-{id}(id = ${ordem.id})}" class="form_remove_img" id="form_remove_img">

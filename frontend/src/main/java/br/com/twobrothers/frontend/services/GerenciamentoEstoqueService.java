@@ -58,6 +58,7 @@ public class GerenciamentoEstoqueService {
         verificaSeExiste(entradaOrdemDTO);
         ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
         produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + entradaOrdemDTO.getQuantidade());
+        produtoEstoque.setCustoTotal(produtoEstoque.getQuantidade() * produtoEstoque.getCustoUnitario());
         produtoEstoqueRepository.save(produtoEstoque);
     }
 
@@ -101,6 +102,7 @@ public class GerenciamentoEstoqueService {
                 if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
                     ProdutoEstoqueEntity produtoEstoqueEntity = produtosInseridos.get(produtosInseridos.indexOf(produtoEstoque));
                     produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
+                    produtoEstoqueEntity.setCustoTotal(produtoEstoqueEntity.getQuantidade() * produtoEstoqueEntity.getCustoUnitario());
                     if (produtoEstoqueEntity.getQuantidade() < 0)
                         throw new InvalidRequestException("A quantidade do produto" + produtoEstoqueEntity.getSigla() +
                                 "passada pela ordem é maior do que a que existe em estoque");

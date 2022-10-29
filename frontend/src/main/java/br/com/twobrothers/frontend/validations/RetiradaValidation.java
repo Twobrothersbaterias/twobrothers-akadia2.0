@@ -23,8 +23,8 @@ public class RetiradaValidation {
 
     public void validaCorpoRequisicao(RetiradaDTO retiradaDTO) {
         validaSePossuiAtributosNulos(retiradaDTO);
-        if (retiradaDTO.getDataAgendamento() != null && !retiradaDTO.getDataAgendamento().isEmpty())
-            validaAtributoDataAgendamento(retiradaDTO.getDataAgendamento());
+//        if (retiradaDTO.getDataAgendamento() != null && !retiradaDTO.getDataAgendamento().isEmpty())
+//            validaAtributoDataAgendamento(retiradaDTO.getDataAgendamento());
         log.warn("[VALIDAÇÃO - RETIRADA] Validação do objeto retirada finalizada com sucesso");
     }
 

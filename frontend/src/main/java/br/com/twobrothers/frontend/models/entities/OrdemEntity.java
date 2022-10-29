@@ -51,13 +51,11 @@ public class OrdemEntity {
     @OneToMany(targetEntity = PagamentoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PagamentoEntity> pagamentos = new ArrayList<>();
 
-    @Transient
     private String pagamentosString;
 
     @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();
 
-    @Transient
     private String entradasString;
 
     public void addEntrada(EntradaOrdemEntity entrada) {

@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroProdutoDTO;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;
@@ -115,7 +116,15 @@ public class EstoqueController {
         model.addAttribute("qtdeBaterias", produtoEstoqueService.calculaQtdBaterias(produtosSemPaginacao));
         model.addAttribute("qtdeSucatas", produtoEstoqueService.calculaQtdSucatas(produtosSemPaginacao));
 
-        modelAndView.setViewName("estoque");
+        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+            modelAndView.setViewName("estoque");
+        }
+        else {
+            modelAndView.setViewName("redirect:/");
+            redirAttrs.addFlashAttribute("ErroCadastro",
+                    "Você não possui o privilégio necessário para acessar a página de controle de estoque");
+        }
+
         return modelAndView;
     }
 

@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPatrimonioDTO;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
+import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.PatrimonioCrudService;
@@ -104,8 +105,17 @@ public class PatrimonioController {
         model.addAttribute("passivos", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorPassivos(patrimoniosSemPaginacao)));
         model.addAttribute("caixa", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorCaixa(patrimoniosSemPaginacao)));
 
-        modelAndView.setViewName("patrimonio");
+        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+            modelAndView.setViewName("patrimonio");
+        }
+        else {
+            modelAndView.setViewName("redirect:/");
+            redirAttrs.addFlashAttribute("ErroCadastro",
+                    "Você não possui o privilégio necessário para acessar a página de gestão patrimonial");
+        }
+
         return modelAndView;
+
     }
 
     @GetMapping("/patrimonio-carga")

@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
+import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
@@ -121,7 +122,15 @@ public class DespesaController {
         model.addAttribute("pendente", converteValorDoubleParaValorMonetario(despesaService.calculaValorPendente(despesasSemPaginacao)));
         model.addAttribute("pagar", despesaService.pendentesHoje());
 
-        modelAndView.setViewName("despesas");
+        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+            modelAndView.setViewName("despesas");
+        }
+        else {
+            modelAndView.setViewName("redirect:/");
+            redirAttrs.addFlashAttribute("ErroCadastro",
+                    "Você não possui o privilégio necessário para acessar a página de despesas");
+        }
+
         return modelAndView;
     }
 

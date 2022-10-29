@@ -5,6 +5,7 @@ import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
@@ -153,7 +154,15 @@ public class AbastecimentoController {
         model.addAttribute("pix", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.PIX)));
         model.addAttribute("boleto", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.BOLETO)));
 
-        modelAndView.setViewName("abastecimentos");
+        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+            modelAndView.setViewName("abastecimentos");
+        }
+        else {
+            modelAndView.setViewName("redirect:/");
+            redirAttrs.addFlashAttribute("ErroCadastro",
+                    "Você não possui o privilégio necessário para acessar a página de abastecimentos");
+        }
+
         return modelAndView;
     }
 
