@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.StringConstants.URI_CLIENTES;
+import static br.com.twobrothers.frontend.utils.StringConstants.URI_USUARIOS;
 
 @Slf4j
 @Service
@@ -107,37 +107,37 @@ public class ClienteService {
 
     public String constroiUriFiltro(FiltroClienteDTO filtroClienteDTO) {
 
-        URI_CLIENTES = "clientes?";
+        URI_USUARIOS = "clientes?";
 
         if (filtroClienteDTO.getDescricao() != null && !filtroClienteDTO.getDescricao().equals("")) {
-            URI_CLIENTES += "descricao=" + filtroClienteDTO.getDescricao();
+            URI_USUARIOS += "descricao=" + filtroClienteDTO.getDescricao();
         }
 
         if (filtroClienteDTO.getDataInicio() != null && !filtroClienteDTO.getDataInicio().equals("")) {
-            URI_CLIENTES += "inicio=" + filtroClienteDTO.getDataInicio();
+            URI_USUARIOS += "inicio=" + filtroClienteDTO.getDataInicio();
         }
 
         if (filtroClienteDTO.getDataFim() != null && !filtroClienteDTO.getDataFim().equals("")) {
-            URI_CLIENTES += "&fim=" + filtroClienteDTO.getDataFim();
+            URI_USUARIOS += "&fim=" + filtroClienteDTO.getDataFim();
         }
 
         if (filtroClienteDTO.getPeriodoMes() != null && !filtroClienteDTO.getPeriodoMes().equals("")) {
-            URI_CLIENTES += "mes=" + filtroClienteDTO.getPeriodoMes();
+            URI_USUARIOS += "mes=" + filtroClienteDTO.getPeriodoMes();
         }
 
         if (filtroClienteDTO.getPeriodoAno() != null && !filtroClienteDTO.getPeriodoAno().equals("")) {
-            URI_CLIENTES += "&ano=" + filtroClienteDTO.getPeriodoAno();
+            URI_USUARIOS += "&ano=" + filtroClienteDTO.getPeriodoAno();
         }
 
         if (filtroClienteDTO.getCpfCnpj() != null && !filtroClienteDTO.getCpfCnpj().equals("")) {
-            URI_CLIENTES += "cpfCnpj=" + filtroClienteDTO.getCpfCnpj();
+            URI_USUARIOS += "cpfCnpj=" + filtroClienteDTO.getCpfCnpj();
         }
 
         if (filtroClienteDTO.getTelefone() != null && !filtroClienteDTO.getTelefone().equals("")) {
-            URI_CLIENTES += "telefone=" + filtroClienteDTO.getTelefone();
+            URI_USUARIOS += "telefone=" + filtroClienteDTO.getTelefone();
         }
 
-        return URI_CLIENTES;
+        return URI_USUARIOS;
     }
 
 }

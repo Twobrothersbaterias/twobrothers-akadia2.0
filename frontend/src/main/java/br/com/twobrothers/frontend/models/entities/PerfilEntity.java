@@ -1,4 +1,4 @@
-package br.com.twobrothers.frontend.models.entities.user;
+package br.com.twobrothers.frontend.models.entities;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

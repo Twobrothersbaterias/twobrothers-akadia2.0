@@ -1,11 +1,9 @@
 package br.com.twobrothers.frontend.models.entities;
 
-import br.com.twobrothers.frontend.models.entities.user.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author Gabriel Lagrota

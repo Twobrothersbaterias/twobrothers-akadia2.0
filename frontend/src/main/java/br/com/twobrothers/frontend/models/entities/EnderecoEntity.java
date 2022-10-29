@@ -1,6 +1,5 @@
 package br.com.twobrothers.frontend.models.entities;
 
-import br.com.twobrothers.frontend.models.entities.user.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.EstadoEnum;
 import lombok.*;
 
@@ -45,8 +44,5 @@ public class EnderecoEntity {
 
     @OneToOne(targetEntity = FornecedorEntity.class, mappedBy = "endereco", fetch = FetchType.LAZY)
     private FornecedorEntity fornecedor;
-
-    @OneToOne(targetEntity = UsuarioEntity.class, mappedBy = "endereco", fetch = FetchType.LAZY)
-    private UsuarioEntity usuario;
 
 }

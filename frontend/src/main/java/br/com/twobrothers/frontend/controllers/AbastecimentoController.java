@@ -3,14 +3,11 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
-import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
-import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
+import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
-import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.services.AbastecimentoService;
 import br.com.twobrothers.frontend.services.FornecedorService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
@@ -32,8 +29,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
-import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
-import static br.com.twobrothers.frontend.utils.StringConstants.REQUISICAO_FINALIZADA_COM_SUCESSO;
 
 @Controller
 @RequestMapping("/compras")

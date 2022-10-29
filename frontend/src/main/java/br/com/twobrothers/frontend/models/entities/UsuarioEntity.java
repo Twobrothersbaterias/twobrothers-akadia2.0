@@ -1,8 +1,6 @@
-package br.com.twobrothers.frontend.models.entities.user;
+package br.com.twobrothers.frontend.models.entities;
 
-import br.com.twobrothers.frontend.models.entities.EnderecoEntity;
-import br.com.twobrothers.frontend.models.entities.OrdemEntity;
-import br.com.twobrothers.frontend.models.entities.RetiradaEntity;
+import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,14 +39,13 @@ public class UsuarioEntity implements UserDetails {
     private String email;
 
     private String telefone;
+
+    @Column(unique=true)
     private String nomeUsuario;
     private String senha;
 
     @Enumerated(EnumType.STRING)
     private PrivilegioEnum privilegio;
-
-    @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
-    private EnderecoEntity endereco;
 
     @OneToMany(targetEntity = RetiradaEntity.class, cascade = CascadeType.ALL)
     private List<RetiradaEntity> retiradas = new ArrayList<>();

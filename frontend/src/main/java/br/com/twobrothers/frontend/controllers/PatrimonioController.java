@@ -3,7 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPatrimonioDTO;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
-import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
+import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.PatrimonioCrudService;

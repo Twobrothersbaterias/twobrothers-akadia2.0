@@ -1,6 +1,6 @@
 package br.com.twobrothers.frontend.utils;
 
-import br.com.twobrothers.frontend.models.entities.user.UsuarioEntity;
+import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

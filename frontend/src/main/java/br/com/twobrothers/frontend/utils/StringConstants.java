@@ -12,7 +12,7 @@ public class StringConstants {
 
     StringConstants(){}
 
-    public static String URI_CLIENTES = "clientes?";
+    public static String URI_USUARIOS = "clientes?";
     public static String URI_ESTOQUE = "estoque?";
     public static String URI_ORDENS = "fornecedores?";
     public static String URI_ABASTECIMENTO = "compras?";
@@ -20,7 +20,11 @@ public class StringConstants {
     public static final String CLIENTE_NAO_ENCONTRADO_LOG = "[FALHA]  Cliente não encontrado";
     public static final String FORNECEDOR_NAO_ENCONTRADO_LOG = "[FALHA]  Fornecedor não encontrado";
 
+    public static final String USUARIO_NAO_ENCONTRADO_LOG = "[FALHA]  Usuário não encontrado";
+
     public static final String CLIENTE_NAO_ENCONTRADO = "Cliente não encontrado";
+
+    public static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado";
     public static final String FORNECEDOR_NAO_ENCONTRADO = "Fornecedor não encontrado";
 
     public static final String BARRA_DE_LOG = "=======================================================================================" +

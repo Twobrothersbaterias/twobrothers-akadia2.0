@@ -3,7 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroFornecedorDTO;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
-import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
+import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.FornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;

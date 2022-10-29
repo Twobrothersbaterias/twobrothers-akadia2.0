@@ -3,7 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroProdutoDTO;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
-import br.com.twobrothers.frontend.models.entities.user.PrivilegioEnum;
+import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;

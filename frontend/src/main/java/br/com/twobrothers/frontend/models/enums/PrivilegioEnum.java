@@ -1,4 +1,4 @@
-package br.com.twobrothers.frontend.models.entities.user;
+package br.com.twobrothers.frontend.models.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
