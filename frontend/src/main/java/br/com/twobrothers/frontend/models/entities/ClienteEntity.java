@@ -40,6 +40,7 @@ public class ClienteEntity {
     private String email;
 
     private String telefone;
+
     private String usuarioResponsavel;
 
     @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)

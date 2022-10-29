@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Gabriel Lagrota">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+	<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
+	<link th:href="@{css/layout.css}" href="../static/css/layout.css" rel="stylesheet" />
+	<link th:href="@{css/menuSuperior.css}" href="../static/css/menuSuperior.css" rel="stylesheet" />
+	<link th:href="@{css/menuSuperiorMobile.css}" href="../static/css/menuSuperiorMobile.css" rel="stylesheet" />
+	<link th:href="@{css/menuLateral.css}" href="../static/css/menuLateral.css" rel="stylesheet" />
+	<link th:href="@{css/containerPrincipal.css}" href="../static/css/containerPrincipal.css" rel="stylesheet" />
+	<link th:href="@{css/tabela.css}" href="../static/css/tabela.css" rel="stylesheet" />
+	<link th:href="@{css/novoItem.css}" href="../static/css/novoItem.css" rel="stylesheet" />
+	<link th:href="@{css/filtroItem.css}" href="../static/css/filtroItem.css" rel="stylesheet" />
+	<link th:href="@{css/editaItem.css}" href="../static/css/editaItem.css" rel="stylesheet" />
+	<link th:href="@{css/colaboradores.css}" href="../static/css/clientes.css" rel="stylesheet" />
+	<link rel="icon" th:href="@{img/logo.png}" href="../static/img/logo.png" type="image/gif" sizes="32x32">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	
+
+	<title>VALT | Colaboradores</title>
+
+</head>
+
+<body id="body">
+
+	<div class="row main-row" id="main_row">
+
+		<!--------------- SIDE BAR PRINCIPAL DO SITE --------------->
+		<div class="container side_menu" id="side_menu">	
+
+			<div class="row side_menu_row" id="side_menu_row">
+
+				<div class="aside aside-1 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_principal">
+
+					<a th:href="@{/}" class="row aside_clicavel">
+
+						<button type="button" class="img_button">
+							<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Página inicial"/>
+						</button>	
+
+					</a>
+				</div>
+
+				<div class="aside aside-2 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_balanco">							
+					<a th:href="@{/clientes}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Clientes"/>
+						</button>
+					</a>	
+				</div>
+
+				<div class="aside aside-3 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="div_aside_estatisticas">							
+					<a th:href="@{/vendas}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Vendas"/>
+						</button>
+					</a>
+				</div>
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/estoque}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
+						</button>
+					</a>
+				</div>
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/despesas}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Despesas"/>
+						</button>
+					</a>
+				</div>
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/relatorios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Relatórios"/>
+						</button>
+					</a>
+				</div>					
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/patrimonios}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão patrimonial"/>
+						</button>
+					</a>
+				</div>			
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/fornecedores}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Fornecedores"/>
+						</button>
+					</a>
+				</div>				
+
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/colaboradores}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/collab-green.png" th:src="@{img/collab-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
+						</button>
+					</a>
+				</div>						
+			</div>
+
+			<div class="row last">
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/faq}" class="row aside_clicavel">
+						<button type="button" class="img_button">
+							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+						</button>
+					</a>
+				</div>	
+			</div>					
+		</div>
+
+		<main class="container main" id="main">
+
+			<!-- Menu superior 1 -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
+
+				<ul class="menu_superior_1_ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="menu_superior_ul">
+
+					<li class="menu_superior_li col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+						<a th:if="${privilegio} != 'Vendedor'" class="menu_superior_botao_container" href="#" id="container_avisos">
+
+							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" id="avisos">
+								<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+
+						</a>	
+
+						<a class="menu_superior_botao_container" href="#">
+
+							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10">
+								<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>								
+							</button>	
+
+						</a>
+
+						<form class="menu_superior_botao_container" th:action="@{/logout}" method="POST">
+							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" type="submit">
+								<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+							</button>	
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						</form>						
+
+					</li>
+
+				</ul>
+			</div>
+
+			<!-- Menu superior mobile -->
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+
+				<div class="container_menu_mobile">				
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/home-grey.png" th:src="@{img/home-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/clientes}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/people-grey.png" th:src="@{img/people-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/vendas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/bag-grey.png" th:src="@{img/bag-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/box-grey.png" th:src="@{img/box-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>		
+
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/despesas}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/expenses-grey.png" th:src="@{img/expenses-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/patrimonios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/banknotes-grey.png" th:src="@{img/banknotes-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>	
+
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/fornecedores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/battery-grey.png" th:src="@{img/battery-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>					
+
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/colaboradores}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/collab-green.png" th:src="@{img/collab-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
+							<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+								</button>	
+							</a>
+						</div>	
+					</div>
+
+				</div>																													
+			</div>		
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
+
+				<!-------------- CONTEUDO_CONTAINER ------------>
+				<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
+
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+
+						<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+							<p th:text="${SucessoCadastro}"></p>
+						</div>
+
+						<div th:if="${SucessoEdicao}" class="alert alert-success" id="SucessoEdicao" onclick="hideMessage()">
+							<p th:text="${SucessoEdicao}"></p>
+						</div>
+
+						<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
+							<p th:text="${ErroCadastro}"></p>
+						</div>			
+
+						<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
+							<p th:text="${ErroBusca}"></p>
+						</div>						
+
+						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
+							<p th:text="${SucessoDelete}"></p>
+						</div>
+
+						<input th:value=${tipoFiltro} id="tipo_filtro" hidden>
+						<input th:value=${pagina} id="pagina_atual" hidden>
+						<input th:value="'TOTAL DE PAGINAS: ' + ${paginas}" id="total_paginas" hidden>
+						<input th:value="'TOTAL DE ITENS: ' + ${totalItens}" id="total_itens" hidden>
+
+						<div th:if="${tipoFiltro == 'data'}">
+							<input th:value="${inicio}" id="back_inicio" hidden>
+							<input th:value="${fim}" id="back_fim" hidden>
+						</div>
+
+						<div th:if="${tipoFiltro == 'periodo'}">
+							<input th:value="${mes}" id="back_mes" hidden>
+							<input th:value="${ano}" id="back_ano" hidden>
+						</div>								
+
+						<div th:if="${tipoFiltro == 'descricao'}">
+							<input th:value="${descricao}" id="back_descricao" hidden>
+						</div>			
+
+						<div th:if="${tipoFiltro == 'cpfCnpj'}">
+							<input th:value="${cpfCnpj}" id="back_cpfCnpj" hidden>
+						</div>			
+
+						<div th:if="${tipoFiltro == 'telefone'}">
+							<input th:value="${telefone}" id="back_telefone" hidden>
+						</div>														
+
+						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
+							Colaboradores
+						</h1>
+
+						<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
+
+						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}" onclick="abrirNovoItem()"/>
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/colaboradores}">
+								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+							</a>
+							<img th:if="${privilegio} != 'Vendedor'" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
+							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
+
+						</div>							
+					</div>
+
+					<hr>
+
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 row_tabela_all">
+
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 tabela_all" id="tabela_all">
+
+							<table class="tabela col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="tabela">
+
+								<thead class="thead col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead">
+									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
+										<th class="th th_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">Nome</th>
+										<th class="th th_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Função</th>
+										<th class="th th_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Telefone</th>
+										<th class="th th_cadastro col-xl-1 col-lg-1 col-md-2 col-sm-2" id="th_forma">Cadastro</th>
+										<th class="th th_usuario col-xl-2 col-lg-2 ">Responsável</th>
+										<th class="th th_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">Gerado</th>
+										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
+									</tr>
+								</thead>
+
+								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:if="${#lists.isEmpty(colaboradores)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<td class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">...</td>
+										<td class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+										<td class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+										<td class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2">...</td>
+										<td class="td td_usuario col-xl-2 col-lg-2">...</td>
+										<td class="td td_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>	
+										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
+									</tr>											
+
+									<tr 									
+									th:each="colaborador: ${colaboradores}"
+									class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+									th:data-id="${colaborador.id}" 
+									th:data-dataCadastro="${colaborador.dataCadastro}"
+									th:data-dataNascimento="${colaborador.dataNascimento}"
+									th:data-nomeCompleto="${colaborador.nome}" 
+									th:data-cpfCnpj="${colaborador.cpfCnpj}" 
+									th:data-email="${colaborador.email}" 
+									th:data-telefone="${colaborador.telefone}"
+									th:data-usuarioResponsavel="${colaborador.usuarioResponsavel}"
+									th:data-logradouro="${colaborador.endereco != null} ? ${colaborador.endereco.logradouro} : ''"
+									th:data-numero="${colaborador.endereco != null} ? ${colaborador.endereco.numero} : ''"
+									th:data-bairro="${colaborador.endereco != null} ? ${colaborador.endereco.bairro} : ''"
+									th:data-cidade="${colaborador.endereco != null} ? ${colaborador.endereco.cidade} : ''"
+									th:data-cep="${colaborador.endereco != null} ? ${colaborador.endereco.cep} : ''"
+									th:data-complemento="${colaborador.endereco != null} ? ${colaborador.endereco.complemento} : ''"
+									th:data-estado="${colaborador.endereco != null} ? ${colaborador.endereco.estado} : ''"
+									onclick="abrirEditaItem(
+										this.getAttribute('data-id'), 
+										this.getAttribute('data-dataCadastro'), 
+										this.getAttribute('data-dataNascimento'), 
+										this.getAttribute('data-nome'), 
+										this.getAttribute('data-cpfCnpj'), 
+										this.getAttribute('data-email'), 
+										this.getAttribute('data-telefone'), 
+										this.getAttribute('data-usuarioResponsavel'), 
+										this.getAttribute('data-logradouro'), 
+										this.getAttribute('data-numero'), 
+										this.getAttribute('data-bairro'),
+										this.getAttribute('data-cidade'),
+										this.getAttribute('data-cep'),
+										this.getAttribute('data-complemento'),
+										this.getAttribute('data-estado'))">
+
+										<td th:text="${colaborador.nome}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2">...</td>
+											
+										<td th:text="${colaborador.privilegio.desc}" class="td td_cpf col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+											
+										<td th:text="${colaborador.telefone}" class="td td_telefone col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+											
+										<td th:text="${colaborador.dataCadastro}" class="td td_cadastro td_tipo col-xl-1 col-lg-1 col-md-2 col-sm-2">...</td>
+
+										<td th:text="${colaborador.usuarioResponsavel}" class="td td_usuario td_usuario col-xl-2 col-lg-2">...</td>
+
+										<td class="td td_gerado col-xl-2 col-lg-2 col-md-2 col-sm-2 col-3">...</td>
+
+										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
+
+											<form method="POST" th:action="@{colaboradores/deleta-{id}(id = ${colaborador.id})}" class="form_remove_img" id="form_remove_img">
+												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+												<button type="submit" class="col-lg-12 btn_excluir_img">
+													<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
+												</button>
+											</form>	
+
+											<form method="POST" th:action="@{colaboradores/deleta-{id}(id = ${colaborador.id})}" class="form_remove_text" id="form_remove_text">
+												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
+												<button type="submit" class="col-lg-12 btn_excluir">
+													<div class="excluir_text" id="excluir_text">
+															Excluir
+													</div>
+												</button>
+											</form>
+
+										</td>
+									</tr>
+
+								</tbody>	
+							</table>								
+						</div>
+					</div>
+
+						<!-- Início da paginação -->
+						<div class="row page_row">
+
+							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 pages">
+
+								<ul class="ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+									<li class="li page">
+
+										<a class="li_a page_click" id="anterior">
+											Anterior
+										</a>																						
+									</li>
+
+									<div th:text="${pagina}" th:value="${pagina}" id="pegando_page" style="display:none"></div>			
+
+									<li th:each="numeroPagina : ${paginas}" class="li page page_li">
+
+										<a
+										class="li_a page_number page_click" 
+										th:data-numeroPagina="${numeroPagina}"
+										th:text="${numeroPagina+1}">1</a>
+
+									</li>
+
+									<li class="li page">			
+
+										<a class="li_a page_click" id="proxima">
+											Próximo
+										</a>	
+
+									</li>
+
+								</ul>
+
+							</div>
+						</div>
+				</div>
+
+			</main>
+		</div>
+
+		<!-------------- FILTROS ------------>
+		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_filtro" id="filtro_titulo">
+					Filtros de busca
+				</h1>
+
+				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
+
+				</div>	
+
+			</div>						
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">		
+
+			<div class="filtro_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_primeira_row">							
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12" id="filtro_first_block">
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Tipo
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_input" onchange="filtroChange()">
+						<option value="DESCRICAO" id="tipo_filtro_option_descricao">Por nome</option>
+						<option value="DATA" id="tipo_filtro_option_data">Data a data</option>
+						<option value="PERIODO" id="tipo_filtro_option_periodo">Por período</option>
+						<option value="TELEFONE" id="tipo_filtro_option_telefone">Por telefone</option>
+						<option value="CPF" id="tipo_filtro_option_cpf">Por CPF/CNPJ</option>
+					</select>
+				</div>		
+
+				<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"  id="filtro_descricao_block">
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Descrição
+					</label>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="descricao_filtro_input"/>
+				</div>
+
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Data início
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
+				</div>	
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Data fim
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_fim_filtro_input"/>
+				</div>									
+
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Mês
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mes_filtro_input">
+						<option value="01">Janeiro</option>
+						<option value="02">Fevereiro</option>
+						<option value="03">Março</option>
+						<option value="04">Abril</option>
+						<option value="05">Maio</option>
+						<option value="06">Junho</option>
+						<option value="07">Julho</option>
+						<option value="08">Agosto</option>
+						<option value="09">Setembro</option>
+						<option value="10">Outubro</option>
+						<option value="11">Novembro</option>
+						<option value="12">Dezembro</option>
+					</select>
+				</div>
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_ano_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Ano
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="ano_filtro_input">
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>		
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_telefone_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Telefone
+					</label>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="telefone_filtro_input"/>
+						
+				</div>
+
+				<div class="filtro_block col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12"  id="filtro_cpf_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						CPF/CNPJ
+					</label>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" id="cpf_filtro_input"/>
+						
+				</div>																			
+
+				<div class="filtro_block add_filtro_block col-xl-2 col-lg-2 col-md-3 col-sm-12 col-12"  id="filtro_second_block">			
+					<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
+						Adicionar
+					</button>				
+				</div>																
+			</div>		
+
+			<hr>
+
+			<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
+
+				<div class="filtro_tag col-xl-4 col-lg-3 col-md-4 col-sm-5 col-9" id="filtro_descricao_tag" onclick="removerFiltro('descricao')" onmouseover="efeitoRemoverFiltro('descricao')" onmouseleave="efeitoRemoverFiltroLeave('descricao')" hidden>
+					Descrição
+				</div>
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+					Data a data
+				</div>
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+					Periodo
+				</div>											
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_telefone_tag" onclick="removerFiltro('telefone')" onmouseover="efeitoRemoverFiltro('telefone')" onmouseleave="efeitoRemoverFiltroLeave('telefone')"hidden>
+					Telefone
+				</div>														
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_cpf_tag" onclick="removerFiltro('cpf')" onmouseover="efeitoRemoverFiltro('cpf')" onmouseleave="efeitoRemoverFiltroLeave('cpf')"hidden>
+					CPF
+				</div>	
+				<form th:action="@{clientes/filtro}" method="POST" th:object="${filtroCliente}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
+
+					<input type="text" name="descricao" id="input_descricao_backend" hidden/>
+					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
+					<input type="text" name="dataFim" id="input_data_fim_backend" hidden/>
+					<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
+					<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
+					<input type="text" name="telefone" id="input_telefone_backend" hidden/>
+					<input type="text" name="cpfCnpj" id="input_cpf_backend" hidden/>
+
+					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
+						<button type="submit" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Buscar
+						</button>				
+					</div>		
+
+				</form>	
+
+			</div>				
+		</div>		
+
+		<!-------------- EDITA_ITEM ------------>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+					Editar cliente
+				</h1>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="giro">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/money.png" th:src="@{img/money.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>		
+					</a>
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
+					
+				</div>
+
+			</div>
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+			<form th:action="@{clientes/alterar}" method="POST" th:object="${cliente}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+				<input type="text" id="id_input_edicao" name="id" hidden/>			
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
+						<label class="row edita_item_form_row edita_item_label subtitulo_edita subtitulo_edita_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Dados pessoais
+						</label>
+					</div>							
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">								
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_cliente_input">
+							Nome
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input" oninput="validacaoDoObjetoCliente('edita')" required/>
+					</div>							
+
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_cliente_input">
+							E-mail
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input" onkeyup="tratamentoCampoEmail('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+					</div>									
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_cliente_input">
+							Telefone
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+					</div>
+				
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">										
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_data_nascimento_input">
+							Data de nascimento:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('edita')"/>
+					</div>							
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cpfCnpj_input">
+							Cpf/Cnpj:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('edita')" oninput="validacaoDoObjetoCliente('edita')" type="text"/>
+					</div>																
+
+				</div>	
+
+				<hr class="hr_edita" >	
+				
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
+							<label class="row edita_item_form_row edita_item_label subtitulo_edita subtitulo_edita_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Endereço
+							</label>
+						</div>							
+					</div>					
+
+					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
+							Cep:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="text" onkeyup="consultaEndereco('edita')" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>						
+
+					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_estado_input">
+							Estado:
+						</label>
+						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="edita_estado_input" type="text">
+							<option value="AC">Acre</option>
+							<option value="AL">Alagoas</option>
+							<option value="AP">Amapá</option>
+							<option value="AM">Amazonas</option>
+							<option value="BA">Bahia</option>
+							<option value="CE">Ceará</option>
+							<option value="DF">Distrito Federal</option>
+							<option value="ES">Espírito Santo</option>
+							<option value="GO">Goiás</option>
+							<option value="MA">Maranhão</option>
+							<option value="MT">Mato Grosso</option>
+							<option value="MS">Mato Grosso do Sul</option>
+							<option value="MG">Minas Gerais</option>
+							<option value="PA">Pará</option>											
+							<option value="PB">Paraiba</option>
+							<option value="PR">Paraná</option>		
+							<option value="PI">Piaui</option>					
+							<option value="RJ">Rio de Janeiro</option>	
+							<option value="RN">Rio Grande do Norte</option>	
+							<option value="RS">Rio Grande do Sul</option>	
+							<option value="RO">Rondônia</option>													
+							<option value="RR">Roraima</option>		
+							<option value="SC">Santa Catarina</option>		
+							<option value="SP">São Paulo</option>		
+							<option value="SE">Sergipe</option>													
+							<option value="TO">Tocantins</option>	
+						</select>	
+					</div>
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8">
+
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cidade_input">
+							Cidade:
+						</label>
+
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>						
+
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_logradouro_input">
+							Logradouro:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_numero_input">
+							Numero:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>
+
+				</div>				
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_bairro_input">
+							Bairro:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>							
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_complemento_input">
+							Complemento:
+						</label>
+
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>					
+
+				</div>				
+
+				<hr style="margin-top:25px">
+
+				<div class="edita_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_third_row">
+
+					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+
+					<button type="button" onclick="validacaoCampos('edita')" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
+						Salvar
+					</button>	
+
+				</div>																				
+			</form>		
+		</div>			
+
+		<!-------------- NOVO_ITEM ------------>
+		<div class="col-xl-6 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_novo" id="conteudo_container_novo">
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
+					Novo colaborador
+				</h1>
+
+				<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+
+				<div class="img_div col-xl-2 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>							
+
+					<img class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovoItem()"/>
+					
+				</div>	
+
+			</div>
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+			<form th:action="@{clientes}" method="POST" th:object="${cliente}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+					<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Dados pessoais
+						</label>
+					</div>							
+				</div>
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">								
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-8 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Nome
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" oninput="validacaoDoObjetoCliente('novo')" required/>
+					</div>
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Privilégio
+						</label>
+						<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text" required>
+							<option value="VENDEDOR">Vendedor</option>
+							<option value="GERENTE">Gerente</option>
+							<option value="DIRETOR">Diretor</option>												
+						</select>	
+					</div>					
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-8 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Usuário
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" oninput="validacaoDoObjetoCliente('novo')" required/>
+					</div>
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Senha
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="descricao_cliente_input" oninput="validacaoDoObjetoCliente('novo')" required/>
+					</div>					
+
+				</div>
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_third_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_cliente_input">
+							E-mail
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="email_cliente_input" onkeyup="tratamentoCampoEmail('novo')" oninput="validacaoDoObjetoCliente('novo')"/>
+					</div>									
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
+							Telefone
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="telefone_cliente_input" onkeyup="tratamentoCampoTelefone('novo')" oninput="validacaoDoObjetoCliente('novo')"/>
+					</div>
+				
+				</div>
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_segunda_row">										
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="data_nascimento_input">
+							Data de nascimento:
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('novo')"/>
+					</div>							
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="cpfCnpj_input">
+							Cpf/Cnpj:
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('novo')" oninput="validacaoDoObjetoCliente('novo')" type="text"/>
+					</div>																
+
+				</div>	
+
+				<hr class="hr_novo">	
+				
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_terceira_row">
+
+					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+						<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
+							<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Endereço
+							</label>
+						</div>							
+					</div>					
+
+					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="novo_item_sixth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cep" for="cep_input">
+							Cep:
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="cep_input" onkeyup="consultaEndereco('novo')" oninput="validacaoDoObjetoEndereco('novo')" type="text"/>
+					</div>						
+
+					<div class="novo_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="novo_item_ninth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_estado" for="estado_input">
+							Estado:
+						</label>
+						<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="estado_input" type="text">
+							<option value="AC">Acre</option>
+							<option value="AL">Alagoas</option>
+							<option value="AP">Amapá</option>
+							<option value="AM">Amazonas</option>
+							<option value="BA">Bahia</option>
+							<option value="CE">Ceará</option>
+							<option value="DF">Distrito Federal</option>
+							<option value="ES">Espírito Santo</option>
+							<option value="GO">Goiás</option>
+							<option value="MA">Maranhão</option>
+							<option value="MT">Mato Grosso</option>
+							<option value="MS">Mato Grosso do Sul</option>
+							<option value="MG">Minas Gerais</option>
+							<option value="PA">Pará</option>											
+							<option value="PB">Paraiba</option>
+							<option value="PR">Paraná</option>		
+							<option value="PI">Piaui</option>					
+							<option value="RJ">Rio de Janeiro</option>	
+							<option value="RN">Rio Grande do Norte</option>	
+							<option value="RS">Rio Grande do Sul</option>	
+							<option value="RO">Rondônia</option>													
+							<option value="RR">Roraima</option>		
+							<option value="SC">Santa Catarina</option>		
+							<option value="SP" selected>São Paulo</option>		
+							<option value="SE">Sergipe</option>													
+							<option value="TO">Tocantins</option>													
+						</select>	
+					</div>
+
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8" id="novo_item_tenth_block">
+
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cidade" for="cidade_input">
+							Cidade:
+						</label>
+
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="cidade_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>
+					</div>						
+
+				</div>
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_terceira_row">
+
+					<div class="novo_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" id="novo_item_seventh_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_logradouro" for="logradouro_input">
+							Logradouro:
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>	
+					</div>
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" id="novo_item_seventh_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_numero" for="numero_input">
+							Numero:
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('novo')"/>
+					</div>
+
+				</div>				
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_quarta_row">
+
+					<div class="novo_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12" id="novo_item_eighth_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_bairro" for="bairro_input">
+							Bairro:
+						</label>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="bairro_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>
+					</div>							
+
+					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_eleventh_block">
+
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_complemento" for="complemento_input">
+							Complemento:
+						</label>
+
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="complemento_input" type="text" oninput="validacaoDoObjetoEndereco('novo')"/>
+					</div>					
+
+				</div>				
+
+				<hr class="hr_novo">
+
+				<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
+
+					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+
+					<button type="button" onclick="validacaoCampos('novo')" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="novo_item_submit">
+						Salvar
+					</button>	
+
+				</div>																				
+			</form>			
+		</div>
+
+		<div class="main_loader" id="main_loader">
+			<div class="loader"></div>
+		</div>
+
+		<script type="text/javascript" th:src="@{js/clientes.js}" src="../static/js/clientes.js" defer></script>
+
+	</body>
+
+</html>		

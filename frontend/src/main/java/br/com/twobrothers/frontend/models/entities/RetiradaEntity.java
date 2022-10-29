@@ -1,5 +1,6 @@
 package br.com.twobrothers.frontend.models.entities;
 
+import br.com.twobrothers.frontend.models.entities.user.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import lombok.*;
 
@@ -31,10 +32,14 @@ public class RetiradaEntity {
     private String dataRetirada;
     private String observacao;
     private String dataAgendamento;
-    private String tecnicoEntrada;
+    //private String tecnicoEntrada;
 
     @Enumerated(EnumType.STRING)
     private StatusRetiradaEnum statusRetirada;
+
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity tecnicoEntrada;
 
     @OneToOne(targetEntity = OrdemEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ordem_id")
