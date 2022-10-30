@@ -1040,7 +1040,7 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtrousuario.style.color="#212121";
 		filtrousuario.innerText = 'Usuario: ' + inputusuarioBackend.value;
 	}
-		
+
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA EDITA ITEM ====================== */
@@ -1049,14 +1049,15 @@ function abrirEditaItem(
 							id, 
 							dataCadastro,
 							dataNascimento,
-							nomeCompleto, 
+							nomeCompleto,
+							nomeUsuario,
+							privilegio,
+							senha,
+							senhaCriptografada,
 							cpfCnpj,
 							email, 
 							telefone, 
-							usuarioResponsavel,
-							privilegio,
-							usuario,
-							senha) {
+							usuarioResponsavel) {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -1094,6 +1095,9 @@ function abrirEditaItem(
 	document.getElementById('edita_email_colaborador_input').value=email;
 	document.getElementById('edita_telefone_colaborador_input').value=telefone;
 	document.getElementById('edita_data_nascimento_input').value=dataNascimento;
+	document.getElementById('edita_privilegio_colaborador_input').value=privilegio;
+	document.getElementById('edita_username_colaborador_input').value=nomeUsuario;
+	document.getElementById('edita_senha_colaborador_input').value=senha;
 	document.getElementById('edita_cpfCnpj_input').value=cpfCnpj;
 	document.getElementById('edita_descricao_colaborador_input').value=nomeCompleto;
 	document.getElementById('edita_email_colaborador_input').value=email;
@@ -1430,21 +1434,21 @@ function buildUrlPages() {
 	var periodoMes = document.getElementById('back_mes');
 	var periodoAno = document.getElementById('back_ano');	
 	var descricao = document.getElementById('back_descricao');		
-	var cpfCnpj = document.getElementById('back_cpfCnpj');			
+	var usuario = document.getElementById('back_usuario');			
 	var telefone = document.getElementById('back_telefone');	
 
 	var pageNumber = document.getElementsByClassName('page_number');
 
 	if(tipoFiltro.value == 'data') {
 
-		$('#anterior').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
-		$('#proxima').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
 
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/clientes?page=" + 
+			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
 		}
 
@@ -1452,14 +1456,14 @@ function buildUrlPages() {
 
 	else if(tipoFiltro.value == 'periodo') {
 
-		$('#anterior').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
-		$('#proxima').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
 
 		
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/clientes?page=" + 
+			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
 		}
 
@@ -1467,52 +1471,39 @@ function buildUrlPages() {
 
 	else if(tipoFiltro.value == 'descricao') {
 
-		$('#anterior').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
-		$('#proxima').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
+		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
+		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/clientes?page=" + 
+			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
 		}
 
 	}
 
-	else if(tipoFiltro.value == 'cpfCnpj') {
+	else if(tipoFiltro.value == 'usuario') {
 
-		$('#anterior').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) - 1)  + "&cpfCnpj=" + cpfCnpj.value);
-		$('#proxima').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) + 1)  + "&cpfCnpj=" + cpfCnpj.value);
+		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&usuario=" + usuario.value);
+		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&usuario=" + usuario.value);
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/clientes?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&cpfCnpj=" + cpfCnpj.value);
+			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&usuario=" + usuario.value);
 		}					
 	}
 
-	else if(tipoFiltro.value == 'telefone') {
-
-		$('#anterior').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) - 1)  + "&telefone=" + telefone.value);
-		$('#proxima').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) + 1)  + "&telefone=" + telefone.value);
-
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/clientes?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&telefone=" + telefone.value);
-		}	
-
-	}
 	else {
-		$('#anterior').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) - 1));
-		$('#proxima').attr("href", "/clientes?page=" + (parseInt(paginaAtual.value) + 1));
+		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1));
+		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1));
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/clientes?page=" + 
+			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
 		}		
 	}	

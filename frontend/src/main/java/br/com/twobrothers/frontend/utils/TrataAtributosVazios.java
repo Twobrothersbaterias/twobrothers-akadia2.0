@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.utils;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.dto.EnderecoDTO;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 
 public class TrataAtributosVazios {
 
@@ -14,6 +15,15 @@ public class TrataAtributosVazios {
         if (clienteDTO.getTelefone().isEmpty()) clienteDTO.setTelefone(null);
         if (clienteDTO.getDataNascimento().isEmpty()) clienteDTO.setDataNascimento(null);
         if (clienteDTO.getCpfCnpj().isEmpty()) clienteDTO.setCpfCnpj(null);
+    }
+
+    public static void trataAtributosVaziosDoObjetoColaborador(UsuarioDTO colaborador) {
+        if (colaborador.getNome().isEmpty()) colaborador.setNome(null);
+        if (colaborador.getEmail().isEmpty()) colaborador.setEmail(null);
+        if (colaborador.getNomeUsuario().isEmpty()) colaborador.setNomeUsuario(null);
+        if (colaborador.getTelefone().isEmpty()) colaborador.setTelefone(null);
+        if (colaborador.getDataNascimento().isEmpty()) colaborador.setDataNascimento(null);
+        if (colaborador.getCpfCnpj().isEmpty()) colaborador.setCpfCnpj(null);
     }
 
     public static void trataAtributosVaziosDoObjetoFornecedor(FornecedorDTO fornecedorDTO) {

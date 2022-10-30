@@ -7,6 +7,7 @@ import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
+import br.com.twobrothers.frontend.utils.TrataAtributosVazios;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.EnderecoValidation;
 import br.com.twobrothers.frontend.validations.UsuarioValidation;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.*;
@@ -47,11 +49,11 @@ public class UsuarioCrudService {
     EnderecoValidation enderecoValidation = new EnderecoValidation();
 
     public List<UsuarioEntity> buscaTodosPaginado(Pageable pageable) {
-        return repository.findAll(pageable).toList();
+        return repository.buscaTodosPaginado(pageable);
     }
 
     public List<UsuarioEntity> buscaTodosSemPaginacao() {
-        return repository.findAll(Sort.by("nome"));
+        return repository.buscaTodosSemPaginacao();
     }
 
     public void criaNovo(UsuarioDTO usuario) {
@@ -65,11 +67,13 @@ public class UsuarioCrudService {
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do novo usuário...");
         usuario.setUsuarioResponsavel(UsuarioUtils.loggedUser(repository).getUsername());
 
+        TrataAtributosVazios.trataAtributosVaziosDoObjetoColaborador(usuario);
+
         log.info("[PROGRESS] Validando objeto do tipo UsuarioDTO recebido por meio da requisição: {}", usuario);
         validation.validaCorpoRequisicao(usuario, repository, ValidationType.CREATE);
 
         log.info("[PROGRESS] Criptografando a senha do usuário...");
-        usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+        usuario.setSenhaCriptografada(new BCryptPasswordEncoder().encode(usuario.getSenha()));
 
         log.info("[PROGRESS] Salvando o usuário na base de dados...");
         repository.save(modelMapper.mapper().map(usuario, UsuarioEntity.class));
@@ -148,15 +152,34 @@ public class UsuarioCrudService {
         log.info("[PROGRESS] Verificando se um usuario com o id {} já existe na base de dados...", usuario.getId());
         if (usuarioOptional.isPresent()) {
 
+            TrataAtributosVazios.trataAtributosVaziosDoObjetoColaborador(usuario);
+
             validation.validaCorpoRequisicao(usuario, repository, ValidationType.UPDATE);
 
             usuarioEncontrado = usuarioOptional.get();
             log.warn("[INFO] Usuário encontrado: {}", usuarioEncontrado.getNome());
 
+            if (usuario.getNomeUsuario() != null
+                    && repository.findByNomeUsuario(usuario.getNomeUsuario()).isPresent()
+                    && !Objects.equals(usuarioEncontrado.getNomeUsuario(), usuario.getNomeUsuario()))
+                throw new InvalidRequestException("O nome de usuário informado já existe");
+
+            if (usuario.getEmail() != null
+                    && repository.buscaPorEmail(usuario.getEmail()).isPresent()
+                    && !Objects.equals(usuarioEncontrado.getEmail(), usuario.getEmail()))
+                throw new InvalidRequestException("O e-mail informado já existe");
+
+            if (usuario.getCpfCnpj() != null
+                    && repository.buscaPorCpfCnpj(usuario.getCpfCnpj()).isPresent()
+                    && !Objects.equals(usuarioEncontrado.getCpfCnpj(), usuario.getCpfCnpj()))
+                throw new InvalidRequestException("O CPF informado já existe");
+
+
             log.info("[PROGRESS] Atualizando o usuário encontrado com os valores recebidos no corpo da requisição...");
             usuarioAtualizado = usuarioEncontrado;
             usuarioAtualizado.setNome(usuario.getNome());
             usuarioAtualizado.setSenha(usuario.getSenha());
+            usuarioAtualizado.setSenhaCriptografada(new BCryptPasswordEncoder().encode(usuario.getSenha()));
             usuarioAtualizado.setNomeUsuario(usuario.getNomeUsuario());
             usuarioAtualizado.setPrivilegio(usuario.getPrivilegio());
             usuarioAtualizado.setCpfCnpj(usuario.getCpfCnpj());
@@ -172,7 +195,7 @@ public class UsuarioCrudService {
             } catch (DataIntegrityViolationException exception) {
                 log.error(exception.toString());
                 throw new InvalidRequestException(
-                        "O CPF, E-MAIL ou NOME DE USUÁRIO do colaborador devem ser únicos no banco de dados");
+                        "O Cpf, e-mail ou username do colaborador devem ser únicos no banco de dados");
             }
 
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);

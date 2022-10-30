@@ -23,6 +23,7 @@ public class UsuarioDTO {
     private String telefone;
     private String nomeUsuario;
     private String senha;
+    private String senhaCriptografada;
     private PrivilegioEnum privilegio;
     private List<RetiradaDTO> retiradas = new ArrayList<>();
 

@@ -3,21 +3,17 @@ package br.com.twobrothers.frontend.repositories.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
-import br.com.twobrothers.frontend.models.entities.EnderecoEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
-import br.com.twobrothers.frontend.repositories.EnderecoRepository;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
-import br.com.twobrothers.frontend.utils.TrataAtributosVazios;
 import br.com.twobrothers.frontend.validations.ClienteValidation;
 import br.com.twobrothers.frontend.validations.EnderecoValidation;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
@@ -228,13 +224,15 @@ public class ClienteCrudService {
             } else {
                 log.warn("[INFO] Nenhum endereço foi detectado.");
 
-                log.info("[PROGRESS] Setando endereço da variável clienteAtualizado como null...");
-                clienteAtualizado.getEndereco().setLogradouro(null);
-                clienteAtualizado.getEndereco().setNumero(null);
-                clienteAtualizado.getEndereco().setBairro(null);
-                clienteAtualizado.getEndereco().setCidade(null);
-                clienteAtualizado.getEndereco().setComplemento(null);
-                clienteAtualizado.getEndereco().setCep(null);
+                if (clienteAtualizado.getEndereco() != null) {
+                    log.info("[PROGRESS] Setando endereço da variável clienteAtualizado como null...");
+                    clienteAtualizado.getEndereco().setLogradouro(null);
+                    clienteAtualizado.getEndereco().setNumero(null);
+                    clienteAtualizado.getEndereco().setBairro(null);
+                    clienteAtualizado.getEndereco().setCidade(null);
+                    clienteAtualizado.getEndereco().setComplemento(null);
+                    clienteAtualizado.getEndereco().setCep(null);
+                }
             }
 
             ClienteEntity clienteEntity;

@@ -42,7 +42,10 @@ public class UsuarioEntity implements UserDetails {
 
     @Column(unique=true)
     private String nomeUsuario;
+
     private String senha;
+
+    private String senhaCriptografada;
 
     @Enumerated(EnumType.STRING)
     private PrivilegioEnum privilegio;
@@ -60,7 +63,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.senha;
+        return this.senhaCriptografada;
     }
 
     @Override

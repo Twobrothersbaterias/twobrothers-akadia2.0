@@ -302,8 +302,8 @@
 						<input th:value="'TOTAL DE ITENS: ' + ${totalItens}" id="total_itens" hidden>
 
 						<div th:if="${tipoFiltro == 'data'}">
-							<input th:value="${inicio}" id="back_inicio" hidden>
-							<input th:value="${fim}" id="back_fim" hidden>
+							<input th:value="${dataInicio}" id="back_inicio" hidden>
+							<input th:value="${dataFim}" id="back_fim" hidden>
 						</div>
 
 						<div th:if="${tipoFiltro == 'periodo'}">
@@ -315,13 +315,9 @@
 							<input th:value="${descricao}" id="back_descricao" hidden>
 						</div>			
 
-						<div th:if="${tipoFiltro == 'cpfCnpj'}">
-							<input th:value="${cpfCnpj}" id="back_cpfCnpj" hidden>
+						<div th:if="${tipoFiltro == 'usuario'}">
+							<input th:value="${usuario}" id="back_usuario" hidden>
 						</div>			
-
-						<div th:if="${tipoFiltro == 'telefone'}">
-							<input th:value="${telefone}" id="back_telefone" hidden>
-						</div>														
 
 						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
 							Colaboradores
@@ -374,7 +370,7 @@
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<tr th:if="${#lists.isEmpty(colaboradores)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:if="${#lists.isEmpty(usuarios)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 										<td class="td td_cadastro col-xl-2 col-lg-2 col-md-2">...</td>										
 										<td class="td td_nome col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
@@ -389,42 +385,124 @@
 
 									<tr 									
 									th:each="colaborador: ${usuarios}"
+									th:if="${colaborador.privilegio.desc} != 'Desenvolvedor'"
 									class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
-									th:data-id="${colaborador.id}" 
-									th:data-dataCadastro="${colaborador.dataCadastro}"
-									th:data-dataNascimento="${colaborador.dataNascimento}"
-									th:data-nomeCompleto="${colaborador.nome}" 
-									th:data-cpfCnpj="${colaborador.cpfCnpj}" 
-									th:data-email="${colaborador.email}" 
-									th:data-telefone="${colaborador.telefone}"
-									th:data-usuarioResponsavel="${colaborador.usuarioResponsavel}"
-									onclick="abrirEditaItem(
-										this.getAttribute('data-id'), 
-										this.getAttribute('data-dataCadastro'), 
-										this.getAttribute('data-dataNascimento'), 
-										this.getAttribute('data-nome'), 
-										this.getAttribute('data-cpfCnpj'), 
-										this.getAttribute('data-email'), 
-										this.getAttribute('data-telefone'), 
-										this.getAttribute('data-usuarioResponsavel'))">
-
+									>								
 										<td 
 										th:text="${colaborador.dataCadastro}" 
-										class="td td_cadastro td_tipo col-xl-2 col-lg-2 col-md-2">...</td>
+										class="td td_cadastro td_tipo col-xl-2 col-lg-2 col-md-2"
+										th:data-id="${colaborador.id}" 
+										th:data-dataCadastro="${colaborador.dataCadastro}"
+										th:data-dataNascimento="${colaborador.dataNascimento}"
+										th:data-nomeCompleto="${colaborador.nome}"
+										th:data-nomeUsuario="${colaborador.nomeUsuario}"
+										th:data-privilegio="${colaborador.privilegio}"
+										th:data-senha="${colaborador.senha}"
+										th:data-senhaCriptografada="${colaborador.senhaCriptografada}"
+										th:data-cpfCnpj="${colaborador.cpfCnpj}" 
+										th:data-email="${colaborador.email}" 
+										th:data-telefone="${colaborador.telefone}"
+										th:data-usuarioResponsavel="${colaborador.usuarioResponsavel}"
+										onclick="abrirEditaItem(
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-dataNascimento'), 
+											this.getAttribute('data-nomeCompleto'),
+											this.getAttribute('data-nomeUsuario'),
+											this.getAttribute('data-privilegio'),
+											this.getAttribute('data-senha'),
+											this.getAttribute('data-senhaCriptografada'),
+											this.getAttribute('data-cpfCnpj'), 
+											this.getAttribute('data-email'), 
+											this.getAttribute('data-telefone'), 
+											this.getAttribute('data-usuarioResponsavel'))">...</td>
 
 										<td 
 										th:text="${colaborador.nome}" 
-										class="td td_nome col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+										class="td td_nome col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4"
+										th:data-id="${colaborador.id}" 
+										th:data-dataCadastro="${colaborador.dataCadastro}"
+										th:data-dataNascimento="${colaborador.dataNascimento}"
+										th:data-nomeCompleto="${colaborador.nome}"
+										th:data-nomeUsuario="${colaborador.nomeUsuario}"
+										th:data-privilegio="${colaborador.privilegio}"
+										th:data-senha="${colaborador.senha}"
+										th:data-senhaCriptografada="${colaborador.senhaCriptografada}"
+										th:data-cpfCnpj="${colaborador.cpfCnpj}" 
+										th:data-email="${colaborador.email}" 
+										th:data-telefone="${colaborador.telefone}"
+										th:data-usuarioResponsavel="${colaborador.usuarioResponsavel}"
+										onclick="abrirEditaItem(
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-dataNascimento'), 
+											this.getAttribute('data-nomeCompleto'),
+											this.getAttribute('data-nomeUsuario'),
+											this.getAttribute('data-privilegio'),
+											this.getAttribute('data-senha'),
+											this.getAttribute('data-senhaCriptografada'),
+											this.getAttribute('data-cpfCnpj'), 
+											this.getAttribute('data-email'), 
+											this.getAttribute('data-telefone'), 
+											this.getAttribute('data-usuarioResponsavel'))">...</td>
 											
 										<td 
-										th:text="${colaborador.privilegio.desc}" 
-										class="td td_nivel col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
+										th:text="${colaborador.privilegio.desc} == 'Desenvolvedor' ? 'CONFIDENCIAL' : ${colaborador.privilegio.desc}"
+										class="td td_nivel col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
+										th:data-id="${colaborador.id}" 
+										th:data-dataCadastro="${colaborador.dataCadastro}"
+										th:data-dataNascimento="${colaborador.dataNascimento}"
+										th:data-nomeCompleto="${colaborador.nome}"
+										th:data-nomeUsuario="${colaborador.nomeUsuario}"
+										th:data-privilegio="${colaborador.privilegio}"
+										th:data-senha="${colaborador.senha}"
+										th:data-senhaCriptografada="${colaborador.senhaCriptografada}",
+										th:data-cpfCnpj="${colaborador.cpfCnpj}" 
+										th:data-email="${colaborador.email}" 
+										th:data-telefone="${colaborador.telefone}"
+										th:data-usuarioResponsavel="${colaborador.usuarioResponsavel}"
+										onclick="abrirEditaItem(
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-dataNascimento'), 
+											this.getAttribute('data-nomeCompleto'),
+											this.getAttribute('data-nomeUsuario'),
+											this.getAttribute('data-privilegio'),
+											this.getAttribute('data-senha'),
+											this.getAttribute('data-senhaCriptografada'),
+											this.getAttribute('data-cpfCnpj'), 
+											this.getAttribute('data-email'), 
+											this.getAttribute('data-telefone'), 
+											this.getAttribute('data-usuarioResponsavel'))">...</td>
 											
 										<td 
 										th:text="${colaborador.nomeUsuario}" 
-										class="td td_username col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-											
-
+										class="td td_username col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4"
+										th:data-id="${colaborador.id}" 
+										th:data-dataCadastro="${colaborador.dataCadastro}"
+										th:data-dataNascimento="${colaborador.dataNascimento}"
+										th:data-nomeCompleto="${colaborador.nome}"
+										th:data-nomeUsuario="${colaborador.nomeUsuario}"
+										th:data-privilegio="${colaborador.privilegio}"
+										th:data-senha="${colaborador.senha}"
+										th:data-senhaCriptografada="${colaborador.senhaCriptografada}",
+										th:data-cpfCnpj="${colaborador.cpfCnpj}" 
+										th:data-email="${colaborador.email}" 
+										th:data-telefone="${colaborador.telefone}"
+										th:data-usuarioResponsavel="${colaborador.usuarioResponsavel}"
+										onclick="abrirEditaItem(
+											this.getAttribute('data-id'), 
+											this.getAttribute('data-dataCadastro'), 
+											this.getAttribute('data-dataNascimento'), 
+											this.getAttribute('data-nomeCompleto'),
+											this.getAttribute('data-nomeUsuario'),
+											this.getAttribute('data-privilegio'),
+											this.getAttribute('data-senha'),
+											this.getAttribute('data-senhaCriptografada'),
+											this.getAttribute('data-cpfCnpj'), 
+											this.getAttribute('data-email'), 
+											this.getAttribute('data-telefone'), 
+											this.getAttribute('data-usuarioResponsavel'))">...</td>
 
 										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
 
@@ -630,7 +708,7 @@
 					<input type="text" name="dataFim" id="input_data_fim_backend" hidden/>
 					<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
 					<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
-					<input type="text" name="usuario" id="input_usuario_backend" hidden/>
+					<input type="text" name="username" id="input_usuario_backend" hidden/>
 
 					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
 						<button type="submit" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -652,21 +730,25 @@
 					Alterar colaborador
 				</h1>
 
-				<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+				<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-4"></div>
 
-				<div class="img_div col-xl-2 col-lg-1 col-md-1 col-sm-1 col-1">
+				<div class="img_div col-xl-3 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadEditaItem()"/>							
+					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img">
+						<img class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>
+					</a>					
 
-					<img class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaEditaItem()"/>
-					
+					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img">
+						<img class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaEditaItem()"/>
+					</a>
+
 				</div>	
 
 			</div>
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{colaboradores}" method="POST" th:object="${usuario}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{colaboradores/alterar}" method="POST" th:object="${usuario}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 				<input type="text" id="id_input_edicao" name="id" hidden/>
 
@@ -819,7 +901,8 @@
 					</button>	
 
 				</div>																				
-			</form>			
+			</form>
+
 		</div>			
 
 		<!-------------- NOVO_ITEM ------------>

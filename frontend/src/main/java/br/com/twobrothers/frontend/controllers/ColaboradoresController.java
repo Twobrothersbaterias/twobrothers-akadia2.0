@@ -102,7 +102,7 @@ public class ColaboradoresController {
         model.addAttribute("dataFim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("cpfCnpj", usuario.orElse(null));
+        model.addAttribute("usuario", usuario.orElse(null));
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
         model.addAttribute("usuarios", usuariosPaginados);

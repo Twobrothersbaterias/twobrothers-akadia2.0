@@ -23,33 +23,35 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
 
 
-    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2")
+    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2 and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorRangeDeDataCadastroPaginado(Pageable pageable, String dataInicio, String dataFim);
 
-    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2")
+    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2 and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorPeriodoPaginado(Pageable pageable, String dataInicio, String dataFim);
 
-    @Query("Select u From UsuarioEntity u where u.nome like %:nome%")
+    @Query("Select u From UsuarioEntity u where u.nome like %:nome% and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorNomeCompletoPaginado(Pageable pageable, @Param("nome") String nome);
 
-    @Query("Select u From UsuarioEntity u where u.nomeUsuario like %:username%")
+    @Query("Select u From UsuarioEntity u where u.nomeUsuario like %:username% and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorNomeDeUsuarioPaginado(Pageable pageable, @Param("username") String username);
 
+    @Query("Select u From UsuarioEntity u where u.privilegio != 'DESENVOLVEDOR'")
+    List<UsuarioEntity> buscaTodosPaginado(Pageable pageable);
 
-
-    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2")
+    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2 and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorRangeDeDataCadastroSemPaginacao(String dataInicio, String dataFim);
 
-    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2")
+    @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2 and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorPeriodoSemPaginacao(String dataInicio, String dataFim);
 
-    @Query("Select u From UsuarioEntity u where u.nome like %:nome%")
+    @Query("Select u From UsuarioEntity u where u.nome like %:nome% and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorNomeCompletoSemPaginacao(@Param("nome") String nome);
 
-    @Query("Select u From UsuarioEntity u where u.nomeUsuario like %:username%")
+    @Query("Select u From UsuarioEntity u where u.nomeUsuario like %:username% and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorNomeDeUsuarioSemPaginacao(@Param("username") String username);
 
-
+    @Query("Select u From UsuarioEntity u where u.privilegio != 'DESENVOLVEDOR'")
+    List<UsuarioEntity> buscaTodosSemPaginacao();
 
 
 
