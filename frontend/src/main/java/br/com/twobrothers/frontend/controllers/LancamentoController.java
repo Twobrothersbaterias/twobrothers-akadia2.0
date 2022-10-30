@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -52,6 +54,7 @@ public class LancamentoController {
         model.addAttribute("ordem", null);
         model.addAttribute("entradas", null);
         model.addAttribute("pagamentos", null);
+        model.addAttribute("colaboradores", usuarioRepository.buscaTodosSemPaginacao());
 
         if (ordem != null) {
             model.addAttribute("ordemEdicao", ordem);

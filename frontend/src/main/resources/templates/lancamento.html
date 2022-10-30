@@ -264,6 +264,18 @@
 				<!-------------- CONTEUDO_CONTAINER ------------>
 				<form th:action="@{lancamento}" th:object="${ordem}" method="POST" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container" name="form">
 
+					<input 	th:value="${ordemEdicao != null} ? ${ordemEdicao.id} : ''" 
+					name="ordem.id" 
+					hidden>				
+						
+					<input 	th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} ? ${ordemEdicao.cliente.id} : ''" 
+					name="cliente.id" 
+					hidden>
+
+					<input 	th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} ? ${ordemEdicao.cliente.endereco.id} : ''" 
+					name="cliente.endereco.id" 
+					hidden>					
+
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
 						<div class="conteudo_titulo_item alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
@@ -349,11 +361,6 @@
 									</div>	
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
-
-										<input 	
-										th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} 
-														? ${ordemEdicao.cliente.nomeCompleto} : ''" 
-										name="cliente.id" hidden>
 
 										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
@@ -490,9 +497,9 @@
 												Tipo
 											</label>
 											<select tabindex="20" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_tipo_produto" onchange="trocaTipoDaEntrada()">
-												<option value="PADRAO_PRODUTO">Entrada padrão</option>
-												<option value="PADRAO_SERVICO">Entrada de serviço</option>
-												<option value="GARANTIA">Entrada de garantia</option>
+												<option value="PADRAO_PRODUTO" id="entrada_padrao">Entrada padrão</option>
+												<option value="PADRAO_SERVICO" id="padrao_servico">Entrada de serviço</option>
+												<option value="GARANTIA" id="entrada_garantia">Entrada de garantia</option>
 											</select>
 												
 										</div>
@@ -798,18 +805,22 @@
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
 											<div class="novo_item_block col-xl-4 col-lg-4 col-md-8 col-sm-6 col-12">
-												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_tecnico">
+												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_tecnico" for="select_tecnico">
 													Tecnico
 												</label>
-												<select
-												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.tecnicoEntrada != null} ? ${ordemEdicao.retirada.tecnicoEntrada} : ''"												
+												<select		
 												tabindex="16"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												id="select_tecnico"
-												name="retirada.tecnicoEntrada">
-													<option value="Fulano">Fulano</option>
-													<option value="Ciclano">Ciclano</option>
-													<option value="Deltrano">Deltrano</option>
+												name="retirada.tecnicoEntrada.id">
+													<option
+													th:each="colaborador: ${colaboradores}" 
+													th:value="${colaborador.id}"  
+													th:text="${colaborador.nome}"
+													class="option_tecnico" 
+													value="...">
+														...
+													</option>
 												</select>
 											</div>	
 
@@ -818,7 +829,7 @@
 													Agendamento
 												</label>
 												<input
-												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} ? ${ordemEdicao.retirada.dataAgendamento} : ''"													
+												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} and ${ordemEdicao.retirada.dataAgendamento} != 'Não possui' ? ${ordemEdicao.retirada.dataAgendamento} : ''"													
 												tabindex="17"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												type="date"
@@ -832,7 +843,7 @@
 													E-mail
 												</label>
 												<input
-												th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.email != null} ? ${ordemEdicao.cliente.email} : ''"												
+												th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.email != null} ? ${ordemEdicao.cliente.email} : ''"
 												autocomplete="off" 
 												tabindex="18"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
@@ -1036,6 +1047,8 @@
 					<input th:value="${ordemEdicao != null} and ${ordemEdicao.loja != null} ? ${ordemEdicao.loja} : ''" id="setup_loja">
 
 					<input th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''" id="setup_statusRetirada">
+
+					<input th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.tecnicoEntrada} ? ${ordemEdicao.retirada.tecnicoEntrada.id} : ''" id="setup_tecnico">					
 
 				</div>
 	

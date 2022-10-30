@@ -32,7 +32,8 @@ public class RetiradaDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dataAgendamento;
 
-    private String tecnicoEntrada;
+    private UsuarioDTO tecnicoEntrada;
+
     private StatusRetiradaEnum statusRetirada;
 
     @JsonIgnore

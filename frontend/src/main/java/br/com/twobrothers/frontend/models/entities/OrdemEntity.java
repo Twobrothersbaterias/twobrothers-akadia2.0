@@ -35,7 +35,10 @@ public class OrdemEntity {
 
     private String dataCadastro;
     private String veiculo;
+
+    @Enumerated(EnumType.STRING)
     private NfeEnum tipoNfe;
+
     private Long idUsuarioResponsavel;
 
     @Enumerated(EnumType.STRING)

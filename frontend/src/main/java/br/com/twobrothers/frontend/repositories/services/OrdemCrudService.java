@@ -4,13 +4,11 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.*;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
-import br.com.twobrothers.frontend.repositories.ClienteRepository;
-import br.com.twobrothers.frontend.repositories.EntradaOrdemRepository;
-import br.com.twobrothers.frontend.repositories.OrdemRepository;
-import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
+import br.com.twobrothers.frontend.repositories.*;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.services.GerenciamentoEstoqueService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
@@ -49,6 +47,8 @@ public class OrdemCrudService {
     @Autowired
     OrdemRepository repository;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
     @Autowired
     ClienteRepository clienteRepository;
 
@@ -159,6 +159,13 @@ public class OrdemCrudService {
         }
         log.info("[PROGRESS] Iniciando validação em massa da relação ENTRADA -> PRODUTO...");
         gerenciamentoEstoqueService.validacoesEmMassa(ordem.getEntradas());
+
+        log.info("[PROGRESS] Localizando tecnico de id {}...", ordem.getRetirada().getTecnicoEntrada().getId());
+        Optional<UsuarioEntity> tecnicoOptional =
+                usuarioRepository.findById(ordem.getRetirada().getTecnicoEntrada().getId());
+
+        if (tecnicoOptional.isPresent())
+            ordem.getRetirada().setTecnicoEntrada(modelMapper.mapper().map(tecnicoOptional.get(), UsuarioDTO.class));
 
         log.info("[PROGRESS] Iniciando validação do objeto RetiradaDTO recebido acoplado no objeto OrdemDTO...");
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());

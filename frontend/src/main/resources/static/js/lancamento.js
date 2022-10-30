@@ -22,6 +22,9 @@ function responsive(){
 
 	var indicadorEdicao = document.getElementById('indicador_edicao');
 
+	setupProdutosVazios();
+	setupTecnicosVazios();
+
 	if(indicadorEdicao != null) {
 		setupEdicao();
 	}
@@ -439,6 +442,8 @@ function validaNovoProduto() {
 
 function resetNovoProduto() {
 
+	var indicadorEdicao = document.getElementById('indicador_edicao');
+
 	var inputTipoProduto = document.getElementById('input_tipo_produto');
 	var inputTipoEntrada = document.getElementById('input_tipo_entrada');
 	var inputProduto = document.getElementById('select_produto');
@@ -447,30 +452,61 @@ function resetNovoProduto() {
 	var optionProdutos = document.getElementsByClassName('option_produto');
 	var optionServico = document.getElementById('option_servico');
 	var labelTipoEntrada = document.getElementById('label_tipo_entrada');
-	var labelQuantidade = document.getElementById('label_quantidade');
+	var labelQuantidade = document.getElementById('label_quantidade');	
+	var botaoAddProduto = document.getElementById('botao_add_produto');
 
-	inputTipoProduto.value="PADRAO_PRODUTO";
-	inputTipoEntrada.value="TROCA";
-	inputValor.value=0.00;
-	inputQuantidade.value=0;
+	if(optionProdutos.length > 0) {
 
-	optionServico.hidden=true;
-	for(var i = 0; i < optionProdutos.length; i++) {
-		optionProdutos[i].hidden=false;
+		inputTipoProduto.value="PADRAO_PRODUTO";
+		inputTipoEntrada.value="TROCA";
+		inputValor.value=0.00;
+		inputQuantidade.value=0;
+
+		optionServico.hidden=true;
+		for(var i = 0; i < optionProdutos.length; i++) {
+			optionProdutos[i].hidden=false;
+		}
+
+		optionProdutos[0].selected=true;
+
+		labelTipoEntrada.style.color="#303030";
+		inputTipoEntrada.style.color="#303030";
+		inputTipoEntrada.style.borderColor="grey";
+		inputTipoEntrada.disabled=false;
+
+		labelQuantidade.style.color="#303030";
+		inputQuantidade.style.color="#303030";
+		inputQuantidade.style.borderColor="grey";
+		inputQuantidade.disabled=false;	
+
 	}
 
-	optionProdutos[0].selected=true;
+	else {
 
-	labelTipoEntrada.style.color="#303030";
-	inputTipoEntrada.style.color="#303030";
-	inputTipoEntrada.style.borderColor="grey";
-	inputTipoEntrada.disabled=false;
+		inputTipoProduto.value="PADRAO_SERVICO";
+		inputTipoEntrada.value="TROCA";
+		inputValor.value=0.00;
+		inputQuantidade.value=0;
 
-	labelQuantidade.style.color="#303030";
-	inputQuantidade.style.color="#303030";
-	inputQuantidade.style.borderColor="grey";
-	inputQuantidade.disabled=false;	
+		optionServico.hidden=false;
+		optionServico.selected=true;
 
+		labelTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.borderColor="#4444";
+		inputTipoEntrada.disabled=true;
+
+		labelQuantidade.style.color="#4444";
+		inputQuantidade.style.color="#4444";
+		inputQuantidade.style.borderColor="#4444";
+		inputQuantidade.disabled=true;
+
+		inputQuantidade.style.background="transparent";
+		inputQuantidade.value=0;
+		botaoAddProduto.disabled=false;
+		botaoAddProduto.style.background="#2f3d61";		
+
+	}
 }
 
 function addNovoProduto() {
@@ -1002,6 +1038,7 @@ function validacaoCampos() {
 	var inputNumero = document.getElementById('input_numero');
 	var inputComplemento = document.getElementById('input_complemento');	
 	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
+	var selectTecnico = document.getElementById('select_tecnico');
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 
@@ -1023,6 +1060,10 @@ function validacaoCampos() {
 	if(inputEntradas.value == "") {
 		erros += "- Nenhuma entrada adicionada à ordem\n";
 	}
+	if(selectTecnico.value == "" || selectTecnico == null) {
+		erros += "- É necessário adicionar um técnico à ordem\n";
+	}
+
 	if(inputCep.value != "" 
 		|| inputCidade.value != "" 
 		|| inputBairro.value != "" 
@@ -1223,21 +1264,21 @@ function removeItemTb(item) {
 function setupEdicao() {
 
 	setupSelects();
-
 }
 
 function setupSelects() {
 	var setupTipoNfe = document.getElementById('setup_tipoNfe');
 	var setupLoja = document.getElementById('setup_loja');
 	var setupStatusRetirada = document.getElementById('setup_statusRetirada');
+	var setupTecnico = document.getElementById('setup_tecnico');
 
 	var optionNfe = document.getElementsByClassName('option_nfe');
 	var optionLoja = document.getElementsByClassName('option_loja');
 	var optionStatusRetirada = document.getElementsByClassName('option_status_retirada');	
+	var optionTecnico = document.getElementsByClassName('option_tecnico');	
 
 	if (setupTipoNfe.value != null) {
 		for(var i = 0; i < optionNfe.length; i++) {
-			console.log(optionNfe[i].value);
 			if (optionNfe[i].value == setupTipoNfe.value) {
 				optionNfe[i].selected=true;
 			}
@@ -1246,7 +1287,6 @@ function setupSelects() {
 
 	if (setupLoja.value != null) {
 		for(var i = 0; i < optionLoja.length; i++) {
-			console.log(optionLoja[i].value);
 			if (optionLoja[i].value == setupLoja.value) {
 				optionLoja[i].selected=true;
 			}
@@ -1255,12 +1295,89 @@ function setupSelects() {
 
 	if (setupStatusRetirada.value != null) {
 		for(var i = 0; i < optionStatusRetirada.length; i++) {
-			console.log(optionStatusRetirada[i].value);
 			if (optionStatusRetirada[i].value == setupStatusRetirada.value) {
 				optionStatusRetirada[i].selected=true;
 			}
 		}
 	}	
+
+	if (setupTecnico.value != null) {
+		for(var i = 0; i < optionTecnico.length; i++) {
+			if (optionTecnico[i].value == setupTecnico.value) {
+				optionTecnico[i].selected=true;
+			}
+		}
+	}	
+}
+
+/* ====================== Setups padrão ========================= */
+
+function setupProdutosVazios() {
+
+	var indicadorEdicao = document.getElementById('indicador_edicao');
+
+	var inputTipoProduto = document.getElementById('input_tipo_produto');
+	var inputTipoEntrada = document.getElementById('input_tipo_entrada');
+	var inputProduto = document.getElementById('select_produto');
+	var inputValor = document.getElementById('input_valor');
+	var inputQuantidade = document.getElementById('input_quantidade');
+	var optionProdutos = document.getElementsByClassName('option_produto');
+	var optionServico = document.getElementById('option_servico');
+	var labelTipoEntrada = document.getElementById('label_tipo_entrada');
+	var labelQuantidade = document.getElementById('label_quantidade');	
+	var botaoAddProduto = document.getElementById('botao_add_produto');
+
+	var optionEntradaPadrao = document.getElementById('entrada_padrao');
+	var optionEntradaServico = document.getElementById('padrao_servico');
+	var optionEntradaGarantia = document.getElementById('entrada_garantia');
+
+	if(optionProdutos.length == 0) {
+
+		inputTipoProduto.value="PADRAO_SERVICO";
+		inputTipoEntrada.value="TROCA";
+		inputValor.value=0.00;
+		inputQuantidade.value=0;
+
+		optionServico.hidden=false;
+		optionServico.selected=true;
+
+		labelTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.borderColor="#4444";
+		inputTipoEntrada.disabled=true;
+
+		labelQuantidade.style.color="#4444";
+		inputQuantidade.style.color="#4444";
+		inputQuantidade.style.borderColor="#4444";
+		inputQuantidade.disabled=true;
+
+		inputQuantidade.style.background="transparent";
+		inputQuantidade.value=0;
+		botaoAddProduto.disabled=false;
+		botaoAddProduto.style.background="#2f3d61";
+
+		optionEntradaPadrao.disabled=true;
+		optionEntradaPadrao.style.color="#4444";
+
+		optionEntradaGarantia.disabled=true;
+		optionEntradaGarantia.style.color="#4444";
+
+	}
+
+}
+
+function setupTecnicosVazios() {
+
+	var optionTecnico = document.getElementsByClassName('option_tecnico');
+	var selectTecnico = document.getElementById('select_tecnico');
+	var labelTecnico = document.getElementById('label_tecnico');
+
+	if (optionTecnico.length == 0) {
+		selectTecnico.disabled=true;
+		selectTecnico.style.borderColor="#4444";
+		labelTecnico.style.color="#4444";
+	}
+
 }
 
 /* ============================= Miscelânia ================================== */
