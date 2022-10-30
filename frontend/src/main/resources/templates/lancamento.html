@@ -262,12 +262,16 @@
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
 				<!-------------- CONTEUDO_CONTAINER ------------>
-				<form th:action="@{lancamento}" th:object="${ordem}" method="POST" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container" name="form">
+				<form th:action="${ordemEdicao == null} ? @{/lancamento} : @{/lancamento/alterar}" th:object="${ordem}" method="POST" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container" name="form">
 
 					<input 	th:value="${ordemEdicao != null} ? ${ordemEdicao.id} : ''" 
-					name="ordem.id" 
-					hidden>				
-						
+					name="id" 
+					hidden>
+
+					<input 	th:value="${ordemEdicao != null} ? ${ordemEdicao.dataCadastro} : ''" 
+					name="dataCadastro" 
+					hidden>										
+
 					<input 	th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} ? ${ordemEdicao.cliente.id} : ''" 
 					name="cliente.id" 
 					hidden>

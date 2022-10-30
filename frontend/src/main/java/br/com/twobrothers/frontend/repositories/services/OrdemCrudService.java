@@ -341,6 +341,7 @@ public class OrdemCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de atualização de ordem...");
         deletaPorId(id);
+        ordem.setId(null);
         return criaNovo(ordem);
     }
 
@@ -361,17 +362,19 @@ public class OrdemCrudService {
         log.info("[PROGRESS] Iniciando iteração pela lista de entradas da ordem encontrada...");
         for (EntradaOrdemEntity entradaOrdemEntity : ordemEntity.getEntradas()) {
 
-            log.info("[PROGRESS] Iniciando acesso à classe de gerenciamento de estoque, que irá realizar o processo " +
-                    "de remoção das relações ENTRADA -> PRODUTO...");
-            gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(
-                    modelMapper.mapper().map(entradaOrdemEntity, EntradaOrdemDTO.class), OperacaoEstoque.REMOCAO);
+            if (entradaOrdemEntity.getProduto() != null) {
+                log.info("[PROGRESS] Iniciando acesso à classe de gerenciamento de estoque, que irá realizar o processo " +
+                        "de remoção das relações ENTRADA -> PRODUTO...");
+                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(
+                        modelMapper.mapper().map(entradaOrdemEntity, EntradaOrdemDTO.class), OperacaoEstoque.REMOCAO);
 
-            log.info("[PROGRESS] Removendo o produto da entrada e a entrada do produto...");
-            ProdutoEstoqueEntity produtoEstoqueEntity = entradaOrdemEntity.getProduto();
-            produtoEstoqueEntity.removeEntrada(entradaOrdemEntity);
+                log.info("[PROGRESS] Removendo o produto da entrada e a entrada do produto...");
+                ProdutoEstoqueEntity produtoEstoqueEntity = entradaOrdemEntity.getProduto();
+                produtoEstoqueEntity.removeEntrada(entradaOrdemEntity);
 
-            log.info("[PROGRESS] Persistindo produto atualizado na base de dados...");
-            produtoEstoqueRepository.save(produtoEstoqueEntity);
+                log.info("[PROGRESS] Persistindo produto atualizado na base de dados...");
+                produtoEstoqueRepository.save(produtoEstoqueEntity);
+            }
 
         }
 

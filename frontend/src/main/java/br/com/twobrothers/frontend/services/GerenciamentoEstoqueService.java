@@ -56,10 +56,12 @@ public class GerenciamentoEstoqueService {
 
     public void remocaoDeOrdemComum(EntradaOrdemDTO entradaOrdemDTO) {
         verificaSeExiste(entradaOrdemDTO);
-        ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
-        produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + entradaOrdemDTO.getQuantidade());
-        produtoEstoque.setCustoTotal(produtoEstoque.getQuantidade() * produtoEstoque.getCustoUnitario());
-        produtoEstoqueRepository.save(produtoEstoque);
+        if (entradaOrdemDTO.getProduto() != null) {
+            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
+            produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + entradaOrdemDTO.getQuantidade());
+            produtoEstoque.setCustoTotal(produtoEstoque.getQuantidade() * produtoEstoque.getCustoUnitario());
+            produtoEstoqueRepository.save(produtoEstoque);
+        }
     }
 
     public boolean verificaSeExiste(EntradaOrdemDTO entradaOrdemDTO) {

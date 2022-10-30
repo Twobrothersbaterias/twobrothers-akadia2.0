@@ -1262,7 +1262,7 @@ function removeItemTb(item) {
 /* ====================== Setup de edição ========================= */
 
 function setupEdicao() {
-
+	console.log("ACESSADO");
 	setupSelects();
 }
 

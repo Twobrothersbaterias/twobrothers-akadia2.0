@@ -25,10 +25,8 @@ import java.util.List;
 @EqualsAndHashCode
 public class OrdemDTO {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String dataCadastro;
 
     private String veiculo;

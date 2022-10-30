@@ -1,5 +1,6 @@
 package br.com.twobrothers.frontend.controllers;
 
+import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
@@ -85,6 +86,23 @@ public class LancamentoController {
         modelAndView.setViewName("redirect:vendas");
         return modelAndView;
 
+    }
+
+    @PostMapping("/alterar")
+    public ModelAndView atualizaOrdem(OrdemDTO ordem,
+                                              RedirectAttributes redirAttrs,
+                                              ModelAndView modelAndView,
+                                              String query) {
+
+        String atualizaOrdem = ordemService.encaminhaParaUpdateDoCrudService(ordem);
+
+        if (atualizaOrdem == null)
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Atualização da ordem realizada com sucesso");
+        else
+            redirAttrs.addFlashAttribute("ErroCadastro", atualizaOrdem);
+
+        modelAndView.setViewName("redirect:../vendas?" + query);
+        return modelAndView;
     }
 
 }

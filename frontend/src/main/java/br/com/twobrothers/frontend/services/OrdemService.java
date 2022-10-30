@@ -46,6 +46,15 @@ public class OrdemService {
         }
     }
 
+    public String encaminhaParaUpdateDoCrudService(OrdemDTO ordem) {
+        try {
+            crudService.atualizaPorId(ordem.getId(), ordem);
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public List<OrdemEntity> filtroOrdens(
             Pageable pageable,
             String dataInicio,

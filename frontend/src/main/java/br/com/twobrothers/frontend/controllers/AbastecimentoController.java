@@ -204,7 +204,7 @@ public class AbastecimentoController {
         String atualizaAbastecimento = abastecimentoService.encaminhaParaUpdateDoCrudService(abastecimento);
 
         if (atualizaAbastecimento == null)
-            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da compra realizado salvo com sucesso");
+            redirAttrs.addFlashAttribute("SucessoCadastro", "Atualização da compra realizada com sucesso");
         else
             redirAttrs.addFlashAttribute("ErroCadastro", atualizaAbastecimento);
 
