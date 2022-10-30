@@ -332,7 +332,8 @@
 
 								<img tabindex="-1" class="icones col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6 img" id="eye" src="../static/img/eye-grey.png" th:src="@{img/eye-grey.png}" onclick="exibeTabela()"/>
 
-								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6" th:href="@{/lancamento}">
+								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6" 
+								th:href="${ordemEdicao != null} ? @{/lancamento?id=} + ${ordemEdicao.id} : @{/lancamento}">
 									<img tabindex="-1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 								</a>
 
@@ -513,13 +514,13 @@
 												Possui troca
 											</label>
 											<select tabindex="21" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_tipo_entrada">
-												<option value="TROCA">Sim</option>
-												<option value="COMUM">Não</option>
+												<option id="option_troca" value="TROCA">Sim</option>
+												<option id="option_comum" value="COMUM">Não</option>
 											</select>
 												
 										</div>
 
-										<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Produto
 											</label>
@@ -539,19 +540,19 @@
 											</select>				
 										</div>							
 
-										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_valor">
-												Valor
-											</label>
-											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
-										</div>
-
-										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_quantidade" id="label_quantidade">
 												Qtde
 											</label>
 											<input autocomplete="off" tabindex="24" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
-										</div>									
+										</div>		
+
+										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_valor">
+												Valor
+											</label>
+											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
+										</div>																	
 									</div>	
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
@@ -833,7 +834,7 @@
 													Agendamento
 												</label>
 												<input
-												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} and ${ordemEdicao.retirada.dataAgendamento} != 'Não possui' ? ${ordemEdicao.retirada.dataAgendamento} : ''"													
+												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} and ${ordemEdicao.retirada.dataAgendamento} != 'Não possui' ? ${ordemEdicao.retirada.dataAgendamento} : ''"		
 												tabindex="17"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												type="date"
@@ -1052,7 +1053,7 @@
 
 					<input th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''" id="setup_statusRetirada">
 
-					<input th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.tecnicoEntrada} ? ${ordemEdicao.retirada.tecnicoEntrada.id} : ''" id="setup_tecnico">					
+					<input th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.tecnicoEntrada} ? ${ordemEdicao.retirada.tecnicoEntrada.id} : ''" id="setup_tecnico">									
 
 				</div>
 	

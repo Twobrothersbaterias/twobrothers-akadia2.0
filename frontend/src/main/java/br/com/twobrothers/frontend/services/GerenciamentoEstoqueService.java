@@ -51,7 +51,6 @@ public class GerenciamentoEstoqueService {
             produtoEstoqueRepository.save(produtoEstoque);
         }
 
-
     }
 
     public void remocaoDeOrdemComum(EntradaOrdemDTO entradaOrdemDTO) {

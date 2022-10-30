@@ -360,6 +360,8 @@ function trocaTipoDaEntrada() {
 		inputTipoEntrada.style.borderColor="#4444";
 		inputTipoEntrada.disabled=true;
 
+		document.getElementById('option_comum').selected=true;
+
 		labelQuantidade.style.color="#4444";
 		inputQuantidade.style.color="#4444";
 		inputQuantidade.style.borderColor="#4444";
@@ -368,10 +370,10 @@ function trocaTipoDaEntrada() {
 		inputQuantidade.style.background="transparent";
 		inputQuantidade.value=0;
 		botaoAddProduto.disabled=false;
-		botaoAddProduto.style.background="#2f3d61";		
+		botaoAddProduto.style.background="#2f3d61";
 
 	}
-	else {
+	else if (tipoDaEntrada.value == "PADRAO_PRODUTO") {
 
 		optionServico.hidden=true;
 		for(var i = 0; i < optionProdutos.length; i++) {
@@ -385,12 +387,36 @@ function trocaTipoDaEntrada() {
 		inputTipoEntrada.style.borderColor="grey";
 		inputTipoEntrada.disabled=false;
 
+		document.getElementById('option_troca').selected=true;
+
 		labelQuantidade.style.color="#303030";
 		inputQuantidade.style.color="#303030";
 		inputQuantidade.style.borderColor="grey";
 		inputQuantidade.disabled=false;
 
 	}
+	else if (tipoDaEntrada.value == "GARANTIA") {
+
+		optionServico.hidden=true;
+		for(var i = 0; i < optionProdutos.length; i++) {
+			optionProdutos[i].hidden=false;
+		}
+
+		optionProdutos[0].selected=true;
+
+		labelTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.color="#4444";
+		inputTipoEntrada.style.borderColor="#4444";
+		inputTipoEntrada.disabled=true;
+
+		document.getElementById('option_comum').selected=true;
+
+		labelQuantidade.style.color="#303030";
+		inputQuantidade.style.color="#303030";
+		inputQuantidade.style.borderColor="grey";
+		inputQuantidade.disabled=false;
+
+	}	
 }
 
 function validaNovoProduto() {
@@ -1262,7 +1288,6 @@ function removeItemTb(item) {
 /* ====================== Setup de edição ========================= */
 
 function setupEdicao() {
-	console.log("ACESSADO");
 	setupSelects();
 }
 
@@ -1276,6 +1301,13 @@ function setupSelects() {
 	var optionLoja = document.getElementsByClassName('option_loja');
 	var optionStatusRetirada = document.getElementsByClassName('option_status_retirada');	
 	var optionTecnico = document.getElementsByClassName('option_tecnico');	
+
+	if (setup_statusRetirada.value == "ENTREGA_EM_TRANSITO") {
+		document.getElementById('label_agendamento_retirada').style.color="#303030";
+		document.getElementById('input_agendamento_retirada').style.borderColor="grey";
+		document.getElementById('input_agendamento_retirada').style.color="#303030";
+		document.getElementById('input_agendamento_retirada').disabled=false;
+	}
 
 	if (setupTipoNfe.value != null) {
 		for(var i = 0; i < optionNfe.length; i++) {

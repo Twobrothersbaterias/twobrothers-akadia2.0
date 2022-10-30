@@ -136,6 +136,8 @@ public class OrdemCrudService {
             if (!verificaSeEnderecoNulo(ordem.getCliente().getEndereco())) {
                 log.warn("[INFO] Endereço detectado: {}", ordem.getCliente().getEndereco());
 
+                ordem.getCliente().getEndereco().setId(null);
+
                 log.info("[PROGRESS] Iniciando validação do objeto EnderecoDTO recebido pela requisição...");
                 enderecoValidation.validaCorpoRequisicao(ordem.getCliente().getEndereco());
 
