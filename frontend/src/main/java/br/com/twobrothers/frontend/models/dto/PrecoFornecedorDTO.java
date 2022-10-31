@@ -26,7 +26,7 @@ public class PrecoFornecedorDTO {
     private Long id;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
 
     @JsonProperty(required = true)
     private Double valor;
@@ -35,7 +35,7 @@ public class PrecoFornecedorDTO {
     private String observacao;
 
     @JsonProperty(required = true)
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @JsonIgnore
     private ProdutoEstoqueDTO produto;

@@ -1230,7 +1230,7 @@ function abrirEditaItem(
 
 	// SETANDO VALORES NOS CAMPOS
 	$('#info_clicavel').attr("href", "/compras?fornecedorId=" + id);
-	//$('#info_clicavel_produtos').attr("href", "/estoque?fornecedor=" + id);
+	$('#info_clicavel_produtos').attr("href", "/precos?fornecedorId=" + id);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('edita_descricao_fornecedor_input').value=nomeCompleto;
 	document.getElementById('edita_email_fornecedor_input').value=email;

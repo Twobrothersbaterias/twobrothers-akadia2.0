@@ -1,11 +1,12 @@
 package br.com.twobrothers.frontend.repositories;
 
 import br.com.twobrothers.frontend.models.entities.PrecoFornecedorEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -19,7 +20,31 @@ import java.util.List;
 @Repository
 public interface PrecoFornecedorRepository extends JpaRepository<PrecoFornecedorEntity, Long> {
 
-    @Query("Select p From PrecoFornecedorEntity p where p.dataCadastro between ?1 and ?2")
-    List<PrecoFornecedorEntity> buscaPorRangeDeDataCadastro(LocalDateTime dataInicio, LocalDateTime dataFim);
+    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.id = ?1")
+    List<PrecoFornecedorEntity> buscaPorProdutoIdPaginado(Pageable pageable, Long id);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.produto.sigla like %:produto%")
+    List<PrecoFornecedorEntity> buscaPorProdutoPaginado(Pageable pageable, @Param("produto") String produto);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.id = ?1")
+    List<PrecoFornecedorEntity> buscaPorFornecedorIdPaginado(Pageable pageable, Long id);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.nome like %:fornecedor%")
+    List<PrecoFornecedorEntity> buscaPorFornecedorPaginado(Pageable pageable, @Param("fornecedor") String fornecedor);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.id = ?1")
+    List<PrecoFornecedorEntity> buscaPorProdutoIdSemPaginacao(Pageable pageable, Long id);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.produto.sigla like %:produto%")
+    List<PrecoFornecedorEntity> buscaPorProdutoSemPaginacao(@Param("produto") String produto);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.id = ?1")
+    List<PrecoFornecedorEntity> buscaPorFornecedorIdSemPaginacao(Long id);
+
+    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.nome like %:fornecedor%")
+    List<PrecoFornecedorEntity> buscaPorFornecedorSemPaginacao(@Param("fornecedor") String fornecedor);
+
+
+
 
 }

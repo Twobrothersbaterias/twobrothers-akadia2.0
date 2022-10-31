@@ -795,12 +795,20 @@
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
 					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="info_clicavel">
-						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Produto criado dia 11/11/1111 por admin" id="edita_item_subtitulo"/>	
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Produto criado dia 11/11/1111 por admin" id="edita_item_subtitulo" hidden/>	
 					</a>
 
-					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="info_clicavel_money">
-						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/money.png" th:src="@{img/money.png}" title="Produto criado dia 11/11/1111 por admin" id="edita_item_subtitulo_money"/>	
-					</a>					
+					<a class="col-xl-7 col-lg-6 col-md-6 col-sm-6 col-8 img" id="info_clicavel_preco">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/expenses-303030.png" th:src="@{img/expenses-303030.png}" title="Preços deste produto" id="edita_item_subtitulo_money"/>	
+					</a>						
+
+					<a class="col-xl-7 col-lg-6 col-md-6 col-sm-6 col-8 img" id="info_clicavel_compra">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/box-303030.png" th:src="@{img/box-303030.png}" title="Abastecimentos deste produto" id="edita_item_subtitulo_money"/>	
+					</a>						
+
+					<a class="col-xl-7 col-lg-6 col-md-6 col-sm-6 col-8 img" id="info_clicavel_venda">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/bag-303030.png" th:src="@{img/bag-303030.png}" title="Vendas deste produto" id="edita_item_subtitulo_money"/>	
+					</a>												
 
 					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>				
 				</div>	
@@ -953,7 +961,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 
-					<button type="button" onclick="validacaoDoObjetoProduto(true, 'edita')" class="edita_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" id="edita_item_submit">
+					<button type="button" onclick="validacaoDoObjetoProduto(true, 'edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_submit">
 						Salvar
 					</button>	
 
@@ -1123,7 +1131,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>		
 
-					<button type="button" class="novo_item_submit col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" onclick="validacaoDoObjetoProduto(true, 'novo')" id="novo_item_submit">
+					<button type="button" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onclick="validacaoDoObjetoProduto(true, 'novo')" id="novo_item_submit">
 						Salvar
 					</button>	
 

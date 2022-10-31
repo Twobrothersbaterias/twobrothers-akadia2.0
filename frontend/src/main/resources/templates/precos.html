@@ -308,7 +308,15 @@
 
 						<div th:if="${tipoFiltro == 'fornecedor'}">
 							<input th:value="${fornecedor}" id="back_fornecedor" hidden>
-						</div>			
+						</div>
+
+						<div th:if="${tipoFiltro == 'fornecedorId'}">
+							<input th:value="${fornecedorId}" id="back_fornecedorId" hidden>
+						</div>
+
+						<div th:if="${tipoFiltro == 'produtoId'}">
+							<input th:value="${produtoId}" id="back_produtoId" hidden>
+						</div>												
 
 						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
 							Tabela de preços
@@ -361,7 +369,7 @@
 								</thead>
 
 								<tbody class="tbody col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<tr th:if="${#lists.isEmpty(usuarios)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:if="${#lists.isEmpty(precos)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 										<td class="td td_cadastro col-xl-2 col-lg-2 col-md-2">...</td>										
 										<td class="td th_produto col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
@@ -385,7 +393,7 @@
 										th:data-dataCadastro="${preco.dataCadastro}"
 										th:data-valor="${preco.valor}"
 										th:data-observacao="${preco.observacao}"
-										th:data-idFornecedor="${preco.fornecedor.id}"
+										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
 										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
 										onclick="abrirEditaItem(
@@ -404,7 +412,7 @@
 										th:data-dataCadastro="${preco.dataCadastro}"
 										th:data-valor="${preco.valor}"
 										th:data-observacao="${preco.observacao}"
-										th:data-idFornecedor="${preco.fornecedor.id}"
+										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
 										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
 										onclick="abrirEditaItem(
@@ -417,13 +425,13 @@
 											this.getAttribute('data-usuarioResponsavel'))">...</td>
 											
 										<td 
-										th:text="${preco.fornecedor.nome}"
+										th:text="${preco.fornecedor != null} ? ${preco.fornecedor.nome} : '...'"
 										class="td th_fornecedor col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3"
 										th:data-id="${preco.id}" 
 										th:data-dataCadastro="${preco.dataCadastro}"
 										th:data-valor="${preco.valor}"
 										th:data-observacao="${preco.observacao}"
-										th:data-idFornecedor="${preco.fornecedor.id}"
+										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
 										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
 										onclick="abrirEditaItem(
@@ -442,7 +450,7 @@
 										th:data-dataCadastro="${preco.dataCadastro}"
 										th:data-valor="${preco.valor}"
 										th:data-observacao="${preco.observacao}"
-										th:data-idFornecedor="${preco.fornecedor.id}"
+										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
 										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
 										onclick="abrirEditaItem(
@@ -660,7 +668,6 @@
 							<option 
 							class="edita_option_produtos"
 							th:if="${#lists.isEmpty(produtos)}"
-							th:value=''
 							value=''>
 								Sem produto
 							</option>
@@ -688,7 +695,7 @@
 						onchange="validacaoDoObjetoPreco('edita')">
 							<option 
 							class="edita_option_fornecedores" 	
-							id="sem_fornecedor" 
+							id="edita_sem_fornecedor" 
 							th:value=null>
 								Sem fornecedor
 							</option>
@@ -723,7 +730,7 @@
 						<input 
 						autocomplete="off" 
 						class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
-						name="custoTotal" 
+						name="valor" 
 						value="0" 
 						id="edita_valor_input" 
 						type="number" 
@@ -757,7 +764,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="button" id="edita_item_submit" onclick="validacaoCampos('edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 10px;" id="novo_item_submit">
+					<button type="button" id="edita_item_submit" onclick="validacaoCampos('edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 10px;">
 						Salvar
 					</button>	
 				</div>																				
@@ -813,7 +820,6 @@
 							<option 
 							class="option_produtos"
 							th:if="${#lists.isEmpty(produtos)}"
-							th:value=''
 							value=''>
 								Sem produto
 							</option>
@@ -839,6 +845,7 @@
 						name="fornecedor.id" 
 						id="fornecedor_preco_input"
 						onchange="validacaoDoObjetoPreco('novo')">
+
 							<option 
 							class="option_fornecedores" 	
 							id="sem_fornecedor" 
@@ -876,7 +883,7 @@
 						<input 
 						autocomplete="off" 
 						class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
-						name="custoTotal" 
+						name="valor" 
 						value="0" 
 						id="valor_input" 
 						type="number" 

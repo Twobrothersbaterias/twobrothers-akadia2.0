@@ -1,4 +1,7 @@
 server:
+  servlet:
+    session:
+      timeout: 1200m
   port: 8099
   error:
     whitelabel:

@@ -787,11 +787,20 @@ function abrirEditaItem(
 		}
 	}
 
+	console.log(id);
+	console.log(idProduto);
+	console.log(idFornecedor);
+	console.log(valor);
+	console.log(observacao);
+
 	document.getElementById('id_input_edicao').value=id;
-	document.getElementById('produto_preco_input').value=idProduto;
-	document.getElementById('fornecedor_preco_input').value=idFornecedor;
-	document.getElementById('valor_input').value=valor;
-	document.getElementById('observacao_input').value=observacao;
+	document.getElementById('edita_produto_preco_input').value=idProduto;
+	document.getElementById('edita_fornecedor_preco_input').value=idFornecedor;
+	document.getElementById('edita_valor_input').value=valor;
+	document.getElementById('edita_observacao_input').value=observacao;
+	if (idFornecedor == null) {
+		document.getElementById('edita_sem_fornecedor').selected=true;
+	}	
 
 }
 
@@ -828,7 +837,7 @@ function reloadEditaItem() {
 	var optionFornecedores = document.getElementsByClassName('edita_option_fornecedores');		
 	var inputValor = document.getElementById('edita_valor_input');
 	var inputObservacao = document.getElementById('edita_observacao_input');
-	var botaoFinalizar = document.getElementById('edita_novo_item_submit');
+	var botaoFinalizar = document.getElementById('edita_item_submit');
 
 	optionProdutos[0].selected=true;	
 	optionFornecedores[0].selected=true;
@@ -963,7 +972,10 @@ function buildUrlPages() {
 	var tipoFiltro = document.getElementById('tipo_filtro');
 
 	var produto = document.getElementById('back_produto');
-	var fornecedor = document.getElementById('back_fornecedor');			
+	var fornecedor = document.getElementById('back_fornecedor');
+
+	var produtoId = document.getElementById('back_produtoId');
+	var fornecedorId = document.getElementById('back_fornecedorId');			
 
 	var pageNumber = document.getElementsByClassName('page_number');
 
@@ -993,6 +1005,32 @@ function buildUrlPages() {
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedor=" + fornecedor.value);
 		}					
 	}
+
+	else if(tipoFiltro.value == 'fornecedorId') {
+
+		$('#anterior').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) - 1)  + "&fornecedorId=" + fornecedorId.value);
+		$('#proxima').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) + 1)  + "&fornecedorId=" + fornecedorId.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/precos?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedorId=" + fornecedorId.value);
+		}					
+	}
+
+	else if(tipoFiltro.value == 'produtoId') {
+
+		$('#anterior').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) - 1)  + "&produtoId=" + produtoId.value);
+		$('#proxima').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) + 1)  + "&produtoId=" + produtoId.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/precos?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&produtoId=" + produtoId.value);
+		}					
+	}		
 
 	else {
 		$('#anterior').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) - 1));

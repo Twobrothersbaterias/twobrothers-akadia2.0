@@ -27,10 +27,10 @@ public class PrecoFornecedorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataCadastro;
+    private String dataCadastro;
     private Double valor;
     private String observacao;
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @ManyToOne(targetEntity = ProdutoEstoqueEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")

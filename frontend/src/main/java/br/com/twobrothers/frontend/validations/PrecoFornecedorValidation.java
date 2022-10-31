@@ -29,7 +29,6 @@ public class PrecoFornecedorValidation {
         List<String> atributosNulos = new ArrayList<>();
 
         if (preco.getValor() == null) atributosNulos.add("preco");
-        if (preco.getIdUsuarioResponsavel() == null) atributosNulos.add("idUsuarioResponsavel");
 
         if (!atributosNulos.isEmpty())
             throw new InvalidRequestException("Validação do preço falhou. A inserção de um ou mais atributos " +

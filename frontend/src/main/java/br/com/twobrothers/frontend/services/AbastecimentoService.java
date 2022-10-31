@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.StringConstants.URI_ABASTECIMENTO;
+import static br.com.twobrothers.frontend.utils.StringConstants.URI_PRECO;
 
 @Slf4j
 @Service
@@ -132,33 +132,33 @@ public class AbastecimentoService {
 
     public String constroiUriFiltro(FiltroAbastecimentoDTO filtro) {
 
-        URI_ABASTECIMENTO = "compras?";
+        URI_PRECO = "compras?";
 
         if (filtro.getDataInicio() != null && !filtro.getDataInicio().equals("")) {
-            URI_ABASTECIMENTO += "inicio=" + filtro.getDataInicio();
+            URI_PRECO += "inicio=" + filtro.getDataInicio();
         }
 
         if (filtro.getDataFim() != null && !filtro.getDataFim().equals("")) {
-            URI_ABASTECIMENTO += "&fim=" + filtro.getDataFim();
+            URI_PRECO += "&fim=" + filtro.getDataFim();
         }
 
         if (filtro.getPeriodoMes() != null && !filtro.getPeriodoMes().equals("")) {
-            URI_ABASTECIMENTO += "mes=" + filtro.getPeriodoMes();
+            URI_PRECO += "mes=" + filtro.getPeriodoMes();
         }
 
         if (filtro.getPeriodoAno() != null && !filtro.getPeriodoAno().equals("")) {
-            URI_ABASTECIMENTO += "&ano=" + filtro.getPeriodoAno();
+            URI_PRECO += "&ano=" + filtro.getPeriodoAno();
         }
 
         if (filtro.getProduto() != null && !filtro.getProduto().equals("")) {
-            URI_ABASTECIMENTO += "produto=" + filtro.getProduto();
+            URI_PRECO += "produto=" + filtro.getProduto();
         }
 
         if (filtro.getFornecedor() != null && !filtro.getFornecedor().equals("")) {
-            URI_ABASTECIMENTO += "fornecedor=" + filtro.getFornecedor();
+            URI_PRECO += "fornecedor=" + filtro.getFornecedor();
         }
 
-        return URI_ABASTECIMENTO;
+        return URI_PRECO;
     }
 
     public List<AbastecimentoEntity> filtraFormaDePagamentoSemPaginacao(List<AbastecimentoEntity> abastecimentos,

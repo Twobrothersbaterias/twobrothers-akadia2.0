@@ -1033,8 +1033,9 @@ function abrirEditaItem(
 	}
 
 	// SETANDO VALORES NOS CAMPOS
-	$('#info_clicavel').attr("href", "/compras?produto=" + sigla);
-	$('#info_clicavel_money').attr("href", "/vendas?produto=" + sigla);
+	$('#info_clicavel_preco').attr("href", "/precos?produto=" + sigla);
+	$('#info_clicavel_compra').attr("href", "/compras?produto=" + sigla);
+	$('#info_clicavel_venda').attr("href", "/vendas?produto=" + sigla);
 	document.getElementById('id_input_edicao').value=id;
 	document.getElementById('sigla_produto_input_edicao').value=sigla;
 	document.getElementById('tipo_produto_input_edicao').value=tipoProduto;
