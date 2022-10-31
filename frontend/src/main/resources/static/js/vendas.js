@@ -1434,36 +1434,132 @@ function editaItemChangeTipo() {
 
 function ajustaTabela(){
 
-	ajustaCamposTotalQuantidade();
+	ajustaCampos();
 	ajustaDatas();
 	ajustaUrlEdicao();
 
 }
 
-function ajustaCamposTotalQuantidade() {
+function ajustaCampos() {
 	var trContent = document.getElementsByClassName('tr_content');
 	var ordemId = null;
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
+	var hoje = (ano + '-' + mes + '-' + dia); 	
 
 	for(var i = 0; i < trContent.length; i++) {
 
 		var totalEntradas = 0.0;
-		var totalQuantidade = 0;
+		var nomeAtualizado = "";
 
 		ordemId = trContent[i].getAttribute('data-ordemId');
 
 		var entradaValorCampo = document.getElementsByClassName('entradas_valor_' + ordemId);
 		var entradaQuantidadeCampo = document.getElementsByClassName('entradas_quantidade_' + ordemId);
+		var entradaNome = document.getElementsByClassName('entradas_nome_' + ordemId);
+		var entradaTipo = document.getElementsByClassName('entradas_tipo_' + ordemId);
 
+		// Formatação do campo valor
 		for(var j = 0; j < entradaValorCampo.length; j++) {
 			totalEntradas += parseFloat(entradaValorCampo[j].innerText);
 		}		
-		for(var k = 0; k < entradaQuantidadeCampo.length; k++) {
-			totalQuantidade += parseInt(entradaQuantidadeCampo[k].innerText);
+
+		// Formatação do campo entradas
+		for(var k = 0; k < entradaNome.length; k++) {
+
+			if (entradaNome[k].innerText == "..." && entradaTipo[k].innerText == "PADRAO_SERVICO") {
+				if (nomeAtualizado == "") {
+					nomeAtualizado = nomeAtualizado + "Serviço";				
+				}
+				else {
+					nomeAtualizado = nomeAtualizado + ", Serviço";
+				}
+			}
+			else if (entradaNome[k].innerText == "..." && entradaTipo[k].innerText != "PADRAO_SERVICO") {
+				if (nomeAtualizado == "") {
+					nomeAtualizado = nomeAtualizado + "Vazio";
+				}
+				else {
+					nomeAtualizado = nomeAtualizado 
+					+ ", Vazio";
+				}				
+			}
+			else {
+				if (nomeAtualizado == "") {
+					nomeAtualizado = nomeAtualizado 
+					+ entradaNome[k].innerText ;
+				}
+				else {
+					nomeAtualizado = nomeAtualizado 
+					+ ", " 
+					+ entradaNome[k].innerText;
+				}
+			}
 		}
+
+		if (document.getElementsByClassName('td_status')[i].innerText == 'Loja física') {
+			trContent[i].style.borderLeft="4px solid #5eff00";
+			document.getElementsByClassName('td_status')[i].style.color="#5eff00";
+			document.getElementsByClassName('td_status')[i].innerText = "Loja física";
+		}
+		else if (document.getElementsByClassName('td_status')[i].innerText == 'Entrega - em trânsito' 
+			|| document.getElementsByClassName('td_status')[i].innerText == 'Em trânsito') {
+
+			var agendamentoRetirada = document.getElementById('agendamentoRetirada_' + ordemId);
+			if(agendamentoRetirada.innerText != "Não possui" && agendamentoRetirada.innerText != "Sem agendamento") {
+				// ENTREGAR HOJE
+				if(agendamentoRetirada.innerText == hoje || agendamentoRetirada.innerText == "Entregar hoje") {
+					document.getElementsByClassName('td_status')[i].innerText = "Entregar hoje";
+					document.getElementsByClassName('td_status')[i].style.color="#ff5900";
+					trContent[i].style.borderLeft="4px solid #ff5900";			
+				}
+				// ATRASADO
+				else if(agendamentoRetirada.innerText.split("-")[0] <= ano && 
+						agendamentoRetirada.innerText.split("-")[1] <= mes && 
+						agendamentoRetirada.innerText.split("-")[2] <= dia || 
+						agendamentoRetirada.innerText == "Atrasado") {
+					document.getElementsByClassName('td_status')[i].innerText = "Entrega atrasada";
+				document.getElementsByClassName('td_status')[i].style.color="#f20a0a";
+					trContent[i].style.borderLeft="4px solid #f20a0a";			
+				}	
+				// AGENDADO
+				else {
+					document.getElementsByClassName('td_status')[i].innerText = "Agendado";
+					trContent[i].style.borderLeft="4px solid #ffdd00";
+					document.getElementsByClassName('td_status')[i].style.color="#ffdd00";
+				}					
+			}
+			else {
+				document.getElementsByClassName('td_status')[i].innerText = "Em trânsito";
+				trContent[i].style.borderLeft="4px solid #ffdd00";		
+				document.getElementsByClassName('td_status')[i].style.color="#ffdd00";		
+			}
+
+		}
+		else if (document.getElementsByClassName('td_status')[i].innerText == 'Entrega - entregue' 
+			|| document.getElementsByClassName('td_status')[i].innerText == 'Entregue') {
+			document.getElementsByClassName('td_status')[i].innerText = "Entregue";
+			trContent[i].style.borderLeft="4px solid #5eff00";
+			document.getElementsByClassName('td_status')[i].style.color="#5eff00";
+		}		
+
+
 
 		if(ordemId != null) {
 			document.getElementById('td_total_' + ordemId).innerText=totalEntradas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-			document.getElementById('td_quantidade_' + ordemId).innerText=totalQuantidade;
+			document.getElementById('td_entradas_' + ordemId).innerText=nomeAtualizado;
 		}
 
 	}	

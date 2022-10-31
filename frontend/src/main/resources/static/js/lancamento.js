@@ -85,10 +85,10 @@ function responsive(){
 		}			
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.80rem";
+			th[i].style.fontSize="0.75rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
+			td[i].style.fontSize="0.75rem";
 		}
 
 		for(var i = 0; i < thTipo.length; i++){
@@ -140,10 +140,10 @@ function responsive(){
 		}
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.75rem";			
+			th[i].style.fontSize="0.70rem";			
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.75rem";		
+			td[i].style.fontSize="0.70rem";		
 		}	
 
 		for(var i = 0; i < thTipo.length; i++){
@@ -195,10 +195,10 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.70rem";		
+			th[i].style.fontSize="0.65rem";		
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.70rem";	
+			td[i].style.fontSize="0.65rem";	
 		}
 
 		for(var i = 0; i < thTipo.length; i++){
@@ -250,10 +250,10 @@ function responsive(){
 		}
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.65rem";		
+			th[i].style.fontSize="0.60rem";		
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.65rem";	
+			td[i].style.fontSize="0.60rem";	
 		}	
 
 		for(var i = 0; i < thTipo.length; i++){
@@ -302,10 +302,10 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.60rem";
+			th[i].style.fontSize="0.55rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.60rem";
+			td[i].style.fontSize="0.55rem";
 		}
 
 		for(var i = 0; i < thTipo.length; i++){

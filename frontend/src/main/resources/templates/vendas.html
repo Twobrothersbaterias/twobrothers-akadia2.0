@@ -395,9 +395,9 @@
 
 										<th class="th th_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Status</th>
 										<th class="th th_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Data</th>
-										<th class="th th_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Tecnico</th>
-										<th class="th th_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3" id="th_forma">Total</th>
-										<th class="th th_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Qtd</th>
+										<th class="th th_tecnico col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Tecnico</th>
+										<th class="th th_entradas col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Saídas</th>						
+										<th class="th th_total col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2" id="th_forma">Total</th>
 										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
 									</tr>
 
@@ -408,24 +408,56 @@
 									<tr th:if="${#lists.isEmpty(ordens)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 										<td class="td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
 										<td class="td td_data col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-										<td class="td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
-										<td class="td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
-										<td class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>		
+										<td class="td td_tecnico col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+										<td class="td td_entradas col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>							
+										<td class="td td_total col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>	
 										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 									</tr>											
 
 									<tr th:each="ordem: ${ordens}" th:data-ordemId="${ordem.id}" class="tr tr_content col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<div th:each="entrada: ${ordem.entradas}" class="entradas" id="entradas" hidden>
+											<div 
+											th:each="entrada: ${ordem.entradas}" 
+											class="entradas" 
+											id="entradas" 
+											hidden>
 
-												<div th:class="'entradas_valor_' + ${ordem.id}" th:value="${entrada.valor}" th:text="${entrada.valor}" hidden></div>
+												<div 
+												th:class="'entradas_valor_' + ${ordem.id}" 
+												th:value="${entrada.valor}" 
+												th:text="${entrada.valor}" 
+												hidden></div>
 
-												<div th:class="'entradas_quantidade_' + ${ordem.id}" th:value=${entrada.quantidade} th:text="${entrada.quantidade}" hidden></div>
+												<div 
+												th:class="'entradas_quantidade_' + ${ordem.id}" 
+												th:value=${entrada.quantidade} 
+												th:text="${entrada.quantidade}" 
+												hidden></div>
+
+												<div 
+												th:class="'entradas_nome_' + ${ordem.id}" 
+												th:value= "${entrada.produto != null} ? ${entrada.produto.sigla} : '...'"
+												th:text= "${entrada.produto != null} ? ${entrada.produto.sigla} : '...'"
+												hidden></div>
+
+												<div 
+												th:class="'entradas_tipo_' + ${ordem.id}" 
+												th:value=${entrada.tipoOrdem} 
+												th:text="${entrada.tipoOrdem}" 
+												hidden></div>												
 
 											</div>
 
+
+											<div 
+											th:class="'agendamentoRetirada_' + ${ordem.id}" 
+											th:id="'agendamentoRetirada_' + ${ordem.id}" 
+											th:value=${ordem.retirada.dataAgendamento}
+											th:text="${ordem.retirada.dataAgendamento}" 
+											hidden></div>
+
 											<td 
-											th:text="${ordem.retirada.statusRetirada}" 
+											th:text="${ordem.retirada.statusRetirada.desc}" 
 											th:class="'td_' + ${ordem.id} + ' td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'" 
 											class="td td_status col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 												...
@@ -439,22 +471,22 @@
 
 											<td 
 											th:text="${ordem.retirada != null} and ${ordem.retirada.tecnicoEntrada != null} ? ${ordem.retirada.tecnicoEntrada.nome} : '...'"
-											th:class="'td_' + ${ordem.id} + ' td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'"
-											class="td td_tecnico col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+											th:class="'td_' + ${ordem.id} + ' td td_tecnico col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'"
+											class="td td_tecnico col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+												...
+											</td>
+
+											<td 
+											th:id="'td_entradas_' + ${ordem.id}" 
+											th:class="'td_' + ${ordem.id} + ' td td_entradas col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'"
+											class="td td_entradas col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
 												...
 											</td>
 
 											<td 
 											th:id="'td_total_' + ${ordem.id}" 
-											th:class="'td_' + ${ordem.id} + ' td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3'" 
-											class="td td_total col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
-												...
-											</td>
-
-											<td 
-											th:id="'td_quantidade_' + ${ordem.id}" 
-											th:class="'td_' + ${ordem.id} + ' td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'"
-											class="td td_quantidade col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+											th:class="'td_' + ${ordem.id} + ' td td_total col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'" 
+											class="td td_total col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
 												...
 											</td>
 

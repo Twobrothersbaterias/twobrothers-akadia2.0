@@ -430,6 +430,107 @@ function responsive(){
 	pageResponsiva();
 }
 
+/* ================== TRATAMENTO DE INPUTS E VALIDAÇÕES ====================== */
+
+/* RESETA AS CORES */
+function resetCores(tipo) {
+
+	if(tipo == "novo") {
+		var descricao = document.getElementById('descricao_patrimonio_input');
+		var valor = document.getElementById('valor_patrimonio_input');
+	}
+	else {
+		var descricao = document.getElementById('descricao_patrimonio_input_edicao');
+		var valor = document.getElementById('valor_patrimonio_input_edicao');
+	}
+
+	descricao.style.background="transparent";
+	valor.style.background="transparent";
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO CLIENTE */
+function validacaoDoObjetoPatrimonio(submitar, tipo) {
+
+	var erros = "Ocorreram alguns erros no cadastro do patrimônio:\n";
+
+	if(tipo == "novo") {
+		var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
+		var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
+		var statusPatrimonioInput = document.getElementById('status_patrimonio');
+		var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
+		var dataPatrimonioInput = document.getElementById('data_pagamento_input');
+		var botaoFinalizar = document.getElementById('novo_item_submit');
+	}
+	else {
+		var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input_edicao');
+		var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input_edicao');
+		var statusPatrimonioInput = document.getElementById('status_patrimonio_edicao');
+		var valorPatrimonioInput = document.getElementById('valor_patrimonio_input_edicao');
+		var dataPatrimonioInput = document.getElementById('data_pagamento_input_edicao');
+		var botaoFinalizar = document.getElementById('edita_item_submit');
+	}
+
+	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
+	if(descricaoPatrimonioInput.value != "" 
+			|| tipoPatrimonioInput.value != "ATIVO" 
+			|| statusPatrimonioInput.value != "PAGO" 
+			|| valorPatrimonioInput.value != 0
+			|| dataPatrimonioInput.value != "") {
+
+		if(descricaoPatrimonioInput.value == "") {
+			descricaoPatrimonioInput.style.background="#f5aea9";	
+			erros += "- O preenchimento do campo descrição é obrigatório\n";	
+		}
+		else {
+			descricaoPatrimonioInput.style.background="transparent";		
+		}
+
+		if(valorPatrimonioInput.value == 0) {
+			valorPatrimonioInput.style.background="#f5aea9";
+			erros += "- O preenchimento do campo valor é obrigatório\n";		
+		}
+		else {
+			valorPatrimonioInput.style.background="transparent";		
+		}		
+
+	}
+
+	else {
+		descricaoPatrimonioInput.style.background="transparent";
+		valorPatrimonioInput.style.background="transparent";
+	}
+
+	if(submitar == true) {
+		submitPatrimonio(tipo, erros, botaoFinalizar);
+	}
+}
+
+/* REALIZA SUBMIT DO PRODUTO */
+function submitPatrimonio(tipo, erros, botaoFinalizar) {
+
+	// VALIDAÇÃO FINAL
+	if (erros != "Ocorreram alguns erros no cadastro do patrimônio:\n") {
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade == 1) {
+			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
+		}
+
+		alert(erros);
+		return false;
+	}
+	else {
+		botaoFinalizar.type="submit";
+		return true;
+	}	
+}
+
 /* ================== CONFIGURAÇÕES DA SUB-TELA NOVO ITEM ====================== */
 
 function abrirNovoItem() {
@@ -506,9 +607,10 @@ function fechaNovoItem() {
 	var statusPatrimonioInput = document.getElementById('status_patrimonio');
 	var dataEntradaInput = document.getElementById('data_pagamento_input');
 
+	resetCores('novo');
 
 	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
+	valorPatrimonioInput.value=0;
 	statusPatrimonioInput.value="PAGO";
 	tipoPatrimonioInput.value="ATIVO";
 
@@ -535,7 +637,7 @@ function fechaNovoItem() {
 	sideMenu.style.pointerEvents="auto";		
 }
 
-function changeTipo() {
+function changeTipo(tipo) {
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -568,9 +670,11 @@ function changeTipo() {
 		dataEntradaInput.value="";
 		dataEntradaInput.disabled=true;
 	}
+
+	validacaoDoObjetoPatrimonio(false, tipo);
 }
 
-function changeStatus() {
+function changeStatus(tipo) {
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -601,6 +705,8 @@ function changeStatus() {
 		dataEntradaInput.value="";
 		dataEntradaInput.disabled=true;
 	}
+
+	validacaoDoObjetoPatrimonio(false, tipo);	
 }
 
 function reloadNovoItem() {
@@ -627,10 +733,11 @@ function reloadNovoItem() {
 	var dataEntradaInput = document.getElementById('data_pagamento_input');
 
 	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
+	valorPatrimonioInput.value=0;
 	tipoPatrimonioInput.value="ATIVO";
 	statusPatrimonioInput.value="PAGO";
 	dataEntradaInput.value=hoje;
+	resetCores('novo');
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
@@ -1151,8 +1258,9 @@ function fecharEditaItem() {
 	var statusPatrimonioInput = document.getElementById('status_patrimonio_edicao');
 	var dataEntradaInput = document.getElementById('data_pagamento_input_edicao');
 
+	resetCores('edita');
 	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
+	valorPatrimonioInput.value=0;
 	statusPatrimonioInput.value="PAGO";
 	tipoPatrimonioInput.value="ATIVO";
 
@@ -1209,9 +1317,11 @@ function editaItemChangeStatus() {
 		dataEntradaInput.value="";
 		dataEntradaInput.disabled=true;
 	}	
+
+	validacaoDoObjetoPatrimonio(false, 'edita');	
 }
 
-function editaItemChangeTipo() {
+function editaItemChangeTipo(tipo) {
 	const d = new Date();
 	var ano = d.getFullYear();
 	var mes = d.getMonth()+1;
@@ -1243,6 +1353,8 @@ function editaItemChangeTipo() {
 		dataEntradaInput.value="";
 		dataEntradaInput.disabled=true;
 	}
+
+	validacaoDoObjetoPatrimonio(false, 'edita');
 }
 
 /* ================== MISC ====================== */
@@ -1259,60 +1371,62 @@ function buildUrlPages() {
 
 	var pageNumber = document.getElementsByClassName('page_number');
 
-	if(tipoFiltro.value == 'descricao') {
+	if(tipoFiltro != null) {
+		if(tipoFiltro.value == 'descricao') {
 
-		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
-		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
+			$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
+			$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
 
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
+			for (var i = 0; i < pageNumber.length; i ++) {
+				pageNumber[i].id="numeroPagina_" + i;
+				var idPagina = pageNumber[i].id;
+				$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
+			}
+
 		}
 
-	}
+		else if(tipoFiltro.value == 'periodo') {
 
-	else if(tipoFiltro.value == 'periodo') {
+			$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+			$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
 
-		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
-		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+			
+			for (var i = 0; i < pageNumber.length; i ++) {
+				pageNumber[i].id="numeroPagina_" + i;
+				var idPagina = pageNumber[i].id;
+				$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
+			}
 
-		
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
 		}
 
-	}
+		else if(tipoFiltro.value == 'tipo') {
 
-	else if(tipoFiltro.value == 'tipo') {
+			$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&tipo=" + tipo.value);
+			$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&tipo=" + tipo.value);
 
-		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1)  + "&tipo=" + tipo.value);
-		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1)  + "&tipo=" + tipo.value);
+			for (var i = 0; i < pageNumber.length; i ++) {
+				pageNumber[i].id="numeroPagina_" + i;
+				var idPagina = pageNumber[i].id;
+				$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&tipo=" + tipo.value);
+			}
 
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&tipo=" + tipo.value);
 		}
 
-	}
+		else {
 
-	else {
+			$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1));
+			$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1));
 
-		$('#anterior').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) - 1));
-		$('#proxima').attr("href", "/patrimonios?page=" + (parseInt(paginaAtual.value) + 1));
-
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/patrimonios?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
-		}		
+			for (var i = 0; i < pageNumber.length; i ++) {
+				pageNumber[i].id="numeroPagina_" + i;
+				var idPagina = pageNumber[i].id;
+				$('#' + idPagina).attr("href", "/patrimonios?page=" + 
+					(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
+			}		
+		}
 	}
 
 }

@@ -42,7 +42,8 @@ public class OrdemController {
     OrdemRepository ordemRepository;
 
     @GetMapping
-    public ModelAndView ordens(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public ModelAndView ordens(@PageableDefault(size = 10, page = 0,
+            sort = {"retirada.dataAgendamento", "retirada.dataRetirada"}, direction = Sort.Direction.ASC) Pageable pageable,
                                @RequestParam("inicio") Optional<String> inicio,
                                @RequestParam("fim") Optional<String> fim,
                                @RequestParam("mes") Optional<Integer> mes,

@@ -1178,6 +1178,7 @@ function pageResponsiva(){
 function ajustaTabela(){
 	var line = document.getElementsByClassName('tr');	
 	var columnData = document.getElementsByClassName('td_cadastro');
+	var columnValor = document.getElementsByClassName('td_valor');
 
 	for(var i = 0; i < line.length; i++) {
 
@@ -1186,6 +1187,12 @@ function ajustaTabela(){
 			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
 			columnData[i].innerText=convertedDate;
 		}
+	}
+
+	for(var i = 0; i < columnValor.length; i++) {
+
+		columnValor[i].innerText = (parseFloat(columnValor[i].innerText)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+
 	}
 }	
 

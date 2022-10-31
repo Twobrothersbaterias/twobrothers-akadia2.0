@@ -27,10 +27,10 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
 
     Page<OrdemEntity> findByEntradasProdutoSigla(Pageable pageable, String sigla);
 
-    @Query("Select o From OrdemEntity o where o.dataCadastro = ?1")
+    @Query("Select o From OrdemEntity o where o.dataCadastro = ?1 OR o.retirada.dataAgendamento <= ?1")
     List<OrdemEntity> buscaHojePaginado(Pageable pageable, String hoje);
 
-    @Query("Select o From OrdemEntity o where o.dataCadastro between ?1 and ?2")
+    @Query("Select o From OrdemEntity o where o.dataCadastro between ?1 and ?2 OR o.retirada.dataAgendamento between ?1 and ?2")
     List<OrdemEntity> buscaPorPeriodoPaginado(Pageable pageable, String dataInicio, String dataFim);
 
     @Query("Select o From OrdemEntity o where o.cliente.endereco.bairro like %:bairro%")
@@ -39,10 +39,10 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
     @Query("Select o From OrdemEntity o where o.cliente.id = ?1")
     List<OrdemEntity> buscaPorClientePaginado(Pageable pageable, Long cliente);
 
-    @Query("Select o From OrdemEntity o where o.dataCadastro = ?1")
+    @Query("Select o From OrdemEntity o where o.dataCadastro = ?1 OR o.retirada.dataAgendamento <= ?1")
     List<OrdemEntity> buscaHojeSemPaginacao(String hoje);
 
-    @Query("Select o From OrdemEntity o where o.dataCadastro between ?1 and ?2")
+    @Query("Select o From OrdemEntity o where o.dataCadastro between ?1 and ?2 OR o.retirada.dataAgendamento between ?1 and ?2")
     List<OrdemEntity> buscaPorPeriodoSemPaginacao(String dataInicio, String dataFim);
 
     @Query("Select o From OrdemEntity o where o.cliente.endereco.bairro like %:bairro%")

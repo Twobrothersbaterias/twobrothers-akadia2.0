@@ -30,7 +30,6 @@ public class RetiradaEntity {
     private String dataRetirada;
     private String observacao;
     private String dataAgendamento;
-    //private String tecnicoEntrada;
 
     @Enumerated(EnumType.STRING)
     private StatusRetiradaEnum statusRetirada;

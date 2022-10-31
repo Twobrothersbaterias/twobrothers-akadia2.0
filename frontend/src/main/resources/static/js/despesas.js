@@ -391,7 +391,112 @@ function doALoadOfStuff() {
 	responsive();
 }
 
-/* ================== FECHA MENSAGENS INFORMATIVAS ====================== */
+/* ================== TRATAMENTO DE INPUTS E VALIDAÇÕES ====================== */
+
+/* RESETA AS CORES */
+function resetCores(tipo) {
+
+	if(tipo == "novo") {
+		var descricaoDespesaInput = document.getElementById('descricao_despesa_input');
+		var valorDespesaInput = document.getElementById('valor_despesa_input');
+	}
+	else {
+		var descricaoDespesaInput = document.getElementById('descricao_despesa_input_edicao');
+		var valorDespesaInput = document.getElementById('valor_despesa_input_edicao');
+	}
+
+	descricaoDespesaInput.style.background="transparent";
+	valorDespesaInput.style.background="transparent";
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO CLIENTE */
+function validacaoDoObjetoDespesa(submitar, tipo) {
+
+	var erros = "Ocorreram alguns erros no cadastro da despesa:\n";
+
+	if(tipo == "novo") {
+		var descricaoDespesaInput = document.getElementById('descricao_despesa_input');
+		var tipoDespesaInput = document.getElementById('tipo_despesa_input');
+		var statusDespesaInput = document.getElementById('status_despesa');
+		var persistenciaInput = document.getElementById('persistencia_input');
+		var valorDespesaInput = document.getElementById('valor_despesa_input');
+		var dataPagamentoInput = document.getElementById('data_pagamento_input');
+		var dataAgendamentoInput = document.getElementById('data_agendamento_input');
+		var botaoFinalizar = document.getElementById('novo_item_submit');
+	}
+	else {
+		var descricaoDespesaInput = document.getElementById('descricao_despesa_input_edicao');
+		var tipoDespesaInput = document.getElementById('tipo_despesa_input_edicao');
+		var statusDespesaInput = document.getElementById('status_despesa_edicao');
+		var persistenciaInput = document.getElementById('persistencia_input_edicao');
+		var valorDespesaInput = document.getElementById('valor_despesa_input_edicao');
+		var dataPagamentoInput = document.getElementById('data_pagamento_input_edicao');
+		var dataAgendamentoInput = document.getElementById('data_agendamento_input_edicao');
+		var botaoFinalizar = document.getElementById('item_submit');
+	}
+
+	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
+	if(descricaoDespesaInput.value != "" 
+			|| tipoDespesaInput.value != "VARIAVEL" 
+			|| statusDespesaInput.value != "PAGO" 
+			|| persistenciaInput.value != "NAO"
+			|| valorDespesaInput.value != 0
+			|| dataPagamentoInput.value != ""
+			|| dataAgendamentoInput.value != "") {
+
+		if(descricaoDespesaInput.value == "") {
+			descricaoDespesaInput.style.background="#f5aea9";	
+			erros += "- O preenchimento do campo descrição é obrigatório\n";	
+		}
+		else {
+			descricaoDespesaInput.style.background="transparent";		
+		}
+
+		if(valorDespesaInput.value == 0) {
+			valorDespesaInput.style.background="#f5aea9";
+			erros += "- O preenchimento do campo valor é obrigatório\n";		
+		}
+		else {
+			valorDespesaInput.style.background="transparent";		
+		}		
+
+	}
+
+	else {
+		descricaoDespesaInput.style.background="transparent";
+		valorDespesaInput.style.background="transparent";
+	}
+
+	if(submitar == true) {
+		submitDespesa(tipo, erros, botaoFinalizar);
+	}
+}
+
+/* REALIZA SUBMIT DO PRODUTO */
+function submitDespesa(tipo, erros, botaoFinalizar) {
+
+	// VALIDAÇÃO FINAL
+	if (erros != "Ocorreram alguns erros no cadastro da despesa:\n") {
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade == 1) {
+			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
+		}
+
+		alert(erros);
+		return false;
+	}
+	else {
+		botaoFinalizar.type="submit";
+		return true;
+	}	
+}
 
 function hideMessage() {
 	var alertas = document.getElementsByClassName('alert');
@@ -510,7 +615,7 @@ function fechaNovaDespesa() {
 	sideMenu.style.pointerEvents="auto";		
 }
 
-function changeStatus() {
+function changeStatus(tipo) {
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -551,6 +656,8 @@ function changeStatus() {
 		dataPagamentoInput.value="";
 		dataPagamentoInput.disabled=true;
 	}
+
+	validacaoDoObjetoDespesa(false, tipo);
 }
 
 function reloadNovaDespesa() {
@@ -570,6 +677,8 @@ function reloadNovaDespesa() {
 
 	var hoje = (ano + '-' + mes + '-' + dia); 	
 
+	resetCores('novo');
+
 	var descricaoDespesaInput = document.getElementById('descricao_despesa_input');
 	var tipoDespesaInput = document.getElementById('tipo_despesa_input');
 	var valorDespesaInput = document.getElementById('valor_despesa_input');
@@ -579,7 +688,7 @@ function reloadNovaDespesa() {
 	var persistenciaInput = document.getElementById('persistencia_input');
 
 	descricaoDespesaInput.value="";
-	valorDespesaInput.value="";
+	valorDespesaInput.value=0;
 	tipoDespesaInput.value="VARIAVEL";
 	statusDespesaInput.value="PAGO";
 	dataPagamentoInput.value=hoje;
@@ -1257,6 +1366,8 @@ function fecharEditaDespesa() {
 
 	var hoje = (ano + '-' + mes + '-' + dia); 
 
+	resetCores('edita');
+
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -1274,7 +1385,7 @@ function fecharEditaDespesa() {
 
 
 	descricaoDespesaInput.value="";
-	valorDespesaInput.value="";
+	valorDespesaInput.value=0;
 	statusDespesaInput.value="PAGO";
 	dataAgendamentoInput.value="";
 	persistenciaInput.value="NAO";
@@ -1346,6 +1457,8 @@ function editaDespesaChangeStatus() {
 		dataPagamentoInput.value="";
 		dataPagamentoInput.disabled=true;
 	}
+
+	validacaoDoObjetoDespesa(false, 'edita');
 }
 
 function buildUrlPages() {
