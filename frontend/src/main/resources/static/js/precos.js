@@ -533,178 +533,52 @@ function filtroChange() {
 
 	var filtroTipo = document.getElementById('filtro_input');
 
-	var descricaoBlock = document.getElementById('filtro_descricao_block');
-	var descricaoInput = document.getElementById('descricao_filtro_input');
+	var produtoBlock = document.getElementById('filtro_produto_block');
+	var produtoInput = document.getElementById('produto_filtro_input');
 
-	var dataInicio = document.getElementById('filtro_data_inicio_block');
-	var dataInicioInput = document.getElementById('data_inicio_filtro_input');
+	var fornecedorBlock = document.getElementById('filtro_fornecedor_block');
+	var fornecedorInput = document.getElementById('fornecedor_filtro_input');
 
-	var dataFim = document.getElementById('filtro_data_fim_block');
-	var dataFimInput = document.getElementById('data_fim_filtro_input');
+	if (filtroTipo.value == 'PRODUTO') {
 
-	var mesBlock = document.getElementById('filtro_mes_block');
-	var mesInput = document.getElementById('mes_filtro_input');
+		produtoBlock.hidden=false;
 
-	var anoBlock = document.getElementById('filtro_ano_block');
-	var anoInput = document.getElementById('ano_filtro_input');
-
-	var usuarioBlock = document.getElementById('filtro_usuario_block');
-	var usuarioInput = document.getElementById('usuario_filtro_input');
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if (dia < 10) {
-		dia = '0'+dia;
-	}
-
-	if(mes < 10){
-		mes = '0'+mes;
-	}
-
-	var data = (ano + '-' + mes + '-' + dia);
-
-	if (filtroTipo.value == 'DESCRICAO') {
-
-		descricaoBlock.hidden=false;
-
-		dataInicioInput.value=data;
-		dataInicio.hidden=true;
-
-		dataFimInput.value=data;
-		dataFim.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		usuarioInput.value="";
-		usuarioBlock.hidden=true;
+		fornecedorInput.value="";
+		fornecedorBlock.hidden=true;
 
 	}
-	else if (filtroTipo.value == 'DATA') {
+	else if (filtroTipo.value == 'FORNECEDOR') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		produtoInput.value="";
+		produtoBlock.hidden=true;
 
-		dataInicioInput.value=data;
-		dataInicio.hidden=false;
-
-		dataFimInput.value=data;
-		dataFim.hidden=false;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		usuarioInput.value="";
-		usuarioBlock.hidden=true;
-
-	}
-	else if (filtroTipo.value == 'PERIODO') {
-
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
-
-		dataInicioInput.value=data;
-		dataInicio.hidden=true;
-
-		dataFimInput.value=data;
-		dataFim.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=false;
-
-		anoInput.value=ano;
-		anoBlock.hidden=false;
-
-		usuarioInput.value="";
-		usuarioBlock.hidden=true;
-		
-	}
-	else if (filtroTipo.value == 'USUARIO') {
-
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
-
-		dataInicioInput.value=data;
-		dataInicio.hidden=true;
-
-		dataFimInput.value=data;
-		dataFim.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		usuarioBlock.hidden=false;
+		fornecedorBlock.hidden=false;
 		
 	}
 }
 
 function reloadFiltro() {
 
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if (dia < 10) {
-		dia = '0'+dia;
-	}
-
-	if(mes < 10){
-		mes = '0'+mes;
-	}
-
-	var data = (ano + '-' + mes + '-' + dia);
-
 	document.getElementById('filtro_input').disabled=false;
 	document.getElementById('filtro_input').style.border="1px solid #949393";
 	document.getElementById('filtro_input').style.pointerEvents="auto";
-	document.getElementById('filtro_input').value="DESCRICAO";
+	document.getElementById('filtro_input').value="PRODUTO";
 	document.getElementById('filtro_bt').hidden=false;
 	document.getElementById('filtro_bt').disabled=false;
 	document.getElementById('filtro_bt').style.pointerEvents="auto";
 	document.getElementById('filtro_buscar_bt').hidden=true;
 
-	document.getElementById('tipo_filtro_option_descricao').hidden=false;
-	document.getElementById('filtro_descricao_block').hidden=false;	
-	document.getElementById('filtro_descricao_tag').hidden=true;
-	document.getElementById('descricao_filtro_input').value="";
-	document.getElementById('input_descricao_backend').value="";
+	document.getElementById('tipo_filtro_option_produto').hidden=false;
+	document.getElementById('filtro_produto_block').hidden=false;	
+	document.getElementById('filtro_produto_tag').hidden=true;
+	document.getElementById('produto_filtro_input').value="";
+	document.getElementById('input_produto_backend').value="";
 
-	document.getElementById('tipo_filtro_option_data').hidden=false;
-	document.getElementById('filtro_data_inicio_block').hidden=true;
-	document.getElementById('data_inicio_filtro_input').value=data;
-	document.getElementById('input_data_inicio_backend').value="";
-	document.getElementById('filtro_data_fim_block').hidden=true;	
-	document.getElementById('data_fim_filtro_input').value=data;
-	document.getElementById('input_data_fim_backend').value="";
-	document.getElementById('filtro_data_tag').hidden=true;
-
-	document.getElementById('tipo_filtro_option_periodo').hidden=false;
-	document.getElementById('filtro_mes_block').hidden=true;
-	document.getElementById('mes_filtro_input').value=mes;
-	document.getElementById('input_periodo_mes_backend').value="";	
-	document.getElementById('filtro_ano_block').hidden=true;
-	document.getElementById('ano_filtro_input').value=ano;
-	document.getElementById('input_periodo_ano_backend').value="";	
-	document.getElementById('filtro_periodo_tag').hidden=true;
-
-	document.getElementById('tipo_filtro_option_usuario').hidden=false;
-	document.getElementById('filtro_usuario_block').hidden=true;
-	document.getElementById('filtro_usuario_tag').hidden=true;
-	document.getElementById('usuario_filtro_input').value="";
-	document.getElementById('input_usuario_backend').value="";	
+	document.getElementById('tipo_filtro_option_fornecedor').hidden=false;
+	document.getElementById('filtro_fornecedor_block').hidden=true;
+	document.getElementById('filtro_fornecedor_tag').hidden=true;
+	document.getElementById('fornecedor_filtro_input').value="";
+	document.getElementById('input_fornecedor_backend').value="";	
 }
 
 function addFiltro() {
@@ -713,46 +587,28 @@ function addFiltro() {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optionProduto = document.getElementById('tipo_filtro_option_produto');
+	var produtoBlock = document.getElementById('filtro_produto_block');	
+	var produtoTag = document.getElementById('filtro_produto_tag');
 
-	var optionData = document.getElementById('tipo_filtro_option_data');
-	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
-	var dataFimBlock = document.getElementById('filtro_data_fim_block');	
-	var dataTag = document.getElementById('filtro_data_tag');	
+	var optionfornecedor = document.getElementById('tipo_filtro_option_fornecedor');
+	var fornecedorBlock = document.getElementById('filtro_fornecedor_block');	
+	var fornecedorTag = document.getElementById('filtro_fornecedor_tag');	
 
-	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
-	var periodoMesBlock = document.getElementById('filtro_mes_block');	
-	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
-	var periodoTag = document.getElementById('filtro_periodo_tag');		
+	var inputProdutoFiltro = document.getElementById('produto_filtro_input');
+	var inputfornecedorFiltro = document.getElementById('fornecedor_filtro_input');
 
-	var optionusuario = document.getElementById('tipo_filtro_option_usuario');
-	var usuarioBlock = document.getElementById('filtro_usuario_block');	
-	var usuarioTag = document.getElementById('filtro_usuario_tag');	
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
+	var inputfornecedorBackend = document.getElementById('input_fornecedor_backend');
 
-	var inputDescricaoFiltro = document.getElementById('descricao_filtro_input');
-	var inputDataInicioFiltro = document.getElementById('data_inicio_filtro_input');
-	var inputDataFimFiltro = document.getElementById('data_fim_filtro_input');
-	var inputMesFiltro = document.getElementById('mes_filtro_input');
-	var inputAnoFiltro = document.getElementById('ano_filtro_input');
-	var inputusuarioFiltro = document.getElementById('usuario_filtro_input');
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
-	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
-	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
-	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
-	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputusuarioBackend = document.getElementById('input_usuario_backend');
-
-	if (filtroTipo.value == 'DESCRICAO') {
-		if (inputDescricaoFiltro.value != "") {
-			optionDescricao.hidden=true;
-			descricaoBlock.hidden=true;
-			descricaoTag.hidden=false;
-			descricaoTag.innerText = "Nome: " + inputDescricaoFiltro.value;
+	if (filtroTipo.value == 'PRODUTO') {
+		if (inputProdutoFiltro.value != "") {
+			optionProduto.hidden=true;
+			produtoBlock.hidden=true;
+			produtoTag.hidden=false;
+			produtoTag.innerText = "Produto: " + inputProdutoFiltro.value;
 			filtroTipo.value="";
-			inputDescricaoBackend.value=inputDescricaoFiltro.value;
+			inputProdutoBackend.value=inputProdutoFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -762,64 +618,16 @@ function addFiltro() {
 			filtroBt.style.pointerEvents="none";				
 		}
 	}
-	else if (filtroTipo.value == 'DATA') {
-		optionData.hidden=true;
-		optionPeriodo.hidden=true;
+	else if (filtroTipo.value == 'FORNECEDOR') {
+		if (inputfornecedorFiltro.value != "") {		
+			optionfornecedor.hidden=true;
+			fornecedorBlock.hidden=true;
 
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-
-		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
-
-		filtroTipo.value="";
-		inputDataInicioBackend.value=inputDataInicioFiltro.value;
-		inputDataFimBackend.value=inputDataFimFiltro.value;
-
-		filtroBt.hidden=true;
-		buscarBt.hidden=false;
-		filtroTipo.style.border="1px solid grey";
-		filtroTipo.disabled=true;
-		filtroBt.disabled=true;
-		filtroBt.style.pointerEvents="none";			
-	}
-	else if (filtroTipo.value == 'PERIODO') {
-		optionData.hidden=true;
-		optionPeriodo.hidden=true;
-
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-
-		periodoTag.hidden=false;
-		periodoTag.innerText = 'Mês ' + inputMesFiltro.value + ' de ' + inputAnoFiltro.value;
-
-		filtroTipo.value="";
-		inputMesBackend.value=inputMesFiltro.value;
-		inputAnoBackend.value=inputAnoFiltro.value;
-
-		filtroBt.hidden=true;
-		buscarBt.hidden=false;
-		filtroTipo.style.border="1px solid grey";
-		filtroTipo.disabled=true;
-		filtroBt.disabled=true;
-		filtroBt.style.pointerEvents="none";		
-	}
-	else if (filtroTipo.value == 'USUARIO') {
-		if (inputusuarioFiltro.value != "") {		
-			optionusuario.hidden=true;
-			usuarioBlock.hidden=true;
-
-			usuarioTag.hidden=false;
-			usuarioTag.innerText = 'Usuario: ' + inputusuarioFiltro.value;
+			fornecedorTag.hidden=false;
+			fornecedorTag.innerText = 'Fornecedor: ' + inputfornecedorFiltro.value;
 
 			filtroTipo.value="";
-			inputusuarioBackend.value=inputusuarioFiltro.value;
+			inputfornecedorBackend.value=inputfornecedorFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -837,104 +645,47 @@ function removerFiltro(filtro) {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optionProduto = document.getElementById('tipo_filtro_option_produto');
+	var produtoBlock = document.getElementById('filtro_produto_block');	
+	var produtoTag = document.getElementById('filtro_produto_tag');
 
-	var optionData = document.getElementById('tipo_filtro_option_data');
-	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
-	var dataFimBlock = document.getElementById('filtro_data_fim_block');	
-	var dataTag = document.getElementById('filtro_data_tag');	
+	var optionfornecedor = document.getElementById('tipo_filtro_option_fornecedor');
+	var fornecedorBlock = document.getElementById('filtro_fornecedor_block');	
+	var fornecedorTag = document.getElementById('filtro_fornecedor_tag');
 
-	var optionPeriodo = document.getElementById('tipo_filtro_option_periodo');
-	var periodoMesBlock = document.getElementById('filtro_mes_block');	
-	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
-	var periodoTag = document.getElementById('filtro_periodo_tag');		
-
-	var optionusuario = document.getElementById('tipo_filtro_option_usuario');
-	var usuarioBlock = document.getElementById('filtro_usuario_block');	
-	var usuarioTag = document.getElementById('filtro_usuario_tag');
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
-	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
-	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
-	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
-	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputusuarioBackend = document.getElementById('input_usuario_backend');	
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
+	var inputfornecedorBackend = document.getElementById('input_fornecedor_backend');	
 	
 	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
 	filtroBt.disabled=false;
 	filtroBt.style.pointerEvents="auto";	
 
-	if (filtro == 'descricao') {		
+	if (filtro == 'produto') {		
 
-		optionDescricao.hidden=false;
+		optionProduto.hidden=false;
 
-		descricaoBlock.hidden=false;
+		produtoBlock.hidden=false;
 
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-		usuarioBlock.hidden=true;
+		fornecedorBlock.hidden=true;
 
-		descricaoTag.hidden=true;
+		produtoTag.hidden=true;
 
-		filtroTipo.value="DESCRICAO";
+		filtroTipo.value="PRODUTO";
 
-		inputDescricaoBackend.value="";
+		inputProdutoBackend.value="";
 	}
-	else if (filtro == 'data') {
-		optionData.hidden=false;
-		optionPeriodo.hidden=false;
+	else if (filtro == 'fornecedor') {
+		optionfornecedor.hidden=false;
 
-		descricaoBlock.hidden=true;
-		dataInicioBlock.hidden=false;
-		dataFimBlock.hidden=false;
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-		usuarioBlock.hidden=true;
+		produtoBlock.hidden=true;
 
-		dataTag.hidden=true;
-		filtroTipo.value="DATA";
+		fornecedorBlock.hidden=false;
+		fornecedorTag.hidden=true;
 
-		inputDataInicioBackend.value="";
-		inputDataFimBackend.value="";
-	}
-	else if (filtro == 'periodo') {
-		optionData.hidden=false;
-		optionPeriodo.hidden=false;
+		filtroTipo.value="FORNECEDOR";
 
-		descricaoBlock.hidden=true;
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-		periodoMesBlock.hidden=false;
-		periodoAnoBlock.hidden=false;
-		usuarioBlock.hidden=true;
-
-		periodoTag.hidden=true;
-		filtroTipo.value="PERIODO";
-
-		inputMesBackend.value="";
-		inputAnoBackend.value="";
-	}
-	else if (filtro == 'usuario') {
-		optionusuario.hidden=false;
-
-		descricaoBlock.hidden=true;
-
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-
-		usuarioBlock.hidden=false;
-		usuarioTag.hidden=true;
-
-		filtroTipo.value="USUARIO";
-
-		inputusuarioBackend.value="";
+		inputfornecedorBackend.value="";
 	}	
 
 	buscarBt.hidden=true;		
@@ -943,91 +694,53 @@ function removerFiltro(filtro) {
 
 function efeitoRemoverFiltro(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
-	var filtroData = document.getElementById('filtro_data_tag');	
-	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtrousuario = document.getElementById('filtro_usuario_tag');
+	var filtroProduto = document.getElementById('filtro_produto_tag');
+	var filtrofornecedor = document.getElementById('filtro_fornecedor_tag');
 
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="0.5s"
-		filtroDescricao.style.background="#AA3C3C";
-		filtroDescricao.style.border="1px solid #AA3C3C";
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Remover";
-		filtroDescricao.style.cursor="pointer";
+	if (filtro == 'produto') {
+		filtroProduto.style.transition="0.5s"
+		filtroProduto.style.background="#AA3C3C";
+		filtroProduto.style.border="1px solid #AA3C3C";
+		filtroProduto.style.color="#212121";
+		filtroProduto.innerText="Remover";
+		filtroProduto.style.cursor="pointer";
 
 	}
-	else if (filtro == 'data') {
-		filtroData.style.transition="0.5s"
-		filtroData.style.background="#AA3C3C";
-		filtroData.style.border="1px solid #AA3C3C";
-		filtroData.style.color="#212121";
-		filtroData.innerText="Remover";
-		filtroData.style.cursor="pointer";
-	}	
-	else if (filtro == 'periodo') {
-		filtroPeriodo.style.transition="0.5s"
-		filtroPeriodo.style.background="#AA3C3C";
-		filtroPeriodo.style.border="1px solid #AA3C3C";
-		filtroPeriodo.style.color="#212121";
-		filtroPeriodo.innerText="Remover";
-		filtroPeriodo.style.cursor="pointer";
-	}
-	else if (filtro == 'usuario') {
-		filtrousuario.style.transition="0.5s"
-		filtrousuario.style.background="#AA3C3C";
-		filtrousuario.style.border="1px solid #AA3C3C";
-		filtrousuario.style.color="#212121";
-		filtrousuario.innerText="Remover";
-		filtrousuario.style.cursor="pointer";
+	else if (filtro == 'fornecedor') {
+		filtrofornecedor.style.transition="0.5s"
+		filtrofornecedor.style.background="#AA3C3C";
+		filtrofornecedor.style.border="1px solid #AA3C3C";
+		filtrofornecedor.style.color="#212121";
+		filtrofornecedor.innerText="Remover";
+		filtrofornecedor.style.cursor="pointer";
 	}
 		
 }
 
 function efeitoRemoverFiltroLeave(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
-	var filtroData = document.getElementById('filtro_data_tag');
-	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtrousuario = document.getElementById('filtro_usuario_tag');
+	var filtroProduto = document.getElementById('filtro_produto_tag');
+	var filtrofornecedor = document.getElementById('filtro_fornecedor_tag');
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
-	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
-	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
-	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
-	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputusuarioBackend = document.getElementById('input_usuario_backend');
+	var inputProdutoBackend = document.getElementById('input_produto_backend');
+	var inputfornecedorBackend = document.getElementById('input_fornecedor_backend');
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="1s"
-		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #212121"
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Descrição";
-		filtroDescricao.innerText = 'Nome: ' + inputDescricaoBackend.value;
+	if (filtro == 'produto') {
+		filtroProduto.style.transition="1s"
+		filtroProduto.style.background="transparent";
+		filtroProduto.style.border="1px solid #212121"
+		filtroProduto.style.color="#212121";
+		filtroProduto.innerText="Descrição";
+		filtroProduto.innerText = 'Produto: ' + inputProdutoBackend.value;
 
 	}
-	else if (filtro == 'data') {
-		filtroData.style.transition="1s"
-		filtroData.style.background="transparent";
-		filtroData.style.border="1px solid #212121"
-		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
-	}
-	else if (filtro == 'periodo') {
-		filtroPeriodo.style.transition="1s"
-		filtroPeriodo.style.background="transparent";
-		filtroPeriodo.style.border="1px solid #212121"
-		filtroPeriodo.style.color="#212121";
-		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
-	}
-	else if (filtro == 'usuario') {
-		filtrousuario.style.transition="1s"
-		filtrousuario.style.background="transparent";
-		filtrousuario.style.border="1px solid #212121"
-		filtrousuario.style.color="#212121";
-		filtrousuario.innerText = 'Usuario: ' + inputusuarioBackend.value;
+	else if (filtro == 'fornecedor') {
+		filtrofornecedor.style.transition="1s"
+		filtrofornecedor.style.background="transparent";
+		filtrofornecedor.style.border="1px solid #212121"
+		filtrofornecedor.style.color="#212121";
+		filtrofornecedor.innerText = 'Fornecedor: ' + inputfornecedorBackend.value;
 	}
 
 }
@@ -1249,84 +962,50 @@ function buildUrlPages() {
 	var paginaAtual = document.getElementById('pagina_atual');
 	var tipoFiltro = document.getElementById('tipo_filtro');
 
-	var dataInicio = document.getElementById('back_inicio');
-	var dataFim = document.getElementById('back_fim');
-	var periodoMes = document.getElementById('back_mes');
-	var periodoAno = document.getElementById('back_ano');	
-	var descricao = document.getElementById('back_descricao');		
-	var usuario = document.getElementById('back_usuario');			
-	var telefone = document.getElementById('back_telefone');	
+	var produto = document.getElementById('back_produto');
+	var fornecedor = document.getElementById('back_fornecedor');			
 
 	var pageNumber = document.getElementsByClassName('page_number');
 
-	if(tipoFiltro.value == 'data') {
+	if(tipoFiltro.value == 'produto') {
 
-		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
-		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
-
+		$('#anterior').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) - 1)  + "&produto=" + produto.value);
+		$('#proxima').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) + 1)  + "&produto=" + produto.value);
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
+			$('#' + idPagina).attr("href", "/precos?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&produto=" + produto.value);
 		}
 
 	}
 
-	else if(tipoFiltro.value == 'periodo') {
+	else if(tipoFiltro.value == 'fornecedor') {
 
-		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
-		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
-
-		
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina')))  + "&mes=" + periodoMes.value + "&ano=" + periodoAno.value);
-		}
-
-	}
-
-	else if(tipoFiltro.value == 'descricao') {
-
-		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&descricao=" + descricao.value);
-		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&descricao=" + descricao.value);
+		$('#anterior').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) - 1)  + "&fornecedor=" + fornecedor.value);
+		$('#proxima').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) + 1)  + "&fornecedor=" + fornecedor.value);
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&descricao=" + descricao.value);
-		}
-
-	}
-
-	else if(tipoFiltro.value == 'usuario') {
-
-		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1)  + "&usuario=" + usuario.value);
-		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1)  + "&usuario=" + usuario.value);
-
-		for (var i = 0; i < pageNumber.length; i ++) {
-			pageNumber[i].id="numeroPagina_" + i;
-			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
-				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&usuario=" + usuario.value);
+			$('#' + idPagina).attr("href", "/precos?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&fornecedor=" + fornecedor.value);
 		}					
 	}
 
 	else {
-		$('#anterior').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) - 1));
-		$('#proxima').attr("href", "/colaboradores?page=" + (parseInt(paginaAtual.value) + 1));
+		$('#anterior').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) - 1));
+		$('#proxima').attr("href", "/precos?page=" + (parseInt(paginaAtual.value) + 1));
 
 		for (var i = 0; i < pageNumber.length; i ++) {
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
-			$('#' + idPagina).attr("href", "/colaboradores?page=" + 
+			$('#' + idPagina).attr("href", "/precos?page=" + 
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))));
 		}		
-	}	
+	}
+
 }
 
 function buildUrl(baseUrl, pagina, descricao, tipo, dataInicio, dataFim, mes, ano) {
