@@ -440,7 +440,129 @@ function paletasDeCores(paleta) {
 	if(paleta == 1) {
 
 	}
+}
 
+/* ================== TRATAMENTO DE INPUTS E VALIDAÇÕES ====================== */
+
+/* RESETA AS CORES */
+function resetCores(tipo) {
+
+	if(tipo == "novo") {
+		var produtoAbastecimentoInput = document.getElementById('produto_abastecimento_input');
+		var fornecedorAbastecimentoInput = document.getElementById('fornecedor_abastecimento_input');
+		var quantidadeAbastecimentoInput = document.getElementById('quantidade_input');
+		var pagamentoAbastecimentoInput = document.getElementById('pagamento_input');
+		var valorAbastecimentoInput = document.getElementById('valor_input');
+		var observacaoAbastecimentoInput = document.getElementById('observacao_input');
+		var botaoFinalizar = document.getElementById('novo_item_submit');
+	}
+	else {
+		var produtoAbastecimentoInput = document.getElementById('edita_produto_abastecimento_input');
+		var fornecedorAbastecimentoInput = document.getElementById('edita_fornecedor_abastecimento_input');
+		var quantidadeAbastecimentoInput = document.getElementById('edita_quantidade_input');
+		var pagamentoAbastecimentoInput = document.getElementById('edita_pagamento_input');
+		var valorAbastecimentoInput = document.getElementById('edita_valor_input');
+		var observacaoAbastecimentoInput = document.getElementById('edita_observacao_input');
+		var botaoFinalizar = document.getElementById('edita_item_submit');
+	}
+
+	produtoAbastecimentoInput.style.background="transparent";
+	quantidadeAbastecimentoInput.style.background="transparent";
+	valorAbastecimentoInput.style.background="transparent";
+}
+
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO */
+function validacaoDoObjetoAbastecimento(submitar, tipo) {
+
+	var erros = "Ocorreram alguns erros no cadastro do patrimônio:\n";
+
+	if(tipo == "novo") {
+		var produtoAbastecimentoInput = document.getElementById('produto_abastecimento_input');
+		var fornecedorAbastecimentoInput = document.getElementById('fornecedor_abastecimento_input');
+		var quantidadeAbastecimentoInput = document.getElementById('quantidade_input');
+		var pagamentoAbastecimentoInput = document.getElementById('pagamento_input');
+		var valorAbastecimentoInput = document.getElementById('valor_input');
+		var observacaoAbastecimentoInput = document.getElementById('observacao_input');
+		var botaoFinalizar = document.getElementById('novo_item_submit');
+	}
+	else {
+		var produtoAbastecimentoInput = document.getElementById('edita_produto_abastecimento_input');
+		var fornecedorAbastecimentoInput = document.getElementById('edita_fornecedor_abastecimento_input');
+		var quantidadeAbastecimentoInput = document.getElementById('edita_quantidade_input');
+		var pagamentoAbastecimentoInput = document.getElementById('edita_pagamento_input');
+		var valorAbastecimentoInput = document.getElementById('edita_valor_input');
+		var observacaoAbastecimentoInput = document.getElementById('edita_observacao_input');
+		var botaoFinalizar = document.getElementById('edita_item_submit');
+	}
+
+	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
+	if(produtoAbastecimentoInput.value != "" 
+			|| fornecedorAbastecimentoInput.value != "null" 
+			|| quantidadeAbastecimentoInput.value != "PAGO" 
+			|| pagamentoAbastecimentoInput.value != "DINHEIRO"
+			|| valorAbastecimentoInput.value != 0
+			|| observacaoAbastecimentoInput.value != "") {
+
+		if(produtoAbastecimentoInput.value == "" || produtoAbastecimentoInput.value == "...") {
+			produtoAbastecimentoInput.style.background="#f5aea9";	
+			erros += "- O preenchimento do campo produto é obrigatório\n";	
+		}
+		else {
+			produtoAbastecimentoInput.style.background="transparent";		
+		}
+
+		if(valorAbastecimentoInput.value == 0) {
+			valorAbastecimentoInput.style.background="#f5aea9";
+			erros += "- O preenchimento do campo valor é obrigatório\n";		
+		}
+		else {
+			valorAbastecimentoInput.style.background="transparent";		
+		}		
+
+		if(quantidadeAbastecimentoInput.value == 0) {
+			quantidadeAbastecimentoInput.style.background="#f5aea9";
+			erros += "- O preenchimento do campo quantidade é obrigatório\n";		
+		}
+		else {
+			quantidadeAbastecimentoInput.style.background="transparent";		
+		}					
+
+	}
+
+	else {
+		produtoAbastecimentoInput.style.background="transparent";
+		valorAbastecimentoInput.style.background="transparent";
+	}
+
+	if(submitar == true) {
+		submitAbastecimento(tipo, erros, botaoFinalizar);
+	}
+}
+
+/* REALIZA SUBMIT DO OBJETO */
+function submitAbastecimento(tipo, erros, botaoFinalizar) {
+
+	// VALIDAÇÃO FINAL
+	if (erros != "Ocorreram alguns erros no cadastro do patrimônio:\n") {
+		var quantidade = 0
+
+		for (var i = 0; i < erros.length; i++) {
+		  if (erros[i] == "-") {
+		    quantidade++;
+		  }
+		}
+
+		if (quantidade == 1) {
+			erros = erros.replace("Ocorreram alguns erros", "Ocorreu um erro");
+		}
+
+		alert(erros);
+		return false;
+	}
+	else {
+		botaoFinalizar.type="submit";
+		return true;
+	}	
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA NOVO ITEM ====================== */
@@ -504,11 +626,12 @@ function fechaNovoItem() {
 }
 
 function reloadNovoItem() {
+	resetCores('novo');
 	document.getElementById('produto_abastecimento_input').value="";
 	document.getElementById('fornecedor_abastecimento_input').value="";
-	document.getElementById('quantidade_input').value="";
+	document.getElementById('quantidade_input').value=0;
 	document.getElementById('pagamento_input').value="DINHEIRO";
-	document.getElementById('valor_input').value="";
+	document.getElementById('valor_input').value=0;
 	document.getElementById('observacao_input').value="";
 }
 
@@ -1123,27 +1246,26 @@ function abrirEditaItem(
 	}
 
 	document.getElementById('id_input_edicao').value=id;
-	document.getElementById('produto_abastecimento_input').value=produtoId;
+	document.getElementById('edita_produto_abastecimento_input').value=produtoId;
 
 	if(fornecedorId == '' || fornecedorId == null) { 
-		document.getElementById('fornecedor_abastecimento_input').value = ''; 
+		document.getElementById('edita_fornecedor_abastecimento_input').value = ''; 
 	}
 	else {
-		for (var i = 0; document.getElementsByClassName('option_fornecedor').length > i; i++) {
-			if (document.getElementsByClassName('option_fornecedor')[i].value == fornecedorId) {
-				document.getElementById('fornecedor_abastecimento_input').value=document.getElementsByClassName('option_fornecedor')[i].value; 
+		for (var i = 0; document.getElementsByClassName('edita_option_fornecedor').length > i; i++) {
+			if (document.getElementsByClassName('edita_option_fornecedor')[i].value == fornecedorId) {
+				document.getElementById('edita_fornecedor_abastecimento_input').value=document.getElementsByClassName('option_fornecedor')[i].value; 
 			}
 			else {
-				document.getElementById('fornecedor_abastecimento_input').value='';
+				document.getElementById('edita_fornecedor_abastecimento_input').value='';
 			}
 		}
 	}
 
-	document.getElementById('quantidade_input').value=quantidade;
-	document.getElementById('pagamento_input').value=formaPagamento;
-	document.getElementById('valor_input').value=custoTotal;
-	document.getElementById('observacao_input').value=observacao;
-
+	document.getElementById('edita_quantidade_input').value=quantidade;
+	document.getElementById('edita_pagamento_input').value=formaPagamento;
+	document.getElementById('edita_valor_input').value=custoTotal;
+	document.getElementById('edita_observacao_input').value=observacao;
 }
 
 function fechaEditaItem() {
@@ -1172,12 +1294,13 @@ function fechaEditaItem() {
 }
 
 function reloadEditaItem() {
-	document.getElementById('quantidade_input').value='';
-	document.getElementById('pagamento_input').value='';
-	document.getElementById('valor_input').value='';
-	document.getElementById('observacao_input').value='';
-	document.getElementById('produto_abastecimento_input').value='';
-	document.getElementById('fornecedor_abastecimento_input').value = '';
+	resetCores('edita');
+	document.getElementById('edita_quantidade_input').value=0;
+	document.getElementById('edita_pagamento_input').value='';
+	document.getElementById('edita_valor_input').value=0;
+	document.getElementById('edita_observacao_input').value='';
+	document.getElementById('edita_produto_abastecimento_input').value='';
+	document.getElementById('edita_fornecedor_abastecimento_input').value = '';
 }
 
 /* ================== MISC ====================== */

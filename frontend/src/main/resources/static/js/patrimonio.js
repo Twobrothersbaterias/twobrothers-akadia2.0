@@ -448,7 +448,7 @@ function resetCores(tipo) {
 	valor.style.background="transparent";
 }
 
-/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO CLIENTE */
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO */
 function validacaoDoObjetoPatrimonio(submitar, tipo) {
 
 	var erros = "Ocorreram alguns erros no cadastro do patrimônio:\n";
@@ -505,7 +505,7 @@ function validacaoDoObjetoPatrimonio(submitar, tipo) {
 	}
 }
 
-/* REALIZA SUBMIT DO PRODUTO */
+/* REALIZA SUBMIT DO OBJETO */
 function submitPatrimonio(tipo, erros, botaoFinalizar) {
 
 	// VALIDAÇÃO FINAL
