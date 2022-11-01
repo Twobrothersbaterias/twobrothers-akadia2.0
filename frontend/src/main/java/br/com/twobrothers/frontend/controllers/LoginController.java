@@ -1,7 +1,10 @@
 package br.com.twobrothers.frontend.controllers;
 
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
+import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
+import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/login")
@@ -19,6 +23,9 @@ public class LoginController {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    ProdutoEstoqueRepository produtoEstoqueRepository;
 
     @GetMapping
     public ModelAndView paginaDeLogin(ModelAndView modelAndView) {
@@ -34,6 +41,22 @@ public class LoginController {
                     .privilegio(PrivilegioEnum.DESENVOLVEDOR)
                     .senhaCriptografada(new BCryptPasswordEncoder().encode("762"))
                     .nomeUsuario("admin")
+                    .build());
+
+        if (produtoEstoqueRepository.buscaPorSigla("SUC45").isEmpty())
+            produtoEstoqueRepository.save(ProdutoEstoqueEntity.builder()
+                    .abastecimentos(new ArrayList<>())
+                    .custoTotal(0.0)
+                    .custoUnitario(0.0)
+                    .sigla("SUC45")
+                    .especificacao("SUC45")
+                    .marcaBateria("SUCATA")
+                    .quantidadeMinima(0)
+                    .quantidade(0)
+                    .tipoProduto(TipoProdutoEnum.SUCATA)
+                    .dataCadastro(LocalDate.now().toString())
+                    .entradas(new ArrayList<>())
+                    .precosFornecedor(new ArrayList<>())
                     .build());
 
         modelAndView.setViewName("login");

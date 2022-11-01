@@ -17,6 +17,7 @@ import java.util.List;
  * @since 30-08-22
  */
 @Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor

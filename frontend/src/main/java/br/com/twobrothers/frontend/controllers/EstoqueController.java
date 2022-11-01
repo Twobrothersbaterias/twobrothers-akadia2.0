@@ -156,8 +156,13 @@ public class EstoqueController {
                                          RedirectAttributes redirAttrs,
                                          ModelAndView modelAndView,
                                          String query) {
-        produtoEstoqueCrudService.deletaPorId(id);
-        redirAttrs.addFlashAttribute("SucessoDelete", "Produto deletado com sucesso");
+        try {
+            produtoEstoqueCrudService.deletaPorId(id);
+            redirAttrs.addFlashAttribute("SucessoDelete", "Produto deletado com sucesso");
+        }
+        catch (Exception e) {
+            redirAttrs.addFlashAttribute("ErroCadastro", e.getMessage());
+        }
         modelAndView.setViewName("redirect:../estoque?" + query);
         return modelAndView;
     }

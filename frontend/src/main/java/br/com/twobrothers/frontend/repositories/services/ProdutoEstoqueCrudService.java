@@ -216,9 +216,14 @@ public class ProdutoEstoqueCrudService {
                 }
             }
 
-            log.info("[PROGRESS] Inicializando remoção do produto de id {}...", id);
-            repository.deleteById(id);
-            log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            if (produtoOptional.get().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
+                log.info("[PROGRESS] Inicializando remoção do produto de id {}...", id);
+                repository.deleteById(id);
+                log.info(REQUISICAO_FINALIZADA_COM_SUCESSO);
+            }
+            else {
+                throw new InvalidRequestException("Não é possível remover o item SUC45 do estoque");
+            }
         } else {
             log.error("[ERROR] Nenhum produto foi encontrado com o id {}", id);
             throw new ObjectNotFoundException("Não existe nenhum produto cadastrado com o id " + id);

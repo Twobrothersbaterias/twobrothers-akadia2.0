@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.enums.TipoEntradaEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
@@ -86,17 +87,24 @@ public class GerenciamentoEstoqueService {
 
         List<ProdutoEstoqueEntity> produtosInseridos = new ArrayList<>();
 
+        ProdutoEstoqueEntity sucata = produtoEstoqueRepository.buscaPorSigla("SUC45").get();
+
         for (EntradaOrdemDTO entradaOrdemDTO : entradas) {
-            if (entradaOrdemDTO.getProduto() != null) {
-                if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
-                    ProdutoEstoqueEntity produtoEstoqueEntity = modelMapper.mapper().map(entradaOrdemDTO.getProduto(), ProdutoEstoqueEntity.class);
-                    produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
-                    produtoEstoqueEntity.setCustoTotal(produtoEstoqueEntity.getQuantidade() * produtoEstoqueEntity.getCustoUnitario());
-                    produtosInseridos.add(produtoEstoqueEntity);
-                    if (produtoEstoqueEntity.getQuantidade() < 0)
-                        throw new InvalidRequestException("A quantidade do produto " + produtoEstoqueEntity.getSigla() +
-                                " passada pela ordem é maior do que a que existe em estoque");
+
+            if (entradaOrdemDTO.getProduto() != null && entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
+                ProdutoEstoqueEntity produtoEstoqueEntity = modelMapper.mapper().map(entradaOrdemDTO.getProduto(), ProdutoEstoqueEntity.class);
+                produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
+                produtoEstoqueEntity.setCustoTotal(produtoEstoqueEntity.getQuantidade() * produtoEstoqueEntity.getCustoUnitario());
+                produtosInseridos.add(produtoEstoqueEntity);
+
+                if (entradaOrdemDTO.getTipoEntrada().equals(TipoEntradaEnum.TROCA)) {
+                    sucata.setQuantidade(sucata.getQuantidade() + entradaOrdemDTO.getQuantidade());
+                    produtosInseridos.add(sucata);
                 }
+
+                if (produtoEstoqueEntity.getQuantidade() < 0)
+                    throw new InvalidRequestException("A quantidade do produto " + produtoEstoqueEntity.getSigla() +
+                            " passada pela ordem é maior do que a que existe em estoque");
             }
         }
 
