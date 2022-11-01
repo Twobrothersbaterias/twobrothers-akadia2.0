@@ -1441,6 +1441,7 @@ function ajustaTabela(){
 }
 
 function ajustaCampos() {
+
 	var trContent = document.getElementsByClassName('tr_content');
 	var ordemId = null;
 
@@ -1464,7 +1465,7 @@ function ajustaCampos() {
 		var totalEntradas = 0.0;
 		var nomeAtualizado = "";
 
-		ordemId = trContent[i].getAttribute('data-ordemId');
+		ordemId = trContent[i].getAttribute('data-ordemId');	
 
 		var entradaValorCampo = document.getElementsByClassName('entradas_valor_' + ordemId);
 		var entradaQuantidadeCampo = document.getElementsByClassName('entradas_quantidade_' + ordemId);

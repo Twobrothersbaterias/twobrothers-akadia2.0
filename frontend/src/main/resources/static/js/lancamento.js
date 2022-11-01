@@ -576,10 +576,15 @@ function addNovoProduto() {
 
 		console.log((inputEntradas.value).length);
 
-		if ((inputEntradas.value).includes(inputProduto.value) && inputProduto.value != "Serviço"){
-			alert("O produto " + inputProduto.value + " já está adicionado nessa ordem");
-			return;
-		}
+
+		var inputEntradasSplitPai = inputEntradas.value.split("ENTRADA=");
+		for(var i = 1; i < inputEntradasSplitPai.length; i++) {
+			if (inputEntradasSplitPai[i].split(";")[2] == inputProduto.value) {
+				alert("O produto " + inputProduto.value + " já está adicionado nessa ordem");
+				return;				
+			}
+		}		
+
 
 		if (((inputEntradas.value).split("ENTRADA=")).length > 7) {
 			alert("Número máximo de entradas adicionado à ordem.\n");

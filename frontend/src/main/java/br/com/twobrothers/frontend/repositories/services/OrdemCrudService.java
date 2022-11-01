@@ -164,8 +164,8 @@ public class OrdemCrudService {
             log.info("[PROGRESS] Setando cliente do objeto ordem como nulo...");
             ordem.setCliente(null);
         }
-//        log.info("[PROGRESS] Iniciando validação em massa da relação ENTRADA -> PRODUTO...");
-//        gerenciamentoEstoqueService.validacoesEmMassa(modelMapper, ordem.getEntradas());
+        log.info("[PROGRESS] Iniciando validação em massa da relação ENTRADA -> PRODUTO...");
+        gerenciamentoEstoqueService.validacoesEmMassa(modelMapper, ordem.getEntradas());
 
         log.info("[PROGRESS] Localizando tecnico de id {}...", ordem.getRetirada().getTecnicoEntrada().getId());
         Optional<UsuarioEntity> tecnicoOptional =
@@ -210,7 +210,7 @@ public class OrdemCrudService {
                 }
 
                 log.info("[PROGRESS] Iniciando acionamento do serviço de gerenciamento e alteração de estoque...");
-                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(modelMapper, entradaOrdemDTO, OperacaoEstoque.CRIACAO);
+                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(entradaOrdemDTO, OperacaoEstoque.CRIACAO);
             }
 
             try {

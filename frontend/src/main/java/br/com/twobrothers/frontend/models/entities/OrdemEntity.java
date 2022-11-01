@@ -2,11 +2,9 @@ package br.com.twobrothers.frontend.models.entities;
 
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import br.com.twobrothers.frontend.models.enums.NfeEnum;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +64,11 @@ public class OrdemEntity {
     public void addEntrada(EntradaOrdemEntity entrada) {
         entrada.setOrdem(this);
         this.entradas.add(entrada);
+    }
+
+    public void removeEntrada(EntradaOrdemEntity entrada) {
+        entrada.setOrdem(null);
+        this.entradas.remove(entrada);
     }
 
 }

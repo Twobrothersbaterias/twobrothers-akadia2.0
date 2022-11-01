@@ -241,15 +241,16 @@ public class ProdutoEstoqueCrudService {
 
         OrdemEntity ordem = entrada.getOrdem();
 
-        System.err.println(ordem.getEntradasString());
         ordem.setEntradasString(ordem.getEntradasString().replace(entradaString, ""));
-        System.err.println(ordem.getEntradasString());
+        ordem.removeEntrada(entrada);
         ordemRepository.save(ordem);
 
         produtoEstoqueEntity.removeEntrada(entrada);
+
         entrada.setQuantidade(0);
         entrada.setValor(0.0);
         entradaOrdemRepository.save(entrada);
+        entradaOrdemRepository.deleteById(entrada.getId());
     }
 
 }

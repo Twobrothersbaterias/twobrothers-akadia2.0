@@ -33,17 +33,23 @@ public class GerenciamentoEstoqueService {
     @Autowired
     AbastecimentoRepository abastecimentoRepository;
 
-    public void distribuiParaOperacaoCorreta(ModelMapperConfig modelMapper, EntradaOrdemDTO entradaOrdemDTO, OperacaoEstoque operacaoEstoque) {
+    public void distribuiParaOperacaoCorreta(EntradaOrdemDTO entradaOrdemDTO, OperacaoEstoque operacaoEstoque) {
         if (operacaoEstoque.equals(OperacaoEstoque.CRIACAO)) {
-            criacaoDeOrdemComum(modelMapper, entradaOrdemDTO);
+            criacaoDeOrdemComum(entradaOrdemDTO);
         } else if (operacaoEstoque.equals(OperacaoEstoque.REMOCAO)) {
             remocaoDeOrdemComum(entradaOrdemDTO);
         }
     }
 
-    public void criacaoDeOrdemComum(ModelMapperConfig modelMapper, EntradaOrdemDTO entradaOrdemDTO) {
+    public void criacaoDeOrdemComum(EntradaOrdemDTO entradaOrdemDTO) {
 
-        validacoesEmMassa(modelMapper, entradaOrdemDTO);
+        Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
+                produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
+
+        if (produtoEstoqueEntityOptional.isPresent()) {
+            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueEntityOptional.get();
+            produtoEstoqueRepository.save(produtoEstoque);
+        }
 
     }
 
