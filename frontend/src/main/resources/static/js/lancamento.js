@@ -21,9 +21,8 @@ function bind(keyCode) {
         window.location.href="/vendas";
     }
 
-    if (document.getElementById('conteudo_container_filtro').hidden==true
-    	&& document.getElementById('conteudo_container_edita').hidden==true
-    	&& document.getElementById('conteudo_container_novo').hidden==true) {
+    if (!document.activeElement.className.includes('item_input') 
+    	|| !document.activeElement.className.includes('botao_adicionar')) {
 
 	    if (keyCode == '49') {
 	    	window.location.href="/";
@@ -70,7 +69,14 @@ function bind(keyCode) {
 	    }
 
 	    else if(keyCode == '82') {
-	    	window.location.href="/lancamento";
+			if (confirm("Ao reiniciar a tela atual todos os dados da ordem serão perdidos\n" + 
+				"Deseja prosseguir mesmo assim?") == true) {
+				window.location.href="/lancamento";
+			}
+	    }
+
+	    else if(keyCode == '13') {
+	    	window.location.href=validacaoCampos();
 	    }   
 
     }                   
@@ -127,9 +133,9 @@ function responsive(){
 			selectSuperiorContainer[i].style.justifyContent="left";
 		}		
 
-		for(var i = 0; i < divIcones.length; i++) {
-			divIcones[i].style.padding="9px 0";
-		}
+		//for(var i = 0; i < divIcones.length; i++) {
+		//	divIcones[i].style.padding="9px 0";
+		//}
 
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.margin="0";
@@ -144,9 +150,9 @@ function responsive(){
 			conteudoTituloItem[i].style.fontSize="0.90rem";
 		}
 
-		for (var i = 0 ; i < formTitulo.length; i++) {
-			formTitulo[i].style.fontSize="1.3rem";
-		}			
+		//for (var i = 0 ; i < formTitulo.length; i++) {
+		//	formTitulo[i].style.fontSize="1.3rem";
+		//}			
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.75rem";

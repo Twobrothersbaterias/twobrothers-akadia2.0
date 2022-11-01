@@ -3,10 +3,10 @@
 }
 
 .novo_all {
-	padding: 35px 20px;
+	padding: 25px 0px;
 	float: left;
-	margin-bottom: 35px;
-	padding-bottom: 0;
+	margin-bottom: 0px;
+	padding-bottom: 15px;
 	box-shadow: 0px 0px 25px #121212;
 	background-image: linear-gradient(to right, #C3C8C8, #d1cdcd);
 }
@@ -44,6 +44,8 @@
 
 .hr_novo {
 	background: #c3c8c8;
+	margin: 8px;
+	margin-bottom: 16px;
 }
 
 .etapa_um {
@@ -109,8 +111,8 @@
 
 #botao_finalizar {
 	background: #2f3d61;
-	margin-top: 30px;
-	padding: 15px;
+    margin-top: 15px;
+    padding: 14px 0px;
 }
 
 #botao_finalizar:hover {
@@ -199,13 +201,12 @@
 .novo_infos {
 	padding: 0px 20px;
 	float: left;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 	font-size: 0.90rem;
 }
 
 .sub_container_pai {
 	float: left;
-	margin-top: 10px;
 	margin-bottom: 0px;
 }
 
@@ -243,14 +244,6 @@
 	color: #4444;
 }
 
-.infos {
-	margin-top: 30px;
-}
-
-#hr {
-	margin-bottom: 0;
-}
-
 #label_agendamento_retirada {
 	color: #4444;
 }
@@ -270,6 +263,7 @@
 	display: flex;
 	justify-content: right;
 	float: right;
+	padding: 0;
 }
 
 .informativo_tio {
@@ -285,6 +279,51 @@
 #sucessoCadastro {
 	top: 25px;
 	opacity: 1;
+}
+
+.form_titulo {
+	font-size: 1rem;
+}
+
+.novo_item_label {
+	font-size: 0.80rem;
+}
+
+.novo_item_input {
+	font-size: 0.70rem;
+}
+
+.botao_adicionar {
+	font-size: 0.70rem;
+}
+
+#botao_add_produto {
+	margin-top: 18px;
+	padding: 8px 0;
+	box-shadow: 0px 0px 3px #121212;
+}
+
+#row_produtos {
+	margin-bottom: 9.19px;
+}
+
+#botao_add_pagamento{
+	margin-top: 18px;
+	padding: 8px 0;
+	box-shadow: 0px 0px 3px #121212;	
+}
+
+#hr_superior {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.informativo_campo {
+	font-size: 0.70rem;
+}
+
+.conteudo_container{
+	margin-top: 20px;
 }
 
 @keyframes progressBar {

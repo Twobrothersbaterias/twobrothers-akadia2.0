@@ -288,7 +288,7 @@
 
 						<div class="conteudo_titulo_container">
 
-							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
+							<div class="conteudo_titulo_item col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
 								<select
 								th:value="${ordemEdicao != null} and ${ordemEdicao.tipoNfe != null} ? ${ordemEdicao.tipoNfe} : ''"							
 								tabindex="1"
@@ -301,7 +301,7 @@
 								</select>
 							</div>								
 
-							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
+							<div class="conteudo_titulo_item col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
 								<select
 								th:value="${ordemEdicao != null} and ${ordemEdicao.loja != null} ? ${ordemEdicao.loja} : ''"
 								tabindex="2"
@@ -314,7 +314,7 @@
 								</select>
 							</div>
 
-							<div class="conteudo_titulo_item col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
+							<div class="conteudo_titulo_item col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
 								<select
 								th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''"				
 								tabindex="3"
@@ -346,7 +346,7 @@
 
 					</div>
 
-					<hr>
+					<hr id="hr_superior">
 
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_all" id="container_all">
 
@@ -367,7 +367,7 @@
 
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 
-										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Cliente
 											</label>
@@ -428,7 +428,7 @@
 													
 										</div>										
 
-										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_first_block">
+										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_first_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_telefone">
 												Telefone
 											</label>
@@ -444,7 +444,7 @@
 											oninput="validacaoDoObjetoCliente()"/>
 										</div>
 
-										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
+										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fourth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="input_dataNascimento">
 												Data de nascimento:
 											</label>
@@ -458,7 +458,7 @@
 											type="date"/>
 										</div>							
 
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-6 col-sm-12 col-12" id="novo_item_fifth_block">
+										<div class="novo_item_block col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12" id="novo_item_fifth_block">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_cpfCnpj" for="input_cpfCnpj">
 												Cpf/Cnpj:
 											</label>
@@ -496,8 +496,8 @@
 
 									</div>	
 
-									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">												
-										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="row_produtos">												
+										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_tipo_produto">
 												Tipo
 											</label>
@@ -509,9 +509,9 @@
 												
 										</div>
 
-										<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_tipo_entrada" id="label_tipo_entrada">
-												Possui troca
+												Troca
 											</label>
 											<select tabindex="21" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_tipo_entrada">
 												<option id="option_troca" value="TROCA">Sim</option>
@@ -520,7 +520,7 @@
 												
 										</div>
 
-										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="select_produto">
 												Produto
 											</label>
@@ -540,31 +540,29 @@
 											</select>				
 										</div>							
 
-										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_quantidade" id="label_quantidade">
 												Qtde
 											</label>
 											<input autocomplete="off" tabindex="24" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
 										</div>		
 
-										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+										<div class="novo_item_block col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_valor" for="input_valor">
 												Valor
 											</label>
 											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
-										</div>																	
-									</div>	
+										</div>	
 
-									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
-										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
+										<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">						
 
 											<button tabindex="25" type="button" onclick="addNovoProduto()" id="botao_add_produto" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-												Adicionar produto
+												Adicionar
 											</button>	
 
 										</div>
 
-									</div>
+									</div>	
 
 									<hr class="hr_novo">
 
@@ -671,7 +669,7 @@
 											oninput="validacaoDoObjetoEndereco()"/>
 										</div>							
 
-										<div class="novo_item_block col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="logradouro_input">
 												Logradouro
 											</label>
@@ -698,20 +696,6 @@
 											name="cliente.endereco.numero"
 											oninput="validacaoDoObjetoEndereco()"/>
 										</div>	
-
-										<div class="novo_item_block col-xl-10 col-lg-6 col-md-6 col-sm-6 col-12">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="input_complemento">
-												Complemento
-											</label>
-											<input
-											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.complemento != null} ? ${ordemEdicao.cliente.endereco.complemento} : ''"
-											autocomplete="off"
-											tabindex="15"
-											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
-											id="input_complemento"
-											name="cliente.endereco.complemento"
-											oninput="validacaoDoObjetoEndereco()"/>
-										</div>
 
 									</div>	
 
@@ -766,23 +750,19 @@
 											<input autocomplete="off" tabindex="28" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="input_dt_agendamento" disabled/>
 										</div>
 
-										<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_observacao">
 												Observação
 											</label>
 											<input autocomplete="off" tabindex="29" type="text" maxlength="40" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="input_observacao"/>
 										</div>	
 
-										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
-											<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
-
+										<div class="novo_item_block col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
 												<button tabindex="30" type="button" onclick="addNovoPagamento()" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="botao_add_pagamento">
-													Adicionar pagamento
+													Adicionar
 												</button>	
-
-											</div>
-
-										</div>																	
+										</div>											
+																
 									</div>
 
 									<hr class="hr_novo">
@@ -809,7 +789,7 @@
 									<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">										
 										<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
-											<div class="novo_item_block col-xl-4 col-lg-4 col-md-8 col-sm-6 col-12">
+											<div class="novo_item_block col-xl-2 col-lg-4 col-md-8 col-sm-6 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_tecnico" for="select_tecnico">
 													Tecnico
 												</label>
@@ -829,7 +809,7 @@
 												</select>
 											</div>	
 
-											<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+											<div class="novo_item_block col-xl-2 col-lg-4 col-md-4 col-sm-6 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_agendamento_retirada" for="input_agendamento_retirada">
 													Agendamento
 												</label>
@@ -843,7 +823,7 @@
 												disabled/>
 											</div>
 
-											<div class="novo_item_block col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12"  id="novo_item_first_block">
+											<div class="novo_item_block col-xl-2 col-lg-4 col-md-6 col-sm-12 col-12"  id="novo_item_first_block">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_email">
 													E-mail
 												</label>
@@ -860,7 +840,21 @@
 												id="input_email"/>
 											</div>	
 
-											<div class="novo_item_block col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_nascimento" for="input_complemento">
+												Complemento endereço
+											</label>
+											<input
+											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.complemento != null} ? ${ordemEdicao.cliente.endereco.complemento} : ''"
+											autocomplete="off"
+											tabindex="15"
+											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+											id="input_complemento"
+											name="cliente.endereco.complemento"
+											oninput="validacaoDoObjetoEndereco()"/>
+										</div>												
+
+											<div class="novo_item_block col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
 												<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_retirada_observacao">
 													Observação
 												</label>
@@ -871,7 +865,7 @@
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												id="input_retirada_observacao"
 												name="retirada.observacao"/>
-											</div>										
+											</div>																				
 
 										</div>
 									</div>
