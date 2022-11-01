@@ -3,10 +3,12 @@ package br.com.twobrothers.frontend.repositories.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.entities.*;
+import br.com.twobrothers.frontend.models.enums.TipoOrdemEnum;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.EntradaOrdemRepository;
+import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -46,6 +48,9 @@ public class ProdutoEstoqueCrudService {
 
     @Autowired
     EntradaOrdemRepository entradaOrdemRepository;
+
+    @Autowired
+    OrdemRepository ordemRepository;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -206,7 +211,7 @@ public class ProdutoEstoqueCrudService {
 
             if (produto.getEntradas() != null && !produto.getEntradas().isEmpty()) {
                 List<EntradaOrdemEntity> entradasDoProduto = produto.getEntradas();
-                for(int i = 0; i < entradasDoProduto.size(); i++) {
+                for (int i = 0; i < entradasDoProduto.size(); i++) {
                     remocaoDeProdutoDaEntrada(entradasDoProduto.get(i));
                 }
             }
@@ -222,6 +227,25 @@ public class ProdutoEstoqueCrudService {
 
     private void remocaoDeProdutoDaEntrada(EntradaOrdemEntity entrada) {
         ProdutoEstoqueEntity produtoEstoqueEntity = entrada.getProduto();
+
+        String produtoEntrada = null;
+        if (entrada.getProduto() == null && entrada.getTipoOrdem().equals(TipoOrdemEnum.PADRAO_SERVICO))
+            produtoEntrada = "Serviço";
+        else produtoEntrada = entrada.getProduto().getSigla();
+
+        String entradaString = "ENTRADA=" + entrada.getTipoOrdem() + ";"
+                + entrada.getTipoEntrada() + ";"
+                + produtoEntrada + ";"
+                + String.format("%.2f", entrada.getValor()).replace(",", ".") + ";"
+                + entrada.getQuantidade() + ";";
+
+        OrdemEntity ordem = entrada.getOrdem();
+
+        System.err.println(ordem.getEntradasString());
+        ordem.setEntradasString(ordem.getEntradasString().replace(entradaString, ""));
+        System.err.println(ordem.getEntradasString());
+        ordemRepository.save(ordem);
+
         produtoEstoqueEntity.removeEntrada(entrada);
         entrada.setQuantidade(0);
         entrada.setValor(0.0);

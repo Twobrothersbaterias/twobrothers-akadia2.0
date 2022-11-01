@@ -1,5 +1,6 @@
 package br.com.twobrothers.frontend.services;
 
+import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
@@ -32,24 +33,17 @@ public class GerenciamentoEstoqueService {
     @Autowired
     AbastecimentoRepository abastecimentoRepository;
 
-    public void distribuiParaOperacaoCorreta(EntradaOrdemDTO entradaOrdemDTO, OperacaoEstoque operacaoEstoque) {
+    public void distribuiParaOperacaoCorreta(ModelMapperConfig modelMapper, EntradaOrdemDTO entradaOrdemDTO, OperacaoEstoque operacaoEstoque) {
         if (operacaoEstoque.equals(OperacaoEstoque.CRIACAO)) {
-            criacaoDeOrdemComum(entradaOrdemDTO);
-        }
-        else if (operacaoEstoque.equals(OperacaoEstoque.REMOCAO)) {
+            criacaoDeOrdemComum(modelMapper, entradaOrdemDTO);
+        } else if (operacaoEstoque.equals(OperacaoEstoque.REMOCAO)) {
             remocaoDeOrdemComum(entradaOrdemDTO);
         }
     }
 
-    public void criacaoDeOrdemComum(EntradaOrdemDTO entradaOrdemDTO) {
+    public void criacaoDeOrdemComum(ModelMapperConfig modelMapper, EntradaOrdemDTO entradaOrdemDTO) {
 
-        Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
-                produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
-
-        if (produtoEstoqueEntityOptional.isPresent()) {
-            ProdutoEstoqueEntity produtoEstoque = produtoEstoqueEntityOptional.get();
-            produtoEstoqueRepository.save(produtoEstoque);
-        }
+        validacoesEmMassa(modelMapper, entradaOrdemDTO);
 
     }
 
@@ -64,52 +58,43 @@ public class GerenciamentoEstoqueService {
     }
 
     public boolean verificaSeExiste(EntradaOrdemDTO entradaOrdemDTO) {
-        if(entradaOrdemDTO.getProduto() != null) {
+        if (entradaOrdemDTO.getProduto() != null) {
             Optional<ProdutoEstoqueEntity> produtoEstoqueEntityOptional =
                     produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla());
             if (produtoEstoqueEntityOptional.isPresent()) return true;
-        }
-        else return true;
+        } else return true;
 
         throw new ObjectNotFoundException("Não existe nenhum produto com a sigla " + entradaOrdemDTO.getProduto().getSigla());
     }
 
-    public void validacoesEmMassa(List<EntradaOrdemDTO> entradas) {
+    public void validacoesEmMassa(ModelMapperConfig modelMapper, List<EntradaOrdemDTO> entradas) {
         verificaSeExisteEmMassa(entradas);
-        verificaSePossuiQuantidadeEmEstoqueEmMassa(entradas);
+        verificaSePossuiQuantidadeEmEstoqueEmMassa(modelMapper, entradas);
     }
 
     public void verificaSeExisteEmMassa(List<EntradaOrdemDTO> entradas) {
         for (EntradaOrdemDTO entradaOrdemDTO : entradas) verificaSeExiste(entradaOrdemDTO);
     }
 
-    public void verificaSePossuiQuantidadeEmEstoqueEmMassa(List<EntradaOrdemDTO> entradas) {
+    public void verificaSePossuiQuantidadeEmEstoqueEmMassa(ModelMapperConfig modelMapper, List<EntradaOrdemDTO> entradas) {
 
         List<ProdutoEstoqueEntity> produtosInseridos = new ArrayList<>();
 
-        ProdutoEstoqueEntity produtoEstoque = new ProdutoEstoqueEntity();
-
         for (EntradaOrdemDTO entradaOrdemDTO : entradas) {
             if (entradaOrdemDTO.getProduto() != null) {
                 if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
-                    produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
-                    produtosInseridos.add(produtoEstoque);
-                }
-            }
-        }
-
-        for (EntradaOrdemDTO entradaOrdemDTO : entradas) {
-            if (entradaOrdemDTO.getProduto() != null) {
-                if (entradaOrdemDTO.getProduto().getTipoProduto().equals(TipoProdutoEnum.BATERIA)) {
-                    ProdutoEstoqueEntity produtoEstoqueEntity = produtosInseridos.get(produtosInseridos.indexOf(produtoEstoque));
+                    ProdutoEstoqueEntity produtoEstoqueEntity = modelMapper.mapper().map(entradaOrdemDTO.getProduto(), ProdutoEstoqueEntity.class);
                     produtoEstoqueEntity.setQuantidade(produtoEstoqueEntity.getQuantidade() - entradaOrdemDTO.getQuantidade());
                     produtoEstoqueEntity.setCustoTotal(produtoEstoqueEntity.getQuantidade() * produtoEstoqueEntity.getCustoUnitario());
+                    produtosInseridos.add(produtoEstoqueEntity);
                     if (produtoEstoqueEntity.getQuantidade() < 0)
-                        throw new InvalidRequestException("A quantidade do produto" + produtoEstoqueEntity.getSigla() +
-                                "passada pela ordem é maior do que a que existe em estoque");
+                        throw new InvalidRequestException("A quantidade do produto " + produtoEstoqueEntity.getSigla() +
+                                " passada pela ordem é maior do que a que existe em estoque");
                 }
             }
         }
+
+        produtoEstoqueRepository.saveAll(produtosInseridos);
 
     }
 

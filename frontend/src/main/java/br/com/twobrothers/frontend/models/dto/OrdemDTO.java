@@ -35,7 +35,7 @@ public class OrdemDTO {
     private NfeEnum tipoNfe;
 
     @JsonProperty(required = true)
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @JsonProperty(required = true)
     private LojaEnum loja;

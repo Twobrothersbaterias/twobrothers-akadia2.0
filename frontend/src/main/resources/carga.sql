@@ -42,12 +42,13 @@ INSERT INTO tb_patrimonio(nome, data_cadastro, tipo_patrimonio, status_patrimoni
     ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 21000.0, 'admin');
 # CARGA DE PRODUTOS
 INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quantidade_minima, usuario_responsavel, quantidade, custo_total, custo_unitario, tipo_produto) values
-('2022-01-01', 'AGF65', 'AGF65', 'AGF65', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA'),
-('2022-01-01', 'MBN78', 'MBN78', 'MBN78', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA'),
-('2022-01-01', 'JBD67', 'JBD67', 'JBD67', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA'),
-('2022-01-01', 'HFI90', 'HFI90', 'HFI90', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA'),
-('2022-01-01', 'FSB35', 'FSB35', 'FSB35', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA'),
-('2022-01-01', 'KJI12', 'KJI12', 'KJI12', 0, 'gui123', 10, 1000.0, 100.0, 'BATERIA');
+('2022-01-01', 'DELCO38JD', 'ACDELCO', '38JD', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
+('2022-01-01', 'DELCO40FD', 'ACDELCO', '40FD', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
+('2022-01-01', 'DELCO45', 'ACDELCO', 'DELCO45', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
+('2022-01-01', '12MN45', 'MOURA', 'MNMOURA', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M100HE', 'MOURA', 'M100HE', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
+('2022-01-01', 'M100QD', 'MOURA', 'M100HE', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA');
+
 
  SELECT * FROM tb_despesa;
  SELECT * FROM tb_cliente;

@@ -344,6 +344,9 @@ function trocaTipoDaEntrada() {
 	var labelQuantidade = document.getElementById('label_quantidade')
 	var inputQuantidade = document.getElementById('input_quantidade');
 
+	var labelValor = document.getElementById('label_valor')
+	var inputValor = document.getElementById('input_valor');	
+
 	var botaoAddProduto = document.getElementById('botao_add_produto');	
 
 	if(tipoDaEntrada.value == "PADRAO_SERVICO") {
@@ -372,6 +375,11 @@ function trocaTipoDaEntrada() {
 		botaoAddProduto.disabled=false;
 		botaoAddProduto.style.background="#2f3d61";
 
+		labelValor.style.color="#303030";
+		inputValor.style.color="#303030";
+		inputValor.style.borderColor="grey";
+		inputValor.disabled=false;			
+
 	}
 	else if (tipoDaEntrada.value == "PADRAO_PRODUTO") {
 
@@ -394,6 +402,11 @@ function trocaTipoDaEntrada() {
 		inputQuantidade.style.borderColor="grey";
 		inputQuantidade.disabled=false;
 
+		labelValor.style.color="#303030";
+		inputValor.style.color="#303030";
+		inputValor.style.borderColor="grey";
+		inputValor.disabled=false;		
+
 	}
 	else if (tipoDaEntrada.value == "GARANTIA") {
 
@@ -415,6 +428,12 @@ function trocaTipoDaEntrada() {
 		inputQuantidade.style.color="#303030";
 		inputQuantidade.style.borderColor="grey";
 		inputQuantidade.disabled=false;
+
+		labelValor.style.color="#4444";
+		inputValor.style.color="#4444";
+		inputValor.value=0;
+		inputValor.style.borderColor="#4444";
+		inputValor.disabled=true;		
 
 	}	
 }
@@ -552,8 +571,21 @@ function addNovoProduto() {
 		string += inputTipoProduto.value
 		+ ";" + inputTipoEntrada.value
 		+ ";" + inputProduto.value 
-		+ ";" + inputValor.value 
+		+ ";" + (parseFloat(inputValor.value)).toFixed(2)
 		+ ";" + inputQuantidade.value + ";";
+
+		console.log((inputEntradas.value).length);
+
+		if ((inputEntradas.value).includes(inputProduto.value) && inputProduto.value != "Serviço"){
+			alert("O produto " + inputProduto.value + " já está adicionado nessa ordem");
+			return;
+		}
+
+		if (((inputEntradas.value).split("ENTRADA=")).length > 7) {
+			alert("Número máximo de entradas adicionado à ordem.\n");
+			return;	
+		}
+
 
 		inputEntradas.value = inputEntradas.value + string;
 
@@ -1080,9 +1112,6 @@ function validacaoCampos() {
 	if(inputCpfCnpj.value != "" && !tratamentoCampoCpfCnpj()) {
 		erros += "- CPF/CNPJ com padrão incorreto\n";
 	}	
-	if(inputPagamentos.value == "") {
-		erros += "- Nenhum pagamento adicionado à ordem\n";
-	}
 	if(inputEntradas.value == "") {
 		erros += "- Nenhuma entrada adicionada à ordem\n";
 	}

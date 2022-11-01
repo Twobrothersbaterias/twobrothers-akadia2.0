@@ -39,7 +39,7 @@ public class OrdemEntity {
     @Enumerated(EnumType.STRING)
     private NfeEnum tipoNfe;
 
-    private Long idUsuarioResponsavel;
+    private String usuarioResponsavel;
 
     @Enumerated(EnumType.STRING)
     private LojaEnum loja;
@@ -54,11 +54,13 @@ public class OrdemEntity {
     @OneToMany(targetEntity = PagamentoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PagamentoEntity> pagamentos = new ArrayList<>();
 
+    @Column(length = 510)
     private String pagamentosString;
 
     @OneToMany(targetEntity = EntradaOrdemEntity.class, fetch = FetchType.LAZY, mappedBy = "ordem", cascade = CascadeType.ALL)
     private List<EntradaOrdemEntity> entradas = new ArrayList<>();
 
+    @Column(length = 510)
     private String entradasString;
 
     public void addEntrada(EntradaOrdemEntity entrada) {

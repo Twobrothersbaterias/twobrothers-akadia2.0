@@ -1497,14 +1497,27 @@ function ajustaCampos() {
 				}				
 			}
 			else {
-				if (nomeAtualizado == "") {
-					nomeAtualizado = nomeAtualizado 
-					+ entradaNome[k].innerText ;
-				}
-				else {
-					nomeAtualizado = nomeAtualizado 
-					+ ", " 
-					+ entradaNome[k].innerText;
+				if(entradaTipo[k].innerText == "PADRAO_PRODUTO") {
+					if (nomeAtualizado == "") {
+						nomeAtualizado = nomeAtualizado 
+						+ entradaNome[k].innerText ;
+					}
+					else {
+						nomeAtualizado = nomeAtualizado 
+						+ ", " 
+						+ entradaNome[k].innerText;
+					}
+				}	
+				else if(entradaTipo[k].innerText == "GARANTIA"){
+					if (nomeAtualizado == "") {
+						nomeAtualizado = nomeAtualizado 
+						+ entradaNome[k].innerText + ' (Garantia)' ;
+					}
+					else {
+						nomeAtualizado = nomeAtualizado 
+						+ ", " 
+						+ entradaNome[k].innerText + ' (Garantia)';
+					}					
 				}
 			}
 		}

@@ -9,14 +9,17 @@ import br.com.twobrothers.frontend.models.entities.*;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.*;
+import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.services.GerenciamentoEstoqueService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.services.enums.OperacaoEstoque;
 import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import br.com.twobrothers.frontend.utils.TrataAtributosVazios;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import br.com.twobrothers.frontend.validations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -93,6 +96,8 @@ public class OrdemCrudService {
         ordemEntity.setCliente(null);
         ordemEntity.setRetirada(null);
 
+        ordemEntity.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getNome());
+
         ClienteEntity clienteEntity = new ClienteEntity();
 
         TrataAtributosVazios.trataAtributosVaziosDoObjetoCliente(ordem.getCliente());
@@ -159,8 +164,8 @@ public class OrdemCrudService {
             log.info("[PROGRESS] Setando cliente do objeto ordem como nulo...");
             ordem.setCliente(null);
         }
-        log.info("[PROGRESS] Iniciando validação em massa da relação ENTRADA -> PRODUTO...");
-        gerenciamentoEstoqueService.validacoesEmMassa(ordem.getEntradas());
+//        log.info("[PROGRESS] Iniciando validação em massa da relação ENTRADA -> PRODUTO...");
+//        gerenciamentoEstoqueService.validacoesEmMassa(modelMapper, ordem.getEntradas());
 
         log.info("[PROGRESS] Localizando tecnico de id {}...", ordem.getRetirada().getTecnicoEntrada().getId());
         Optional<UsuarioEntity> tecnicoOptional =
@@ -172,8 +177,12 @@ public class OrdemCrudService {
         log.info("[PROGRESS] Iniciando validação do objeto RetiradaDTO recebido acoplado no objeto OrdemDTO...");
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
 
-        if (ordem.getRetirada().getDataAgendamento() == null) ordem.getRetirada().setDataAgendamento("Não possui");
-        if (ordem.getRetirada().getDataRetirada() == null) ordem.getRetirada().setDataRetirada("Em aberto");
+        if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty() && ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
+            ordem.getRetirada().setDataAgendamento("Não possui");
+        else if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty() && !ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
+            ordem.getRetirada().setDataAgendamento("Sem agendamento");
+
+        if (ordem.getRetirada().getDataRetirada() == null || ordem.getRetirada().getDataRetirada().isEmpty()) ordem.getRetirada().setDataRetirada("Em aberto");
 
         log.info("[PROGRESS] Iniciando validação em massa da relação ORDEM -> PAGAMENTO...");
         pagamentoValidation.validaCorpoRequisicaoEmMassa(ordem.getPagamentos());
@@ -201,11 +210,17 @@ public class OrdemCrudService {
                 }
 
                 log.info("[PROGRESS] Iniciando acionamento do serviço de gerenciamento e alteração de estoque...");
-                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(entradaOrdemDTO, OperacaoEstoque.CRIACAO);
+                gerenciamentoEstoqueService.distribuiParaOperacaoCorreta(modelMapper, entradaOrdemDTO, OperacaoEstoque.CRIACAO);
             }
 
-            log.info("[PROGRESS] Persistindo ordem no banco de dados e atribuindo seu retorno à variável ordemEntity...");
-            ordemEntity = repository.save(ordemEntity);
+            try {
+                log.info("[PROGRESS] Persistindo ordem no banco de dados e atribuindo seu retorno à variável ordemEntity...");
+                ordemEntity = repository.save(ordemEntity);
+            }
+            catch (DataException e) {
+                throw new InvalidRequestException("O número de saídas lançadas na ordem excedeu o limite permitido pelo" +
+                        "banco de dados");
+            }
 
             log.info("[PROGRESS] Persistindo as entradas no banco de dados SEM o produto e SEM a ordem...");
             ProdutoEstoqueDTO produto = entradaOrdemDTO.getProduto();
@@ -234,7 +249,8 @@ public class OrdemCrudService {
         log.info("[PROGRESS] Setando data de cadastro da ordem: {}...", LocalDate.now());
         ordemEntity.setDataCadastro(LocalDate.now().toString());
 
-        if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.LOJA_FISICA)) {
+        if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.LOJA_FISICA)
+                || ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_ENTREGUE)) {
             log.info("[PROGRESS] Setando a data de retirada da ordem: {}...", LocalDate.now().toString());
             ordem.getRetirada().setDataRetirada(LocalDate.now().toString());
         }
@@ -245,7 +261,7 @@ public class OrdemCrudService {
         if (ordem.getCliente() != null) {
             log.info("[PROGRESS] Adicionando cliente à ordem e ordem ao cliente...");
             clienteEntity.addOrdem(ordemEntity);
-            log.info("[PROGRESS] Realizando persistência em cascata: ClienteEntity -> OrdemEntity -> ...");
+            log.info("[PROGRESS] Realizando persistência em cascata: ClienteEntity -> OrdemEntity ...");
             clienteRepository.save(clienteEntity);
         } else {
             log.info("[PROGRESS] Realizando persistência da ordem na base de dados...");

@@ -548,7 +548,7 @@
 										</div>		
 
 										<div class="novo_item_block col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12">
-											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_valor">
+											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_valor" for="input_valor">
 												Valor
 											</label>
 											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
@@ -834,7 +834,7 @@
 													Agendamento
 												</label>
 												<input
-												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} and ${ordemEdicao.retirada.dataAgendamento} != 'Não possui' ? ${ordemEdicao.retirada.dataAgendamento} : ''"		
+												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} and ${ordemEdicao.retirada.dataAgendamento} != 'Não possui' and ${ordemEdicao.retirada.dataAgendamento} != 'Sem agendamento' ? ${ordemEdicao.retirada.dataAgendamento} : ''"		
 												tabindex="17"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												type="date"

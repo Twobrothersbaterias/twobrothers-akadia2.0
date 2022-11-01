@@ -35,7 +35,6 @@ public class OrdemValidation {
         if (ordem.getTipoNfe() == null) atributosNulos.add("emiteNfe");
         if (ordem.getLoja() == null) atributosNulos.add("loja");
         if (ordem.getRetirada() == null) atributosNulos.add("retirada");
-        if (ordem.getPagamentos() == null || ordem.getPagamentos().isEmpty()) atributosNulos.add("pagamentos");
         if (ordem.getEntradas() == null || ordem.getEntradas().isEmpty()) atributosNulos.add("entradas");
 
         if (!atributosNulos.isEmpty())

@@ -64,7 +64,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public static void main(String[] args) {
-        System.err.println(new BCryptPasswordEncoder().encode("762"));
+        Double valor = 200.25;
+        System.err.println(String.format("%.2f", valor).replace(",", "."));
     }
 
 }
