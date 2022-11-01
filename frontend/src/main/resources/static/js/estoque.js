@@ -4,12 +4,82 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 buildUrlPages();
 
+var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+
+console.log('Privilégio: ' + privilegio);
+
 document.onkeydown=function(){
-    if(window.event.keyCode=='27') {
+
+	var keyCode = window.event.keyCode;
+	console.log(keyCode);
+	bind(keyCode);
+
+}
+
+function bind(keyCode) {
+
+    if(keyCode == '27') {
         fechaNovoItem();
         fecharFiltro();
         fecharEditaItem();
     }
+
+    if (document.getElementById('conteudo_container_filtro').hidden==true
+    	&& document.getElementById('conteudo_container_edita').hidden==true
+    	&& document.getElementById('conteudo_container_novo').hidden==true) {
+
+	    if (keyCode == '49') {
+	    	window.location.href="/";
+	    }
+
+	    else if (keyCode == '50') {
+	    	window.location.href="/clientes";
+	    }
+
+	    else if (keyCode == '51') {
+	    	window.location.href="/vendas";
+	    }	    
+
+	    else if (keyCode == '52') {
+	    	window.location.href="/estoque";
+	    }
+
+	    else if (keyCode == '53' && privilegio != "Vendedor") {
+	    	window.location.href="/despesas";
+	    }
+
+	    else if (keyCode == '54' && privilegio != "Vendedor") {
+	    	window.location.href="/relatorios";
+	    }
+
+	    else if (keyCode == '55' && privilegio != "Vendedor") {
+	    	window.location.href="/patrimonios";
+	    }
+
+	    else if (keyCode == '56' && privilegio != "Vendedor") {
+	    	window.location.href="/fornecedores";
+	    }  
+
+	    else if (keyCode == '57' && privilegio != "Vendedor") {
+	    	window.location.href="/colaboradores";
+	    } 
+
+	    else if(keyCode == '32') {
+	    	window.location.href="/lancamento";
+	    }
+
+	    else if(keyCode == '107') {
+	    	abrirNovoItem();
+	    }
+
+	    else if(keyCode == '82') {
+	    	window.location.href="/estoque";
+	    }
+
+	    else if(keyCode == '70') {
+	    	abrirFiltro();
+	    }
+    }                   
 }
 
 function responsive(){
@@ -1286,7 +1356,6 @@ function validacaoDoObjetoProduto(submitar, tipo) {
 	if(submitar == true) {
 		submitProduto(tipo, erros, botaoFinalizar);
 	}
-
 }
 
 /* REALIZA SUBMIT DO PRODUTO */
@@ -1313,7 +1382,6 @@ function submitProduto(tipo, erros, botaoFinalizar) {
 		botaoFinalizar.type="submit";
 		return true;
 	}	
-
 }
 
 /* ================== MISC ====================== */

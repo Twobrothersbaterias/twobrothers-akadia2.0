@@ -35,7 +35,7 @@ public class PrecoFornecedorDTO {
     private String observacao;
 
     @JsonProperty(required = true)
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
 
     @JsonIgnore
     private ProdutoEstoqueDTO produto;

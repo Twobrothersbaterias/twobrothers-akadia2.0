@@ -1,5 +1,6 @@
 package br.com.twobrothers.frontend.models.dto;
 
+import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import br.com.twobrothers.frontend.models.enums.NfeEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,8 +35,7 @@ public class OrdemDTO {
     @JsonProperty(required = true)
     private NfeEnum tipoNfe;
 
-    @JsonProperty(required = true)
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
 
     @JsonProperty(required = true)
     private LojaEnum loja;

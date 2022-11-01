@@ -49,7 +49,6 @@ INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quant
 ('2022-01-01', 'M100HE', 'MOURA', 'M100HE', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
 ('2022-01-01', 'M100QD', 'MOURA', 'M100HE', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA');
 
-
  SELECT * FROM tb_despesa;
  SELECT * FROM tb_cliente;
  SELECT * FROM tb_endereco;

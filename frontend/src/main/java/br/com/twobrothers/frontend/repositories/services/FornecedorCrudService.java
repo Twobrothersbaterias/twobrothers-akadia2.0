@@ -2,9 +2,9 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
-import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
@@ -69,7 +69,7 @@ public class FornecedorCrudService {
         fornecedor.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do fornecedor...");
-        fornecedor.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        fornecedor.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Validando objeto do tipo FornecedorDTO recebido por meio da requisição: {}", fornecedor);
         validation.validaCorpoRequisicao(fornecedor, repository, ValidationType.CREATE);

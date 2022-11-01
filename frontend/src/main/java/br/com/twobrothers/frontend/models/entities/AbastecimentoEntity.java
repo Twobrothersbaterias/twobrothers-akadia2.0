@@ -32,7 +32,9 @@ public class AbastecimentoEntity {
     private Double custoUnitario;
     private Double custoTotal;
     private String observacao;
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
     @Enumerated(EnumType.STRING)
     private FormaPagamentoEnum formaPagamento;

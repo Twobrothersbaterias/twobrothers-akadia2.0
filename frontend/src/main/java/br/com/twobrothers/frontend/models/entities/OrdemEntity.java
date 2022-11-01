@@ -37,7 +37,9 @@ public class OrdemEntity {
     @Enumerated(EnumType.STRING)
     private NfeEnum tipoNfe;
 
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
     @Enumerated(EnumType.STRING)
     private LojaEnum loja;

@@ -28,21 +28,14 @@ public class ProdutoEstoqueDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String dataCadastro;
-
-    @JsonProperty(required = true)
     private String sigla;
-
-    @JsonProperty(required = true)
     private String marcaBateria;
-
-    @JsonProperty(required = true)
     private String especificacao;
 
     @JsonProperty(defaultValue = "0")
     private Integer quantidadeMinima;
 
-    @JsonProperty(required = true)
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer quantidade;

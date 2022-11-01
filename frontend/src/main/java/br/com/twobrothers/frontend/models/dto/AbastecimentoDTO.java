@@ -39,8 +39,8 @@ public class AbastecimentoDTO {
     @JsonProperty
     private String observacao;
 
-    @JsonProperty(required = true)
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
+
     @JsonProperty(required = true)
     private FormaPagamentoEnum formaPagamento;
 

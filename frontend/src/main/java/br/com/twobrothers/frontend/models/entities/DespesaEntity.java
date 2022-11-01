@@ -45,6 +45,8 @@ public class DespesaEntity {
     @Enumerated(EnumType.STRING)
     private PersistenciaEnum persistencia;
 
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
 }

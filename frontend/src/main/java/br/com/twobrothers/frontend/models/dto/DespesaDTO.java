@@ -29,6 +29,6 @@ public class DespesaDTO {
     private TipoDespesaEnum tipoDespesa;
     private PersistenciaEnum persistencia;
 
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
 
 }

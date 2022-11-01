@@ -41,7 +41,9 @@ public class ClienteEntity {
 
     private String telefone;
 
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
     @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;

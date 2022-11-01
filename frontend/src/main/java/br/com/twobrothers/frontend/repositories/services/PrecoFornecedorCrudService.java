@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.PrecoFornecedorDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.PrecoFornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +60,7 @@ public class PrecoFornecedorCrudService {
         log.info("[STARTING] Iniciando método de criação...");
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do cliente...");
-        preco.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        preco.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Validando objeto do tipo PrecoFornecedorDTO enviado via JSON...");
         validation.validaCorpoRequisicao(preco);

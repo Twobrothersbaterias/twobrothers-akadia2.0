@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
@@ -71,7 +72,7 @@ public class ClienteCrudService {
         cliente.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do cliente...");
-        cliente.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        cliente.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Validando objeto do tipo ClienteDTO recebido por meio da requisição: {}", cliente);
         validation.validaCorpoRequisicao(cliente, repository, ValidationType.CREATE);

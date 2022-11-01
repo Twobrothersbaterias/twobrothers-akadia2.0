@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.enums.PersistenciaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
@@ -44,7 +45,7 @@ public class DespesaCrudService {
     ModelMapperConfig modelMapper;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     DespesaValidation validation = new DespesaValidation();
 
@@ -57,7 +58,7 @@ public class DespesaCrudService {
         despesa.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pela despesa...");
-        despesa.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuario).getUsername());
+        despesa.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Inicializando método de validação da despesa...");
         validation.validaCorpoDaRequisicao(despesa);

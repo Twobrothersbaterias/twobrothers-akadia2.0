@@ -1,5 +1,6 @@
 package br.com.twobrothers.frontend.models.dto;
 
+import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -34,7 +35,7 @@ public class FornecedorDTO {
     private String telefone;
     private String email;
     private String dataNascimento;
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
     private EnderecoDTO endereco;
 
     private List<PrecoFornecedorDTO> precosFornecedor = new ArrayList<>();

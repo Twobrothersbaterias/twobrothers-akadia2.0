@@ -40,7 +40,10 @@ public class FornecedorEntity {
     @Column(unique = true)
     private String email;
     private String dataNascimento;
-    private String usuarioResponsavel;
+
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
     @OneToOne(targetEntity = EnderecoEntity.class, cascade = CascadeType.ALL)
     private EnderecoEntity endereco;

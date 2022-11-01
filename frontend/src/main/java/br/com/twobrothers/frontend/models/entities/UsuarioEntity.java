@@ -27,7 +27,9 @@ public class UsuarioEntity implements UserDetails {
 
     private String dataCadastro;
 
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
     private String nome;
 
@@ -50,9 +52,6 @@ public class UsuarioEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private PrivilegioEnum privilegio;
-
-    @OneToMany(targetEntity = RetiradaEntity.class, cascade = CascadeType.ALL)
-    private List<RetiradaEntity> retiradas = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<PerfilEntity> perfis = new ArrayList<>();

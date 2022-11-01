@@ -29,6 +29,6 @@ public class PatrimonioDTO {
     private StatusPatrimonioEnum statusPatrimonio;
     private String dataEntrada;
     private Double valor;
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
 
 }

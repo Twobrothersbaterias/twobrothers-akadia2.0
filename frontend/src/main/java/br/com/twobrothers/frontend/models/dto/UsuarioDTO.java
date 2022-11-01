@@ -15,7 +15,7 @@ public class UsuarioDTO {
 
     private Long id;
     private String dataCadastro;
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
     private String nome;
     private String dataNascimento;
     private String cpfCnpj;

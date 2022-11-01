@@ -30,7 +30,9 @@ public class PrecoFornecedorEntity {
     private String dataCadastro;
     private Double valor;
     private String observacao;
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
     @ManyToOne(targetEntity = ProdutoEstoqueEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")

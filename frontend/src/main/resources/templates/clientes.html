@@ -28,7 +28,7 @@
 
 </head>
 
-<body id="body">
+<body id="body" th:data-privilegio=${privilegio}>
 
 	<div class="row main-row" id="main_row">
 
@@ -506,7 +506,7 @@
 												this.getAttribute('data-complemento'),
 												this.getAttribute('data-estado'))">...</td>
 
-										<td th:text="${cliente.usuarioResponsavel}" class="td td_usuario td_usuario col-xl-2 col-lg-2"
+										<td th:text="${cliente.usuarioResponsavel.nome}" class="td td_usuario td_usuario col-xl-2 col-lg-2"
 											th:data-id="${cliente.id}" 
 											th:data-dataCadastro="${cliente.dataCadastro}"
 											th:data-dataNascimento="${cliente.dataNascimento}"

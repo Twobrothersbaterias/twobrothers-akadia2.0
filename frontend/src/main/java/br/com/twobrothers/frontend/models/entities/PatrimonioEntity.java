@@ -35,6 +35,8 @@ public class PatrimonioEntity {
     private StatusPatrimonioEnum statusPatrimonio;
     private String dataEntrada;
     private Double valor;
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
 
 }

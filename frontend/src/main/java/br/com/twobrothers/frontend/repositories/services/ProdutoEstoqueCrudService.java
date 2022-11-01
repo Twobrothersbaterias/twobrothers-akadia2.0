@@ -2,9 +2,11 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
-import br.com.twobrothers.frontend.models.entities.*;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
+import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
+import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoOrdemEnum;
-import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.EntradaOrdemRepository;
@@ -75,7 +77,7 @@ public class ProdutoEstoqueCrudService {
         if (produto.getQuantidade() == null) produto.setQuantidade(0);
 
         log.info("[PROGRESS] Setando o usuário responsável pelo cadastro do produto: {}...", UsuarioUtils.loggedUser(usuarioRepository).getUsername());
-        produto.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        produto.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Iniciando validação do objeto ProdutoDTO...");
         validation.validaCorpoRequisicao(produto, repository, ValidationType.CREATE);

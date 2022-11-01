@@ -2,13 +2,11 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
-import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
-import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
-import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
@@ -26,7 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
@@ -67,7 +64,7 @@ public class AbastecimentoCrudService {
         log.info("[STARTING] Iniciando método de criação...");
 
         log.info("[PROGRESS] Setando o usuário responsável no abastecimento: {}", UsuarioUtils.loggedUser(usuarioRepository));
-        abastecimento.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        abastecimento.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Validando objeto do tipo AbastecimentoDTO enviado via JSON...");
         validation.validaCorpoRequisicao(abastecimento);

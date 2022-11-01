@@ -96,7 +96,7 @@ public class OrdemCrudService {
         ordemEntity.setCliente(null);
         ordemEntity.setRetirada(null);
 
-        ordemEntity.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        ordemEntity.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository));
 
         ClienteEntity clienteEntity = new ClienteEntity();
 

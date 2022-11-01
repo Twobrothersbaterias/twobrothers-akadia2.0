@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
+import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
@@ -54,7 +55,7 @@ public class PatrimonioCrudService {
         patrimonio.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pelo patrimônio...");
-        patrimonio.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository).getUsername());
+        patrimonio.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(usuarioRepository), UsuarioDTO.class));
 
         log.info("[PROGRESS] Inicializando método de validação do patrimônio...");
         validation.validaCorpoDaRequisicao(patrimonio, ValidationType.CREATE);

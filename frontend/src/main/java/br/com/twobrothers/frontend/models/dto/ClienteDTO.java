@@ -36,7 +36,7 @@ public class ClienteDTO {
     private String cpfCnpj;
     private String email;
     private String telefone;
-    private String usuarioResponsavel;
+    private UsuarioDTO usuarioResponsavel;
     private EnderecoDTO endereco;
 
     private List<OrdemDTO> ordens = new ArrayList<>();

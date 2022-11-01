@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +64,7 @@ public class UsuarioCrudService {
         usuario.setDataCadastro(LocalDate.now().toString());
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do novo usuário...");
-        usuario.setUsuarioResponsavel(UsuarioUtils.loggedUser(repository).getUsername());
+        usuario.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(repository), UsuarioDTO.class));
 
         TrataAtributosVazios.trataAtributosVaziosDoObjetoColaborador(usuario);
 

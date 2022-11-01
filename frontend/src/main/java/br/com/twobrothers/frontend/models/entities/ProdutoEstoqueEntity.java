@@ -36,7 +36,9 @@ public class ProdutoEstoqueEntity {
     private String marcaBateria;
     private String especificacao;
     private Integer quantidadeMinima;
-    private String usuarioResponsavel;
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private UsuarioEntity usuarioResponsavel;
     private Integer quantidade;
     private Double custoTotal;
     private Double custoUnitario;
