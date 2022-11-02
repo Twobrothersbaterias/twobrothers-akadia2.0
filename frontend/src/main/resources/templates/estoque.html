@@ -64,7 +64,7 @@
 					</a>
 				</div>
 
-				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
 					<a th:href="@{/estoque}" class="row aside_clicavel">
 						<button type="button" class="img_button">
 							<img src="../static/img/box-green.png" th:src="@{img/box-green.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Gestão de estoque"/>
@@ -195,7 +195,7 @@
 						</div>	
 					</div>
 
-					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a th:href="@{/estoque}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -337,7 +337,7 @@
 
 					<hr id="hr_tabela">
 
-					<div class="row informativos_row" id="informativo_row">
+					<div th:if="${privilegio} != 'Vendedor'" class="row informativos_row" id="informativo_row">
 
 						<div class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-3 informativo informativo_passivos">
 							<div class="informativo_chave">
@@ -377,13 +377,15 @@
 
 									<tr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="thead_row">
 
-										<th class="th th_cod col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cod.</th>
+										<th 
+										th:class="${privilegio != 'Vendedor'} ? 'th th_cod col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1' : 'th th_cod col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'"	
+										class="th th_cod col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">Cod.</th>
 										<th class="th th_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">Descrição</th>
 										<th class="th th_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Tipo</th>
 										<th class="th th_qtde col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="th_forma">Qtde.</th>
 										<th class="th th_custoUnitario col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Custo u.</th>
 										<th class="th th_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">Custo t.</th>
-										<th class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>											
+										<th th:if="${privilegio} != 'Vendedor'" class="th th_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>											
 									</tr>
 
 								</thead>
@@ -392,7 +394,9 @@
 
 									<tr th:if="${#lists.isEmpty(produtos)}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-										<td class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+										<td 
+										th:class="${privilegio != 'Vendedor'} ? 'td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1' : 'td td_code col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'"	
+										class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 
 										<td class="td td_descricao col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">...</td>
 
@@ -404,12 +408,14 @@
 
 										<td class="td td_custoTotal col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>			
 
-										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
+										<td th:if="${privilegio} != 'Vendedor'" class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 									</tr>											
 
 										<tr th:each="produto: ${produtos}" th:style="${produto.quantidade < produto.quantidadeMinima} ? 'color: #b52f2f'" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-											<td th:text="${produto.sigla}" class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" 
+											<td th:text="${produto.sigla}"
+											th:class="${privilegio != 'Vendedor'} ? 'td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1' : 'td td_code col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'"
+											class="td td_code col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" 
 											th:data-id="${produto.id}" 
 											th:data-marcaBateria="${produto.marcaBateria}"
 											th:data-especificacao="${produto.especificacao}"
@@ -559,7 +565,7 @@
 												this.getAttribute('data-custoUnitario'),
 												this.getAttribute('data-custoTotal'))">...</td>
 
-											<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
+											<td th:if="${privilegio} != 'Vendedor'" class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">			
 												<form method="POST" th:action="@{estoque/deleta-{id}(id = ${produto.id})}" class="form_remove_img" id="form_remove_img">
 													<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 													<button type="submit" class="col-lg-12 btn_excluir_img">

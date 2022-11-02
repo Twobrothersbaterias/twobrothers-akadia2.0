@@ -116,15 +116,7 @@ public class EstoqueController {
         model.addAttribute("qtdeBaterias", produtoEstoqueService.calculaQtdBaterias(produtosSemPaginacao));
         model.addAttribute("qtdeSucatas", produtoEstoqueService.calculaQtdSucatas(produtosSemPaginacao));
 
-        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
-            modelAndView.setViewName("estoque");
-        }
-        else {
-            modelAndView.setViewName("redirect:/");
-            redirAttrs.addFlashAttribute("ErroCadastro",
-                    "Você não possui o privilégio necessário para acessar a página de controle de estoque");
-        }
-
+        modelAndView.setViewName("estoque");
         return modelAndView;
     }
 

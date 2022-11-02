@@ -63,6 +63,9 @@ function bind(keyCode) {
 	    else if (keyCode == '57' && privilegio != "Vendedor") {
 	    	window.location.href="/colaboradores";
 	    } 
+	    else if (keyCode == '48' && privilegio != "Vendedor") {
+	    	window.location.href="/precos";
+	    } 	    
 
 	    else if(keyCode == '32') {
 	    	window.location.href="/lancamento";
@@ -149,7 +152,10 @@ function responsive(){
 			main.style.width="96%";
 			sideMenu.style.width="4%";
 		}
-		informativoRow.style.justifyContent="center";
+
+		if(informativoRow != null) {
+			informativoRow.style.justifyContent="center";
+		}
 
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.15rem";	
@@ -212,7 +218,9 @@ function responsive(){
 			main.style.width="95%";
 			sideMenu.style.width="5%";				
 		}
-		informativoRow.style.justifyContent="center";
+		if(informativoRow != null) {
+			informativoRow.style.justifyContent="center";
+		}
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.15rem";	
 
@@ -273,7 +281,9 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.2rem";	
 		menuMobile.style.display="none";
-		informativoRow.style.justifyContent="center";
+		if(informativoRow != null) {
+			informativoRow.style.justifyContent="center";
+		}
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.1rem";
 
@@ -324,7 +334,9 @@ function responsive(){
 		main.style.width="100%";	
 		mainRow.style.width = "100%";			
 		menuMobile.style.display="flex";
-		informativoRow.style.justifyContent="center";	
+		if(informativoRow != null) {
+			informativoRow.style.justifyContent="center";
+		}	
 		containerNovo.style.fontSize="0.90rem";	
 		novoTitulo.style.fontSize="1.2rem";		
 

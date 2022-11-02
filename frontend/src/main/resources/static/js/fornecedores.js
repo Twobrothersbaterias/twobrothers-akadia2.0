@@ -70,6 +70,9 @@ function bind(keyCode) {
 	    else if (keyCode == '57' && privilegio != "Vendedor") {
 	    	window.location.href="/colaboradores";
 	    } 
+	    else if (keyCode == '48' && privilegio != "Vendedor") {
+	    	window.location.href="/precos";
+	    } 	    
 
 	    else if(keyCode == '32') {
 	    	window.location.href="/lancamento";

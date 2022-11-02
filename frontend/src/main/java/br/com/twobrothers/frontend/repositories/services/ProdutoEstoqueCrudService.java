@@ -184,7 +184,7 @@ public class ProdutoEstoqueCrudService {
 
         log.info("[PROGRESS] Inicializando setagem e atualização dos atributos da variável produtoAtualizado com base" +
                 "no objeto produto recebido pela requisição...");
-        produtoAtualizado.setSigla(produto.getSigla());
+        if (!Objects.equals(produto.getSigla(), "SUC45")) produtoAtualizado.setSigla(produto.getSigla());
         produtoAtualizado.setEspecificacao(produto.getEspecificacao());
         produtoAtualizado.setMarcaBateria(produto.getMarcaBateria());
         produtoAtualizado.setTipoProduto(produto.getTipoProduto());
