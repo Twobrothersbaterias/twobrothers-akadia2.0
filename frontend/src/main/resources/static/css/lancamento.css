@@ -285,17 +285,7 @@
 	font-size: 1rem;
 }
 
-.novo_item_label {
-	font-size: 0.80rem;
-}
 
-.novo_item_input {
-	font-size: 0.70rem;
-}
-
-.botao_adicionar {
-	font-size: 0.70rem;
-}
 
 #botao_add_produto {
 	margin-top: 18px;
@@ -316,6 +306,18 @@
 #hr_superior {
 	margin-top: 15px;
 	margin-bottom: 15px;
+}
+
+.novo_item_label {
+	font-size: 0.80rem;
+}
+
+.novo_item_input {
+	font-size: 0.70rem;
+}
+
+.botao_adicionar {
+	font-size: 0.70rem;
 }
 
 .informativo_campo {

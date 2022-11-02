@@ -21,8 +21,11 @@ function bind(keyCode) {
         window.location.href="/vendas";
     }
 
-    if (!document.activeElement.className.includes('item_input') 
-    	|| !document.activeElement.className.includes('botao_adicionar')) {
+    if (
+    	!document.activeElement.className.includes('novo_item_input')
+    	&& !document.activeElement.className.includes('botao_adicionar')) {
+
+    	console.log('fora do input');
 
 	    if (keyCode == '49') {
 	    	window.location.href="/";
@@ -79,10 +82,17 @@ function bind(keyCode) {
 	    	window.location.href=validacaoCampos();
 	    }   
 
-    }                   
+    }  
+    else {
+    	console.log('no input');
+    	return;
+    } 
+
 }
 
 function responsive(){
+
+	document.documentElement.style.overflowX = 'hidden';
 
 	document.getElementById('main_loader').style.display="none";
 	document.getElementById('main_row').style.display="flex";
@@ -121,6 +131,11 @@ function responsive(){
 	var thTipo = document.getElementsByClassName('th_novo_tipo');
 	var tdTipo = document.getElementsByClassName('td_tipo');
 
+	var novoItemLabel = document.getElementsByClassName('novo_item_label');
+	var novoItemInput = document.getElementsByClassName('novo_item_input');
+	var botaoAdicionar = document.getElementsByClassName('botao_adicionar');
+	var informativoCampo = document.getElementsByClassName('informativo_campo');
+
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
@@ -133,9 +148,25 @@ function responsive(){
 			selectSuperiorContainer[i].style.justifyContent="left";
 		}		
 
-		//for(var i = 0; i < divIcones.length; i++) {
-		//	divIcones[i].style.padding="9px 0";
-		//}
+		document.getElementById('row_produtos').style.marginBottom="9.19px";
+		document.getElementById('container_all').style.marginBottom="0";		
+
+		for(var i = 0; i < novoItemLabel.length; i++) {
+			novoItemLabel[i].style.fontSize="0.80rem";
+		}
+
+		for(var i = 0; i < novoItemInput.length; i++) {
+			novoItemInput[i].style.fontSize="0.70rem";
+		}
+
+		for(var i = 0; i < botaoAdicionar.length; i++) {
+			botaoAdicionar[i].style.fontSize="0.70rem";
+			botaoAdicionar[i].style.marginTop="18px";
+		}
+
+		for(var i = 0; i < informativoCampo.length; i++) {
+			informativoCampo[i].style.fontSize="0.70rem";
+		}						
 
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.margin="0";
@@ -148,11 +179,7 @@ function responsive(){
 
 		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
 			conteudoTituloItem[i].style.fontSize="0.90rem";
-		}
-
-		//for (var i = 0 ; i < formTitulo.length; i++) {
-		//	formTitulo[i].style.fontSize="1.3rem";
-		//}			
+		}	
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.75rem";
@@ -190,11 +217,28 @@ function responsive(){
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="left";
-		}		
+		}
 
-		for(var i = 0; i < divIcones.length; i++) {
-			divIcones[i].style.padding="8px 0";
-		}		
+
+		document.getElementById('row_produtos').style.marginBottom="9.40px";			
+		document.getElementById('container_all').style.marginBottom="0";
+
+		for(var i = 0; i < novoItemLabel.length; i++) {
+			novoItemLabel[i].style.fontSize="0.70rem";
+		}
+
+		for(var i = 0; i < novoItemInput.length; i++) {
+			novoItemInput[i].style.fontSize="0.60rem";
+		}
+
+		for(var i = 0; i < botaoAdicionar.length; i++) {
+			botaoAdicionar[i].style.fontSize="0.60rem";
+			botaoAdicionar[i].style.marginTop="18px";
+		}
+
+		for(var i = 0; i < informativoCampo.length; i++) {
+			informativoCampo[i].style.fontSize="0.60rem";
+		}			
 
 		for (var i = 0 ; i < containerInformativo.length; i++) {
 			containerInformativo[i].style.padding="0";
@@ -203,10 +247,6 @@ function responsive(){
 
 		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
 			conteudoTituloItem[i].style.fontSize="0.85rem";
-		}
-
-		for (var i = 0 ; i < formTitulo.length; i++) {
-			formTitulo[i].style.fontSize="1.25rem";
 		}
 
 		for(var i = 0; i < th.length; i++){
@@ -235,7 +275,7 @@ function responsive(){
 				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Médio');
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -246,6 +286,26 @@ function responsive(){
 			main.style.width="92.5%";
 			sideMenu.style.width="7.5%";	
 		}
+
+		document.getElementById('row_produtos').style.marginBottom="9.19px";
+		document.getElementById('container_all').style.marginBottom="30px";			
+
+		for(var i = 0; i < novoItemLabel.length; i++) {
+			novoItemLabel[i].style.fontSize="0.70rem";
+		}
+
+		for(var i = 0; i < novoItemInput.length; i++) {
+			novoItemInput[i].style.fontSize="0.60rem";
+		}
+
+		for(var i = 0; i < botaoAdicionar.length; i++) {
+			botaoAdicionar[i].style.fontSize="0.60rem";
+			botaoAdicionar[i].style.marginTop="10px";
+		}
+
+		for(var i = 0; i < informativoCampo.length; i++) {
+			informativoCampo[i].style.fontSize="0.60rem";
+		}				
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="left";
@@ -258,10 +318,6 @@ function responsive(){
 
 		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
 			conteudoTituloItem[i].style.fontSize="0.80rem";
-		}	
-
-		for (var i = 0 ; i < formTitulo.length; i++) {
-			formTitulo[i].style.fontSize="1.20rem";
 		}	
 
 		for(var i = 0; i < th.length; i++){
@@ -312,12 +368,25 @@ function responsive(){
 		}
 
 		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
-			conteudoTituloItem[i].style.fontSize="0.75rem";
+			conteudoTituloItem[i].style.fontSize="0.70rem";
 		}			
 
-		for (var i = 0 ; i < formTitulo.length; i++) {
-			formTitulo[i].style.fontSize="1.15rem";
+		for(var i = 0; i < novoItemLabel.length; i++) {
+			novoItemLabel[i].style.fontSize="0.65rem";
 		}
+
+		for(var i = 0; i < novoItemInput.length; i++) {
+			novoItemInput[i].style.fontSize="0.55rem";
+		}
+
+		for(var i = 0; i < botaoAdicionar.length; i++) {
+			botaoAdicionar[i].style.fontSize="0.55rem";
+			botaoAdicionar[i].style.marginTop="10px";
+		}
+
+		for(var i = 0; i < informativoCampo.length; i++) {
+			informativoCampo[i].style.fontSize="0.55rem";
+		}	
 
 		for(var i = 0; i < th.length; i++) {
 			th[i].style.fontSize="0.60rem";		
@@ -365,18 +434,24 @@ function responsive(){
 
 		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
 			conteudoTituloItem[i].style.fontSize="0.70rem";
-		}	
+		}			
 
-		for (var i = 0 ; i < formTitulo.length; i++) {
-			formTitulo[i].style.fontSize="1.10rem";
-		}	
+		for(var i = 0; i < novoItemLabel.length; i++) {
+			novoItemLabel[i].style.fontSize="0.65rem";
+		}
 
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.55rem";
+		for(var i = 0; i < novoItemInput.length; i++) {
+			novoItemInput[i].style.fontSize="0.55rem";
 		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.55rem";
+
+		for(var i = 0; i < botaoAdicionar.length; i++) {
+			botaoAdicionar[i].style.fontSize="0.55rem";
+			botaoAdicionar[i].style.marginTop="10px";
 		}
+
+		for(var i = 0; i < informativoCampo.length; i++) {
+			informativoCampo[i].style.fontSize="0.55rem";
+		}	
 
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=true;
@@ -394,6 +469,29 @@ function responsive(){
 	pageResponsiva();
 	calculaInformativos();
 	ajustaMinMaxDosInputsData();
+}
+
+function getScrollbarWidth() {
+
+  // Creating invisible container
+  const outer = document.createElement('div');
+  outer.style.visibility = 'hidden';
+  outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+  outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+  document.body.appendChild(outer);
+
+  // Creating inner element and placing it in the container
+  const inner = document.createElement('div');
+  outer.appendChild(inner);
+
+  // Calculating difference between container's full width and the child width
+  const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+  // Removing temporary elements from the DOM
+  outer.parentNode.removeChild(outer);
+
+  return scrollbarWidth;
+
 }
 
 
