@@ -62,10 +62,10 @@ body{
     height: 100%;
     position: absolute;
     animation: rotacionar 1s infinite;
-    border: 28px solid #E5E5E5;
+    border: 25px solid #E5E5E5;
     border-top-color: #82A886;
-    width: 200px;
-    height: 200px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
 }
 

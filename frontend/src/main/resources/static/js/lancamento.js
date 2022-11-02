@@ -524,6 +524,22 @@ function getScrollbarWidth() {
 
 /* ================== TRATAMENTO DE ADIÇÃO DE PRODUTOS ====================== */
 
+function resetaBotao() {
+	
+	var inputTipoEntrada = document.getElementById('input_tipo_entrada');	
+	var inputValor = document.getElementById('input_valor');	
+	var inputQuantidade = document.getElementById('input_quantidade');
+
+	var botaoAddProduto = document.getElementById('botao_add_produto');
+	botaoAddProduto.disabled=false;
+	botaoAddProduto.style.background="#2f3d61";		
+
+	inputTipoEntrada.value="TROCA";
+	inputValor.value=0.00;
+	inputQuantidade.value=0;	
+	inputQuantidade.style.background="transparent";
+}
+
 function trocaTipoDaEntrada() {
 
 	var tipoDaEntrada = document.getElementById('input_tipo_produto');
@@ -542,7 +558,9 @@ function trocaTipoDaEntrada() {
 	var labelValor = document.getElementById('label_valor')
 	var inputValor = document.getElementById('input_valor');	
 
-	var botaoAddProduto = document.getElementById('botao_add_produto');	
+	var botaoAddProduto = document.getElementById('botao_add_produto');
+	botaoAddProduto.disabled=false;
+	botaoAddProduto.style.background="#2f3d61";			
 
 	if(tipoDaEntrada.value == "PADRAO_SERVICO") {
 
