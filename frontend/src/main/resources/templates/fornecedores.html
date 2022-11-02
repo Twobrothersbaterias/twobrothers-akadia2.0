@@ -110,18 +110,17 @@
 							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
 						</button>
 					</a>
-				</div>						
-			</div>
+				</div>		
 
-			<div class="row last">
-				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a th:href="@{/faq}" class="row aside_clicavel">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/precos}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+							<img src="../static/img/price-959595.png" th:src="@{img/price-959595.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Preços"/>
 						</button>
 					</a>
-				</div>	
-			</div>					
+				</div>									
+			</div>
+				
 		</div>
 
 		<main class="container main" id="main">
@@ -162,9 +161,9 @@
 			</div>
 
 			<!-- Menu superior mobile -->
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+			<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_mobile" id="menu_superior_mobile">
 
-				<div class="container_menu_mobile">				
+				<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_menu_mobile">
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
@@ -256,18 +255,18 @@
 						</div>	
 					</div>
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a th:href="@{/precos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/price-959595.png" th:src="@{img/price-959595.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
-					</div>	
+					</div>						
 
 				</div>																												
-			</div>				
+			</div>			
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
@@ -340,7 +339,7 @@
 						</div>							
 					</div>
 
-					<hr>
+					<hr id="hr_tabela">
 
 					<div class="row informativos_row" id="informativo_row">
 

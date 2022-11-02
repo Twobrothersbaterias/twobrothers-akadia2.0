@@ -104,6 +104,9 @@ function responsive(){
 
 	var novoItemSubmit = document.getElementById('novo_item_submit');
 
+	var conteudoContainer = document.getElementById('conteudo_container');
+	var hrTabela = document.getElementById('hr_tabela');	
+
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
@@ -140,10 +143,18 @@ function responsive(){
 		console.log("Muito grande");
 
 		conteudoTituloText.style.fontSize="1.5rem";
+
 		sideMenu.style.display="block";
-		main.style.width="95.5%";
-		sideMenu.style.width="4.5%";	
 		menuMobile.style.display="none";
+
+		if (bodyWidth < 1400) {
+			main.style.width="95.5%";
+			sideMenu.style.width="4.5%";	
+		}
+		else {
+			main.style.width="96%";
+			sideMenu.style.width="4%";
+		}
 		if (informativoRow != null) {
 			informativoRow.style.justifyContent="center";
 		}
@@ -155,6 +166,9 @@ function responsive(){
 		}
 
 		filtroTitulo.style.fontSize="1.5rem";
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";			
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="flex";
@@ -209,10 +223,17 @@ function responsive(){
 		console.log("Grande");
 
 		conteudoTituloText.style.fontSize="1.3rem";
+		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
-		main.style.width="94%";
-		sideMenu.style.width="6%";	
-		menuMobile.style.display="none";
+
+		if (bodyWidth < 1090) {
+			main.style.width="94.5%";
+			sideMenu.style.width="5.5%";	
+		}
+		else {
+			main.style.width="95%";
+			sideMenu.style.width="5%";				
+		}
 		if (informativoRow != null) {
 			informativoRow.style.justifyContent="center";
 		}
@@ -224,6 +245,9 @@ function responsive(){
 		}
 
 		filtroTitulo.style.fontSize="1.4rem";
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";			
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="flex";
@@ -271,13 +295,16 @@ function responsive(){
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
-			main.style.width="93%";
-			sideMenu.style.width="7%";
+			main.style.width="94%";
+			sideMenu.style.width="6%";
 		}
 		else {
 			main.style.width="92.5%";
 			sideMenu.style.width="7.5%";	
 		}
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";			
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";
@@ -338,7 +365,8 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
-		main.style.width="100%";	
+		main.style.width="100%";
+		mainRow.style.width = "100%";			
 		menuMobile.style.display="flex";
 
 		if (informativoRow != null) {
@@ -352,6 +380,9 @@ function responsive(){
 		}
 
 		filtroTitulo.style.fontSize="1.2rem";
+
+		conteudoContainer.style.marginTop="10px";
+		hrTabela.style.marginBottom="15px";	
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";
@@ -408,6 +439,7 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
+		mainRow.style.width = "100%";		
 		menuMobile.style.display="flex";
 
 		filtroTitulo.style.fontSize="1.1rem";
@@ -418,6 +450,8 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="0.90rem";
 		}
 
+		conteudoContainer.style.marginTop="10px";
+		hrTabela.style.marginBottom="15px";			
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";

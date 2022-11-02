@@ -111,6 +111,9 @@ function responsive(){
 
 	var novaDespesaSubmit = document.getElementById('novo_item_submit');
 
+	var conteudoContainer = document.getElementById('conteudo_container');
+	var hrTabela = document.getElementById('hr_tabela');	
+
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaDespesaSubmit = document.getElementById('edita_item_submit');
@@ -143,11 +146,17 @@ function responsive(){
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
-		conteudoTituloText.style.fontSize="1.5rem";
 		sideMenu.style.display="block";
-		main.style.width="95.5%";
-		sideMenu.style.width="4.5%";
 		menuMobile.style.display="none";
+
+		if (bodyWidth < 1400) {
+			main.style.width="95.5%";
+			sideMenu.style.width="4.5%";	
+		}
+		else {
+			main.style.width="96%";
+			sideMenu.style.width="4%";
+		}
 		informativoRow.style.justifyContent="center";
 		
 		containerNovo.style.fontSize="1rem";		
@@ -157,6 +166,9 @@ function responsive(){
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.15rem";	
 		editaDespesaSubmit.style.marginTop="0px";		
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=false;
@@ -203,10 +215,18 @@ function responsive(){
 		console.log("Grande");
 
 		conteudoTituloText.style.fontSize="1.3rem";
+
+		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
-		main.style.width="94%";
-		sideMenu.style.width="6%";
-		menuMobile.style.display="none";
+
+		if (bodyWidth < 1090) {
+			main.style.width="94.5%";
+			sideMenu.style.width="5.5%";	
+		}
+		else {
+			main.style.width="95%";
+			sideMenu.style.width="5%";				
+		}
 		informativoRow.style.justifyContent="center";	
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.15rem";	
@@ -215,6 +235,9 @@ function responsive(){
 		containerEdita.style.fontSize="1rem";
 		editaTitulo.style.fontSize="1.15rem";	
 		editaDespesaSubmit.style.marginTop="0px";	
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=false;
@@ -262,8 +285,8 @@ function responsive(){
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
-			main.style.width="93%";
-			sideMenu.style.width="7%";
+			main.style.width="94%";
+			sideMenu.style.width="6%";
 		}
 		else {
 			main.style.width="92.5%";
@@ -279,7 +302,10 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.1rem";
-		editaDespesaSubmit.style.marginTop="0px";	
+		editaDespesaSubmit.style.marginTop="0px";
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";			
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=false;
@@ -325,7 +351,8 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
-		main.style.width="100%";		
+		main.style.width="100%";	
+		mainRow.style.width = "100%";			
 		menuMobile.style.display="flex";
 		informativoRow.style.justifyContent="center";
 		containerNovo.style.fontSize="0.90rem";	
@@ -335,6 +362,9 @@ function responsive(){
 		containerEdita.style.fontSize="0.90rem";	
 		editaTitulo.style.fontSize="1.2rem";		
 		editaDespesaSubmit.style.marginTop="0px";
+
+		conteudoContainer.style.marginTop="10px";
+		hrTabela.style.marginBottom="15px";		
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=true;
@@ -390,6 +420,7 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
+		mainRow.style.width = "100%";		
 		menuMobile.style.display="flex";
 		containerNovo.style.fontSize="0.90rem";
 		novoTitulo.style.fontSize="1rem";
@@ -398,6 +429,9 @@ function responsive(){
 		containerEdita.style.fontSize="0.90rem";
 		editaTitulo.style.fontSize="1rem";
 		editaDespesaSubmit.style.marginTop="5px";
+
+		conteudoContainer.style.marginTop="10px";
+		hrTabela.style.marginBottom="15px";		
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=true;
@@ -455,7 +489,6 @@ function responsive(){
 
 		filtroBuscarBt.style.marginTop="20px";
 		filtroBuscarBt.style.justifyContent="center";
-
 	}
 
 	pageResponsiva();

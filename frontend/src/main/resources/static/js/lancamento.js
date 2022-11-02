@@ -92,7 +92,7 @@ function bind(keyCode) {
 
 function responsive(){
 
-	document.documentElement.style.overflowX = 'hidden';
+	//document.documentElement.style.overflowX = 'hidden';
 
 	document.getElementById('main_loader').style.display="none";
 	document.getElementById('main_row').style.display="flex";
@@ -140,9 +140,18 @@ function responsive(){
 		console.log("Muito grande");
 
 		sideMenu.style.display="block";
-		main.style.width="95.5%";
-		sideMenu.style.width="4.5%";	
 		menuMobile.style.display="none";
+
+		if (bodyWidth < 1400) {
+			main.style.width="95.5%";
+			sideMenu.style.width="4.5%";	
+		}
+		else {
+			main.style.width="96%";
+			sideMenu.style.width="4%";
+		}
+
+		mainRow.style.width = "100%";
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="left";
@@ -210,15 +219,22 @@ function responsive(){
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
 
+		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
-		main.style.width="94%";
-		sideMenu.style.width="6%";	
-		menuMobile.style.display="none";
+
+		if (bodyWidth < 1090) {
+			main.style.width="94.5%";
+			sideMenu.style.width="5.5%";	
+		}
+		else {
+			main.style.width="95%";
+			sideMenu.style.width="5%";				
+		}
+
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="left";
 		}
-
 
 		document.getElementById('row_produtos').style.marginBottom="9.40px";			
 		document.getElementById('container_all').style.marginBottom="0";
@@ -278,14 +294,16 @@ function responsive(){
 		console.log('Médio');
 
 		sideMenu.style.display="block";
-		if (bodyWidth > 870) {
-			main.style.width="93%";
-			sideMenu.style.width="7%";
+		if (bodyWidth > 860) {
+			main.style.width="94%";
+			sideMenu.style.width="6%";
 		}
 		else {
-			main.style.width="92.5%";
-			sideMenu.style.width="7.5%";	
+			main.style.width="93.5%";
+			sideMenu.style.width="6.5%";	
 		}
+
+		mainRow.style.width = "100%";
 
 		document.getElementById('row_produtos').style.marginBottom="9.19px";
 		document.getElementById('container_all').style.marginBottom="30px";			
@@ -344,7 +362,6 @@ function responsive(){
   		parent.insertBefore(
   			document.getElementById("container_endereco"), parent.children[1]);		
 
-
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
@@ -352,6 +369,11 @@ function responsive(){
 		sideMenu.style.display="none";
 		main.style.width="100%";	
 		menuMobile.style.display="flex";
+
+		mainRow.style.width = "100%";
+
+		document.getElementById('row_produtos').style.marginBottom="9.19px";
+		document.getElementById('container_all').style.marginBottom="30px";
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="center";
@@ -413,6 +435,8 @@ function responsive(){
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		menuMobile.style.display="flex";
+
+				mainRow.style.width = "100%";
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="center";

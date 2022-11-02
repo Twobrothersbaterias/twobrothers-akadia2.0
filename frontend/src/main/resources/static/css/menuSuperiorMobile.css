@@ -5,8 +5,8 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-top: 15px;
-    padding: 5px;
+    margin: 5px 0;
+    padding: 0 10px;
 }
 
 .mobile_button {
@@ -28,10 +28,19 @@
 .container_menu_mobile {
     display: flex;
     justify-content: center;
-    border: 1px solid #494949;
-    border-radius: 15px;   
     align-items: center;
+    border-bottom: 1px solid #4444;
     margin: 0 auto;
-    padding: 5px;     
-    max-width: 100%;
+    padding: 0;
+    float: left;    
+
+}
+
+.menu_superior_mobile_item {
+    margin: 0 auto;
+    width: 40px;
+    padding: 5px 0;
+    float: left;
+    display: flex;
+    justify-content: center;
 }

@@ -104,6 +104,9 @@ function responsive(){
 
 	var novoItemSubmit = document.getElementById('novo_item_submit');
 
+	var conteudoContainer = document.getElementById('conteudo_container');
+	var hrTabela = document.getElementById('hr_tabela');	
+
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
@@ -136,9 +139,16 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.5rem";
 		sideMenu.style.display="block";
-		main.style.width="95.5%";
-		sideMenu.style.width="4.5%";	
 		menuMobile.style.display="none";
+
+		if (bodyWidth < 1400) {
+			main.style.width="95.5%";
+			sideMenu.style.width="4.5%";	
+		}
+		else {
+			main.style.width="96%";
+			sideMenu.style.width="4%";
+		}
 		informativoRow.style.justifyContent="center";
 
 		containerNovo.style.fontSize="1rem";		
@@ -148,7 +158,10 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.5rem";			
+		filtroTitulo.style.fontSize="1.5rem";
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";					
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.80rem";
@@ -188,10 +201,17 @@ function responsive(){
 		console.log("Grande");
 
 		conteudoTituloText.style.fontSize="1.3rem";
+		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
-		main.style.width="94%";
-		sideMenu.style.width="6%";	
-		menuMobile.style.display="none";
+
+		if (bodyWidth < 1090) {
+			main.style.width="94.5%";
+			sideMenu.style.width="5.5%";	
+		}
+		else {
+			main.style.width="95%";
+			sideMenu.style.width="5%";				
+		}
 		informativoRow.style.justifyContent="center";
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.15rem";	
@@ -200,7 +220,10 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.4rem";						
+		filtroTitulo.style.fontSize="1.4rem";	
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";							
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.75rem";		
@@ -240,13 +263,13 @@ function responsive(){
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
-			main.style.width="93%";
-			sideMenu.style.width="7%";
+			main.style.width="94%";
+			sideMenu.style.width="6%";
 		}
 		else {
 			main.style.width="92.5%";
 			sideMenu.style.width="7.5%";	
-		}	
+		}
 
 		conteudoTituloText.style.fontSize="1.2rem";	
 		menuMobile.style.display="none";
@@ -259,6 +282,9 @@ function responsive(){
 		editaItemSubmit.style.marginTop="0px";
 
 		filtroTitulo.style.fontSize="1.3rem";
+
+		conteudoContainer.style.marginTop="30px";
+		hrTabela.style.marginBottom="25px";		
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.70rem";	
@@ -295,7 +321,8 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
-		main.style.width="100%";		
+		main.style.width="100%";	
+		mainRow.style.width = "100%";			
 		menuMobile.style.display="flex";
 		informativoRow.style.justifyContent="center";	
 		containerNovo.style.fontSize="0.90rem";	
@@ -306,6 +333,9 @@ function responsive(){
 		editaItemSubmit.style.marginTop="0px";
 
 		filtroTitulo.style.fontSize="1.2rem";
+
+		conteudoContainer.style.marginTop="10px";
+		hrTabela.style.marginBottom="15px";
 
 		for(var i = 0; i < th.length; i++) {
 			th[i].style.fontSize="0.65rem";
@@ -352,6 +382,7 @@ function responsive(){
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
+		mainRow.style.width = "100%";		
 		menuMobile.style.display="flex";
 		containerNovo.style.fontSize="0.90rem";
 		novoTitulo.style.fontSize="1rem";
@@ -361,6 +392,9 @@ function responsive(){
 		editaItemSubmit.style.marginTop="5px";
 
 		filtroTitulo.style.fontSize="1.1rem";	
+
+		conteudoContainer.style.marginTop="10px";
+		hrTabela.style.marginBottom="15px";
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";
