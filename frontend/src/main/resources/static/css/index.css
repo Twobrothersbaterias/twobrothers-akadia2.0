@@ -53,3 +53,7 @@
 #input_cor_conteudo, #input_cor_titulo {
 	padding: 0;
 }
+
+#label_subCategoria {
+	color: #4444;
+}

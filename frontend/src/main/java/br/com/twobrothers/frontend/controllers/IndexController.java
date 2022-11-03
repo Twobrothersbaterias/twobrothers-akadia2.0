@@ -2,7 +2,10 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.postagem.PostagemDTO;
+import br.com.twobrothers.frontend.models.entities.postagem.SubCategoriaEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.CategoriaCrudService;
+import br.com.twobrothers.frontend.repositories.services.SubCategoriaCrudService;
 import br.com.twobrothers.frontend.services.PostagemService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +27,20 @@ public class IndexController {
     @Autowired
     PostagemService postagemService;
 
+    @Autowired
+    CategoriaCrudService categoriaCrudService;
+
+    @Autowired
+    SubCategoriaCrudService subCategoriaCrudService;
+
     @GetMapping
     public ModelAndView telaPrincipal(ModelAndView modelAndView,
                                       ModelMap modelMap) {
 
         modelMap.addAttribute("privilegio",
                 UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        modelMap.addAttribute("categorias", categoriaCrudService.buscaTodasCategorias());
+        modelMap.addAttribute("subcategorias", subCategoriaCrudService.buscaTodasCategorias());
 
         modelAndView.setViewName("index");
         return modelAndView;
@@ -40,8 +51,6 @@ public class IndexController {
                                  String query,
                                  ModelAndView modelAndView,
                                  RedirectAttributes redirAttrs) {
-
-        System.err.println(postagem);
 
         String criaPostagem = postagemService.encaminhaParaCriacaoDoCrudService(postagem);
 

@@ -453,7 +453,7 @@
 
 			</div>
 
-		</main>
+		</main>	
 
 		<!-------------- EDITA_ITEM ------------>
 		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
@@ -690,7 +690,7 @@
 
 					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
-						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
 							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_cor" for="email_cliente_input">
 								Fonte do título
 							</label>
@@ -704,14 +704,14 @@
 							</select>
 						</div>
 
-						<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+						<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
 							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor"for="email_cliente_input">
 								.
 							</label>
 							<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="#303030" id="input_cor_titulo" name="corTitulo" type="color" oninput="mudaCorTitulo('novo')"/>
 						</div>						
 
-						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
 							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_cliente_input">
 								Fonte do conteúdo
 							</label>
@@ -754,7 +754,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 							Categoria
 						</label>
-						<input list="novo_categorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="categoria.nome" type="text" maxlength="20" id="input_categoria" autocomplete="off"/>
+						<input list="novo_categorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="categoria.nome" type="text" maxlength="20" id="input_categoria" autocomplete="off" onchange="categoriaMudada('novo')" oninput="validacaoDoObjetoPostagem('novo')"/>
 						<datalist id="novo_categorias">
 							<option
 								th:each="categoria: ${categorias}" 
@@ -768,18 +768,19 @@
 					</div>
 
 					<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_subCategoria" for="descricao_cliente_input">
 							Subcategoria
 						</label>
-						<input list="novo_subCategorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="subCategoria.nome" type="text" maxlength="20" id="input_subCategoria"autocomplete="off"/>
+						<input list="novo_subCategorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="subCategoria.nome" type="text" maxlength="20" id="input_subCategoria"autocomplete="off" oninput="validacaoDoObjetoPostagem('novo')" onchange="validacaoDoObjetoPostagem('novo')" disabled/>
 						<datalist id="novo_subCategorias">
 							<option
-								th:each="categoria: ${categorias}" 
-								th:value="${categoria.nome}" 
-								class="option_categoria" 
-								th:data-id="${categoria.id}"
-								th:data-nome="${categoria.nome}"
-								th:id=${categoria.id}>
+								th:each="subcategoria: ${subcategorias}" 
+								th:value="${subcategoria.nome}" 
+								class="option_subcategoria" 
+								th:data-id="${subcategoria.nome}"
+								th:data-nome="${subcategoria.nome}"
+								th:data-nomeCategoria="${subcategoria.categoria.nome}"
+								th:id=${subcategoria.id}>
 							</option>						
 						</datalist>
 					</div>														
@@ -788,14 +789,14 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 							Título
 						</label>
-						<input autocomplete="off" id="input_titulo" name="titulo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" required/>
+						<input autocomplete="off" id="input_titulo" name="titulo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" oninput="validacaoDoObjetoPostagem('novo')" required/>
 					</div>						
 
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
 							Conteúdo
 						</label>
-						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" id="input_conteudo">
+						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" oninput="validacaoDoObjetoPostagem('novo')" id="input_conteudo">
 						</textarea>
 					</div>
 				
@@ -808,7 +809,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
 
-					<button type="submit" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="novo_item_submit">
+					<button type="button" onclick="validacaoCampos('novo')" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="novo_item_submit">
 						Salvar
 					</button>	
 

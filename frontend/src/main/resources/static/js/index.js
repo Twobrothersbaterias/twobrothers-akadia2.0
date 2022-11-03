@@ -1439,6 +1439,52 @@ function reloadEditaItem() {
 
 /* ================== TRATAMENTO DE INPUTS ====================== */
 
+function categoriaMudada(tipo) {
+
+	if(tipo == 'novo') {
+		var inputFonteTitulo = document.getElementById('input_fonte_titulo');
+		var inputCorTitulo = document.getElementById('input_cor_titulo');
+		var inputFonteConteudo = document.getElementById('input_fonte_conteudo');
+		var inputCorConteudo = document.getElementById('input_cor_conteudo');
+		var inputCategoria = document.getElementById('input_categoria');
+		var inputSubCategoria = document.getElementById('input_subCategoria');
+		var inputTitulo = document.getElementById('input_titulo');
+		var inputConteudo = document.getElementById('input_conteudo');	
+		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');		
+	}
+	else {
+		var inputFonteTitulo = document.getElementById('edita_input_fonte_titulo');
+		var inputCorTitulo = document.getElementById('edita_input_cor_titulo');
+		var inputFonteConteudo = document.getElementById('edita_input_fonte_conteudo');
+		var inputCorConteudo = document.getElementById('edita_input_cor_conteudo');
+		var inputCategoria = document.getElementById('edita_input_categoria');
+		var inputSubCategoria = document.getElementById('edita_input_subCategoria');
+		var inputTitulo = document.getElementById('edita_input_titulo');
+		var inputConteudo = document.getElementById('edita_input_conteudo');
+		var optionsSubcategoria = document.getElementsByClassName('edita_option_subcategoria');					
+	}
+
+	if (inputCategoria.value != '') {
+		inputSubCategoria.disabled=false;
+		document.getElementById('label_subCategoria').style.color="#303030";
+	} 
+	else {
+		inputSubCategoria.disabled=true;
+		document.getElementById('label_subCategoria').style.color="#4444";
+	} 	
+
+	for(var i = 0; i < optionsSubcategoria.length; i++) {
+		if(optionsSubcategoria[i].getAttribute('data-nomeCategoria') != inputCategoria.value) {
+			optionsSubcategoria[i].disabled=true;
+		}
+		else{
+			optionsSubcategoria[i].disabled=false;
+		}
+	}
+
+	validacaoDoObjetoPostagem(tipo);
+}
+
 function mudaFonteTitulo(tipo) {
 
 	if(tipo == 'novo') {
@@ -1462,6 +1508,7 @@ function mudaFonteTitulo(tipo) {
 
 	$(inputTitulo).css("font-family", fonte);
 
+	validacaoDoObjetoPostagem(tipo);
 }
 
 function mudaCorTitulo(tipo) {
@@ -1476,6 +1523,8 @@ function mudaCorTitulo(tipo) {
 	}	
 
 	$(inputTitulo).css("color", inputCorTitulo.value);
+
+	validacaoDoObjetoPostagem(tipo);
 
 }
 
@@ -1501,6 +1550,8 @@ function mudaFonteConteudo(tipo) {
 	}
 
 	$(inputConteudo).css("font-family", fonte);
+
+	validacaoDoObjetoPostagem(tipo);
 }
 
 function mudaCorConteudo(tipo) {
@@ -1516,313 +1567,132 @@ function mudaCorConteudo(tipo) {
 
 	$(inputConteudo).css("color", inputCorConteudo.value);
 
+	validacaoDoObjetoPostagem(tipo);
 }
 
-/* TRATAMENTO DO CAMPO EMAIL */
-function tratamentoCampoEmail(tipo) {
+/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO POSTAGEM */
+function validacaoDoObjetoPostagem(tipo) {
 
-	var emailRegex =  new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)" +
-                    "+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-
-	var inputEmail = document.getElementById('input_email');
-
-	if(tipo == "novo") {
-		var inputEmail = document.getElementById('email_cliente_input');
+	if(tipo == 'novo') {
+		var inputFonteTitulo = document.getElementById('input_fonte_titulo');
+		var inputCorTitulo = document.getElementById('input_cor_titulo');
+		var inputFonteConteudo = document.getElementById('input_fonte_conteudo');
+		var inputCorConteudo = document.getElementById('input_cor_conteudo');
+		var inputCategoria = document.getElementById('input_categoria');
+		var inputSubCategoria = document.getElementById('input_subCategoria');
+		var inputTitulo = document.getElementById('input_titulo');
+		var inputConteudo = document.getElementById('input_conteudo');	
+		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');		
 	}
 	else {
-		var inputEmail = document.getElementById('edita_email_cliente_input');
+		var inputFonteTitulo = document.getElementById('edita_input_fonte_titulo');
+		var inputCorTitulo = document.getElementById('edita_input_cor_titulo');
+		var inputFonteConteudo = document.getElementById('edita_input_fonte_conteudo');
+		var inputCorConteudo = document.getElementById('edita_input_cor_conteudo');
+		var inputCategoria = document.getElementById('edita_input_categoria');
+		var inputSubCategoria = document.getElementById('edita_input_subCategoria');
+		var inputTitulo = document.getElementById('edita_input_titulo');
+		var inputConteudo = document.getElementById('edita_input_conteudo');
+		var optionsSubcategoria = document.getElementsByClassName('edita_option_subcategoria');					
 	}
 
-	if (inputEmail.value != "") {
+	if(inputCategoria.value != ""
+		|| inputSubCategoria.value != "" 
+		|| inputTitulo.value != "" 
+		|| inputConteudo.value != "") {
 
-		if (emailRegex.test(inputEmail.value)) {
-			inputEmail.style.background="transparent";
-			return true;
+		if(inputTitulo.value == "") {
+			inputTitulo.style.background="#f5aea9";		
 		}
 		else {
-			inputEmail.style.background="#f5aea9";			
-			return false;
+			inputTitulo.style.background="transparent";	
 		}
 
-	}
-
-	else {
-		inputEmail.style.background="transparent";
-		return true;
-	}
-}
-
-/* TRATAMENTO DO CAMPO TELEFONE */
-function tratamentoCampoTelefone(tipo) {
-
-	var telefoneRegex =  new RegExp("^\\([1-9]{2}\\)[9]{0,1}[1-9]{1}[0-9]{3}\\-[0-9]{4}$");
-
-	if(tipo == "novo") {
-		var inputTelefone = document.getElementById('telefone_cliente_input');
-	}
-	else {
-		var inputTelefone = document.getElementById('edita_telefone_cliente_input');
-	}
-
-	inputTelefone.value = inputTelefone.value.replace(/([a-zA-Z ])/g, "");
-
-	if (inputTelefone.value != "") {
-
-		if (telefoneRegex.test(inputTelefone.value)) {
-			inputTelefone.style.background="transparent";
-			return true;
+		if(inputConteudo.value == "") {
+			inputConteudo.style.background="#f5aea9";	
 		}
 		else {
-			inputTelefone.style.background="#f5aea9";
-			return false;
-		}
+			inputConteudo.style.background="transparent";
+		}		
 
-	}
-	else {
-		inputTelefone.style.background="transparent";
-		return true;
-	}
-}
-
-/* TRATAMENTO DO CAMPO CPF CNPJ */
-function tratamentoCampoCpfCnpj(tipo) {
-
-	var cnpjRegex =  new RegExp("[0-9]{2}.[0-9]{3}.[0-9]{3}/000[1-9]-[0-9]{2}");
-	var cpfRegex =  new RegExp("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}");
-
-	if(tipo == "novo") {
-		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
-	}
-	else {
-		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
-	}
-
-	inputCpfCnpj.value = inputCpfCnpj.value.replace(/([a-zA-Z ])/g, "");
-
-	if (inputCpfCnpj.value != "") {
-
-		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
-			inputCpfCnpj.style.background="transparent";
-			return true;
+		if(inputCategoria.value == "") {
+			inputCategoria.style.background="#f5aea9";
 		}
 		else {
-			inputCpfCnpj.style.background="#f5aea9";
-			return false;
+			inputCategoria.style.background="transparent";
 		}
 
-	}
-	else {
-		inputCpfCnpj.style.background="transparent";
-		return true;
-	}
-}
-
-/* TRATAMENTO DO CAMPO CEP */
-function tratamentoCampoCep(tipo) {
-
-	var cepRegex = new RegExp("[0-9]{8}");
-
-	if (tipo == "novo") {
-		var inputCep = document.getElementById('cep_input');
-	}
-	else {
-		var inputCep = document.getElementById('edita_cep_input');
-	}
-
-	var fraseSemCaracteresEspeciais = inputCep.value.normalize("NFD").replace(/[^a-zA-Z0-9s]/g, "")
-	inputCep.value = fraseSemCaracteresEspeciais.replace(/([a-zA-Z ])/g, "");		
-
-	if (inputCep.value != "") {
-
-		if (cepRegex.test(inputCep.value)) {
-			inputCep.style.background="transparent";
-			return true;
+		if(inputSubCategoria.value == "") {
+			inputSubCategoria.style.background="#f5aea9";
 		}
 		else {
-			inputCep.style.background="#f5aea9";
-			return false;
-		}
-	}
-	else {
-		inputCep.style.background="transparent";
-		return true;
-	}
-}
+			inputSubCategoria.style.background="transparent";		
+		}	
 
-/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO CLIENTE */
-function validacaoDoObjetoCliente(tipo) {
-
-	if(tipo == "novo") {
-		var inputNome = document.getElementById('descricao_cliente_input');
-		var inputTelefone = document.getElementById('telefone_cliente_input');
-		var inputEmail = document.getElementById('email_cliente_input');
-		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
-		var inputDataNascimento = document.getElementById('data_nascimento_input');
-	}
-	else {
-		var inputNome = document.getElementById('edita_descricao_cliente_input');
-		var inputTelefone = document.getElementById('edita_telefone_cliente_input');
-		var inputEmail = document.getElementById('edita_email_cliente_input');
-		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
-		var inputDataNascimento = document.getElementById('edita_data_nascimento_input');		
-	}
-
-	if(inputTelefone.value != "" 
-		|| inputEmail.value != "" 
-		|| inputCpfCnpj.value != "" 
-		|| inputDataNascimento.value != "") {
-
-		if(inputNome.value == "") {
-			inputNome.style.background="#f5aea9";
-			return false;			
-		}
+		if (inputCategoria.value != '') {
+			inputSubCategoria.disabled=false;
+			document.getElementById('label_subCategoria').style.color="#303030";
+		} 
 		else {
-			inputNome.style.background="transparent";
-			return true;			
-		}
+			inputSubCategoria.disabled=true;
+			document.getElementById('label_subCategoria').style.color="#4444";
+		} 						
 
 	}
 
 	else {
-		inputNome.style.background="transparent";
+		inputTitulo.style.background="transparent";		
+		inputConteudo.style.background="transparent";
+		inputCategoria.style.background="transparent";		
+		inputSubCategoria.style.background="transparent";		
 		return true;		
-	}
-}
-
-/* REALIZA VALIDAÇÃO DE ATRIBUTOS NULOS NO OBJETO ENDEREÇO */
-function validacaoDoObjetoEndereco(tipo) {
-
-	if(tipo == "novo") {
-		var inputCep = document.getElementById('cep_input');
-		var inputCidade = document.getElementById('cidade_input');
-		var inputBairro = document.getElementById('bairro_input');
-		var inputLogradouro = document.getElementById('logradouro_input');
-		var inputNumero = document.getElementById('numero_input');
-		var inputComplemento = document.getElementById('complemento_input');
-	}
-	else {
-		var inputCep = document.getElementById('edita_cep_input');
-		var inputCidade = document.getElementById('edita_cidade_input');
-		var inputBairro = document.getElementById('edita_bairro_input');
-		var inputLogradouro = document.getElementById('edita_logradouro_input');
-		var inputNumero = document.getElementById('edita_numero_input');
-		var inputComplemento = document.getElementById('edita_complemento_input');		
-	}
-
-	tratamentoCampoCep(tipo);
-
-	if(inputCep.value != "" 
-		|| inputCidade.value != "" 
-		|| inputBairro.value != "" 
-		|| inputLogradouro.value != ""
-		|| inputNumero.value != ""
-		|| inputComplemento.value != "") {
-
-		if(inputLogradouro.value == "") {
-			inputLogradouro.style.background="#f5aea9";	
-		}
-		else {
-			inputLogradouro.style.background="transparent";		
-		}
-
-		if(inputNumero.value == "") {
-			inputNumero.style.background="#f5aea9";
-		}
-		else {
-			inputNumero.style.background="transparent";		
-		}
-
-	}
-
-	else {
-		inputLogradouro.style.background="transparent";
-		inputNumero.style.background="transparent";		
-		return true;	
 	}
 }
 
 /* VALIDAÇÃO DE TODOS OS CAMPOS */
 function validacaoCampos(tipo) {
 
-	var inputNome = null;
-	var inputTelefone = null;
-	var inputEmail = null;
-	var inputCep = null;
-	var inputCpfCnpj = null;
-	var botaoFinalizar = null;
-	var inputCep = null;
-	var inputCidade = null;
-	var inputBairro = null;
-	var inputLogradouro = null;
-	var inputNumero = null;
-	var inputComplemento = null;
-
-	if (tipo == "novo") {
-		inputNome = document.getElementById('descricao_cliente_input');
-		inputTelefone = document.getElementById('telefone_cliente_input');
-		inputEmail = document.getElementById('email_cliente_input');
-		inputCep = document.getElementById('cep_input');
-		inputCpfCnpj = document.getElementById('cpfCnpj_input');
-		botaoFinalizar = document.getElementById('novo_item_submit');
-
-		inputCep = document.getElementById('cep_input');
-		inputCidade = document.getElementById('cidade_input');
-		inputBairro = document.getElementById('bairro_input');
-		inputLogradouro = document.getElementById('logradouro_input');
-		inputNumero = document.getElementById('numero_input');
-		inputComplemento = document.getElementById('complemento_input');		
-	}	
+	if(tipo == 'novo') {
+		var inputFonteTitulo = document.getElementById('input_fonte_titulo');
+		var inputCorTitulo = document.getElementById('input_cor_titulo');
+		var inputFonteConteudo = document.getElementById('input_fonte_conteudo');
+		var inputCorConteudo = document.getElementById('input_cor_conteudo');
+		var inputCategoria = document.getElementById('input_categoria');
+		var inputSubCategoria = document.getElementById('input_subCategoria');
+		var inputTitulo = document.getElementById('input_titulo');
+		var inputConteudo = document.getElementById('input_conteudo');	
+		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');
+		var botaoFinalizar = document.getElementById('novo_item_submit');		
+	}
 	else {
-		inputNome = document.getElementById('edita_descricao_cliente_input');
-		inputTelefone = document.getElementById('edita_telefone_cliente_input');
-		inputEmail = document.getElementById('edita_email_cliente_input');
-		inputCep = document.getElementById('edita_cep_input');
-		inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
-		botaoFinalizar = document.getElementById('edita_item_submit');
-
-		inputCep = document.getElementById('edita_cep_input');
-		inputCidade = document.getElementById('edita_cidade_input');
-		inputBairro = document.getElementById('edita_bairro_input');
-		inputLogradouro = document.getElementById('edita_logradouro_input');
-		inputNumero = document.getElementById('edita_numero_input');
-		inputComplemento = document.getElementById('edita_complemento_input');			
+		var inputFonteTitulo = document.getElementById('edita_input_fonte_titulo');
+		var inputCorTitulo = document.getElementById('edita_input_cor_titulo');
+		var inputFonteConteudo = document.getElementById('edita_input_fonte_conteudo');
+		var inputCorConteudo = document.getElementById('edita_input_cor_conteudo');
+		var inputCategoria = document.getElementById('edita_input_categoria');
+		var inputSubCategoria = document.getElementById('edita_input_subCategoria');
+		var inputTitulo = document.getElementById('edita_input_titulo');
+		var inputConteudo = document.getElementById('edita_input_conteudo');
+		var optionsSubcategoria = document.getElementsByClassName('edita_option_subcategoria');					
+		var botaoFinalizar = document.getElementById('edita_item_submit');
 	}
 
-	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
+	var erros = "Ocorreram alguns erros no lançamento do post:\n";
 
-	if(inputTelefone.value != "" && !tratamentoCampoTelefone(tipo)) {
-		console.log('TEL ERRADO');
-		erros += "- Telefone com padrão incorreto\n";
+	if(inputTitulo.value == "") {
+		erros += "- O campo título deve ser preenchido\n";
 	}
-	if(inputEmail.value != "" && !tratamentoCampoEmail(tipo)) {
-		erros += "- Email com padrão incorreto\n";
+	if(inputConteudo.value == "") {
+		erros += "- O campo conteúdo deve ser preenchido\n";
 	}
-	if(inputCep.value != "" && !tratamentoCampoCep(tipo)) {
-		erros += "- Cep com padrão incorreto\n";
+	if(inputCategoria.value == "") {
+		erros += "- O campo categoria deve ser preenchido\n";
 	}
-	if(inputCpfCnpj.value != "" && !tratamentoCampoCpfCnpj(tipo)) {
-		erros += "- CPF/CNPJ com padrão incorreto\n";
+	if(inputSubCategoria.value == "") {
+		erros += "- O campo subcategoria deve ser preenchido\n";
 	}	
-	if(inputNome.value == "" || inputNome == null) {
-		erros += "- O campo nome não pode ser vazio\n";
-	}
-	if(inputCep.value != "" 
-		|| inputCidade.value != "" 
-		|| inputBairro.value != "" 
-		|| inputLogradouro.value != ""
-		|| inputNumero.value != ""
-		|| inputComplemento.value != "") {
 
-		if(inputLogradouro.value == "" || inputLogradouro.value == null) {
-			erros += "- Ao preencher o endereço, o campo logradouro é obrigatório\n"
-		}
-		if(inputNumero.value == "" || inputNumero.value == null) {
-			erros += "- Ao preencher o endereço, o campo número é obrigatório\n"
-		}		
-
-	}
-
-	if (erros != "Ocorreram alguns erros no lançamento da ordem:\n") {
+	if (erros != "Ocorreram alguns erros no lançamento do post:\n") {
 		var quantidade = 0
 
 		for (var i = 0; i < erros.length; i++) {

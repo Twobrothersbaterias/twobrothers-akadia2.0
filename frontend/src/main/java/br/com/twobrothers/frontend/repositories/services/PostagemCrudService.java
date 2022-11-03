@@ -5,7 +5,6 @@ import br.com.twobrothers.frontend.models.entities.postagem.CategoriaEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.PostagemEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.SubCategoriaEntity;
 import br.com.twobrothers.frontend.repositories.CategoriaRepository;
-import br.com.twobrothers.frontend.repositories.PostagemRepository;
 import br.com.twobrothers.frontend.repositories.SubCategoriaRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -25,20 +24,20 @@ public class PostagemCrudService {
     UsuarioRepository usuarioRepository;
 
     @Autowired
-    PostagemRepository postagemRepository;
-
-    @Autowired
     CategoriaRepository categoriaRepository;
 
     @Autowired
     SubCategoriaRepository subCategoriaRepository;
 
+    private static final String CRIACAO_POSTAGEM = "[PROGRESS] Iniciando processo de criação do objeto postagem...";
+    private static final String ACLOPANDO_POSTAGEM_SUBCATEGORIA = "[PROGRESS] Acoplando objeto postagem no objeto subcategoria...";
+
     public void criaNovo(PostagemDTO postagem) {
 
         log.warn("[STARTING] Iniciando método de criação de nova postagem");
 
-        CategoriaEntity categoriaEntity = null;
-        SubCategoriaEntity subCategoriaEntity = null;
+        CategoriaEntity categoriaEntity;
+        SubCategoriaEntity subCategoriaEntity;
 
         log.info("[PROGRESS] Verificando se a categoria passada na requisição existe na base de dados: {}", postagem.getCategoria().getNome());
         Optional<CategoriaEntity> categoriaOptional = categoriaRepository.findByNome(postagem.getCategoria().getNome());
@@ -58,18 +57,71 @@ public class PostagemCrudService {
                 log.warn("[INFO] A subcategoria informada foi encontrada");
                 subCategoriaEntity = subCategoriaOptional.get();
 
+                log.info(CRIACAO_POSTAGEM);
+                PostagemEntity postagemEntity =
+                        PostagemEntity.builder()
+                                .corConteudo(postagem.getCorConteudo())
+                                .corTitulo(postagem.getCorTitulo())
+                                .fonteConteudo(postagem.getFonteConteudo())
+                                .fonteTitulo(postagem.getFonteTitulo())
+                                .subCategoria(null)
+                                .conteudo(postagem.getConteudo())
+                                .titulo(postagem.getTitulo())
+                                .categoria(null)
+                                .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
+                                .dataCadastro(LocalDate.now().toString())
+                                .build();
+
+                log.info(ACLOPANDO_POSTAGEM_SUBCATEGORIA);
+                subCategoriaEntity.addPostagem(postagemEntity);
+
+                log.info("[PROGRESS] Acoplando objetos postagem no objeto categoria...");
+                categoriaEntity.addPostagem(postagemEntity);
+
             }
 
             // SUBCATEGORIA NÃO EXISTENTE
             else {
                 log.warn("[INFO] A subcategoria informada não foi encontrada");
 
+                log.info("[PROGRESS] Iniciando processo de criação do objeto subcategoria...");
+                SubCategoriaEntity subCategoria =
+                        SubCategoriaEntity.builder()
+                                .nome(postagem.getSubCategoria().getNome())
+                                .dataCadastro(LocalDate.now().toString())
+                                .categoria(null)
+                                .postagens(new ArrayList<>())
+                                .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
+                                .build();
+
+                log.info(CRIACAO_POSTAGEM);
+                PostagemEntity postagemEntity =
+                        PostagemEntity.builder()
+                                .corConteudo(postagem.getCorConteudo())
+                                .corTitulo(postagem.getCorTitulo())
+                                .fonteConteudo(postagem.getFonteConteudo())
+                                .fonteTitulo(postagem.getFonteTitulo())
+                                .subCategoria(null)
+                                .conteudo(postagem.getConteudo())
+                                .titulo(postagem.getTitulo())
+                                .categoria(null)
+                                .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
+                                .dataCadastro(LocalDate.now().toString())
+                                .build();
+
+                log.info(ACLOPANDO_POSTAGEM_SUBCATEGORIA);
+                subCategoria.addPostagem(postagemEntity);
+
+                log.info("[PROGRESS] Acoplando objetos postagem e subcategoria no objeto categoria...");
+                categoriaEntity.addSubCategoria(subCategoria);
+                categoriaEntity.addPostagem(postagemEntity);
 
             }
 
+            log.info("[PROGRESS] Persistindo categoria com objetos acoplados...");
+            categoriaRepository.save(categoriaEntity);
 
         }
-
 
         // CATEGORIA NÃO EXISTENTE
         else {
@@ -87,15 +139,15 @@ public class PostagemCrudService {
 
             log.info("[PROGRESS] Iniciando processo de criação do objeto subcategoria...");
             SubCategoriaEntity subCategoria =
-                    subCategoriaEntity.builder()
-                            .nome(postagem.getCategoria().getNome())
+                    SubCategoriaEntity.builder()
+                            .nome(postagem.getSubCategoria().getNome())
                             .dataCadastro(LocalDate.now().toString())
                             .categoria(null)
                             .postagens(new ArrayList<>())
                             .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                             .build();
 
-            log.info("[PROGRESS] Iniciando processo de criação do objeto postagem...");
+            log.info(CRIACAO_POSTAGEM);
             PostagemEntity postagemEntity =
                     PostagemEntity.builder()
                             .corConteudo(postagem.getCorConteudo())
@@ -110,7 +162,7 @@ public class PostagemCrudService {
                             .dataCadastro(LocalDate.now().toString())
                             .build();
 
-            log.info("[PROGRESS] Acoplando objeto postagem no objeto subcategoria...");
+            log.info(ACLOPANDO_POSTAGEM_SUBCATEGORIA);
             subCategoria.addPostagem(postagemEntity);
 
             log.info("[PROGRESS] Acoplando objetos postagem e subcategoria no objeto categoria...");
