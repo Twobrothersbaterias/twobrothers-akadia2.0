@@ -3,8 +3,8 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
-ajustaTabela();
-buildUrlPages();
+//ajustaTabela();
+//buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 
@@ -22,12 +22,10 @@ function bind(keyCode) {
 
     if(keyCode == '27') {
         fechaNovoItem();
-        fecharFiltro();
         fecharEditaItem();
     }
 
-    if (document.getElementById('conteudo_container_filtro').hidden==true
-    	&& document.getElementById('conteudo_container_edita').hidden==true
+    if (document.getElementById('conteudo_container_edita').hidden==true
     	&& document.getElementById('conteudo_container_novo').hidden==true) {
 
 	    if (keyCode == '49') {
@@ -82,7 +80,7 @@ function bind(keyCode) {
 	    }
 
 	    else if(keyCode == '82') {
-	    	window.location.href="/clientes";
+	    	window.location.href="/";
 	    }
 
 	    else if(keyCode == '70') {
@@ -155,6 +153,7 @@ function responsive(){
 			sideMenu.style.width="4%";
 		}
 
+		mainRow.style.height="100%";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.15rem";	
 		novoItemSubmit.style.marginTop="0px";
@@ -163,10 +162,8 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.5rem";
-
 		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";			
+		hrTabela.style.marginBottom="15px";			
 
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
@@ -217,9 +214,6 @@ function responsive(){
 		for(var i = 0; i < editaItemInput.length; i++) {
 			editaItemInput[i].style.marginBottom="0";
 		}
-
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
@@ -236,6 +230,7 @@ function responsive(){
 			sideMenu.style.width="5%";				
 		}
 
+		mainRow.style.height="100%";
 		containerNovo.style.fontSize="1rem";
 		novoTitulo.style.fontSize="1.15rem";	
 		novoItemSubmit.style.marginTop="0px";
@@ -247,7 +242,7 @@ function responsive(){
 		filtroTitulo.style.fontSize="1.4rem";		
 
 		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";			
+		hrTabela.style.marginBottom="15px";			
 
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
@@ -315,6 +310,7 @@ function responsive(){
 			sideMenu.style.width="7.5%";	
 		}
 
+		mainRow.style.height="100%";
 		conteudoTituloText.style.fontSize="1.2rem";
 		menuMobile.style.display="none";
 		containerNovo.style.fontSize="1rem";		
@@ -328,7 +324,7 @@ function responsive(){
 		filtroTitulo.style.fontSize="1.3rem";	
 
 		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";				
+		hrTabela.style.marginBottom="15px";				
 
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
@@ -383,6 +379,7 @@ function responsive(){
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
 
+		mainRow.style.height="100%";
 		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -463,6 +460,7 @@ function responsive(){
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
 
+		mainRow.style.height="100%";
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -545,13 +543,19 @@ function responsive(){
 
 	}
 
-	pageResponsiva();
+	//pageResponsiva();
 }
 
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA NOVO ITEM ====================== */
 
 function abrirNovoItem() {
+
+	if (document.getElementsByClassName('option_fonte_titulo').length >= 6) {
+		document.getElementsByClassName('option_fonte_titulo')[6].selected=true;
+		document.getElementsByClassName('option_fonte_conteudo')[6].selected=true;
+	}
+	document.getElementById('input_conteudo').value="";
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -610,36 +614,29 @@ function fechaNovoItem() {
 }
 
 function reloadNovoItem() {
-	document.getElementById('descricao_cliente_input').value="";
-	document.getElementById('descricao_cliente_input').style.background="transparent";
+	document.getElementById('input_fonte_titulo').value=document.getElementById('input_fonte_titulo').options[0];
+	document.getElementsByClassName('option_fonte_titulo')[6].selected=true;
 
-	document.getElementById('email_cliente_input').value="";
-	document.getElementById('email_cliente_input').style.background="transparent";
+	document.getElementById('input_cor_titulo').value="#303030";
 
-	document.getElementById('telefone_cliente_input').value="";
-	document.getElementById('telefone_cliente_input').style.background="transparent";
+	document.getElementById('input_fonte_conteudo').value=document.getElementById('input_fonte_conteudo').options[0];
+	document.getElementsByClassName('option_fonte_conteudo')[6].selected=true;
 
-	document.getElementById('data_nascimento_input').value="";
+	document.getElementById('input_cor_conteudo').value="#303030";
 
-	document.getElementById('cpfCnpj_input').value="";
-	document.getElementById('cpfCnpj_input').style.background="transparent";
+	document.getElementById('input_categoria').value="";
+	document.getElementById('input_categoria').style.background="transparent";
 
-	document.getElementById('cep_input').value="";
-	document.getElementById('cep_input').style.background="transparent";
+	document.getElementById('input_subCategoria').value="";
+	document.getElementById('input_subCategoria').style.background="transparent";
 
-	document.getElementById('estado_input').value="SP";
+	document.getElementById('input_titulo').value="";
+	document.getElementById('input_titulo').style.color="#303030";
+	document.getElementById('input_titulo').style.background="transparent";
 
-	document.getElementById('cidade_input').value="";
-	document.getElementById('cidade_input').style.background="transparent";
-
-	document.getElementById('logradouro_input').value="";
-	document.getElementById('logradouro_input').style.background="transparent";	
-
-	document.getElementById('numero_input').value="";
-	document.getElementById('numero_input').style.background="transparent";	
-
-	document.getElementById('bairro_input').value="";
-	document.getElementById('complemento_input').value="";
+	document.getElementById('input_conteudo').value="";
+	document.getElementById('input_conteudo').style.color="#303030";	
+	document.getElementById('input_conteudo').style.background="transparent";	
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
@@ -1442,6 +1439,85 @@ function reloadEditaItem() {
 
 /* ================== TRATAMENTO DE INPUTS ====================== */
 
+function mudaFonteTitulo(tipo) {
+
+	if(tipo == 'novo') {
+		var inputFonteTitulo = document.getElementById('input_fonte_titulo');
+		var inputTitulo = document.getElementById('input_titulo');
+		var optionFonteTitulo = document.getElementsByClassName('option_fonte_titulo');
+	}
+	else {
+		var inputFonteTitulo = document.getElementById('edita_input_fonte_titulo');
+		var inputTitulo = document.getElementById('edita_input_titulo');
+		var optionFonteTitulo = document.getElementsByClassName('edita_option_fonte_titulo');
+	}	
+
+	var fonte = null;
+
+	for (var i = 0; i < optionFonteTitulo.length; i++) {
+		if (inputFonteTitulo.value == optionFonteTitulo[i].value) {
+			fonte = optionFonteTitulo[i].getAttribute('data-fonte');
+		}
+	}
+
+	$(inputTitulo).css("font-family", fonte);
+
+}
+
+function mudaCorTitulo(tipo) {
+
+	if(tipo == 'novo') {
+		var inputCorTitulo = document.getElementById('input_cor_titulo');
+		var inputTitulo = document.getElementById('input_titulo');
+	}
+	else {
+		var inputCorTitulo = document.getElementById('edita_input_fonte_titulo');
+		var inputTitulo = document.getElementById('edita_input_titulo');
+	}	
+
+	$(inputTitulo).css("color", inputCorTitulo.value);
+
+}
+
+function mudaFonteConteudo(tipo) {
+
+	if(tipo == 'novo') {
+		var inputFonteConteudo = document.getElementById('input_fonte_conteudo');
+		var inputConteudo = document.getElementById('input_conteudo');
+		var optionFonteConteudo = document.getElementsByClassName('option_fonte_conteudo');
+	}
+	else {
+		var inputFonteConteudo = document.getElementById('edita_input_fonte_conteudo');
+		var inputConteudo = document.getElementById('edita_input_conteudo');
+		var optionFonteConteudo = document.getElementsByClassName('edita_option_fonte_conteudo');
+	}	
+
+	var fonte = null;
+
+	for (var i = 0; i < optionFonteConteudo.length; i++) {
+		if (inputFonteConteudo.value == optionFonteConteudo[i].value) {
+			fonte = optionFonteConteudo[i].getAttribute('data-fonte');
+		}
+	}
+
+	$(inputConteudo).css("font-family", fonte);
+}
+
+function mudaCorConteudo(tipo) {
+
+	if(tipo == 'novo') {
+		var inputCorConteudo = document.getElementById('input_cor_conteudo');
+		var inputConteudo = document.getElementById('input_conteudo');
+	}
+	else {
+		var inputCorConteudo = document.getElementById('edita_input_fonte_conteudo');
+		var inputConteudo = document.getElementById('edita_input_conteudo');
+	}	
+
+	$(inputConteudo).css("color", inputCorConteudo.value);
+
+}
+
 /* TRATAMENTO DO CAMPO EMAIL */
 function tratamentoCampoEmail(tipo) {
 
@@ -1774,27 +1850,6 @@ function ajustaMinMaxDosInputsData() {
 
 	var inputDataNascimento = document.getElementById('data_nascimento_input');
 	var editainputDataNascimento = document.getElementById('edita_data_nascimento_input');
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 	
-
-	inputDataNascimento.max=hoje;	
-	inputDataNascimento.min='1900-01-01';
-
-	editainputDataNascimento.max=hoje;	
-	editainputDataNascimento.min='1900-01-01';
 }
 
 function buildUrlPages() {

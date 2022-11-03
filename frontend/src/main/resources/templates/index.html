@@ -9,6 +9,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,100&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
+	<link href="https://fonts.googleapis.com/css2?family=Cairo&family=Carter+One&family=JetBrains+Mono&family=Lato&family=Lobster&family=Oleo+Script&family=Roboto&family=Satisfy&display=swap" rel="stylesheet">	
+
 	<link th:href="@{css/reset.css}" href="../static/css/reset.css" rel="stylesheet" />
 	<link th:href="@{css/layout.css}" href="../static/css/layout.css" rel="stylesheet" />
 	<link th:href="@{css/menuSuperior.css}" href="../static/css/menuSuperior.css" rel="stylesheet" />
@@ -271,51 +273,548 @@
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_align" id="container_align">
 
-			<!-------------- CONTEUDO_CONTAINER ------------>
-			<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
+				<!-------------- CONTEUDO_CONTAINER ------------>
+				<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
 
-				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
-						<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
-							<p th:text="${SucessoCadastro}"></p>
+							<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
+								<p th:text="${SucessoCadastro}"></p>
+							</div>
+
+							<div th:if="${SucessoEdicao}" class="alert alert-success" id="SucessoEdicao" onclick="hideMessage()">
+								<p th:text="${SucessoEdicao}"></p>
+							</div>
+
+							<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
+								<p th:text="${ErroCadastro}"></p>
+							</div>			
+
+							<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
+								<p th:text="${ErroBusca}"></p>
+							</div>						
+
+							<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
+								<p th:text="${SucessoDelete}"></p>
+							</div>		
+										
+							<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
+								Tela inicial
+							</h1>
+
+							<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
+
+							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+								<img onclick="abrirNovoItem()" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}"/>
+
+							</div>							
+					</div>
+
+					<hr id="hr_tabela">						
+
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos">
+
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+
+							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+								
+								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+									Lançamento de vendas
+								</h1>	
+
+								<hr class="hr_bloco">
+
+								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+								</p>
+
+								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									Acessar
+								</button>	
+
+							</div>	
+
 						</div>
 
-						<div th:if="${SucessoEdicao}" class="alert alert-success" id="SucessoEdicao" onclick="hideMessage()">
-							<p th:text="${SucessoEdicao}"></p>
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+
+							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+								
+								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+									Lançamento de vendas
+								</h1>	
+
+								<hr class="hr_bloco">
+
+								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+								</p>
+
+								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									Acessar
+								</button>	
+
+							</div>	
+
 						</div>
 
-						<div th:if="${ErroCadastro}" class="alert alert-danger" id="erroCadastro" onclick="hideMessage()">
-							<p th:text="${ErroCadastro}"></p>
-						</div>			
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
 
-						<div th:if="${ErroBusca}" class="alert alert-danger" id="erroBusca" onclick="hideMessage()">
-							<p th:text="${ErroBusca}"></p>
-						</div>						
+							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+								
+								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+									Lançamento de vendas
+								</h1>	
 
-						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
-							<p th:text="${SucessoDelete}"></p>
-						</div>		
-									
-						<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
-							Tela inicial
-						</h1>
+								<hr class="hr_bloco">
 
-						<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
+								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+								</p>
 
-						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									Acessar
+								</button>	
 
-							<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}"/>
+							</div>	
 
-						</div>							
+						</div>
+
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+
+							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+								
+								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+									Lançamento de vendas
+								</h1>	
+
+								<hr class="hr_bloco">
+
+								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+								</p>
+
+								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									Acessar
+								</button>	
+
+							</div>	
+
+						</div>	
+
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+
+							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+								
+								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+									Lançamento de vendas
+								</h1>	
+
+								<hr class="hr_bloco">
+
+								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+								</p>
+
+								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									Acessar
+								</button>	
+
+							</div>	
+
+						</div>
+
+						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+
+							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+								
+								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+									Lançamento de vendas
+								</h1>	
+
+								<hr class="hr_bloco">
+
+								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+								</p>
+
+								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									Acessar
+								</button>	
+
+							</div>	
+
+						</div>																													
+
+					</div>	
+
 				</div>
-
-				<hr>
 
 			</div>
 
-			</main>
+		</main>
 
-		</div>
+		<!-------------- EDITA_ITEM ------------>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+					Editar cliente
+				</h1>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="giro">
+						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/money.png" th:src="@{img/money.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>
+					</a>
+
+					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
+					
+				</div>
+
+			</div>
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+			<form th:action="@{clientes/alterar}" method="POST" th:object="${cliente}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+				<input type="text" id="id_input_edicao" name="id" hidden/>			
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
+						<label class="row edita_item_form_row edita_item_label subtitulo_edita subtitulo_edita_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Dados pessoais
+						</label>
+					</div>							
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">								
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_cliente_input">
+							Nome
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input" oninput="validacaoDoObjetoCliente('edita')" required/>
+					</div>							
+
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_cliente_input">
+							E-mail
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input" onkeyup="tratamentoCampoEmail('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+					</div>									
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_cliente_input">
+							Telefone
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+					</div>
+				
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">										
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_data_nascimento_input">
+							Data de nascimento:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('edita')"/>
+					</div>							
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cpfCnpj_input">
+							Cpf/Cnpj:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('edita')" oninput="validacaoDoObjetoCliente('edita')" type="text"/>
+					</div>																
+
+				</div>	
+
+				<hr class="hr_edita" >	
+				
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
+							<label class="row edita_item_form_row edita_item_label subtitulo_edita subtitulo_edita_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Endereço
+							</label>
+						</div>							
+					</div>					
+
+					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
+							Cep:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="text" onkeyup="consultaEndereco('edita')" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>						
+
+					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_estado_input">
+							Estado:
+						</label>
+						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="edita_estado_input" type="text">
+							<option value="AC">Acre</option>
+							<option value="AL">Alagoas</option>
+							<option value="AP">Amapá</option>
+							<option value="AM">Amazonas</option>
+							<option value="BA">Bahia</option>
+							<option value="CE">Ceará</option>
+							<option value="DF">Distrito Federal</option>
+							<option value="ES">Espírito Santo</option>
+							<option value="GO">Goiás</option>
+							<option value="MA">Maranhão</option>
+							<option value="MT">Mato Grosso</option>
+							<option value="MS">Mato Grosso do Sul</option>
+							<option value="MG">Minas Gerais</option>
+							<option value="PA">Pará</option>											
+							<option value="PB">Paraiba</option>
+							<option value="PR">Paraná</option>		
+							<option value="PI">Piaui</option>					
+							<option value="RJ">Rio de Janeiro</option>	
+							<option value="RN">Rio Grande do Norte</option>	
+							<option value="RS">Rio Grande do Sul</option>	
+							<option value="RO">Rondônia</option>													
+							<option value="RR">Roraima</option>		
+							<option value="SC">Santa Catarina</option>		
+							<option value="SP">São Paulo</option>		
+							<option value="SE">Sergipe</option>													
+							<option value="TO">Tocantins</option>	
+						</select>	
+					</div>
+
+					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8">
+
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cidade_input">
+							Cidade:
+						</label>
+
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>						
+
+				</div>
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_logradouro_input">
+							Logradouro:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_numero_input">
+							Numero:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>
+
+				</div>				
+
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_bairro_input">
+							Bairro:
+						</label>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>							
+
+					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_complemento_input">
+							Complemento:
+						</label>
+
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					</div>					
+
+				</div>				
+
+				<hr style="margin-top:25px">
+
+				<div class="edita_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_third_row">
+
+					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+
+					<button type="button" onclick="validacaoCampos('edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="edita_item_submit">
+						Salvar
+					</button>	
+
+				</div>																				
+			</form>		
+		</div>					
+
+		<!-------------- NOVO_ITEM ------------>
+		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_novo_item" id="novo_titulo">
+					Novo conteúdo
+				</h1>
+
+				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>							
+
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovoItem()"/>
+					
+				</div>	
+
+			</div>
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
+
+			<form th:action="@{/}" method="POST" th:object="${postagem}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_form">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+
+					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
+
+						<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
+							<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Estilo
+							</label>
+						</div>	
+
+					</div>
+
+					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
+
+						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_cor" for="email_cliente_input">
+								Fonte do título
+							</label>
+							<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="fonteTitulo" id="input_fonte_titulo" onchange="mudaFonteTitulo('novo')" required/>
+							    <option th:each="fonte : ${T(br.com.twobrothers.frontend.models.enums.FonteEnum).values()}"
+							            th:value="${fonte}"
+							            th:text="${fonte.desc}"
+							            th:data-fonte="${fonte.fontFamily}"
+							            class="option_fonte_titulo">
+							    </option>																		
+							</select>
+						</div>
+
+						<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor"for="email_cliente_input">
+								.
+							</label>
+							<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="#303030" id="input_cor_titulo" name="corTitulo" type="color" oninput="mudaCorTitulo('novo')"/>
+						</div>						
+
+						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_cliente_input">
+								Fonte do conteúdo
+							</label>
+							<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="fonteConteudo" id="input_fonte_conteudo" onchange="mudaFonteConteudo('novo')" required/>
+							    <option th:each="fonte : ${T(br.com.twobrothers.frontend.models.enums.FonteEnum).values()}"
+							            th:value="${fonte}"
+							            th:text="${fonte.desc}"
+							            th:data-fonte="${fonte.fontFamily}"
+							            class="option_fonte_conteudo">
+							    </option>
+							</select>
+						</div>	
+
+						<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor" id="label_cor" for="email_cliente_input">
+								.
+							</label>
+							<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="#303030" id="input_cor_conteudo" name="corConteudo"type="color" oninput="mudaCorConteudo('novo')" required />
+						</div>
+
+					</div>
+
+				</div>
+
+				<hr class="hr_novo">
+
+				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
+
+					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
+
+						<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">
+							<label class="row novo_item_form_row novo_item_label subtitulo_novo subtitulo_novo_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								Detalhamento
+							</label>
+						</div>	
+
+					</div>		
+
+					<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Categoria
+						</label>
+						<input list="novo_categorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="categoria.nome" type="text" maxlength="20" id="input_categoria" autocomplete="off"/>
+						<datalist id="novo_categorias">
+							<option
+								th:each="categoria: ${categorias}" 
+								th:value="${categoria.nome}" 
+								class="option_categoria" 
+								th:data-id="${categoria.id}"
+								th:data-nome="${categoria.nome}"
+								th:id=${categoria.id}>
+							</option>							
+						</datalist>
+					</div>
+
+					<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Subcategoria
+						</label>
+						<input list="novo_subCategorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="subCategoria.nome" type="text" maxlength="20" id="input_subCategoria"autocomplete="off"/>
+						<datalist id="novo_subCategorias">
+							<option
+								th:each="categoria: ${categorias}" 
+								th:value="${categoria.nome}" 
+								class="option_categoria" 
+								th:data-id="${categoria.id}"
+								th:data-nome="${categoria.nome}"
+								th:id=${categoria.id}>
+							</option>						
+						</datalist>
+					</div>														
+
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+							Título
+						</label>
+						<input autocomplete="off" id="input_titulo" name="titulo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" required/>
+					</div>						
+
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
+							Conteúdo
+						</label>
+						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" id="input_conteudo">
+						</textarea>
+					</div>
+				
+				</div>
+			
+
+				<hr class="hr_novo">
+
+				<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
+
+					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
+
+					<button type="submit" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="novo_item_submit">
+						Salvar
+					</button>	
+
+				</div>																				
+			</form>			
+		</div>		
 
 		<div class="main_loader" id="main_loader">
 			<div class="loader"></div>

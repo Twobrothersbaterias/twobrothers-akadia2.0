@@ -4,7 +4,6 @@ import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author Gabriel Lagrota

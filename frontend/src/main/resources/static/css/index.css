@@ -1,0 +1,55 @@
+.container_blocos {
+	display: flex;
+	justify-content: left;
+	float: left;
+}
+
+.bloco_pai {
+	display: flex;
+	justify-content: center;
+}
+
+.bloco_filho {
+	display: flex;
+	justify-content: center;	
+	padding: 15px;
+	border: 1px solid #7da181;
+	color: #7da181;
+	margin: 10px 0;
+	float: left;
+}
+
+.hr_bloco {
+	margin: 0;
+	width: 100%;
+	background: #7DA181;
+}
+
+.titulo {
+	font-size: 1rem;
+	text-align: center;
+	margin-bottom: 8px;
+}
+
+.texto {
+	font-size: 0.80rem;
+	color: #C3C8C8;
+	text-align: justify;
+	margin-top: 10px;
+	padding: 5px 0;
+}
+
+.botao {
+	margin-top: 10px;
+	border: none;
+	padding: 5px 0;
+	background: #7DA181;
+}
+
+.label_cor {
+	color: transparent;
+}
+
+#input_cor_conteudo, #input_cor_titulo {
+	padding: 0;
+}
