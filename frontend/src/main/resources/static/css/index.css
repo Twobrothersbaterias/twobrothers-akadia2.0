@@ -12,12 +12,26 @@
 .bloco_filho {
 	display: flex;
 	justify-content: center;	
-	padding: 15px;
-	border: 1px solid #7da181;
+	padding: 12px 3px;
+	padding-bottom: 25px;
+	border-radius: 15px 0 15px 0;
+	box-shadow: 2px 2px 15px #121212;
 	color: #7da181;
-	margin: 10px 0;
+	margin: 15px 0;
+	background: #C3C8C8;
 	float: left;
 }
+
+.cancel_container, .cancel_container_pai {
+	display: flex;
+	justify-content: right;
+}
+
+.container_conteudo {
+	padding: 0px 35px;
+	padding-bottom: 0;
+}
+
 
 .hr_bloco {
 	margin: 0;
@@ -29,21 +43,31 @@
 	font-size: 1rem;
 	text-align: center;
 	margin-bottom: 8px;
+	color: #2f3d61;
+	font-weight: 600;
 }
 
 .texto {
 	font-size: 0.80rem;
-	color: #C3C8C8;
+	color: #303030;
 	text-align: justify;
 	margin-top: 10px;
 	padding: 5px 0;
 }
 
 .botao {
+	margin: 0 auto;
 	margin-top: 10px;
 	border: none;
 	padding: 5px 0;
-	background: #7DA181;
+	background: #2f3d61;
+	color: #C3C8C8;
+	font-size: 0.85rem;	
+	box-shadow: 1px 1px 3px #121212;
+}
+
+.botao_excluir {
+	background: #b24a47;
 }
 
 .label_cor {
@@ -56,4 +80,86 @@
 
 #label_subCategoria {
 	color: #4444;
+}
+
+#caracteres {
+	font-size: 0.70rem;
+	text-align: right;
+}
+
+
+.bloco_filho_categoria {
+	border-radius: 0;	
+	padding-bottom: 15px;
+}
+
+.container_conteudo_categoria {
+	padding-top: 0;
+}
+
+.subtitulo {
+	color: #C3C8C8;
+	padding: 0 25px;
+	font-size: 1.3rem;
+}
+
+#hr_divisa {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+.container_vazio {
+	margin-top: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+.subtitulo_vazio {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 1.5rem;
+	color: #7da181;
+}
+
+.texto_vazio {
+	margin: 15px 0;
+	font-size: 1rem;
+	text-align: center;
+	color: #C3C8C8;
+}
+
+.botao_vazio {
+	margin: 0px;
+	padding: 8px 0;
+	background: #7da181;
+	color: #303030;
+	box-shadow: 0px 0px 15px #121212;
+}
+
+.titulo_subcategoria {
+	text-align: center;
+	color: #2f3d61;
+}
+
+.bloco_filho_subcategoria {
+	color: #2f3d61;
+	font-weight: 600;
+	text-align: center;
+}
+
+.bloco_filho_subcategoria {
+	border-radius: 0;	
+	text-align: center;	
+}
+
+.container_conteudo_subcategoria {
+	padding-top: 0;
+	text-align: center;	
+}
+
+.botao_excluir {
+	border: none;
+	background: transparent;
+	margin: 0;
+	padding: 0;
 }

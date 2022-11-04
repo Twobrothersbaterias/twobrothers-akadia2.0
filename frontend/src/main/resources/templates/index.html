@@ -311,142 +311,133 @@
 							</div>							
 					</div>
 
-					<hr id="hr_tabela">						
+					<hr id="hr_tabela">	
 
-					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos">
+					<!-- SEM CATEGORIAS -->
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_vazio" hidden>
 
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_vazio">
+							Não há nenhuma categoria cadastrada por aqui
+						</h1>
 
-							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+						<p class="texto_vazio col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Atualmente não há nenhuma categoria salva por aqui. Para criar uma nova postagem clique no botão abaixo
+						</p>
+
+						<button onclick="abrirNovoItem()" class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 botao botao_vazio">
+							Criar nova postagem
+						</button>	
+
+					</div>	
+
+					<!-- CATEGORIAS -->
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" >
+
+						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_categoria">
+							Categorias
+						</h1>						
+
+						<div th:each="categoria: ${categorias}" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 bloco_pai bloco_pai_categoria">
+
+							<div 
+							th:data-id="${categoria.id}"
+							th:data-nome="${categoria.nome}"
+							onmouseover="categoriaMouseOver(this.getAttribute('data-id'))"
+							onmouseleave="categoriaMouseLeave(this.getAttribute('data-id'))"
+							onClick="categoriaClick(this.getAttribute('data-id'))"
+							class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho bloco_filho_categoria" th:id="'categoria_filho_' + ${categoria.id}">
+
+								<div class="cancel_container_pai cancel_container_pai_categoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="cancel_container_pai cancel_container_categoria col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+										<form th:action="@{/categoria/deleta-{id}(id = ${categoria.id})}" method="POST" class="cancel_container_pai cancel_container_subcategoria col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+											<button type="submit" class="botao_excluir col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
+												<img th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+											</button>
+										</form>
+									</div>	
+								</div>
 								
-								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
-									Lançamento de vendas
-								</h1>	
+								<div class="container_conteudo container_conteudo_categoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<h1 th:text="${categoria.nome}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo" th:id="'categoria_titulo_' + ${categoria.id}">
+										Lançamento de vendas
+									</h1>
 
-								<hr class="hr_bloco">
-
-								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
-								</p>
-
-								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
-									Acessar
-								</button>	
+								</div>
 
 							</div>	
-
-						</div>
-
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
-
-							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
-								
-								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
-									Lançamento de vendas
-								</h1>	
-
-								<hr class="hr_bloco">
-
-								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
-								</p>
-
-								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
-									Acessar
-								</button>	
-
-							</div>	
-
-						</div>
-
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
-
-							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
-								
-								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
-									Lançamento de vendas
-								</h1>	
-
-								<hr class="hr_bloco">
-
-								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
-								</p>
-
-								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
-									Acessar
-								</button>	
-
-							</div>	
-
-						</div>
-
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
-
-							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
-								
-								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
-									Lançamento de vendas
-								</h1>	
-
-								<hr class="hr_bloco">
-
-								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
-								</p>
-
-								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
-									Acessar
-								</button>	
-
-							</div>	
-
 						</div>	
+					</div>
 
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+					<!-- SUBCATEGORIAS -->
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" id="container_subcategorias" hidden>
 
-							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+						<hr class="hr_novo" id="hr_divisa">						
+
+						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_categoria">
+							Subcategorias
+						</h1>
+
+						<div th:each="subcategoria: ${subcategorias}" 							th:data-nomeCategoria="${subcategoria.categoria.nome}" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 bloco_pai bloco_pai_subcategoria">
+
+							<div 
+							th:data-id="${subcategoria.id}"
+							th:data-nome="${subcategoria.nome}"
+							onmouseover="subCategoriaMouseOver(this.getAttribute('data-id'))"
+							onmouseleave="subCategoriaMouseLeave(this.getAttribute('data-id'))"
+							onClick="subCategoriaClick(this.getAttribute('data-id'))"	
+							class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho bloco_filho_subcategoria" th:id="'subcategoria_filho_' + ${subcategoria.id}">
+
+								<div class="cancel_container_pai cancel_container_pai_subcategoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<form th:action="@{/subcategoria/deleta-{id}(id = ${subcategoria.id})}" method="POST" class="cancel_container_pai cancel_container_subcategoria col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+										<button type="submit" class="botao_excluir col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
+											<img th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+										</button>
+									</form>	
+								</div>
 								
-								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
-									Lançamento de vendas
-								</h1>	
+								<div class="container_conteudo container_conteudo_subcategoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<h1 th:text="${subcategoria.nome}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo_subcategoria" th:id="'subcategoria_titulo_' + ${subcategoria.id}">
+										Lançamento de vendas
+									</h1>
 
-								<hr class="hr_bloco">
-
-								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
-								</p>
-
-								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
-									Acessar
-								</button>	
+								</div>
 
 							</div>	
-
 						</div>
+					</div>					
 
-						<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+					<!-- POSTAGENS -->
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" hidden>
+
+						<div th:each="postagem: ${postagens}" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
 
 							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+
+								<div class="cancel_container_pai col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="cancel_container col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+										<img th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									</div>	
+								</div>
 								
-								<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
-									Lançamento de vendas
-								</h1>	
+								<div class="container_conteudo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+										Lançamento de vendas
+									</h1>
 
-								<hr class="hr_bloco">
+									<hr class="hr_bloco">
 
-								<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-									Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
-								</p>
+									<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
+										Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+									</p>							
 
-								<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
-									Acessar
-								</button>	
+									<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+										Acessar
+									</button>	
+								</div>
 
 							</div>	
 
-						</div>																													
-
+						</div>										
 					</div>	
 
 				</div>
@@ -796,9 +787,11 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
 							Conteúdo
 						</label>
-						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" oninput="validacaoDoObjetoPostagem('novo')" id="input_conteudo">
+						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" oninput="escreveConteudo('novo')" id="input_conteudo">
 						</textarea>
 					</div>
+
+					<p id="caracteres">500/500</p>
 				
 				</div>
 			
