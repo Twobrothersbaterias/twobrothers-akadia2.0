@@ -5,16 +5,22 @@ import br.com.twobrothers.frontend.models.entities.postagem.CategoriaEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.PostagemEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.SubCategoriaEntity;
 import br.com.twobrothers.frontend.repositories.CategoriaRepository;
+import br.com.twobrothers.frontend.repositories.PostagemRepository;
 import br.com.twobrothers.frontend.repositories.SubCategoriaRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
 
 @Slf4j
 @Service
@@ -28,6 +34,9 @@ public class PostagemCrudService {
 
     @Autowired
     SubCategoriaRepository subCategoriaRepository;
+
+    @Autowired
+    PostagemRepository postagemRepository;
 
     private static final String CRIACAO_POSTAGEM = "[PROGRESS] Iniciando processo de criação do objeto postagem...";
     private static final String ACLOPANDO_POSTAGEM_SUBCATEGORIA = "[PROGRESS] Acoplando objeto postagem no objeto subcategoria...";
@@ -68,6 +77,7 @@ public class PostagemCrudService {
                                 .conteudo(postagem.getConteudo())
                                 .titulo(postagem.getTitulo())
                                 .categoria(null)
+                                .anexo(postagem.getAnexo())
                                 .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                                 .dataCadastro(LocalDate.now().toString())
                                 .build();
@@ -105,6 +115,7 @@ public class PostagemCrudService {
                                 .conteudo(postagem.getConteudo())
                                 .titulo(postagem.getTitulo())
                                 .categoria(null)
+                                .anexo(postagem.getAnexo())
                                 .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                                 .dataCadastro(LocalDate.now().toString())
                                 .build();
@@ -158,6 +169,7 @@ public class PostagemCrudService {
                             .conteudo(postagem.getConteudo())
                             .titulo(postagem.getTitulo())
                             .categoria(null)
+                            .anexo(postagem.getAnexo())
                             .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                             .dataCadastro(LocalDate.now().toString())
                             .build();
@@ -173,6 +185,97 @@ public class PostagemCrudService {
             categoriaRepository.save(categoria);
         }
 
+    }
+
+    public List<PostagemEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por range de data...");
+        return postagemRepository.buscaPorRangeDeDataCadastroPaginado(pageable, dataInicio, dataFim);
+    }
+
+    public List<PostagemEntity> buscaPorPeriodo(Pageable pageable, Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return postagemRepository.buscaPorPeriodoPaginado(pageable, dataInicio.toString(), dataFim.toString());
+    }
+
+    public List<PostagemEntity> buscaHoje(Pageable pageable) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todos os postagems cadastrados hoje...");
+        LocalDate hoje = LocalDate.now();
+        return postagemRepository.buscaHojePaginado(pageable, hoje.toString());
+    }
+
+    public List<PostagemEntity> buscaPorTituloPaginado(Pageable pageable, String titulo) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por titulo...");
+        return postagemRepository.buscaPorTituloPaginado(pageable, titulo);
+    }
+
+    public List<PostagemEntity> buscaPorCategoria(Pageable pageable, String categoria) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por categoria...");
+        return postagemRepository.buscaPorCategoriaPaginado(pageable, categoria);
+    }
+
+    public List<PostagemEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por range de data...");
+        List<PostagemEntity> postagens = postagemRepository.buscaPorRangeDeDataCadastroSemPaginacao(dataInicio, dataFim);
+        System.err.println(postagens.size());
+        return postagemRepository.buscaPorRangeDeDataCadastroSemPaginacao(dataInicio, dataFim);
+    }
+
+    public List<PostagemEntity> buscaPorPeriodoSemPaginacao(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return postagemRepository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
+    }
+
+    public List<PostagemEntity> buscaHojeSemPaginacao() {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de todos os postagems cadastrados hoje...");
+        LocalDate hoje = LocalDate.now();
+        return postagemRepository.buscaHojeSemPaginacao(hoje.toString());
+    }
+
+    public List<PostagemEntity> buscaPorTituloSemPaginacao(String titulo) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por titulo...");
+        return postagemRepository.buscaPorTituloSemPaginacao(titulo);
+    }
+
+    public List<PostagemEntity> buscaPorCategoriaSemPaginacao(String categoria) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de postagem por categoria...");
+        return postagemRepository.buscaPorCategoriaSemPaginacao(categoria);
+    }
+
+    public void deletaPorId(Long id) {
+        if (postagemRepository.findById(id).isPresent()) {
+
+            PostagemEntity postagem = postagemRepository.findById(id).get();
+            CategoriaEntity categoria = postagem.getCategoria();
+            SubCategoriaEntity subCategoria = postagem.getSubCategoria();
+            categoria.removePostagem(postagem);
+            subCategoria.removePostagem(postagem);
+
+            if (subCategoria.getPostagens().isEmpty()) {
+                categoria.removeSubCategoria(subCategoria);
+                categoriaRepository.save(categoria);
+                subCategoriaRepository.deleteById(subCategoria.getId());
+            }
+            else {
+                subCategoriaRepository.save(subCategoria);
+            }
+
+            categoriaRepository.save(categoria);
+            postagemRepository.deleteById(id);
+        }
     }
 
     public void atualizaPorId(PostagemDTO postagem) {

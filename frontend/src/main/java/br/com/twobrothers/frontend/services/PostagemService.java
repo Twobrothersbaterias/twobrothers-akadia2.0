@@ -1,26 +1,21 @@
 package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
-import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
-import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
+import br.com.twobrothers.frontend.models.dto.filters.FiltroPostagemDTO;
 import br.com.twobrothers.frontend.models.dto.postagem.PostagemDTO;
-import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.PostagemEntity;
-import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
-import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
-import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.PostagemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.StringConstants.URI_PRECO;
+import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
 
 @Slf4j
 @Service
@@ -53,43 +48,36 @@ public class PostagemService {
         }
     }
 
-//    public List<AbastecimentoEntity> filtroAbastecimentos(Pageable pageable,
-//                                                          String dataInicio,
-//                                                          String dataFim,
-//                                                          Integer mes,
-//                                                          Integer ano,
-//                                                          String fornecedorId,
-//                                                          String fornecedor,
-//                                                          String produto,
-//                                                          String meio) throws InvalidRequestException {
-//        if (dataInicio != null && dataFim != null)
-//            return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
-//        else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, mes, ano);
-//        else if(fornecedorId != null) return crudService.buscaPorFornecedorIdPaginado(pageable, fornecedorId);
-//        else if (fornecedor != null) return crudService.buscaPorFornecedorPaginado(pageable, fornecedor);
-//        else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
-//        else if (meio != null) return crudService.buscaPorFormaDePagamentoPaginado(pageable, meio);
-//        else return crudService.buscaHojePaginado(pageable);
-//    }
-//
-//    public List<AbastecimentoEntity> filtroAbastecimentosSemPaginacao(
-//            String dataInicio,
-//            String dataFim,
-//            Integer mes,
-//            Integer ano,
-//            String fornecedorId,
-//            String fornecedor,
-//            String produto,
-//            String meio) throws InvalidRequestException {
-//        if (dataInicio != null && dataFim != null)
-//            return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
-//        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
-//        else if (fornecedorId != null) return crudService.buscaPorFornecedorIdSemPaginacao(fornecedorId);
-//        else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
-//        else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
-//        else if (meio != null) return crudService.buscaPorFormaDePagamentoSemPaginacao(meio);
-//        else return crudService.buscaHojeSemPaginacao();
-//    }
+    public List<PostagemEntity> filtroPostagens(
+            Pageable pageable,
+            String titulo,
+            String dataInicio,
+            String dataFim,
+            Integer mes,
+            Integer ano,
+            String categoria) throws InvalidRequestException {
+        if (titulo != null) return crudService.buscaPorTituloPaginado(pageable, titulo);
+        else if (dataInicio != null && dataFim != null)
+            return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (categoria != null) return crudService.buscaPorCategoria(pageable, categoria);
+        else return crudService.buscaHoje(pageable);
+    }
+
+    public List<PostagemEntity> filtroPostagensSemPaginacao(
+            String titulo,
+            String dataInicio,
+            String dataFim,
+            Integer mes,
+            Integer ano,
+            String categoria) throws InvalidRequestException {
+        if (titulo != null) return crudService.buscaPorTituloSemPaginacao(titulo);
+        else if (dataInicio != null && dataFim != null)
+            return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (categoria != null) return crudService.buscaPorCategoriaSemPaginacao(categoria);
+        else return crudService.buscaHojeSemPaginacao();
+    }
 
     public List<Integer> calculaQuantidadePaginas(List<PostagemEntity> postagens, Pageable pageable) {
         List<Integer> paginas = new ArrayList<>();
@@ -109,35 +97,35 @@ public class PostagemService {
         return paginas;
     }
 
-    public String constroiUriFiltro(FiltroAbastecimentoDTO filtro) {
+    public String constroiUriFiltro(FiltroPostagemDTO filtroPostagemDTO) {
 
-        URI_PRECO = "compras?";
+        URI_POSTAGEM = "?";
 
-        if (filtro.getDataInicio() != null && !filtro.getDataInicio().equals("")) {
-            URI_PRECO += "inicio=" + filtro.getDataInicio();
+        if (filtroPostagemDTO.getTitulo() != null && !filtroPostagemDTO.getTitulo().equals("")) {
+            URI_POSTAGEM += "titulo=" + filtroPostagemDTO.getTitulo();
         }
 
-        if (filtro.getDataFim() != null && !filtro.getDataFim().equals("")) {
-            URI_PRECO += "&fim=" + filtro.getDataFim();
+        if (filtroPostagemDTO.getDataInicio() != null && !filtroPostagemDTO.getDataInicio().equals("")) {
+            URI_POSTAGEM += "inicio=" + filtroPostagemDTO.getDataInicio();
         }
 
-        if (filtro.getPeriodoMes() != null && !filtro.getPeriodoMes().equals("")) {
-            URI_PRECO += "mes=" + filtro.getPeriodoMes();
+        if (filtroPostagemDTO.getDataFim() != null && !filtroPostagemDTO.getDataFim().equals("")) {
+            URI_POSTAGEM += "&fim=" + filtroPostagemDTO.getDataFim();
         }
 
-        if (filtro.getPeriodoAno() != null && !filtro.getPeriodoAno().equals("")) {
-            URI_PRECO += "&ano=" + filtro.getPeriodoAno();
+        if (filtroPostagemDTO.getPeriodoMes() != null && !filtroPostagemDTO.getPeriodoMes().equals("")) {
+            URI_POSTAGEM += "mes=" + filtroPostagemDTO.getPeriodoMes();
         }
 
-        if (filtro.getProduto() != null && !filtro.getProduto().equals("")) {
-            URI_PRECO += "produto=" + filtro.getProduto();
+        if (filtroPostagemDTO.getPeriodoAno() != null && !filtroPostagemDTO.getPeriodoAno().equals("")) {
+            URI_POSTAGEM += "&ano=" + filtroPostagemDTO.getPeriodoAno();
         }
 
-        if (filtro.getFornecedor() != null && !filtro.getFornecedor().equals("")) {
-            URI_PRECO += "fornecedor=" + filtro.getFornecedor();
+        if (filtroPostagemDTO.getCategoria() != null && !filtroPostagemDTO.getCategoria().equals("")) {
+            URI_POSTAGEM += "categoria=" + filtroPostagemDTO.getCategoria();
         }
 
-        return URI_PRECO;
+        return URI_POSTAGEM;
     }
 
 }

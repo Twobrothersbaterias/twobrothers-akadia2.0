@@ -30,7 +30,7 @@
 
 </head>
 
-<body id="body">
+<body id="body" th:data-privilegio=${privilegio}>
 
 	<div class="row main-row" id="main_row">
 
@@ -299,22 +299,29 @@
 							</div>		
 										
 							<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
-								Tela inicial
+								Postagens de hoje
 							</h1>
 
 							<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
 
 							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-								<img onclick="abrirNovoItem()" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}"/>
+								<img th:if="${privilegio} != 'Vendedor'" onclick="abrirNovoItem()" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}"/>
+
+								<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/}">
+									<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+								</a>
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>								
 
 							</div>							
 					</div>
 
 					<hr id="hr_tabela">	
 
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_all">					
+					</div>
 					<!-- SEM CATEGORIAS -->
-					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_vazio" hidden>
+					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_vazio" hidden>
 
 						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_vazio">
 							Não há nenhuma categoria cadastrada por aqui
@@ -328,10 +335,10 @@
 							Criar nova postagem
 						</button>	
 
-					</div>	
+					</div>	-->
 
 					<!-- CATEGORIAS -->
-					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" >
+					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" >
 
 						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_categoria">
 							Categorias
@@ -366,10 +373,10 @@
 
 							</div>	
 						</div>	
-					</div>
+					</div>-->
 
 					<!-- SUBCATEGORIAS -->
-					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" id="container_subcategorias" hidden>
+					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" id="container_subcategorias" hidden>
 
 						<hr class="hr_novo" id="hr_divisa">						
 
@@ -404,30 +411,66 @@
 
 							</div>	
 						</div>
-					</div>					
+					</div>	-->
+								
 
 					<!-- POSTAGENS -->
-					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" hidden>
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos container_postagens" id="container_postagens">					
 
-						<div th:each="postagem: ${postagens}" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai">
+						<div 
+						th:each="postagem: ${postagens}"
+						th:data-usuarioResponsavel="${postagem.usuarioResponsavel.nome}"
+						th:data-dataCadastro="${postagem.dataCadastro}"
+						th:data-corTitulo="${postagem.corTitulo}"
+						th:data-corConteudo="${postagem.corConteudo}"
+						th:data-fonteTitulo="${postagem.fonteTitulo.fontFamily}"
+						th:data-fonteConteudo="${postagem.fonteConteudo.fontFamily}"
+						class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai bloco_pai_postagem">
 
-							<div class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho">
+							<div 
+							th:data-id="${postagem.id}"
+							th:data-titulo="${postagem.titulo}"
+							th:data-conteudo="${postagem.conteudo}"
+							th:data-subcategoria="${postagem.subCategoria.nome}"
+							class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho"
+							th:id="'postagem_filho_' + ${postagem.id}">
 
-								<div class="cancel_container_pai col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<div 
+								class="cancel_container_pai col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 									<div class="cancel_container col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
-										<img th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12"/>
+										<img 
+										th:data-removeId="${postagem.id}" th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12 cancel_btn" onclick="removePostagem(this.getAttribute('data-removeId'))"/>
 									</div>	
 								</div>
 								
-								<div class="container_conteudo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo">
+								<div class="container_conteudo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">						
+
+									<h1 
+ 									th:text="${postagem.titulo}"									
+									th:id="'postagem_titulo_' + ${postagem.id}"
+									class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo titulo_postagem">
 										Lançamento de vendas
 									</h1>
 
+									<h2 
+									th:text="${postagem.usuarioResponsavel.nome} + ' - ' + ${postagem.dataCadastro}"
+									class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 info_responsavel">
+										Guilherme Dimopoulos - 06/11/2022
+									</h2>												
+
 									<hr class="hr_bloco">
 
-									<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto">
-										Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possíveis.
+									<h3 
+									th:text="'Categoria: ' + ${postagem.categoria.nome} + ' | Subcategoria: ' + ${postagem.subCategoria.nome}"
+									class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 info_categoria">
+										Categoria: Dúvidas | Subcategoria: Vendas
+									</h3>									
+
+									<p 
+ 									th:text="${postagem.conteudo}"									
+									th:id="'postagem_conteudo_' + ${postagem.id}"
+									class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 texto texto_postagem">
+										Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possív...
 									</p>							
 
 									<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
@@ -436,15 +479,170 @@
 								</div>
 
 							</div>	
-
-						</div>										
-					</div>	
+						</div>	
+							
+					</div>
 
 				</div>
 
 			</div>
 
 		</main>	
+
+		<!-------------- FILTROS ------------>
+		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_filtro" id="filtro_titulo">
+					Filtros de busca
+				</h1>
+
+				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
+
+				</div>	
+
+			</div>						
+
+			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">		
+
+			<div class="filtro_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_primeira_row">							
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12" id="filtro_first_block">
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Tipo
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_input" onchange="filtroChange()">
+						<option value="TITULO" id="tipo_filtro_option_titulo">Por título</option>
+						<option value="DATA" id="tipo_filtro_option_data">Data a data</option>
+						<option value="PERIODO" id="tipo_filtro_option_periodo">Por período</option>
+						<option value="CATEGORIA" id="tipo_filtro_option_categoria">Por categoria</option>
+					</select>
+				</div>		
+
+				<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"  id="filtro_titulo_block">
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Título
+					</label>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="15" id="titulo_filtro_input"/>
+				</div>
+
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Data início
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
+				</div>	
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Data fim
+					</label>
+					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_fim_filtro_input"/>
+				</div>									
+
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Mês
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mes_filtro_input">
+						<option value="01">Janeiro</option>
+						<option value="02">Fevereiro</option>
+						<option value="03">Março</option>
+						<option value="04">Abril</option>
+						<option value="05">Maio</option>
+						<option value="06">Junho</option>
+						<option value="07">Julho</option>
+						<option value="08">Agosto</option>
+						<option value="09">Setembro</option>
+						<option value="10">Outubro</option>
+						<option value="11">Novembro</option>
+						<option value="12">Dezembro</option>
+					</select>
+				</div>
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_ano_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Ano
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="ano_filtro_input">
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+					</select>
+				</div>		
+
+
+				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_categoria_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Categoria
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="categoria_filtro_input">
+						<option
+						th:each="categoria: ${categorias}"
+						th:text="${categoria.nome}"
+						th:value="${categoria.nome}">...</option>
+					</select>	
+						
+				</div>																		
+
+				<div class="filtro_block add_filtro_block col-xl-2 col-lg-2 col-md-3 col-sm-12 col-12"  id="filtro_second_block">			
+					<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
+						Adicionar
+					</button>				
+				</div>																
+			</div>		
+
+			<hr>
+
+			<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
+
+				<div class="filtro_tag col-xl-4 col-lg-3 col-md-4 col-sm-5 col-9" id="filtro_titulo_tag" onclick="removerFiltro('titulo')" onmouseover="efeitoRemoverFiltro('titulo')" onmouseleave="efeitoRemoverFiltroLeave('titulo')" hidden>
+					Título
+				</div>
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+					Data a data
+				</div>
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+					Periodo
+				</div>											
+
+				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_categoria_tag" onclick="removerFiltro('categoria')" onmouseover="efeitoRemoverFiltro('categoria')" onmouseleave="efeitoRemoverFiltroLeave('categoria')"hidden>
+					Categoria
+				</div>														
+
+				<form th:action="@{/filtro}" method="POST" th:object="${filtroPostagem}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
+
+					<input type="text" name="titulo" id="input_titulo_backend" hidden/>
+					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
+					<input type="text" name="dataFim" id="input_data_fim_backend" hidden/>
+					<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
+					<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
+					<input type="text" name="categoria" id="input_categoria_backend" hidden/>
+
+					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
+						<button type="submit" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Buscar
+						</button>				
+					</div>		
+
+				</form>	
+
+			</div>				
+		</div>			
 
 		<!-------------- EDITA_ITEM ------------>
 		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_edita" id="conteudo_container_edita" hidden>
@@ -502,9 +700,9 @@
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_cliente_input">
-							Telefone
+							Categoria
 						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="telefone" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="categoria" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
 					</div>
 				
 				</div>
@@ -776,12 +974,28 @@
 						</datalist>
 					</div>														
 
-					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+					<div class="novo_item_block col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 							Título
 						</label>
 						<input autocomplete="off" id="input_titulo" name="titulo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" oninput="validacaoDoObjetoPostagem('novo')" required/>
-					</div>						
+					</div>	
+
+					<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor">
+							.
+						</label>
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="button_arquivo" for="input_arquivo">
+							Arquivo
+						</label>						
+					</div>										
+
+					<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block" hidden>
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_arquivo" for="telefone_cliente_input">
+							Arquivo
+						</label>
+						<input name="anexo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="file" oninput="validacaoDoObjetoPostagem('novo')" id="input_arquivo" text="AAA"/>
+					</div>							
 
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
@@ -791,7 +1005,9 @@
 						</textarea>
 					</div>
 
-					<p id="caracteres">500/500</p>
+				
+
+					<p id="caracteres">1500/1500</p>
 				
 				</div>
 			

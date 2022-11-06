@@ -3,7 +3,7 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
-//ajustaTabela();
+ajustaCaracteresBloco();
 //buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
@@ -22,10 +22,12 @@ function bind(keyCode) {
 
     if(keyCode == '27') {
         fechaNovoItem();
+        fecharFiltro();
         fecharEditaItem();
     }
 
     if (document.getElementById('conteudo_container_edita').hidden==true
+    	&& document.getElementById('conteudo_container_filtro').hidden==true
     	&& document.getElementById('conteudo_container_novo').hidden==true) {
 
 	    if (keyCode == '49') {
@@ -706,8 +708,8 @@ function filtroChange() {
 
 	var filtroTipo = document.getElementById('filtro_input');
 
-	var descricaoBlock = document.getElementById('filtro_descricao_block');
-	var descricaoInput = document.getElementById('descricao_filtro_input');
+	var tituloBlock = document.getElementById('filtro_titulo_block');
+	var tituloInput = document.getElementById('titulo_filtro_input');
 
 	var dataInicio = document.getElementById('filtro_data_inicio_block');
 	var dataInicioInput = document.getElementById('data_inicio_filtro_input');
@@ -721,11 +723,8 @@ function filtroChange() {
 	var anoBlock = document.getElementById('filtro_ano_block');
 	var anoInput = document.getElementById('ano_filtro_input');
 
-	var telefoneBlock = document.getElementById('filtro_telefone_block');
-	var telefoneInput = document.getElementById('telefone_filtro_input');
-
-	var cpfBlock = document.getElementById('filtro_cpf_block');
-	var cpfInput = document.getElementById('cpf_filtro_input');	
+	var categoriaBlock = document.getElementById('filtro_categoria_block');
+	var categoriaInput = document.getElementById('categoria_filtro_input');
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -742,9 +741,9 @@ function filtroChange() {
 
 	var data = (ano + '-' + mes + '-' + dia);
 
-	if (filtroTipo.value == 'DESCRICAO') {
+	if (filtroTipo.value == 'TITULO') {
 
-		descricaoBlock.hidden=false;
+		tituloBlock.hidden=false;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=true;
@@ -758,17 +757,14 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
+		categoriaInput.value="";
+		categoriaBlock.hidden=true;
 
 	}
 	else if (filtroTipo.value == 'DATA') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		tituloInput.value="";
+		tituloBlock.hidden=true;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=false;
@@ -782,16 +778,14 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
+		categoriaInput.value="";
+		categoriaBlock.hidden=true;
 
-		cpfInput.value="";
-		cpfBlock.hidden=true;
 	}
 	else if (filtroTipo.value == 'PERIODO') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		tituloInput.value="";
+		tituloBlock.hidden=true;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=true;
@@ -805,17 +799,14 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=false;
 
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
+		categoriaInput.value="";
+		categoriaBlock.hidden=true;
 		
 	}
-	else if (filtroTipo.value == 'TELEFONE') {
+	else if (filtroTipo.value == 'CATEGORIA') {
 
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
+		tituloInput.value="";
+		tituloBlock.hidden=true;
 
 		dataInicioInput.value=data;
 		dataInicio.hidden=true;
@@ -829,36 +820,10 @@ function filtroChange() {
 		anoInput.value=ano;
 		anoBlock.hidden=true;
 
-		telefoneBlock.hidden=false;
-
-		cpfInput.value="";
-		cpfBlock.hidden=true;
+		categoriaBlock.hidden=false;
 		
 	}
 
-	else if (filtroTipo.value == 'CPF') {
-
-		descricaoInput.value="";
-		descricaoBlock.hidden=true;
-
-		dataInicioInput.value=data;
-		dataInicio.hidden=true;
-
-		dataFimInput.value=data;
-		dataFim.hidden=true;
-
-		mesInput.value=mes;
-		mesBlock.hidden=true;
-
-		anoInput.value=ano;
-		anoBlock.hidden=true;
-
-		telefoneInput.value="";
-		telefoneBlock.hidden=true;
-
-		cpfBlock.hidden=false;
-		
-	}	
 }
 
 function reloadFiltro() {
@@ -881,17 +846,17 @@ function reloadFiltro() {
 	document.getElementById('filtro_input').disabled=false;
 	document.getElementById('filtro_input').style.border="1px solid #949393";
 	document.getElementById('filtro_input').style.pointerEvents="auto";
-	document.getElementById('filtro_input').value="DESCRICAO";
+	document.getElementById('filtro_input').value="TITULO";
 	document.getElementById('filtro_bt').hidden=false;
 	document.getElementById('filtro_bt').disabled=false;
 	document.getElementById('filtro_bt').style.pointerEvents="auto";
 	document.getElementById('filtro_buscar_bt').hidden=true;
 
-	document.getElementById('tipo_filtro_option_descricao').hidden=false;
-	document.getElementById('filtro_descricao_block').hidden=false;	
-	document.getElementById('filtro_descricao_tag').hidden=true;
-	document.getElementById('descricao_filtro_input').value="";
-	document.getElementById('input_descricao_backend').value="";
+	document.getElementById('tipo_filtro_option_titulo').hidden=false;
+	document.getElementById('filtro_titulo_block').hidden=false;	
+	document.getElementById('filtro_titulo_tag').hidden=true;
+	document.getElementById('titulo_filtro_input').value="";
+	document.getElementById('input_titulo_backend').value="";
 
 	document.getElementById('tipo_filtro_option_data').hidden=false;
 	document.getElementById('filtro_data_inicio_block').hidden=true;
@@ -911,17 +876,12 @@ function reloadFiltro() {
 	document.getElementById('input_periodo_ano_backend').value="";	
 	document.getElementById('filtro_periodo_tag').hidden=true;
 
-	document.getElementById('tipo_filtro_option_telefone').hidden=false;
-	document.getElementById('filtro_telefone_block').hidden=true;
-	document.getElementById('filtro_telefone_tag').hidden=true;
-	document.getElementById('telefone_filtro_input').value="";
-	document.getElementById('input_telefone_backend').value="";	
+	document.getElementById('tipo_filtro_option_categoria').hidden=false;
+	document.getElementById('filtro_categoria_block').hidden=true;
+	document.getElementById('filtro_categoria_tag').hidden=true;
+	document.getElementById('categoria_filtro_input').value="";
+	document.getElementById('input_categoria_backend').value="";	
 
-	document.getElementById('tipo_filtro_option_cpf').hidden=false;
-	document.getElementById('filtro_cpf_block').hidden=true;
-	document.getElementById('filtro_cpf_tag').hidden=true;	
-	document.getElementById('cpf_filtro_input').value="";
-	document.getElementById('input_cpf_backend').value="";	
 }
 
 function addFiltro() {
@@ -930,9 +890,9 @@ function addFiltro() {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optiontitulo = document.getElementById('tipo_filtro_option_titulo');
+	var tituloBlock = document.getElementById('filtro_titulo_block');	
+	var tituloTag = document.getElementById('filtro_titulo_tag');
 
 	var optionData = document.getElementById('tipo_filtro_option_data');
 	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
@@ -944,38 +904,32 @@ function addFiltro() {
 	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
 	var periodoTag = document.getElementById('filtro_periodo_tag');		
 
-	var optionTelefone = document.getElementById('tipo_filtro_option_telefone');
-	var telefoneBlock = document.getElementById('filtro_telefone_block');	
-	var telefoneTag = document.getElementById('filtro_telefone_tag');	
+	var optioncategoria = document.getElementById('tipo_filtro_option_categoria');
+	var categoriaBlock = document.getElementById('filtro_categoria_block');	
+	var categoriaTag = document.getElementById('filtro_categoria_tag');	
 
-	var optionCpf = document.getElementById('tipo_filtro_option_cpf');
-	var cpfBlock = document.getElementById('filtro_cpf_block');	
-	var cpfTag = document.getElementById('filtro_cpf_tag');	
-
-	var inputDescricaoFiltro = document.getElementById('descricao_filtro_input');
+	var inputtituloFiltro = document.getElementById('titulo_filtro_input');
 	var inputDataInicioFiltro = document.getElementById('data_inicio_filtro_input');
 	var inputDataFimFiltro = document.getElementById('data_fim_filtro_input');
 	var inputMesFiltro = document.getElementById('mes_filtro_input');
 	var inputAnoFiltro = document.getElementById('ano_filtro_input');
-	var inputTelefoneFiltro = document.getElementById('telefone_filtro_input');
-	var inputCpfFiltro = document.getElementById('cpf_filtro_input');
+	var inputcategoriaFiltro = document.getElementById('categoria_filtro_input');
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputtituloBackend = document.getElementById('input_titulo_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTelefoneBackend = document.getElementById('input_telefone_backend');
-	var inputCpfBackend = document.getElementById('input_cpf_backend');
+	var inputcategoriaBackend = document.getElementById('input_categoria_backend');
 
-	if (filtroTipo.value == 'DESCRICAO') {
-		if (inputDescricaoFiltro.value != "") {
-			optionDescricao.hidden=true;
-			descricaoBlock.hidden=true;
-			descricaoTag.hidden=false;
-			descricaoTag.innerText = "Nome: " + inputDescricaoFiltro.value;
+	if (filtroTipo.value == 'TITULO') {
+		if (inputtituloFiltro.value != "") {
+			optiontitulo.hidden=true;
+			tituloBlock.hidden=true;
+			tituloTag.hidden=false;
+			tituloTag.innerText = "Título: " + inputtituloFiltro.value;
 			filtroTipo.value="";
-			inputDescricaoBackend.value=inputDescricaoFiltro.value;
+			inputtituloBackend.value=inputtituloFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -1033,16 +987,16 @@ function addFiltro() {
 		filtroBt.disabled=true;
 		filtroBt.style.pointerEvents="none";		
 	}
-	else if (filtroTipo.value == 'TELEFONE') {
-		if (inputTelefoneFiltro.value != "") {		
-			optionTelefone.hidden=true;
-			telefoneBlock.hidden=true;
+	else if (filtroTipo.value == 'CATEGORIA') {
+		if (inputcategoriaFiltro.value != "") {		
+			optioncategoria.hidden=true;
+			categoriaBlock.hidden=true;
 
-			telefoneTag.hidden=false;
-			telefoneTag.innerText = 'Telefone: ' + inputTelefoneFiltro.value;
+			categoriaTag.hidden=false;
+			categoriaTag.innerText = 'Categoria: ' + inputcategoriaFiltro.value;
 
 			filtroTipo.value="";
-			inputTelefoneBackend.value=inputTelefoneFiltro.value;
+			inputcategoriaBackend.value=inputcategoriaFiltro.value;
 
 			filtroBt.hidden=true;
 			buscarBt.hidden=false;
@@ -1052,25 +1006,7 @@ function addFiltro() {
 			filtroBt.style.pointerEvents="none";		
 		}
 	}
-	else if (filtroTipo.value == 'CPF') {
-		if (inputCpfFiltro.value != "") {
-			optionCpf.hidden=true;
-			cpfBlock.hidden=true;
 
-			cpfTag.hidden=false;
-			cpfTag.innerText = 'CPF: ' + inputCpfFiltro.value;
-
-			filtroTipo.value="";
-			inputCpfBackend.value=inputCpfFiltro.value;
-
-			filtroBt.hidden=true;
-			buscarBt.hidden=false;
-			filtroTipo.style.border="1px solid grey";
-			filtroTipo.disabled=true;
-			filtroBt.disabled=true;
-			filtroBt.style.pointerEvents="none";
-		}
-	}		
 }
 
 function removerFiltro(filtro) {
@@ -1079,9 +1015,9 @@ function removerFiltro(filtro) {
 	var filtroBt = document.getElementById('filtro_bt');
 	var buscarBt = document.getElementById('filtro_buscar_bt');
 
-	var optionDescricao = document.getElementById('tipo_filtro_option_descricao');
-	var descricaoBlock = document.getElementById('filtro_descricao_block');	
-	var descricaoTag = document.getElementById('filtro_descricao_tag');
+	var optiontitulo = document.getElementById('tipo_filtro_option_titulo');
+	var tituloBlock = document.getElementById('filtro_titulo_block');	
+	var tituloTag = document.getElementById('filtro_titulo_tag');
 
 	var optionData = document.getElementById('tipo_filtro_option_data');
 	var dataInicioBlock = document.getElementById('filtro_data_inicio_block');	
@@ -1093,57 +1029,50 @@ function removerFiltro(filtro) {
 	var periodoAnoBlock = document.getElementById('filtro_ano_block');	
 	var periodoTag = document.getElementById('filtro_periodo_tag');		
 
-	var optionTelefone = document.getElementById('tipo_filtro_option_telefone');
-	var telefoneBlock = document.getElementById('filtro_telefone_block');	
-	var telefoneTag = document.getElementById('filtro_telefone_tag');
+	var optioncategoria = document.getElementById('tipo_filtro_option_categoria');
+	var categoriaBlock = document.getElementById('filtro_categoria_block');	
+	var categoriaTag = document.getElementById('filtro_categoria_tag');
 
-	var optionCpf = document.getElementById('tipo_filtro_option_cpf');
-	var cpfBlock = document.getElementById('filtro_cpf_block');	
-	var cpfTag = document.getElementById('filtro_cpf_tag');		
-
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputtituloBackend = document.getElementById('input_titulo_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTelefoneBackend = document.getElementById('input_telefone_backend');	
-	var inputCpfBackend = document.getElementById('input_cpf_backend');	
+	var inputcategoriaBackend = document.getElementById('input_categoria_backend');	
 	
 	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
 	filtroBt.disabled=false;
 	filtroBt.style.pointerEvents="auto";	
 
-	if (filtro == 'descricao') {		
+	if (filtro == 'titulo') {		
 
-		optionDescricao.hidden=false;
+		optiontitulo.hidden=false;
 
-		descricaoBlock.hidden=false;
+		tituloBlock.hidden=false;
 
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
-		telefoneBlock.hidden=true;
-		cpfBlock.hidden=true;
+		categoriaBlock.hidden=true;
 
-		descricaoTag.hidden=true;
+		tituloTag.hidden=true;
 
-		filtroTipo.value="DESCRICAO";
+		filtroTipo.value="TITULO";
 
-		inputDescricaoBackend.value="";
+		inputtituloBackend.value="";
 	}
 	else if (filtro == 'data') {
 		optionData.hidden=false;
 		optionPeriodo.hidden=false;
 
-		descricaoBlock.hidden=true;
+		tituloBlock.hidden=true;
 		dataInicioBlock.hidden=false;
 		dataFimBlock.hidden=false;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
-		telefoneBlock.hidden=true;
-		cpfBlock.hidden=true;
+		categoriaBlock.hidden=true;
 
 		dataTag.hidden=true;
 		filtroTipo.value="DATA";
@@ -1155,13 +1084,12 @@ function removerFiltro(filtro) {
 		optionData.hidden=false;
 		optionPeriodo.hidden=false;
 
-		descricaoBlock.hidden=true;
+		tituloBlock.hidden=true;
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=false;
 		periodoAnoBlock.hidden=false;
-		telefoneBlock.hidden=true;
-		cpfBlock.hidden=true;
+		categoriaBlock.hidden=true;
 
 		periodoTag.hidden=true;
 		filtroTipo.value="PERIODO";
@@ -1169,41 +1097,22 @@ function removerFiltro(filtro) {
 		inputMesBackend.value="";
 		inputAnoBackend.value="";
 	}
-	else if (filtro == 'telefone') {
-		optionTelefone.hidden=false;
+	else if (filtro == 'categoria') {
+		optioncategoria.hidden=false;
 
-		descricaoBlock.hidden=true;
-
-		dataInicioBlock.hidden=true;
-		dataFimBlock.hidden=true;
-		periodoMesBlock.hidden=true;
-		periodoAnoBlock.hidden=true;
-		cpfBlock.hidden=true;
-
-		telefoneBlock.hidden=false;
-		telefoneTag.hidden=true;
-
-		filtroTipo.value="TELEFONE";
-
-		inputTelefoneBackend.value="";
-	}
-	else if (filtro == 'cpf') {
-		optionTelefone.hidden=false;
-
-		descricaoBlock.hidden=true;
+		tituloBlock.hidden=true;
 
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
-		telefoneBlock.hidden=true;
 
-		cpfBlock.hidden=false;
-		cpfTag.hidden=true;
+		categoriaBlock.hidden=false;
+		categoriaTag.hidden=true;
 
-		filtroTipo.value="CPF";
+		filtroTipo.value="CATEGORIA";
 
-		inputCpfBackend.value="";
+		inputcategoriaBackend.value="";
 	}	
 
 	buscarBt.hidden=true;		
@@ -1212,20 +1121,18 @@ function removerFiltro(filtro) {
 
 function efeitoRemoverFiltro(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtrotitulo = document.getElementById('filtro_titulo_tag');
 	var filtroData = document.getElementById('filtro_data_tag');	
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTelefone = document.getElementById('filtro_telefone_tag');
-	var filtroCpf = document.getElementById('filtro_cpf_tag');
+	var filtrocategoria = document.getElementById('filtro_categoria_tag');
 
-
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="0.5s"
-		filtroDescricao.style.background="#AA3C3C";
-		filtroDescricao.style.border="1px solid #AA3C3C";
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Remover";
-		filtroDescricao.style.cursor="pointer";
+	if (filtro == 'titulo') {
+		filtrotitulo.style.transition="0.5s"
+		filtrotitulo.style.background="#AA3C3C";
+		filtrotitulo.style.border="1px solid #AA3C3C";
+		filtrotitulo.style.color="#212121";
+		filtrotitulo.innerText="Remover";
+		filtrotitulo.style.cursor="pointer";
 
 	}
 	else if (filtro == 'data') {
@@ -1244,47 +1151,38 @@ function efeitoRemoverFiltro(filtro) {
 		filtroPeriodo.innerText="Remover";
 		filtroPeriodo.style.cursor="pointer";
 	}
-	else if (filtro == 'telefone') {
-		filtroTelefone.style.transition="0.5s"
-		filtroTelefone.style.background="#AA3C3C";
-		filtroTelefone.style.border="1px solid #AA3C3C";
-		filtroTelefone.style.color="#212121";
-		filtroTelefone.innerText="Remover";
-		filtroTelefone.style.cursor="pointer";
+	else if (filtro == 'categoria') {
+		filtrocategoria.style.transition="0.5s"
+		filtrocategoria.style.background="#AA3C3C";
+		filtrocategoria.style.border="1px solid #AA3C3C";
+		filtrocategoria.style.color="#212121";
+		filtrocategoria.innerText="Remover";
+		filtrocategoria.style.cursor="pointer";
 	}
-	else if (filtro == 'cpf') {
-		filtroCpf.style.transition="0.5s"
-		filtroCpf.style.background="#AA3C3C";
-		filtroCpf.style.border="1px solid #AA3C3C";
-		filtroCpf.style.color="#212121";
-		filtroCpf.innerText="Remover";
-		filtroCpf.style.cursor="pointer";
-	}			
+
 }
 
 function efeitoRemoverFiltroLeave(filtro) {
 
-	var filtroDescricao = document.getElementById('filtro_descricao_tag');
+	var filtrotitulo = document.getElementById('filtro_titulo_tag');
 	var filtroData = document.getElementById('filtro_data_tag');
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
-	var filtroTelefone = document.getElementById('filtro_telefone_tag');
-	var filtroCpf = document.getElementById('filtro_cpf_tag');	
+	var filtrocategoria = document.getElementById('filtro_categoria_tag');
 
-	var inputDescricaoBackend = document.getElementById('input_descricao_backend');
+	var inputtituloBackend = document.getElementById('input_titulo_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
-	var inputTelefoneBackend = document.getElementById('input_telefone_backend');
-	var inputCpfBackend = document.getElementById('input_cpf_backend');
+	var inputcategoriaBackend = document.getElementById('input_categoria_backend');
 
-	if (filtro == 'descricao') {
-		filtroDescricao.style.transition="1s"
-		filtroDescricao.style.background="transparent";
-		filtroDescricao.style.border="1px solid #212121"
-		filtroDescricao.style.color="#212121";
-		filtroDescricao.innerText="Descrição";
-		filtroDescricao.innerText = 'Nome: ' + inputDescricaoBackend.value;
+	if (filtro == 'titulo') {
+		filtrotitulo.style.transition="1s"
+		filtrotitulo.style.background="transparent";
+		filtrotitulo.style.border="1px solid #212121"
+		filtrotitulo.style.color="#212121";
+		filtrotitulo.innerText="Título";
+		filtrotitulo.innerText = 'Título: ' + inputtituloBackend.value;
 
 	}
 	else if (filtro == 'data') {
@@ -1301,20 +1199,14 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroPeriodo.style.color="#212121";
 		filtroPeriodo.innerText = 'Mês ' + inputMesBackend.value + ' de ' + inputAnoBackend.value;
 	}
-	else if (filtro == 'telefone') {
-		filtroTelefone.style.transition="1s"
-		filtroTelefone.style.background="transparent";
-		filtroTelefone.style.border="1px solid #212121"
-		filtroTelefone.style.color="#212121";
-		filtroTelefone.innerText = 'Telefone: ' + inputTelefoneBackend.value;
+	else if (filtro == 'categoria') {
+		filtrocategoria.style.transition="1s"
+		filtrocategoria.style.background="transparent";
+		filtrocategoria.style.border="1px solid #212121"
+		filtrocategoria.style.color="#212121";
+		filtrocategoria.innerText = 'Categoria: ' + inputcategoriaBackend.value;
 	}
-	else if (filtro == 'cpf') {
-		filtroCpf.style.transition="1s"
-		filtroCpf.style.background="transparent";
-		filtroCpf.style.border="1px solid #212121"
-		filtroCpf.style.color="#212121";
-		filtroCpf.innerText = 'Telefone: ' + inputCpfBackend.value;
-	}		
+	
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA EDITA ITEM ====================== */
@@ -1600,6 +1492,9 @@ function validacaoDoObjetoPostagem(tipo) {
 		var optionsSubcategoria = document.getElementsByClassName('edita_option_subcategoria');					
 	}
 
+	inputCategoria.value = inputCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	inputSubCategoria.value = inputSubCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
 	if(inputCategoria.value != ""
 		|| inputSubCategoria.value != "" 
 		|| inputTitulo.value != "" 
@@ -1722,8 +1617,8 @@ function escreveConteudo(tipo) {
 
 	validacaoDoObjetoPostagem(tipo);
 
-	var total = 500;
-	var novoTotal = 500;
+	var total = 1500;
+	var novoTotal = 1500;
 	
 	var inputConteudo = document.getElementById('input_conteudo');
 	var caracteres = document.getElementById('caracteres');
@@ -1995,7 +1890,69 @@ function doALoadOfStuff() {
 
 /* ================== BLOCOS ====================== */
 
-function categoriaMouseOver(id) {
+function ajustaCaracteresBloco() {
+
+	var blocoPostagem = document.getElementsByClassName('bloco_pai_postagem');
+	var tituloPostagem = document.getElementsByClassName('titulo_postagem');
+	var textoPostagem = document.getElementsByClassName('texto_postagem');	
+	var informativoUser= document.getElementsByClassName('info_responsavel');
+	var informativoCategoria = document.getElementsByClassName('info_categoria');
+
+	for (var i = 0; i < blocoPostagem.length; i++) {
+		
+		ajustaEstiloBloco(
+			tituloPostagem[i], 
+			textoPostagem[i], 
+			blocoPostagem[i],
+			informativoUser[i],
+			informativoCategoria[i]);
+
+		if (tituloPostagem[i].innerText.length > 25) {
+			tituloPostagem[i].innerText = tituloPostagem[i].innerText.slice(0, 25) + "...";
+		}
+
+		if (textoPostagem[i].innerText.length > 50) {
+			textoPostagem[i].innerText = textoPostagem[i].innerText.slice(0, 50) + "...";
+		}
+
+	}
+}
+
+function ajustaEstiloBloco(titulo, texto, bloco, informativoUser, informativoCategoria) {
+
+	titulo.style.color=bloco.getAttribute('data-corTitulo');
+	texto.style.color=bloco.getAttribute('data-corConteudo');
+	informativoCategoria.style.color=bloco.getAttribute('data-corTitulo');
+
+	//$(titulo).css("font-family", bloco.getAttribute('data-fonteTitulo'));
+	//$(texto).css("font-family", bloco.getAttribute('data-fonteConteudo'));
+
+	// CONVERTENDO DATA PARA PADRÃO BR
+	var dataUsParaDataBr = 	null
+	if(bloco.getAttribute('data-dataCadastro') != null) {
+		var dataCadastroSplitada = bloco.getAttribute('data-dataCadastro').split("-");
+		if (dataCadastroSplitada.length == 3) {
+			dataUsParaDataBr = dataCadastroSplitada[2] + "/" + dataCadastroSplitada[1] + "/" + dataCadastroSplitada[0];
+		}	
+	}
+
+	informativoUser.innerText = bloco.getAttribute('data-usuarioResponsavel') 
+		+ " - " + dataUsParaDataBr;
+}
+
+function removePostagem(id) {
+
+	if (privilegio != "Vendedor") {
+	window.location.href="/deleta/" + id;
+	}
+	else {
+		alert("Você não possui permissão para remover uma postagem da tela inicial!\n" +
+			"Entre em contato com um gestor para solicitar permissão");
+	}
+}
+
+
+/*function categoriaMouseOver(id) {
 
 	var categoria = document.getElementById('categoria_filho_' + id);
 	var categoriaTitulo = document.getElementById('categoria_titulo_' + id);
@@ -2119,5 +2076,19 @@ function subCategoriaClick(id) {
 	subcategoria.style.cursor="pointer";
 	subcategoriaTitulo.style.color="#C3C8C8";
 
-}
+	document.getElementById('container_postagens').hidden=false;
+	var postagens = document.getElementsByClassName('bloco_pai_postagem');
 
+	for(var i = 0; i < postagens.length; i++) {
+		postagens[i].hidden=false;
+	}
+
+	for(var i = 0; i < postagens.length; i++) {
+		console.log(postagens[i].getAttribute('data-subcategoria'));
+		console.log(subcategoria.getAttribute('data-nome'));
+		if (postagens[i].getAttribute('data-subcategoria') != subcategoriaNome) {
+			postagens[i].hidden=true;
+		}
+	}
+
+}*/

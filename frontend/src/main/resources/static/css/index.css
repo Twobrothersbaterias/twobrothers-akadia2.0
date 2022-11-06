@@ -1,7 +1,11 @@
+#main {
+	display: block;
+}
+
 .container_blocos {
 	display: flex;
 	justify-content: left;
-	float: left;
+	margin: 0;
 }
 
 .bloco_pai {
@@ -10,16 +14,13 @@
 }
 
 .bloco_filho {
-	display: flex;
-	justify-content: center;	
 	padding: 12px 3px;
-	padding-bottom: 25px;
-	border-radius: 15px 0 15px 0;
+	padding-bottom: 22px;
 	box-shadow: 2px 2px 15px #121212;
 	color: #7da181;
 	margin: 15px 0;
 	background: #C3C8C8;
-	float: left;
+
 }
 
 .cancel_container, .cancel_container_pai {
@@ -27,8 +28,12 @@
 	justify-content: right;
 }
 
+.cancel_btn:hover {
+	cursor: pointer;
+}
+
 .container_conteudo {
-	padding: 0px 35px;
+	padding: 0px 25px;
 	padding-bottom: 0;
 }
 
@@ -42,16 +47,30 @@
 .titulo {
 	font-size: 1rem;
 	text-align: center;
-	margin-bottom: 8px;
+	margin-bottom: 4px;
 	color: #2f3d61;
 	font-weight: 600;
+	font-size: 0.90;
+}
+
+.info_responsavel {
+	text-align: center;
+	font-size: 0.70rem;
+	color: #303030;
+	margin-bottom: 8px;
+}
+
+.info_categoria {
+	font-size: 0.80rem;
+	margin-top: 12px;
+	color: #2f3d61;
 }
 
 .texto {
 	font-size: 0.80rem;
 	color: #303030;
 	text-align: justify;
-	margin-top: 10px;
+	margin-top: 5px;
 	padding: 5px 0;
 }
 
@@ -59,8 +78,8 @@
 	margin: 0 auto;
 	margin-top: 10px;
 	border: none;
-	padding: 5px 0;
-	background: #2f3d61;
+	padding: 8px 0;
+	background: #303030;
 	color: #C3C8C8;
 	font-size: 0.85rem;	
 	box-shadow: 1px 1px 3px #121212;
@@ -70,8 +89,26 @@
 	background: #b24a47;
 }
 
-.label_cor {
+.label_cor{
 	color: transparent;
+}
+
+#button_arquivo {
+    border: 1px solid grey;
+    padding: 5.30px 5px;
+    justify-content: center;
+    background: #424242;
+	color: #C3C8C8;
+	font-size: 0.90rem;
+	margin-bottom: 0;
+}
+
+#button_arquivo:hover{
+	cursor: pointer;
+}
+
+#input_arquivo {
+	border: none;
 }
 
 #input_cor_conteudo, #input_cor_titulo {
@@ -88,7 +125,7 @@
 }
 
 
-.bloco_filho_categoria {
+/*.bloco_filho_categoria {
 	border-radius: 0;	
 	padding-bottom: 15px;
 }
@@ -162,4 +199,4 @@
 	background: transparent;
 	margin: 0;
 	padding: 0;
-}
+}*/

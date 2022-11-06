@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.twobrothers.frontend.utils.StringConstants.URI_USUARIOS;
+import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
 
 @Slf4j
 @Service
@@ -99,33 +99,33 @@ public class UsuarioService {
 
     public String constroiUriFiltro(FiltroUsuarioDTO filtroUsuarioDTO) {
 
-        URI_USUARIOS = "colaboradores?";
+        URI_POSTAGEM = "colaboradores?";
 
         if (filtroUsuarioDTO.getDescricao() != null && !filtroUsuarioDTO.getDescricao().equals("")) {
-            URI_USUARIOS += "descricao=" + filtroUsuarioDTO.getDescricao();
+            URI_POSTAGEM += "descricao=" + filtroUsuarioDTO.getDescricao();
         }
 
         if (filtroUsuarioDTO.getDataInicio() != null && !filtroUsuarioDTO.getDataInicio().equals("")) {
-            URI_USUARIOS += "inicio=" + filtroUsuarioDTO.getDataInicio();
+            URI_POSTAGEM += "inicio=" + filtroUsuarioDTO.getDataInicio();
         }
 
         if (filtroUsuarioDTO.getDataFim() != null && !filtroUsuarioDTO.getDataFim().equals("")) {
-            URI_USUARIOS += "&fim=" + filtroUsuarioDTO.getDataFim();
+            URI_POSTAGEM += "&fim=" + filtroUsuarioDTO.getDataFim();
         }
 
         if (filtroUsuarioDTO.getPeriodoMes() != null && !filtroUsuarioDTO.getPeriodoMes().equals("")) {
-            URI_USUARIOS += "mes=" + filtroUsuarioDTO.getPeriodoMes();
+            URI_POSTAGEM += "mes=" + filtroUsuarioDTO.getPeriodoMes();
         }
 
         if (filtroUsuarioDTO.getPeriodoAno() != null && !filtroUsuarioDTO.getPeriodoAno().equals("")) {
-            URI_USUARIOS += "&ano=" + filtroUsuarioDTO.getPeriodoAno();
+            URI_POSTAGEM += "&ano=" + filtroUsuarioDTO.getPeriodoAno();
         }
 
         if (filtroUsuarioDTO.getUsername() != null && !filtroUsuarioDTO.getUsername().equals("")) {
-            URI_USUARIOS += "usuario=" + filtroUsuarioDTO.getUsername();
+            URI_POSTAGEM += "usuario=" + filtroUsuarioDTO.getUsername();
         }
 
-        return URI_USUARIOS;
+        return URI_POSTAGEM;
     }
 
 }

@@ -29,6 +29,7 @@ public class PostagemDTO {
     private FonteEnum fonteConteudo;
     private String corTitulo;
     private String corConteudo;
+    private byte[] anexo;
     private CategoriaEntity categoria;
     private SubCategoriaEntity subCategoria;
     private UsuarioEntity usuarioResponsavel;
