@@ -140,6 +140,12 @@ function responsive(){
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
 
+	var postagemTitulo = document.getElementsByClassName('titulo_postagem');
+	var postagemInfoResponsavel = document.getElementsByClassName('info_responsavel');
+	var postagemInfoCategoria = document.getElementsByClassName('info_categoria');
+	var postagemTexto = document.getElementsByClassName('texto_postagem');
+	var botaoPostagem = document.getElementsByClassName('botao_postagem');
+
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
@@ -166,6 +172,22 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";			
+
+		for(var i = 0; i < postagemTitulo.length; i++) {
+			postagemTitulo[i].style.fontSize="0.80rem";
+		}		
+		for(var i = 0; i < postagemInfoResponsavel.length; i++) {
+			postagemInfoResponsavel[i].style.fontSize="0.70rem";
+		}
+		for(var i = 0; i < postagemInfoCategoria.length; i++) {
+			postagemInfoCategoria[i].style.fontSize="0.70rem";
+		}	
+		for(var i = 0; i < postagemTexto.length; i++) {
+			postagemTexto[i].style.fontSize="0.70rem";
+		}	
+		for(var i = 0; i < botaoPostagem.length; i++) {
+			botaoPostagem[i].style.fontSize="0.70rem";
+		}
 
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
@@ -245,6 +267,22 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";			
+
+		for(var i = 0; i < postagemTitulo.length; i++) {
+			postagemTitulo[i].style.fontSize="0.80rem";
+		}		
+		for(var i = 0; i < postagemInfoResponsavel.length; i++) {
+			postagemInfoResponsavel[i].style.fontSize="0.70rem";
+		}
+		for(var i = 0; i < postagemInfoCategoria.length; i++) {
+			postagemInfoCategoria[i].style.fontSize="0.70rem";
+		}	
+		for(var i = 0; i < postagemTexto.length; i++) {
+			postagemTexto[i].style.fontSize="0.70rem";
+		}	
+		for(var i = 0; i < botaoPostagem.length; i++) {
+			botaoPostagem[i].style.fontSize="0.70rem";
+		}
 
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
@@ -328,6 +366,22 @@ function responsive(){
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";				
 
+		for(var i = 0; i < postagemTitulo.length; i++) {
+			postagemTitulo[i].style.fontSize="0.75rem";
+		}		
+		for(var i = 0; i < postagemInfoResponsavel.length; i++) {
+			postagemInfoResponsavel[i].style.fontSize="0.65rem";
+		}
+		for(var i = 0; i < postagemInfoCategoria.length; i++) {
+			postagemInfoCategoria[i].style.fontSize="0.65rem";
+		}	
+		for(var i = 0; i < postagemTexto.length; i++) {
+			postagemTexto[i].style.fontSize="0.65rem";
+		}	
+		for(var i = 0; i < botaoPostagem.length; i++) {
+			botaoPostagem[i].style.fontSize="0.65rem";
+		}	
+
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
 		}
@@ -399,6 +453,22 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";			
+
+		for(var i = 0; i < postagemTitulo.length; i++) {
+			postagemTitulo[i].style.fontSize="0.75rem";
+		}		
+		for(var i = 0; i < postagemInfoResponsavel.length; i++) {
+			postagemInfoResponsavel[i].style.fontSize="0.65rem";
+		}
+		for(var i = 0; i < postagemInfoCategoria.length; i++) {
+			postagemInfoCategoria[i].style.fontSize="0.65rem";
+		}	
+		for(var i = 0; i < postagemTexto.length; i++) {
+			postagemTexto[i].style.fontSize="0.65rem";
+		}	
+		for(var i = 0; i < botaoPostagem.length; i++) {
+			botaoPostagem[i].style.fontSize="0.65rem";
+		}	
 
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=false;
@@ -481,6 +551,22 @@ function responsive(){
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
 
+		for(var i = 0; i < postagemTitulo.length; i++) {
+			postagemTitulo[i].style.fontSize="0.70rem";
+		}		
+		for(var i = 0; i < postagemInfoResponsavel.length; i++) {
+			postagemInfoResponsavel[i].style.fontSize="0.60rem";
+		}
+		for(var i = 0; i < postagemInfoCategoria.length; i++) {
+			postagemInfoCategoria[i].style.fontSize="0.60rem";
+		}	
+		for(var i = 0; i < postagemTexto.length; i++) {
+			postagemTexto[i].style.fontSize="0.60rem";
+		}	
+		for(var i = 0; i < botaoPostagem.length; i++) {
+			botaoPostagem[i].style.fontSize="0.60rem";
+		}					
+
 		for(var i = 0; i < thDataCadastro.length; i++) {
 			thDataCadastro[i].hidden=true;
 		}
@@ -525,16 +611,6 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="10%";	
 			}
 		}
-
-		document.getElementById('cep_input').style.marginBottom="10px";
-		document.getElementById('bairro_input').style.marginBottom="10px";	
-		document.getElementById('email_cliente_input').style.marginBottom="10px";	
-		document.getElementById('data_nascimento_input').style.marginBottom="10px";
-
-		document.getElementById('edita_cep_input').style.marginBottom="10px";
-		document.getElementById('edita_bairro_input').style.marginBottom="10px";	
-		document.getElementById('edita_email_cliente_input').style.marginBottom="10px";	
-		document.getElementById('edita_data_nascimento_input').style.marginBottom="10px";
 
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
@@ -1911,8 +1987,8 @@ function ajustaCaracteresBloco() {
 			tituloPostagem[i].innerText = tituloPostagem[i].innerText.slice(0, 25) + "...";
 		}
 
-		if (textoPostagem[i].innerText.length > 50) {
-			textoPostagem[i].innerText = textoPostagem[i].innerText.slice(0, 50) + "...";
+		if (textoPostagem[i].innerText.length > 100) {
+			textoPostagem[i].innerText = textoPostagem[i].innerText.slice(0, 100) + "...";
 		}
 
 	}

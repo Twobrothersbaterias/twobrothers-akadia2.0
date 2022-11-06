@@ -112,18 +112,17 @@
 							<img src="../static/img/collab-grey.png" th:src="@{img/collab-grey.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Colaboradores"/>
 						</button>
 					</a>
-				</div>						
-			</div>
+				</div>
 
-			<div class="row last">
-				<div class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-					<a th:href="@{/faq}" class="row aside_clicavel">
+				<div th:if="${privilegio} != 'Vendedor'" class="aside aside-4 col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+					<a th:href="@{/precos}" class="row aside_clicavel">
 						<button type="button" class="img_button">
-							<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="sidebar_menu_img" id="img_aside_balanco"/>
+							<img src="../static/img/price-959595.png" th:src="@{img/price-959595.png}" class="sidebar_menu_img" id="img_aside_balanco" title="Preços"/>
 						</button>
 					</a>
-				</div>	
-			</div>					
+				</div>													
+			</div>
+				
 		</div>
 
 		<main class="container main" id="main">
@@ -164,9 +163,9 @@
 			</div>
 
 			<!-- Menu superior mobile -->
-			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-11 col-11 menu_superior_mobile" id="menu_superior_mobile">
+			<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_mobile" id="menu_superior_mobile">
 
-				<div class="container_menu_mobile">				
+				<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_menu_mobile">
 
 					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
@@ -258,15 +257,15 @@
 						</div>	
 					</div>
 
-					<div class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
+					<div th:if="${privilegio} != 'Vendedor'" class="menu_superior_mobile_item col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1" id="menu_superior_mobile_item">
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
-							<a th:href="@{/faq}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<a th:href="@{/precos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/faq-grey.png" th:src="@{img/faq-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/price-959595.png" th:src="@{img/price-959595.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
-					</div>	
+					</div>						
 
 				</div>																												
 			</div>				
@@ -318,8 +317,6 @@
 
 					<hr id="hr_tabela">	
 
-					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_all">					
-					</div>
 					<!-- SEM CATEGORIAS -->
 					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_vazio" hidden>
 
@@ -425,21 +422,21 @@
 						th:data-corConteudo="${postagem.corConteudo}"
 						th:data-fonteTitulo="${postagem.fonteTitulo.fontFamily}"
 						th:data-fonteConteudo="${postagem.fonteConteudo.fontFamily}"
-						class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 bloco_pai bloco_pai_postagem">
+						class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 bloco_pai bloco_pai_postagem">
 
 							<div 
 							th:data-id="${postagem.id}"
 							th:data-titulo="${postagem.titulo}"
 							th:data-conteudo="${postagem.conteudo}"
 							th:data-subcategoria="${postagem.subCategoria.nome}"
-							class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho"
+							class="row col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12 bloco_filho"
 							th:id="'postagem_filho_' + ${postagem.id}">
 
 								<div 
 								class="cancel_container_pai col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<div class="cancel_container col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="cancel_container col-xl-6 col-lg-6 col-md-6 col-sm-4 col-6">
 										<img 
-										th:data-removeId="${postagem.id}" th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12 cancel_btn" onclick="removePostagem(this.getAttribute('data-removeId'))"/>
+										th:data-removeId="${postagem.id}" th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 cancel_btn" onclick="removePostagem(this.getAttribute('data-removeId'))"/>
 									</div>	
 								</div>
 								
@@ -473,7 +470,7 @@
 										Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possív...
 									</p>							
 
-									<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao">
+									<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao botao_postagem">
 										Acessar
 									</button>	
 								</div>
