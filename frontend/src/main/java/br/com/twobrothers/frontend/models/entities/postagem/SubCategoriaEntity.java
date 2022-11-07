@@ -42,7 +42,7 @@ public class SubCategoriaEntity {
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
 
-    @OneToMany(targetEntity = PostagemEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = PostagemEntity.class, fetch = FetchType.LAZY)
     private List<PostagemEntity> postagens = new ArrayList<>();
 
     public void addPostagem(PostagemEntity postagem) {

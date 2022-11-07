@@ -317,98 +317,17 @@
 
 					<hr id="hr_tabela">	
 
-					<!-- SEM CATEGORIAS -->
-					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_vazio" hidden>
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" th:if="${#lists.isEmpty(postagens)}">
 
-						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_vazio">
-							Não há nenhuma categoria cadastrada por aqui
+						<h1 class="titulo_vazio col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Não há nenhuma postagem salva por aqui
 						</h1>
 
-						<p class="texto_vazio col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Atualmente não há nenhuma categoria salva por aqui. Para criar uma nova postagem clique no botão abaixo
+						<p class="conteudo_vazio col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							Para salvar uma nova postagem, você deve possuir privilégio sistêmico de nível 2 ou superior e clicar no ícone "+" na tela ou pressionar a tecla "+" no teclado.
 						</p>
 
-						<button onclick="abrirNovoItem()" class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-6 botao botao_vazio">
-							Criar nova postagem
-						</button>	
-
-					</div>	-->
-
-					<!-- CATEGORIAS -->
-					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" >
-
-						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_categoria">
-							Categorias
-						</h1>						
-
-						<div th:each="categoria: ${categorias}" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 bloco_pai bloco_pai_categoria">
-
-							<div 
-							th:data-id="${categoria.id}"
-							th:data-nome="${categoria.nome}"
-							onmouseover="categoriaMouseOver(this.getAttribute('data-id'))"
-							onmouseleave="categoriaMouseLeave(this.getAttribute('data-id'))"
-							onClick="categoriaClick(this.getAttribute('data-id'))"
-							class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho bloco_filho_categoria" th:id="'categoria_filho_' + ${categoria.id}">
-
-								<div class="cancel_container_pai cancel_container_pai_categoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<div class="cancel_container_pai cancel_container_categoria col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-										<form th:action="@{/categoria/deleta-{id}(id = ${categoria.id})}" method="POST" class="cancel_container_pai cancel_container_subcategoria col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-											<button type="submit" class="botao_excluir col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
-												<img th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-											</button>
-										</form>
-									</div>	
-								</div>
-								
-								<div class="container_conteudo container_conteudo_categoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<h1 th:text="${categoria.nome}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo" th:id="'categoria_titulo_' + ${categoria.id}">
-										Lançamento de vendas
-									</h1>
-
-								</div>
-
-							</div>	
-						</div>	
-					</div>-->
-
-					<!-- SUBCATEGORIAS -->
-					<!--<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_blocos" id="container_subcategorias" hidden>
-
-						<hr class="hr_novo" id="hr_divisa">						
-
-						<h1 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 subtitulo subtitulo_categoria">
-							Subcategorias
-						</h1>
-
-						<div th:each="subcategoria: ${subcategorias}" 							th:data-nomeCategoria="${subcategoria.categoria.nome}" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 bloco_pai bloco_pai_subcategoria">
-
-							<div 
-							th:data-id="${subcategoria.id}"
-							th:data-nome="${subcategoria.nome}"
-							onmouseover="subCategoriaMouseOver(this.getAttribute('data-id'))"
-							onmouseleave="subCategoriaMouseLeave(this.getAttribute('data-id'))"
-							onClick="subCategoriaClick(this.getAttribute('data-id'))"	
-							class="row col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bloco_filho bloco_filho_subcategoria" th:id="'subcategoria_filho_' + ${subcategoria.id}">
-
-								<div class="cancel_container_pai cancel_container_pai_subcategoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<form th:action="@{/subcategoria/deleta-{id}(id = ${subcategoria.id})}" method="POST" class="cancel_container_pai cancel_container_subcategoria col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
-										<button type="submit" class="botao_excluir col-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
-											<img th:src="@{img/cancel.png}" src="../static/img/cancel.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-										</button>
-									</form>	
-								</div>
-								
-								<div class="container_conteudo container_conteudo_subcategoria col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<h1 th:text="${subcategoria.nome}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 titulo_subcategoria" th:id="'subcategoria_titulo_' + ${subcategoria.id}">
-										Lançamento de vendas
-									</h1>
-
-								</div>
-
-							</div>	
-						</div>
-					</div>	-->
+					</div>	
 								
 
 					<!-- POSTAGENS -->
@@ -470,7 +389,28 @@
 										Nesse guia você irá aprender a como realizar o lançamento de uma venda no Akadia 2.0 em todos os cenários de lançamento possív...
 									</p>							
 
-									<button class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao botao_postagem">
+									<button 										
+									th:data-id="${postagem.id}" 
+									th:data-dataCadastro="${postagem.dataCadastro}"
+									th:data-titulo="${postagem.titulo}"
+									th:data-conteudo="${postagem.conteudo}"
+									th:data-nomeCategoria="${postagem.categoria.nome}"
+									th:data-nomeSubCategoria="${postagem.subCategoria.nome}"
+									th:data-corTitulo="${postagem.corTitulo}"
+									th:data-corConteudo="${postagem.corConteudo}"
+									th:data-fonteTitulo="${postagem.fonteTitulo}"
+									th:data-fonteConteudo="${postagem.fonteConteudo}"									
+									onclick="abrirEditaItem(
+										this.getAttribute('data-id'), 
+										this.getAttribute('data-dataCadastro'), 
+										this.getAttribute('data-titulo'), 
+										this.getAttribute('data-conteudo'),
+										this.getAttribute('data-nomeCategoria'),
+										this.getAttribute('data-nomeSubCategoria'),
+										this.getAttribute('data-corTitulo'),
+										this.getAttribute('data-corConteudo'),
+										this.getAttribute('data-fonteTitulo'),
+										this.getAttribute('data-fonteConteudo'))" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao botao_postagem">
 										Acessar
 									</button>	
 								</div>
@@ -646,196 +586,53 @@
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
-				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
-					Editar cliente
+				<h1 class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+					Editar conteúdo
 				</h1>
+
+				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4"></div>
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" id="giro">
-						<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/money.png" th:src="@{img/money.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>
-					</a>
-
-					<img class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
 					
-				</div>
+				</div>	
 
 			</div>
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{clientes/alterar}" method="POST" th:object="${cliente}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{/}" method="POST" th:object="${postagem}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_form">
 
-				<input type="text" id="id_input_edicao" name="id" hidden/>			
+				<input id="id_input_edicao" hidden/>
 
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-					<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
-						<label class="row edita_item_form_row edita_item_label subtitulo_edita subtitulo_edita_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-							Dados pessoais
-						</label>
-					</div>							
-				</div>
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">
 
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">								
-					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_cliente_input">
-							Nome
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="25" name="nomeCompleto" id="edita_descricao_cliente_input" oninput="validacaoDoObjetoCliente('edita')" required/>
-					</div>							
+					<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">	
 
-				</div>
-
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
-
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_cliente_input">
-							E-mail
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="email" maxlength="35" name="email"  id="edita_email_cliente_input" onkeyup="tratamentoCampoEmail('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
-					</div>									
-
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_cliente_input">
-							Categoria
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="tel" maxlength="16" name="categoria" id="edita_telefone_cliente_input" onkeyup="tratamentoCampoTelefone('edita')" oninput="validacaoDoObjetoCliente('edita')"/>
-					</div>
-				
-				</div>
-
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">										
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_data_nascimento_input">
-							Data de nascimento:
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataNascimento" id="edita_data_nascimento_input" type="date" oninput="validacaoDoObjetoCliente('edita')"/>
-					</div>							
-
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cpfCnpj_input">
-							Cpf/Cnpj:
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="cpfCnpj" id="edita_cpfCnpj_input" onkeyup="tratamentoCampoCpfCnpj('edita')" oninput="validacaoDoObjetoCliente('edita')" type="text"/>
-					</div>																
-
-				</div>	
-
-				<hr class="hr_edita" >	
-				
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-					<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-						<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12">
-							<label class="row edita_item_form_row edita_item_label subtitulo_edita subtitulo_edita_dados_pessoais col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-								Endereço
+						<div class="edita_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="edita_item_first_block">
+							<label class="row edita_item_form_row edita_item_label subtitulo_edita titulo_edicao col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_input_titulo">
+								Título
 							</label>
-						</div>							
-					</div>					
+						</div>	
 
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cep_input">
-							Cep:
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cep" id="edita_cep_input" type="text" onkeyup="consultaEndereco('edita')" oninput="validacaoDoObjetoEndereco('edita')"/>
-					</div>						
-
-					<div class="edita_item_block col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" id="edita_item_ninth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_estado_input">
-							Estado:
-						</label>
-						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.estado" id="edita_estado_input" type="text">
-							<option value="AC">Acre</option>
-							<option value="AL">Alagoas</option>
-							<option value="AP">Amapá</option>
-							<option value="AM">Amazonas</option>
-							<option value="BA">Bahia</option>
-							<option value="CE">Ceará</option>
-							<option value="DF">Distrito Federal</option>
-							<option value="ES">Espírito Santo</option>
-							<option value="GO">Goiás</option>
-							<option value="MA">Maranhão</option>
-							<option value="MT">Mato Grosso</option>
-							<option value="MS">Mato Grosso do Sul</option>
-							<option value="MG">Minas Gerais</option>
-							<option value="PA">Pará</option>											
-							<option value="PB">Paraiba</option>
-							<option value="PR">Paraná</option>		
-							<option value="PI">Piaui</option>					
-							<option value="RJ">Rio de Janeiro</option>	
-							<option value="RN">Rio Grande do Norte</option>	
-							<option value="RS">Rio Grande do Sul</option>	
-							<option value="RO">Rondônia</option>													
-							<option value="RR">Roraima</option>		
-							<option value="SC">Santa Catarina</option>		
-							<option value="SP">São Paulo</option>		
-							<option value="SE">Sergipe</option>													
-							<option value="TO">Tocantins</option>	
-						</select>	
 					</div>
-
-					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8">
-
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_cidade_input">
-							Cidade:
-						</label>
-
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.cidade" id="edita_cidade_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
-					</div>						
 
 				</div>
 
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">		
 
-					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_logradouro_input">
-							Logradouro:
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.logradouro" id="edita_logradouro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
+					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_second_block">
+						<textarea form="edita_form" name="conteudo" autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="10" cols="30" type="text" maxlength="1500" readonly id="edita_input_conteudo" oninput="escreveConteudo('edita')">
+						</textarea>
 					</div>
 
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_numero_input">
-							Numero:
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.numero" id="edita_numero_input" type="number" min="0" max="99999" oninput="validacaoDoObjetoEndereco('edita')"/>
-					</div>
-
-				</div>				
-
-				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-					<div class="edita_item_block col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_bairro_input">
-							Bairro:
-						</label>
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.bairro" id="edita_bairro_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
-					</div>							
-
-					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_complemento_input">
-							Complemento:
-						</label>
-
-						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="endereco.complemento" id="edita_complemento_input" type="text" oninput="validacaoDoObjetoEndereco('edita')"/>
-					</div>					
-
-				</div>				
-
-				<hr style="margin-top:25px">
-
-				<div class="edita_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_third_row">
-
-					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
-
-					<button type="button" onclick="validacaoCampos('edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="edita_item_submit">
-						Salvar
-					</button>	
-
-				</div>																				
-			</form>		
-		</div>					
+					<p id="edita_caracteres">1500/1500</p>
+				
+				</div>
+																			
+			</form>			
+		</div>						
 
 		<!-------------- NOVO_ITEM ------------>
 		<div class="col-xl-5 col-lg-7 col-md-8 col-sm-10 col-11 conteudo_container_novo" id="conteudo_container_novo" hidden>
@@ -971,34 +768,18 @@
 						</datalist>
 					</div>														
 
-					<div class="novo_item_block col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
+					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
 							Título
 						</label>
 						<input autocomplete="off" id="input_titulo" name="titulo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" oninput="validacaoDoObjetoPostagem('novo')" required/>
 					</div>	
 
-					<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor">
-							.
-						</label>
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="button_arquivo" for="input_arquivo">
-							Arquivo
-						</label>						
-					</div>										
-
-					<div class="novo_item_block col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block" hidden>
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_arquivo" for="telefone_cliente_input">
-							Arquivo
-						</label>
-						<input name="anexo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="file" oninput="validacaoDoObjetoPostagem('novo')" id="input_arquivo" text="AAA"/>
-					</div>							
-
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
 							Conteúdo
 						</label>
-						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" oninput="escreveConteudo('novo')" id="input_conteudo">
+						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" oninput="escreveConteudo('novo')" maxlength="1500" id="input_conteudo">
 						</textarea>
 					</div>
 

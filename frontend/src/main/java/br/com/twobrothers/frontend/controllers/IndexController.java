@@ -1,12 +1,8 @@
 package br.com.twobrothers.frontend.controllers;
 
-import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
-import br.com.twobrothers.frontend.models.dto.filters.FiltroClienteDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPostagemDTO;
 import br.com.twobrothers.frontend.models.dto.postagem.PostagemDTO;
-import br.com.twobrothers.frontend.models.entities.ClienteEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.PostagemEntity;
-import br.com.twobrothers.frontend.models.entities.postagem.SubCategoriaEntity;
 import br.com.twobrothers.frontend.repositories.PostagemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.CategoriaCrudService;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -106,6 +101,7 @@ public class IndexController {
         model.addAttribute("pagina", pageable.getPageNumber());
         modelMap.addAttribute("postagens", postagens);
         modelMap.addAttribute("categorias", categoriaCrudService.buscaTodasCategorias());
+        modelMap.addAttribute("subcategorias", subCategoriaCrudService.buscaTodasCategorias());
 
         modelAndView.setViewName("index");
         return modelAndView;

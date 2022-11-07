@@ -395,7 +395,7 @@
 										th:data-observacao="${preco.observacao}"
 										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
-										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
+										th:data-usuarioResponsavel="${preco.usuarioResponsavel.nome}"
 										onclick="abrirEditaItem(
 											this.getAttribute('data-id'), 
 											this.getAttribute('data-dataCadastro'), 
@@ -414,7 +414,7 @@
 										th:data-observacao="${preco.observacao}"
 										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
-										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
+										th:data-usuarioResponsavel="${preco.usuarioResponsavel.nome}"
 										onclick="abrirEditaItem(
 											this.getAttribute('data-id'), 
 											this.getAttribute('data-dataCadastro'), 
@@ -433,7 +433,7 @@
 										th:data-observacao="${preco.observacao}"
 										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
-										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
+										th:data-usuarioResponsavel="${preco.usuarioResponsavel.nome}"
 										onclick="abrirEditaItem(
 											this.getAttribute('data-id'), 
 											this.getAttribute('data-dataCadastro'), 
@@ -452,7 +452,7 @@
 										th:data-observacao="${preco.observacao}"
 										th:data-idFornecedor="${preco.fornecedor != null} ? ${preco.fornecedor.id} : ''"
 										th:data-idProduto="${preco.produto.id}"
-										th:data-usuarioResponsavel="${preco.usuarioResponsavel}"
+										th:data-usuarioResponsavel="${preco.usuarioResponsavel.nome}"
 										onclick="abrirEditaItem(
 											this.getAttribute('data-id'), 
 											this.getAttribute('data-dataCadastro'), 
@@ -628,7 +628,7 @@
 				<div class="img_div col-xl-3 col-lg-1 col-md-1 col-sm-1 col-1">
 
 					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img">
-						<img class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/info.png" th:src="@{img/info.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>
+						<img class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/info.png" th:src="@{img/info.png}" title="" id="edita_info"/>
 					</a>					
 
 					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img">

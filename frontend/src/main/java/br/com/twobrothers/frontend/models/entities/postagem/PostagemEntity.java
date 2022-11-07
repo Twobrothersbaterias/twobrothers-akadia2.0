@@ -33,7 +33,7 @@ public class PostagemEntity {
 
     private String titulo;
 
-    @Column(length = 1500)
+    @Column(length = 1510)
     private String conteudo;
 
     @Enumerated(EnumType.STRING)
@@ -44,9 +44,6 @@ public class PostagemEntity {
 
     private String corTitulo;
     private String corConteudo;
-
-    @Lob
-    private byte[] anexo;
 
     @ManyToOne(targetEntity = CategoriaEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")

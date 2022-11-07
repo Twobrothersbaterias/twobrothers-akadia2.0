@@ -5,8 +5,12 @@ window.onresize = doALoadOfStuff;
 buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+var tipoFiltro = document.getElementById('tipo_filtro').value;
+
+tituloResponsivo(tipoFiltro);
 
 console.log('Privilégio: ' + privilegio);
+console.log('Tipo do filtro: ' + tipoFiltro);
 
 document.onkeydown=function(){
 
@@ -114,6 +118,9 @@ function responsive(){
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
 
+	var img = document.getElementsByClassName('img');
+	var aImg = document.getElementsByClassName('a_img');
+	var imgContainer = document.getElementsByClassName('img_container');	
 	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
@@ -141,11 +148,12 @@ function responsive(){
 	var listaVaziaTitulo = document.getElementById('lista_vazia_titulo');
 	var listaVaziaTexto = document.getElementById('lista_vazia_texto');
 	var listaVaziaBotao = document.getElementById('lista_vazia_botao');
+	var pageClick = document.getElementsByClassName('page_click');
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
 
-		conteudoTituloText.style.fontSize="1.5rem";
+		conteudoTituloText.style.fontSize="1.1rem";
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -168,7 +176,7 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-		filtroTitulo.style.fontSize="1.5rem";
+		filtroTitulo.style.fontSize="1.1rem";
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";			
@@ -182,10 +190,10 @@ function responsive(){
 		}
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.80rem";
+			th[i].style.fontSize="0.70rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
+			td[i].style.fontSize="0.70rem";
 		}
 
 		for(var i = 0; i < novoTh.length; i++){
@@ -194,9 +202,11 @@ function responsive(){
 		for(var i = 0; i < novoTd.length; i++){
 			novoTd[i].style.fontSize="1rem";
 		}		
+
+		informativoRow.style.marginBottom="20px";		
 		
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.90rem";
+			informativo[i].style.fontSize="0.70rem";
 			informativo[i].style.width="23.5%";
 			informativo[i].style.margin="0 7px";
 		}		
@@ -211,21 +221,34 @@ function responsive(){
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
 		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="22px";
 		}
-	
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}	
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="10px";			
+		}				
+
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";		
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
 
-		conteudoTituloText.style.fontSize="1.3rem";
+		conteudoTituloText.style.fontSize="1.1rem";
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
 
@@ -247,7 +270,7 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-		filtroTitulo.style.fontSize="1.4rem";
+		filtroTitulo.style.fontSize="1.1rem";
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";			
@@ -261,14 +284,16 @@ function responsive(){
 		}					
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.75rem";		
+			th[i].style.fontSize="0.65rem";		
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.75rem";			
+			td[i].style.fontSize="0.65rem";			
 		}
 
+		informativoRow.style.marginBottom="20px";		
+
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.80rem";
+			informativo[i].style.fontSize="0.65rem";
 			informativo[i].style.width="23.5%";
 			informativo[i].style.margin="0 5px";
 		}			
@@ -282,16 +307,30 @@ function responsive(){
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.65rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
 		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}	
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";					
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}		
+
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";					
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Médio');	
@@ -317,7 +356,7 @@ function responsive(){
 			tdUsuario[i].style.display="none";
 		}		
 
-		conteudoTituloText.style.fontSize="1.2rem";	
+		conteudoTituloText.style.fontSize="1rem";
 		menuMobile.style.display="none";
 
 		if (informativoRow != null) {
@@ -330,14 +369,16 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="1rem";
 		}
 
-		filtroTitulo.style.fontSize="1.3rem";	
+		filtroTitulo.style.fontSize="1.1rem";	
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.70rem";	
+			th[i].style.fontSize="0.60rem";	
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.70rem";
+			td[i].style.fontSize="0.60rem";
 		}	
+
+		informativoRow.style.marginBottom="20px";		
 
 		for(var i = 0; i < informativo.length; i++){
 			informativo[i].style.fontSize="0.70rem";
@@ -345,28 +386,40 @@ function responsive(){
 			informativo[i].style.margin="7px";					
 		}			
 		for(var i = 0; i < liA.length; i++){
-			liA[i].style.fontSize="0.75rem";
+			liA[i].style.fontSize="0.60rem";
 			liA[i].style.padding="5px 10px";			
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="50%";			
+			formRemoveImg[i].style.maxWidth="42%";			
 		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}				
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
 		}	
 		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}	
+			filtroBlock[i].style.marginBottom="20px";
+		}
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
 
-		conteudoTituloText.style.fontSize="1.1rem";
+		conteudoTituloText.style.fontSize="0.90rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";			
@@ -382,10 +435,11 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="0.90rem";
 		}
 
-		filtroTitulo.style.fontSize="1.2rem";
+		filtroTitulo.style.fontSize="1.1rem";
 
-		conteudoContainer.style.marginTop="10px";
+		conteudoContainer.style.marginTop="5px";
 		hrTabela.style.marginBottom="15px";	
+		hrTabela.style.marginTop="10px";	
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";
@@ -397,14 +451,16 @@ function responsive(){
 
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.65rem";
+			th[i].style.fontSize="0.55rem";
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.65rem";
+			td[i].style.fontSize="0.55rem";
 		}
+
+		informativoRow.style.marginBottom="20px";
 				
 		for(var i = 0; i < informativo.length; i++) {
-			informativo[i].style.fontSize="0.65rem";
+			informativo[i].style.fontSize="0.55rem";
 			informativo[i].style.width="46%";
 			informativo[i].style.margin="7px";			
 		}
@@ -414,8 +470,21 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="55%";
+			formRemoveImg[i].style.maxWidth="47%";
 		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}				
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
@@ -439,7 +508,7 @@ function responsive(){
 	else if(bodyWidth < 540){
 		console.log('Muito pequeno');
 
-		conteudoTituloText.style.fontSize="1rem";
+		conteudoTituloText.style.fontSize="0.80rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";		
@@ -453,7 +522,8 @@ function responsive(){
 			listaVaziaBotao.style.fontSize="0.90rem";
 		}
 
-		conteudoContainer.style.marginTop="10px";
+		conteudoContainer.style.marginTop="5px";
+		hrTabela.style.marginTop="10px";	
 		hrTabela.style.marginBottom="15px";			
 
 		for(var i = 0; i < thUsuario.length; i++) {
@@ -465,16 +535,18 @@ function responsive(){
 		}		
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.60rem";
+			th[i].style.fontSize="0.50rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.60rem";
+			td[i].style.fontSize="0.50rem";
 		}
 
+		informativoRow.style.marginBottom="15px";
+
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.60rem";
-			informativo[i].style.width="55%";
-			informativo[i].style.margin="0 auto 10px auto";
+			informativo[i].style.fontSize="0.55rem";
+			informativo[i].style.width="46%";
+			informativo[i].style.margin="5px auto";	
 		}	
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.60rem";
@@ -482,8 +554,21 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="60%";				
-		}	
+			formRemoveImg[i].style.maxWidth="55%";				
+		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="15px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="8px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}							
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
@@ -509,281 +594,6 @@ function responsive(){
 
 	pageResponsiva();
 	ajustaTabela();
-}
-
-/* ================== CONFIGURAÇÕES DA SUB-TELA NOVO ITEM ====================== */
-
-function abrirNovoItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');
-
-	var containerNovo = document.getElementById('conteudo_container_novo');
-
-	containerNovo.hidden=false;
-	document.getElementById('data_pagamento_input').value=hoje;
-
-	containerPrincipal.style.pointerEvents="none";
-	containerPrincipal.style.opacity="0.075";
-	containerPrincipal.style.transition="1s";
-
-	menuSuperior.style.pointerEvents="none";
-	menuSuperior.style.opacity="0.1";
-	menuSuperior.style.transition="1s";
-
-	menuSuperiorMobile.style.pointerEvents="none";
-	menuSuperiorMobile.style.opacity="0.1";
-	menuSuperiorMobile.style.transition="1s";	
-
-	sideMenu.style.pointerEvents="none";
-	sideMenu.style.opacity="0.1";
-	sideMenu.style.transition="1s";		
-}
-
-function proximaEtapa() {
-
-	var titulo = document.getElementById('novo_titulo');	
-
-	var etapaCliente = document.getElementById('etapa_cliente');
-	var etapaEntradas = document.getElementById('etapa_entradas');
-	var etapaDetalhes = document.getElementById('etapa_detalhes');
-
-	var anteriorSegundaEtapa = document.getElementById('anterior_segunda_etapa');
-	var anteriorTerceiraEtapa = document.getElementById('anterior_terceira_etapa');
-
-	var proximoPrimeiraEtapa = document.getElementById('proximo_primeira_etapa');
-	var proximoSegundaEtapa = document.getElementById('proximo_segunda_etapa');
-	var proximoTerceiraEtapa = document.getElementById('proximo_terceira_etapa');
-
-	if (etapaCliente.hidden != true) {
-
-		titulo.innerText="Segunda etapa - Adição de produtos";
-
-		etapaCliente.hidden=true;
-		etapaEntradas.hidden=false;
-		etapaDetalhes.hidden=true;
-
-	}
-	else if (etapaEntradas.hidden != true) {
-
-		titulo.innerText="Terceira etapa - Pagamento e retirada";
-
-		etapaCliente.hidden=true;
-		etapaEntradas.hidden=true;
-		etapaDetalhes.hidden=false;
-
-	}
-
-}
-
-function etapaAnterior() {
-
-	var titulo = document.getElementById('novo_titulo');
-
-	var etapaCliente = document.getElementById('etapa_cliente');
-	var etapaEntradas = document.getElementById('etapa_entradas');
-	var etapaDetalhes = document.getElementById('etapa_detalhes');
-
-	var anteriorSegundaEtapa = document.getElementById('anterior_segunda_etapa');
-	var anteriorTerceiraEtapa = document.getElementById('anterior_terceira_etapa');
-
-	var proximoPrimeiraEtapa = document.getElementById('proximo_primeira_etapa');
-	var proximoSegundaEtapa = document.getElementById('proximo_segunda_etapa');
-	var proximoTerceiraEtapa = document.getElementById('proximo_terceira_etapa');
-
-	if (etapaEntradas.hidden != true) {
-
-		titulo.innerText="Primeira etapa - Cadastro do cliente";
-
-		etapaCliente.hidden=false;
-		etapaEntradas.hidden=true;
-		etapaDetalhes.hidden=true;
-
-	}
-	else if (etapaDetalhes.hidden != true) {
-
-		titulo.innerText="Segunda etapa - Adição de produtos";
-
-		etapaCliente.hidden=true;
-		etapaEntradas.hidden=false;
-		etapaDetalhes.hidden=true;
-
-	}	
-
-}
-
-function fechaNovoItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var containerPrincipal = document.getElementById('conteudo_container');
-	var menuSuperior = document.getElementById('menu_superior');
-	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
-	var sideMenu = document.getElementById('side_menu');	
-
-	var containerNovo = document.getElementById('conteudo_container_novo');	
-
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');
-
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	statusPatrimonioInput.value="PAGO";
-	tipoPatrimonioInput.value="ATIVO";
-
-	dataEntradaInput.style.color="#121212";
-	dataEntradaInput.disabled=false;
-	dataEntradaInput.value=hoje;	
-	
-	containerNovo.hidden=true;
-
-	containerPrincipal.style.opacity="1";
-	containerPrincipal.style.transition="1s";
-	containerPrincipal.style.pointerEvents="auto";
-
-	menuSuperior.style.opacity="1";
-	menuSuperior.style.transition="1s";
-	menuSuperior.style.pointerEvents="auto";
-
-	menuSuperiorMobile.style.opacity="1";
-	menuSuperiorMobile.style.transition="1s";
-	menuSuperiorMobile.style.pointerEvents="auto";	
-
-	sideMenu.style.opacity="1";
-	sideMenu.style.transition="1s";
-	sideMenu.style.pointerEvents="auto";		
-}
-
-function changeTipo() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');	
-
-	if (tipoPatrimonio.value == "ATIVO") {
-		statusPatrimonio.value="PAGO";
-		dataEntradaInput.style.color="#121212";
-		dataEntradaInput.disabled=false;
-		dataEntradaInput.value=hoje;
-	}
-	else {
-		statusPatrimonio.value="PENDENTE";
-		dataEntradaInput.style.color="#4444";
-		dataEntradaInput.value="";
-		dataEntradaInput.disabled=true;
-	}
-}
-
-function changeStatus() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 
-
-	var statusPatrimonio = document.getElementById('status_patrimonio');
-	var tipoPatrimonio = document.getElementById('tipo_patrimonio_input');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');	
-
-	if (statusPatrimonio.value == "PAGO") {
-		dataEntradaInput.style.color="#121212";
-		dataEntradaInput.disabled=false;
-		dataEntradaInput.value=hoje;
-	}
-	else {
-		dataEntradaInput.style.color="#4444";
-		dataEntradaInput.value="";
-		dataEntradaInput.disabled=true;
-	}
-}
-
-function reloadNovoItem() {
-
-	const d = new Date();
-	var ano = d.getFullYear();
-	var mes = d.getMonth()+1;
-	var dia = d.getDate();
-
-	if(mes < 10) {
-		var mes = '0' + mes;
-	}
-
-	if(dia < 10) {
-		var dia = '0' + dia;
-	}	
-
-	var hoje = (ano + '-' + mes + '-' + dia); 	
-
-	var descricaoPatrimonioInput = document.getElementById('descricao_patrimonio_input');
-	var tipoPatrimonioInput = document.getElementById('tipo_patrimonio_input');
-	var valorPatrimonioInput = document.getElementById('valor_patrimonio_input');
-	var statusPatrimonioInput = document.getElementById('status_patrimonio');
-	var dataEntradaInput = document.getElementById('data_pagamento_input');
-
-	descricaoPatrimonioInput.value="";
-	valorPatrimonioInput.value="";
-	tipoPatrimonioInput.value="ATIVO";
-	statusPatrimonioInput.value="PAGO";
-	dataEntradaInput.value=hoje;
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA FILTROS ====================== */
@@ -1090,8 +900,13 @@ function addFiltro() {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 
+		var columnDataSplitted = inputDataInicioFiltro.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimFiltro.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];			
+
 		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+		dataTag.innerText = inicio + ' a ' + fim;
 
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
@@ -1330,7 +1145,11 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #212121"
 		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+		var columnDataSplitted = inputDataInicioBackend.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimBackend.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		filtroData.innerText = inicio + ' a ' + fim;
 	}	
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
@@ -1825,14 +1644,14 @@ function buildUrl(baseUrl, pagina, produto, bairro, mes, ano) {
 	paginaList.href=baseUrl;
 }
 
-function hideMessage(){
+function hideMessage() {
 	var alertas = document.getElementsByClassName('alert');
 	for(var i = 0; i < alertas.length; i++){
 		alertas[i].hidden=true;
 	}
 }
 
-function pageResponsiva(){
+function pageResponsiva() {
 	if (document.getElementById('pegando_page') != null) {
 		var pages = document.getElementsByClassName('page_number');
 		var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
@@ -1874,4 +1693,36 @@ function pageResponsiva(){
 function doALoadOfStuff() {
 	document.getElementById('conteudo_container').style.transition="2s";
 	responsive();
+}
+
+function tituloResponsivo(filtro) {
+
+	var titulo = document.getElementById('conteudo_titulo_text');
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var mes = document.getElementById('back_mes');
+	var ano = document.getElementById('back_ano');	
+	var produto = document.getElementById('back_produto');		
+	var bairro = document.getElementById('back_bairro');			
+
+	if(filtro == "hoje") {
+		titulo.innerText="Vendas hoje";
+	}
+	else if (filtro == "data") {
+		var columnDataSplitted = dataInicio.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = dataFim.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+		titulo.innerText="Vendas: " + inicio + " à " + fim;		
+	}
+	else if (filtro == "periodo") {
+		titulo.innerText="Vendas: " + mes.value + "/" + ano.value;
+	}
+	else if (filtro == "produto") {
+		titulo.innerText="Vendas de " + produto.value;
+	}
+	else if (filtro == "bairro") {
+		titulo.innerText="Vendas em " + bairro.value;
+	}
+
 }

@@ -168,7 +168,6 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";			
@@ -261,7 +260,6 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";
 		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";	
 
 		filtroTitulo.style.fontSize="1.4rem";		
 
@@ -359,7 +357,6 @@ function responsive(){
 
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.1rem";
-		editaItemSubmit.style.marginTop="0px";
 
 		filtroTitulo.style.fontSize="1.3rem";	
 
@@ -447,8 +444,6 @@ function responsive(){
 
 		containerEdita.style.fontSize="0.90rem";	
 		editaTitulo.style.fontSize="1.2rem";		
-		editaItemSubmit.style.marginTop="0px";
-
 		filtroTitulo.style.fontSize="1.2rem";	
 
 		conteudoContainer.style.marginTop="10px";
@@ -544,7 +539,6 @@ function responsive(){
 
 		containerEdita.style.fontSize="0.90rem";
 		editaTitulo.style.fontSize="1rem";
-		editaItemSubmit.style.marginTop="5px";
 
 		filtroTitulo.style.fontSize="1.1rem";		
 
@@ -1290,19 +1284,14 @@ function efeitoRemoverFiltroLeave(filtro) {
 function abrirEditaItem(
 							id, 
 							dataCadastro,
-							dataNascimento,
-							nomeCompleto, 
-							cpfCnpj,
-							email, 
-							telefone, 
-							usuarioResponsavel,
-							logradouro,
-							numero,
-							bairro,
-							cidade,
-							cep,
-							complemento,
-							estado) {
+							titulo,
+							conteudo,
+							nomeCategoria,
+							nomeSubCategoria,
+							corTitulo,
+							corConteudo,
+							fonteTitulo,
+							fonteConteudo) {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -1331,24 +1320,21 @@ function abrirEditaItem(
 		var dataCadastroSplitada = dataCadastro.split("-");
 		if (dataCadastroSplitada.length == 3) {
 			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-			document.getElementById('edita_info').title="Cliente cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
 		}
 	}
 
-	$('#giro').attr("href", "/vendas?cliente=" + id);
-	document.getElementById('id_input_edicao').value=id;
-	document.getElementById('edita_descricao_cliente_input').value=nomeCompleto;
-	document.getElementById('edita_email_cliente_input').value=email;
-	document.getElementById('edita_telefone_cliente_input').value=telefone;
-	document.getElementById('edita_data_nascimento_input').value=dataNascimento;
-	document.getElementById('edita_cpfCnpj_input').value=cpfCnpj;
-	document.getElementById('edita_cep_input').value=cep;
-	document.getElementById('edita_estado_input').value=estado;
-	document.getElementById('edita_cidade_input').value=cidade;
-	document.getElementById('edita_logradouro_input').value=logradouro;
-	document.getElementById('edita_numero_input').value=numero;
-	document.getElementById('edita_bairro_input').value=bairro;
-	document.getElementById('edita_complemento_input').value=complemento;
+	escreveConteudo('edita');
+
+	document.getElementById('edita_input_titulo').innerText=titulo;
+	$(document.getElementById('edita_input_titulo')).css("font-family", fonteTitulo);
+	$(document.getElementById('edita_input_titulo')).css("color", corTitulo);
+
+	document.getElementById('edita_input_conteudo').innerText=conteudo;
+	$(document.getElementById('edita_input_conteudo')).css("font-family", fonteConteudo);
+	$(document.getElementById('edita_input_conteudo')).css("color", corConteudo);
+
+	document.getElementById('edita_caracteres').innerText = conteudo.length + '/1500';	
+
 }
 
 function fecharEditaItem() {
@@ -1358,8 +1344,6 @@ function fecharEditaItem() {
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
 	var sideMenu = document.getElementById('side_menu');	
 	var containerEdita = document.getElementById('conteudo_container_edita');	
-
-	reloadEditaItem();
 
 	containerEdita.hidden=true;
 	containerPrincipal.style.opacity="1";
@@ -1376,38 +1360,6 @@ function fecharEditaItem() {
 	sideMenu.style.pointerEvents="auto";
 }
 
-function reloadEditaItem() {
-	document.getElementById('edita_descricao_cliente_input').value="";
-	document.getElementById('edita_descricao_cliente_input').style.background="transparent";
-
-	document.getElementById('edita_email_cliente_input').value="";
-	document.getElementById('edita_email_cliente_input').style.background="transparent";
-
-	document.getElementById('edita_telefone_cliente_input').value="";
-	document.getElementById('edita_telefone_cliente_input').style.background="transparent";
-
-	document.getElementById('edita_data_nascimento_input').value="";
-
-	document.getElementById('edita_cpfCnpj_input').value="";
-	document.getElementById('edita_cpfCnpj_input').style.background="transparent";
-
-	document.getElementById('edita_cep_input').value="";
-	document.getElementById('edita_cep_input').style.background="transparent";
-
-	document.getElementById('edita_estado_input').value="SP";
-
-	document.getElementById('edita_cidade_input').value="";
-	document.getElementById('edita_cidade_input').style.background="transparent";
-
-	document.getElementById('edita_logradouro_input').value="";
-	document.getElementById('edita_logradouro_input').style.background="transparent";	
-
-	document.getElementById('edita_numero_input').value="";
-	document.getElementById('edita_numero_input').style.background="transparent";	
-	
-	document.getElementById('edita_bairro_input').value="";
-	document.getElementById('edita_complemento_input').value="";
-}
 
 /* ================== TRATAMENTO DE INPUTS ====================== */
 
@@ -1446,6 +1398,7 @@ function categoriaMudada(tipo) {
 	} 	
 
 	for(var i = 0; i < optionsSubcategoria.length; i++) {
+		console.log(optionsSubcategoria[i].getAttribute('data-nomeCategoria'));
 		if(optionsSubcategoria[i].getAttribute('data-nomeCategoria') != inputCategoria.value) {
 			optionsSubcategoria[i].disabled=true;
 		}
@@ -1555,73 +1508,66 @@ function validacaoDoObjetoPostagem(tipo) {
 		var inputTitulo = document.getElementById('input_titulo');
 		var inputConteudo = document.getElementById('input_conteudo');	
 		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');		
-	}
-	else {
-		var inputFonteTitulo = document.getElementById('edita_input_fonte_titulo');
-		var inputCorTitulo = document.getElementById('edita_input_cor_titulo');
-		var inputFonteConteudo = document.getElementById('edita_input_fonte_conteudo');
-		var inputCorConteudo = document.getElementById('edita_input_cor_conteudo');
-		var inputCategoria = document.getElementById('edita_input_categoria');
-		var inputSubCategoria = document.getElementById('edita_input_subCategoria');
-		var inputTitulo = document.getElementById('edita_input_titulo');
-		var inputConteudo = document.getElementById('edita_input_conteudo');
-		var optionsSubcategoria = document.getElementsByClassName('edita_option_subcategoria');					
-	}
 
-	inputCategoria.value = inputCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-	inputSubCategoria.value = inputSubCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-	if(inputCategoria.value != ""
-		|| inputSubCategoria.value != "" 
-		|| inputTitulo.value != "" 
-		|| inputConteudo.value != "") {
-
-		if(inputTitulo.value == "") {
-			inputTitulo.style.background="#f5aea9";		
+		if(inputCategoria != null) {
+			inputCategoria.value = inputCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 		}
+		if (inputSubCategoria != null) {
+			inputSubCategoria.value = inputSubCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+		}
+
+		if(inputCategoria.value != ""
+			|| inputSubCategoria.value != "" 
+			|| inputTitulo.value != "" 
+			|| inputConteudo.value != "") {
+
+			if(inputTitulo.value == "") {
+				inputTitulo.style.background="#f5aea9";		
+			}
+			else {
+				inputTitulo.style.background="transparent";	
+			}
+
+			if(inputConteudo.value == "") {
+				inputConteudo.style.background="#f5aea9";	
+			}
+			else {
+				inputConteudo.style.background="transparent";
+			}		
+
+			if(inputCategoria.value == "") {
+				inputCategoria.style.background="#f5aea9";
+			}
+			else {
+				inputCategoria.style.background="transparent";
+			}
+
+			if(inputSubCategoria.value == "") {
+				inputSubCategoria.style.background="#f5aea9";
+			}
+			else {
+				inputSubCategoria.style.background="transparent";		
+			}	
+
+			if (inputCategoria.value != '') {
+				inputSubCategoria.disabled=false;
+				document.getElementById('label_subCategoria').style.color="#303030";
+			} 
+			else {
+				inputSubCategoria.disabled=true;
+				document.getElementById('label_subCategoria').style.color="#4444";
+			} 						
+
+		}
+
 		else {
-			inputTitulo.style.background="transparent";	
-		}
-
-		if(inputConteudo.value == "") {
-			inputConteudo.style.background="#f5aea9";	
-		}
-		else {
+			inputTitulo.style.background="transparent";		
 			inputConteudo.style.background="transparent";
-		}		
-
-		if(inputCategoria.value == "") {
-			inputCategoria.style.background="#f5aea9";
-		}
-		else {
-			inputCategoria.style.background="transparent";
-		}
-
-		if(inputSubCategoria.value == "") {
-			inputSubCategoria.style.background="#f5aea9";
-		}
-		else {
+			inputCategoria.style.background="transparent";		
 			inputSubCategoria.style.background="transparent";		
-		}	
-
-		if (inputCategoria.value != '') {
-			inputSubCategoria.disabled=false;
-			document.getElementById('label_subCategoria').style.color="#303030";
-		} 
-		else {
-			inputSubCategoria.disabled=true;
-			document.getElementById('label_subCategoria').style.color="#4444";
-		} 						
-
-	}
-
-	else {
-		inputTitulo.style.background="transparent";		
-		inputConteudo.style.background="transparent";
-		inputCategoria.style.background="transparent";		
-		inputSubCategoria.style.background="transparent";		
-		return true;		
-	}
+			return true;		
+		}
+    }
 }
 
 /* VALIDAÇÃO DE TODOS OS CAMPOS */
@@ -1691,17 +1637,19 @@ function validacaoCampos(tipo) {
 
 function escreveConteudo(tipo) {
 
-	validacaoDoObjetoPostagem(tipo);
+	if(tipo == 'novo') {
+		validacaoDoObjetoPostagem(tipo);
 
-	var total = 1500;
-	var novoTotal = 1500;
-	
-	var inputConteudo = document.getElementById('input_conteudo');
-	var caracteres = document.getElementById('caracteres');
+		var total = 1500;
+		var novoTotal = 1500;
+		
+		var inputConteudo = document.getElementById('input_conteudo');
+		var caracteres = document.getElementById('caracteres');
 
-	novoTotal = total - inputConteudo.value.length;
+		novoTotal = total - inputConteudo.value.length;
 
-	caracteres.innerText = novoTotal + '/' + total;
+		caracteres.innerText = novoTotal + '/' + total;
+	}
 }
 
 /* ================== MISC ====================== */
@@ -1838,70 +1786,6 @@ function hideMessage(){
 	}
 }
 
-function consultaEndereco(tipo) {
-
-	let cep = null;
-
-	if(tipo == "novo") {
-		cep = document.querySelector('#cep_input');
-	}
-	else if(tipo == "edita") {
-		cep = document.querySelector('#edita_cep_input');
-	}
-
-	if (cep.value.length != 8) {
-		return;
-	}
-
-	let url = 'https://viacep.com.br/ws/' + cep.value + '/json';
-
-	fetch(url).then(function(response){
-		response.json().then(function(data){
-			if(data.erro == undefined) {
-				mostrarEndereco(data, tipo);
-			}
-		})
-	});
-}
-
-function mostrarEndereco(dados, tipo) {
-
-	if(tipo == "novo") {
-		var cepInput = document.getElementById('cep_input');
-		var estadoInput = document.getElementById('estado_input');
-		var cidadeInput = document.getElementById('cidade_input');
-		var logradouroInput = document.getElementById('logradouro_input');
-		var bairroInput = document.getElementById('bairro_input');
-
-		estadoInput.value=dados.uf;
-		cidadeInput.value = dados.localidade;
-		logradouroInput.value=dados.logradouro;
-		bairroInput.value=dados.bairro;
-
-		cepInput.style.background="transparent";
-		logradouroInput.style.background="transparent";		
-
-		document.getElementById('novo_item_label_numero').focus();
-	}
-	else if(tipo == "edita") {
-		var cepInput = document.getElementById('edita_cep_input');
-		var estadoInput = document.getElementById('edita_estado_input');
-		var cidadeInput = document.getElementById('edita_cidade_input');
-		var logradouroInput = document.getElementById('edita_logradouro_input');
-		var bairroInput = document.getElementById('edita_bairro_input');
-
-		estadoInput.value=dados.uf;
-		cidadeInput.value = dados.localidade;
-		logradouroInput.value=dados.logradouro;
-		bairroInput.value=dados.bairro;
-
-		cepInput.style.background="transparent";
-		logradouroInput.style.background="transparent";
-
-		document.getElementById('edita_numero_input').focus();		
-	}
-}
-
 function pageResponsiva(){
 	var pages = document.getElementsByClassName('page_number');
 	var PaginaSelecionada = (document.getElementById('pegando_page').innerText);
@@ -2026,145 +1910,3 @@ function removePostagem(id) {
 			"Entre em contato com um gestor para solicitar permissão");
 	}
 }
-
-
-/*function categoriaMouseOver(id) {
-
-	var categoria = document.getElementById('categoria_filho_' + id);
-	var categoriaTitulo = document.getElementById('categoria_titulo_' + id);
-
-	if(categoria.disabled != true) {
-		categoria.style.background="#2f3d61";
-		categoria.style.cursor="pointer";
-		categoriaTitulo.style.color="#C3C8C8";
-	}
-
-}
-
-function categoriaMouseLeave(id) {
-
-	var categoria = document.getElementById('categoria_filho_' + id);
-	var categoriaTitulo = document.getElementById('categoria_titulo_' + id);
-
-	if(categoria.disabled != true) {
-		categoria.style.background="#C3C8C8";
-		categoria.style.cursor="none";
-		categoriaTitulo.style.color="#2f3d61";
-	}
-
-}
-
-function categoriaClick(id) {
-
-	var subcategorias = document.getElementsByClassName('bloco_filho_subcategoria');
-	var subcategoriasTitulo = document.getElementsByClassName('titulo_subcategoria');
-
-	for(var i = 0; i < subcategorias.length; i++) {
-		subcategorias[i].disabled=false;
-		subcategorias[i].style.background="#C3C8C8";
-		subcategorias[i].style.cursor="none";	
-	}
-
-	for(var i = 0; i < subcategoriasTitulo.length; i++) {
-		subcategoriasTitulo[i].style.color="#2f3d61"		
-	}	
-
-	var categoria = document.getElementById('categoria_filho_' + id);
-	var categoriaNome = categoria.getAttribute('data-nome');
-	var categoriaTitulo = document.getElementById('categoria_titulo_' + id);	
-	var categorias = document.getElementsByClassName('bloco_filho_categoria');
-	var categoriasTitulo = document.getElementsByClassName('titulo');
-
-	for(var i = 0; i < categorias.length; i++) {
-		categorias[i].disabled=false;
-		categorias[i].style.background="#C3C8C8";
-		categorias[i].style.cursor="none";	
-	}
-
-	for(var i = 0; i < categoriasTitulo.length; i++) {
-		categoriasTitulo[i].style.color="#2f3d61"		
-	}
-	categoria.disabled=true;
-	categoria.style.background="#2f3d61";
-	categoria.style.cursor="pointer";
-	categoriaTitulo.style.color="#C3C8C8";
-
-	document.getElementById('container_subcategorias').hidden=false;
-	var subCategorias = document.getElementsByClassName('bloco_pai_subcategoria');
-
-	for(var i = 0; i < subCategorias.length; i++) {
-		subCategorias[i].hidden=false;
-	}
-
-	for(var i = 0; i < subCategorias.length; i++) {
-		if (subCategorias[i].getAttribute('data-nomeCategoria') != categoriaNome) {
-			subCategorias[i].hidden=true;
-		}
-	}
-
-}
-
-function subCategoriaMouseOver(id) {
-
-	var subcategoria = document.getElementById('subcategoria_filho_' + id);
-	var subcategoriaTitulo = document.getElementById('subcategoria_titulo_' + id);
-
-	if(subcategoria.disabled != true) {
-		subcategoria.style.background="#2f3d61";
-		subcategoria.style.cursor="pointer";
-		subcategoriaTitulo.style.color="#C3C8C8";
-	}
-
-}
-
-function subCategoriaMouseLeave(id) {
-
-	var subcategoria = document.getElementById('subcategoria_filho_' + id);
-	var subcategoriaTitulo = document.getElementById('subcategoria_titulo_' + id);
-
-	if(subcategoria.disabled != true) {
-		subcategoria.style.background="#C3C8C8";
-		subcategoria.style.cursor="none";
-		subcategoriaTitulo.style.color="#2f3d61";
-	}
-
-}
-
-function subCategoriaClick(id) {
-
-	var subcategoria = document.getElementById('subcategoria_filho_' + id);
-	var subcategoriaNome = subcategoria.getAttribute('data-nome');
-	var subcategoriaTitulo = document.getElementById('subcategoria_titulo_' + id);	
-	var subcategorias = document.getElementsByClassName('bloco_filho_subcategoria');
-	var subcategoriasTitulo = document.getElementsByClassName('titulo_subcategoria');
-
-	for(var i = 0; i < subcategorias.length; i++) {
-		subcategorias[i].disabled=false;
-		subcategorias[i].style.background="#C3C8C8";
-		subcategorias[i].style.cursor="none";	
-	}
-
-	for(var i = 0; i < subcategoriasTitulo.length; i++) {
-		subcategoriasTitulo[i].style.color="#2f3d61"		
-	}
-	subcategoria.disabled=true;
-	subcategoria.style.background="#2f3d61";
-	subcategoria.style.cursor="pointer";
-	subcategoriaTitulo.style.color="#C3C8C8";
-
-	document.getElementById('container_postagens').hidden=false;
-	var postagens = document.getElementsByClassName('bloco_pai_postagem');
-
-	for(var i = 0; i < postagens.length; i++) {
-		postagens[i].hidden=false;
-	}
-
-	for(var i = 0; i < postagens.length; i++) {
-		console.log(postagens[i].getAttribute('data-subcategoria'));
-		console.log(subcategoria.getAttribute('data-nome'));
-		if (postagens[i].getAttribute('data-subcategoria') != subcategoriaNome) {
-			postagens[i].hidden=true;
-		}
-	}
-
-}*/

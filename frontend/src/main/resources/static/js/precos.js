@@ -850,11 +850,15 @@ function efeitoRemoverFiltroLeave(filtro) {
 function abrirEditaItem(
 							id, 
 							dataCadastro,
-							valor,
-							observacao,
-							idFornecedor,
-							idProduto,
-							usuarioResponsavel) {
+							titulo,
+							conteudo,
+							anexo,
+							nomeCategoria,
+							nomeSubCategoria,
+							corTitulo,
+							corConteudo,
+							fonteTitulo,
+							fonteConteudo) {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');

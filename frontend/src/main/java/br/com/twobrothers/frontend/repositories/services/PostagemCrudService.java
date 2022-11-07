@@ -68,7 +68,7 @@ public class PostagemCrudService {
 
                 log.info(CRIACAO_POSTAGEM);
                 PostagemEntity postagemEntity =
-                        PostagemEntity.builder()
+                        postagemRepository.save(PostagemEntity.builder()
                                 .corConteudo(postagem.getCorConteudo())
                                 .corTitulo(postagem.getCorTitulo())
                                 .fonteConteudo(postagem.getFonteConteudo())
@@ -77,10 +77,9 @@ public class PostagemCrudService {
                                 .conteudo(postagem.getConteudo())
                                 .titulo(postagem.getTitulo())
                                 .categoria(null)
-                                .anexo(postagem.getAnexo())
                                 .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                                 .dataCadastro(LocalDate.now().toString())
-                                .build();
+                                .build());
 
                 log.info(ACLOPANDO_POSTAGEM_SUBCATEGORIA);
                 subCategoriaEntity.addPostagem(postagemEntity);
@@ -115,7 +114,6 @@ public class PostagemCrudService {
                                 .conteudo(postagem.getConteudo())
                                 .titulo(postagem.getTitulo())
                                 .categoria(null)
-                                .anexo(postagem.getAnexo())
                                 .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                                 .dataCadastro(LocalDate.now().toString())
                                 .build();
@@ -169,7 +167,6 @@ public class PostagemCrudService {
                             .conteudo(postagem.getConteudo())
                             .titulo(postagem.getTitulo())
                             .categoria(null)
-                            .anexo(postagem.getAnexo())
                             .usuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository))
                             .dataCadastro(LocalDate.now().toString())
                             .build();
@@ -263,15 +260,7 @@ public class PostagemCrudService {
             SubCategoriaEntity subCategoria = postagem.getSubCategoria();
             categoria.removePostagem(postagem);
             subCategoria.removePostagem(postagem);
-
-            if (subCategoria.getPostagens().isEmpty()) {
-                categoria.removeSubCategoria(subCategoria);
-                categoriaRepository.save(categoria);
-                subCategoriaRepository.deleteById(subCategoria.getId());
-            }
-            else {
-                subCategoriaRepository.save(subCategoria);
-            }
+            subCategoriaRepository.save(subCategoria);
 
             categoriaRepository.save(categoria);
             postagemRepository.deleteById(id);
