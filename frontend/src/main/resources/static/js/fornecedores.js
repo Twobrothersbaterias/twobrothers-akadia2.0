@@ -1072,7 +1072,7 @@ function addFiltro() {
 
 		dataTag.hidden=false;
 		dataTag.innerText = inicio + ' a ' + fim;
-		
+
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
 		inputDataFimBackend.value=inputDataFimFiltro.value;
@@ -2200,7 +2200,7 @@ function tituloResponsivo(filtro) {
 	var ano = document.getElementById('back_ano');	
 	var nome = document.getElementById('back_descricao');		
 	var cpf = document.getElementById('back_cpfCnpj');			
-	var telefone = document.getElementById('back_telefone');		
+	var telefone = document.getElementById('back_telefone');
 
 	if(filtro == "hoje") {
 		titulo.innerText="Fornecedores cadastrados hoje";

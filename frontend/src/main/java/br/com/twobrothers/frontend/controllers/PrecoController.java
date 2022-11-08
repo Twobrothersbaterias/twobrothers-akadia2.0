@@ -2,8 +2,12 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.PrecoFornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPrecoDTO;
+import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.PrecoFornecedorEntity;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
+import br.com.twobrothers.frontend.repositories.FornecedorRepository;
+import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.PrecoFornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -45,6 +49,12 @@ public class PrecoController {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    FornecedorRepository fornecedorRepository;
+
+    @Autowired
+    ProdutoEstoqueRepository produtoEstoqueRepository;
 
     @GetMapping
     public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
@@ -95,17 +105,29 @@ public class PrecoController {
 
         model.addAttribute("tipoFiltro", "todos");
 
+        FornecedorEntity fornecedorEncontradoPorId = new FornecedorEntity();
+        ProdutoEstoqueEntity produtoEncontradoPorId = new ProdutoEstoqueEntity();
+
         if (fornecedorId.isPresent()) model.addAttribute("tipoFiltro", "fornecedorId");
+        if (fornecedorId.isPresent()) {
+            fornecedorEncontradoPorId = (fornecedorRepository.findById(Long.parseLong(fornecedorId.orElse(String.valueOf(0L)))).get());
+            model.addAttribute("tipoFiltro", "fornecedorId");
+        }
         if (fornecedor.isPresent()) model.addAttribute("tipoFiltro", "fornecedor");
-        if (produtoId.isPresent()) model.addAttribute("tipoFiltro", "produtoId");
+        if (produtoId.isPresent()) {
+            produtoEncontradoPorId = (produtoEstoqueRepository.findById(Long.parseLong(produtoId.orElse(String.valueOf(0L)))).get());
+            model.addAttribute("tipoFiltro", "produtoId");
+        }
         if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
 
         paginas = precoService.calculaQuantidadePaginas(precosSemPaginacao, pageable);
 
         model.addAttribute("totalItens", precosSemPaginacao.size());
         model.addAttribute("fornecedorId", fornecedorId.orElse(null));
+        model.addAttribute("fornecedorEncontradoPorId", fornecedorEncontradoPorId);
         model.addAttribute("fornecedor", fornecedor.orElse(null));
         model.addAttribute("produtoId", produtoId.orElse(null));
+        model.addAttribute("produtoEncontradoPorId", produtoEncontradoPorId);
         model.addAttribute("produto", produto.orElse(null));
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());

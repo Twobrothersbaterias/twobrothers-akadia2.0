@@ -1875,13 +1875,15 @@ function tituloResponsivo(filtro) {
 	if(filtro == "hoje") {
 		titulo.innerText="Compras de hoje";
 	}
+
 	else if (filtro == "data") {
 		var columnDataSplitted = dataInicio.value.split("-");
 		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
 		var columnDataSplitted = dataFim.value.split("-");
 		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
 		titulo.innerText="Compras: " + inicio + " à " + fim;		
-	}	
+	}
+
 	else if (filtro == "fornecedorId") {
 		var nomeFornecedor = fornecedorId.getAttribute('data-nomeFornecedor');
 		if (nomeFornecedor.length > 20) {
@@ -1889,6 +1891,7 @@ function tituloResponsivo(filtro) {
 		}
 		titulo.innerText="Compras com " + nomeFornecedor;
 	}	
+	
 	else if (filtro == "periodo") {
 		titulo.innerText="Compras: " + mes.value + "/" + ano.value;
 	}
