@@ -15,7 +15,6 @@ console.log('Tipo do filtro: ' + tipoFiltro);
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
 
 }

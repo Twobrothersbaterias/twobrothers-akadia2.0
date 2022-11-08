@@ -10,7 +10,7 @@ var privilegio = document.getElementById('body').getAttribute('data-privilegio')
 var filtro = document.getElementById('tipo_filtro');
 
 console.log('Privilégio: ' + privilegio);
-console.log('Tipo do filtro: ' + tipoFiltro);
+console.log('Tipo do filtro: ' + filtro.value);
 
 tituloResponsivo(filtro.value);
 

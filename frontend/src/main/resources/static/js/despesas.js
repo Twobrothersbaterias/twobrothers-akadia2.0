@@ -15,7 +15,6 @@ console.log('Privilégio: ' + privilegio);
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
 
 }
@@ -231,6 +230,10 @@ function responsive(){
 			imgContainer[i].style.width="20px";
 			imgContainer[i].style.marginLeft="10px";			
 		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.70rem";
+		}		
 
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="20px";
@@ -483,7 +486,8 @@ function responsive(){
 
 		for (var i = 0; i < pageClick.length; i++) {
 			pageClick[i].style.fontSize="0.55rem";
-		}		
+		}
+
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 670) {
 				menuSuperiorMobileItem[i].style.width="7.05%";
@@ -1944,8 +1948,8 @@ function tituloResponsivo(filtro) {
 	var descricao = document.getElementById('back_descricao');		
 	var tipo = document.getElementById('back_tipo');			
 
-	if(filtro == "todos") {
-		titulo.innerText="Todos os produtos";
+	if(filtro == "hoje") {
+		titulo.innerText="Despesas de hoje";
 	}
 	else if (filtro == "data") {
 		var columnDataSplitted = dataInicio.value.split("-");

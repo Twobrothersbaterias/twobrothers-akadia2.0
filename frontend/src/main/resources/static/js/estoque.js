@@ -15,7 +15,6 @@ console.log('Privilégio: ' + privilegio);
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
 
 }
@@ -585,7 +584,6 @@ function responsive(){
 
 		filtroBuscarBt.style.marginTop="20px";
 		filtroBuscarBt.style.justifyContent="center";
-
 	}
 
 	ajustaTabela();
