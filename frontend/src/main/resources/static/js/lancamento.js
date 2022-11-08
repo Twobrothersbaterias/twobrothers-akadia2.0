@@ -7,12 +7,12 @@ var privilegio = document.getElementById('body').getAttribute('data-privilegio')
 
 console.log('Privilégio: ' + privilegio);
 
+document.getElementById('input_nome').focus();
+
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
-
 }
 
 function bind(keyCode) {
@@ -24,8 +24,6 @@ function bind(keyCode) {
     if (
     	!document.activeElement.className.includes('novo_item_input')
     	&& !document.activeElement.className.includes('botao_adicionar')) {
-
-    	console.log('fora do input');
 
 	    if (keyCode == '49') {
 	    	window.location.href="/";
@@ -87,7 +85,6 @@ function bind(keyCode) {
 
     }  
     else {
-    	console.log('no input');
     	return;
     } 
 
@@ -128,6 +125,10 @@ function responsive(){
 	var formTitulo = document.getElementsByClassName('form_titulo');
 	var containerInformativo = document.getElementsByClassName('container_informativo');
 	var selectSuperiorContainer = document.getElementsByClassName('select_superior_container');
+
+	var img = document.getElementsByClassName('img');
+	var aImg = document.getElementsByClassName('a_img');
+	var imgContainer = document.getElementsByClassName('img_container');	
 
 	var th = document.getElementsByClassName('th_novo');
 	var td = document.getElementsByClassName('td_novo');
@@ -193,6 +194,15 @@ function responsive(){
 			conteudoTituloItem[i].style.fontSize="0.90rem";
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="22px";
+			img[i].style.marginTop="6px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}	
+
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.75rem";
 		}
@@ -206,7 +216,6 @@ function responsive(){
 		for(var i = 0; i < tdTipo.length; i++){
 			tdTipo[i].hidden=false;
 		}
-
 
   		const parent = document.getElementById('container_all');
   		if(parent.children[2].id == "container_endereco") {
@@ -266,6 +275,15 @@ function responsive(){
 
 		for (var i = 0 ; i < conteudoTituloItem.length; i++) {
 			conteudoTituloItem[i].style.fontSize="0.85rem";
+		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+			img[i].style.marginTop="6px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
 		}
 
 		for(var i = 0; i < th.length; i++){
@@ -341,6 +359,15 @@ function responsive(){
 			conteudoTituloItem[i].style.fontSize="0.80rem";
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+			img[i].style.marginTop="2px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}
+
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.65rem";		
 		}
@@ -383,7 +410,7 @@ function responsive(){
 		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
-			divIcones[i].style.paddingTop="20px";
+			divIcones[i].style.paddingTop="15px";
 			divIcones[i].style.paddingRight="10px";
 		}
 
@@ -412,6 +439,15 @@ function responsive(){
 		for(var i = 0; i < informativoCampo.length; i++) {
 			informativoCampo[i].style.fontSize="0.55rem";
 		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+			img[i].style.marginTop="0px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="0px";
+		}		
 
 		for(var i = 0; i < th.length; i++) {
 			th[i].style.fontSize="0.60rem";		
@@ -446,8 +482,8 @@ function responsive(){
 		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
-			divIcones[i].style.paddingTop="10px";
-			divIcones[i].style.paddingRight="20px";
+			divIcones[i].style.paddingTop="5px";
+			divIcones[i].style.paddingRight="10px";
 		}
 
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
@@ -479,6 +515,15 @@ function responsive(){
 		for(var i = 0; i < informativoCampo.length; i++) {
 			informativoCampo[i].style.fontSize="0.55rem";
 		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+			img[i].style.marginTop="0px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="0px";
+		}				
 
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=true;
@@ -1047,6 +1092,8 @@ function escolhaCliente() {
 		document.getElementById('logradouro_input').value=optionSelecionada.getAttribute('data-endereco-logradouro');
 		document.getElementById('input_numero').value=optionSelecionada.getAttribute('data-endereco-numero');
 		document.getElementById('input_complemento').value=optionSelecionada.getAttribute('data-endereco-complemento');
+
+		$('#select_tecnico').focus();
 	}
 }
 
@@ -1113,6 +1160,10 @@ function tratamentoCampoEmail() {
 
 		if (emailRegex.test(inputEmail.value)) {
 			inputEmail.style.background="transparent";
+			if(inputEmail.value.includes(".com") 
+				&& document.activeElement.id == inputEmail.id) {
+				$('#input_complemento').focus();
+			}									
 			return true;
 		}
 		else {
@@ -1141,6 +1192,9 @@ function tratamentoCampoTelefone() {
 
 		if (telefoneRegex.test(inputTelefone.value)) {
 			inputTelefone.style.background="transparent";
+			if(document.activeElement.id == inputTelefone.id) {
+				$('#input_dataNascimento').focus();
+			}
 			return true;
 		}
 		else {
@@ -1169,6 +1223,9 @@ function tratamentoCampoCpfCnpj() {
 
 		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
 			inputCpfCnpj.style.background="transparent";
+			if (document.activeElement.id == inputCpfCnpj.id) {
+				$('#cep_input').focus();
+			}
 			return true;
 		}
 		else {
@@ -1219,6 +1276,25 @@ function validacaoDoObjetoCliente() {
 	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
 	var inputDataNascimento = document.getElementById('input_dataNascimento');
 
+	if (inputNome != null 
+				&& document.activeElement.id == inputNome.id) {
+		inputNome.value = inputNome.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputEmail != null 
+				&& document.activeElement.id == inputEmail.id) {
+		inputEmail.value = inputEmail.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}		
+
+	if (inputDataNascimento != null) {
+		if (inputDataNascimento.value.split("-").length == 3) {
+			if (inputDataNascimento.value.split("-")[0] > 1900 
+				&& document.activeElement.id == inputDataNascimento.id) {
+				inputCpfCnpj.focus();
+			}
+		}
+	}	
+
 	if(inputTelefone.value != "" 
 		|| inputEmail.value != "" 
 		|| inputCpfCnpj.value != "" 
@@ -1250,6 +1326,22 @@ function validacaoDoObjetoEndereco() {
 	var inputLogradouro = document.getElementById('logradouro_input');
 	var inputNumero = document.getElementById('input_numero');
 	var inputComplemento = document.getElementById('input_complemento');
+
+	if (inputCidade != null) {
+		inputCidade.value = inputCidade.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputBairro != null) {
+		inputBairro.value = inputBairro.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputLogradouro != null) {
+		inputLogradouro.value = inputLogradouro.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputComplemento != null) {
+		inputComplemento.value = inputComplemento.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}
 
 	if(inputCep.value != "" 
 		|| inputCidade.value != "" 
@@ -1776,7 +1868,9 @@ function mostrarEndereco(dados) {
 	logradouroInput.style.background="transparent";
 	bairroInput.value=dados.bairro;
 
-	document.getElementById('input_numero').focus();
+	if (document.activeElement.id == 'cep_input') {
+		document.getElementById('input_numero').focus();
+	}
 }
 
 function pageResponsiva(){

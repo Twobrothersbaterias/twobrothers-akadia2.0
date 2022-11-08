@@ -1576,7 +1576,8 @@ function tratamentoCampoEmail(tipo) {
 
 		if (emailRegex.test(inputEmail.value)) {
 			inputEmail.style.background="transparent";
-			if(inputEmail.value.includes(".com")) {
+			if(inputEmail.value.includes(".com") 
+				&& document.activeElement.id == inputEmail.id) {
 				inputTelefone.focus();
 			}			
 			return true;
@@ -1614,7 +1615,9 @@ function tratamentoCampoTelefone(tipo) {
 
 		if (telefoneRegex.test(inputTelefone.value)) {
 			inputTelefone.style.background="transparent";
-			inputDataNascimento.focus();
+			if (document.activeElement.id == inputTelefone.id) {
+				inputDataNascimento.focus();
+			}
 			return true;
 		}
 		else {
@@ -1650,7 +1653,9 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
 			inputCpfCnpj.style.background="transparent";
-			inputCep.focus();
+			if (document.activeElement.id == inputCpfCnpj.id) {
+				inputCep.focus();
+			}
 			return true;
 		}
 		else {
@@ -1725,7 +1730,8 @@ function validacaoDoObjetoCliente(tipo) {
 
 	if (inputDataNascimento != null) {
 		if (inputDataNascimento.value.split("-").length == 3) {
-			if (inputDataNascimento.value.split("-")[0] > 1900) {
+			if (inputDataNascimento.value.split("-")[0] > 1900
+					&& document.activeElement.id == inputDataNascimento.id) {
 				inputCpfCnpj.focus();
 			}
 		}

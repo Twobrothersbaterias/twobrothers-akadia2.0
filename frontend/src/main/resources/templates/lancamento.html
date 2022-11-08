@@ -288,7 +288,7 @@
 					name="cliente.endereco.id" 
 					hidden>					
 
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
 						<div class="conteudo_titulo_item alert alert-success" id="sucessoCadastro" onclick="hideMessage()" hidden>
 							<p th:text="${SucessoCadastro}"></p>
@@ -296,56 +296,62 @@
 
 						<div class="conteudo_titulo_container">
 
-							<div class="conteudo_titulo_item col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
-								<select
-								th:value="${ordemEdicao != null} and ${ordemEdicao.tipoNfe != null} ? ${ordemEdicao.tipoNfe} : ''"							
-								tabindex="1"
-								id="input_tipoNfe"
-								class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
-								name="tipoNfe">
-									<option class="option option_nfe" value="SEM_NOTA">Sem nota fiscal</option>
-									<option class="option option_nfe" value="NFE">Com NFe</option>
-									<option class="option option_nfe" value="DANFE">Com DANFE</option>
-								</select>
-							</div>								
+							<div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12 select_container">
 
-							<div class="conteudo_titulo_item col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
-								<select
-								th:value="${ordemEdicao != null} and ${ordemEdicao.loja != null} ? ${ordemEdicao.loja} : ''"
-								tabindex="2"
-								id="input_ponto"
-								class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
-								name="loja">
-									<option class="option option_loja" value="PONTO_1">PDV - Loja 1</option>
-									<option class="option option_loja" value="PONTO_VALT">PDV - Loja VALT</option>
-									<option class="option option_loja" value="PONTO_MOBILE">Lançamento mobile</option>
-								</select>
+								<div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-4 select_superior_container">
+									<select
+									th:value="${ordemEdicao != null} and ${ordemEdicao.tipoNfe != null} ? ${ordemEdicao.tipoNfe} : ''"							
+									tabindex="1"
+									id="input_tipoNfe"
+									class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
+									name="tipoNfe">
+										<option class="option option_nfe" value="SEM_NOTA">Sem nota fiscal</option>
+										<option class="option option_nfe" value="NFE">Com NFe</option>
+										<option class="option option_nfe" value="DANFE">Com DANFE</option>
+									</select>
+								</div>								
+
+								<div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-4 select_superior_container">
+									<select
+									th:value="${ordemEdicao != null} and ${ordemEdicao.loja != null} ? ${ordemEdicao.loja} : ''"
+									tabindex="2"
+									id="input_ponto"
+									class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
+									name="loja">
+										<option class="option option_loja" value="PONTO_1">PDV - Loja 1</option>
+										<option class="option option_loja" value="PONTO_VALT">PDV - Loja VALT</option>
+										<option class="option option_loja" value="PONTO_MOBILE">Lançamento mobile</option>
+									</select>
+								</div>								
+
+								<div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-4 select_superior_container">
+									<select
+									th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''"				
+									tabindex="3"
+									class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
+									name="retirada.statusRetirada"
+									id="input_tipo_retirada"
+									onchange="mudaTipoDaEntrega()">
+										<option class="option option_status_retirada" value="LOJA_FISICA">Ordem presencial</option>
+										<option class="option option_status_retirada" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
+										<option class="option option_status_retirada" value="ENTREGA_ENTREGUE">Pedido entregue</option>
+									</select>
+								</div>													
+
 							</div>
 
-							<div class="conteudo_titulo_item col-xl-2 col-lg-3 col-md-3 col-sm-4 col-12 select_superior_container">
-								<select
-								th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.statusRetirada} ? ${ordemEdicao.retirada.statusRetirada} : ''"				
-								tabindex="3"
-								class="row novo_item_form_row novo_item_input select_superior col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11"
-								name="retirada.statusRetirada"
-								id="input_tipo_retirada"
-								onchange="mudaTipoDaEntrega()">
-									<option class="option option_status_retirada" value="LOJA_FISICA">Ordem presencial</option>
-									<option class="option option_status_retirada" value="ENTREGA_EM_TRANSITO">Pedido em trânsito</option>
-									<option class="option option_status_retirada" value="ENTREGA_ENTREGUE">Pedido entregue</option>
-								</select>
-							</div>													
+							<div tabindex="-1" class="img_container img_div col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12">
 
-							<div tabindex="-1" class="conteudo_titulo_item img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-2">
+								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-1 col-1">
+									<img tabindex="-1" class="icones col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" id="eye" src="../static/img/eye-grey.png" th:src="@{img/eye-grey.png}" onclick="exibeTabela()"/>
+								</a>
 
-								<img tabindex="-1" class="icones col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6 img" id="eye" src="../static/img/eye-grey.png" th:src="@{img/eye-grey.png}" onclick="exibeTabela()"/>
-
-								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6" 
+								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-1 col-1" 
 								th:href="${ordemEdicao != null} ? @{/lancamento?id=} + ${ordemEdicao.id} : @{/lancamento}">
 									<img tabindex="-1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 								</a>
 
-								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-8 col-6" th:href="@{/vendas}">
+								<a tabindex="-1" class="icones a_img col-xl-3 col-lg-4 col-md-5 col-sm-1 col-1" th:href="@{/vendas}">
 									<img tabindex="-1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}"/>
 								</a>
 
@@ -552,14 +558,14 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_quantidade" id="label_quantidade">
 												Qtde
 											</label>
-											<input autocomplete="off" tabindex="24" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
+											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
 										</div>		
 
 										<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_valor" for="input_valor">
 												Valor
 											</label>
-											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
+											<input autocomplete="off" tabindex="24" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" onblur="resetValorSeVazio()" step="0.01" id="input_valor" value="0.00"/>
 										</div>	
 
 										<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">						
@@ -802,7 +808,7 @@
 													Tecnico
 												</label>
 												<select		
-												tabindex="16"
+												tabindex="15"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												id="select_tecnico"
 												name="retirada.tecnicoEntrada.id">
@@ -823,7 +829,7 @@
 												</label>
 												<input
 												th:value="${ordemEdicao != null} and ${ordemEdicao.retirada != null} and ${ordemEdicao.retirada.dataAgendamento != null} and ${ordemEdicao.retirada.dataAgendamento} != 'Não possui' and ${ordemEdicao.retirada.dataAgendamento} != 'Sem agendamento' ? ${ordemEdicao.retirada.dataAgendamento} : ''"		
-												tabindex="17"
+												tabindex="16"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												type="date"
 												id="input_agendamento_retirada"
@@ -838,7 +844,7 @@
 												<input
 												th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.email != null} ? ${ordemEdicao.cliente.email} : ''"
 												autocomplete="off" 
-												tabindex="18"
+												tabindex="17"
 												class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 												type="email"
 												maxlength="35"
@@ -855,7 +861,7 @@
 											<input
 											th:value="${ordemEdicao != null} and ${ordemEdicao.cliente != null} and ${ordemEdicao.cliente.endereco != null} and ${ordemEdicao.cliente.endereco.complemento != null} ? ${ordemEdicao.cliente.endereco.complemento} : ''"
 											autocomplete="off"
-											tabindex="15"
+											tabindex="18"
 											class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 											id="input_complemento"
 											name="cliente.endereco.complemento"
@@ -914,7 +920,6 @@
 
 								</div>	
 						</div>
-
 					</div>
 
 					<!-- INFORMATIVOS E TABELA -->

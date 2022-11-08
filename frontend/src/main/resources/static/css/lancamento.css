@@ -225,6 +225,17 @@
 	box-shadow: 0px 2px 5px #121212;
 }
 
+.conteudo_titulo_container {
+	padding: 0;
+	margin: 0 auto;
+}
+
+.conteudo_titulo {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}
+
 .img_busca_cliente:hover {
 	animation: subpulse 3s infinite;
 	cursor: pointer;
@@ -253,9 +264,15 @@
 	color: #4444;
 }
 
-.conteudo_titulo_item {
+.select_container {
+	float: left;
 	display: flex;
-	justify-content: center;
+	justify-content: left;
+}
+
+.img_container {
+	display: flex;
+	justify-content: right;
 	float: left;
 }
 
@@ -271,9 +288,8 @@
 }
 
 .select_superior_container {
-	float: left;
 	display: flex;
-	justify-content: left;
+	justify-content: center;
 }
 
 #sucessoCadastro {

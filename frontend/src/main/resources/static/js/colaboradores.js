@@ -562,6 +562,11 @@ function responsive(){
 			pageClick[i].style.fontSize="0.50rem";
 		}		
 
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}			
+
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 470) {
 				menuSuperiorMobileItem[i].style.width="9%";
