@@ -3,8 +3,10 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
+import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
+import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -48,6 +50,9 @@ public class AbastecimentoController {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    FornecedorRepository fornecedorRepository;
 
     @GetMapping
     public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
@@ -111,9 +116,14 @@ public class AbastecimentoController {
         model.addAttribute("tipoFiltro", "hoje");
         model.addAttribute("meioAtivo", null);
 
+        FornecedorEntity fornecedorEncontradoPorId = new FornecedorEntity();
+
         if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
         if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (fornecedorId.isPresent()) model.addAttribute("tipoFiltro", "fornecedorId");
+        if (fornecedorId.isPresent()) {
+            fornecedorEncontradoPorId = (fornecedorRepository.findById(Long.parseLong(fornecedorId.orElse(String.valueOf(0L)))).get());
+            model.addAttribute("tipoFiltro", "fornecedorId");
+        }
         if (fornecedor.isPresent()) model.addAttribute("tipoFiltro", "fornecedor");
         if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
 
@@ -134,6 +144,7 @@ public class AbastecimentoController {
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));
         model.addAttribute("fornecedorId", fornecedorId.orElse(null));
+        model.addAttribute("fornecedorEncontradoPorId", fornecedorEncontradoPorId);
         model.addAttribute("fornecedor", fornecedor.orElse(null));
         model.addAttribute("produto", produto.orElse(null));
         model.addAttribute("meio", meio.orElse(null));

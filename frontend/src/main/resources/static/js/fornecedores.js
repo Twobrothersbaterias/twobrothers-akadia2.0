@@ -1072,6 +1072,7 @@ function addFiltro() {
 
 		dataTag.hidden=false;
 		dataTag.innerText = inicio + ' a ' + fim;
+		
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
 		inputDataFimBackend.value=inputDataFimFiltro.value;
