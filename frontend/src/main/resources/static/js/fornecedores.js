@@ -6,13 +6,16 @@ ajustaTabela();
 buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+var tipoFiltro = document.getElementById('tipo_filtro');
 
+if (tipoFiltro != null) {
+	tituloResponsivo(tipoFiltro.value);
+}	
+console.log('Tipo do filtro: ' + tipoFiltro);
 console.log('Privilégio: ' + privilegio);
-
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
 
 }
@@ -60,10 +63,6 @@ function bind(keyCode) {
 	    }
 
 	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 
@@ -90,8 +89,7 @@ function bind(keyCode) {
 	    	abrirFiltro();
 	    }	 	    
 
-    }   
-                      
+    }                       
 }
 
 function responsive(){
@@ -122,6 +120,10 @@ function responsive(){
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
 
+	var img = document.getElementsByClassName('img');
+	var aImg = document.getElementsByClassName('a_img');
+	var imgContainer = document.getElementsByClassName('img_container');
+
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
 	var thDataCadastro = document.getElementsByClassName('th_cadastro');
@@ -141,11 +143,14 @@ function responsive(){
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
+	var pageClick = document.getElementsByClassName('page_click');			
 
+	var informativoContainer = document.getElementById('informativo_container');
+	var informativoRow = document.getElementById('informativo_row');
 	var informativoChave = document.getElementsByClassName('informativo_chave');
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -167,18 +172,21 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.5rem";
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";
+
 		for(var i = 0; i < informativoChave.length; i++) {
 			informativoChave[i].style.padding="9px 0px";
-		}		
+			informativoChave[i].style.fontSize="0.70rem";
+		}	
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.80rem";
+			th[i].style.fontSize="0.70rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
+			td[i].style.fontSize="0.70rem";
 		}
 
 		for(var i = 0; i < thDataCadastro.length; i++){
@@ -199,13 +207,26 @@ function responsive(){
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="22px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}	
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="10px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.70rem";
+		}		
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -215,11 +236,15 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
@@ -241,18 +266,20 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";	
 
-		filtroTitulo.style.fontSize="1.4rem";
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";
 		for(var i = 0; i < informativoChave.length; i++) {
 			informativoChave[i].style.padding="8px 0px";
+			informativoChave[i].style.fontSize="0.65rem";
 		}												
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.75rem";
+			th[i].style.fontSize="0.65rem";
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.75rem";		
+			td[i].style.fontSize="0.65rem";		
 		}
 
 		for(var i = 0; i < thDataCadastro.length; i++){
@@ -272,12 +299,26 @@ function responsive(){
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
+		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.65rem";
 		}	
 
 		for(var i = 0; i < novoItemInput.length; i++) {
@@ -288,11 +329,15 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}		
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";					
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Tela: Média');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -304,7 +349,6 @@ function responsive(){
 			sideMenu.style.width="7.5%";	
 		}
 
-		conteudoTituloText.style.fontSize="1.2rem";
 		menuMobile.style.display="none";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.1rem";
@@ -314,18 +358,20 @@ function responsive(){
 		editaTitulo.style.fontSize="1.1rem";
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.3rem";
+		conteudoTituloText.style.fontSize="1rem";
+		filtroTitulo.style.fontSize="1.1rem";	
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";
 		for(var i = 0; i < informativoChave.length; i++) {
 			informativoChave[i].style.padding="8px 0px";
+			informativoChave[i].style.fontSize="0.60rem";			
 		}															
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.70rem";
+			th[i].style.fontSize="0.60rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.70rem";
+			td[i].style.fontSize="0.60rem";
 		}
 
 		for(var i = 0; i < thDataCadastro.length; i++){
@@ -341,15 +387,28 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="50%";			
+			formRemoveImg[i].style.maxWidth="42%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
-		}	
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.60rem";
+		}	
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -359,13 +418,16 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}		
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
-		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";			
@@ -378,20 +440,22 @@ function responsive(){
 		editaTitulo.style.fontSize="1.2rem";		
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.2rem";
+		conteudoTituloText.style.fontSize="0.90rem";
+		filtroTitulo.style.fontSize="1.1rem";
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
 
 		for(var i = 0; i < informativoChave.length; i++) {
 			informativoChave[i].style.padding="8px 0px";
+			informativoChave[i].style.fontSize="0.55rem";
 		}														
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.65rem";	
+			th[i].style.fontSize="0.55rem";	
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.65rem";	
+			td[i].style.fontSize="0.55rem";	
 		}
 
 		for(var i = 0; i < thDataCadastro.length; i++){
@@ -407,11 +471,28 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="55%";
+			formRemoveImg[i].style.maxWidth="47%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
+		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.55rem";
 		}		
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 670) {
@@ -438,9 +519,8 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
-		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";			
@@ -453,6 +533,7 @@ function responsive(){
 		editaTitulo.style.fontSize="1rem";
 		editaItemSubmit.style.marginTop="5px";
 
+		conteudoTituloText.style.fontSize="0.80rem";
 		filtroTitulo.style.fontSize="1.1rem";
 
 		conteudoContainer.style.marginTop="10px";
@@ -460,13 +541,14 @@ function responsive(){
 
 		for(var i = 0; i < informativoChave.length; i++) {
 			informativoChave[i].style.padding="8px 0px";
+			informativoChave[i].style.fontSize="0.50rem";			
 		}																		
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.60rem";
+			th[i].style.fontSize="0.50rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.60rem";
+			td[i].style.fontSize="0.50rem";
 		}
 
 		for(var i = 0; i < thDataCadastro.length; i++){
@@ -482,12 +564,33 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="60%";			
+			formRemoveImg[i].style.maxWidth="55%";		
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
-		}		
+		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="15px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="8px";
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.50rem";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="none";
+		}			
 
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 470) {
@@ -504,7 +607,6 @@ function responsive(){
 
 		filtroBuscarBt.style.marginTop="20px";
 		filtroBuscarBt.style.justifyContent="center";
-
 	}
 
 	pageResponsiva();
@@ -963,9 +1065,13 @@ function addFiltro() {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 
-		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+		var columnDataSplitted = inputDataInicioFiltro.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimFiltro.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];	
 
+		dataTag.hidden=false;
+		dataTag.innerText = inicio + ' a ' + fim;
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
 		inputDataFimBackend.value=inputDataFimFiltro.value;
@@ -1260,7 +1366,11 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #212121"
 		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+		var columnDataSplitted = inputDataInicioBackend.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimBackend.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		filtroData.innerText = inicio + ' a ' + fim;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
@@ -1423,15 +1533,20 @@ function tratamentoCampoEmail(tipo) {
 
 	if(tipo == "novo") {
 		var inputEmail = document.getElementById('email_fornecedor_input');
+		var inputTelefone = document.getElementById('telefone_fornecedor_input');				
 	}
 	else {
 		var inputEmail = document.getElementById('edita_email_fornecedor_input');
+		var inputTelefone = document.getElementById('edita_telefone_fornecedor_input');		
 	}
 
 	if (inputEmail.value != "") {
 
 		if (emailRegex.test(inputEmail.value)) {
 			inputEmail.style.background="transparent";
+			if(inputEmail.value.includes(".com")) {
+				inputTelefone.focus();
+			}						
 			return true;
 		}
 		else {
@@ -1454,9 +1569,11 @@ function tratamentoCampoTelefone(tipo) {
 
 	if(tipo == "novo") {
 		var inputTelefone = document.getElementById('telefone_fornecedor_input');
+		var inputDataNascimento = document.getElementById('data_nascimento_input');		
 	}
 	else {
 		var inputTelefone = document.getElementById('edita_telefone_fornecedor_input');
+		var inputDataNascimento = document.getElementById('edita_data_nascimento_input');		
 	}
 
 	inputTelefone.value = inputTelefone.value.replace(/([a-zA-Z ])/g, "");
@@ -1465,6 +1582,7 @@ function tratamentoCampoTelefone(tipo) {
 
 		if (telefoneRegex.test(inputTelefone.value)) {
 			inputTelefone.style.background="transparent";
+			inputDataNascimento.focus();			
 			return true;
 		}
 		else {
@@ -1487,9 +1605,11 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 	if(tipo == "novo") {
 		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
+		var inputCep = document.getElementById('cep_input');		
 	}
 	else {
 		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
+		var inputCep = document.getElementById('edita_cep_input');		
 	}
 
 	inputCpfCnpj.value = inputCpfCnpj.value.replace(/([a-zA-Z ])/g, "");
@@ -1498,6 +1618,7 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
 			inputCpfCnpj.style.background="transparent";
+			cepInput.focus();
 			return true;
 		}
 		else {
@@ -1564,6 +1685,22 @@ function validacaoDoObjetoFornecedor(tipo) {
 		var inputDataNascimento = document.getElementById('edita_data_nascimento_input');		
 	}
 
+	if (inputNome != null) {
+		inputNome.value = inputNome.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputEmail != null) {
+		inputEmail.value = inputEmail.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}		
+
+	if (inputDataNascimento != null) {
+		if (inputDataNascimento.value.split("-").length == 3) {
+			if (inputDataNascimento.value.split("-")[0] > 1900) {
+				inputCpfCnpj.focus();
+			}
+		}
+	}	
+
 	if(inputTelefone.value != "" 
 		|| inputEmail.value != "" 
 		|| inputCpfCnpj.value != "" 
@@ -1605,6 +1742,22 @@ function validacaoDoObjetoEndereco(tipo) {
 		var inputNumero = document.getElementById('edita_numero_input');
 		var inputComplemento = document.getElementById('edita_complemento_input');		
 	}
+
+	if (inputCidade != null) {
+		inputCidade.value = inputCidade.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputBairro != null) {
+		inputBairro.value = inputBairro.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputLogradouro != null) {
+		inputLogradouro.value = inputLogradouro.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputComplemento != null) {
+		inputComplemento.value = inputComplemento.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}		
 
 	tratamentoCampoCep(tipo);
 
@@ -2002,6 +2155,7 @@ function ajustaTabela(){
 	var line = document.getElementsByClassName('tr');	
 	var columnData = document.getElementsByClassName('td_cadastro');
 	var columnEndereco = document.getElementsByClassName('td_endereco');	
+	var columnNome = document.getElementsByClassName('td_nome');	
 
 	for(var i = 0; i < line.length; i++) {
 
@@ -2014,10 +2168,60 @@ function ajustaTabela(){
 			var convertedDate = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
 			columnData[i].innerText=convertedDate;
 		}
+
+		if (columnEndereco[i].innerText.length > 20 && bodyWidth <= 768) {
+			columnEndereco[i].innerText=columnEndereco[i].innerText.slice(0,20) + '...';
+		}
+		else if(columnEndereco[i].innerText.length > 35 && bodyWidth > 768) {
+			columnEndereco[i].innerText=columnEndereco[i].innerText.slice(0,35) + '...';
+		}		
+
+		if (columnNome[i].innerText.length > 12 && bodyWidth <= 768) {
+			columnNome[i].innerText=columnNome[i].innerText.slice(0,12) + '...';
+		}
+		else if(columnNome[i].innerText.length > 25 && bodyWidth > 768) {
+			columnNome[i].innerText=columnNome[i].innerText.slice(0,25) + '...';
+		}		
 	}
 }	
 
 function doALoadOfStuff() {
 	document.getElementById('conteudo_container').style.transition="2s";
 	responsive();
+}
+
+function tituloResponsivo(filtro) {
+
+	var titulo = document.getElementById('conteudo_titulo_text');
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var mes = document.getElementById('back_mes');
+	var ano = document.getElementById('back_ano');	
+	var nome = document.getElementById('back_descricao');		
+	var cpf = document.getElementById('back_cpfCnpj');			
+	var telefone = document.getElementById('back_telefone');		
+
+	if(filtro == "hoje") {
+		titulo.innerText="Fornecedores cadastrados hoje";
+	}
+	else if (filtro == "data") {
+		var columnDataSplitted = dataInicio.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = dataFim.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+		titulo.innerText="Fornecedores: " + inicio + " à " + fim;		
+	}
+	else if (filtro == "periodo") {
+		titulo.innerText="Fornecedores: " + mes.value + "/" + ano.value;
+	}
+	else if (filtro == "descricao") {
+		titulo.innerText="Fornecedores de nome " + nome.value;
+	}
+	else if (filtro == "cpfCnpj") {
+		titulo.innerText="Fornecedores de CPF " + cpf.value;
+	}
+	else if (filtro == "telefone") {
+		titulo.innerText="Fornecedores de telefone " + telefone.value;
+	}
+
 }

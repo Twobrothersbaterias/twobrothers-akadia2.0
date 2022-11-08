@@ -62,10 +62,6 @@ function bind(keyCode) {
 	    }
 
 	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 
@@ -1641,9 +1637,11 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 	if(tipo == "novo") {
 		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
+		var inputCep = document.getElementById('cep_input');		
 	}
 	else {
 		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
+		var inputCep = document.getElementById('edita_cep_input');		
 	}
 
 	inputCpfCnpj.value = inputCpfCnpj.value.replace(/([a-zA-Z ])/g, "");
@@ -1652,6 +1650,7 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
 			inputCpfCnpj.style.background="transparent";
+			inputCep.focus();
 			return true;
 		}
 		else {
@@ -1727,7 +1726,6 @@ function validacaoDoObjetoCliente(tipo) {
 	if (inputDataNascimento != null) {
 		if (inputDataNascimento.value.split("-").length == 3) {
 			if (inputDataNascimento.value.split("-")[0] > 1900) {
-				console.log("ACESSADO");
 				inputCpfCnpj.focus();
 			}
 		}

@@ -56,10 +56,6 @@ function bind(keyCode) {
 	    }
 
 	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 

@@ -4,7 +4,6 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
 ajustaCaracteresBloco();
-//buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 
@@ -13,7 +12,6 @@ console.log('Privilégio: ' + privilegio);
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
 
 }
@@ -57,10 +55,6 @@ function bind(keyCode) {
 	    else if (keyCode == '55' && privilegio != "Vendedor") {
 	    	window.location.href="/patrimonios";
 	    }
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
 
 	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";

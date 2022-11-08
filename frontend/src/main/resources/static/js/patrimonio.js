@@ -62,10 +62,6 @@ function bind(keyCode) {
 	    }
 
 	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 
@@ -1772,7 +1768,12 @@ function tituloResponsivo(filtro) {
 		titulo.innerText="Patrimônios de nome " + descricao.value;
 	}
 	else if (filtro == "tipo") {
-		titulo.innerText="Despesas: " + (tipo.value).toLowerCase() + "s";
+		if (tipo.value != "A_RECEBER") {
+			titulo.innerText="Despesas: " + (tipo.value).toLowerCase() + "s";
+		}
+		else {
+			titulo.innerText="Despesas: A receber";	
+		}
 	}
 
 }
