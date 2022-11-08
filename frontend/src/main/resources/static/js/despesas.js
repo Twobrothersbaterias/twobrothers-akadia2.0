@@ -6,7 +6,10 @@ ajustaTabela();
 buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+var tipoFiltro = document.getElementById('tipo_filtro').value;
 
+tituloResponsivo(tipoFiltro);
+console.log('Tipo do filtro: ' + tipoFiltro);
 console.log('Privilégio: ' + privilegio);
 
 document.onkeydown=function(){
@@ -105,6 +108,7 @@ function responsive(){
 	var mainRow = document.getElementById('main_row');
 	var sideMenu = document.getElementById('side_menu');
 	var conteudoTituloText = document.getElementById('conteudo_titulo_text');
+	var filtroTitulo = document.getElementById('filtro_titulo');
 	var nomePerfil = document.getElementById('nome_perfil');
 	var menuMobile = document.getElementById('menu_superior_mobile');
 	var informativoRow = document.getElementById('informativo_row');
@@ -120,6 +124,10 @@ function responsive(){
 	var containerEdita = document.getElementById('conteudo_container_edita');	
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaDespesaSubmit = document.getElementById('edita_item_submit');
+
+	var img = document.getElementsByClassName('img');
+	var aImg = document.getElementsByClassName('a_img');
+	var imgContainer = document.getElementsByClassName('img_container');
 
 	var informativo = document.getElementsByClassName('informativo');
 	var th = document.getElementsByClassName('th');
@@ -143,11 +151,13 @@ function responsive(){
 	var editaItemInput = document.getElementsByClassName('edita_item_input');
 	var filtroBlock = document.getElementsByClassName('filtro_block');
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
-
-	
+	var pageClick = document.getElementsByClassName('page_click');	
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
+
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -171,7 +181,8 @@ function responsive(){
 		editaDespesaSubmit.style.marginTop="0px";		
 
 		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";
+		hrTabela.style.marginBottom="20px";
+		informativoRow.style.marginBottom="20px";
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=false;
@@ -182,14 +193,14 @@ function responsive(){
 		}			
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.80rem";
+			th[i].style.fontSize="0.70rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.80rem";
+			td[i].style.fontSize="0.70rem";
 		}
 
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="1rem";
+			informativo[i].style.fontSize="0.70rem";
 			informativo[i].style.width="17%";
 			informativo[i].style.margin="0 7px";
 		}		
@@ -200,24 +211,39 @@ function responsive(){
 
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="none";
-		}
+		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="22px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}	
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="10px";			
+		}
+
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
-		conteudoTituloText.style.fontSize="1.3rem";
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";
 
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
@@ -240,7 +266,8 @@ function responsive(){
 		editaDespesaSubmit.style.marginTop="0px";	
 
 		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";
+		hrTabela.style.marginBottom="20px";
+		informativoRow.style.marginBottom="20px";
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=false;
@@ -251,14 +278,14 @@ function responsive(){
 		}								
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.75rem";			
+			th[i].style.fontSize="0.65rem";			
 		}		
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.75rem";		
+			td[i].style.fontSize="0.65rem";		
 		}
 
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.95rem";
+			informativo[i].style.fontSize="0.65rem";
 			informativo[i].style.width="25%";
 			informativo[i].style.margin="0 7px";
 		}			
@@ -272,19 +299,36 @@ function responsive(){
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}	
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";					
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.65rem";
+		}		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Tela: Média');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -296,7 +340,9 @@ function responsive(){
 			sideMenu.style.width="7.5%";	
 		}
 
-		conteudoTituloText.style.fontSize="1.2rem";	
+		conteudoTituloText.style.fontSize="1rem";
+		filtroTitulo.style.fontSize="1.1rem";
+
 		menuMobile.style.display="none";
 		informativoRow.style.justifyContent="center";
 		containerNovo.style.fontSize="1rem";		
@@ -308,7 +354,8 @@ function responsive(){
 		editaDespesaSubmit.style.marginTop="0px";
 
 		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";			
+		hrTabela.style.marginBottom="20px";
+		informativoRow.style.marginBottom="20px";			
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=false;
@@ -319,14 +366,14 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.70rem";		
+			th[i].style.fontSize="0.60rem";		
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.70rem";	
+			td[i].style.fontSize="0.60rem";	
 		}	
 			
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.85rem";
+			informativo[i].style.fontSize="0.60rem";
 			informativo[i].style.width="28.9%";	
 			informativo[i].style.margin="0 7px";					
 		}			
@@ -336,23 +383,41 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="50%";			
+			formRemoveImg[i].style.maxWidth="42%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
-		}	
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.60rem";
+		}
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
-		conteudoTituloText.style.fontSize="1.1rem";
+		conteudoTituloText.style.fontSize="0.90rem";
+		filtroTitulo.style.fontSize="1.1rem";
+
 		sideMenu.style.display="none";
 		main.style.width="100%";	
 		mainRow.style.width = "100%";			
@@ -368,6 +433,7 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";		
+		informativoRow.style.marginBottom="15px";
 
 		for(var i = 0; i < thTipo.length; i++) {
 			thTipo[i].hidden=true;
@@ -378,14 +444,14 @@ function responsive(){
 		}		
 
 		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.65rem";		
+			th[i].style.fontSize="0.55rem";		
 		}
 		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.65rem";	
+			td[i].style.fontSize="0.55rem";	
 		}
 
 		for(var i = 0; i < informativo.length; i++) {
-			informativo[i].style.fontSize="0.68rem";
+			informativo[i].style.fontSize="0.55rem";
 			informativo[i].style.width="31.8%";
 			informativo[i].style.margin="0 auto";			
 		}
@@ -395,11 +461,28 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="55%";
+			formRemoveImg[i].style.maxWidth="47%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
+		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.55rem";
 		}		
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 670) {
@@ -418,9 +501,11 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
-		conteudoTituloText.style.fontSize="1rem";
+		conteudoTituloText.style.fontSize="0.80rem";
+		filtroTitulo.style.fontSize="1.1rem";
+
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";		
@@ -432,6 +517,8 @@ function responsive(){
 		containerEdita.style.fontSize="0.90rem";
 		editaTitulo.style.fontSize="1rem";
 		editaDespesaSubmit.style.marginTop="5px";
+
+		informativoRow.style.marginBottom="8px";
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";		
@@ -454,23 +541,45 @@ function responsive(){
 		}		
 
 		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.60rem";
+			th[i].style.fontSize="0.50rem";
 		}
 		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.60rem";
+			td[i].style.fontSize="0.50rem";
 		}
 		for(var i = 0; i < informativo.length; i++){
-			informativo[i].style.fontSize="0.58rem";
-			informativo[i].style.width="55%";
+			informativo[i].style.fontSize="0.55rem";
+			informativo[i].style.width="75%";
 			informativo[i].style.margin="0 auto 10px auto";
 		}	
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.60rem";
 			liA[i].style.padding="5px 10px";
 		}
+
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="60%";
+			formRemoveImg[i].style.maxWidth="55%";		
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="none";
+		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="15px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="8px";
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.50rem";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
@@ -546,6 +655,10 @@ function validacaoDoObjetoDespesa(submitar, tipo) {
 		var dataAgendamentoInput = document.getElementById('data_agendamento_input_edicao');
 		var botaoFinalizar = document.getElementById('item_submit');
 	}
+
+	if (descricaoDespesaInput != null) {
+		descricaoDespesaInput.value = descricaoDespesaInput.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}		
 
 	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
 	if(descricaoDespesaInput.value != "" 
@@ -1111,8 +1224,13 @@ function addFiltro() {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 
+		var columnDataSplitted = inputDataInicioFiltro.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimFiltro.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];	
+
 		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+		dataTag.innerText = inicio + ' a ' + fim;
 
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
@@ -1349,7 +1467,11 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #212121"
 		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+		var columnDataSplitted = inputDataInicioBackend.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimBackend.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		filtroData.innerText = inicio + ' a ' + fim;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
@@ -1810,4 +1932,41 @@ function pageResponsiva(){
 		document.getElementById('voltar').style.borderColor="#303030";
 		document.getElementById('voltar').style.color="#C3C8C8";
 	}
+}
+
+function tituloResponsivo(filtro) {
+
+	var titulo = document.getElementById('conteudo_titulo_text');
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var mes = document.getElementById('back_mes');
+	var ano = document.getElementById('back_ano');	
+	var descricao = document.getElementById('back_descricao');		
+	var tipo = document.getElementById('back_tipo');			
+
+	if(filtro == "todos") {
+		titulo.innerText="Todos os produtos";
+	}
+	else if (filtro == "data") {
+		var columnDataSplitted = dataInicio.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = dataFim.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+		titulo.innerText="Despesas: " + inicio + " à " + fim;		
+	}
+	else if (filtro == "periodo") {
+		titulo.innerText="Despesas: " + mes.value + "/" + ano.value;
+	}
+	else if (filtro == "descricao") {
+		titulo.innerText="Despesas de nome " + descricao.value;
+	}
+	else if (filtro == "tipo") {
+		if (tipo.value == "FIXO") {
+			titulo.innerText="Despesas fixas";
+		}
+		else {
+			titulo.innerText="Despesas variáveis";	
+		}
+	}
+
 }

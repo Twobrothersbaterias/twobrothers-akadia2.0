@@ -104,6 +104,8 @@ public class ClienteController {
         model.addAttribute("descricao", descricao.orElse(null));
         model.addAttribute("dataInicio", inicio.orElse(null));
         model.addAttribute("dataFim", fim.orElse(null));
+        model.addAttribute("inicio", fim.orElse(null));
+        model.addAttribute("fim", fim.orElse(null));
         model.addAttribute("mes", mes.orElse(null));
         model.addAttribute("ano", ano.orElse(null));
         model.addAttribute("cpfCnpj", cpfCnpj.orElse(null));

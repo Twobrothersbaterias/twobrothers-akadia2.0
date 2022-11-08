@@ -7,8 +7,12 @@ ajustaTabela();
 buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+var filtro = document.getElementById('tipo_filtro');
 
 console.log('Privilégio: ' + privilegio);
+console.log('Tipo do filtro: ' + tipoFiltro);
+
+tituloResponsivo(filtro.value);
 
 document.onkeydown=function(){
 
@@ -141,9 +145,10 @@ function responsive(){
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
+	var pageClick = document.getElementsByClassName('page_click');
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
 
 		conteudoTituloText.style.fontSize="1.1rem";		
 
@@ -221,7 +226,11 @@ function responsive(){
 		for(var i = 0; i < imgContainer.length; i++) {
 			imgContainer[i].style.width="20px";
 			imgContainer[i].style.marginLeft="10px";			
-		}	
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.70rem";
+		}			
 
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
@@ -243,7 +252,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
 		conteudoTituloText.style.fontSize="1.1rem";
 		menuMobile.style.display="none";		
@@ -321,7 +330,11 @@ function responsive(){
 		for(var i = 0; i < imgContainer.length; i++) {
 			imgContainer[i].style.width="20px";
 			imgContainer[i].style.marginLeft="15px";			
-		}	
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.65rem";
+		}			
 
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
@@ -343,7 +356,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Tela: Médio');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -418,6 +431,10 @@ function responsive(){
 			imgContainer[i].style.marginLeft="15px";			
 		}	
 
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.60rem";
+		}		
+
 		for(var i = 0; i < filtroBlock.length; i++) {
 			filtroBlock[i].style.marginBottom="0";
 		}
@@ -438,7 +455,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
 		conteudoTituloText.style.fontSize="0.90rem";
 		sideMenu.style.display="none";
@@ -500,7 +517,11 @@ function responsive(){
 
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="10px";
-		}		
+		}	
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.55rem";
+		}			
 
 		for(var i = 0; i < imgContainer.length; i++) {
 			imgContainer[i].style.width="20px";
@@ -532,7 +553,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
 		conteudoTituloText.style.fontSize="0.80rem";
 		sideMenu.style.display="none";
@@ -595,6 +616,10 @@ function responsive(){
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="8px";
 		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.50rem";
+		}		
 
 		for(var i = 0; i < imgContainer.length; i++) {
 			imgContainer[i].style.width="20px";
@@ -1077,12 +1102,17 @@ function addFiltro() {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 
+		var columnDataSplitted = inputDataInicioFiltro.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimFiltro.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];			
+
 		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+		dataTag.innerText = inicio + ' a ' + fim;
 
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
-		inputDataFimBackend.value=inputDataFimFiltro.value;
+		inputDataFimBackend.value=inputDataFimFiltro.value;		
 
 		filtroBt.hidden=true;
 		buscarBt.hidden=false;
@@ -1374,7 +1404,11 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #212121"
 		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+		var columnDataSplitted = inputDataInicioBackend.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimBackend.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		filtroData.innerText = inicio + ' a ' + fim;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
@@ -2185,4 +2219,40 @@ function doALoadOfStuff() {
 	responsive();
 }
 
-/* ================= REMOÇÃO DE ACENTOS ==================== */
+function tituloResponsivo(filtro) {
+
+	var titulo = document.getElementById('conteudo_titulo_text');
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var mes = document.getElementById('back_mes');
+	var ano = document.getElementById('back_ano');	
+	var nome = document.getElementById('back_descricao');		
+	var cpf = document.getElementById('back_cpfCnpj');			
+	var telefone = document.getElementById('back_telefone');		
+
+	if(filtro == "hoje") {
+		titulo.innerText="Clientes cadastrados hoje";
+	}
+	else if (filtro == "data") {
+		console.log(dataInicio);
+		console.log(dataFim);
+		var columnDataSplitted = dataInicio.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = dataFim.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+		titulo.innerText="Clientes: " + inicio + " à " + fim;		
+	}
+	else if (filtro == "periodo") {
+		titulo.innerText="Clientes: " + mes.value + "/" + ano.value;
+	}
+	else if (filtro == "descricao") {
+		titulo.innerText="Clientes de nome " + nome.value;
+	}
+	else if (filtro == "cpfCnpj") {
+		titulo.innerText="Clientes de CPF " + cpf.value;
+	}
+	else if (filtro == "telefone") {
+		titulo.innerText="Clientes de telefone " + telefone.value;
+	}
+
+}
