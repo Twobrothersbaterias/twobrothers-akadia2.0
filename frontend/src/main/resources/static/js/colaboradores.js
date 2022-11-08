@@ -7,13 +7,18 @@ ajustaTabela();
 buildUrlPages();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+var tipoFiltro = document.getElementById('tipo_filtro');
 
+console.log('Tipo do filtro: ' + tipoFiltro.value);
 console.log('Privilégio: ' + privilegio);
+
+if (tipoFiltro != null) {
+	tituloResponsivo(tipoFiltro.value);
+}	
 
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
-	console.log(keyCode);
 	bind(keyCode);
 
 }
@@ -120,6 +125,10 @@ function responsive(){
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
 
+	var img = document.getElementsByClassName('img');
+	var aImg = document.getElementsByClassName('a_img');
+	var imgContainer = document.getElementsByClassName('img_container');		
+
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
 	var thDataCadastro = document.getElementsByClassName('th_cadastro');
@@ -139,6 +148,7 @@ function responsive(){
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
+	var pageClick = document.getElementsByClassName('page_click');		
 
 	if(bodyWidth > 1200){
 		console.log("Muito grande");
@@ -163,7 +173,8 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.5rem";
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";
 		for(var i = 0; i < th.length; i++){
@@ -185,20 +196,32 @@ function responsive(){
 		for(var i = 0; i < tdDataCadastro.length; i++) {
 			tdDataCadastro[i].hidden=false;
 		}	
-
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="none";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="22px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}	
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="10px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.70rem";
+		}			
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -208,8 +231,12 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Grande");
@@ -234,7 +261,8 @@ function responsive(){
 		editaTitulo.style.fontSize="1.15rem";	
 		editaItemSubmit.style.marginTop="0px";	
 
-		filtroTitulo.style.fontSize="1.4rem";		
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";	
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";
 		for(var i = 0; i < thDataCadastro.length; i++) {
@@ -256,19 +284,29 @@ function responsive(){
 			liA[i].style.fontSize="0.80rem";
 			liA[i].style.padding="5px 10px";
 		}	
-		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="none";
-		}	
-
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
-			btnExcluir[i].style.fontSize="0.95rem";
+			btnExcluir[i].style.fontSize="0.70rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
-		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
 		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.65rem";
+		}		
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -278,8 +316,12 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}		
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";					
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Médio');	
@@ -304,7 +346,8 @@ function responsive(){
 		editaTitulo.style.fontSize="1.1rem";
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.3rem";		
+		conteudoTituloText.style.fontSize="1.1rem";
+		filtroTitulo.style.fontSize="1.1rem";		
 			conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="25px";
 		for(var i = 0; i < thDataCadastro.length; i++) {
@@ -328,14 +371,27 @@ function responsive(){
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="50%";			
+			formRemoveImg[i].style.maxWidth="42%";			
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
-		}	
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
+		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.60rem";
 		}
 
 		for(var i = 0; i < novoItemInput.length; i++) {
@@ -346,13 +402,16 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}		
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";		
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Pequeno');	
 
-		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";		
@@ -365,7 +424,8 @@ function responsive(){
 		editaTitulo.style.fontSize="1.2rem";		
 		editaItemSubmit.style.marginTop="0px";
 
-		filtroTitulo.style.fontSize="1.2rem";					
+		conteudoTituloText.style.fontSize="0.90rem";
+		filtroTitulo.style.fontSize="1.1rem";				
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
 		for(var i = 0; i < thDataCadastro.length; i++) {
@@ -389,11 +449,28 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="55%";
+			formRemoveImg[i].style.maxWidth="47%";
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
+		}	
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.55rem";
 		}		
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 670) {
@@ -435,7 +512,8 @@ function responsive(){
 		editaTitulo.style.fontSize="1rem";
 		editaItemSubmit.style.marginTop="5px";
 
-		filtroTitulo.style.fontSize="1.1rem";		
+		conteudoTituloText.style.fontSize="0.80rem";
+		filtroTitulo.style.fontSize="1.1rem";	
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
 		for(var i = 0; i < thDataCadastro.length; i++) {
@@ -459,11 +537,23 @@ function responsive(){
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="60%";			
+			formRemoveImg[i].style.maxWidth="55%";		
 		}	
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
+		}
+
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="15px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="8px";
+		}
+
+		for (var i = 0; i < pageClick.length; i++) {
+			pageClick[i].style.fontSize="0.50rem";
 		}		
 
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
@@ -883,8 +973,13 @@ function addFiltro() {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 
+		var columnDataSplitted = inputDataInicioFiltro.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimFiltro.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];	
+
 		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+		dataTag.innerText = inicio + ' a ' + fim;
 
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
@@ -1124,7 +1219,11 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #212121"
 		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+		var columnDataSplitted = inputDataInicioBackend.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimBackend.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		filtroData.innerText = inicio + ' a ' + fim;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
@@ -1267,15 +1366,20 @@ function tratamentoCampoEmail(tipo) {
 
 	if(tipo == "novo") {
 		var inputEmail = document.getElementById('email_colaborador_input');
+		var inputTelefone = document.getElementById('telefone_colaborador_input');		
 	}
 	else {
 		var inputEmail = document.getElementById('edita_email_colaborador_input');
+		var inputTelefone = document.getElementById('edita_telefone_colaborador_input');		
 	}
 
 	if (inputEmail.value != "") {
 
-		if (emailRegex.test(inputEmail.value)) {
+		if (emailRegex.test(inputEmail.value)) {			
 			inputEmail.style.background="transparent";
+			if(inputEmail.value.includes(".com")) {			
+				inputTelefone.focus();
+			}
 			return true;
 		}
 		else {
@@ -1298,9 +1402,11 @@ function tratamentoCampoTelefone(tipo) {
 
 	if(tipo == "novo") {
 		var inputTelefone = document.getElementById('telefone_colaborador_input');
+		var inputDataNascimento = document.getElementById('data_nascimento_input');				
 	}
 	else {
 		var inputTelefone = document.getElementById('edita_telefone_colaborador_input');
+		var inputDataNascimento = document.getElementById('edita_data_nascimento_input');				
 	}
 
 	inputTelefone.value = inputTelefone.value.replace(/([a-zA-Z ])/g, "");
@@ -1309,6 +1415,7 @@ function tratamentoCampoTelefone(tipo) {
 
 		if (telefoneRegex.test(inputTelefone.value)) {
 			inputTelefone.style.background="transparent";
+			inputDataNascimento.focus();
 			return true;
 		}
 		else {
@@ -1331,9 +1438,11 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 	if(tipo == "novo") {
 		var inputCpfCnpj = document.getElementById('cpfCnpj_input');
+		var botaoFinalizar = document.getElementById('novo_item_submit');		
 	}
 	else {
 		var inputCpfCnpj = document.getElementById('edita_cpfCnpj_input');
+		var botaoFinalizar = document.getElementById('edita_item_submit');				
 	}
 
 	inputCpfCnpj.value = inputCpfCnpj.value.replace(/([a-zA-Z ])/g, "");
@@ -1342,6 +1451,7 @@ function tratamentoCampoCpfCnpj(tipo) {
 
 		if (cpfRegex.test(inputCpfCnpj.value) || cnpjRegex.test(inputCpfCnpj.value)) {
 			inputCpfCnpj.style.background="transparent";
+			botaoFinalizar.focus();
 			return true;
 		}
 		else {
@@ -1379,6 +1489,30 @@ function validacaoDoObjetoColaborador(tipo) {
 		var inputUsername = document.getElementById('edita_username_colaborador_input');
 		var inputSenha = document.getElementById('edita_senha_colaborador_input');		
 	}
+
+	if (inputNome != null) {
+		inputNome.value = inputNome.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}	
+
+	if (inputUsername != null) {
+		inputUsername.value = inputUsername.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}
+
+	if (inputSenha != null) {
+		inputSenha.value = inputSenha.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}		
+
+	if (inputEmail != null) {
+		inputEmail.value = inputEmail.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+	}		
+
+	if (inputDataNascimento != null) {
+		if (inputDataNascimento.value.split("-").length == 3) {
+			if (inputDataNascimento.value.split("-")[0] > 1900) {
+				inputCpfCnpj.focus();
+			}
+		}
+	}		
 
 	if(
 		inputNome.value != "" 
@@ -1755,4 +1889,36 @@ function ajustaTabela(){
 function doALoadOfStuff() {
 	document.getElementById('conteudo_container').style.transition="2s";
 	responsive();
+}
+
+function tituloResponsivo(filtro) {
+
+	var titulo = document.getElementById('conteudo_titulo_text');
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');	
+	var mes = document.getElementById('back_mes');
+	var ano = document.getElementById('back_ano');	
+	var descricao = document.getElementById('back_descricao');	
+	var fornecedor = document.getElementById('back_fornecedor');			
+	var usuario = document.getElementById('back_usuario');		
+
+	if(filtro == "hoje") {
+		titulo.innerText="Todos os colaboradores";
+	}
+	else if (filtro == "data") {
+		var columnDataSplitted = dataInicio.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = dataFim.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+		titulo.innerText="Colaboradores: " + inicio + " à " + fim;		
+	}		
+	else if (filtro == "periodo") {
+		titulo.innerText="Colaboradores: " + mes.value + "/" + ano.value;
+	}
+	else if (filtro == "descricao") {
+		titulo.innerText="Colaboradores de nome " + descricao.value;
+	}
+	else if (filtro == "usuario") {
+		titulo.innerText="Colaboradores de usuário " + (usuario.value);
+	}
 }

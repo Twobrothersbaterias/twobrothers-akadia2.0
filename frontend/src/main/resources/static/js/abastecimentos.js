@@ -9,17 +9,17 @@ buildUrlPages();
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
 
+console.log('Tipo do filtro: ' + tipoFiltro.value);
+console.log('Privilégio: ' + privilegio);
+
 if (tipoFiltro != null) {
 	tituloResponsivo(tipoFiltro.value);
 }	
-console.log('Tipo do filtro: ' + tipoFiltro);
-console.log('Privilégio: ' + privilegio);
 
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
 	bind(keyCode);
-
 }
 
 function bind(keyCode) {
@@ -93,8 +93,7 @@ function bind(keyCode) {
 	    	abrirFiltro();
 	    }	 	    
 
-    }   
-                      
+    }                      
 }
 
 function responsive(){
@@ -155,7 +154,7 @@ function responsive(){
 	var informativosRow = document.getElementsByClassName('informativos_row');
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -253,7 +252,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";		
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
@@ -351,7 +350,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Tela: Média');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -446,7 +445,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -542,7 +541,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
 		for(var i = 0; i < informativo.length; i++) {
 			informativo[i].style.margin="7px";
@@ -633,7 +632,6 @@ function responsive(){
 
 		filtroBuscarBt.style.marginTop="20px";
 		filtroBuscarBt.style.justifyContent="center";
-
 	}
 
 	pageResponsiva();
@@ -1898,7 +1896,7 @@ function tituloResponsivo(filtro) {
 		titulo.innerText="Compras de " + produto.value;
 	}
 	else if (filtro == "fornecedor") {
-		titulo.innerText="Compras com  " + (tipo.value).toLowerCase() + "s";
+		titulo.innerText="Compras com  " + (fornecedor.value).toLowerCase();
 	}
 
 }
