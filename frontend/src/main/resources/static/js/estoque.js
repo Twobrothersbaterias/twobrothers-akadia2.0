@@ -9,7 +9,6 @@ var tipoFiltro = document.getElementById('tipo_filtro').value;
 
 tituloResponsivo(tipoFiltro);
 console.log('Tipo do filtro: ' + tipoFiltro);
-
 console.log('Privilégio: ' + privilegio);
 
 document.onkeydown=function(){
@@ -1630,7 +1629,6 @@ function buildUrlPages() {
 		$('#proxima').attr("href", "/estoque?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
 
 		for (var i = 0; i < pageNumber.length; i ++) {
-			console.log(pageNumber[i]);
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
 			$('#' + idPagina).attr("href", "/estoque?page=" + 

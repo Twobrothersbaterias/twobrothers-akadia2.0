@@ -352,7 +352,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Tela: Médio');	
+		console.log('Tela: Média');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -1877,7 +1877,6 @@ function validacaoCampos(tipo) {
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 
 	if(inputTelefone.value != "" && !tratamentoCampoTelefone(tipo)) {
-		console.log('TEL ERRADO');
 		erros += "- Telefone com padrão incorreto\n";
 	}
 	if(inputEmail.value != "" && !tratamentoCampoEmail(tipo)) {
@@ -2238,8 +2237,6 @@ function tituloResponsivo(filtro) {
 		titulo.innerText="Clientes cadastrados hoje";
 	}
 	else if (filtro == "data") {
-		console.log(dataInicio);
-		console.log(dataFim);
 		var columnDataSplitted = dataInicio.value.split("-");
 		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
 		var columnDataSplitted = dataFim.value.split("-");

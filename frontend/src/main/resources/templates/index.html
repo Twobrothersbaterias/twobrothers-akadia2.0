@@ -296,23 +296,47 @@
 							<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
 								<p th:text="${SucessoDelete}"></p>
 							</div>		
-										
-							<h1 class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 conteudo_titulo_text" id="conteudo_titulo_text">
+
+							<input th:value=${tipoFiltro} id="tipo_filtro" hidden>
+
+							<div th:if="${tipoFiltro == 'data'}">
+								<input th:value="${dataInicio}" id="back_inicio" hidden>
+								<input th:value="${dataFim}" id="back_fim" hidden>
+							</div>
+
+							<div th:if="${tipoFiltro == 'periodo'}">
+								<input th:value="${mes}" id="back_mes" hidden>
+								<input th:value="${ano}" id="back_ano" hidden>
+							</div>								
+
+							<div th:if="${tipoFiltro == 'titulo'}">
+								<input th:value="${titulo}" id="back_titulo" hidden>
+							</div>			
+
+							<div th:if="${tipoFiltro == 'categoria'}">
+								<input th:value="${categoria}" id="back_categoria" hidden>
+							</div>			
+	
+							<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text" id="conteudo_titulo_text">
 								Postagens de hoje
 							</h1>
 
-							<div class="col-xl-8 col-lg-8 col-md-7 col-sm-7 col-5"></div>
+						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-							<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+								<img th:if="${privilegio} != 'Vendedor'" onclick="abrirNovoItem()" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}"/>		
+							</a>
 
-								<img th:if="${privilegio} != 'Vendedor'" onclick="abrirNovoItem()" class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/add-green.png" th:src="@{img/add-green.png}"/>
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/}">
+								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+							</a>
 
-								<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/}">
-									<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
-								</a>
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>								
+							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>	
+							</a>
 
-							</div>							
+						</div>	
+
 					</div>
 
 					<hr id="hr_tabela">	
@@ -399,7 +423,8 @@
 									th:data-corTitulo="${postagem.corTitulo}"
 									th:data-corConteudo="${postagem.corConteudo}"
 									th:data-fonteTitulo="${postagem.fonteTitulo}"
-									th:data-fonteConteudo="${postagem.fonteConteudo}"									
+									th:data-fonteConteudo="${postagem.fonteConteudo}"						
+									th:data-usuarioResponsavel="${postagem.usuarioResponsavel.nome}"
 									onclick="abrirEditaItem(
 										this.getAttribute('data-id'), 
 										this.getAttribute('data-dataCadastro'), 
@@ -410,7 +435,8 @@
 										this.getAttribute('data-corTitulo'),
 										this.getAttribute('data-corConteudo'),
 										this.getAttribute('data-fonteTitulo'),
-										this.getAttribute('data-fonteConteudo'))" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao botao_postagem">
+										this.getAttribute('data-fonteConteudo'),
+										this.getAttribute('data-usuarioResponsavel'))" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 botao botao_postagem">
 										Acessar
 									</button>	
 								</div>
@@ -427,7 +453,7 @@
 		</main>	
 
 		<!-------------- FILTROS ------------>
-		<div class="col-xl-7 col-lg-9 col-md-10 col-sm-11 col-11 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
+		<div class="col-xl-6 col-lg-6 col-md-8 col-sm-8 col-10 conteudo_container_filtro" id="conteudo_container_filtro" hidden>
 
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
 
@@ -439,9 +465,9 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img img_container" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadFiltro()"/>
 
-					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
+					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-8 img img_container" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharFiltro()"/>
 
 				</div>	
 
@@ -451,7 +477,7 @@
 
 			<div class="filtro_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_primeira_row">							
 
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12" id="filtro_first_block">
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_first_block">
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Tipo
 					</label>
@@ -463,7 +489,7 @@
 					</select>
 				</div>		
 
-				<div class="filtro_block col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"  id="filtro_titulo_block">
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_titulo_block">
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Título
 					</label>
@@ -472,14 +498,14 @@
 
 
 
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_data_inicio_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Data início
 					</label>
 					<input class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_inicio_filtro_input"/>
 				</div>	
 
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_data_fim_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Data fim
 					</label>
@@ -488,7 +514,7 @@
 
 
 
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_mes_block" hidden>
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_mes_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Mês
 					</label>
@@ -508,7 +534,7 @@
 					</select>
 				</div>
 
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_ano_block" hidden>
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_ano_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Ano
 					</label>
@@ -521,7 +547,7 @@
 				</div>		
 
 
-				<div class="filtro_block col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12"  id="filtro_categoria_block" hidden>
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_categoria_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						Categoria
 					</label>
@@ -534,7 +560,7 @@
 						
 				</div>																		
 
-				<div class="filtro_block add_filtro_block col-xl-2 col-lg-2 col-md-3 col-sm-12 col-12"  id="filtro_second_block">			
+				<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_second_block">			
 					<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
 						Adicionar
 					</button>				
@@ -545,23 +571,23 @@
 
 			<div class="filtro_row_principal filtro_row_tag row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_segunda_row">						
 
-				<div class="filtro_tag col-xl-4 col-lg-3 col-md-4 col-sm-5 col-9" id="filtro_titulo_tag" onclick="removerFiltro('titulo')" onmouseover="efeitoRemoverFiltro('titulo')" onmouseleave="efeitoRemoverFiltroLeave('titulo')" hidden>
+				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_titulo_tag" onclick="removerFiltro('titulo')" onmouseover="efeitoRemoverFiltro('titulo')" onmouseleave="efeitoRemoverFiltroLeave('titulo')" hidden>
 					Título
 				</div>
 
-				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
+				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_data_tag" onclick="removerFiltro('data')" onmouseover="efeitoRemoverFiltro('data')" onmouseleave="efeitoRemoverFiltroLeave('data')" hidden>
 					Data a data
 				</div>
 
-				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
+				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_periodo_tag" onclick="removerFiltro('periodo')" onmouseover="efeitoRemoverFiltro('periodo')" onmouseleave="efeitoRemoverFiltroLeave('periodo')" hidden>
 					Periodo
 				</div>											
 
-				<div class="filtro_tag col-xl-4 col-lg-4 col-md-4 col-sm-5 col-9" id="filtro_categoria_tag" onclick="removerFiltro('categoria')" onmouseover="efeitoRemoverFiltro('categoria')" onmouseleave="efeitoRemoverFiltroLeave('categoria')"hidden>
+				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_categoria_tag" onclick="removerFiltro('categoria')" onmouseover="efeitoRemoverFiltro('categoria')" onmouseleave="efeitoRemoverFiltroLeave('categoria')"hidden>
 					Categoria
 				</div>														
 
-				<form th:action="@{/filtro}" method="POST" th:object="${filtroPostagem}" class="form_fantasma_filtro col-xl-2 col-lg-2 col-md-3 col-sm-9 col-9" id="form_fantasma_filtro">
+				<form th:action="@{/filtro}" method="POST" th:object="${filtroPostagem}" class="form_fantasma_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="form_fantasma_filtro">
 
 					<input type="text" name="titulo" id="input_titulo_backend" hidden/>
 					<input type="text" name="dataInicio" id="input_data_inicio_backend" hidden/>
@@ -594,7 +620,7 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img img_container" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharEditaItem()"/>
 					
 				</div>	
 
@@ -647,9 +673,9 @@
 
 				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>							
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img img_container" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}" onclick="reloadNovoItem()"/>							
 
-					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovoItem()"/>
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img img_container" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaNovoItem()"/>
 					
 				</div>	
 

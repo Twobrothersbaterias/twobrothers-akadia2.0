@@ -6,8 +6,12 @@ ajustaMinMaxDosInputsData();
 ajustaCaracteresBloco();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
+var filtro = document.getElementById('tipo_filtro');
 
 console.log('Privilégio: ' + privilegio);
+console.log('Tipo do filtro: ' + filtro.value);
+
+tituloResponsivo(filtro.value);
 
 document.onkeydown=function(){
 
@@ -114,6 +118,10 @@ function responsive(){
 	var editaTitulo	= document.getElementById('edita_titulo');
 	var editaItemSubmit = document.getElementById('edita_item_submit');
 
+	var img = document.getElementsByClassName('img');
+	var aImg = document.getElementsByClassName('a_img');
+	var imgContainer = document.getElementsByClassName('img_container');
+
 	var th = document.getElementsByClassName('th');
 	var td = document.getElementsByClassName('td');
 	var thDataCadastro = document.getElementsByClassName('th_cadastro');
@@ -141,7 +149,7 @@ function responsive(){
 	var botaoPostagem = document.getElementsByClassName('botao_postagem');
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -165,6 +173,9 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";			
+
+		conteudoTituloText.style.fontSize="1.1rem";	
+		filtroTitulo.style.fontSize="1.1rem";				
 
 		for(var i = 0; i < postagemTitulo.length; i++) {
 			postagemTitulo[i].style.fontSize="0.80rem";
@@ -214,15 +225,24 @@ function responsive(){
 			formRemoveImg[i].style.display="none";
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="22px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="12px";
+		}	
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="10px";			
+		}		
+
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
 			btnExcluir[i].style.fontSize="0.95rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
 		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -231,9 +251,16 @@ function responsive(){
 		for(var i = 0; i < editaItemInput.length; i++) {
 			editaItemInput[i].style.marginBottom="0";
 		}
+
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";		
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
@@ -255,7 +282,8 @@ function responsive(){
 		containerEdita.style.fontSize="1rem";
 		editaTitulo.style.fontSize="1.15rem";	
 
-		filtroTitulo.style.fontSize="1.4rem";		
+		conteudoTituloText.style.fontSize="1.1rem";	
+		filtroTitulo.style.fontSize="1.1rem";		
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";			
@@ -308,15 +336,25 @@ function responsive(){
 			formRemoveImg[i].style.display="none";
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="20px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}		
+
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="block";
 			btnExcluir[i].style.fontSize="0.95rem";
 			btnExcluir[i].style.padding="4px 6px";
 			btnExcluir[i].innerText="Excluir";
 		}		
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}	
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -325,12 +363,15 @@ function responsive(){
 		for(var i = 0; i < editaItemInput.length; i++) {
 			editaItemInput[i].style.marginBottom="0";
 		}		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";					
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";			
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Tela: Média');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -343,7 +384,6 @@ function responsive(){
 		}
 
 		mainRow.style.height="100%";
-		conteudoTituloText.style.fontSize="1.2rem";
 		menuMobile.style.display="none";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.1rem";
@@ -352,7 +392,8 @@ function responsive(){
 		containerEdita.style.fontSize="1rem";		
 		editaTitulo.style.fontSize="1.1rem";
 
-		filtroTitulo.style.fontSize="1.3rem";	
+		conteudoTituloText.style.fontSize="1rem";	
+		filtroTitulo.style.fontSize="1.1rem";	
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";				
@@ -405,12 +446,21 @@ function responsive(){
 			formRemoveImg[i].style.maxWidth="50%";			
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
 		}	
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="0";
-		}
 
 		for(var i = 0; i < novoItemInput.length; i++) {
 			novoItemInput[i].style.marginBottom="0";
@@ -420,14 +470,17 @@ function responsive(){
 			editaItemInput[i].style.marginBottom="0";
 		}		
 
-		filtroBuscarBt.style.marginTop="0px";
-		filtroBuscarBt.style.justifyContent="left";		
+		for(var i = 0; i < filtroBlock.length; i++) {
+			filtroBlock[i].style.marginBottom="20px";
+		}
+
+		filtroBuscarBt.style.marginTop="20px";
+		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
 		mainRow.style.height="100%";
-		conteudoTituloText.style.fontSize="1.1rem";
 		sideMenu.style.display="none";
 		main.style.width="100%";
 		mainRow.style.width = "100%";			
@@ -438,7 +491,8 @@ function responsive(){
 
 		containerEdita.style.fontSize="0.90rem";	
 		editaTitulo.style.fontSize="1.2rem";		
-		filtroTitulo.style.fontSize="1.2rem";	
+		containerNovo.style.fontSize="0.90rem";	
+		novoTitulo.style.fontSize="1.2rem";		
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";			
@@ -491,6 +545,19 @@ function responsive(){
 			formRemoveImg[i].style.maxWidth="55%";
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="18px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="10px";
+		}		
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}
+
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
 		}		
@@ -519,7 +586,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
 		mainRow.style.height="100%";
 		conteudoTituloText.style.fontSize="1rem";
@@ -534,7 +601,8 @@ function responsive(){
 		containerEdita.style.fontSize="0.90rem";
 		editaTitulo.style.fontSize="1rem";
 
-		filtroTitulo.style.fontSize="1.1rem";		
+		conteudoTituloText.style.fontSize="0.80rem";
+		filtroTitulo.style.fontSize="1.1rem";	
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
@@ -587,6 +655,20 @@ function responsive(){
 			formRemoveImg[i].style.maxWidth="60%";			
 		}	
 
+		for(var i = 0; i < img.length; i++) {
+			img[i].style.width="15px";
+		}
+
+		for(var i = 0; i < aImg.length; i++) {
+			aImg[i].style.marginLeft="8px";
+		}
+
+		for(var i = 0; i < imgContainer.length; i++) {
+			imgContainer[i].style.width="20px";
+			imgContainer[i].style.marginLeft="15px";			
+		}	
+
+
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
 		}		
@@ -609,7 +691,6 @@ function responsive(){
 
 	}
 
-	//pageResponsiva();
 }
 
 
@@ -1013,8 +1094,13 @@ function addFiltro() {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 
+		var columnDataSplitted = inputDataInicioFiltro.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimFiltro.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];			
+
 		dataTag.hidden=false;
-		dataTag.innerText = inputDataInicioFiltro.value + ' a ' + inputDataFimFiltro.value;
+		dataTag.innerText = inicio + ' a ' + fim;
 
 		filtroTipo.value="";
 		inputDataInicioBackend.value=inputDataInicioFiltro.value;
@@ -1254,7 +1340,11 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroData.style.background="transparent";
 		filtroData.style.border="1px solid #212121"
 		filtroData.style.color="#212121";
-		filtroData.innerText = inputDataInicioBackend.value + ' a ' + inputDataFimBackend.value;
+		var columnDataSplitted = inputDataInicioBackend.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = inputDataFimBackend.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		filtroData.innerText = inicio + ' a ' + fim;
 	}
 	else if (filtro == 'periodo') {
 		filtroPeriodo.style.transition="1s"
@@ -1285,7 +1375,8 @@ function abrirEditaItem(
 							corTitulo,
 							corConteudo,
 							fonteTitulo,
-							fonteConteudo) {
+							fonteConteudo,
+							usuarioResponsavel) {
 
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
@@ -1313,7 +1404,8 @@ function abrirEditaItem(
 	if(dataCadastro != null) {
 		var dataCadastroSplitada = dataCadastro.split("-");
 		if (dataCadastroSplitada.length == 3) {
-			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
+			var dataUsParaDataBr = dataCadastroSplitada[2] + "/" + dataCadastroSplitada[1] + "/" + dataCadastroSplitada[0];
+			document.getElementById('edita_titulo').innerText="Autor: " + usuarioResponsavel + ", " + dataUsParaDataBr;
 		}
 	}
 
@@ -1327,7 +1419,9 @@ function abrirEditaItem(
 	$(document.getElementById('edita_input_conteudo')).css("font-family", fonteConteudo);
 	$(document.getElementById('edita_input_conteudo')).css("color", corConteudo);
 
-	document.getElementById('edita_caracteres').innerText = conteudo.length + '/1500';	
+	if(conteudo != null) {
+		document.getElementById('edita_caracteres').innerText = conteudo.length + '/1500';	
+	}
 
 }
 
@@ -1392,7 +1486,6 @@ function categoriaMudada(tipo) {
 	} 	
 
 	for(var i = 0; i < optionsSubcategoria.length; i++) {
-		console.log(optionsSubcategoria[i].getAttribute('data-nomeCategoria'));
 		if(optionsSubcategoria[i].getAttribute('data-nomeCategoria') != inputCategoria.value) {
 			optionsSubcategoria[i].disabled=true;
 		}
@@ -1501,7 +1594,11 @@ function validacaoDoObjetoPostagem(tipo) {
 		var inputSubCategoria = document.getElementById('input_subCategoria');
 		var inputTitulo = document.getElementById('input_titulo');
 		var inputConteudo = document.getElementById('input_conteudo');	
-		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');		
+		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');
+
+		if(inputTitulo != null) {
+			inputTitulo.value = inputTitulo.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+		}		
 
 		if(inputCategoria != null) {
 			inputCategoria.value = inputCategoria.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -1902,5 +1999,36 @@ function removePostagem(id) {
 	else {
 		alert("Você não possui permissão para remover uma postagem da tela inicial!\n" +
 			"Entre em contato com um gestor para solicitar permissão");
+	}
+}
+
+function tituloResponsivo(filtro) {
+
+	var titulo = document.getElementById('conteudo_titulo_text');
+	var dataInicio = document.getElementById('back_inicio');
+	var dataFim = document.getElementById('back_fim');
+	var mes = document.getElementById('back_mes');
+	var ano = document.getElementById('back_ano');	
+	var tituloBusca = document.getElementById('back_titulo');		
+	var categoria = document.getElementById('back_categoria');
+
+	if(filtro == "hoje") {
+		titulo.innerText="Postagens de hoje";
+	}
+	else if (filtro == "data") {
+		var columnDataSplitted = dataInicio.value.split("-");
+		var inicio = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];		
+		var columnDataSplitted = dataFim.value.split("-");
+		var fim = columnDataSplitted[2] + "/" + columnDataSplitted[1] + "/" + columnDataSplitted[0];
+		titulo.innerText="Postagens: " + inicio + " à " + fim;		
+	}
+	else if (filtro == "periodo") {
+		titulo.innerText="Postagens: " + mes.value + "/" + ano.value;
+	}
+	else if (filtro == "titulo") {
+		titulo.innerText="Postagens de título " + tituloBusca.value;
+	}
+	else if (filtro == "categoria") {
+		titulo.innerText="Postagens de categoria  " + categoria.value;
 	}
 }

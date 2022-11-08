@@ -1715,7 +1715,6 @@ function buildUrlPages() {
 		$('#proxima').attr("href", "/despesas?page=" + (parseInt(paginaAtual.value) + 1)  + "&inicio=" + dataInicio.value + "&fim=" + dataFim.value);
 
 		for (var i = 0; i < pageNumber.length; i ++) {
-			console.log(pageNumber[i]);
 			pageNumber[i].id="numeroPagina_" + i;
 			var idPagina = pageNumber[i].id;
 			$('#' + idPagina).attr("href", "/despesas?page=" + 
@@ -1968,5 +1967,4 @@ function tituloResponsivo(filtro) {
 			titulo.innerText="Despesas variáveis";	
 		}
 	}
-
 }

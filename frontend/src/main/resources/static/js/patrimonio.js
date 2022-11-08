@@ -521,7 +521,8 @@ function responsive(){
 
 		for (var i = 0; i < pageClick.length; i++) {
 			pageClick[i].style.fontSize="0.55rem";
-		}		
+		}	
+			
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 670) {
 				menuSuperiorMobileItem[i].style.width="7.05%";

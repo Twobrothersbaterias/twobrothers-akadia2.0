@@ -22,8 +22,6 @@ document.onkeydown=function(){
 
 function bind(keyCode) {
 
-	console.log(keyCode);
-
     if(keyCode == '27') {
         fechaNovoItem();
         fecharFiltro();
@@ -1642,8 +1640,6 @@ function tratamentoCampoCpfCnpj(tipo) {
 /* TRATAMENTO DO CAMPO CEP */
 function tratamentoCampoCep(tipo) {
 
-	console.log('CEP');
-
 	var cepRegex = new RegExp("[0-9]{8}");
 
 	if (tipo == "novo") {
@@ -1845,8 +1841,6 @@ function validacaoCampos(tipo) {
 	}
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
-
-	console.log(inputCep.value);
 
 	if(inputTelefone.value != "" && !tratamentoCampoTelefone(tipo)) {
 		erros += "- Telefone com padrão incorreto\n";

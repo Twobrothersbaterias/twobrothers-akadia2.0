@@ -141,7 +141,7 @@ function responsive(){
 	var informativoCampo = document.getElementsByClassName('informativo_campo');
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -229,7 +229,7 @@ function responsive(){
 
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
@@ -312,7 +312,7 @@ function responsive(){
 				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');
+		console.log('Tela: Média');
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 860) {
@@ -394,7 +394,7 @@ function responsive(){
 
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
 		sideMenu.style.display="none";
 		main.style.width="100%";	
@@ -469,7 +469,7 @@ function responsive(){
 
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -831,9 +831,6 @@ function addNovoProduto() {
 		+ ";" + inputProduto.value 
 		+ ";" + (parseFloat(inputValor.value)).toFixed(2)
 		+ ";" + inputQuantidade.value + ";";
-
-		console.log((inputEntradas.value).length);
-
 
 		var inputEntradasSplitPai = inputEntradas.value.split("ENTRADA=");
 		for(var i = 1; i < inputEntradasSplitPai.length; i++) {
@@ -1572,8 +1569,6 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 
 	for(var i = 1; i < inputEntradasSplitPai.length; i++) {
 
-		console.log(inputEntradasSplitPai[i]);
-
 		var tipo = null;
 
 		if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_SERVICO") {
@@ -1608,8 +1603,6 @@ function removeItemTb(item) {
 
 	var entrada = (inputEntradas.value.split("ENTRADA="))[item];
 
-	console.log(entrada);
-
 	if(inputEntradas.value.includes(entrada)) {
 		inputEntradas.value=inputEntradas.value.replace("ENTRADA=" + entrada, "");
 	}
@@ -1617,7 +1610,6 @@ function removeItemTb(item) {
 	document.getElementsByClassName('tr_novo_body')[parseInt(item)-1].parentNode.removeChild(document.getElementsByClassName('tr_novo_body')[parseInt(item)-1]);
 	calculaInformativos();
 
-	console.log(document.getElementsByClassName('tr_novo_body').length);
 	if (document.getElementsByClassName('tr_novo_body').length < 1) {
 		document.getElementById('tr_base').hidden=false;
 	}

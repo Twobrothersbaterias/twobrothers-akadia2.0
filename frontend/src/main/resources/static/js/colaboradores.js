@@ -151,7 +151,7 @@ function responsive(){
 	var pageClick = document.getElementsByClassName('page_click');		
 
 	if(bodyWidth > 1200){
-		console.log("Muito grande");
+		console.log("Tela: Muito grande");
 
 		sideMenu.style.display="block";
 		menuMobile.style.display="none";
@@ -239,7 +239,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
-		console.log("Grande");
+		console.log("Tela: Grande");
 
 		menuMobile.style.display="none";		
 		sideMenu.style.display="block";
@@ -328,7 +328,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";				
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
-		console.log('Médio');	
+		console.log('Tela: Média');	
 
 		sideMenu.style.display="block";
 		if (bodyWidth > 870) {
@@ -415,7 +415,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";		
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
-		console.log('Pequeno');	
+		console.log('Tela: Pequena');	
 
 		sideMenu.style.display="none";
 		main.style.width="100%";
@@ -503,7 +503,7 @@ function responsive(){
 		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
-		console.log('Muito pequeno');
+		console.log('Tela: Muito pequena');
 
 		conteudoTituloText.style.fontSize="1rem";
 		sideMenu.style.display="none";
