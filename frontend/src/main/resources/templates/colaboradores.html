@@ -738,11 +738,11 @@
 
 				<div class="img_div col-xl-3 col-lg-1 col-md-1 col-sm-1 col-1">
 
-					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img">
+					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img img_container">
 						<img class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 img img_container" src="../static/img/info.png" th:src="@{img/info.png}" title="Cliente cadastrado no dia 21/07/1998 por admin" id="edita_info"/>
 					</a>					
 
-					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img">
+					<a class="col-xl-2 col-lg-6 col-md-6 col-sm-6 col-8 img img_container">
 						<img class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12 img img_container" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fechaEditaItem()"/>
 					</a>
 
@@ -766,7 +766,7 @@
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">								
 					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-8 col-12"  id="edita_item_first_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_descricao_colaborador_input">
 							Nome
 						</label>
 						<input 
@@ -781,7 +781,7 @@
 					</div>
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="edita_item_first_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_privilegio_colaborador_input">
 							Privilégio
 						</label>
 						<select 
@@ -799,7 +799,7 @@
 					</div>					
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-8 col-12"  id="edita_item_first_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_username_colaborador_input">
 							Usuário
 						</label>
 						<input 
@@ -814,7 +814,7 @@
 					</div>
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="edita_item_first_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_senha_colaborador_input">
 							Senha
 						</label>
 						<input 
@@ -833,7 +833,7 @@
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">	
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_third_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_colaborador_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_email_colaborador_input">
 							E-mail
 						</label>
 						<input 
@@ -848,7 +848,7 @@
 					</div>									
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_second_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_colaborador_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="edita_telefone_colaborador_input">
 							Telefone
 						</label>
 						<input 
@@ -866,7 +866,7 @@
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_segunda_row">										
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_fourth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_nascimento" for="data_nascimento_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_nascimento" for="edita_data_nascimento_input">
 							Data de nascimento:
 						</label>
 						<input 
@@ -879,7 +879,7 @@
 					</div>							
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_fifth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_cpfCnpj" for="cpfCnpj_input">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_cpfCnpj" for="edita_cpfCnpj_input">
 							Cpf/Cnpj:
 						</label>
 						<input 
@@ -958,7 +958,7 @@
 					</div>
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="privilegio_colaborador_input">
 							Privilégio
 						</label>
 						<select 
@@ -976,7 +976,7 @@
 					</div>					
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-8 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="username_colaborador_input">
 							Usuário
 						</label>
 						<input 
@@ -991,7 +991,7 @@
 					</div>
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_colaborador_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="senha_colaborador_input">
 							Senha
 						</label>
 						<input 

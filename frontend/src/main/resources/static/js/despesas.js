@@ -772,6 +772,8 @@ function abrirNovaDespesa() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
+
+	setTimeout(() => {  $('#descricao_despesa_input').focus(); }, 10);		
 }
 
 function fechaNovaDespesa() {
@@ -947,6 +949,8 @@ function abrirFiltro() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
+
+	setTimeout(() => {  $('#descricao_filtro_input').focus(); }, 10);		
 }
 
 function fecharFiltro() {

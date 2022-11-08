@@ -666,14 +666,14 @@
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">		
 											
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_despesa_input">
 							Descrição
 						</label>
 						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input" tabindex="1" oninput="validacaoDoObjetoDespesa(false, 'novo')" required/>
 					</div>		
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="tipo_despesa_input">
 							Tipo
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input" oninput="validacaoDoObjetoDespesa(false, 'novo')" required>
@@ -683,7 +683,7 @@
 					</div>	
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="novo_item_fourth_block" >
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="status_despesa">
 							Status
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="changeStatus('novo')" name="statusDespesa" id="status_despesa" required>
@@ -693,7 +693,7 @@
 					</div>	
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_seventh_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="persistencia_input">
 							Persistência
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input" name="persistencia" onchange="validacaoDoObjetoDespesa(false, 'novo')" required>
@@ -721,7 +721,7 @@
 
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="novo_item_third_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_despesa_input">
 							Valor
 						</label>
 						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor"  id="valor_despesa_input" tabindex="2" oninput="validacaoDoObjetoDespesa(false, 'novo')" value=0 required/>
@@ -730,14 +730,14 @@
 													
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_fifth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento" for="data_pagamento_input">
 							Data pgto.
 						</label>
 						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input" type="date" oninput="validacaoDoObjetoDespesa(false, 'novo')" required/>
 					</div>							
 
 					<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="novo_item_sixth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_agendamento" oninput="validacaoDoObjetoDespesa(false, 'novo')" disabled>
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_agendamento" oninput="validacaoDoObjetoDespesa(false, 'novo')" for="data_agendamento_input" disabled>
 							Agendamento
 						</label>
 						<input class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input" type="date" required disabled/>
@@ -944,14 +944,14 @@
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">									
 
 					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="edita_item_second_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_despesa_input_edicao">
 							Descrição
 						</label>
 						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="descricao" id="descricao_despesa_input_edicao" oninput="validacaoDoObjetoDespesa(false, 'edita')" required/>
 					</div>	
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_first_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="tipo_despesa_input_edicao">
 							Tipo
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoDespesa" id="tipo_despesa_input_edicao" onchange="validacaoDoObjetoDespesa(false, 'edita')" required>
@@ -961,7 +961,7 @@
 					</div>	
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"  id="edita_item_fourth_block" >
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="status_despesa_edicao">
 							Status
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="editaDespesaChangeStatus('edita')" name="statusDespesa" id="status_despesa_edicao" required>
@@ -971,7 +971,7 @@
 					</div>																	
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_seventh_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="persistencia_input_edicao">
 							Persistência
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="persistencia_input_edicao" name="persistencia" onchange="validacaoDoObjetoDespesa(false, 'edita')" required>
@@ -998,21 +998,21 @@
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">					
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" id="edita_item_third_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_despesa_input_edicao">
 							Valor
 						</label>
 						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" id="valor_despesa_input_edicao" name="valor" value=0 oninput="validacaoDoObjetoDespesa(false, 'edita')" required/>
 					</div>
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_fifth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento" for="data_pagamento_input_edicao">
 							Data pgto.
 						</label>
 						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataPagamento" id="data_pagamento_input_edicao" oninput="validacaoDoObjetoDespesa(false, 'edita')" type="date" required/>
 					</div>							
 
 					<div class="edita_item_block col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6" id="edita_item_sixth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_agendamento" disabled>
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_agendamento" for="data_agendamento_input_edicao" disabled>
 							Agendamento
 						</label>
 						<input class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataAgendamento" id="data_agendamento_input_edicao" oninput="validacaoDoObjetoDespesa(false, 'edita')" type="date" required disabled/>

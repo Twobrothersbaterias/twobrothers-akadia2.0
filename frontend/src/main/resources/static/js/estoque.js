@@ -616,7 +616,9 @@ function abrirNovoItem() {
 
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
-	sideMenu.style.transition="1s";		
+	sideMenu.style.transition="1s";	
+
+	setTimeout(() => {  $('#sigla_produto_input').focus(); }, 10);			
 }
 
 function fechaNovoItem() {
@@ -699,6 +701,8 @@ function abrirFiltro() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
+
+	setTimeout(() => {  $('#descricao_filtro_input').focus(); }, 10);		
 }
 
 function fecharFiltro() {
@@ -1263,7 +1267,7 @@ function abrirEditaItem(
 
 	var containerEdita = document.getElementById('conteudo_container_edita');
 
-	var subtitulo = document.getElementById('edita_item_subtitulo');
+	var subtitulo = document.getElementById('edita_item_subtitulo');	
 
 	containerEdita.hidden=false;
 

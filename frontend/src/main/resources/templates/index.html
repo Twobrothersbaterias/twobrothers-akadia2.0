@@ -699,8 +699,8 @@
 
 					<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">	
 
-						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
-							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_cor" for="email_cliente_input">
+						<div class="novo_item_block col-xl-10 col-lg-11 col-md-10 col-sm-10 col-10">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_cor" for="input_fonte_titulo">
 								Fonte do título
 							</label>
 							<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="fonteTitulo" id="input_fonte_titulo" onchange="mudaFonteTitulo('novo')" required/>
@@ -713,15 +713,15 @@
 							</select>
 						</div>
 
-						<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12">
-							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor"for="email_cliente_input">
+						<div class="novo_item_block col-xl-2 col-lg-1 col-md-2 col-sm-2 col-2">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor"for="input_cor_titulo">
 								.
 							</label>
 							<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="#303030" id="input_cor_titulo" name="corTitulo" type="color" oninput="mudaCorTitulo('novo')"/>
 						</div>						
 
-						<div class="novo_item_block col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
-							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="email_cliente_input">
+						<div class="novo_item_block col-xl-10 col-lg-11 col-md-10 col-sm-10 col-10">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_fonte_conteudo">
 								Fonte do conteúdo
 							</label>
 							<select autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="fonteConteudo" id="input_fonte_conteudo" onchange="mudaFonteConteudo('novo')" required/>
@@ -734,8 +734,8 @@
 							</select>
 						</div>	
 
-						<div class="novo_item_block col-xl-2 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_block">
-							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor" id="label_cor" for="email_cliente_input">
+						<div class="novo_item_block  col-xl-2 col-lg-1 col-md-2 col-sm-2 col-2" id="novo_item_third_block">
+							<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 label_cor" id="label_cor" for="input_cor_conteudo">
 								.
 							</label>
 							<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="#303030" id="input_cor_conteudo" name="corConteudo"type="color" oninput="mudaCorConteudo('novo')" required />
@@ -759,8 +759,8 @@
 
 					</div>		
 
-					<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_categoria">
 							Categoria
 						</label>
 						<input list="novo_categorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="categoria.nome" type="text" maxlength="20" id="input_categoria" autocomplete="off" onchange="categoriaMudada('novo')" oninput="validacaoDoObjetoPostagem('novo')"/>
@@ -776,8 +776,8 @@
 						</datalist>
 					</div>
 
-					<div class="novo_item_block col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_subCategoria" for="descricao_cliente_input">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_first_block">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="label_subCategoria" for="input_subCategoria">
 							Subcategoria
 						</label>
 						<input list="novo_subCategorias" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="subCategoria.nome" type="text" maxlength="20" id="input_subCategoria"autocomplete="off" oninput="validacaoDoObjetoPostagem('novo')" onchange="validacaoDoObjetoPostagem('novo')" disabled/>
@@ -795,21 +795,19 @@
 					</div>														
 
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_cliente_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_titulo">
 							Título
 						</label>
 						<input autocomplete="off" id="input_titulo" name="titulo" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" oninput="validacaoDoObjetoPostagem('novo')" required/>
 					</div>	
 
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="telefone_cliente_input">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_conteudo">
 							Conteúdo
 						</label>
 						<textarea form="novo_form" name="conteudo" autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" rows="5" cols="30" type="text" oninput="escreveConteudo('novo')" maxlength="1500" id="input_conteudo">
 						</textarea>
 					</div>
-
-				
 
 					<p id="caracteres">1500/1500</p>
 				
@@ -821,7 +819,6 @@
 				<div class="novo_item_row_principal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_third_row">
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>			
-
 					<button type="button" onclick="validacaoCampos('novo')" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="novo_item_submit">
 						Salvar
 					</button>	

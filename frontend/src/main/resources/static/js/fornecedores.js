@@ -646,6 +646,8 @@ function abrirNovoItem() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
+
+	setTimeout(() => {  $('#descricao_fornecedor_input').focus(); }, 10);		
 }
 
 function fechaNovoItem() {
@@ -739,6 +741,8 @@ function abrirFiltro() {
 	sideMenu.style.pointerEvents="none";
 	sideMenu.style.opacity="0.1";
 	sideMenu.style.transition="1s";		
+
+	setTimeout(() => {  $('#descricao_filtro_input').focus(); }, 10);	
 }
 
 function fecharFiltro() {

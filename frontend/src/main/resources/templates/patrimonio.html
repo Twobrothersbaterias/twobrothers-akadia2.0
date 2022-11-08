@@ -769,14 +769,14 @@
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">
 
 					<div class="edita_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="edita_item_second_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_patrimonio_input_edicao">
 							Descrição
 						</label>
 						<input autocomplete="off" tabindex="00" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
 					</div>		
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_first_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="tipo_patrimonio_input_edicao">
 							Tipo
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoPatrimonio" onchange="editaItemChangeTipo('edita')" id="tipo_patrimonio_input_edicao" required>
@@ -790,7 +790,7 @@
 					</div>		
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="edita_item_fourth_block" >
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="status_patrimonio_edicao">
 							Status
 						</label>
 						<select class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="editaItemChangeStatus('edita')" name="statusPatrimonio" id="status_patrimonio_edicao" required>
@@ -813,14 +813,14 @@
 
 				<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_primeira_row">																			
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_third_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_patrimonio_input_edicao">
 							Valor
 						</label>
 						<input autocomplete="off" tabindex="01" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" value="0" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
 					</div>
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_fifth_block">
-						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento">
+						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="edita_item_label_data_pagamento" for="data_pagamento_input_edicao">
 							Data de entrada
 						</label>
 						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input_edicao" type="date" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
@@ -875,14 +875,14 @@
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 
 					<div class="novo_item_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="novo_item_second_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_patrimonio_input">
 							Descrição
 						</label>
 						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" tabindex="00" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" required/>
 					</div>						
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_first_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="tipo_patrimonio_input">
 							Tipo
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoPatrimonio" id="tipo_patrimonio_input" onchange="changeTipo('novo')" required>
@@ -896,7 +896,7 @@
 					</div>
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"  id="novo_item_fourth_block" >
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="status_patrimonio">
 							Status
 						</label>
 						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" onchange="changeStatus('novo')" name="statusPatrimonio" id="status_patrimonio" required>
@@ -920,7 +920,7 @@
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">				
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_third_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_patrimonio_input">
 							Valor
 						</label>
 						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" tabindex="01" id="valor_patrimonio_input" value="0" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" required/>
@@ -929,7 +929,7 @@
 
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_fifth_block">
-						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento">
+						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_label_data_pagamento" for="data_pagamento_input">
 							Data de entrada:
 						</label>
 						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="dataEntrada" id="data_pagamento_input" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" type="date" required/>
