@@ -58,34 +58,34 @@ public class ProdutoEstoqueService {
     public List<ProdutoEstoqueEntity> filtroProdutos(
             Pageable pageable,
             String descricao,
-            TipoProdutoEnum tipo,
+            String tipo,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String fornecedor) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
-        else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
+        else if (tipo != null) return crudService.buscaPorTipo(pageable, TipoProdutoEnum.valueOf(tipo));
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else if (fornecedor != null) return crudService.buscaPorFornecedor(pageable, fornecedor);
         else return produtoEstoqueRepository.findAll(pageable).toList();
     }
 
     public List<ProdutoEstoqueEntity> filtroProdutosSemPaginacao(
             String descricao,
-            TipoProdutoEnum tipo,
+            String tipo,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String fornecedor) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
-        else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
+        else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(TipoProdutoEnum.valueOf(tipo));
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
         else return produtoEstoqueRepository.findAll();
     }

@@ -177,9 +177,12 @@ public class OrdemCrudService {
         log.info("[PROGRESS] Iniciando validação do objeto RetiradaDTO recebido acoplado no objeto OrdemDTO...");
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
 
-        if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty() && ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
-            ordem.getRetirada().setDataAgendamento("Não possui");
-        else if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty() && !ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
+        if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty()) {
+            if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO)) ordem.getRetirada().setDataAgendamento("Em aberto");
+            else ordem.getRetirada().setDataAgendamento("Não possui");
+        }
+        else if (ordem.getRetirada().getDataAgendamento() == null
+                || ordem.getRetirada().getDataAgendamento().isEmpty() && !ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
             ordem.getRetirada().setDataAgendamento("Sem agendamento");
 
         if (ordem.getRetirada().getDataRetirada() == null || ordem.getRetirada().getDataRetirada().isEmpty()) ordem.getRetirada().setDataRetirada("Em aberto");

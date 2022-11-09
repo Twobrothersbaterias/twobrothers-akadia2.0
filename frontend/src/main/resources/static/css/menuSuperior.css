@@ -5,13 +5,17 @@
     box-shadow: 0px 0px 10px #121212;
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    padding: 9px 0;
 }
 
 .menu_superior_li {
     display: flex;
     justify-content: right;
-    padding-right: 30px;
+    padding-right: 15px;
+}
+
+.menu_superior_botao {
+    padding: 0px;
 }
 
 .menu_superior_botao_container {
@@ -25,8 +29,8 @@
 }
 
 .menu_superior_botao_container {
-    width: 40px;
-    margin-left: 5px;
+    width: 25px;
+    margin-left: 10px;
 }
 
 .menu_superior_img:hover {

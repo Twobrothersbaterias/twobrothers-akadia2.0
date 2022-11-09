@@ -193,9 +193,9 @@ function responsive(){
 		}
 
 		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.75rem";
-			listaVaziaTexto.style.fontSize="1rem";
-			listaVaziaBotao.style.fontSize="1rem";
+			listaVaziaTitulo.style.fontSize="1rem";
+			listaVaziaTexto.style.fontSize="0.85rem";
+			listaVaziaBotao.style.fontSize="0.85rem";
 		}
 
 		containerNovo.style.fontSize="1rem";		
@@ -290,9 +290,9 @@ function responsive(){
 		}
 
 		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.5rem";
-			listaVaziaTexto.style.fontSize="1rem";
-			listaVaziaBotao.style.fontSize="1rem";
+			listaVaziaTitulo.style.fontSize="1rem";
+			listaVaziaTexto.style.fontSize="0.85rem";
+			listaVaziaBotao.style.fontSize="0.85rem";
 		}
 
 		containerNovo.style.fontSize="1rem";
@@ -399,9 +399,9 @@ function responsive(){
 		}
 
 		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.5rem";
-			listaVaziaTexto.style.fontSize="1rem";
-			listaVaziaBotao.style.fontSize="1rem";
+			listaVaziaTitulo.style.fontSize="1rem";
+			listaVaziaTexto.style.fontSize="0.85rem";
+			listaVaziaBotao.style.fontSize="0.85rem";
 		}
 
 
@@ -475,9 +475,9 @@ function responsive(){
 		}
 
 		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.2rem";
-			listaVaziaTexto.style.fontSize="0.90rem";
-			listaVaziaBotao.style.fontSize="0.90rem";
+			listaVaziaTitulo.style.fontSize="1rem";
+			listaVaziaTexto.style.fontSize="0.85rem";
+			listaVaziaBotao.style.fontSize="0.85rem";
 		}
 
 		containerNovo.style.fontSize="0.90rem";	
@@ -579,9 +579,9 @@ function responsive(){
 		filtroTitulo.style.fontSize="1.1rem";
 
 		if(listaVaziaTitulo != null) {
-			listaVaziaTitulo.style.fontSize="1.2rem";
-			listaVaziaTexto.style.fontSize="0.90rem";
-			listaVaziaBotao.style.fontSize="0.90rem";
+			listaVaziaTitulo.style.fontSize="1rem";
+			listaVaziaTexto.style.fontSize="0.85rem";
+			listaVaziaBotao.style.fontSize="0.85rem";
 		}
 
 		conteudoContainer.style.marginTop="10px";

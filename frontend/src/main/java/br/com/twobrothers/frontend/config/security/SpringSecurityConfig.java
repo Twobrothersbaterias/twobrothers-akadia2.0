@@ -64,8 +64,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public static void main(String[] args) {
-        Double valor = 200.25;
-        System.err.println(String.format("%.2f", valor).replace(",", "."));
+        Integer a = 3;
+        Integer b = 4;
+
+        System.err.println(a%2);
+        System.err.println(b%2);
     }
 
 }

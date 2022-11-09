@@ -132,7 +132,7 @@
 
 					<li class="menu_superior_li col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-						<a th:if="${privilegio} != 'Vendedor'" class="menu_superior_botao_container" href="#" id="container_avisos">
+						<a th:if="${privilegio} != 'Vendedor'" class="menu_superior_botao_container" href="#" id="container_avisos" title="Avisos">
 
 							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" id="avisos">
 								<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
@@ -140,7 +140,7 @@
 
 						</a>	
 
-						<a class="menu_superior_botao_container" href="#">
+						<a class="menu_superior_botao_container" href="#" title="Perfil">
 
 							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10">
 								<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>								
@@ -148,7 +148,7 @@
 
 						</a>
 
-						<form class="menu_superior_botao_container" th:action="@{/logout}" method="POST">
+						<form class="menu_superior_botao_container" th:action="@{/logout}" method="POST" title="Logout">
 							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" type="submit">
 								<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	

@@ -1,14 +1,16 @@
 .lista_vazia_titulo {
-	color: #82A886;
-	font-size: 1.75rem;
-	margin-bottom: 15px;
+	margin-top: 50px;
+	text-align: center;
+	color: #7da181;
+	font-size: 1rem;
 }
 
 .lista_vazia_texto {
+	text-align: center;
 	color: #C3C8C8;
-	font-size: 1rem;
+	font-size: 0.85rem;
 	margin: 0 auto;
-	margin-bottom: 15px;
+	margin-top: 10px;	
 }
 
 .lista_vazia_botao {
@@ -21,6 +23,7 @@
 	padding: 8px 10px;
 	border-radius: 5px;
 	text-decoration: none;
+	margin-top: 10px;
 }
 
 .lista_vazia_botao:hover {

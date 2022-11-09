@@ -675,7 +675,7 @@ function validacaoDoObjetoDespesa(submitar, tipo) {
 		var valorDespesaInput = document.getElementById('valor_despesa_input_edicao');
 		var dataPagamentoInput = document.getElementById('data_pagamento_input_edicao');
 		var dataAgendamentoInput = document.getElementById('data_agendamento_input_edicao');
-		var botaoFinalizar = document.getElementById('item_submit');
+		var botaoFinalizar = document.getElementById('edita_item_submit');
 	}
 
 	if (descricaoDespesaInput != null) {
@@ -1895,6 +1895,10 @@ function ajustaTabela(){
 
 			var hoje = (dia + '/' + mes + '/' + ano); 
 
+			console.log(hoje);
+			console.log(columnScheduling[i].innerText);
+			compareDates(hoje, columnScheduling[i].innerText);
+
 			if(columnScheduling[i].innerText != "...") {
 				if(columnScheduling[i].innerText == hoje || columnScheduling[i].innerText == "Hoje"){
 					line[i].style.borderLeft="4px solid #ff5900";
@@ -1903,17 +1907,16 @@ function ajustaTabela(){
 					columnScheduling[i].style.color="#ff5900"
 					columnScheduling[i].innerText="Hoje"
 				}
-				else if(columnScheduling[i].innerText.split("/")[2] <= ano && 
-					columnScheduling[i].innerText.split("/")[1] <= mes && 
-					columnScheduling[i].innerText.split("/")[0] <= dia || 
-					columnScheduling[i].innerText == "Atrasado"){
+				else if (compareDates(hoje, columnScheduling[i].innerText) == "atrasado"
+					|| columnScheduling[i].innerText == "Atrasado") {
 					line[i].style.borderLeft="4px solid #f20a0a";
 					columnScheduling[i].style.color="#f20a0a";
 					columnPayment[i].style.color="#f20a0a";
 					columnPayment[i].style.color="#F20a0a";
-					columnPayment[i].innerText="Atrasado";
+					columnPayment[i].innerText="Atrasado";					
 				}
-				else{
+				else if (compareDates(hoje, columnScheduling[i].innerText) == "agendado" 
+					|| columnScheduling[i].innerText == "Agendado"){
 					line[i].style.borderLeft="4px solid #ffdd00";
 					columnScheduling[i].style.color="#ffdd00";
 					columnPayment[i].innerText="Agendado";
@@ -1922,6 +1925,51 @@ function ajustaTabela(){
 
 		}
 	}
+}
+
+function compareDates (d1, d2) {
+
+	if(d1 != null && d2 != null && d2.split("/").length == 3) {
+		var hojeSplittado = d1.split("/");
+		var agendamentosplittado = d2.split("/");
+		console.log("================================");
+		console.log("HOJE: " + d1);
+		console.log("AGENDAMENTO: " + d2);
+		// SE O ANO DO AGENDAMENTO FOR MAIOR OU IGUAL DO QUE O DE HOJE
+		if(agendamentosplittado[2] >= hojeSplittado[2]) {
+			console.log("O ANO DO AGENDAMENTO É MENOR OU IGUAL AO ANO ATUAL")
+			// SE O MÊS DO AGENDAMENTO FOR MAIOR OU IGUAL DO QUE O DE HOJE
+			if(agendamentosplittado[1] >= hojeSplittado[1]) {
+				console.log("O MÊS DO AGENDAMENTO É IGUAL OU MENOR DO QUE O MÊS ATUAL")
+				// SE O DIA DO AGENDAMENTO FOR MAIOR DO QUE O DIA DE HOJE
+				if (agendamentosplittado[0] > hojeSplittado[0]) {
+					console.log("O DIA DO AGENDAMENTO É MAIOR DO QUE O DIA ATUAL");
+					return "agendado";
+				}
+				//SE O DIA DO AGENDAMENTO FOR IGUAL AO DIA DE HOJE
+				else if(agendamentosplittado[0] == hojeSplittado[0]) {
+					console.log("O DIA DO AGENDAMENTO É IGUAL AO DIA DE HOJE");
+					return "hoje";
+				}
+				// SE O DIA DO AGENDAMENTO FOR MENOR DO QUE O DIA DE HOJE
+				else {
+					console.log("O DIA DO AGENDAMENTO É MENOR DO QUE O DIA ATUAL");
+					return "atrasado";
+				}
+			}
+			// SE O MÊS DO AGENDAMENTO FOR MENOR DO QUE O MÊS ATUAL
+			else {
+				console.log("O MÊS DO AGENDAMENTO É MENOR DO QUE O MÊS ATUAL")
+				return "atrasado";
+			}
+		}
+		// SE O ANO DO AGENDAMENTO FOR MENOR DO QUE O ANO ATUAL
+		else {
+			console.log("O ANO DO AGENDAMENTO É MENOR DO QUE O ANO ATUAL")
+			return "atrasado";
+		}
+	}
+
 }
 
 function pageResponsiva(){

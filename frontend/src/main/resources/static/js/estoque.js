@@ -3,6 +3,7 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro').value;
@@ -1817,6 +1818,51 @@ function tituloResponsivo(filtro) {
 	}
 	else if (filtro == "tipo") {
 		titulo.innerText="Todas as " + (tipo.value).toLowerCase() + "s";
+	}
+
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var descricao = document.getElementById('back_descricao');		
+		var tipo = document.getElementById('back_tipo');	
+		var fornecedor = document.getElementById('back_fornecedor')
+
+		var url = "/estoque/relatorio?"
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'descricao') {
+			url += "descricao=" + descricao.value;
+		}
+
+		else if(tipoFiltro.value == 'tipo') {
+			url += "tipo=" + tipo.value;
+		}
+		else if(tipoFiltro.value == 'fornecedor') {
+			url += "fornecedor=" + fornecedor.value;
+		}	
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }

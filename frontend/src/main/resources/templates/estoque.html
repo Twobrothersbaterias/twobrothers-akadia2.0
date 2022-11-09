@@ -132,7 +132,7 @@
 
 					<li class="menu_superior_li col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-						<a th:if="${privilegio} != 'Vendedor'" class="menu_superior_botao_container" href="#" id="container_avisos">
+						<a th:if="${privilegio} != 'Vendedor'" class="menu_superior_botao_container" href="#" id="container_avisos" title="Avisos">
 
 							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" id="avisos">
 								<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
@@ -140,7 +140,7 @@
 
 						</a>	
 
-						<a class="menu_superior_botao_container" href="#">
+						<a class="menu_superior_botao_container" href="#" title="Perfil">
 
 							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10">
 								<img src="../static/img/user-grey.png" th:src="@{img/user-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>								
@@ -148,7 +148,7 @@
 
 						</a>
 
-						<form class="menu_superior_botao_container" th:action="@{/logout}" method="POST">
+						<form class="menu_superior_botao_container" th:action="@{/logout}" method="POST" title="Logout">
 							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" type="submit">
 								<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
@@ -315,7 +315,11 @@
 
 						<div th:if="${tipoFiltro == 'tipo'}">
 							<input th:value="${tipo}" id="back_tipo" hidden>
-						</div>									
+						</div>	
+
+						<div th:if="${tipoFiltro == 'fornecedor'}">
+							<input th:value="${fornecedor}" id="back_fornecedor" hidden>
+						</div>															
 
 						<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text" id="conteudo_titulo_text">
 							Controle de estoque
@@ -331,7 +335,10 @@
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
 
-							<a  th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+							<a 
+							id="relatorio_button"
+							th:if="${privilegio} != 'Vendedor'" 
+							class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							</a>
 
@@ -418,7 +425,7 @@
 										<td th:if="${privilegio} != 'Vendedor'" class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>
 									</tr>											
 
-										<tr th:each="produto: ${produtos}" th:style="${produto.quantidade < produto.quantidadeMinima} ? 'color: #b52f2f'" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<tr th:each="produto: ${produtos}" th:style="${produto.quantidade < produto.quantidadeMinima} ? 'color: #b52f2f'" class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 											<td th:text="${produto.sigla}"
 											th:class="${privilegio != 'Vendedor'} ? 'td td_code col-xl-1 col-lg-1 col-md-1 col-sm-3 col-3' : 'td td_code col-xl-2 col-lg-2 col-md-2 col-sm-4 col-4'"
