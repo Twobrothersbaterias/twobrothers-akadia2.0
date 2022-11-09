@@ -16,6 +16,7 @@ tituloResponsivo(filtro.value);
 document.onkeydown=function(){
 
 	var keyCode = window.event.keyCode;
+	console.log(keyCode);
 	bind(keyCode);
 
 }
@@ -27,6 +28,27 @@ function bind(keyCode) {
         fecharFiltro();
         fecharEditaItem();
     }
+
+    if(keyCode == '13') {
+
+	    if (document.getElementById('conteudo_container_filtro').hidden==false) {
+
+	    	var btAdd = document.getElementById('filtro_bt');
+	    	var btBuscar = document.getElementById('filtro_buscar_bt_inside');
+
+	    	if(btAdd.hidden == false) {
+				btAdd.click();
+			}
+			else {
+				btBuscar.click();
+			}
+
+	    }
+	    else if (document.getElementById('conteudo_container_novo').hidden==false) {
+	    	validacaoCampos('novo');
+	    }
+
+	}
 
     if (document.getElementById('conteudo_container_edita').hidden==true
     	&& document.getElementById('conteudo_container_filtro').hidden==true

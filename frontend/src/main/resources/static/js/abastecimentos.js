@@ -30,6 +30,28 @@ function bind(keyCode) {
         fechaEditaItem();
     }
 
+    if(keyCode == '13') {
+		if(document.getElementById('conteudo_container_edita').hidden==false) {
+		    validacaoDoObjetoAbastecimento(true, 'edita');
+		}
+		else if (document.getElementById('conteudo_container_filtro').hidden==false) {
+
+		    var btAdd = document.getElementById('filtro_bt');
+		    var btBuscar = document.getElementById('filtro_buscar_bt_inside');
+
+		    if(btAdd.hidden == false) {
+				btAdd.click();
+			}
+			else {
+				btBuscar.click();
+			}
+
+		}
+		else if (document.getElementById('conteudo_container_novo').hidden==false) {
+			validacaoDoObjetoAbastecimento(true, 'novo');
+		}    
+	}    
+
     if (document.getElementById('conteudo_container_filtro').hidden==true
     	&& document.getElementById('conteudo_container_edita').hidden==true
     	&& document.getElementById('conteudo_container_novo').hidden==true) {

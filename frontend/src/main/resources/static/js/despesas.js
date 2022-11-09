@@ -27,6 +27,28 @@ function bind(keyCode) {
         fecharEditaDespesa();
     }
 
+    if(keyCode == '13') {
+		if(document.getElementById('conteudo_container_edita').hidden==false) {
+		    validacaoDoObjetoDespesa(true, 'edita');
+		}
+		else if (document.getElementById('conteudo_container_filtro').hidden==false) {
+
+		    var btAdd = document.getElementById('filtro_bt');
+		    var btBuscar = document.getElementById('filtro_buscar_bt_inside');
+
+		    if(btAdd.hidden == false) {
+				btAdd.click();
+			}
+			else {
+				btBuscar.click();
+			}
+
+		}
+		else if (document.getElementById('conteudo_container_novo').hidden==false) {
+			validacaoDoObjetoDespesa(true, 'novo');
+		}    
+	}    
+
     if (document.getElementById('conteudo_container_filtro').hidden==true
     	&& document.getElementById('conteudo_container_edita').hidden==true
     	&& document.getElementById('conteudo_container_novo').hidden==true) {
@@ -839,7 +861,9 @@ function fechaNovaDespesa() {
 
 	sideMenu.style.opacity="1";
 	sideMenu.style.transition="1s";
-	sideMenu.style.pointerEvents="auto";		
+	sideMenu.style.pointerEvents="auto";	
+
+	reloadNovaDespesa('novo');	
 }
 
 function changeStatus(tipo) {

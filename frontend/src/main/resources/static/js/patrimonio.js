@@ -11,7 +11,7 @@ var tipoFiltro = document.getElementById('tipo_filtro');
 if (tipoFiltro != null) {
 	tituloResponsivo(tipoFiltro.value);
 }	
-console.log('Tipo do filtro: ' + tipoFiltro);
+console.log('Tipo do filtro: ' + tipoFiltro.value);
 console.log('Privilégio: ' + privilegio);
 
 document.onkeydown=function(){
@@ -28,6 +28,28 @@ function bind(keyCode) {
         fecharFiltro();
         fecharEditaItem();
     }
+
+    if(keyCode == '13') {
+		if(document.getElementById('conteudo_container_edita').hidden==false) {
+		    validacaoDoObjetoPatrimonio(true, 'edita');
+		}
+		else if (document.getElementById('conteudo_container_filtro').hidden==false) {
+
+		    var btAdd = document.getElementById('filtro_bt');
+		    var btBuscar = document.getElementById('filtro_buscar_bt_inside');
+
+		    if(btAdd.hidden == false) {
+				btAdd.click();
+			}
+			else {
+				btBuscar.click();
+			}
+
+		}
+		else if (document.getElementById('conteudo_container_novo').hidden==false) {
+			validacaoDoObjetoPatrimonio(true, 'novo');
+		}    
+	}    
 
     if (document.getElementById('conteudo_container_filtro').hidden==true
     	&& document.getElementById('conteudo_container_edita').hidden==true

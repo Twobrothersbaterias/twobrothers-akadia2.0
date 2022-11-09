@@ -25,6 +25,23 @@ function bind(keyCode) {
         fecharFiltro();
     }
 
+    if(keyCode == '13') {
+		 if (document.getElementById('conteudo_container_filtro').hidden==false) {
+
+		    var btAdd = document.getElementById('filtro_bt');
+		    var btBuscar = document.getElementById('filtro_buscar_bt_inside');
+
+		    if(btAdd.hidden == false) {
+				btAdd.click();
+			}
+			else {
+				btBuscar.click();
+			}
+
+		}
+  
+	}    
+
     if (document.getElementById('conteudo_container_filtro').hidden==true) {
 
 	    if (keyCode == '49') {

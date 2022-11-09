@@ -783,7 +783,7 @@
 					<input type="text" name="tipo" id="input_tipo_backend" hidden/>
 
 					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
-						<button type="submit" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<button type="submit" id="filtro_buscar_bt_inside" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Buscar
 						</button>				
 					</div>		
@@ -861,13 +861,13 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							Tipo
 						</label>
-						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input_edicao" required>
+						<select class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" name="tipoProduto" id="tipo_produto_input_edicao">
 							<option value="BATERIA">Bateria</option>
 							<option value="SUCATA">Sucata</option>
 						</select>
 					</div>				
 
-					<div class="novo_item_block col-xl-6 col-lg-8 col-md-8 col-sm-8 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="marca_produto_input_edicao">
 							Marca
 						</label>
@@ -912,7 +912,7 @@
 						</div>							
 					</div>
 					
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidade_produto_input_edicao">
 							Quantidade
 						</label>
@@ -929,7 +929,7 @@
 						required/>
 					</div>						
 
-					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidadeMinima_produto_input_edicao">
 							Mínimo
 						</label>
@@ -946,7 +946,7 @@
 						required/>
 					</div>		
 
-					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_unitario_produto_input_edicao">
 							Valor unitário
 						</label>
@@ -963,7 +963,7 @@
 						required/>
 					</div>	
 
-					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_total_produto_input_edicao">
 							Valor total
 						</label>
@@ -1053,7 +1053,7 @@
 						</select>
 					</div>				
 
-					<div class="novo_item_block col-xl-6 col-lg-8 col-md-8 col-sm-8 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="marca_produto_input">
 							Marca
 						</label>
@@ -1096,7 +1096,7 @@
 						</div>							
 					</div>								
 
-					<div class="novo_item_block col-xl-6 col-lg-6 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidade_produto_input">
 							Quantidade
 						</label>
@@ -1113,7 +1113,7 @@
 						required/>
 					</div>						
 
-					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="quantidadeMinima_produto_input">
 							Mínimo
 						</label>
@@ -1130,7 +1130,7 @@
 						required/>
 					</div>		
 
-					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_unitario_produto_input">
 							Valor unitário
 						</label>
@@ -1147,7 +1147,7 @@
 						required/>
 					</div>	
 
-					<div class="novo_item_block col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12">
+					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_total_produto_input">
 							Valor total
 						</label>
