@@ -3,13 +3,17 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.DespesaService;
+import br.com.twobrothers.frontend.services.exporter.DespesaPdfExporter;
+import br.com.twobrothers.frontend.services.exporter.EstoquePdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
@@ -24,9 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.function.Function;
 
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
@@ -54,9 +59,9 @@ public class DespesaController {
                                  @RequestParam("descricao") Optional<String> descricao,
                                  @RequestParam("inicio") Optional<String> inicio,
                                  @RequestParam("fim") Optional<String> fim,
-                                 @RequestParam("mes") Optional<Integer> mes,
-                                 @RequestParam("ano") Optional<Integer> ano,
-                                 @RequestParam("tipo") Optional<TipoDespesaEnum> tipo,
+                                 @RequestParam("mes") Optional<String> mes,
+                                 @RequestParam("ano") Optional<String> ano,
+                                 @RequestParam("tipo") Optional<String> tipo,
                                  Model model, ModelAndView modelAndView,
                                  RedirectAttributes redirAttrs,
                                  ModelMap modelMap,
@@ -183,6 +188,43 @@ public class DespesaController {
 
         modelAndView.setViewName("redirect:../despesas?" + query);
         return modelAndView;
+    }
+
+    @GetMapping("/relatorio")
+    public void relatorio(ModelAndView modelAndView,
+                          @RequestParam("descricao") Optional<String> descricao,
+                          @RequestParam("inicio") Optional<String> inicio,
+                          @RequestParam("fim") Optional<String> fim,
+                          @RequestParam("mes") Optional<String> mes,
+                          @RequestParam("ano") Optional<String> ano,
+                          @RequestParam("tipo") Optional<String> tipo,
+                          HttpServletResponse res) throws DocumentException, IOException {
+
+        List<DespesaEntity> despesas = despesaService.filtroDespesasSemPaginacao(
+                descricao.orElse(null),
+                tipo.orElse(null),
+                inicio.orElse(null),
+                fim.orElse(null),
+                mes.orElse(null),
+                ano.orElse(null));
+
+        HashMap<String, String> filtros = new HashMap<>();
+        filtros.put("descricao", descricao.orElse(null));
+        filtros.put("tipo", tipo.orElse(null));
+        filtros.put("inicio", inicio.orElse(null));
+        filtros.put("fim", fim.orElse(null));
+        filtros.put("mes", mes.orElse(null));
+        filtros.put("ano", ano.orElse(null));
+
+        res.setContentType("application/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=akadia_despesas_"
+                + new SimpleDateFormat("dd.MM.yyyy_HHmmss").format(new Date())
+                + ".pdf";
+        res.setHeader(headerKey, headerValue);
+        DespesaPdfExporter pdfExporterService = new DespesaPdfExporter();
+        pdfExporterService.export(res, despesas, despesaService, filtros, usuarioRepository);
+
     }
 
 

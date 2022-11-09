@@ -1498,28 +1498,23 @@ function ajustaCampos() {
 				+ agendamentoRetirada.innerText.split("-")[1] + "/"
 				+ agendamentoRetirada.innerText.split("-")[0];
 
-			console.log(compareDates(hojeBarreado, agendamentoRetiradaBarreado));
-
 			if(agendamentoRetirada.innerText != "Não possui" 
 				&& agendamentoRetirada.innerText != "Sem agendamento"
 				&& agendamentoRetirada.innerText != "Em aberto") {
 				// ENTREGAR HOJE
 				if(compareDates(hojeBarreado, agendamentoRetiradaBarreado) == "hoje" || agendamentoRetirada.innerText == "Entregar hoje") {
-					console.log("ACESSO HOJE");
 					document.getElementsByClassName('td_status')[i].innerText = "Entregar hoje";
 					document.getElementsByClassName('td_status')[i].style.color="#ff5900";
 					trContent[i].style.borderLeft="4px solid #ff5900";			
 				}
 				// ATRASADO
 				else if(compareDates(hojeBarreado, agendamentoRetiradaBarreado) == "atrasado" || agendamentoRetirada.innerText == "Atrasado") {
-					console.log("ACESSO ATRASADO");
 					document.getElementsByClassName('td_status')[i].innerText = "Entrega atrasada";
 					document.getElementsByClassName('td_status')[i].style.color="#f20a0a";
 					trContent[i].style.borderLeft="4px solid #f20a0a";			
 				}	
 				// AGENDADO
 				else if(compareDates(hojeBarreado, agendamentoRetiradaBarreado) == "agendado" || agendamentoRetirada.innerText == "agendado") {
-					console.log("ACESSO AGENDADO");
 					document.getElementsByClassName('td_status')[i].innerText = "Agendado";
 					trContent[i].style.borderLeft="4px solid #ffdd00";
 					document.getElementsByClassName('td_status')[i].style.color="#ffdd00";
@@ -1554,40 +1549,30 @@ function compareDates (d1, d2) {
 	if(d1 != null && d2 != null && d2.split("/").length == 3) {
 		var hojeSplittado = d1.split("/");
 		var agendamentosplittado = d2.split("/");
-		console.log("================================");
-		console.log("HOJE: " + d1);
-		console.log("AGENDAMENTO: " + d2);
 		// SE O ANO DO AGENDAMENTO FOR MAIOR OU IGUAL DO QUE O DE HOJE
 		if(agendamentosplittado[2] >= hojeSplittado[2]) {
-			console.log("O ANO DO AGENDAMENTO É MENOR OU IGUAL AO ANO ATUAL")
 			// SE O MÊS DO AGENDAMENTO FOR MAIOR OU IGUAL DO QUE O DE HOJE
 			if(agendamentosplittado[1] >= hojeSplittado[1]) {
-				console.log("O MÊS DO AGENDAMENTO É IGUAL OU MENOR DO QUE O MÊS ATUAL")
 				// SE O DIA DO AGENDAMENTO FOR MAIOR DO QUE O DIA DE HOJE
 				if (agendamentosplittado[0] > hojeSplittado[0]) {
-					console.log("O DIA DO AGENDAMENTO É MAIOR DO QUE O DIA ATUAL");
 					return "agendado";
 				}
 				//SE O DIA DO AGENDAMENTO FOR IGUAL AO DIA DE HOJE
 				else if(agendamentosplittado[0] == hojeSplittado[0]) {
-					console.log("O DIA DO AGENDAMENTO É IGUAL AO DIA DE HOJE");
 					return "hoje";
 				}
 				// SE O DIA DO AGENDAMENTO FOR MENOR DO QUE O DIA DE HOJE
 				else {
-					console.log("O DIA DO AGENDAMENTO É MENOR DO QUE O DIA ATUAL");
 					return "atrasado";
 				}
 			}
 			// SE O MÊS DO AGENDAMENTO FOR MENOR DO QUE O MÊS ATUAL
 			else {
-				console.log("O MÊS DO AGENDAMENTO É MENOR DO QUE O MÊS ATUAL")
 				return "atrasado";
 			}
 		}
 		// SE O ANO DO AGENDAMENTO FOR MENOR DO QUE O ANO ATUAL
 		else {
-			console.log("O ANO DO AGENDAMENTO É MENOR DO QUE O ANO ATUAL")
 			return "atrasado";
 		}
 	}

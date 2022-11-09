@@ -23,7 +23,10 @@ public class ConversorDeDados {
 
     public static String converteDataUsParaDataBr(String dataUs) {
         String[] dataSplitada = dataUs.split("-");
-        return dataSplitada[2] + "/" + dataSplitada[1] + "/" + dataSplitada[0];
+        if (dataSplitada.length == 3) {
+            return dataSplitada[2] + "/" + dataSplitada[1] + "/" + dataSplitada[0];
+        }
+        return dataUs;
     }
 
     public static void cargaEntradasPagamentos(ProdutoEstoqueService produtoEstoqueService, OrdemDTO ordem) {

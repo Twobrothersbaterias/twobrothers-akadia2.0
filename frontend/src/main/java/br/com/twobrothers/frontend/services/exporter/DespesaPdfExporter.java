@@ -1,8 +1,8 @@
 package br.com.twobrothers.frontend.services.exporter;
 
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
-import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
+import br.com.twobrothers.frontend.services.DespesaService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.Font;
 import com.lowagie.text.*;
@@ -23,9 +23,8 @@ import java.util.Map;
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteDataUsParaDataBr;
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
 
-
 @Service
-public class EstoquePdfExporter {
+public class DespesaPdfExporter {
 
     private void escreveHeaderTabela(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
@@ -34,59 +33,59 @@ public class EstoquePdfExporter {
         cell.setPaddingBottom(15);
         cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
 
-        Font font = FontFactory.getFont(FontFactory.COURIER);
+        com.lowagie.text.Font font = FontFactory.getFont(FontFactory.COURIER);
         font.setSize(12);
         font.setColor(Color.BLACK);
-
-        cell.setPhrase(new Phrase("Sigla", font));
-        table.addCell(cell);
 
         cell.setPhrase(new Phrase("Descrição", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Marca", font));
+        cell.setPhrase(new Phrase("Valor", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Qtd", font));
+        cell.setPhrase(new Phrase("Tipo", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Valor u.", font));
+        cell.setPhrase(new Phrase("Status", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Valor tot.", font));
+        cell.setPhrase(new Phrase("Agendamento", font));
+        table.addCell(cell);
+
+        cell.setPhrase(new Phrase("Pagamento", font));
         table.addCell(cell);
 
     }
 
-    private void escreveDadosTabela(PdfPTable table, List<ProdutoEstoqueEntity> produtos) {
+    private void escreveDadosTabela(PdfPTable table, java.util.List<DespesaEntity> despesas) {
 
         Integer contador = 1;
 
-        for (ProdutoEstoqueEntity produto : produtos) {
+        for (DespesaEntity despesa : despesas) {
 
             PdfPCell cell = new PdfPCell();
-            Font font = FontFactory.getFont(FontFactory.COURIER);
+            com.lowagie.text.Font font = FontFactory.getFont(FontFactory.COURIER);
             cell.setPadding(5);
 
             if (contador%2 == 1) cell.setBackgroundColor(new Color(216, 230, 217));
             else cell.setBackgroundColor(new Color(200, 219, 201));
 
-            cell.setPhrase(new Phrase(produto.getSigla(), font));
+            cell.setPhrase(new Phrase(despesa.getDescricao(), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(produto.getEspecificacao(), font));
+            cell.setPhrase(new Phrase(converteValorDoubleParaValorMonetario(despesa.getValor()), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(produto.getMarcaBateria(), font));
+            cell.setPhrase(new Phrase(despesa.getTipoDespesa().getDesc(), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(produto.getQuantidade().toString(), font));
+            cell.setPhrase(new Phrase(despesa.getStatusDespesa().getDesc(), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(converteValorDoubleParaValorMonetario(produto.getCustoUnitario()).toString(), font));
+            cell.setPhrase(new Phrase(converteDataUsParaDataBr(despesa.getDataAgendamento()), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(converteValorDoubleParaValorMonetario(produto.getCustoTotal()).toString(), font));
+            cell.setPhrase(new Phrase(converteDataUsParaDataBr(despesa.getDataPagamento()), font));
             table.addCell(cell);
 
             contador++;
@@ -94,8 +93,8 @@ public class EstoquePdfExporter {
     }
 
     public void export(HttpServletResponse response,
-                       List<ProdutoEstoqueEntity> produtos,
-                       ProdutoEstoqueService produtoEstoqueService,
+                       List<DespesaEntity> despesas,
+                       DespesaService DespesaServiceDespesaService,
                        HashMap<String, String> filtros,
                        UsuarioRepository usuarioRepository)
             throws DocumentException, IOException {
@@ -104,20 +103,20 @@ public class EstoquePdfExporter {
                 response,
                 filtros,
                 usuarioRepository,
-                produtos,
-                produtoEstoqueService,
+                despesas,
+                DespesaServiceDespesaService,
                 constroiParagrafoTitulo(filtros),
                 constroiParagrafoDataHora(usuarioRepository),
-                constroiTabelaInformativos(produtos, produtoEstoqueService),
-                constroiTabelaObjetos(produtos));
+                constroiTabelaInformativos(despesas, DespesaServiceDespesaService),
+                constroiTabelaObjetos(despesas));
 
     }
 
     public void constroiLayoutArquivo(HttpServletResponse response,
                                       HashMap<String, String> filtros,
                                       UsuarioRepository usuarioRepository,
-                                      List<ProdutoEstoqueEntity> produtos,
-                                      ProdutoEstoqueService produtoEstoqueService,
+                                      java.util.List<DespesaEntity> despesas,
+                                      DespesaService DespesaService,
                                       Paragraph paragrafoTitulo,
                                       Paragraph paragrafoDataHora,
                                       PdfPTable informativos,
@@ -128,33 +127,33 @@ public class EstoquePdfExporter {
         document.open();
         document.add(constroiParagrafoTitulo(filtros));
         document.add(constroiParagrafoDataHora(usuarioRepository));
-        document.add(constroiTabelaObjetos(produtos));
-        document.add(constroiTabelaInformativos(produtos, produtoEstoqueService));
+        document.add(constroiTabelaObjetos(despesas));
+        document.add(constroiTabelaInformativos(despesas, DespesaService));
         document.close();
     }
     public Paragraph constroiParagrafoTitulo(HashMap<String, String> filtros) {
 
-        String chave = null, titulo = null;
+        String titulo = null;
 
         for (Map.Entry<String, String> set : filtros.entrySet()) {
             if (set.getKey().equals("descricao") && set.getValue() != null) {
-                titulo = "Relatório de estoque com produtos de sigla " + filtros.get("descricao");
+                titulo = "Relatório de despesas de nome " + filtros.get("descricao");
                 break;
             }
             else if(set.getKey().equals("inicio") && set.getValue() != null || set.getKey().equals("fim") && set.getValue() != null) {
-                titulo = "Relatório de estoque com produtos cadastrados do dia " + converteDataUsParaDataBr(filtros.get("inicio")) + " ao dia " + converteDataUsParaDataBr(filtros.get("fim"));
+                titulo = "Relatório de despesas cadastradas do dia " + converteDataUsParaDataBr(filtros.get("inicio")) + " ao dia " + converteDataUsParaDataBr(filtros.get("fim"));
                 break;
             }
             else if(set.getKey().equals("mes") && set.getValue() != null || set.getKey().equals("ano") && set.getValue() != null) {
-                titulo = "Relatório de estoque de produtos cadastrados no mês " + filtros.get("mes") + " de " + filtros.get("ano");
+                titulo = "Relatório de despesas cadastradas no mês " + filtros.get("mes") + " de " + filtros.get("ano");
                 break;
             }
             else {
-                titulo = "Relatório geral de estoque";
+                titulo = "Relatório geral de despesas";
             }
         }
 
-        Font font = FontFactory.getFont(FontFactory.COURIER_BOLD, 15, Color.BLACK);
+        com.lowagie.text.Font font = FontFactory.getFont(FontFactory.COURIER_BOLD, 15, Color.BLACK);
         Paragraph p = new Paragraph(titulo, font);
         p.setAlignment(Paragraph.ALIGN_CENTER);
         p.setSpacingBefore(0);
@@ -162,12 +161,11 @@ public class EstoquePdfExporter {
 
         return p;
     }
-
     public Paragraph constroiParagrafoDataHora(UsuarioRepository usuarioRepository) {
 
         String currentDateTime = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(new Date());
 
-        Font font = FontFactory.getFont(FontFactory.COURIER, 12, Color.BLACK);
+        com.lowagie.text.Font font = FontFactory.getFont(FontFactory.COURIER, 12, Color.BLACK);
         Paragraph p = new Paragraph(currentDateTime + ", por " + UsuarioUtils.loggedUser(usuarioRepository).getNomeUsuario(), font);
         p.setAlignment(Paragraph.ALIGN_CENTER);
         p.setSpacingBefore(0);
@@ -175,13 +173,13 @@ public class EstoquePdfExporter {
         return p;
 
     }
-    public PdfPTable constroiTabelaInformativos(List<ProdutoEstoqueEntity> produtos,
-                       ProdutoEstoqueService produtoEstoqueService) {
+    public PdfPTable constroiTabelaInformativos(java.util.List<DespesaEntity> despesas,
+                                                DespesaService despesaService) {
 
         PdfPTable table;
-        table = new PdfPTable(3);
+        table = new PdfPTable(2);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[] {4f, 4f, 4f});
+        table.setWidths(new float[] {4f, 4f});
         table.setSpacingBefore(15);
         table.setSpacingAfter(15);
 
@@ -194,28 +192,25 @@ public class EstoquePdfExporter {
         cell.setBorderColor(new Color(125, 161, 129));
         cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
 
-        cell.setPhrase(new Phrase("Qtd de baterias: "
-                + produtoEstoqueService.calculaQtdBaterias(produtos), font));
+        cell.setPhrase(new Phrase("Total Pendente: "
+                + (converteValorDoubleParaValorMonetario(despesaService.calculaValorPendente(despesas))), font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Qtd de sucatas: "
-                + produtoEstoqueService.calculaQtdSucatas(produtos), font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Valor em estoque: "
-                + converteValorDoubleParaValorMonetario(produtoEstoqueService.calculaValorBruto(produtos)), font));
+        cell.setPhrase(new Phrase("Total Pago: "
+                + (converteValorDoubleParaValorMonetario(despesaService.calculaValorPago(despesas))), font));
         table.addCell(cell);
 
         return table;
 
     }
-    public PdfPTable constroiTabelaObjetos(List<ProdutoEstoqueEntity> produtos) {
+    public PdfPTable constroiTabelaObjetos(List<DespesaEntity> despesas) {
         PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[] {2.5f, 2.5f, 2.5f, 1.0f, 2.0f, 2.0f});
+        table.setWidths(new float[] {2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f});
         table.setSpacingBefore(15);
         escreveHeaderTabela(table);
-        escreveDadosTabela(table, produtos);
+        escreveDadosTabela(table, despesas);
         return table;
     }
+
 }

@@ -4,6 +4,7 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro').value;
@@ -1895,10 +1896,6 @@ function ajustaTabela(){
 
 			var hoje = (dia + '/' + mes + '/' + ano); 
 
-			console.log(hoje);
-			console.log(columnScheduling[i].innerText);
-			compareDates(hoje, columnScheduling[i].innerText);
-
 			if(columnScheduling[i].innerText != "...") {
 				if(columnScheduling[i].innerText == hoje || columnScheduling[i].innerText == "Hoje"){
 					line[i].style.borderLeft="4px solid #ff5900";
@@ -1932,40 +1929,30 @@ function compareDates (d1, d2) {
 	if(d1 != null && d2 != null && d2.split("/").length == 3) {
 		var hojeSplittado = d1.split("/");
 		var agendamentosplittado = d2.split("/");
-		console.log("================================");
-		console.log("HOJE: " + d1);
-		console.log("AGENDAMENTO: " + d2);
 		// SE O ANO DO AGENDAMENTO FOR MAIOR OU IGUAL DO QUE O DE HOJE
 		if(agendamentosplittado[2] >= hojeSplittado[2]) {
-			console.log("O ANO DO AGENDAMENTO É MENOR OU IGUAL AO ANO ATUAL")
 			// SE O MÊS DO AGENDAMENTO FOR MAIOR OU IGUAL DO QUE O DE HOJE
 			if(agendamentosplittado[1] >= hojeSplittado[1]) {
-				console.log("O MÊS DO AGENDAMENTO É IGUAL OU MENOR DO QUE O MÊS ATUAL")
 				// SE O DIA DO AGENDAMENTO FOR MAIOR DO QUE O DIA DE HOJE
 				if (agendamentosplittado[0] > hojeSplittado[0]) {
-					console.log("O DIA DO AGENDAMENTO É MAIOR DO QUE O DIA ATUAL");
 					return "agendado";
 				}
 				//SE O DIA DO AGENDAMENTO FOR IGUAL AO DIA DE HOJE
 				else if(agendamentosplittado[0] == hojeSplittado[0]) {
-					console.log("O DIA DO AGENDAMENTO É IGUAL AO DIA DE HOJE");
 					return "hoje";
 				}
 				// SE O DIA DO AGENDAMENTO FOR MENOR DO QUE O DIA DE HOJE
 				else {
-					console.log("O DIA DO AGENDAMENTO É MENOR DO QUE O DIA ATUAL");
 					return "atrasado";
 				}
 			}
 			// SE O MÊS DO AGENDAMENTO FOR MENOR DO QUE O MÊS ATUAL
 			else {
-				console.log("O MÊS DO AGENDAMENTO É MENOR DO QUE O MÊS ATUAL")
 				return "atrasado";
 			}
 		}
 		// SE O ANO DO AGENDAMENTO FOR MENOR DO QUE O ANO ATUAL
 		else {
-			console.log("O ANO DO AGENDAMENTO É MENOR DO QUE O ANO ATUAL")
 			return "atrasado";
 		}
 	}
@@ -2043,4 +2030,45 @@ function tituloResponsivo(filtro) {
 			titulo.innerText="Despesas variáveis";	
 		}
 	}
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var descricao = document.getElementById('back_descricao');		
+		var tipo = document.getElementById('back_tipo');	
+
+		var url = "/despesas/relatorio?"
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'descricao') {
+			url += "descricao=" + descricao.value;
+		}
+
+		else if(tipoFiltro.value == 'tipo') {
+			url += "tipo=" + tipo.value;
+		}	
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
+	}
+
 }
