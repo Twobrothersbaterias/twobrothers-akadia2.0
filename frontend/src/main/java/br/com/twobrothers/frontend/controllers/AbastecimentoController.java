@@ -266,7 +266,7 @@ public class AbastecimentoController {
                 + ".pdf";
         res.setHeader(headerKey, headerValue);
         AbastecimentoPdfExporter pdfExporterService = new AbastecimentoPdfExporter();
-        pdfExporterService.export(res, abastecimentos, abastecimentoService, filtros, usuarioRepository);
+        pdfExporterService.export(res, abastecimentos, abastecimentoService, filtros, usuarioRepository, fornecedorRepository);
 
     }
 

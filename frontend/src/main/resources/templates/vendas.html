@@ -316,7 +316,15 @@
 
 						<div th:if="${tipoFiltro == 'bairro'}">
 							<input th:value="${bairro}" id="back_bairro" hidden>
-						</div>														
+						</div>											
+
+						<div th:if="${tipoFiltro == 'cliente'}">
+							<input th:value="${cliente}" id="back_cliente" hidden>
+						</div>
+
+						<div th:if="${tipoFiltro == 'cliente'}">
+							<input th:value="${clienteNome}" id="back_clienteNome" hidden>
+						</div>									
 
 						<h1 class="col-xl-11 col-lg-10 col-md-9 col-sm-9 col-9 conteudo_titulo_text" id="conteudo_titulo_text">
 							Vendas

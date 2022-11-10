@@ -1,6 +1,7 @@
 package br.com.twobrothers.frontend.services.exporter;
 
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.services.OrdemService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -104,16 +105,18 @@ public class VendaPdfExporter {
                        java.util.List<OrdemEntity> ordens,
                        OrdemService ordemService,
                        HashMap<String, String> filtros,
-                       UsuarioRepository usuarioRepository)
+                       UsuarioRepository usuarioRepository,
+                       ClienteRepository clienteRepository)
             throws DocumentException, IOException {
 
         constroiLayoutArquivo(
                 response,
                 filtros,
                 usuarioRepository,
+                clienteRepository,
                 ordens,
                 ordemService,
-                constroiParagrafoTitulo(filtros),
+                constroiParagrafoTitulo(filtros, clienteRepository),
                 constroiParagrafoDataHora(usuarioRepository),
                 constroiTabelaInformativos(ordens, ordemService),
                 constroiTabelaObjetos(ordens));
@@ -123,6 +126,7 @@ public class VendaPdfExporter {
     public void constroiLayoutArquivo(HttpServletResponse response,
                                       HashMap<String, String> filtros,
                                       UsuarioRepository usuarioRepository,
+                                      ClienteRepository clienteRepository,
                                       java.util.List<OrdemEntity> ordens,
                                       OrdemService ordemService,
                                       Paragraph paragrafoTitulo,
@@ -133,14 +137,14 @@ public class VendaPdfExporter {
         Document document = new Document(PageSize.A3);
         PdfWriter.getInstance(document, response.getOutputStream());
         document.open();
-        document.add(constroiParagrafoTitulo(filtros));
+        document.add(constroiParagrafoTitulo(filtros, clienteRepository));
         document.add(constroiParagrafoDataHora(usuarioRepository));
         document.add(constroiTabelaObjetos(ordens));
         document.add(constroiTabelaInformativos(ordens, ordemService));
         document.close();
     }
 
-    public Paragraph constroiParagrafoTitulo(HashMap<String, String> filtros) {
+    public Paragraph constroiParagrafoTitulo(HashMap<String, String> filtros, ClienteRepository clienteRepository) {
 
         String chave = null, titulo = null;
 
@@ -152,7 +156,8 @@ public class VendaPdfExporter {
                 titulo = "Relatório de ordens de cliente residente no bairro" + filtros.get("bairro");
                 break;
             } else if (set.getKey().equals("cliente") && set.getValue() != null) {
-                titulo = "Relatório de ordens do cliente " + filtros.get("cliente");
+                titulo = "Relatório de ordens do cliente "
+                        + clienteRepository.findById(Long.parseLong(filtros.get("cliente"))).get().getNomeCompleto();
                 break;
             } else if (set.getKey().equals("inicio") && set.getValue() != null || set.getKey().equals("fim") && set.getValue() != null) {
                 titulo = "Relatório de ordens cadastradas do dia " + converteDataUsParaDataBr(filtros.get("inicio"))

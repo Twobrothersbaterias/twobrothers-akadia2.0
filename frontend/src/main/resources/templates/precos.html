@@ -330,7 +330,7 @@
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
 
-							<a  th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+							<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							</a>
 
@@ -390,7 +390,7 @@
 
 									<tr 									
 									th:each="preco: ${precos}"
-									class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+									class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 									>								
 										<td 
 										th:text="${preco.dataCadastro}" 
@@ -605,7 +605,7 @@
 				<form th:action="@{precos/filtro}" method="POST" th:object="${filtroPreco}" class="form_fantasma_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="form_fantasma_filtro">
 
 					<input type="text" name="produto" id="input_produto_backend" hidden/>
-					<input type="text" name="username" id="input_fornecedor_backend" hidden/>
+					<input type="text" name="fornecedor" id="input_fornecedor_backend" hidden/>
 
 					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
 						<button type="submit" id="filtro_buscar_bt_inside" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

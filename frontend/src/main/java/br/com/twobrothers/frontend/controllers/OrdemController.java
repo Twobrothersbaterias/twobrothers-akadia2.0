@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
@@ -45,6 +46,9 @@ public class OrdemController {
 
     @Autowired
     OrdemRepository ordemRepository;
+
+    @Autowired
+    ClienteRepository clienteRepository;
 
     @GetMapping
     public ModelAndView ordens(@PageableDefault(size = 10, page = 0,
@@ -108,6 +112,10 @@ public class OrdemController {
         if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
         if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
         if (bairro.isPresent()) model.addAttribute("tipoFiltro", "bairro");
+        if (cliente.isPresent()) model.addAttribute("tipoFiltro", "cliente");
+
+        cliente.ifPresent(s -> model.addAttribute("clienteNome",
+                clienteRepository.findById(Long.valueOf(s)).get().getNomeCompleto()));
 
         model.addAttribute("totalItens", ordensSemPaginacao.size());
         model.addAttribute("dataInicio", inicio.orElse(null));
@@ -116,6 +124,7 @@ public class OrdemController {
         model.addAttribute("ano", ano.orElse(null));
         model.addAttribute("produto", produto.orElse(null));
         model.addAttribute("bairro", bairro.orElse(null));
+        model.addAttribute("cliente", cliente.orElse(null));
 
         model.addAttribute("paginas", paginas);
         model.addAttribute("pagina", pageable.getPageNumber());
@@ -186,7 +195,7 @@ public class OrdemController {
                 + ".pdf";
         res.setHeader(headerKey, headerValue);
         VendaPdfExporter pdfExporterService = new VendaPdfExporter();
-        pdfExporterService.export(res, ordens, ordemService, filtros, usuarioRepository);
+        pdfExporterService.export(res, ordens, ordemService, filtros, usuarioRepository, clienteRepository);
 
     }
 

@@ -4,6 +4,7 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
@@ -1460,6 +1461,46 @@ function tituloResponsivo(filtro) {
 	}
 	else if (filtro == "usuario") {
 		titulo.innerText="Colaboradores de usuário " + (usuario.value);
+	}
+
+}
+
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var produto = document.getElementById('back_produto');		
+		var fornecedor = document.getElementById('back_fornecedor');	
+		var produtoId = document.getElementById('back_produtoId');	
+		var fornecedorId = document.getElementById('back_fornecedorId');	
+
+		var url = "/precos/relatorio?"
+
+		if(tipoFiltro.value == 'produto') {
+			url += "produto=" + produto.value;
+		}
+
+		else if(tipoFiltro.value == 'fornecedor') {
+			url += "fornecedor=" + fornecedor.value;
+		}
+
+		else if(tipoFiltro.value == 'produtoId') {
+			url += "produtoId=" + produtoId.value;
+		}
+
+		else if(tipoFiltro.value == 'fornecedorId') {
+			url += "fornecedorId=" + fornecedorId.value;
+		}				
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }

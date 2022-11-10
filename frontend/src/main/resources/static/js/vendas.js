@@ -1629,7 +1629,8 @@ function buildUrlPages() {
 	var periodoMes = document.getElementById('back_mes');
 	var periodoAno = document.getElementById('back_ano');	
 	var produto = document.getElementById('back_produto');		
-	var bairro = document.getElementById('back_bairro');			
+	var bairro = document.getElementById('back_bairro');	
+	var cliente = document.getElementById('back_cliente');
 
 	var pageNumber = document.getElementsByClassName('page_number');
 
@@ -1686,6 +1687,19 @@ function buildUrlPages() {
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&bairro=" + bairro.value);
 		}					
 	}
+
+	else if(tipoFiltro.value == 'cliente') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&cliente=" + cliente.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&cliente=" + cliente.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&cliente=" + cliente.value);
+		}					
+	}	
 
 	else {
 		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1));
@@ -1778,6 +1792,8 @@ function tituloResponsivo(filtro) {
 	var ano = document.getElementById('back_ano');	
 	var produto = document.getElementById('back_produto');		
 	var bairro = document.getElementById('back_bairro');			
+	var cliente = document.getElementById('back_cliente');
+	var clienteNome = document.getElementById('back_clienteNome');
 
 	if(filtro == "hoje") {
 		titulo.innerText="Vendas hoje";
@@ -1798,6 +1814,9 @@ function tituloResponsivo(filtro) {
 	else if (filtro == "bairro") {
 		titulo.innerText="Vendas em " + bairro.value;
 	}
+	else if (filtro == "cliente") {
+		titulo.innerText="Giro do cliente " + clienteNome.value;
+	}	
 
 }
 
@@ -1813,6 +1832,7 @@ function buildUrlRelatorio() {
 		var periodoAno = document.getElementById('back_ano');	
 		var produto = document.getElementById('back_produto');		
 		var bairro = document.getElementById('back_bairro');	
+		var cliente = document.getElementById('back_cliente');
 
 		var url = "/vendas/relatorio?"
 
@@ -1831,6 +1851,10 @@ function buildUrlRelatorio() {
 		else if(tipoFiltro.value == 'bairro') {
 			url += "bairro=" + bairro.value;
 		}	
+
+		else if(tipoFiltro.value == 'cliente') {
+			url += "cliente=" + cliente.value;
+		}			
 
 		$('#relatorio_button').attr("href", url);	
 

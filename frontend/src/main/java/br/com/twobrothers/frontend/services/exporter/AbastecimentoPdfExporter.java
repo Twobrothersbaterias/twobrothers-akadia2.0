@@ -2,6 +2,7 @@ package br.com.twobrothers.frontend.services.exporter;
 
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
+import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.services.AbastecimentoService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -83,10 +84,10 @@ public class AbastecimentoPdfExporter {
             cell.setPhrase(new Phrase(abastecimento.getQuantidade().toString(), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(abastecimento.getFormaPagamento().getDesc(), font));
+            cell.setPhrase(new Phrase(converteValorDoubleParaValorMonetario(abastecimento.getCustoTotal()), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(converteValorDoubleParaValorMonetario(abastecimento.getCustoTotal()), font));
+            cell.setPhrase(new Phrase(abastecimento.getFormaPagamento().getDesc(), font));
             table.addCell(cell);
 
             contador++;
@@ -97,16 +98,18 @@ public class AbastecimentoPdfExporter {
                        java.util.List<AbastecimentoEntity> abastecimentos,
                        AbastecimentoService abastecimentoService,
                        HashMap<String, String> filtros,
-                       UsuarioRepository usuarioRepository)
+                       UsuarioRepository usuarioRepository,
+                       FornecedorRepository fornecedorRepository)
             throws DocumentException, IOException {
 
         constroiLayoutArquivo(
                 response,
                 filtros,
                 usuarioRepository,
+                fornecedorRepository,
                 abastecimentos,
                 abastecimentoService,
-                constroiParagrafoTitulo(filtros),
+                constroiParagrafoTitulo(filtros, fornecedorRepository),
                 constroiParagrafoDataHora(usuarioRepository),
                 constroiTabelaInformativos(abastecimentos, abastecimentoService),
                 constroiTabelaObjetos(abastecimentos));
@@ -116,6 +119,7 @@ public class AbastecimentoPdfExporter {
     public void constroiLayoutArquivo(HttpServletResponse response,
                                       HashMap<String, String> filtros,
                                       UsuarioRepository usuarioRepository,
+                                      FornecedorRepository fornecedorRepository,
                                       java.util.List<AbastecimentoEntity> abastecimentos,
                                       AbastecimentoService abastecimentoService,
                                       Paragraph paragrafoTitulo,
@@ -126,14 +130,14 @@ public class AbastecimentoPdfExporter {
         Document document = new Document(PageSize.A3);
         PdfWriter.getInstance(document, response.getOutputStream());
         document.open();
-        document.add(constroiParagrafoTitulo(filtros));
+        document.add(constroiParagrafoTitulo(filtros, fornecedorRepository));
         document.add(constroiParagrafoDataHora(usuarioRepository));
         document.add(constroiTabelaObjetos(abastecimentos));
         document.add(constroiTabelaInformativos(abastecimentos, abastecimentoService));
         document.close();
     }
 
-    public Paragraph constroiParagrafoTitulo(HashMap<String, String> filtros) {
+    public Paragraph constroiParagrafoTitulo(HashMap<String, String> filtros, FornecedorRepository fornecedorRepository) {
 
         String titulo = null;
 
@@ -145,7 +149,8 @@ public class AbastecimentoPdfExporter {
                 }
                 break;
             } else if (set.getKey().equals("fornecedorId") && set.getValue() != null) {
-                titulo = "Relatório de compras com o fornecedor " + filtros.get("fornecedorId");
+                titulo = "Relatório de compras com o fornecedor "
+                        + fornecedorRepository.findById(Long.parseLong(filtros.get("fornecedorId"))).get().getNome();
                 if (filtros.get("meio") != null) {
                     titulo += " na forma de pagamento " + filtros.get("meio");
                 }
@@ -247,7 +252,7 @@ public class AbastecimentoPdfExporter {
     public PdfPTable constroiTabelaObjetos(List<AbastecimentoEntity> abastecimentos) {
         PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[]{2f, 2f, 2f, 2f, 2f, 2f});
+        table.setWidths(new float[]{1.5f, 4f, 1.5f, 1f, 2f, 2f});
         table.setSpacingBefore(15);
         escreveHeaderTabela(table);
         escreveDadosTabela(table, abastecimentos);

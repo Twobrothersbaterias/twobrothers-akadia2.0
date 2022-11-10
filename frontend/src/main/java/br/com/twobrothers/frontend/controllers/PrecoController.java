@@ -5,6 +5,7 @@ import br.com.twobrothers.frontend.models.dto.filters.FiltroPrecoDTO;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.PrecoFornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
+import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
@@ -14,7 +15,10 @@ import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidReque
 import br.com.twobrothers.frontend.services.FornecedorService;
 import br.com.twobrothers.frontend.services.PrecoService;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
+import br.com.twobrothers.frontend.services.exporter.ColaboradorPdfExporter;
+import br.com.twobrothers.frontend.services.exporter.PrecoPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,9 +31,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/precos")
@@ -199,4 +204,36 @@ public class PrecoController {
         modelAndView.setViewName("redirect:../precos?" + query);
         return modelAndView;
     }
+
+    @GetMapping("/relatorio")
+    public void relatorio(ModelAndView modelAndView,
+                          @RequestParam("fornecedorId") Optional<String> fornecedorId,
+                          @RequestParam("fornecedor") Optional<String> fornecedor,
+                          @RequestParam("produtoId") Optional<String> produtoId,
+                          @RequestParam("produto") Optional<String> produto,
+                          HttpServletResponse res) throws DocumentException, IOException {
+
+        List<PrecoFornecedorEntity> precos = precoService.filtroPrecosSemPaginacao(
+                fornecedorId.orElse(null),
+                fornecedor.orElse(null),
+                produtoId.orElse(null),
+                produto.orElse(null));
+
+        HashMap<String, String> filtros = new HashMap<>();
+        filtros.put("fornecedorId", fornecedorId.orElse(null));
+        filtros.put("fornecedor", fornecedor.orElse(null));
+        filtros.put("produtoId", produtoId.orElse(null));
+        filtros.put("produto", produto.orElse(null));
+
+        res.setContentType("application/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=akadia_precos_"
+                + new SimpleDateFormat("dd.MM.yyyy_HHmmss").format(new Date())
+                + ".pdf";
+        res.setHeader(headerKey, headerValue);
+        PrecoPdfExporter pdfExporterService = new PrecoPdfExporter();
+        pdfExporterService.export(res, precos, precoService, filtros, usuarioRepository, fornecedorRepository);
+
+    }
+
 }
