@@ -96,7 +96,7 @@ public class ColaboradorPdfExporter {
             table.addCell(cell);
 
             String dataNascimento = "Vazio";
-            if (usuario.getDataNascimento() != null) dataNascimento = usuario.getDataNascimento();
+            if (usuario.getDataNascimento() != null) dataNascimento = converteDataUsParaDataBr(usuario.getDataNascimento());
             cell.setPhrase(new Phrase(dataNascimento, font));
             table.addCell(cell);
 

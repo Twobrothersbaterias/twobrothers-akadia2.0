@@ -752,7 +752,7 @@
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{colaboradores/alterar}" method="POST" th:object="${usuario}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{colaboradores/alterar}" method="POST" th:object="${usuario}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="form_edita">
 
 				<input type="text" id="id_input_edicao" name="id" hidden/>
 
@@ -931,7 +931,7 @@
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{colaboradores}" method="POST" th:object="${usuario}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{colaboradores}" method="POST" th:object="${usuario}" class="novo_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="form_novo">
 
 				<div class="novo_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="novo_item_primeira_row">
 					<div class="novo_item_block col-xl-12 col-lg-5 col-md-5 col-sm-5 col-12"  id="novo_item_first_block">

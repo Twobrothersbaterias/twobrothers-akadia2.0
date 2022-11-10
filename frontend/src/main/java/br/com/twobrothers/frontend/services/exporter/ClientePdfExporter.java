@@ -71,10 +71,18 @@ public class ClientePdfExporter {
             table.addCell(cell);
 
             String endereço = "Sem endereço";
-            if (cliente.getEndereco() != null && cliente.getEndereco().getLogradouro() != null) endereço =
-                    cliente.getEndereco().getLogradouro() + ", " +
-                            cliente.getEndereco().getNumero() + " - " +
-                            cliente.getEndereco().getBairro();
+            if (cliente.getEndereco() != null && cliente.getEndereco().getLogradouro() != null) {
+                if (cliente.getEndereco().getBairro() != null) {
+                    endereço =
+                            cliente.getEndereco().getLogradouro() + ", " +
+                                    cliente.getEndereco().getNumero() + " - " +
+                                    cliente.getEndereco().getBairro();
+                } else {
+                    endereço =
+                            cliente.getEndereco().getLogradouro() + ", " +
+                                    cliente.getEndereco().getNumero() + " - Sem bairro";
+                }
+            }
             cell.setPhrase(new Phrase(endereço, font));
             table.addCell(cell);
 

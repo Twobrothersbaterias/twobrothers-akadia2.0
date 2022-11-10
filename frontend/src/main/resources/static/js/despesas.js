@@ -109,6 +109,10 @@ function bind(keyCode) {
 	    	abrirFiltro();
 	    }	 	    
 
+	    else if(keyCode == '192' && privilegio != "Vendedor") {
+	    	document.getElementById('relatorio_button').click();
+	    }	    
+
     }   
                       
 }
@@ -723,6 +727,13 @@ function validacaoDoObjetoDespesa(submitar, tipo) {
 /* REALIZA SUBMIT DO PRODUTO */
 function submitDespesa(tipo, erros, botaoFinalizar) {
 
+	if (tipo == "novo") {
+		form = document.getElementById('form_novo');
+	}
+	else{
+		form = document.getElementById('form_edita');
+	}
+
 	// VALIDAÇÃO FINAL
 	if (erros != "Ocorreram alguns erros no cadastro da despesa:\n") {
 		var quantidade = 0
@@ -741,7 +752,7 @@ function submitDespesa(tipo, erros, botaoFinalizar) {
 		return false;
 	}
 	else {
-		botaoFinalizar.type="submit";
+		form.submit();
 		return true;
 	}	
 }

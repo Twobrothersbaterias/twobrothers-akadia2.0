@@ -1701,7 +1701,8 @@ function validacaoCampos(tipo) {
 		var inputTitulo = document.getElementById('input_titulo');
 		var inputConteudo = document.getElementById('input_conteudo');	
 		var optionsSubcategoria = document.getElementsByClassName('option_subcategoria');
-		var botaoFinalizar = document.getElementById('novo_item_submit');		
+		var botaoFinalizar = document.getElementById('novo_item_submit');
+		var form = document.getElementById('novo_form');
 	}
 	else {
 		var inputFonteTitulo = document.getElementById('edita_input_fonte_titulo');
@@ -1748,7 +1749,7 @@ function validacaoCampos(tipo) {
 		return false;
 	}
 	else {
-		botaoFinalizar.type="submit";
+		form.submit();
 		return true;
 	}
 }

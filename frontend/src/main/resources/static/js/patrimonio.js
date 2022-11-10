@@ -115,6 +115,10 @@ function bind(keyCode) {
 	    	abrirFiltro();
 	    }	 	    
 
+	    else if(keyCode == '192' && privilegio != "Vendedor") {
+	    	document.getElementById('relatorio_button').click();
+	    }	    
+
     }    
                        
 }
@@ -761,7 +765,12 @@ function validacaoDoObjetoPatrimonio(submitar, tipo) {
 /* REALIZA SUBMIT DO OBJETO */
 function submitPatrimonio(tipo, erros, botaoFinalizar) {
 
-	console.log('ACESSADO');
+	if (tipo == "novo") {
+		form = document.getElementById('form_novo');
+	}
+	else{
+		form = document.getElementById('form_edita');
+	}
 
 	// VALIDAÇÃO FINAL
 	if (erros != "Ocorreram alguns erros no cadastro do patrimônio:\n") {
@@ -781,8 +790,7 @@ function submitPatrimonio(tipo, erros, botaoFinalizar) {
 		return false;
 	}
 	else {
-		console.log("ACESSADO");
-		$('#form_edita').submit();
+		form.submit();
 		return true;
 	}	
 }

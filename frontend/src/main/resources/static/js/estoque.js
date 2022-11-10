@@ -107,6 +107,10 @@ function bind(keyCode) {
 	    else if(keyCode == '70') {
 	    	abrirFiltro();
 	    }
+
+	    else if(keyCode == '192' && privilegio != "Vendedor") {
+	    	document.getElementById('relatorio_button').click();
+	    }	    
     }                   
 }
 
@@ -1590,6 +1594,13 @@ function validacaoDoObjetoProduto(submitar, tipo) {
 /* REALIZA SUBMIT DO PRODUTO */
 function submitProduto(tipo, erros, botaoFinalizar) {
 
+	if (tipo == "novo") {
+		form = document.getElementById('form_novo');
+	}
+	else{
+		form = document.getElementById('form_edita');
+	}
+
 	// VALIDAÇÃO FINAL
 	if (erros != "Ocorreram alguns erros no cadastro do produto:\n") {
 		var quantidade = 0
@@ -1608,7 +1619,7 @@ function submitProduto(tipo, erros, botaoFinalizar) {
 		return false;
 	}
 	else {
-		botaoFinalizar.type="submit";
+		form.submit();
 		return true;
 	}	
 }

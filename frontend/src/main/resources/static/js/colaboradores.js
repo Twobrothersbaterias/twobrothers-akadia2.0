@@ -116,6 +116,10 @@ function bind(keyCode) {
 	    else if(keyCode == '70') {
 	    	abrirFiltro();
 	    }	 	  
+
+	    else if(keyCode == '192' && privilegio != "Vendedor") {
+	    	document.getElementById('relatorio_button').click();
+	    }	    
     }                   
 }
 
@@ -1609,6 +1613,7 @@ function validacaoCampos(tipo) {
 		var inputUsername = document.getElementById('username_colaborador_input');
 		var inputSenha = document.getElementById('senha_colaborador_input');
 		var botaoFinalizar = document.getElementById('novo_item_submit');
+		var form = document.getElementById('form_novo');
 	}
 	else {
 		var inputNome = document.getElementById('edita_descricao_colaborador_input');
@@ -1620,8 +1625,8 @@ function validacaoCampos(tipo) {
 		var inputUsername = document.getElementById('edita_username_colaborador_input');
 		var inputSenha = document.getElementById('edita_senha_colaborador_input');		
 		var botaoFinalizar = document.getElementById('edita_item_submit');		
+		var form = document.getElementById('form_edita');
 	}
-
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 

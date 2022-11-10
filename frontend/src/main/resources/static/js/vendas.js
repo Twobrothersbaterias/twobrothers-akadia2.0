@@ -100,6 +100,10 @@ function bind(keyCode) {
 	    	abrirFiltro();
 	    }
 
+	    else if(keyCode == '192' && privilegio != "Vendedor") {
+	    	document.getElementById('relatorio_button').click();
+	    }
+
     }                   
 }
 

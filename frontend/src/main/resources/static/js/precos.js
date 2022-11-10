@@ -115,6 +115,10 @@ function bind(keyCode) {
 	    else if(keyCode == '70') {
 	    	abrirFiltro();
 	    }	 	  
+
+	    else if(keyCode == '192' && privilegio != "Vendedor") {
+	    	document.getElementById('relatorio_button').click();
+	    }	    
     }                   
 }
 
@@ -1141,6 +1145,7 @@ function validacaoCampos(tipo) {
 		inputValor = document.getElementById('valor_input');
 		inputObservacao = document.getElementById('observacao_input');
 		botaoFinalizar = document.getElementById('novo_item_submit');
+		var form = document.getElementById('form_novo');
 
 	}
 	else {
@@ -1149,8 +1154,8 @@ function validacaoCampos(tipo) {
 		inputValor = document.getElementById('edita_valor_input');
 		inputObservacao = document.getElementById('edita_observacao_input');
 		botaoFinalizar = document.getElementById('edita_item_submit');
+		var form = document.getElementById('form_edita');
 	}
-
 
 	var erros = "Ocorreram alguns erros no lançamento do preço:\n";
 
