@@ -57,14 +57,14 @@ public class ClienteService {
             String descricao,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String cpfCnpj,
             String telefone) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorNomeCompleto(pageable, descricao);
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else if (cpfCnpj != null) return crudService.buscaPorCpfCnpj(pageable, cpfCnpj);
         else if (telefone != null) return crudService.buscaPorTelefone(pageable, telefone);
         else return crudService.buscaHoje(pageable);
@@ -74,14 +74,14 @@ public class ClienteService {
             String descricao,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String cpfCnpj,
             String telefone) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorNomeCompletoSemPaginacao(descricao);
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else if (cpfCnpj != null) return crudService.buscaPorCpfCnpjSemPaginacao(cpfCnpj);
         else if (telefone != null) return crudService.buscaPorTelefoneSemPaginacao(telefone);
         else return crudService.buscaHojeSemPaginacao();

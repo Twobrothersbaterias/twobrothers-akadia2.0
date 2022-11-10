@@ -340,7 +340,7 @@
 
 							</a>
 
-							<a th:if="${privilegio} != 'Vendedor'" class="a_img">
+							<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img">
 
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							</a>		
@@ -385,7 +385,7 @@
 										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>			
 									</tr>											
 
-									<tr th:each="cliente: ${clientes}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:each="cliente: ${clientes}" class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 										<td th:text="${cliente.nomeCompleto}" class="td td_nome col-xl-2 col-lg-2 col-md-3 col-sm-3 col-2" 
 											th:data-id="${cliente.id}" 

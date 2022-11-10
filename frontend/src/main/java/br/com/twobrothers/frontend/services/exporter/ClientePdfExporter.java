@@ -1,8 +1,8 @@
 package br.com.twobrothers.frontend.services.exporter;
 
-import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
+import br.com.twobrothers.frontend.models.entities.ClienteEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
-import br.com.twobrothers.frontend.services.FornecedorService;
+import br.com.twobrothers.frontend.services.ClienteService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.Font;
 import com.lowagie.text.*;
@@ -15,13 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteDataUsParaDataBr;
 
 @Service
-public class FornecedorPdfExporter {
+public class ClientePdfExporter {
 
     private void escreveHeaderTabela(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
@@ -49,11 +51,11 @@ public class FornecedorPdfExporter {
 
     }
 
-    private void escreveDadosTabela(PdfPTable table, List<FornecedorEntity> fornecedores) {
+    private void escreveDadosTabela(PdfPTable table, java.util.List<ClienteEntity> clientes) {
 
         Integer contador = 1;
 
-        for (FornecedorEntity fornecedor : fornecedores) {
+        for (ClienteEntity cliente : clientes) {
 
             PdfPCell cell = new PdfPCell();
             com.lowagie.text.Font font = FontFactory.getFont(FontFactory.COURIER, 10, Color.BLACK);
@@ -62,36 +64,27 @@ public class FornecedorPdfExporter {
             if (contador % 2 == 1) cell.setBackgroundColor(new Color(216, 230, 217));
             else cell.setBackgroundColor(new Color(200, 219, 201));
 
-            cell.setPhrase(new Phrase(converteDataUsParaDataBr(fornecedor.getDataCadastro()), font));
+            cell.setPhrase(new Phrase(converteDataUsParaDataBr(cliente.getDataCadastro()), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase(fornecedor.getNome(), font));
+            cell.setPhrase(new Phrase(cliente.getNomeCompleto(), font));
             table.addCell(cell);
 
             String endereço = "Sem endereço";
-            if (fornecedor.getEndereco() != null && fornecedor.getEndereco().getLogradouro() != null) {
-                if (fornecedor.getEndereco().getBairro() != null) {
-                    endereço =
-                            fornecedor.getEndereco().getLogradouro() + ", " +
-                                    fornecedor.getEndereco().getNumero() + " - " +
-                                    fornecedor.getEndereco().getBairro();
-                }
-                else {
-                    endereço =
-                            fornecedor.getEndereco().getLogradouro() + ", " +
-                                    fornecedor.getEndereco().getNumero() + " - Sem bairro";
-                }
-            }
+            if (cliente.getEndereco() != null && cliente.getEndereco().getLogradouro() != null) endereço =
+                    cliente.getEndereco().getLogradouro() + ", " +
+                            cliente.getEndereco().getNumero() + " - " +
+                            cliente.getEndereco().getBairro();
             cell.setPhrase(new Phrase(endereço, font));
             table.addCell(cell);
 
             String telefone = "Sem telefone";
-            if (fornecedor.getTelefone() != null) telefone = fornecedor.getTelefone();
+            if (cliente.getTelefone() != null) telefone = cliente.getTelefone();
             cell.setPhrase(new Phrase(telefone, font));
             table.addCell(cell);
 
             String cpfCnpj = "Sem Cpf/Cnpj";
-            if (fornecedor.getCpfCnpj() != null) cpfCnpj = fornecedor.getCpfCnpj();
+            if (cliente.getCpfCnpj() != null) cpfCnpj = cliente.getCpfCnpj();
             cell.setPhrase(new Phrase(cpfCnpj, font));
             table.addCell(cell);
 
@@ -100,8 +93,8 @@ public class FornecedorPdfExporter {
     }
 
     public void export(HttpServletResponse response,
-                       List<FornecedorEntity> fornecedores,
-                       FornecedorService fornecedorService,
+                       java.util.List<ClienteEntity> clientes,
+                       ClienteService clienteService,
                        HashMap<String, String> filtros,
                        UsuarioRepository usuarioRepository)
             throws DocumentException, IOException {
@@ -110,20 +103,20 @@ public class FornecedorPdfExporter {
                 response,
                 filtros,
                 usuarioRepository,
-                fornecedores,
-                fornecedorService,
+                clientes,
+                clienteService,
                 constroiParagrafoTitulo(filtros),
                 constroiParagrafoDataHora(usuarioRepository),
-                constroiTabelaInformativos(fornecedores, fornecedorService),
-                constroiTabelaObjetos(fornecedores));
+                constroiTabelaInformativos(clientes, clienteService),
+                constroiTabelaObjetos(clientes));
 
     }
 
     public void constroiLayoutArquivo(HttpServletResponse response,
                                       HashMap<String, String> filtros,
                                       UsuarioRepository usuarioRepository,
-                                      List<FornecedorEntity> fornecedores,
-                                      FornecedorService fornecedorService,
+                                      java.util.List<ClienteEntity> clientes,
+                                      ClienteService clienteService,
                                       Paragraph paragrafoTitulo,
                                       Paragraph paragrafoDataHora,
                                       PdfPTable informativos,
@@ -134,8 +127,8 @@ public class FornecedorPdfExporter {
         document.open();
         document.add(constroiParagrafoTitulo(filtros));
         document.add(constroiParagrafoDataHora(usuarioRepository));
-        document.add(constroiTabelaObjetos(fornecedores));
-        document.add(constroiTabelaInformativos(fornecedores, fornecedorService));
+        document.add(constroiTabelaObjetos(clientes));
+        document.add(constroiTabelaInformativos(clientes, clienteService));
         document.close();
     }
 
@@ -145,24 +138,24 @@ public class FornecedorPdfExporter {
 
         for (Map.Entry<String, String> set : filtros.entrySet()) {
             if (set.getKey().equals("descricao") && set.getValue() != null) {
-                titulo = "Relatório de fornecedores de nome " + filtros.get("descricao");
+                titulo = "Relatório de clientes de nome " + filtros.get("descricao");
                 break;
             } else if (set.getKey().equals("cpfCnpj") && set.getValue() != null) {
-                titulo = "Relatório de fornecedores de Cpf/Cnpj " + filtros.get("cpfCnpj");
+                titulo = "Relatório de clientes de Cpf/Cnpj " + filtros.get("cpfCnpj");
                 break;
             } else if (set.getKey().equals("telefone") && set.getValue() != null) {
-                titulo = "Relatório de fornecedores de telefone " + filtros.get("telefone");
+                titulo = "Relatório de clientes de telefone " + filtros.get("telefone");
                 break;
             } else if (set.getKey().equals("inicio") && set.getValue() != null || set.getKey().equals("fim") && set.getValue() != null) {
-                titulo = "Relatório de fornecedores cadastrados do dia " + converteDataUsParaDataBr(filtros.get("inicio"))
+                titulo = "Relatório de clientes cadastrados do dia " + converteDataUsParaDataBr(filtros.get("inicio"))
                         + " ao dia " + converteDataUsParaDataBr(filtros.get("fim"));
                 break;
             } else if (set.getKey().equals("mes") && set.getValue() != null || set.getKey().equals("ano") && set.getValue() != null) {
-                titulo = "Relatório de fornecedores cadastrados no mês " + filtros.get("mes")
+                titulo = "Relatório de clientes cadastrados no mês " + filtros.get("mes")
                         + " de " + filtros.get("ano");
                 break;
             } else {
-                titulo = "Relatório geral de fornecedores";
+                titulo = "Relatório geral de clientes";
             }
         }
 
@@ -188,8 +181,8 @@ public class FornecedorPdfExporter {
 
     }
 
-    public PdfPTable constroiTabelaInformativos(List<FornecedorEntity> fornecedores,
-                                                FornecedorService fornecedorService) {
+    public PdfPTable constroiTabelaInformativos(java.util.List<ClienteEntity> clientes,
+                                                ClienteService clienteService) {
 
         PdfPTable table;
         table = new PdfPTable(1);
@@ -207,20 +200,20 @@ public class FornecedorPdfExporter {
         cell.setBorderColor(new Color(125, 161, 129));
         cell.setHorizontalAlignment(Cell.ALIGN_RIGHT);
 
-        cell.setPhrase(new Phrase("Quantidade de fornecedores: " + fornecedores.size(), font));
+        cell.setPhrase(new Phrase("Quantidade de clientes: " + clientes.size(), font));
         table.addCell(cell);
 
         return table;
 
     }
 
-    public PdfPTable constroiTabelaObjetos(List<FornecedorEntity> fornecedores) {
+    public PdfPTable constroiTabelaObjetos(List<ClienteEntity> clientes) {
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
         table.setWidths(new float[]{1f, 2.75f, 3f, 1.5f, 1.75f});
         table.setSpacingBefore(15);
         escreveHeaderTabela(table);
-        escreveDadosTabela(table, fornecedores);
+        escreveDadosTabela(table, clientes);
         return table;
     }
 

@@ -3,11 +3,15 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroClienteDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
+import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.ClienteService;
+import br.com.twobrothers.frontend.services.exporter.ClientePdfExporter;
+import br.com.twobrothers.frontend.services.exporter.FornecedorPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,9 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/clientes")
@@ -42,8 +47,8 @@ public class ClienteController {
                                  @RequestParam("descricao") Optional<String> descricao,
                                  @RequestParam("inicio") Optional<String> inicio,
                                  @RequestParam("fim") Optional<String> fim,
-                                 @RequestParam("mes") Optional<Integer> mes,
-                                 @RequestParam("ano") Optional<Integer> ano,
+                                 @RequestParam("mes") Optional<String> mes,
+                                 @RequestParam("ano") Optional<String> ano,
                                  @RequestParam("cpfCnpj") Optional<String> cpfCnpj,
                                  @RequestParam("telefone") Optional<String> telefone,
                                  Model model, ModelAndView modelAndView,
@@ -169,6 +174,45 @@ public class ClienteController {
         return modelAndView;
     }
 
+    @GetMapping("/relatorio")
+    public void relatorio(ModelAndView modelAndView,
+                          @RequestParam("descricao") Optional<String> descricao,
+                          @RequestParam("inicio") Optional<String> inicio,
+                          @RequestParam("fim") Optional<String> fim,
+                          @RequestParam("mes") Optional<String> mes,
+                          @RequestParam("ano") Optional<String> ano,
+                          @RequestParam("cpfCnpj") Optional<String> cpfCnpj,
+                          @RequestParam("telefone") Optional<String> telefone,
+                          HttpServletResponse res) throws DocumentException, IOException {
+
+        List<ClienteEntity> clientes = clienteService.filtroClientesSemPaginacao(
+                descricao.orElse(null),
+                inicio.orElse(null),
+                fim.orElse(null),
+                mes.orElse(null),
+                ano.orElse(null),
+                cpfCnpj.orElse(null),
+                telefone.orElse(null));
+
+        HashMap<String, String> filtros = new HashMap<>();
+        filtros.put("inicio", inicio.orElse(null));
+        filtros.put("fim", fim.orElse(null));
+        filtros.put("mes", mes.orElse(null));
+        filtros.put("ano", ano.orElse(null));
+        filtros.put("descricao", descricao.orElse(null));
+        filtros.put("cpfCnpj", cpfCnpj.orElse(null));
+        filtros.put("telefone", telefone.orElse(null));
+
+        res.setContentType("application/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=akadia_clientes_"
+                + new SimpleDateFormat("dd.MM.yyyy_HHmmss").format(new Date())
+                + ".pdf";
+        res.setHeader(headerKey, headerValue);
+        ClientePdfExporter pdfExporterService = new ClientePdfExporter();
+        pdfExporterService.export(res, clientes, clienteService, filtros, usuarioRepository);
+
+    }
 
 }
 

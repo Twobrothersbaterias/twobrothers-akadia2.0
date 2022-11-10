@@ -5,6 +5,7 @@ window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
 ajustaTabela();
 buildUrlPages();
+buildUrlRelatorio()
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var filtro = document.getElementById('tipo_filtro');
@@ -2276,6 +2277,52 @@ function tituloResponsivo(filtro) {
 	}
 	else if (filtro == "telefone") {
 		titulo.innerText="Clientes de telefone " + telefone.value;
+	}
+
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var descricao = document.getElementById('back_descricao');		
+		var cpfCnpj = document.getElementById('back_cpfCnpj');	
+		var telefone = document.getElementById('back_telefone');	
+
+		var url = "/clientes/relatorio?"
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'descricao') {
+			url += "descricao=" + descricao.value;
+		}
+
+		else if(tipoFiltro.value == 'cpfCnpj') {
+			url += "cpfCnpj=" + cpfCnpj.value;
+		}	
+
+		else if(tipoFiltro.value == 'telefone') {
+			url += "telefone=" + telefone.value;
+		}			
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }
