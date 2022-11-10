@@ -7,7 +7,9 @@ import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.UsuarioCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.UsuarioService;
+import br.com.twobrothers.frontend.services.exporter.ColaboradorPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,9 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/colaboradores")
@@ -42,8 +45,8 @@ public class ColaboradoresController {
                                  @RequestParam("descricao") Optional<String> descricao,
                                  @RequestParam("inicio") Optional<String> inicio,
                                  @RequestParam("fim") Optional<String> fim,
-                                 @RequestParam("mes") Optional<Integer> mes,
-                                 @RequestParam("ano") Optional<Integer> ano,
+                                 @RequestParam("mes") Optional<String> mes,
+                                 @RequestParam("ano") Optional<String> ano,
                                  @RequestParam("usuario") Optional<String> usuario,
                                  Model model, ModelAndView modelAndView,
                                  RedirectAttributes redirAttrs,
@@ -160,6 +163,43 @@ public class ColaboradoresController {
 
         modelAndView.setViewName("redirect:../colaboradores?" + query);
         return modelAndView;
+    }
+
+    @GetMapping("/relatorio")
+    public void relatorio(ModelAndView modelAndView,
+                          @RequestParam("descricao") Optional<String> descricao,
+                          @RequestParam("inicio") Optional<String> inicio,
+                          @RequestParam("fim") Optional<String> fim,
+                          @RequestParam("mes") Optional<String> mes,
+                          @RequestParam("ano") Optional<String> ano,
+                          @RequestParam("usuario") Optional<String> usuario,
+                          HttpServletResponse res) throws DocumentException, IOException {
+
+        List<UsuarioEntity> usuarios = usuarioService.filtroUsuariosSemPaginacao(
+                descricao.orElse(null),
+                inicio.orElse(null),
+                fim.orElse(null),
+                mes.orElse(null),
+                ano.orElse(null),
+                usuario.orElse(null));
+
+        HashMap<String, String> filtros = new HashMap<>();
+        filtros.put("descricao", descricao.orElse(null));
+        filtros.put("inicio", inicio.orElse(null));
+        filtros.put("fim", fim.orElse(null));
+        filtros.put("mes", mes.orElse(null));
+        filtros.put("ano", ano.orElse(null));
+        filtros.put("usuario", usuario.orElse(null));
+
+        res.setContentType("application/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=akadia_colaboradores_"
+                + new SimpleDateFormat("dd.MM.yyyy_HHmmss").format(new Date())
+                + ".pdf";
+        res.setHeader(headerKey, headerValue);
+        ColaboradorPdfExporter pdfExporterService = new ColaboradorPdfExporter();
+        pdfExporterService.export(res, usuarios, usuarioService, filtros, usuarioRepository);
+
     }
 
 

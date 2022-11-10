@@ -5,6 +5,7 @@ window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
 ajustaTabela();
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
@@ -1957,4 +1958,45 @@ function tituloResponsivo(filtro) {
 	else if (filtro == "usuario") {
 		titulo.innerText="Colaboradores de usuário " + (usuario.value);
 	}
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var descricao = document.getElementById('back_descricao');		
+		var usuario = document.getElementById('back_usuario');	
+
+		var url = "/colaboradores/relatorio?"
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'descricao') {
+			url += "descricao=" + descricao.value;
+		}
+
+		else if(tipoFiltro.value == 'usuario') {
+			url += "usuario=" + usuario.value;
+		}
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
+	}
+
 }

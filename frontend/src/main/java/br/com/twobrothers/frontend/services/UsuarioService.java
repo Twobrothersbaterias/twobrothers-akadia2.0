@@ -53,13 +53,13 @@ public class UsuarioService {
             String descricao,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String username) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorNomePaginado(pageable, descricao);
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else if (username != null) return crudService.buscaPorUsernamePaginado(pageable, username);
         else return crudService.buscaTodosPaginado(pageable);
     }
@@ -68,13 +68,13 @@ public class UsuarioService {
             String descricao,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String username) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorNomeSemPaginacao(descricao);
         else if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else if (username != null) return crudService.buscaPorUsernameSemPaginacao(username);
         else return crudService.buscaTodosSemPaginacao();
     }

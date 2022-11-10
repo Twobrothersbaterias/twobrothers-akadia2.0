@@ -332,7 +332,7 @@
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
 
-							<a  th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+							<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							</a>
 
@@ -392,7 +392,7 @@
 
 									<tr 									
 									th:each="colaborador: ${usuarios}"
-									class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+									class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 									>								
 										<td 
 										th:text="${colaborador.dataCadastro}" 

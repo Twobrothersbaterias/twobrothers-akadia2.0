@@ -69,15 +69,15 @@ public class AbastecimentoService {
     public List<AbastecimentoEntity> filtroAbastecimentos(Pageable pageable,
                                                           String dataInicio,
                                                           String dataFim,
-                                                          Integer mes,
-                                                          Integer ano,
+                                                          String mes,
+                                                          String ano,
                                                           String fornecedorId,
                                                           String fornecedor,
                                                           String produto,
                                                           String meio) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataPaginado(pageable, dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoPaginado(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else if(fornecedorId != null) return crudService.buscaPorFornecedorIdPaginado(pageable, fornecedorId);
         else if (fornecedor != null) return crudService.buscaPorFornecedorPaginado(pageable, fornecedor);
         else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
@@ -88,15 +88,15 @@ public class AbastecimentoService {
     public List<AbastecimentoEntity> filtroAbastecimentosSemPaginacao(
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String fornecedorId,
             String fornecedor,
             String produto,
             String meio) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else if (fornecedorId != null) return crudService.buscaPorFornecedorIdSemPaginacao(fornecedorId);
         else if (fornecedor != null) return crudService.buscaPorFornecedorSemPaginacao(fornecedor);
         else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);

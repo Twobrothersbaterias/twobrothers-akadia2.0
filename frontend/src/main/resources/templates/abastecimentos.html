@@ -24,7 +24,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-	<title>VALT | Abastecimentos</title>
+	<title>VALT | Compras</title>
 
 </head>
 
@@ -309,7 +309,7 @@
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
 
-							<a  th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+							<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							</a>
 
@@ -364,11 +364,11 @@
 
 						<div th:if="${tipoFiltro == 'fornecedor'}">
 							<input th:value="${fornecedor}" id="back_fornecedor" hidden>
-						</div>			
+						</div>	
 
 						<div th:if="${tipoFiltro == 'produto'}">
 							<input th:value="${produto}" id="back_produto" hidden>
-						</div>
+						</div>										
 
 						<a class="col-xl-3 col-lg-3 col-md-5 col-sm-5 col-5 informativo" id="especie">
 							<div class="informativo_chave">
@@ -460,7 +460,7 @@
 										<td class="td td_remove col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">...</td>										
 									</tr>											
 
-									<tr th:each="abastecimento: ${abastecimentos}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<tr th:each="abastecimento: ${abastecimentos}" class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 										<td th:text="${abastecimento.dataCadastro}" class="td td_cadastro col-xl-2 col-lg-2" 			
 											th:data-id="${abastecimento.id}" 

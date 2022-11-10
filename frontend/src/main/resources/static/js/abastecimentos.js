@@ -5,6 +5,7 @@ window.onresize = doALoadOfStuff;
 ajustaTabela();
 buildUrlPagamentos();
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
@@ -1926,6 +1927,66 @@ function tituloResponsivo(filtro) {
 	}
 	else if (filtro == "fornecedor") {
 		titulo.innerText="Compras com  " + (fornecedor.value).toLowerCase();
+	}
+
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var fornecedorId = document.getElementById('back_fornecedorId');		
+		var fornecedor = document.getElementById('back_fornecedor');	
+		var produto = document.getElementById('back_produto');	
+		var meioAtivo = document.getElementById('meio_ativo');
+
+		var url = "/compras/relatorio?"
+		var acessado = false;
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+			acessado = true;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+			acessado = true;
+		}
+
+		else if(tipoFiltro.value == 'fornecedorId') {
+			url += "fornecedorId=" + fornecedorId.value;
+			acessado = true;
+		}
+
+		else if(tipoFiltro.value == 'fornecedor') {
+			url += "fornecedor=" + fornecedor.value;
+			acessado = true;
+		}	
+
+		else if(tipoFiltro.value == 'produto') {
+			url += "produto=" + produto.value;
+			acessado = true;
+		}
+
+		if(meioAtivo.value != null && meioAtivo.value != "") {
+			if (acessado == true) {
+				url += "&";
+			}
+			url+= "meio=" + meioAtivo.value;
+		}
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }
