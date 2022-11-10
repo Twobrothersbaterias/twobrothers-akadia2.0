@@ -3,6 +3,7 @@
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro').value;
@@ -1796,6 +1797,47 @@ function tituloResponsivo(filtro) {
 	}
 	else if (filtro == "bairro") {
 		titulo.innerText="Vendas em " + bairro.value;
+	}
+
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var produto = document.getElementById('back_produto');		
+		var bairro = document.getElementById('back_bairro');	
+
+		var url = "/vendas/relatorio?"
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'produto') {
+			url += "produto=" + produto.value;
+		}
+
+		else if(tipoFiltro.value == 'bairro') {
+			url += "bairro=" + bairro.value;
+		}	
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }

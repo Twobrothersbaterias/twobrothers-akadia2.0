@@ -4,14 +4,18 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
 
 if (tipoFiltro != null) {
 	tituloResponsivo(tipoFiltro.value);
+	console.log('Tipo do filtro: ' + tipoFiltro.value);
 }	
-console.log('Tipo do filtro: ' + tipoFiltro);
+else {
+	console.log('Sem filtro');
+}
 console.log('Privilégio: ' + privilegio);
 document.onkeydown=function(){
 
@@ -1416,7 +1420,7 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroCpf.style.background="transparent";
 		filtroCpf.style.border="1px solid #212121"
 		filtroCpf.style.color="#212121";
-		filtroCpf.innerText = 'Telefone: ' + inputCpfBackend.value;
+		filtroCpf.innerText = 'CPF: ' + inputCpfBackend.value;
 	}		
 }
 
@@ -2248,6 +2252,52 @@ function tituloResponsivo(filtro) {
 	}
 	else if (filtro == "telefone") {
 		titulo.innerText="Fornecedores de telefone " + telefone.value;
+	}
+
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var dataInicio = document.getElementById('back_inicio');
+		var dataFim = document.getElementById('back_fim');
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var descricao = document.getElementById('back_descricao');		
+		var cpfCnpj = document.getElementById('back_cpfCnpj');	
+		var telefone = document.getElementById('back_telefone');	
+
+		var url = "/fornecedores/relatorio?"
+
+		if(tipoFiltro.value == 'data') {
+			url += "inicio=" + dataInicio.value + "&fim=" + dataFim.value;
+		}
+
+		else if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'descricao') {
+			url += "descricao=" + descricao.value;
+		}
+
+		else if(tipoFiltro.value == 'cpfCnpj') {
+			url += "cpfCnpj=" + cpfCnpj.value;
+		}	
+
+		else if(tipoFiltro.value == 'telefone') {
+			url += "telefone=" + telefone.value;
+		}			
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }

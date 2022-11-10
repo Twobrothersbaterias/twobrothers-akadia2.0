@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static br.com.twobrothers.frontend.utils.StringConstants.BARRA_DE_LOG;
-
 @Slf4j
 @Service
 public class PatrimonioService {
@@ -59,23 +57,23 @@ public class PatrimonioService {
 
     public List<PatrimonioEntity> filtroPatrimonios(Pageable pageable,
                                                     String descricao,
-                                                    TipoPatrimonioEnum tipo,
-                                                    Integer mes,
-                                                    Integer ano) throws InvalidRequestException {
+                                                    String tipo,
+                                                    String mes,
+                                                    String ano) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricao(pageable, descricao);
-        else if (tipo != null) return crudService.buscaPorTipo(pageable, tipo);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (tipo != null) return crudService.buscaPorTipo(pageable, TipoPatrimonioEnum.valueOf(tipo));
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else return crudService.buscaEsteMes(pageable);
     }
 
     public List<PatrimonioEntity> filtroPatrimoniosSemPaginacao(
             String descricao,
-            TipoPatrimonioEnum tipo,
-            Integer mes,
-            Integer ano) throws InvalidRequestException {
+            String tipo,
+            String mes,
+            String ano) throws InvalidRequestException {
         if (descricao != null) return crudService.buscaPorDescricaoSemPaginacao(descricao);
-        else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(tipo);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (tipo != null) return crudService.buscaPorTipoSemPaginacao(TipoPatrimonioEnum.valueOf(tipo));
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else return crudService.buscaEsteMesSemPaginacao();
     }
 

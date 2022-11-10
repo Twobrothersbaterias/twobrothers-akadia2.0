@@ -309,7 +309,7 @@
 								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 							</a>
 
-							<a  th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+							<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
 								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 							</a>
 
@@ -437,7 +437,7 @@
 
 									</tr>							
 
-										<tr th:each="patrimonio: ${patrimonios}" class="tr col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<tr th:each="patrimonio: ${patrimonios}" class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
 											<td th:text="${patrimonio.statusPatrimonio.desc}" class="td td_status col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2" 
 											th:data-id="${patrimonio.id}" 
@@ -754,7 +754,7 @@
 
 			<hr class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">			
 
-			<form th:action="@{patrimonios/alterar}" method="POST" th:object="${patrimonio}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<form th:action="@{patrimonios/alterar}" method="POST" th:object="${patrimonio}" class="edita_item_form col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="form_edita">
 
 				<input type="text" id="id_input_edicao" name="id" hidden/>
 
@@ -772,7 +772,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_patrimonio_input_edicao">
 							Descrição
 						</label>
-						<input autocomplete="off" tabindex="00" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input_edicao" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
 					</div>		
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_first_block">
@@ -816,7 +816,7 @@
 						<label class="row edita_item_form_row edita_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_patrimonio_input_edicao">
 							Valor
 						</label>
-						<input autocomplete="off" tabindex="01" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" value="0" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
+						<input autocomplete="off" class="row edita_item_form_row edita_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" value="0" min="0" max="10000000" id="valor_patrimonio_input_edicao" name="valor" oninput="validacaoDoObjetoPatrimonio(false, 'edita')" required/>
 					</div>
 
 					<div class="edita_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="edita_item_fifth_block">
@@ -834,7 +834,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 
-					<button tabindex="02" type="button" onclick="validacaoDoObjetoPatrimonio(true, 'edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="edita_item_submit">
+					<buttontype="button" onclick="validacaoDoObjetoPatrimonio(true, 'edita')" class="edita_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="edita_item_submit">
 						Salvar
 					</button>	
 
@@ -878,7 +878,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="descricao_patrimonio_input">
 							Descrição
 						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" tabindex="00" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" required/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="30" name="nome" id="descricao_patrimonio_input" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" required/>
 					</div>						
 
 					<div class="novo_item_block col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" id="novo_item_first_block">
@@ -923,7 +923,7 @@
 						<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="valor_patrimonio_input">
 							Valor
 						</label>
-						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" tabindex="01" id="valor_patrimonio_input" value="0" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" required/>
+						<input autocomplete="off" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="number" step="0.01" min="0" max="10000000" name="valor" id="valor_patrimonio_input" value="0" oninput="validacaoDoObjetoPatrimonio(false, 'novo')" required/>
 					</div>
 
 
@@ -943,7 +943,7 @@
 
 					<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>		
 
-					<button type="button" tabindex="02" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="novo_item_submit" onclick="validacaoDoObjetoPatrimonio(true, 'novo')" >
+					<button type="button" class="novo_item_submit col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom:9px;" id="novo_item_submit" onclick="validacaoDoObjetoPatrimonio(true, 'novo')" >
 						Salvar
 					</button>	
 

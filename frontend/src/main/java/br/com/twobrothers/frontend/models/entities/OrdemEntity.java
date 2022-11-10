@@ -2,11 +2,14 @@ package br.com.twobrothers.frontend.models.entities;
 
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import br.com.twobrothers.frontend.models.enums.NfeEnum;
+import br.com.twobrothers.frontend.models.enums.TipoOrdemEnum;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
 
 /**
  * @author Gabriel Lagrota
@@ -71,6 +74,32 @@ public class OrdemEntity {
     public void removeEntrada(EntradaOrdemEntity entrada) {
         entrada.setOrdem(null);
         this.entradas.remove(entrada);
+    }
+
+    public Double getTotalVendas() {
+        Double total = 0.0;
+        for(EntradaOrdemEntity entrada: this.entradas) total += entrada.getValor();
+        return total;
+    }
+
+    public String getEntradasPorNomeEmString() {
+        String entradas = "";
+        for(EntradaOrdemEntity entrada: this.entradas) {
+            if (entrada.getProduto() != null) {
+                if (entrada.getTipoOrdem().equals(TipoOrdemEnum.GARANTIA)) entradas +=
+                        entrada.getProduto().getSigla() + " (" + entrada.getQuantidade() + ", garantia)\r\n";
+                else entradas +=
+                        entrada.getProduto().getSigla()
+                                + " (" + entrada.getQuantidade()
+                                + ", " + converteValorDoubleParaValorMonetario(entrada.getValor()) + ")\r\n";
+            }
+            else {
+                if (entrada.getTipoOrdem().equals(TipoOrdemEnum.PADRAO_SERVICO))
+                    entradas += "Serviço (" + converteValorDoubleParaValorMonetario(entrada.getValor()) + ")\r\n";
+                else entradas += "Vazio\n";
+            }
+        }
+        return entradas;
     }
 
 }

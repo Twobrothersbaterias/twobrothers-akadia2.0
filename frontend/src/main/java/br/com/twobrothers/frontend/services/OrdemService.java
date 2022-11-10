@@ -1,12 +1,10 @@
 package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
-import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
@@ -59,14 +57,14 @@ public class OrdemService {
             Pageable pageable,
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String produto,
             String bairro,
             String cliente) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
         else if (bairro != null) return crudService.buscaPorBairroPaginado(pageable, bairro);
         else if (cliente != null) return crudService.buscaPorClientePaginado(pageable, cliente);
@@ -76,14 +74,14 @@ public class OrdemService {
     public List<OrdemEntity> filtroOrdensSemPaginacao(
             String dataInicio,
             String dataFim,
-            Integer mes,
-            Integer ano,
+            String mes,
+            String ano,
             String produto,
             String bairro,
             String cliente) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
-        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(mes, ano);
+        else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
         else if (bairro != null) return crudService.buscaPorBairroSemPaginacao(bairro);
         else if (cliente != null) return crudService.buscaPorClienteSemPaginacao(cliente);

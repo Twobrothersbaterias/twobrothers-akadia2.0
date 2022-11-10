@@ -15,10 +15,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum StatusPatrimonioEnum {
 
-    PENDENTE(0, "Pendente"),
-    PAGO(1, "OK");
+    PENDENTE(0, "Pendente", "Em aberto"),
+    PAGO(1, "OK", "Ok");
 
     private final int code;
     private final String desc;
+    private final String descResumida;
 
 }

@@ -4,12 +4,13 @@ import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPatrimonioDTO;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
-import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.PatrimonioCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.PatrimonioService;
+import br.com.twobrothers.frontend.services.exporter.PatrimonioPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,9 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
 
@@ -44,9 +46,9 @@ public class PatrimonioController {
     @GetMapping
     public ModelAndView patrimonios(@PageableDefault(size = 10, page = 0, sort = {"statusPatrimonio"}, direction = Sort.Direction.DESC) Pageable pageable,
                                     @RequestParam("descricao") Optional<String> descricao,
-                                    @RequestParam("mes") Optional<Integer> mes,
-                                    @RequestParam("ano") Optional<Integer> ano,
-                                    @RequestParam("tipo") Optional<TipoPatrimonioEnum> tipo,
+                                    @RequestParam("mes") Optional<String> mes,
+                                    @RequestParam("ano") Optional<String> ano,
+                                    @RequestParam("tipo") Optional<String> tipo,
                                     Model model, ModelAndView modelAndView,
                                     RedirectAttributes redirAttrs,
                                     ModelMap modelMap,
@@ -183,6 +185,38 @@ public class PatrimonioController {
 
         modelAndView.setViewName("redirect:../patrimonios?" + query);
         return modelAndView;
+    }
+
+    @GetMapping("/relatorio")
+    public void relatorio(ModelAndView modelAndView,
+                          @RequestParam("descricao") Optional<String> descricao,
+                          @RequestParam("mes") Optional<String> mes,
+                          @RequestParam("ano") Optional<String> ano,
+                          @RequestParam("tipo") Optional<String> tipo,
+                          HttpServletResponse res) throws DocumentException, IOException {
+
+        List<PatrimonioEntity> patrimonios = patrimonioService.filtroPatrimoniosSemPaginacao(
+                descricao.orElse(null),
+                tipo.orElse(null),
+                mes.orElse(null),
+                ano.orElse(null));
+
+        HashMap<String, String> filtros = new HashMap<>();
+
+        filtros.put("descricao", descricao.orElse(null));
+        filtros.put("tipo", tipo.orElse(null));
+        filtros.put("mes", mes.orElse(null));
+        filtros.put("ano", ano.orElse(null));
+
+        res.setContentType("application/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=akadia_patrimonios_"
+                + new SimpleDateFormat("dd.MM.yyyy_HHmmss").format(new Date())
+                + ".pdf";
+        res.setHeader(headerKey, headerValue);
+        PatrimonioPdfExporter pdfExporterService = new PatrimonioPdfExporter();
+        pdfExporterService.export(res, patrimonios, patrimonioService, filtros, usuarioRepository);
+
     }
 
 

@@ -22,24 +22,25 @@ INSERT INTO tb_despesa(data_cadastro, data_pagamento, data_agendamento, descrica
 DELETE FROM tb_despesa;
 
 # CARGA DE PATRIMONIOS
-INSERT INTO tb_patrimonio(nome, data_cadastro, tipo_patrimonio, status_patrimonio, data_entrada, valor, usuario_responsavel) VALUES
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 60000.0, 'admin'),
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 50000.0, 'admin'),
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 40000.0, 'admin'),
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 30000.0, 'admin'),
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 20000.0, 'admin'),
-    ('Carro', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 10000.0, 'admin'),
-    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 650000.0, 'admin'),
-    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 550000.0, 'admin'),
-    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 450000.0, 'admin'),
-    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 350000.0, 'admin'),
-    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 250000.0, 'admin'),
-    ('Casa', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 150000.0, 'admin'),
-    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 1500000.0, 'admin'),
-    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 950000.0, 'admin'),
-    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 550000.0, 'admin'),
-    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 150000.0, 'admin'),
-    ('Banco', '2022-09-10', 'PASSIVO', 'PAGO', '2022-09-18', 21000.0, 'admin');
+INSERT INTO tb_patrimonio(nome, data_cadastro, tipo_patrimonio, status_patrimonio, data_entrada, valor) VALUES
+    ('Carro', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 60000.0),
+    ('Carro', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 50000.0),
+    ('Carro', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 40000.0),
+    ('Carro', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 30000.0),
+    ('Carro', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 20000.0),
+    ('Carro', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 10000.0),
+    ('Casa', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 650000.0),
+    ('Casa', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 550000.0),
+    ('Casa', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 450000.0),
+    ('Casa', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 350000.0),
+    ('Casa', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 250000.0),
+    ('Casa', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 150000.0),
+    ('Banco', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 1500000.0),
+    ('Banco', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 950000.0),
+    ('Banco', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 550000.0),
+    ('Banco', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 150000.0),
+    ('Banco', '2022-11-10', 'PASSIVO', 'PAGO', '2022-11-18', 21000.0);
+
 # CARGA DE PRODUTOS
 INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quantidade_minima, usuario_responsavel, quantidade, custo_total, custo_unitario, tipo_produto) values
 ('2022-01-01', 'DELCO38JD', 'ACDELCO', '38JD', 0, 'admin', 10, 1000.0, 100.0, 'BATERIA'),
@@ -57,3 +58,4 @@ INSERT INTO tb_produto(data_cadastro, sigla, marca_bateria, especificacao, quant
 
 DELETE FROM tb_produto;
 DELETE FROM tb_cliente;
+Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.

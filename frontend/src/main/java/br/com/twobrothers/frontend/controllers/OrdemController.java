@@ -2,13 +2,17 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.OrdemService;
+import br.com.twobrothers.frontend.services.exporter.EstoquePdfExporter;
+import br.com.twobrothers.frontend.services.exporter.VendaPdfExporter;
 import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,9 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/vendas")
@@ -46,8 +51,8 @@ public class OrdemController {
             sort = {"retirada.dataAgendamento"}, direction = Sort.Direction.ASC) Pageable pageable,
                                @RequestParam("inicio") Optional<String> inicio,
                                @RequestParam("fim") Optional<String> fim,
-                               @RequestParam("mes") Optional<Integer> mes,
-                               @RequestParam("ano") Optional<Integer> ano,
+                               @RequestParam("mes") Optional<String> mes,
+                               @RequestParam("ano") Optional<String> ano,
                                @RequestParam("produto") Optional<String> produto,
                                @RequestParam("bairro") Optional<String> bairro,
                                @RequestParam("cliente") Optional<String> cliente,
@@ -143,6 +148,46 @@ public class OrdemController {
     public ModelAndView filtraOrdem(FiltroOrdemDTO filtroOrdem, ModelAndView modelAndView) {
         modelAndView.setViewName("redirect:../" + ordemService.constroiUriFiltro(filtroOrdem));
         return modelAndView;
+    }
+
+    @GetMapping("/relatorio")
+    public void relatorio(ModelAndView modelAndView,
+                          @RequestParam("inicio") Optional<String> inicio,
+                          @RequestParam("fim") Optional<String> fim,
+                          @RequestParam("mes") Optional<String> mes,
+                          @RequestParam("ano") Optional<String> ano,
+                          @RequestParam("produto") Optional<String> produto,
+                          @RequestParam("bairro") Optional<String> bairro,
+                          @RequestParam("cliente") Optional<String> cliente,
+                          HttpServletResponse res) throws DocumentException, IOException {
+
+        List<OrdemEntity> ordens = ordemService.filtroOrdensSemPaginacao(
+                inicio.orElse(null),
+                fim.orElse(null),
+                mes.orElse(null),
+                ano.orElse(null),
+                produto.orElse(null),
+                bairro.orElse(null),
+                cliente.orElse(null));
+
+        HashMap<String, String> filtros = new HashMap<>();
+        filtros.put("inicio", inicio.orElse(null));
+        filtros.put("fim", fim.orElse(null));
+        filtros.put("mes", mes.orElse(null));
+        filtros.put("ano", ano.orElse(null));
+        filtros.put("produto", produto.orElse(null));
+        filtros.put("bairro", bairro.orElse(null));
+        filtros.put("cliente", cliente.orElse(null));
+
+        res.setContentType("application/pdf");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=akadia_ordens_"
+                + new SimpleDateFormat("dd.MM.yyyy_HHmmss").format(new Date())
+                + ".pdf";
+        res.setHeader(headerKey, headerValue);
+        VendaPdfExporter pdfExporterService = new VendaPdfExporter();
+        pdfExporterService.export(res, ordens, ordemService, filtros, usuarioRepository);
+
     }
 
 }

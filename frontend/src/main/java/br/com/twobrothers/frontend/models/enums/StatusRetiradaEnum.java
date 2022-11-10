@@ -15,11 +15,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum StatusRetiradaEnum {
 
-    LOJA_FISICA(0, "Loja física"),
-    ENTREGA_EM_TRANSITO(1, "Entrega - em trânsito"),
-    ENTREGA_ENTREGUE(2, "Entrega - entregue");
+    LOJA_FISICA(0, "Loja física", "Presencial"),
+    ENTREGA_EM_TRANSITO(1, "Entrega - em trânsito", "Em trânsito"),
+    ENTREGA_ENTREGUE(2, "Entrega - entregue", "Entregue");
 
     private final int code;
     private final String desc;
+    private final String descResumida;
 
 }

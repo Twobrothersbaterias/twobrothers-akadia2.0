@@ -4,14 +4,19 @@ window.onload = responsive();
 window.onresize = doALoadOfStuff;
 ajustaTabela();
 buildUrlPages();
+buildUrlRelatorio();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
 
 if (tipoFiltro != null) {
 	tituloResponsivo(tipoFiltro.value);
-}	
-console.log('Tipo do filtro: ' + tipoFiltro.value);
+	console.log('Tipo do filtro: ' + tipoFiltro.value);	
+}
+else {
+	console.log("Sem filtros");
+}
+
 console.log('Privilégio: ' + privilegio);
 
 document.onkeydown=function(){
@@ -210,7 +215,10 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="20px";
-		informativoRow.style.marginBottom="20px";	
+
+		if (informativoRow != null) {
+			informativoRow.style.marginBottom="20px";	
+		}
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="flex";
@@ -307,7 +315,9 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="20px";
-		informativoRow.style.marginBottom="20px";		
+		if (informativoRow != null) {
+			informativoRow.style.marginBottom="20px";	
+		}	
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="flex";
@@ -382,7 +392,9 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="30px";
 		hrTabela.style.marginBottom="15px";
-		informativoRow.style.marginBottom="15px";		
+		if (informativoRow != null) {
+			informativoRow.style.marginBottom="15px";	
+		}	
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";
@@ -492,7 +504,9 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
-		informativoRow.style.marginBottom="15px";
+		if (informativoRow != null) {
+			informativoRow.style.marginBottom="15px";	
+		}
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";
@@ -586,7 +600,9 @@ function responsive(){
 
 		conteudoContainer.style.marginTop="10px";
 		hrTabela.style.marginBottom="15px";
-		informativoRow.style.marginBottom="5px";
+		if (informativoRow != null) {
+			informativoRow.style.marginBottom="5px";	
+		}
 
 		for(var i = 0; i < thUsuario.length; i++) {
 			thUsuario[i].style.display="none";
@@ -745,6 +761,8 @@ function validacaoDoObjetoPatrimonio(submitar, tipo) {
 /* REALIZA SUBMIT DO OBJETO */
 function submitPatrimonio(tipo, erros, botaoFinalizar) {
 
+	console.log('ACESSADO');
+
 	// VALIDAÇÃO FINAL
 	if (erros != "Ocorreram alguns erros no cadastro do patrimônio:\n") {
 		var quantidade = 0
@@ -763,7 +781,8 @@ function submitPatrimonio(tipo, erros, botaoFinalizar) {
 		return false;
 	}
 	else {
-		botaoFinalizar.type="submit";
+		console.log("ACESSADO");
+		$('#form_edita').submit();
 		return true;
 	}	
 }
@@ -1801,6 +1820,41 @@ function tituloResponsivo(filtro) {
 		else {
 			titulo.innerText="Despesas: A receber";	
 		}
+	}
+
+}
+
+function buildUrlRelatorio() {
+
+	if(document.getElementsByClassName('tr_spring').length > 0) {
+
+		var tipoFiltro = document.getElementById('tipo_filtro');
+
+		var periodoMes = document.getElementById('back_mes');
+		var periodoAno = document.getElementById('back_ano');	
+		var descricao = document.getElementById('back_descricao');		
+		var tipo = document.getElementById('back_tipo');	
+
+		var url = "/patrimonios/relatorio?"
+
+		if(tipoFiltro.value == 'periodo') {
+			url += "mes=" + periodoMes.value + "&ano=" + periodoAno.value;
+		}
+
+		else if(tipoFiltro.value == 'descricao') {
+			url += "descricao=" + descricao.value;
+		}
+
+		else if(tipoFiltro.value == 'tipo') {
+			url += "tipo=" + tipo.value;
+		}	
+
+		$('#relatorio_button').attr("href", url);	
+
+	}
+
+	else {
+		$('#relatorio_button').disabled=true;
 	}
 
 }
