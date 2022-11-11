@@ -1052,6 +1052,7 @@ function addNovoProduto() {
 		inputTipoProduto.focus();
 		AjustaTabelaDeProdutos(string);
 		responsive();
+		console.log("Entradas: \n" + inputEntradas.value);
 
 	}
 	else {
@@ -1828,17 +1829,17 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 
 		$(table).find('tbody').append(
 			"<tr class='tr_novo_body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>" +
-				"<td class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>" 
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>" 
 					+ tipo +
 				"</td>" +
-				"<td class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
 					+ (inputEntradasSplitPai[i].split(";")[2]) + 
 				"</td>" +
-				"<td class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>" 
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>" 
 					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
-				"<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
 					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
-				"<td class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
 					+ "<form class='form_remove_img'>"
 						+ "<input type='text' hidden/>"
 						+ "<button type='submit' class='col-lg-12 btn_excluir_img'>"
@@ -1863,7 +1864,9 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 
 function removeItemTb(item) {
 
-	var inputEntradas = document.getElementById('input_entradas');
+	console.log("Entradas: \n" + inputEntradas.value);
+
+	/*var inputEntradas = document.getElementById('input_entradas');
 
 	var entrada = (inputEntradas.value.split("ENTRADA="))[item];
 
@@ -1876,7 +1879,7 @@ function removeItemTb(item) {
 
 	if (document.getElementsByClassName('tr_novo_body').length < 1) {
 		document.getElementById('tr_base').hidden=false;
-	}
+	}*/
 }
 
 /* ====================== Setup de edição ========================= */
