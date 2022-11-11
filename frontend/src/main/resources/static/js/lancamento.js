@@ -9,17 +9,124 @@ console.log('Privilégio: ' + privilegio);
 
 document.getElementById('input_nome').focus();
 
-document.onkeydown=function(){
+/* ================== TECLAS DE ATALHO ====================== */
 
+document.getElementById('botao_add_pagamento').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('botao_add_produto').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('input_tipo_produto').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('input_tipo_entrada').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('select_produto').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('select_forma_pagamento').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('select_tecnico').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('estado_input').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('input_tipoNfe').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('input_ponto').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.getElementById('input_tipo_retirada').onkeypress=function() {
+	var keyCode = window.event.keyCode;
+	if (keyCode == '13') {
+		return false;
+	}
+}
+
+document.onkeydown=function(){
 	var keyCode = window.event.keyCode;
 	bind(keyCode);
 }
 
+
 function bind(keyCode) {
 
     if(keyCode == '27') {
-        window.location.href="/vendas";
+    	if (document.getElementById('container_produtos').hidden == true) {
+        	window.location.replace("/vendas");
+    	}
+    	else {
+    		fecharTabelaProdutos();
+    	}
     }
+
+    if(keyCode == '13') {
+
+    	console.log("ACESSADO");
+		if(document.getElementById('container_produtos').hidden==false) {
+		    fecharTabelaProdutos();
+		    setTimeout(() => {validacaoCampos()},10);	
+		}
+
+		else {
+
+		    if (document.activeElement.id.includes('botao_add_produto')) {
+		    	addNovoProduto();
+		    }
+		    else if(document.activeElement.id.includes('botao_add_pagamento')) {
+		    	addNovoPagamento();
+		    }
+		    else {
+		    	validacaoCampos();
+		    }
+
+		}
+	}   
 
     if (
     	!document.activeElement.className.includes('novo_item_input')
@@ -64,6 +171,7 @@ function bind(keyCode) {
 	    else if (keyCode == '57' && privilegio != "Vendedor") {
 	    	window.location.href="/colaboradores";
 	    } 
+
 	    else if (keyCode == '48' && privilegio != "Vendedor") {
 	    	window.location.href="/precos";
 	    } 	    
@@ -78,16 +186,15 @@ function bind(keyCode) {
 				window.location.href="/lancamento";
 			}
 	    }
-
-	    else if(keyCode == '13') {
-	    	window.location.href=validacaoCampos();
-	    }   
+ 
+	    else if(keyCode == '192') {
+	    	document.getElementById('eye').click();
+	    }	    	    
 
     }  
     else {
     	return;
     } 
-
 }
 
 function responsive(){
@@ -128,17 +235,26 @@ function responsive(){
 
 	var img = document.getElementsByClassName('img');
 	var aImg = document.getElementsByClassName('a_img');
-	var imgContainer = document.getElementsByClassName('img_container');	
+	var imgContainer = document.getElementsByClassName('img_container');
+
+	var btnExcluir = document.getElementsByClassName('btn_excluir');
+	var formRemoveImg = document.getElementsByClassName('form_remove_img');
+	var formRemoveText = document.getElementsByClassName('form_remove_text');	
 
 	var th = document.getElementsByClassName('th_novo');
 	var td = document.getElementsByClassName('td_novo');
 	var thTipo = document.getElementsByClassName('th_novo_tipo');
 	var tdTipo = document.getElementsByClassName('td_tipo');
 
+	var containerProdutos = document.getElementById('container_produtos');
+	var containerTabela = document.getElementById('container_tabela');
+
 	var novoItemLabel = document.getElementsByClassName('novo_item_label');
 	var novoItemInput = document.getElementsByClassName('novo_item_input');
 	var botaoAdicionar = document.getElementsByClassName('botao_adicionar');
 	var informativoCampo = document.getElementsByClassName('informativo_campo');
+
+	var tituloVenda = document.getElementById('edita_titulo');
 
 	if(bodyWidth > 1200){
 		console.log("Tela: Muito grande");
@@ -157,12 +273,34 @@ function responsive(){
 
 		mainRow.style.width = "100%";
 
+		tituloVenda.style.fontSize="1.125rem";
+
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="left";
 		}		
 
 		document.getElementById('row_produtos').style.marginBottom="9.19px";
-		document.getElementById('container_all').style.marginBottom="0";		
+		document.getElementById('container_all').style.marginBottom="0";
+		containerTabela.style.marginTop="10px";
+		containerProdutos.style.padding="20px 30px 25px 30px";
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.70rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.70rem";
+		}
+
+		for(var i = 0; i < formRemoveImg.length; i++) {
+			formRemoveImg[i].style.display="none";
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="block";
+			btnExcluir[i].style.fontSize="0.70rem";
+			btnExcluir[i].style.padding="4px 6px";
+			btnExcluir[i].innerText="Excluir";
+		}		
 
 		for(var i = 0; i < novoItemLabel.length; i++) {
 			novoItemLabel[i].style.fontSize="0.80rem";
@@ -196,19 +334,12 @@ function responsive(){
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="22px";
-			img[i].style.marginTop="6px";
+			img[i].style.marginTop="0px";
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="12px";
 		}	
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.75rem";
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.75rem";
-		}
 
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=false;
@@ -226,8 +357,8 @@ function responsive(){
   			parent.insertBefore(
   				document.getElementById("container_produto"), parent.children[1]);	  			
   		}		
-
 	}
+
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Tela: Grande");
 
@@ -250,6 +381,26 @@ function responsive(){
 
 		document.getElementById('row_produtos').style.marginBottom="9.40px";			
 		document.getElementById('container_all').style.marginBottom="0";
+		containerTabela.style.marginTop="10px";
+		containerProdutos.style.padding="15px 20px 20px 20px";
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.65rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.65rem";
+		}
+
+		for(var i = 0; i < formRemoveImg.length; i++) {
+			formRemoveImg[i].style.display="none";
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="block";
+			btnExcluir[i].style.fontSize="0.70rem";
+			btnExcluir[i].style.padding="4px 6px";
+			btnExcluir[i].innerText="Excluir";
+		}
 
 		for(var i = 0; i < novoItemLabel.length; i++) {
 			novoItemLabel[i].style.fontSize="0.70rem";
@@ -279,19 +430,12 @@ function responsive(){
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="20px";
-			img[i].style.marginTop="6px";
+			img[i].style.marginTop="0px";
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="12px";
 		}
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.70rem";			
-		}		
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.70rem";		
-		}	
 
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=false;
@@ -308,9 +452,9 @@ function responsive(){
   		else {
   			parent.insertBefore(
   				document.getElementById("container_produto"), parent.children[1]);	  			
-  		}
-				
+  		}		
 	}
+
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Tela: Média');
 
@@ -327,7 +471,30 @@ function responsive(){
 		mainRow.style.width = "100%";
 
 		document.getElementById('row_produtos').style.marginBottom="9.19px";
-		document.getElementById('container_all').style.marginBottom="30px";			
+		document.getElementById('container_all').style.marginBottom="30px";		
+
+		containerTabela.style.marginTop="0px";
+
+		containerProdutos.style.paddingTop="10px";
+		containerProdutos.style.paddingRight="15px";
+		containerProdutos.style.paddingBottom="15px";
+		containerProdutos.style.paddingLeft="15px";
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.60rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.60rem";
+		}
+
+		for(var i = 0; i < formRemoveImg.length; i++) {
+			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="42%";			
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="none";
+		}		
 
 		for(var i = 0; i < novoItemLabel.length; i++) {
 			novoItemLabel[i].style.fontSize="0.70rem";
@@ -360,19 +527,12 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="20px";
-			img[i].style.marginTop="2px";
+			img[i].style.width="18px";
+			img[i].style.marginTop="0px";
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="12px";
-		}
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.65rem";		
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.65rem";	
 		}
 
 		for(var i = 0; i < thTipo.length; i++){
@@ -391,8 +551,8 @@ function responsive(){
   		const parent = document.getElementById('container_all');
   		parent.insertBefore(
   			document.getElementById("container_endereco"), parent.children[1]);		
-
 	}
+
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Tela: Pequena');	
 
@@ -405,13 +565,36 @@ function responsive(){
 		document.getElementById('row_produtos').style.marginBottom="9.19px";
 		document.getElementById('container_all').style.marginBottom="30px";
 
+		containerTabela.style.marginTop="5px";
+
+		containerProdutos.style.paddingTop="0";
+		containerProdutos.style.paddingRight="15px";
+		containerProdutos.style.paddingBottom="15px";
+		containerProdutos.style.paddingLeft="15px";
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.55rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.55rem";
+		}
+
+		for(var i = 0; i < formRemoveImg.length; i++) {
+			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="52%";
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="none";
+		}			
+
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="center";
 		}		
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.paddingTop="15px";
-			divIcones[i].style.paddingRight="10px";
+			divIcones[i].style.paddingRight="0px";
 		}
 
 		for (var i = 0 ; i < containerInformativo.length; i++) {
@@ -441,20 +624,13 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="18px";
+			img[i].style.width="16px";
 			img[i].style.marginTop="0px";
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="0px";
 		}		
-
-		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.60rem";		
-		}
-		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.60rem";	
-		}	
 
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=true;
@@ -466,8 +642,8 @@ function responsive(){
   		const parent = document.getElementById('container_all');
   		parent.insertBefore(
   			document.getElementById("container_endereco"), parent.children[1]);			
-
 	}
+
 	else if(bodyWidth < 540){
 		console.log('Tela: Muito pequena');
 
@@ -475,7 +651,26 @@ function responsive(){
 		main.style.width="100%";
 		menuMobile.style.display="flex";
 
-				mainRow.style.width = "100%";
+		mainRow.style.width = "100%";
+
+		containerTabela.style.marginTop="0px";
+		containerProdutos.style.padding="5px 10px 10px 10px";
+
+		for(var i = 0; i < th.length; i++){
+			th[i].style.fontSize="0.50rem";
+		}
+		for(var i = 0; i < td.length; i++){
+			td[i].style.fontSize="0.50rem";
+		}
+
+		for(var i = 0; i < formRemoveImg.length; i++) {
+			formRemoveImg[i].style.display="block";
+			formRemoveImg[i].style.maxWidth="80%";		
+		}	
+
+		for(var i = 0; i < btnExcluir.length; i++) {
+			btnExcluir[i].style.display="none";
+		}		
 
 		for(var i = 0; i < selectSuperiorContainer.length; i++) {
 			selectSuperiorContainer[i].style.justifyContent="center";
@@ -483,7 +678,7 @@ function responsive(){
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.paddingTop="5px";
-			divIcones[i].style.paddingRight="10px";
+			divIcones[i].style.paddingRight="0px";
 		}
 
 		for (var i = 0; i < selectSuperiorContainer.length; i++) {
@@ -517,7 +712,7 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="18px";
+			img[i].style.width="14px";
 			img[i].style.marginTop="0px";
 		}
 
@@ -535,7 +730,6 @@ function responsive(){
   		const parent = document.getElementById('container_all');
   		parent.insertBefore(
   			document.getElementById("container_endereco"), parent.children[1]);			
-
 	}
 
 	pageResponsiva();
@@ -563,9 +757,7 @@ function getScrollbarWidth() {
   outer.parentNode.removeChild(outer);
 
   return scrollbarWidth;
-
 }
-
 
 /* ================== TRATAMENTO DE ADIÇÃO DE PRODUTOS ====================== */
 
@@ -1003,7 +1195,10 @@ function addNovoPagamento() {
 		inputFormaPagamento.focus();
 	}
 	else {
-		inputFormaPagamento.focus();
+		if (inputFormaPagamento != null) {
+			setTimeout(() => {inputFormaPagamento.focus()},10);	
+			
+		}
 	}
 }
 
@@ -1543,7 +1738,30 @@ function ajustaMinMaxDosInputsData() {
 
 function exibeTabela() {
 
-	var containerInformativoAll = document.getElementById('container_informativo_all');
+	var containerProdutos = document.getElementById('container_produtos');
+	var containerPrincipal = document.getElementById('conteudo_container');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
+	var sideMenu = document.getElementById('side_menu');
+	containerProdutos.hidden=false;
+
+	containerPrincipal.style.pointerEvents="none";
+	containerPrincipal.style.opacity="0.075";
+	containerPrincipal.style.transition="1s";
+
+	menuSuperior.style.pointerEvents="none";
+	menuSuperior.style.opacity="0.1";
+	menuSuperior.style.transition="1s";
+
+	menuSuperiorMobile.style.pointerEvents="none";
+	menuSuperiorMobile.style.opacity="0.1";
+	menuSuperiorMobile.style.transition="1s";	
+
+	sideMenu.style.pointerEvents="none";
+	sideMenu.style.opacity="0.1";
+	sideMenu.style.transition="1s";	
+
+	/*var containerInformativoAll = document.getElementById('container_informativo_all');
 	
 	if(containerInformativoAll.hidden==true) {
 		containerInformativoAll.hidden=false;
@@ -1556,7 +1774,34 @@ function exibeTabela() {
 		containerInformativoAll.style.transition="2s";
 		$("#eye").attr("src","img/eye-grey.png");
 		$("#eye").attr("th:src", "@{img/eye-grey.png}");
-	}	
+	}*/
+}
+
+function fecharTabelaProdutos() {
+
+	var containerProdutos = document.getElementById('container_produtos');
+	var containerPrincipal = document.getElementById('conteudo_container');
+	var menuSuperior = document.getElementById('menu_superior');
+	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
+	var sideMenu = document.getElementById('side_menu');
+
+	containerProdutos.hidden=true;
+
+	containerPrincipal.style.pointerEvents="auto";
+	containerPrincipal.style.opacity="1";
+	containerPrincipal.style.transition="1s";
+
+	menuSuperior.style.pointerEvents="auto";
+	menuSuperior.style.opacity="1";
+	menuSuperior.style.transition="1s";
+
+	menuSuperiorMobile.style.pointerEvents="auto";
+	menuSuperiorMobile.style.opacity="1";
+	menuSuperiorMobile.style.transition="1s";	
+
+	sideMenu.style.pointerEvents="auto";
+	sideMenu.style.opacity="1";
+	sideMenu.style.transition="1s";	
 }
 
 function AjustaTabelaDeProdutos(inputEntradas) {
@@ -1589,12 +1834,31 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 				"<td class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
 					+ (inputEntradasSplitPai[i].split(";")[2]) + 
 				"</td>" +
-				"<td class='td_novo td_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
+				"<td class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>" 
 					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
 				"<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
 					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
-			"</tr>");		
+				"<td class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
+					+ "<form class='form_remove_img'>"
+						+ "<input type='text' hidden/>"
+						+ "<button type='submit' class='col-lg-12 btn_excluir_img'>"
+							+ "<img src='img/minus-green.png' th:src='@{img/minus-green.png}' class='excluir_img' id='excluir_img'/>"
+						+ "</button>"
+					+ "</form>"	
+					+ "<form class='form_remove_text'>"
+						+ "<input type='text' hidden/>"
+						+ "<button type='submit' class='col-lg-12 btn_excluir'>"
+							+ "<div class='excluir_text' id='excluir_text'>"
+								+ "Excluir"
+							+ "</div>"
+						+ "</button>"
+					+ "</form>"
+				+ "</td>"
+
+			+ "</tr>");		
 	}
+
+	responsive();
 }
 
 function removeItemTb(item) {
@@ -1613,7 +1877,6 @@ function removeItemTb(item) {
 	if (document.getElementsByClassName('tr_novo_body').length < 1) {
 		document.getElementById('tr_base').hidden=false;
 	}
-
 }
 
 /* ====================== Setup de edição ========================= */

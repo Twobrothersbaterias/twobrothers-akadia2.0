@@ -1464,8 +1464,6 @@ function dataFiltroResponsiva() {
 	var mes = d.getMonth()+1;
 	var dia = d.getDate();
 
-	console.log("acessado");
-
 	if(mes < 10) {
 		var mes = '0' + mes;
 	}

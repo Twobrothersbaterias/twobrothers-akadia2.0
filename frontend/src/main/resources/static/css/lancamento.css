@@ -189,7 +189,7 @@
 }
 
 .tabela_novo {
-	box-shadow: 2px 2px 5px #121212;		
+	box-shadow: 0px 1px 2px #121212;		
 }
 
 .thead_novo {
@@ -347,4 +347,34 @@
 @keyframes progressBar {
   0% { width: 0; }
   100% { width: 33%; }
+}
+
+
+/* AJUSTES NO CONTAINER DE PRODUTOS */
+
+#produtos_container {
+	padding: 0;
+}
+
+#conteudo_titulo {
+	margin-bottom: 5px;
+}
+
+.edita_item_block, #container_informativo_all {
+	padding: 0;
+	margin: 0;
+}
+
+.container_tabela {
+	padding: 0;
+	margin-top: 10px;
+}
+
+#container_informativo_all {
+	padding: 0;
+	margin: 0;
+}
+
+.td_checkbox {
+	padding: 5px 0;
 }

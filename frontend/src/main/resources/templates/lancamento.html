@@ -558,7 +558,7 @@
 											<label class="row novo_item_form_row novo_item_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" for="input_quantidade" id="label_quantidade">
 												Qtde
 											</label>
-											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
+											<input autocomplete="off" tabindex="23" class="row novo_item_form_row novo_item_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" value="0" type="number" step="1" id="input_quantidade" min="0" onkeyup="tratamentoCampoQuantidade()" onblur="resetQuantidadeSeVazia()"/>
 										</div>		
 
 										<div class="novo_item_block col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
@@ -772,9 +772,11 @@
 										</div>	
 
 										<div class="novo_item_block col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+
 												<button tabindex="30" type="button" onclick="addNovoPagamento()" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="botao_add_pagamento">
 													Adicionar
 												</button>	
+
 										</div>											
 																
 									</div>
@@ -922,52 +924,8 @@
 						</div>
 					</div>
 
-					<!-- INFORMATIVOS E TABELA -->
+					<!-- INFORMATIVOS -->
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_infos" id="novo_infos">
-
-						<!-- TABELA -->
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 sub_container_pai container_pai_tabela container_tabela_produtos" id="container_informativo_all" hidden>
-
-								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela">								
-
-										<table id="table" class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-											<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-
-													<th class="th_novo th_novo_tipo col-xl-2
-													col-lg-2 col-md-2 col-sm-2 col-2">Tipo</th>
-
-													<th class="th_novo th_novo_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">Produto</th>	
-
-													<th class="th_novo th_novo_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Qtd.</th>		
-
-													<th class="th_novo th_novo_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Valor</th>
-												</tr>
-
-											</thead>
-
-											<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-												<tr id="tr_base" class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
-													<td class="td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
-
-													<td class="td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">...</td>
-
-													<td class="td_novo td_quantidade col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-
-													<td class="td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
-					
-												</tr>
-
-											</tbody>							
-										</table>
-								</div>	
-
-						</div>
 
 						<!-- INFORMATIVOS -->
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 infos sub_container_pai">
@@ -1047,9 +1005,13 @@
 								<button tabindex="31" type="button" class="botao_adicionar col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="botao_finalizar" onclick="validacaoCampos()">
 									Finalizar venda
 								</button>
+
 							</div>
-						</div>							
-					</div>							
+
+						</div>	
+
+					</div>	
+
 				</form>
 
 				<div th:if="${ordemEdicao}" id="indicador_edicao" hidden>
@@ -1067,6 +1029,109 @@
 			</div>	
 
 		</main>
+
+		<!-------------- CONTAINER_PRODUTOS ------------>
+		<div class="col-xl-8 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container_edita" id="container_produtos" hidden>
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">		
+
+				<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text titulo_edita_item" id="edita_titulo">
+
+				</h1>
+
+				<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+					<img class="col-xl-6 col-lg-5 col-md-5 col-sm-6 col-8 img img_container" src="../static/img/cancel.png" th:src="@{img/cancel.png}" onclick="fecharTabelaProdutos()"/>
+					
+				</div>	
+
+			</div>
+
+			<div class="produtos_container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="produtos_container">
+	
+
+					<div class="edita_item_row_principal row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">	
+
+						<!-- TABELA -->
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 sub_container_pai container_pai_tabela container_tabela_produtos" id="container_informativo_all">
+
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 novo_container container_tabela" id="container_tabela">								
+
+										<table id="table" class="tabela_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+											<thead class="thead_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+												<tr class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+
+													<th class="th_novo th_novo_tipo col-xl-2
+													col-lg-2 col-md-2 col-sm-2 col-2">Tipo</th>
+
+													<th class="th_novo th_novo_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">Produto</th>	
+
+													<th class="th_novo th_novo_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3">Qtd.</th>		
+
+													<th class="th_novo th_novo_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">Valor</th>
+
+													<th class="th_novo th_novo_excluir col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1"></th>
+
+												</tr>
+
+											</thead>
+
+											<tbody class="tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+												<tr id="tr_base" class="tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+													<td class="td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">...</td>
+
+													<td class="td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">...</td>
+
+													<td class="td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3">...</td>
+
+													<td class="td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">...</td>
+
+													<td class="td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
+
+														<form class="form_remove_img">
+
+															<input type="text" hidden/>
+
+															<button type="submit" class="col-lg-12 btn_excluir_img">
+
+																<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
+
+															</button>
+
+														</form>	
+
+														<form class="form_remove_text">
+
+															<input type="text" hidden/>
+
+															<button type="submit" class="col-lg-12 btn_excluir">
+																<div class="excluir_text" id="excluir_text">
+																		Excluir
+																</div>
+															</button>
+
+														</form>
+
+													</td>
+					
+												</tr>
+
+											</tbody>	
+
+										</table>
+
+								</div>	
+
+						</div>
+
+					</div>	
+																			
+			</div>				
 
 	</div>	
 

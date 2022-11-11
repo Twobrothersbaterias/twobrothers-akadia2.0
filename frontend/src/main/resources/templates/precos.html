@@ -468,7 +468,7 @@
 											this.getAttribute('data-idProduto'),
 											this.getAttribute('data-usuarioResponsavel'))">...</td>
 
-										<td class="td td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
+										<td class="td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">		
 
 											<form method="POST" th:action="@{precos/deleta-{id}(id = ${preco.id})}" class="form_remove_img">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
