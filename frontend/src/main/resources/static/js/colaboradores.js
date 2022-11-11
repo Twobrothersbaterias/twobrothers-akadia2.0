@@ -1355,7 +1355,7 @@ function abrirEditaItem(
 		var dataCadastroSplitada = dataCadastro.split("-");
 		if (dataCadastroSplitada.length == 3) {
 			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-			document.getElementById('edita_info').title="Colaborador cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+			document.getElementById('edita_titulo').title="Colaborador cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
 		}
 	}
 

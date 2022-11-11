@@ -1518,7 +1518,7 @@ function abrirEditaItem(
 	var dataCadastroSplitada = dataCadastro.split("-");
 	if (dataCadastroSplitada.length == 3) {
 		var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-		document.getElementById('edita_info').title="Fornecedor cadastrado dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
+		document.getElementById('edita_titulo').title="Compra cadastrada dia " + dataUsParaDataBr + " por " + usuarioResponsavel;
 	}
 
 	document.getElementById('id_input_edicao').value=id;
@@ -1645,7 +1645,6 @@ function buildUrlPagamentos() {
 		$('#pix').attr("href", "/compras?meio=PIX");
 		$('#boleto').attr("href", "/compras?meio=BOLETO");		
 	}
-
 }
 
 function buildUrlPages() {
@@ -1808,7 +1807,6 @@ function buildUrlPages() {
 			}
 		}		
 	}	
-
 }
 
 function buildUrl(baseUrl, pagina, produto, dataInicio, dataFim, mes, ano, fornecedor) {

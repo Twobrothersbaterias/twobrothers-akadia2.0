@@ -82,3 +82,7 @@ option {
     cursor: pointer;
     animation: pulse 2s infinite;
 }
+
+#edita_titulo {
+    cursor: help;
+}

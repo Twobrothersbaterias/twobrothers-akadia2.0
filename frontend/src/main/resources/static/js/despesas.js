@@ -1569,7 +1569,8 @@ function abrirEditaDespesa(
 							dataAgendamento, 
 							responsavel, 
 							dataCadastro, 
-							persistencia) {
+							persistencia,
+							usuarioResponsavel) {
 
 	const d = new Date();
 	var ano = d.getFullYear();
@@ -1618,7 +1619,7 @@ function abrirEditaDespesa(
 		var dataCadastroSplitada = dataCadastro.split("-");
 		if (dataCadastroSplitada.length == 3) {
 			var dataUsParaDataBr = dataCadastroSplitada[2] + "-" + dataCadastroSplitada[1] + "-" + dataCadastroSplitada[0];
-			subtitulo.title="Despesa criada dia " + dataUsParaDataBr + " por " + responsavel;
+			document.getElementById('edita_titulo').title="Despesa cadastrada dia " + dataUsParaDataBr + " por " + responsavel;
 		}	
 	}
 
