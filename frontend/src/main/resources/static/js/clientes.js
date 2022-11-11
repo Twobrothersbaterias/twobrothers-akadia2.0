@@ -5,7 +5,8 @@ window.onresize = doALoadOfStuff;
 ajustaMinMaxDosInputsData();
 ajustaTabela();
 buildUrlPages();
-buildUrlRelatorio()
+buildUrlRelatorio();
+dataFiltroResponsiva();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var filtro = document.getElementById('tipo_filtro');
@@ -1454,6 +1455,37 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroCpf.style.color="#212121";
 		filtroCpf.innerText = 'Telefone: ' + inputCpfBackend.value;
 	}		
+}
+
+function dataFiltroResponsiva() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	console.log("acessado");
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
+	var dataInicio = document.getElementById('data_inicio_filtro_input');
+	var dataFim = document.getElementById('data_fim_filtro_input');
+
+	if (dataInicio.value == null || dataInicio.value == '') dataInicio.value = hoje;
+	if (dataFim.value == null || dataFim.value == '') dataFim.value = hoje;
+
+	$('#data_fim_filtro_input').attr("min", dataInicio.value);
+
+	if (dataInicio.value > dataFim.value) dataFim.value = dataInicio.value;
+
 }
 
 /* ================== CONFIGURAÇÕES DA SUB-TELA EDITA ITEM ====================== */

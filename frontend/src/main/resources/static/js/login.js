@@ -108,3 +108,8 @@ function loginLeave(){
 	login.style.color="#FFFFFF";
 	login.style.cursor="default";
 }
+
+function trataUsername(){
+	var loginUsername = document.getElementById('username');
+	loginUsername.value = loginUsername.value.toLowerCase();
+}

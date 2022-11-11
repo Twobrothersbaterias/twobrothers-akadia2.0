@@ -1470,7 +1470,6 @@ function tituloResponsivo(filtro) {
 
 }
 
-
 function buildUrlRelatorio() {
 
 	if(document.getElementsByClassName('tr_spring').length > 0) {

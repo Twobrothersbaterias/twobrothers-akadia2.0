@@ -5,6 +5,7 @@ window.onresize = doALoadOfStuff;
 ajustaTabela();
 buildUrlPages();
 buildUrlRelatorio();
+dataFiltroResponsiva();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro').value;
@@ -1527,6 +1528,35 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroTipo.style.color="#212121";
 		filtroTipo.innerText = 'Tipo: ' + inputTipoBackend.value;
 	}		
+}
+
+function dataFiltroResponsiva() {
+
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	if(mes < 10) {
+		var mes = '0' + mes;
+	}
+
+	if(dia < 10) {
+		var dia = '0' + dia;
+	}	
+
+	var hoje = (ano + '-' + mes + '-' + dia); 
+
+	var dataInicio = document.getElementById('data_inicio_filtro_input');
+	var dataFim = document.getElementById('data_fim_filtro_input');
+
+	if (dataInicio.value == null || dataInicio.value == '') dataInicio.value = hoje;
+	if (dataFim.value == null || dataFim.value == '') dataFim.value = hoje;
+
+	$('#data_fim_filtro_input').attr("min", dataInicio.value);
+
+	if (dataInicio.value > dataFim.value) dataFim.value = dataInicio.value;
+
 }
 
 function abrirEditaDespesa(
