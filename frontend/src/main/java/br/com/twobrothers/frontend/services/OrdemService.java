@@ -1,22 +1,27 @@
 package br.com.twobrothers.frontend.services;
 
-import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
-import br.com.twobrothers.frontend.repositories.OrdemRepository;
+import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_ORDENS;
 
 @Slf4j
@@ -27,13 +32,10 @@ public class OrdemService {
     OrdemCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
-    OrdemRepository ordemRepository;
-
-    @Autowired
-    ModelMapperConfig modelMapper;
+    ClienteRepository clienteRepository;
 
     public String encaminhaParaCriacaoDoCrudService(OrdemDTO ordem) {
         try {
@@ -176,6 +178,86 @@ public class OrdemService {
         }
 
         return URI_ORDENS;
+    }
+
+    public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                    String inicio, String fim,
+                                    String mes, String ano, String produto, String bairro, String cliente) {
+
+        log.info("[STARTING] Iniciando construção do modelMap...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Setando lista de itens encontrados...");
+
+        List<OrdemEntity> ordensSemPaginacao = filtroOrdensSemPaginacao(
+                inicio,
+                fim,
+                mes,
+                ano,
+                produto,
+                bairro,
+                cliente);
+
+        List<OrdemEntity> ordensPaginadas = filtroOrdens(
+                pageable,
+                inicio,
+                fim,
+                mes,
+                ano,
+                produto,
+                bairro,
+                cliente);
+
+        log.info("[PROGRESS] Setando valores dos informativos...");
+        atributos.put("quantidadeVendida", calculaQuantidadeVendida(ordensSemPaginacao));
+
+        atributos.put("bruto",
+                ConversorDeDados.converteValorDoubleParaValorMonetario(calculaBrutoVendido(ordensSemPaginacao)));
+
+        atributos.put("custo",
+                ConversorDeDados.converteValorDoubleParaValorMonetario(calculaCustoVenda(ordensSemPaginacao)));
+
+        atributos.put("liquido",
+                ConversorDeDados.converteValorDoubleParaValorMonetario(
+                        (calculaBrutoVendido(ordensSemPaginacao) - calculaCustoVenda(ordensSemPaginacao))));
+
+        log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("dataInicio", inicio);
+        atributos.put("dataFim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("produto", produto);
+        atributos.put("bairro", bairro);
+        atributos.put("cliente", cliente);
+        atributos.put("ordens", ordensPaginadas);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "hoje");
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (produto != null) atributos.replace(TIPO_FILTRO, "produto");
+        if (bairro != null) atributos.replace(TIPO_FILTRO, "bairro");
+        if (cliente != null) atributos.replace(TIPO_FILTRO, "cliente");
+        if (cliente != null) atributos.put("clienteNome", clienteRepository.findById(Long.valueOf(cliente)).get().getNomeCompleto());
+
+        log.info("[PROGRESS] Setando atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(ordensSemPaginacao, pageable));
+        atributos.put("totalItens", ordensSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/vendas?" + req.getQueryString();
+
+        atributos.put("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        atributos.put("baseUrl", baseUrl);
+        atributos.put("queryString", req.getQueryString());
+        atributos.put("completeUrl", completeUrl);
+
+        modelMap.addAllAttributes(atributos);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        return modelMap;
     }
 
 }

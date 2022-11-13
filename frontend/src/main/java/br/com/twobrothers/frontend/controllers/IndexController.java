@@ -27,7 +27,6 @@ public class IndexController {
     @Autowired
     PostagemCrudService postagemCrudService;
 
-
     @GetMapping
     public ModelAndView telaPrincipal(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
                                       @RequestParam("titulo") Optional<String> titulo,
@@ -39,13 +38,8 @@ public class IndexController {
                                       ModelAndView modelAndView, ModelMap modelMap,
                                       RedirectAttributes redirAttrs) {
         try {
-            postagemService.modelMapperBuilder(modelMap, pageable, titulo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    categoria.orElse(null));
-
+            postagemService.modelMapperBuilder(modelMap, pageable, titulo.orElse(null), inicio.orElse(null),
+                    fim.orElse(null), mes.orElse(null), ano.orElse(null), categoria.orElse(null));
             modelAndView.setViewName("index");
             return modelAndView;
         } catch (InvalidRequestException e) {

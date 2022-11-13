@@ -3,21 +3,17 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroClienteDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
-import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.ClienteService;
 import br.com.twobrothers.frontend.services.exporter.ClientePdfExporter;
-import br.com.twobrothers.frontend.services.exporter.FornecedorPdfExporter;
-import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/clientes")
@@ -51,76 +50,26 @@ public class ClienteController {
                                  @RequestParam("ano") Optional<String> ano,
                                  @RequestParam("cpfCnpj") Optional<String> cpfCnpj,
                                  @RequestParam("telefone") Optional<String> telefone,
-                                 Model model, ModelAndView modelAndView,
+                                 ModelAndView modelAndView,
                                  RedirectAttributes redirAttrs,
                                  ModelMap modelMap,
                                  HttpServletRequest req) {
-
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/clientes?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<ClienteEntity> clientesPaginados = new ArrayList<>();
-        List<ClienteEntity> clientesSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-            clientesPaginados = clienteService.filtroClientes(
-                    pageable,
-                    descricao.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    cpfCnpj.orElse(null),
-                    telefone.orElse(null));
 
-            clientesSemPaginacao = clienteService.filtroClientesSemPaginacao(
-                    descricao.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    cpfCnpj.orElse(null),
-                    telefone.orElse(null));
-
-            paginas = clienteService.calculaQuantidadePaginas(clientesSemPaginacao, pageable);
+            clienteService.modelMapperBuilder(modelMap, pageable, req,
+                    descricao.orElse(null), inicio.orElse(null),
+                    fim.orElse(null), mes.orElse(null), ano.orElse(null),
+                    cpfCnpj.orElse(null), telefone.orElse(null));
+            modelAndView.setViewName("clientes");
+            return modelAndView;
 
         } catch (InvalidRequestException e) {
+
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:clientes");
             return modelAndView;
+
         }
-
-        model.addAttribute("tipoFiltro", "hoje");
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
-        if (cpfCnpj.isPresent()) model.addAttribute("tipoFiltro", "cpfCnpj");
-        if (telefone.isPresent()) model.addAttribute("tipoFiltro", "telefone");
-
-        model.addAttribute("totalItens", clientesSemPaginacao.size());
-        model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
-        model.addAttribute("inicio", fim.orElse(null));
-        model.addAttribute("fim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("cpfCnpj", cpfCnpj.orElse(null));
-        model.addAttribute("telefone", telefone.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("clientes", clientesPaginados);
-
-        modelAndView.setViewName("clientes");
-        return modelAndView;
     }
 
     @PostMapping

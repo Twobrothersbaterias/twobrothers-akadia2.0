@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.*;
+import java.nio.channels.FileChannel;
+
 /**
  * @author Gabriel Lagrota
  * @email gabriellagrota23@gmail.com
@@ -63,12 +66,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // Construir
     }
 
-    public static void main(String[] args) {
-        Integer a = 3;
-        Integer b = 4;
+    public static void main(String[] args) throws IOException {
 
-        System.err.println(a%2);
-        System.err.println(b%2);
+        int maximo = 50;
+
+        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
+        for (int i=0; i <= maximo; i++) {
+            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
+            if (i < maximo) System.out.print(",");
+        }
+        System.out.print(";");
+
     }
 
 }

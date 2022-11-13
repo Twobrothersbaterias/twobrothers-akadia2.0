@@ -12,6 +12,8 @@ public class StringConstants {
 
     StringConstants(){}
 
+    public static final String TIPO_FILTRO = "tipoFiltro";
+
     public static String URI_POSTAGEM = "clientes?";
     public static String URI_ESTOQUE = "estoque?";
     public static String URI_ORDENS = "fornecedores?";

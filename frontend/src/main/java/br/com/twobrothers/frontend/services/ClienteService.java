@@ -1,21 +1,24 @@
 package br.com.twobrothers.frontend.services;
 
-import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroClienteDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
-import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
 
 @Slf4j
@@ -26,13 +29,7 @@ public class ClienteService {
     ClienteCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
-
-    @Autowired
-    ClienteRepository clienteRepository;
-
-    @Autowired
-    ModelMapperConfig modelMapper;
+    UsuarioRepository usuarioRepository;
 
     public String encaminhaParaCriacaoDoCrudService(ClienteDTO cliente) {
         try {
@@ -138,6 +135,72 @@ public class ClienteService {
         }
 
         return URI_POSTAGEM;
+    }
+
+    public ModelMap modelMapperBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                       String descricao, String inicio, String fim,
+                                       String mes, String ano, String cpfCnpj, String telefone) {
+
+        log.info("[STARTING] Iniciando método de construção de atributos passados por PathParam...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de itens encontrados...");
+
+        List<ClienteEntity> clientesSemPaginacao = filtroClientesSemPaginacao(
+                descricao,
+                inicio,
+                fim,
+                mes,
+                ano,
+                cpfCnpj,
+                telefone);
+
+        List<ClienteEntity> clientesPaginados = filtroClientes(
+                pageable,
+                descricao,
+                inicio,
+                fim,
+                mes,
+                ano,
+                cpfCnpj,
+                telefone);
+
+        log.info("[PROGRESS] Inicializando setagem de atributos de busca...");
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("descricao", descricao);
+        atributos.put("inicio", inicio);
+        atributos.put("fim", fim);
+        atributos.put("dataInicio", inicio);
+        atributos.put("dataFim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("cpfCnpj", cpfCnpj);
+        atributos.put("telefone", telefone);
+        atributos.put("clientes", clientesPaginados);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "hoje");
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (descricao != null) atributos.replace(TIPO_FILTRO, "descricao");
+        if (cpfCnpj != null) atributos.replace(TIPO_FILTRO, "cpfCnpj");
+        if (telefone != null) atributos.replace(TIPO_FILTRO, "telefone");
+
+        log.info("[PROGRESS] Inicializando setagem de atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(clientesSemPaginacao, pageable));
+        atributos.put("totalItens", clientesSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/clientes?" + req.getQueryString();
+        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        modelMap.addAttribute("baseUrl", baseUrl);
+        modelMap.addAttribute("queryString", req.getQueryString());
+        modelMap.addAttribute("completeUrl", completeUrl);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        modelMap.addAllAttributes(atributos);
+        return modelMap;
     }
 
 }

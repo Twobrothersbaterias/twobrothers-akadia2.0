@@ -2,17 +2,13 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.OrdemService;
-import br.com.twobrothers.frontend.services.exporter.EstoquePdfExporter;
 import br.com.twobrothers.frontend.services.exporter.VendaPdfExporter;
-import br.com.twobrothers.frontend.utils.ConversorDeDados;
-import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +25,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/vendas")
@@ -65,40 +64,13 @@ public class OrdemController {
                                ModelMap modelMap,
                                HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/vendas?" + req.getQueryString();
-
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<OrdemEntity> ordensPaginadas = new ArrayList<>();
-        List<OrdemEntity> ordensSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-            ordensPaginadas = ordemService.filtroOrdens(
-                    pageable,
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    produto.orElse(null),
-                    bairro.orElse(null),
-                    cliente.orElse(null));
 
-            ordensSemPaginacao = ordemService.filtroOrdensSemPaginacao(
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    produto.orElse(null),
-                    bairro.orElse(null),
-                    cliente.orElse(null));
-
-            paginas = ordemService.calculaQuantidadePaginas(ordensSemPaginacao, pageable);
+            ordemService.modelMapBuilder(modelMap, pageable, req,
+                    inicio.orElse(null), fim.orElse(null), mes.orElse(null), ano.orElse(null),
+                    produto.orElse(null), bairro.orElse(null), cliente.orElse(null));
+            modelAndView.setViewName("vendas");
+            return modelAndView;
 
         } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
@@ -106,40 +78,6 @@ public class OrdemController {
             return modelAndView;
         }
 
-        model.addAttribute("tipoFiltro", "hoje");
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
-        if (bairro.isPresent()) model.addAttribute("tipoFiltro", "bairro");
-        if (cliente.isPresent()) model.addAttribute("tipoFiltro", "cliente");
-
-        cliente.ifPresent(s -> model.addAttribute("clienteNome",
-                clienteRepository.findById(Long.valueOf(s)).get().getNomeCompleto()));
-
-        model.addAttribute("totalItens", ordensSemPaginacao.size());
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("produto", produto.orElse(null));
-        model.addAttribute("bairro", bairro.orElse(null));
-        model.addAttribute("cliente", cliente.orElse(null));
-
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("quantidadeVendida", ordemService.calculaQuantidadeVendida(ordensSemPaginacao));
-        model.addAttribute("bruto",
-                ConversorDeDados.converteValorDoubleParaValorMonetario(ordemService.calculaBrutoVendido(ordensSemPaginacao)));
-        model.addAttribute("custo",
-                ConversorDeDados.converteValorDoubleParaValorMonetario(ordemService.calculaCustoVenda(ordensSemPaginacao)));
-        model.addAttribute("liquido",
-                ConversorDeDados.converteValorDoubleParaValorMonetario(
-                        (ordemService.calculaBrutoVendido(ordensSemPaginacao) - ordemService.calculaCustoVenda(ordensSemPaginacao))));
-        model.addAttribute("ordens", ordensPaginadas);
-
-        modelAndView.setViewName("vendas");
-        return modelAndView;
     }
 
     @PostMapping("/deleta-{id}")

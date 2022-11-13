@@ -22,13 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
 
 @Slf4j
 @Service
 public class PostagemService {
-
-    private static final String TIPO_FILTRO = "tipoFiltro";
 
     @Autowired
     PostagemCrudService crudService;
@@ -185,6 +184,7 @@ public class PostagemService {
         atributos.put("categorias", categoriaCrudService.buscaTodasCategorias());
         atributos.put("subcategorias", subCategoriaCrudService.buscaTodasCategorias());
 
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
         modelMap.addAllAttributes(atributos);
         return modelMap;
     }
