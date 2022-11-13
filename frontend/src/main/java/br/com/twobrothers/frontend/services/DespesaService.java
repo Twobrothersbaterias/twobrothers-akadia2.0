@@ -10,13 +10,21 @@ import br.com.twobrothers.frontend.repositories.DespesaRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 
 @Slf4j
 @Service
@@ -26,13 +34,7 @@ public class DespesaService {
     DespesaCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
-
-    @Autowired
-    DespesaRepository despesaRepository;
-
-    @Autowired
-    ModelMapperConfig modelMapper;
+    UsuarioRepository usuarioRepository;
 
     public String encaminhaParaCriacaoDoCrudService(DespesaDTO despesa) {
         try {
@@ -169,6 +171,71 @@ public class DespesaService {
         }
 
         return uri;
+    }
+
+    public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                    String descricao, String tipo, String inicio, String fim, String mes, String ano) {
+
+        log.info("[STARTING] Iniciando construção do modelMap...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        List<DespesaEntity> despesasSemPaginacao = filtroDespesasSemPaginacao(
+                descricao,
+                tipo,
+                inicio,
+                fim,
+                mes,
+                ano);
+
+        List<DespesaEntity> despesasPaginadas = filtroDespesas(
+                pageable,
+                descricao,
+                tipo,
+                inicio,
+                fim,
+                mes,
+                ano);
+
+        log.info("[PROGRESS] Setando valores dos informativos...");
+        atributos.put("pago", converteValorDoubleParaValorMonetario(calculaValorPago(despesasSemPaginacao)));
+        atributos.put("pendente", converteValorDoubleParaValorMonetario(calculaValorPendente(despesasSemPaginacao)));
+        atributos.put("pagar", pendentesHoje());
+
+        log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("descricao", descricao);
+        atributos.put("tipo", tipo);
+        atributos.put("dataInicio", inicio);
+        atributos.put("dataFim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("despesas", despesasPaginadas);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "hoje");
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (descricao != null) atributos.replace(TIPO_FILTRO, "descricao");
+        if (tipo != null) atributos.replace(TIPO_FILTRO, "tipo");
+
+        log.info("[PROGRESS] Setando atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(despesasSemPaginacao, pageable));
+        atributos.put("totalItens", despesasSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/despesas?" + req.getQueryString();
+
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        atributos.put("baseUrl", baseUrl);
+        atributos.put("queryString", req.getQueryString());
+        atributos.put("completeUrl", completeUrl);
+
+        modelMap.addAllAttributes(atributos);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        return modelMap;
     }
 
 }

@@ -26,9 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/patrimonios")
@@ -54,70 +55,25 @@ public class PatrimonioController {
                                     ModelMap modelMap,
                                     HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/patrimonios?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<PatrimonioEntity> patrimoniosPaginados = new ArrayList<>();
-        List<PatrimonioEntity> patrimoniosSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-            patrimoniosPaginados = patrimonioService.filtroPatrimonios(
-                    pageable,
-                    descricao.orElse(null),
-                    tipo.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null));
+            patrimonioService.modelMapBuilder(modelMap, pageable, req, descricao.orElse(null),
+                    mes.orElse(null), ano.orElse(null), tipo.orElse(null));
 
-            patrimoniosSemPaginacao = patrimonioService.filtroPatrimoniosSemPaginacao(
-                    descricao.orElse(null),
-                    tipo.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null));
-
-            paginas = patrimonioService.calculaQuantidadePaginas(patrimoniosSemPaginacao, pageable);
-
+            if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+                modelAndView.setViewName("patrimonio");
+            }
+            else {
+                modelAndView.setViewName("redirect:/");
+                redirAttrs.addFlashAttribute("ErroCadastro",
+                        "Você não possui o privilégio necessário para acessar a página de gestão patrimonial");
+            }
         } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:patrimonios");
             return modelAndView;
         }
 
-        model.addAttribute("tipoFiltro", "mesAtual");
-
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
-        if (tipo.isPresent()) model.addAttribute("tipoFiltro", "tipo");
-
-        model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("tipo", tipo.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("patrimonios", patrimoniosPaginados);
-        model.addAttribute("bruto", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorBruto(patrimoniosSemPaginacao)));
-        model.addAttribute("pendente", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorPendente(patrimoniosSemPaginacao)));
-        model.addAttribute("passivos", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorPassivos(patrimoniosSemPaginacao)));
-        model.addAttribute("caixa", converteValorDoubleParaValorMonetario(patrimonioService.calculaValorCaixa(patrimoniosSemPaginacao)));
-
-        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
-            modelAndView.setViewName("patrimonio");
-        }
-        else {
-            modelAndView.setViewName("redirect:/");
-            redirAttrs.addFlashAttribute("ErroCadastro",
-                    "Você não possui o privilégio necessário para acessar a página de gestão patrimonial");
-        }
-
         return modelAndView;
-
     }
 
     @GetMapping("/patrimonio-carga")

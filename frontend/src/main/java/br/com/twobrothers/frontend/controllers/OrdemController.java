@@ -65,7 +65,6 @@ public class OrdemController {
                                HttpServletRequest req) {
 
         try {
-
             ordemService.modelMapBuilder(modelMap, pageable, req,
                     inicio.orElse(null), fim.orElse(null), mes.orElse(null), ano.orElse(null),
                     produto.orElse(null), bairro.orElse(null), cliente.orElse(null));

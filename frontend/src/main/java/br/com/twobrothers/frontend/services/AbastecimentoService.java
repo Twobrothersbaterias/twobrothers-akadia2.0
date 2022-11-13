@@ -4,19 +4,29 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
+import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
+import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
+import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_PRECO;
 
 @Slf4j
@@ -27,13 +37,16 @@ public class AbastecimentoService {
     AbastecimentoCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
-    AbastecimentoRepository abastecimentoRepository;
+    FornecedorRepository fornecedorRepository;
 
     @Autowired
-    ModelMapperConfig modelMapper;
+    ProdutoEstoqueService produtoEstoqueService;
+
+    @Autowired
+    FornecedorService fornecedorService;
 
     public String encaminhaParaCriacaoDoCrudService(AbastecimentoDTO abastecimento) {
 
@@ -211,6 +224,97 @@ public class AbastecimentoService {
                 new PageImpl<>(abastecimentoEntities.subList(start, end), pageable, abastecimentoEntities.size());
 
         return page.toList();
+    }
+
+    public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                    String inicio, String fim, String mes, String ano, String fornecedorId,
+                                    String fornecedor, String produto, String meio) {
+
+        log.info("[STARTING] Iniciando construção do modelMap...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        List<AbastecimentoEntity> abastecimentosSemPaginacao = filtroAbastecimentosSemPaginacao(
+                inicio,
+                fim,
+                mes,
+                ano,
+                fornecedorId,
+                fornecedor,
+                produto,
+                meio);
+
+        List<AbastecimentoEntity> abastecimentosPaginados = filtroAbastecimentos(
+                pageable,
+                inicio,
+                fim,
+                mes,
+                ano,
+                fornecedorId,
+                fornecedor,
+                produto,
+                meio);
+
+        log.info("[PROGRESS] Setando valores dos informativos...");
+        atributos.put("especie", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.DINHEIRO)));
+        atributos.put("credito", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.CREDITO)));
+        atributos.put("debito", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.DEBITO)));
+        atributos.put("cheque", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.CHEQUE)));
+        atributos.put("pix", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.PIX)));
+        atributos.put("boleto", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.BOLETO)));
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "hoje");
+        atributos.put("meioAtivo", null);
+
+        FornecedorEntity fornecedorEncontradoPorId = new FornecedorEntity();
+
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (fornecedorId != null) {
+            fornecedorEncontradoPorId = (fornecedorRepository.findById(Long.parseLong(fornecedorId)).get());
+            atributos.replace(TIPO_FILTRO, "fornecedorId");
+        }
+        if (fornecedor != null) atributos.replace(TIPO_FILTRO, "fornecedor");
+        if (produto != null) atributos.replace(TIPO_FILTRO, "produto");
+        if (meio != null) atributos.replace("meioAtivo", meio);
+
+        if (meio != null) {
+            abastecimentosSemPaginacao = filtraFormaDePagamentoSemPaginacao(abastecimentosSemPaginacao, meio);
+            abastecimentosPaginados = filtraFormaDePagamentoPaginada(pageable, abastecimentosSemPaginacao, meio);
+        }
+
+        log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("inicio", inicio);
+        atributos.put("fim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("fornecedorId", fornecedorId);
+        atributos.put("fornecedor", fornecedor);
+        atributos.put("produto", produto);
+        atributos.put("meio", meio);
+        atributos.put("produtos", produtoEstoqueService.buscaTodos());
+        atributos.put("fornecedores", fornecedorService.buscaTodos());
+        atributos.put("abastecimentos", abastecimentosPaginados);
+
+        log.info("[PROGRESS] Setando atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(abastecimentosSemPaginacao, pageable));
+        atributos.put("totalItens", abastecimentosSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/compras?" + req.getQueryString();
+
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        atributos.put("baseUrl", baseUrl);
+        atributos.put("queryString", req.getQueryString());
+        atributos.put("completeUrl", completeUrl);
+
+        modelMap.addAllAttributes(atributos);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        return modelMap;
     }
 
 

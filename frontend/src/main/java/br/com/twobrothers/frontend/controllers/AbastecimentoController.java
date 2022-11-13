@@ -73,104 +73,23 @@ public class AbastecimentoController {
                                        ModelMap modelMap,
                                        HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/abastecimentos?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<AbastecimentoEntity> abastecimentosPaginados = new ArrayList<>();
-        List<AbastecimentoEntity> abastecimentosSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-
-            abastecimentosPaginados = abastecimentoService.filtroAbastecimentos(
-                    pageable,
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    fornecedorId.orElse(null),
-                    fornecedor.orElse(null),
-                    produto.orElse(null),
-                    meio.orElse(null));
-
-            abastecimentosSemPaginacao = abastecimentoService.filtroAbastecimentosSemPaginacao(
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    fornecedorId.orElse(null),
-                    fornecedor.orElse(null),
-                    produto.orElse(null),
-                    meio.orElse(null));
-
+            abastecimentoService.modelMapBuilder(modelMap, pageable, req, inicio.orElse(null), fim.orElse(null),
+                    mes.orElse(null), ano.orElse(null), fornecedorId.orElse(null), fornecedor.orElse(null),
+                    produto.orElse(null), meio.orElse(null));
+            if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+                modelAndView.setViewName("abastecimentos");
+            }
+            else {
+                modelAndView.setViewName("redirect:/");
+                redirAttrs.addFlashAttribute("ErroCadastro",
+                        "Você não possui o privilégio necessário para acessar a página de abastecimentos");
+            }
         }
 
         catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:abastecimentos");
-            return modelAndView;
-        }
-
-        model.addAttribute("tipoFiltro", "hoje");
-        model.addAttribute("meioAtivo", null);
-
-        FornecedorEntity fornecedorEncontradoPorId = new FornecedorEntity();
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (fornecedorId.isPresent()) {
-            fornecedorEncontradoPorId = (fornecedorRepository.findById(Long.parseLong(fornecedorId.orElse(String.valueOf(0L)))).get());
-            model.addAttribute("tipoFiltro", "fornecedorId");
-        }
-        if (fornecedor.isPresent()) model.addAttribute("tipoFiltro", "fornecedor");
-        if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
-
-        if (meio.isPresent()) model.addAttribute("meioAtivo", meio.orElse(null));
-
-        if (meio.isPresent()) {
-            abastecimentosSemPaginacao = abastecimentoService
-                    .filtraFormaDePagamentoSemPaginacao(abastecimentosSemPaginacao, meio.orElse(null));
-            abastecimentosPaginados = abastecimentoService
-                    .filtraFormaDePagamentoPaginada(pageable, abastecimentosSemPaginacao, meio.orElse(null));
-        }
-
-        paginas = abastecimentoService.calculaQuantidadePaginas(abastecimentosSemPaginacao, pageable);
-
-        model.addAttribute("totalItens", abastecimentosSemPaginacao.size());
-        model.addAttribute("inicio", inicio.orElse(null));
-        model.addAttribute("fim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("fornecedorId", fornecedorId.orElse(null));
-        model.addAttribute("fornecedorEncontradoPorId", fornecedorEncontradoPorId);
-        model.addAttribute("fornecedor", fornecedor.orElse(null));
-        model.addAttribute("produto", produto.orElse(null));
-        model.addAttribute("meio", meio.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("abastecimentos", abastecimentosPaginados);
-        model.addAttribute("produtos", produtoEstoqueService.buscaTodos());
-        model.addAttribute("fornecedores", fornecedorService.buscaTodos());
-        model.addAttribute("especie", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.DINHEIRO)));
-        model.addAttribute("credito", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.CREDITO)));
-        model.addAttribute("debito", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.DEBITO)));
-        model.addAttribute("cheque", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.CHEQUE)));
-        model.addAttribute("pix", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.PIX)));
-        model.addAttribute("boleto", converteValorDoubleParaValorMonetario(abastecimentoService.calculaFormaPagamento(abastecimentosSemPaginacao, FormaPagamentoEnum.BOLETO)));
-
-        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
-            modelAndView.setViewName("abastecimentos");
-        }
-        else {
-            modelAndView.setViewName("redirect:/");
-            redirAttrs.addFlashAttribute("ErroCadastro",
-                    "Você não possui o privilégio necessário para acessar a página de abastecimentos");
         }
 
         return modelAndView;

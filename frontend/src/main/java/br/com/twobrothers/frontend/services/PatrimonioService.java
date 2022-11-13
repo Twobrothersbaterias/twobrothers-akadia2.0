@@ -4,22 +4,31 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPatrimonioDTO;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
+import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.StatusPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.repositories.PatrimonioRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.PatrimonioCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 
 @Slf4j
 @Service
@@ -29,7 +38,7 @@ public class PatrimonioService {
     PatrimonioCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     PatrimonioRepository patrimonioRepository;
@@ -199,5 +208,65 @@ public class PatrimonioService {
         patrimonioRepository.saveAll(patrimoniosAtualizados);
 
     }
+
+    public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                    String descricao, String mes, String ano, String tipo) {
+
+        log.info("[STARTING] Iniciando construção do modelMap...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        List<PatrimonioEntity> patrimoniosSemPaginacao = filtroPatrimoniosSemPaginacao(
+                descricao,
+                tipo,
+                mes,
+                ano);
+
+        List<PatrimonioEntity> patrimoniosPaginados = filtroPatrimonios(
+                pageable,
+                descricao,
+                tipo,
+                mes,
+                ano);
+
+        log.info("[PROGRESS] Setando valores dos informativos...");
+        atributos.put("bruto", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaValorBruto(patrimoniosSemPaginacao)));
+        atributos.put("pendente", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaValorPendente(patrimoniosSemPaginacao)));
+        atributos.put("passivos", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaValorPassivos(patrimoniosSemPaginacao)));
+        atributos.put("caixa", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaValorCaixa(patrimoniosSemPaginacao)));
+
+        log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("descricao", descricao);
+        atributos.put("tipo", tipo);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("patrimonios", patrimoniosPaginados);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "mesAtual");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (descricao != null) atributos.replace(TIPO_FILTRO, "descricao");
+        if (tipo != null) atributos.replace(TIPO_FILTRO, "tipo");
+
+        log.info("[PROGRESS] Setando atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(patrimoniosSemPaginacao, pageable));
+        atributos.put("totalItens", patrimoniosSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/patrimonios?" + req.getQueryString();
+
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        atributos.put("baseUrl", baseUrl);
+        atributos.put("queryString", req.getQueryString());
+        atributos.put("completeUrl", completeUrl);
+
+        modelMap.addAllAttributes(atributos);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        return modelMap;
+    }
+
 
 }

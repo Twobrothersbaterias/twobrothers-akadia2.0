@@ -3,6 +3,7 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroUsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
+import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.UsuarioCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -53,64 +54,21 @@ public class ColaboradoresController {
                                  ModelMap modelMap,
                                  HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/colaboradores?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<UsuarioEntity> usuariosPaginados = new ArrayList<>();
-        List<UsuarioEntity> usuariosSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-            usuariosPaginados = usuarioService.filtroUsuarios(
-                    pageable,
-                    descricao.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    usuario.orElse(null));
-
-            usuariosSemPaginacao = usuarioService.filtroUsuariosSemPaginacao(
-                    descricao.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    usuario.orElse(null));
-
-            paginas = usuarioService.calculaQuantidadePaginas(usuariosSemPaginacao, pageable);
-
+            usuarioService.modelMapBuilder(modelMap, pageable, req, descricao.orElse(null), inicio.orElse(null),
+                    fim.orElse(null), mes.orElse(null), ano.orElse(null), usuario.orElse(null));
+            if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+                modelAndView.setViewName("colaboradores");
+            }
+            else {
+                modelAndView.setViewName("redirect:/");
+                redirAttrs.addFlashAttribute("ErroCadastro",
+                        "Você não possui o privilégio necessário para acessar a página de colaboradores");
+            }
         } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:usuarios");
-            return modelAndView;
         }
-
-        model.addAttribute("tipoFiltro", "hoje");
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
-        if (usuario.isPresent()) model.addAttribute("tipoFiltro", "usuario");
-
-        model.addAttribute("totalItens", usuariosSemPaginacao.size());
-        model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("usuario", usuario.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("usuarios", usuariosPaginados);
-
-        modelAndView.setViewName("colaboradores");
         return modelAndView;
     }
 

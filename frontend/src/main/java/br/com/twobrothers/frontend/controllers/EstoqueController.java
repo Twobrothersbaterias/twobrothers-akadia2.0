@@ -6,10 +6,8 @@ import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
-import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
 import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.services.exporter.EstoquePdfExporter;
-import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -26,9 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/estoque")
@@ -44,84 +43,30 @@ public class EstoqueController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView Produtos(@PageableDefault(size = 10, page = 0, sort = {"quantidade"}, direction = Sort.Direction.ASC) Pageable pageable,
-                                 @RequestParam("descricao") Optional<String> descricao,
-                                 @RequestParam("inicio") Optional<String> inicio,
-                                 @RequestParam("fim") Optional<String> fim,
-                                 @RequestParam("mes") Optional<String> mes,
-                                 @RequestParam("ano") Optional<String> ano,
-                                 @RequestParam("tipo") Optional<String> tipo,
-                                 @RequestParam("fornecedor") Optional<String> fornecedor,
-                                 Model model, ModelAndView modelAndView,
-                                 RedirectAttributes redirAttrs,
-                                 ModelMap modelMap,
-                                 HttpServletRequest req) {
-
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/estoque?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<ProdutoEstoqueEntity> produtosPaginados = new ArrayList<>();
-        List<ProdutoEstoqueEntity> produtosSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
+    public ModelAndView getProdutos(@PageableDefault(size = 10, page = 0, sort = {"quantidade"}, direction = Sort.Direction.ASC) Pageable pageable,
+                                    @RequestParam("descricao") Optional<String> descricao,
+                                    @RequestParam("inicio") Optional<String> inicio,
+                                    @RequestParam("fim") Optional<String> fim,
+                                    @RequestParam("mes") Optional<String> mes,
+                                    @RequestParam("ano") Optional<String> ano,
+                                    @RequestParam("tipo") Optional<String> tipo,
+                                    @RequestParam("fornecedor") Optional<String> fornecedor,
+                                    Model model, ModelAndView modelAndView,
+                                    RedirectAttributes redirAttrs,
+                                    ModelMap modelMap,
+                                    HttpServletRequest req) {
 
         try {
-            produtosPaginados = produtoEstoqueService.filtroProdutos(
-                    pageable,
-                    descricao.orElse(null),
-                    tipo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    fornecedor.orElse(null));
-
-            produtosSemPaginacao = produtoEstoqueService.filtroProdutosSemPaginacao(
-                    descricao.orElse(null),
-                    tipo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    fornecedor.orElse(null));
-
-            paginas = produtoEstoqueService.calculaQuantidadePaginas(produtosSemPaginacao, pageable);
-
+            produtoEstoqueService.modelMapBuilder(modelMap, pageable, req, descricao.orElse(null),
+                    inicio.orElse(null), fim.orElse(null), mes.orElse(null), ano.orElse(null),
+                    tipo.orElse(null), fornecedor.orElse(null));
+            modelAndView.setViewName("estoque");
+            return modelAndView;
         } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:estoque");
             return modelAndView;
         }
-
-        model.addAttribute("tipoFiltro", "todos");
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
-        if (tipo.isPresent()) model.addAttribute("tipoFiltro", "tipo");
-        if (fornecedor.isPresent()) model.addAttribute("tipoFiltro", "fornecedor");
-
-        model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("tipo", tipo.orElse(null));
-        model.addAttribute("fornecedor", fornecedor.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("produtos", produtosPaginados);
-        model.addAttribute("bruto", converteValorDoubleParaValorMonetario(produtoEstoqueService.calculaValorBruto(produtosSemPaginacao)));
-        model.addAttribute("qtdeBaterias", produtoEstoqueService.calculaQtdBaterias(produtosSemPaginacao));
-        model.addAttribute("qtdeSucatas", produtoEstoqueService.calculaQtdSucatas(produtosSemPaginacao));
-
-        modelAndView.setViewName("estoque");
-        return modelAndView;
     }
 
     @PostMapping

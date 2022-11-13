@@ -10,15 +10,21 @@ import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
+import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_ESTOQUE;
 
 @Slf4j
@@ -29,7 +35,7 @@ public class ProdutoEstoqueService {
     ProdutoEstoqueCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     ProdutoEstoqueRepository produtoEstoqueRepository;
@@ -171,6 +177,79 @@ public class ProdutoEstoqueService {
         }
 
         return URI_ESTOQUE;
+    }
+
+    public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                    String descricao, String inicio, String fim, String mes, String ano,
+                                    String tipo, String fornecedor) {
+
+        log.info("[STARTING] Iniciando construção do modelMap...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        List<ProdutoEstoqueEntity> produtosSemPaginacao = filtroProdutosSemPaginacao(
+                descricao,
+                tipo,
+                inicio,
+                fim,
+                mes,
+                ano,
+                fornecedor);
+
+        List<ProdutoEstoqueEntity> produtosPaginados = filtroProdutos(
+                pageable,
+                descricao,
+                tipo,
+                inicio,
+                fim,
+                mes,
+                ano,
+                fornecedor);
+
+        log.info("[PROGRESS] Setando valores dos informativos...");
+        atributos.put("bruto",
+                ConversorDeDados.converteValorDoubleParaValorMonetario(calculaValorBruto(produtosSemPaginacao)));
+
+        atributos.put("qtdeBaterias", calculaQtdBaterias(produtosSemPaginacao));
+
+        atributos.put("qtdeSucatas", calculaQtdSucatas(produtosSemPaginacao));
+
+        log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("descricao", descricao);
+        atributos.put("tipo", tipo);
+        atributos.put("dataInicio", inicio);
+        atributos.put("dataFim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("fornecedor", fornecedor);
+        atributos.put("produtos", produtosPaginados);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "todos");
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (descricao != null) atributos.replace(TIPO_FILTRO, "descricao");
+        if (tipo != null) atributos.replace(TIPO_FILTRO, "tipo");
+        if (fornecedor != null) atributos.replace(TIPO_FILTRO, "fornecedor");
+
+        log.info("[PROGRESS] Setando atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(produtosSemPaginacao, pageable));
+        atributos.put("totalItens", produtosSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/estoque?" + req.getQueryString();
+
+        atributos.put("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        atributos.put("baseUrl", baseUrl);
+        atributos.put("queryString", req.getQueryString());
+        atributos.put("completeUrl", completeUrl);
+
+        modelMap.addAllAttributes(atributos);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        return modelMap;
     }
 
 }

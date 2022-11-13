@@ -3,15 +3,12 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
-import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.DespesaService;
 import br.com.twobrothers.frontend.services.exporter.DespesaPdfExporter;
-import br.com.twobrothers.frontend.services.exporter.EstoquePdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,39 +64,17 @@ public class DespesaController {
                                  ModelMap modelMap,
                                  HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/despesas?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<DespesaEntity> despesasPaginadas = new ArrayList<>();
-        List<DespesaEntity> despesasSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-            despesasPaginadas = despesaService.filtroDespesas(
-                    pageable,
-                    descricao.orElse(null),
-                    tipo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null));
-
-            despesasSemPaginacao = despesaService.filtroDespesasSemPaginacao(
-                    descricao.orElse(null),
-                    tipo.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null));
-
-            paginas = despesaService.calculaQuantidadePaginas(despesasSemPaginacao, pageable);
-
+            despesaService.modelMapBuilder(modelMap, pageable, req, descricao.orElse(null), tipo.orElse(null),
+                    inicio.orElse(null), fim.orElse(null), mes.orElse(null), ano.orElse(null));
+            if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR))
+                modelAndView.setViewName("despesas");
+            else {
+                modelAndView.setViewName("redirect:/");
+                redirAttrs.addFlashAttribute("ErroCadastro",
+                        "Você não possui o privilégio necessário para acessar a página de despesas");
+            }
+            return modelAndView;
         }
         catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
@@ -107,36 +82,6 @@ public class DespesaController {
             return modelAndView;
         }
 
-        model.addAttribute("tipoFiltro", "hoje");
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
-        if (tipo.isPresent()) model.addAttribute("tipoFiltro", "tipo");
-
-        model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("tipo", tipo.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("despesas", despesasPaginadas);
-        model.addAttribute("pago", converteValorDoubleParaValorMonetario(despesaService.calculaValorPago(despesasSemPaginacao)));
-        model.addAttribute("pendente", converteValorDoubleParaValorMonetario(despesaService.calculaValorPendente(despesasSemPaginacao)));
-        model.addAttribute("pagar", despesaService.pendentesHoje());
-
-        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
-            modelAndView.setViewName("despesas");
-        }
-        else {
-            modelAndView.setViewName("redirect:/");
-            redirAttrs.addFlashAttribute("ErroCadastro",
-                    "Você não possui o privilégio necessário para acessar a página de despesas");
-        }
-
-        return modelAndView;
     }
 
     @PostMapping

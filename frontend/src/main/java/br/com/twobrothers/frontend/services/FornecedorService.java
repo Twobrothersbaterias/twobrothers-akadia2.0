@@ -1,6 +1,5 @@
 package br.com.twobrothers.frontend.services;
 
-import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroFornecedorDTO;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
@@ -8,15 +7,20 @@ import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.FornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_ORDENS;
 
 @Slf4j
@@ -27,13 +31,10 @@ public class FornecedorService {
     FornecedorCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     FornecedorRepository fornecedorRepository;
-
-    @Autowired
-    ModelMapperConfig modelMapper;
 
     public String encaminhaParaCriacaoDoCrudService(FornecedorDTO fornecedor) {
         try {
@@ -143,5 +144,70 @@ public class FornecedorService {
 
         return URI_ORDENS;
     }
+
+    public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
+                                    String descricao, String inicio, String fim, String mes, String ano, String cpfCnpj, String telefone) {
+
+        log.info("[STARTING] Iniciando construção do modelMap...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        List<FornecedorEntity> patrimoniosSemPaginacao = filtroFornecedoresSemPaginacao(
+                descricao,
+                inicio,
+                fim,
+                mes,
+                ano,
+                cpfCnpj,
+                telefone);
+
+        List<FornecedorEntity> fornecedoresPaginados = filtroFornecedores(
+                pageable,
+                descricao,
+                inicio,
+                fim,
+                mes,
+                ano,
+                cpfCnpj,
+                telefone);
+
+        log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("descricao", descricao);
+        atributos.put("dataInicio", inicio);
+        atributos.put("dataFim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("cpfCnpj", cpfCnpj);
+        atributos.put("telefone", telefone);
+        atributos.put("fornecedores", fornecedoresPaginados);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "hoje");
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (descricao != null) atributos.replace(TIPO_FILTRO, "descricao");
+        if (cpfCnpj != null) atributos.replace(TIPO_FILTRO, "cpfCnpj");
+        if (telefone != null) atributos.replace(TIPO_FILTRO, "telefone");
+
+        log.info("[PROGRESS] Setando atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(patrimoniosSemPaginacao, pageable));
+        atributos.put("totalItens", patrimoniosSemPaginacao.size());
+
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + "/patrimonios?" + req.getQueryString();
+
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
+        atributos.put("baseUrl", baseUrl);
+        atributos.put("queryString", req.getQueryString());
+        atributos.put("completeUrl", completeUrl);
+
+        modelMap.addAllAttributes(atributos);
+
+        log.info("[SUCCESS] ModelMap construído com sucesso. Retornando para o controller...");
+        return modelMap;
+    }
+
 
 }

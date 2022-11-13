@@ -9,7 +9,6 @@ import br.com.twobrothers.frontend.repositories.services.FornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.FornecedorService;
 import br.com.twobrothers.frontend.services.exporter.FornecedorPdfExporter;
-import br.com.twobrothers.frontend.services.exporter.VendaPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/fornecedores")
@@ -55,76 +57,22 @@ public class FornecedorController {
                                  ModelMap modelMap,
                                  HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/fornecedores?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<FornecedorEntity> fornecedoresPaginados = new ArrayList<>();
-        List<FornecedorEntity> fornecedoresSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-            fornecedoresPaginados = fornecedorService.filtroFornecedores(
-                    pageable,
-                    descricao.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    cpfCnpj.orElse(null),
-                    telefone.orElse(null));
+            fornecedorService.modelMapBuilder(modelMap, pageable, req, descricao.orElse(null), inicio.orElse(null), fim.orElse(null),
+                    mes.orElse(null), ano.orElse(null), cpfCnpj.orElse(null), telefone.orElse(null));
 
-            fornecedoresSemPaginacao = fornecedorService.filtroFornecedoresSemPaginacao(
-                    descricao.orElse(null),
-                    inicio.orElse(null),
-                    fim.orElse(null),
-                    mes.orElse(null),
-                    ano.orElse(null),
-                    cpfCnpj.orElse(null),
-                    telefone.orElse(null));
-
-            paginas = fornecedorService.calculaQuantidadePaginas(fornecedoresSemPaginacao, pageable);
-
+            if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+                modelAndView.setViewName("fornecedores");
+            }
+            else {
+                modelAndView.setViewName("redirect:/");
+                redirAttrs.addFlashAttribute("ErroCadastro",
+                        "Você não possui o privilégio necessário para acessar a página de fornecedores");
+            }
         } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:fornecedores");
-            return modelAndView;
         }
-
-        model.addAttribute("tipoFiltro", "hoje");
-
-        if (inicio.isPresent() && fim.isPresent()) model.addAttribute("tipoFiltro", "data");
-        if (mes.isPresent() && ano.isPresent()) model.addAttribute("tipoFiltro", "periodo");
-        if (descricao.isPresent()) model.addAttribute("tipoFiltro", "descricao");
-        if (cpfCnpj.isPresent()) model.addAttribute("tipoFiltro", "cpfCnpj");
-        if (telefone.isPresent()) model.addAttribute("tipoFiltro", "telefone");
-
-        model.addAttribute("totalItens", fornecedoresSemPaginacao.size());
-        model.addAttribute("descricao", descricao.orElse(null));
-        model.addAttribute("dataInicio", inicio.orElse(null));
-        model.addAttribute("dataFim", fim.orElse(null));
-        model.addAttribute("mes", mes.orElse(null));
-        model.addAttribute("ano", ano.orElse(null));
-        model.addAttribute("cpfCnpj", cpfCnpj.orElse(null));
-        model.addAttribute("telefone", telefone.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("fornecedores", fornecedoresPaginados);
-
-        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
-            modelAndView.setViewName("fornecedores");
-        }
-        else {
-            modelAndView.setViewName("redirect:/");
-            redirAttrs.addFlashAttribute("ErroCadastro",
-                    "Você não possui o privilégio necessário para acessar a página de controle de fornecedores");
-        }
-
         return modelAndView;
 
     }
