@@ -32,6 +32,7 @@ function bind(keyCode) {
         fechaNovoItem();
         fecharFiltro();
         fecharEditaItem();
+        hideMessage();        
     }
 
     if(keyCode == '13') {

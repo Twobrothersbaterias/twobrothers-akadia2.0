@@ -25,6 +25,7 @@ function bind(keyCode) {
 
     if(keyCode == '27') {
         fecharFiltro();
+        hideMessage();
     }
 
     if(keyCode == '13') {

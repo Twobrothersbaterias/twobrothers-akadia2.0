@@ -29,6 +29,7 @@ function bind(keyCode) {
         fechaNovoItem();
         fecharFiltro();
         fechaEditaItem();
+        hideMessage();        
     }
 
     if(keyCode == '13') {
@@ -570,7 +571,7 @@ function responsive(){
 			liA[i].style.fontSize="0.60rem";
 			liA[i].style.padding="5px 10px";
 		}
-		
+
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
 			formRemoveImg[i].style.maxWidth="55%";		

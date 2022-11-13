@@ -5,15 +5,22 @@ import br.com.twobrothers.frontend.models.dto.filters.FiltroPostagemDTO;
 import br.com.twobrothers.frontend.models.dto.postagem.PostagemDTO;
 import br.com.twobrothers.frontend.models.entities.postagem.PostagemEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.CategoriaCrudService;
 import br.com.twobrothers.frontend.repositories.services.PostagemCrudService;
+import br.com.twobrothers.frontend.repositories.services.SubCategoriaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
 
@@ -21,11 +28,19 @@ import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
 @Service
 public class PostagemService {
 
+    private static final String TIPO_FILTRO = "tipoFiltro";
+
     @Autowired
     PostagemCrudService crudService;
 
     @Autowired
-    UsuarioRepository usuario;
+    CategoriaCrudService categoriaCrudService;
+
+    @Autowired
+    SubCategoriaCrudService subCategoriaCrudService;
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     ModelMapperConfig modelMapper;
@@ -126,6 +141,52 @@ public class PostagemService {
         }
 
         return URI_POSTAGEM;
+    }
+
+    public ModelMap modelMapperBuilder(ModelMap modelMap, Pageable pageable,
+                                       String titulo, String inicio, String fim,
+                                       Integer mes, Integer ano, String categoria) {
+
+        log.info("[STARTING] Iniciando método de construção de atributos passados por PathParam...");
+        HashMap<String, Object> atributos = new HashMap<>();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de itens encontrados...");
+
+        List<PostagemEntity> postagens = filtroPostagensSemPaginacao(
+                titulo,
+                inicio,
+                fim,
+                mes,
+                ano,
+                categoria);
+
+        atributos.put("postagens", postagens);
+
+        log.info("[PROGRESS] Inicializando setagem de atributos de busca...");
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("titulo", titulo);
+        atributos.put("inicio", inicio);
+        atributos.put("fim", fim);
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
+        atributos.put("categoria", categoria);
+
+        log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
+        atributos.put(TIPO_FILTRO, "hoje");
+        if (inicio != null && fim != null) atributos.replace(TIPO_FILTRO, "data");
+        if (mes != null && ano != null) atributos.replace(TIPO_FILTRO, "periodo");
+        if (titulo != null) atributos.replace(TIPO_FILTRO, "titulo");
+        if (categoria != null) atributos.replace(TIPO_FILTRO, "categoria");
+
+        log.info("[PROGRESS] Inicializando setagem de atributos da página...");
+        atributos.put("pagina", pageable.getPageNumber());
+        atributos.put("paginas", calculaQuantidadePaginas(postagens, pageable));
+        atributos.put("totalItens", postagens.size());
+        atributos.put("categorias", categoriaCrudService.buscaTodasCategorias());
+        atributos.put("subcategorias", subCategoriaCrudService.buscaTodasCategorias());
+
+        modelMap.addAllAttributes(atributos);
+        return modelMap;
     }
 
 }

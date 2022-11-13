@@ -102,6 +102,7 @@ function bind(keyCode) {
     	}
     	else {
     		fecharTabelaProdutos();
+    		hideMessage();
     	}
     }
 
@@ -1811,7 +1812,9 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 
 	var inputEntradasSplitPai = inputEntradas.split("ENTRADA=");
 
-	document.getElementById('tr_base').hidden=true;
+	if (document.getElementById('tr_base') != null) {
+		document.getElementById('tr_base').hidden=true;
+	}
 
 	for(var i = 1; i < inputEntradasSplitPai.length; i++) {
 
@@ -1828,32 +1831,51 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 		}
 
 		$(table).find('tbody').append(
-			"<tr class='tr_novo_body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>" +
+			"<tr data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='tr_novo_body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>" +
+
 				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>" 
 					+ tipo +
 				"</td>" +
+
 				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
 					+ (inputEntradasSplitPai[i].split(";")[2]) + 
 				"</td>" +
+
 				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>" 
 					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
+
 				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
 					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
-				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
+
+				"<td" 
+				+ " data-tipo=" + (inputEntradasSplitPai[i].split(";")[0])
+				+ " data-troca=" + (inputEntradasSplitPai[i].split(";")[1])
+				+ " data-produto=" + (inputEntradasSplitPai[i].split(";")[2])
+				+ " data-valor=" + (inputEntradasSplitPai[i].split(";")[3])
+				+ " data-quantidade=" + (inputEntradasSplitPai[i].split(";")[4])
+				+ " onclick=removeItemTb('"+ inputEntradasSplitPai[i] +"')" 
+				+ " class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
+					
 					+ "<form class='form_remove_img'>"
+
 						+ "<input type='text' hidden/>"
-						+ "<button type='submit' class='col-lg-12 btn_excluir_img'>"
+						+ "<button type='button' class='col-lg-12 btn_excluir_img'>"
 							+ "<img src='img/minus-green.png' th:src='@{img/minus-green.png}' class='excluir_img' id='excluir_img'/>"
 						+ "</button>"
+
 					+ "</form>"	
+
 					+ "<form class='form_remove_text'>"
+
 						+ "<input type='text' hidden/>"
-						+ "<button type='submit' class='col-lg-12 btn_excluir'>"
+						+ "<button type='button' class='col-lg-12 btn_excluir'>"
 							+ "<div class='excluir_text' id='excluir_text'>"
 								+ "Excluir"
 							+ "</div>"
 						+ "</button>"
+
 					+ "</form>"
+
 				+ "</td>"
 
 			+ "</tr>");		
@@ -1862,24 +1884,159 @@ function AjustaTabelaDeProdutos(inputEntradas) {
 	responsive();
 }
 
-function removeItemTb(item) {
+function atualizaTabelaDeProdutos(inputEntradas) {
 
-	console.log("Entradas: \n" + inputEntradas.value);
+	console.log('ATUALIZA TABELA ACESSADO');
 
-	/*var inputEntradas = document.getElementById('input_entradas');
+	console.log("VALOR RECEBIDO: " + inputEntradas);
 
-	var entrada = (inputEntradas.value.split("ENTRADA="))[item];
+	var totalEntradas = 0;
 
-	if(inputEntradas.value.includes(entrada)) {
-		inputEntradas.value=inputEntradas.value.replace("ENTRADA=" + entrada, "");
+	var inputEntradasSplitPai = inputEntradas.split("ENTRADA=");
+
+	console.log(inputEntradasSplitPai);
+
+	if (document.getElementById('tr_base') != null) {
+		document.getElementById('tr_base').hidden=true;
 	}
 
-	document.getElementsByClassName('tr_novo_body')[parseInt(item)-1].parentNode.removeChild(document.getElementsByClassName('tr_novo_body')[parseInt(item)-1]);
-	calculaInformativos();
+	for(var i = 1; i < inputEntradasSplitPai.length; i++) {
 
-	if (document.getElementsByClassName('tr_novo_body').length < 1) {
-		document.getElementById('tr_base').hidden=false;
-	}*/
+		console.log("SPLITADO " + i + ": " + inputEntradasSplitPai[i]);
+
+		var tipo = null;
+
+		if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_SERVICO") {
+			tipo = "Serviço"
+		}
+		else if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_PRODUTO") {
+			tipo = "Produto";
+		}
+		else {
+			tipo = "Garantia"
+		}
+
+		$(table).find('tbody').append(
+			"<tr data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='tr_novo_body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>" +
+
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>" 
+					+ tipo +
+				"</td>" +
+
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
+					+ (inputEntradasSplitPai[i].split(";")[2]) + 
+				"</td>" +
+
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>" 
+					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
+
+				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
+					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+
+				"<td" 
+				+ " data-tipo=" + (inputEntradasSplitPai[i].split(";")[0])
+				+ " data-troca=" + (inputEntradasSplitPai[i].split(";")[1])
+				+ " data-produto=" + (inputEntradasSplitPai[i].split(";")[2])
+				+ " data-valor=" + (inputEntradasSplitPai[i].split(";")[3])
+				+ " data-quantidade=" + (inputEntradasSplitPai[i].split(";")[4])
+				+ " onclick=removeItemTb('"+ inputEntradasSplitPai[i] +"')" 
+				+ " class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
+					
+					+ "<form class='form_remove_img'>"
+
+						+ "<input type='text' hidden/>"
+						+ "<button type='button' class='col-lg-12 btn_excluir_img'>"
+							+ "<img src='img/minus-green.png' th:src='@{img/minus-green.png}' class='excluir_img' id='excluir_img'/>"
+						+ "</button>"
+
+					+ "</form>"	
+
+					+ "<form class='form_remove_text'>"
+
+						+ "<input type='text' hidden/>"
+						+ "<button type='button' class='col-lg-12 btn_excluir'>"
+							+ "<div class='excluir_text' id='excluir_text'>"
+								+ "Excluir"
+							+ "</div>"
+						+ "</button>"
+
+					+ "</form>"
+
+				+ "</td>"
+
+			+ "</tr>");		
+	}
+
+	responsive();
+
+}
+
+function removeItemTb(item) {
+	var inputEntradas = document.getElementById('input_entradas');
+	inputEntradas.value = (inputEntradas.value.replace("ENTRADA=" + item, ""));
+	calculaInformativos();
+	
+	console.log(inputEntradas.value);
+
+	$("#tbody_novo").remove();
+
+	$(table).append(
+
+		"<tbody id='tbody_novo' class='tbody_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>"
+			
+			+ "<tr id='tr_base' class='tr_novo col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>"
+			
+				+ "<td class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>"
+					+ "..."
+				+ "</td>"
+
+				+ "<td class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
+					+ "..."
+				+ "</td>"
+
+				+ "<td class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>"
+					+ "..."
+				+ "</td>"
+
+				+ "<td class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>"
+					+ "..."
+				+ "</td>"
+
+				+ "<td class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
+
+					+ "<form class='form_remove_img'>"
+
+						+ "<input type='text' hidden/>"
+						+ "<button type='button' class='col-lg-12 btn_excluir_img'>"
+							+ "<img src='img/minus-green.png' th:src='@{img/minus-green.png}' class='excluir_img' id='excluir_img'/>"
+						+ "</button>"
+
+					+ "</form>"	
+
+					+ "<form class='form_remove_text'>"
+
+						+ "<input type='text' hidden/>"
+						+ "<button type='button' class='col-lg-12 btn_excluir'>"
+							+ "<div class='excluir_text' id='excluir_text'>"
+								+ "Excluir"
+							+ "</div>"
+						+ "</button>"
+
+					+ "</form>"
+
+				+ "</td>"	
+
+			+ "</tr>"
+
+		+ "</tbody>");
+
+	if (inputEntradas.value != "" && inputEntradas.value != null) {
+		atualizaTabelaDeProdutos(inputEntradas.value);
+	}
+	else {
+		responsive();
+	}
+
 }
 
 /* ====================== Setup de edição ========================= */

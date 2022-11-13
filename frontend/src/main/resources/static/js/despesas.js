@@ -27,6 +27,7 @@ function bind(keyCode) {
         fechaNovaDespesa();
         fecharFiltro();
         fecharEditaDespesa();
+        hideMessage();        
     }
 
     if(keyCode == '13') {
