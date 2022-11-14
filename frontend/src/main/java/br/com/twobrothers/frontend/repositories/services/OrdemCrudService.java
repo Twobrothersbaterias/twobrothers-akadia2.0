@@ -6,6 +6,7 @@ import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.entities.*;
+import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
 import br.com.twobrothers.frontend.repositories.*;
@@ -302,7 +303,13 @@ public class OrdemCrudService {
     public List<OrdemEntity> buscaPorProdutoPaginado(Pageable pageable, String produto) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de ordem por produto...");
-        return repository.findByEntradasProdutoSigla(pageable, produto).toList();
+        return repository.findByEntradasProdutoSiglaContainingIgnoreCase(pageable, produto).toList();
+    }
+
+    public List<OrdemEntity> buscaPorMarcaPaginado(Pageable pageable, String marca) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por marca...");
+        return repository.findByEntradasProdutoSiglaContainingIgnoreCase(pageable, marca).toList();
     }
 
     public List<OrdemEntity> buscaPorBairroPaginado(Pageable pageable, String bairro) {
@@ -315,6 +322,15 @@ public class OrdemCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de ordem por cliente...");
         return repository.buscaPorClientePaginado(pageable, Long.parseLong(cliente));
+    }
+
+    public List<OrdemEntity> buscaPorPdvPaginado(Pageable pageable, String pdv) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por pdv...");
+        if (pdv.equals("Loja 1")) pdv = "PONTO_1";
+        if (pdv.equals("Loja Valt")) pdv = "PONTO_VALT";
+        if (pdv.contains("obile")) pdv = "PONTO_MOBILE";
+        return repository.buscaPorPdvPaginado(pageable, LojaEnum.valueOf(pdv));
     }
 
     public List<OrdemEntity> buscaPorRangeDeDataSemPaginacao(String dataInicio, String dataFim) {
@@ -343,7 +359,14 @@ public class OrdemCrudService {
         log.info(BARRA_DE_LOG);
         Pageable pageable = PageRequest.of(0, 999999);
         log.info("[STARTING] Iniciando método de busca de ordem por produto...");
-        return repository.findByEntradasProdutoSigla(pageable, produto).toList();
+        return repository.findByEntradasProdutoSiglaContainingIgnoreCase(pageable, produto).toList();
+    }
+
+    public List<OrdemEntity> buscaPorMarcaSemPaginacao(String marca) {
+        log.info(BARRA_DE_LOG);
+        Pageable pageable = PageRequest.of(0, 999999);
+        log.info("[STARTING] Iniciando método de busca de ordem por marca...");
+        return repository.findByEntradasProdutoMarcaBateriaContainingIgnoreCase(pageable, marca).toList();
     }
 
     public List<OrdemEntity> buscaPorBairroSemPaginacao(String bairro) {
@@ -356,6 +379,16 @@ public class OrdemCrudService {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de ordem por cliente...");
         return repository.buscaPorClienteSemPaginacao(Long.parseLong(cliente));
+    }
+
+    public List<OrdemEntity> buscaPorPdvSemPaginacao(String pdv) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por pdv...");
+
+        if (pdv.equals("Loja 1")) pdv = "PONTO_1";
+        if (pdv.equals("Loja Valt")) pdv = "PONTO_VALT";
+        if (pdv.contains("obile")) pdv = "PONTO_MOBILE";
+        return repository.buscaPorPdvSemPaginacao(LojaEnum.valueOf(pdv));
     }
 
     public OrdemDTO atualizaPorId(Long id, OrdemDTO ordem) {

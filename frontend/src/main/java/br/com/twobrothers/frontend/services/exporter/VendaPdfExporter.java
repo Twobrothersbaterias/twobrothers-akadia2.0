@@ -167,6 +167,12 @@ public class VendaPdfExporter {
                 titulo = "Relatório de ordens cadastradas no mês " + filtros.get("mes")
                         + " de " + filtros.get("ano");
                 break;
+            } else if (set.getKey().equals("marca") && set.getValue() != null) {
+                titulo = "Relatório de ordens com o produto " + filtros.get("marca");
+                break;
+            } else if (set.getKey().equals("pdv") && set.getValue() != null) {
+                titulo = "Relatório de ordens cadastradas no ponto de venda " + filtros.get("pdv");
+                break;
             } else {
                 titulo = "Relatório geral de vendas";
             }

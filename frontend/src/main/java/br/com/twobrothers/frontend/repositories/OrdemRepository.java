@@ -1,8 +1,7 @@
 package br.com.twobrothers.frontend.repositories;
 
-import br.com.twobrothers.frontend.models.entities.ClienteEntity;
-import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,9 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Gabriel Lagrota
@@ -25,7 +22,9 @@ import java.util.Optional;
 @Repository
 public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
 
-    Page<OrdemEntity> findByEntradasProdutoSigla(Pageable pageable, String sigla);
+    Page<OrdemEntity> findByEntradasProdutoSiglaContainingIgnoreCase(Pageable pageable, String sigla);
+
+    Page<OrdemEntity> findByEntradasProdutoMarcaBateriaContainingIgnoreCase(Pageable pageable, String marca);
 
     @Query("Select o From OrdemEntity o where o.dataCadastro = ?1 OR o.retirada.dataAgendamento <= ?1")
     List<OrdemEntity> buscaHojePaginado(Pageable pageable, String hoje);
@@ -39,6 +38,9 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
     @Query("Select o From OrdemEntity o where o.cliente.id = ?1")
     List<OrdemEntity> buscaPorClientePaginado(Pageable pageable, Long cliente);
 
+    @Query("Select o From OrdemEntity o where o.loja = ?1")
+    List<OrdemEntity> buscaPorPdvPaginado(Pageable pageable, LojaEnum loja);
+
     @Query("Select o From OrdemEntity o where o.dataCadastro = ?1 OR o.retirada.dataAgendamento <= ?1")
     List<OrdemEntity> buscaHojeSemPaginacao(String hoje);
 
@@ -50,5 +52,8 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
 
     @Query("Select o From OrdemEntity o where o.cliente.id = ?1")
     List<OrdemEntity> buscaPorClienteSemPaginacao(Long cliente);
+
+    @Query("Select o From OrdemEntity o where o.loja = ?1")
+    List<OrdemEntity> buscaPorPdvSemPaginacao(LojaEnum loja);
 
 }

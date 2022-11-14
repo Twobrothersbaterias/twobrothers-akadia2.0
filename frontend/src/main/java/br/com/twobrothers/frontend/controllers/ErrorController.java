@@ -29,6 +29,9 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
     @RequestMapping("/error")
     public ModelAndView error(ModelAndView modelAndView, HttpServletRequest req, ModelMap modelMap) {
 
+        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
+        String completeUrl = baseUrl + req.getRequestURI() + "/" + req.getQueryString();
+
         Object status = req.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         Throwable throwable = (Throwable) req.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
 
@@ -38,6 +41,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             modelAndView.addObject("trace", Arrays.toString(throwable.getStackTrace()));
             modelAndView.addObject("cause", throwable.getCause());
             modelAndView.addObject("localizedMessage", throwable.getLocalizedMessage());
+            modelAndView.addObject("url", completeUrl);
         }
 
         if (status != null) {
@@ -50,9 +54,8 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             }
             else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()){
                 modelAndView.addObject("title", "Ops! Ocorreu uma falha técnica");
-                modelAndView.addObject("text", "Ocorreu um erro interno no sistema. Contate " +
-                        "imediatamente o desenvolvedor responsável após clicar no botão log de erro e fazer o download " +
-                        "do log");
+                modelAndView.addObject("text", "Ocorreu um erro interno no sistema. Envie imediatamente " +
+                        "o log de erro para o desenvolvedor responsável para que essa falha seja corrigida");
 
             }
         }

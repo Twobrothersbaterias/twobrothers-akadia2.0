@@ -322,6 +322,14 @@
 							<input th:value="${cliente}" id="back_cliente" hidden>
 						</div>
 
+						<div th:if="${tipoFiltro == 'marca'}">
+							<input th:value="${marca}" id="back_marca" hidden>
+						</div>
+
+						<div th:if="${tipoFiltro == 'pdv'}">
+							<input th:value="${pdv}" id="back_pdv" hidden>
+						</div>												
+
 						<div th:if="${tipoFiltro == 'cliente'}">
 							<input th:value="${clienteNome}" id="back_clienteNome" hidden>
 						</div>									
@@ -607,6 +615,8 @@
 						<option value="DATA" id="tipo_filtro_option_data">Data a data</option>
 						<option value="PERIODO" id="tipo_filtro_option_periodo">Por período</option>
 						<option value="BAIRRO" id="tipo_filtro_option_bairro">Por bairro</option>
+						<option value="MARCA" id="tipo_filtro_option_marca">Por marca</option>
+						<option value="PDV" id="tipo_filtro_option_pdv">Por ponto de venda</option>
 					</select>
 				</div>		
 
@@ -629,9 +639,7 @@
 						Data fim
 					</label>
 					<input onchange="dataFiltroResponsiva()" onkeydown="return false" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="date" id="data_fim_filtro_input"/>
-				</div>									
-
-
+				</div>													
 
 				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_mes_block" hidden>
 					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -671,7 +679,25 @@
 						Bairro
 					</label>
 					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="20"id="bairro_filtro_input"/>
-				</div>															
+				</div>	
+
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_marca_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						Marca
+					</label>
+					<input autocomplete="off" class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" type="text" maxlength="20"id="marca_filtro_input"/>
+				</div>	
+
+				<div class="filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_pdv_block" hidden>
+					<label class="row filtro_form_row filtro_label col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						PDV
+					</label>
+					<select class="row filtro_form_row filtro_input col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="pdv_filtro_input">
+						<option value="Loja 1">Loja 1</option>
+						<option value="Loja Valt">Loja Valt</option>
+						<option value="Lançamento mobile">Lançamento Mobile</option>
+					</select>
+				</div>																							
 
 				<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"  id="filtro_second_block">			
 					<button class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bt" onclick="addFiltro()">
@@ -698,7 +724,15 @@
 
 				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_bairro_tag" onclick="removerFiltro('bairro')" onmouseover="efeitoRemoverFiltro('bairro')" onmouseleave="efeitoRemoverFiltroLeave('bairro')"hidden>
 					Bairro
-				</div>														
+				</div>		
+
+				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_marca_tag" onclick="removerFiltro('marca')" onmouseover="efeitoRemoverFiltro('marca')" onmouseleave="efeitoRemoverFiltroLeave('marca')"hidden>
+					Marca
+				</div>		
+
+				<div class="filtro_tag col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_pdv_tag" onclick="removerFiltro('pdv')" onmouseover="efeitoRemoverFiltro('pdv')" onmouseleave="efeitoRemoverFiltroLeave('pdv')"hidden>
+					Ponto de venda
+				</div>	
 
 				<form th:action="@{vendas/filtro}" method="POST" th:object="${filtroOrdem}" class="form_fantasma_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="form_fantasma_filtro">
 
@@ -708,6 +742,8 @@
 					<input type="text" name="periodoMes" id="input_periodo_mes_backend" hidden/>
 					<input type="text" name="periodoAno" id="input_periodo_ano_backend" hidden/>
 					<input type="text" name="bairro" id="input_bairro_backend" hidden/>
+					<input type="text" name="marca" id="input_marca_backend" hidden/>
+					<input type="text" name="pdv" id="input_pdv_backend" hidden/>
 
 					<div class="filtro_block add_filtro_block col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="filtro_buscar_bt" hidden>	
 						<button type="submit" id="filtro_buscar_bt_inside" class="add_filtro col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

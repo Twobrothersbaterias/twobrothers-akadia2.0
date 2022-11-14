@@ -63,13 +63,17 @@ public class OrdemService {
             String ano,
             String produto,
             String bairro,
-            String cliente) throws InvalidRequestException {
+            String cliente,
+            String marca,
+            String pdv) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeData(pageable, dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodo(pageable, Integer.parseInt(mes), Integer.parseInt(ano));
         else if (produto != null) return crudService.buscaPorProdutoPaginado(pageable, produto);
         else if (bairro != null) return crudService.buscaPorBairroPaginado(pageable, bairro);
         else if (cliente != null) return crudService.buscaPorClientePaginado(pageable, cliente);
+        else if (marca != null) return crudService.buscaPorMarcaPaginado(pageable, marca);
+        else if (pdv != null) return crudService.buscaPorPdvPaginado(pageable, pdv);
         else return crudService.buscaHojePaginado(pageable);
     }
 
@@ -80,13 +84,17 @@ public class OrdemService {
             String ano,
             String produto,
             String bairro,
-            String cliente) throws InvalidRequestException {
+            String cliente,
+            String marca,
+            String pdv) throws InvalidRequestException {
         if (dataInicio != null && dataFim != null)
             return crudService.buscaPorRangeDeDataSemPaginacao(dataInicio, dataFim);
         else if (mes != null && ano != null) return crudService.buscaPorPeriodoSemPaginacao(Integer.parseInt(mes), Integer.parseInt(ano));
         else if (produto != null) return crudService.buscaPorProdutoSemPaginacao(produto);
         else if (bairro != null) return crudService.buscaPorBairroSemPaginacao(bairro);
         else if (cliente != null) return crudService.buscaPorClienteSemPaginacao(cliente);
+        else if (marca != null) return crudService.buscaPorMarcaSemPaginacao(marca);
+        else if (pdv != null) return crudService.buscaPorPdvSemPaginacao(pdv);
         else return crudService.buscaHojeSemPaginacao();
     }
 
@@ -95,15 +103,17 @@ public class OrdemService {
         Integer contadorPaginas = 0;
         int contador = 0;
         paginas.add(contadorPaginas);
-        for (int i = 0; i < ordens.size(); i++) {
+        if (ordens != null) {
+            for (int i = 0; i < ordens.size(); i++) {
 
-            if (contador == pageable.getPageSize()) {
-                contadorPaginas++;
-                paginas.add(contadorPaginas);
-                contador = 0;
+                if (contador == pageable.getPageSize()) {
+                    contadorPaginas++;
+                    paginas.add(contadorPaginas);
+                    contador = 0;
+                }
+                contador++;
+
             }
-            contador++;
-
         }
         return paginas;
     }
@@ -177,12 +187,20 @@ public class OrdemService {
             URI_ORDENS += "bairro=" + filtroOrdemDTO.getBairro();
         }
 
+        if (filtroOrdemDTO.getMarca() != null && !filtroOrdemDTO.getMarca().equals("")) {
+            URI_ORDENS += "marca=" + filtroOrdemDTO.getMarca();
+        }
+
+        if (filtroOrdemDTO.getPdv() != null && !filtroOrdemDTO.getPdv().equals("")) {
+            URI_ORDENS += "pdv=" + filtroOrdemDTO.getPdv();
+        }
+
         return URI_ORDENS;
     }
 
     public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,
-                                    String inicio, String fim,
-                                    String mes, String ano, String produto, String bairro, String cliente) {
+                                    String inicio, String fim, String mes, String ano, String produto, String bairro,
+                                    String cliente, String marca, String pdv) {
 
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
@@ -196,7 +214,9 @@ public class OrdemService {
                 ano,
                 produto,
                 bairro,
-                cliente);
+                cliente,
+                marca,
+                pdv);
 
         List<OrdemEntity> ordensPaginadas = filtroOrdens(
                 pageable,
@@ -206,7 +226,9 @@ public class OrdemService {
                 ano,
                 produto,
                 bairro,
-                cliente);
+                cliente,
+                marca,
+                pdv);
 
         log.info("[PROGRESS] Setando valores dos informativos...");
         atributos.put("quantidadeVendida", calculaQuantidadeVendida(ordensSemPaginacao));
@@ -230,6 +252,8 @@ public class OrdemService {
         atributos.put("produto", produto);
         atributos.put("bairro", bairro);
         atributos.put("cliente", cliente);
+        atributos.put("marca", marca);
+        atributos.put("pdv", pdv);
         atributos.put("ordens", ordensPaginadas);
 
         log.info("[PROGRESS] Inicializando setagem de tipo de filtro...");
@@ -239,6 +263,8 @@ public class OrdemService {
         if (produto != null) atributos.replace(TIPO_FILTRO, "produto");
         if (bairro != null) atributos.replace(TIPO_FILTRO, "bairro");
         if (cliente != null) atributos.replace(TIPO_FILTRO, "cliente");
+        if (marca != null) atributos.replace(TIPO_FILTRO, "marca");
+        if (pdv != null) atributos.replace(TIPO_FILTRO, "pdv");
         if (cliente != null) atributos.put("clienteNome", clienteRepository.findById(Long.valueOf(cliente)).get().getNomeCompleto());
 
         log.info("[PROGRESS] Setando atributos da página...");

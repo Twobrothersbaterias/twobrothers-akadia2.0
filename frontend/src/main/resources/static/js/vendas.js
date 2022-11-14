@@ -715,6 +715,12 @@ function filtroChange() {
 	var bairro = document.getElementById('filtro_bairro_block');
 	var bairroInput = document.getElementById('bairro_filtro_input');	
 
+	var marca = document.getElementById('filtro_marca_block');
+	var marcaInput = document.getElementById('marca_filtro_input');	
+
+	var pdv = document.getElementById('filtro_pdv_block');
+	var pdvInput = document.getElementById('pdv_filtro_input');			
+
 	const d = new Date();
 	var ano = d.getFullYear();
 	var mes = d.getMonth()+1;
@@ -749,6 +755,12 @@ function filtroChange() {
 		bairroInput.value="";
 		bairro.hidden=true;
 
+		marcaInput.value="";
+		marca.hidden=true;
+
+		pdvInput.value="";
+		pdv.hidden=true;				
+
 	}
 	else if (filtroTipo.value == 'DATA') {
 
@@ -769,6 +781,12 @@ function filtroChange() {
 
 		bairroInput.value="";
 		bairro.hidden=true;
+
+		marcaInput.value="";
+		marca.hidden=true;
+
+		pdvInput.value="";
+		pdv.hidden=true;				
 		
 	}
 	else if (filtroTipo.value == 'PERIODO') {
@@ -790,6 +808,12 @@ function filtroChange() {
 
 		bairroInput.value="";
 		bairro.hidden=true;
+
+		marcaInput.value="";
+		marca.hidden=true;
+
+		pdvInput.value="";
+		pdv.hidden=true;				
 		
 	}
 	else if (filtroTipo.value == 'BAIRRO') {
@@ -810,8 +834,69 @@ function filtroChange() {
 		anoBlock.hidden=true;
 
 		bairro.hidden=false;
+
+		marcaInput.value="";
+		marca.hidden=true;
+
+		pdvInput.value="";
+		pdv.hidden=true;				
 		
 	}
+
+	else if (filtroTipo.value == 'MARCA') {
+
+		produtoInput.value="";
+		produtoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;		
+
+		mesInput.value=mes;
+		mesBlock.hidden=true;
+
+		anoInput.value=ano;
+		anoBlock.hidden=true;
+
+		bairroInput.value="";
+		bairro.hidden=true;
+
+		marca.hidden=false;
+
+		pdvInput.value="";
+		pdv.hidden=true;				
+		
+	}	
+
+	else if (filtroTipo.value == 'PDV') {
+
+		produtoInput.value="";
+		produtoBlock.hidden=true;
+
+		dataInicioInput.value=data;
+		dataInicio.hidden=true;
+
+		dataFimInput.value=data;
+		dataFim.hidden=true;		
+
+		mesInput.value=mes;
+		mesBlock.hidden=true;
+
+		anoInput.value=ano;
+		anoBlock.hidden=true;
+
+		bairroInput.value="";
+		bairro.hidden=true;
+
+		marcaInput.value="";
+		marca.hidden=true;
+
+		pdv.hidden=false;			
+		
+	}	
+
 }
 
 function reloadFiltro() {
@@ -853,15 +938,27 @@ function reloadFiltro() {
 	document.getElementById('filtro_bairro_block').hidden=true;	
 	document.getElementById('filtro_bairro_tag').hidden=true;	
 
+	document.getElementById('tipo_filtro_option_marca').hidden=false;
+	document.getElementById('filtro_marca_block').hidden=true;	
+	document.getElementById('filtro_marca_tag').hidden=true;	
+
+	document.getElementById('tipo_filtro_option_pdv').hidden=false;
+	document.getElementById('filtro_pdv_block').hidden=true;	
+	document.getElementById('filtro_pdv_tag').hidden=true;			
+
 	document.getElementById('produto_filtro_input').value="";
 	document.getElementById('mes_filtro_input').value=mes;
 	document.getElementById('ano_filtro_input').value=ano;
 	document.getElementById('bairro_filtro_input').value="";
+	document.getElementById('marca_filtro_input').value="";
+	document.getElementById('pdv_filtro_input').value="PONTO_1";
 
 	document.getElementById('input_produto_backend').value="";
 	document.getElementById('input_periodo_mes_backend').value="";
 	document.getElementById('input_periodo_ano_backend').value="";
-	document.getElementById('input_bairro_backend').value="";	
+	document.getElementById('input_bairro_backend').value="";
+	document.getElementById('input_marca_backend').value="";
+	document.getElementById('input_pdv_backend').value="";
 
 	document.getElementById('tipo_filtro_option_data').hidden=false;
 	document.getElementById('filtro_data_inicio_block').hidden=true;
@@ -897,12 +994,22 @@ function addFiltro() {
 	var bairroBlock = document.getElementById('filtro_bairro_block');	
 	var bairroTag = document.getElementById('filtro_bairro_tag');	
 
+	var optionMarca = document.getElementById('tipo_filtro_option_marca');
+	var marcaBlock = document.getElementById('filtro_marca_block');	
+	var marcaTag = document.getElementById('filtro_marca_tag');	
+
+	var optionPdv = document.getElementById('tipo_filtro_option_pdv');
+	var pdvBlock = document.getElementById('filtro_pdv_block');	
+	var pdvTag = document.getElementById('filtro_pdv_tag');			
+
 	var inputProdutoFiltro = document.getElementById('produto_filtro_input');
 	var inputDataInicioFiltro = document.getElementById('data_inicio_filtro_input');
 	var inputDataFimFiltro = document.getElementById('data_fim_filtro_input');		
 	var inputMesFiltro = document.getElementById('mes_filtro_input');
 	var inputAnoFiltro = document.getElementById('ano_filtro_input');
 	var inputBairroFiltro = document.getElementById('bairro_filtro_input');
+	var inputMarcaFiltro = document.getElementById('marca_filtro_input');
+	var inputPdvFiltro = document.getElementById('pdv_filtro_input');
 
 	var inputProdutoBackend = document.getElementById('input_produto_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
@@ -910,6 +1017,8 @@ function addFiltro() {
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
 	var inputBairroBackend = document.getElementById('input_bairro_backend');
+	var inputMarcaBackend = document.getElementById('input_marca_backend');
+	var inputPdvBackend = document.getElementById('input_pdv_backend');
 
 	if (filtroTipo.value == 'PRODUTO') {
 		if (inputProdutoFiltro.value != "") {
@@ -1000,7 +1109,43 @@ function addFiltro() {
 		filtroTipo.disabled=true;
 		filtroBt.disabled=true;
 		filtroBt.style.pointerEvents="none";		
-	}					
+	}		
+
+	else if (filtroTipo.value == 'MARCA') {
+		optionMarca.hidden=true;
+		marcaBlock.hidden=true;
+
+		marcaTag.hidden=false;
+		marcaTag.innerText = 'Marca: ' + inputMarcaFiltro.value;
+
+		filtroTipo.value="";
+		inputMarcaBackend.value=inputMarcaFiltro.value;
+
+		filtroBt.hidden=true;
+		buscarBt.hidden=false;
+		filtroTipo.style.border="1px solid grey";
+		filtroTipo.disabled=true;
+		filtroBt.disabled=true;
+		filtroBt.style.pointerEvents="none";		
+	}	
+
+	else if (filtroTipo.value == 'PDV') {
+		optionPdv.hidden=true;
+		pdvBlock.hidden=true;
+
+		pdvTag.hidden=false;
+		pdvTag.innerText = 'PDV: ' + inputPdvFiltro.value;
+
+		filtroTipo.value="";
+		inputPdvBackend.value=inputPdvFiltro.value;
+
+		filtroBt.hidden=true;
+		buscarBt.hidden=false;
+		filtroTipo.style.border="1px solid grey";
+		filtroTipo.disabled=true;
+		filtroBt.disabled=true;
+		filtroBt.style.pointerEvents="none";		
+	}						
 }
 
 function removerFiltro(filtro) {
@@ -1027,12 +1172,22 @@ function removerFiltro(filtro) {
 	var bairroBlock = document.getElementById('filtro_bairro_block');	
 	var bairroTag = document.getElementById('filtro_bairro_tag');	
 
+	var optionMarca = document.getElementById('tipo_filtro_option_marca');
+	var marcaBlock = document.getElementById('filtro_marca_block');	
+	var marcaTag = document.getElementById('filtro_marca_tag');	
+
+	var optionPdv = document.getElementById('tipo_filtro_option_pdv');
+	var pdvBlock = document.getElementById('filtro_pdv_block');	
+	var pdvTag = document.getElementById('filtro_pdv_tag');			
+
 	var inputProdutoBackend = document.getElementById('input_produto_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
 	var inputDataFimBackend = document.getElementById('input_data_fim_backend');	
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
 	var inputBairroBackend = document.getElementById('input_bairro_backend');	
+	var inputMarcaBackend = document.getElementById('input_marca_backend');	
+	var inputPdvBackend = document.getElementById('input_pdv_backend');			
 	
 	filtroTipo.style.border="1px solid #949393";
 	filtroTipo.disabled=false;
@@ -1048,6 +1203,8 @@ function removerFiltro(filtro) {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 		bairroBlock.hidden=true;
+		marcaBlock.hidden=true;
+		pdvBlock.hidden=true;		
 		dataInicioBlock.hidden=true;
 		dataFimBlock.hidden=true;		
 
@@ -1067,6 +1224,8 @@ function removerFiltro(filtro) {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 		bairroBlock.hidden=true;
+		marcaBlock.hidden=true;
+		pdvBlock.hidden=true;				
 
 		dataTag.hidden=true;
 		filtroTipo.value="DATA";
@@ -1085,6 +1244,8 @@ function removerFiltro(filtro) {
 		periodoMesBlock.hidden=false;
 		periodoAnoBlock.hidden=false;
 		bairroBlock.hidden=true;
+		marcaBlock.hidden=true;
+		pdvBlock.hidden=true;		
 
 		periodoTag.hidden=true;
 		filtroTipo.value="PERIODO";
@@ -1101,6 +1262,8 @@ function removerFiltro(filtro) {
 		periodoMesBlock.hidden=true;
 		periodoAnoBlock.hidden=true;
 		bairroBlock.hidden=false;
+		marcaBlock.hidden=true;
+		pdvBlock.hidden=true;				
 
 		bairroTag.hidden=true;
 
@@ -1108,6 +1271,45 @@ function removerFiltro(filtro) {
 
 		inputBairroBackend.value="";
 	}	
+	else if (filtro == 'marca') {
+
+		optionMarca.hidden=false;
+
+		produtoBlock.hidden=true;
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+		bairroBlock.hidden=true;
+		marcaBlock.hidden=false;
+		pdvBlock.hidden=true;				
+
+		marcaTag.hidden=true;
+
+		filtroTipo.value="MARCA";
+
+		inputMarcaBackend.value="";
+	}	
+
+	else if (filtro == 'pdv') {
+
+		optionPdv.hidden=false;
+
+		produtoBlock.hidden=true;
+		dataInicioBlock.hidden=true;
+		dataFimBlock.hidden=true;
+		periodoMesBlock.hidden=true;
+		periodoAnoBlock.hidden=true;
+		bairroBlock.hidden=true;
+		marcaBlock.hidden=true;
+		pdvBlock.hidden=false;				
+
+		pdvTag.hidden=true;
+
+		filtroTipo.value="PDV";
+
+		inputPdvBackend.value="";
+	}		
 
 	buscarBt.hidden=true;		
 	filtroBt.hidden=false;
@@ -1118,6 +1320,8 @@ function efeitoRemoverFiltro(filtro) {
 	var filtroProduto = document.getElementById('filtro_produto_tag');
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
 	var filtroBairro = document.getElementById('filtro_bairro_tag');
+	var filtroMarca = document.getElementById('filtro_marca_tag');
+	var filtroPdv = document.getElementById('filtro_pdv_tag');
 	var filtroData = document.getElementById('filtro_data_tag');			
 
 
@@ -1153,7 +1357,25 @@ function efeitoRemoverFiltro(filtro) {
 		filtroBairro.style.color="#212121";
 		filtroBairro.innerText="Remover";
 		filtroBairro.style.cursor="pointer";
-	}			
+	}	
+
+	else if (filtro == 'marca') {
+		filtroMarca.style.transition="0.5s"
+		filtroMarca.style.background="#AA3C3C";
+		filtroMarca.style.border="1px solid #AA3C3C";
+		filtroMarca.style.color="#212121";
+		filtroMarca.innerText="Remover";
+		filtroMarca.style.cursor="pointer";
+	}	
+
+	else if (filtro == 'pdv') {
+		filtroPdv.style.transition="0.5s"
+		filtroPdv.style.background="#AA3C3C";
+		filtroPdv.style.border="1px solid #AA3C3C";
+		filtroPdv.style.color="#212121";
+		filtroPdv.innerText="Remover";
+		filtroPdv.style.cursor="pointer";
+	}		
 }
 
 function efeitoRemoverFiltroLeave(filtro) {
@@ -1162,6 +1384,8 @@ function efeitoRemoverFiltroLeave(filtro) {
 	var filtroData = document.getElementById('filtro_data_tag');	
 	var filtroPeriodo = document.getElementById('filtro_periodo_tag');	
 	var filtroBairro = document.getElementById('filtro_bairro_tag');		
+	var filtroMarca = document.getElementById('filtro_marca_tag');		
+	var filtroPdv = document.getElementById('filtro_pdv_tag');		
 
 	var inputProdutoBackend = document.getElementById('input_produto_backend');
 	var inputDataInicioBackend = document.getElementById('input_data_inicio_backend');
@@ -1169,6 +1393,8 @@ function efeitoRemoverFiltroLeave(filtro) {
 	var inputMesBackend = document.getElementById('input_periodo_mes_backend');
 	var inputAnoBackend = document.getElementById('input_periodo_ano_backend');
 	var inputBairroBackend = document.getElementById('input_bairro_backend');	
+	var inputMarcaBackend = document.getElementById('input_marca_backend');	
+	var inputPdvBackend = document.getElementById('input_pdv_backend');		
 
 	if (filtro == 'produto') {
 		filtroProduto.style.transition="1s"
@@ -1202,7 +1428,21 @@ function efeitoRemoverFiltroLeave(filtro) {
 		filtroBairro.style.border="1px solid #212121"
 		filtroBairro.style.color="#212121";
 		filtroBairro.innerText = 'Bairro: ' + inputBairroBackend.value;
+	}	
+	else if (filtro == 'marca') {
+		filtroMarca.style.transition="1s"
+		filtroMarca.style.background="transparent";
+		filtroMarca.style.border="1px solid #212121"
+		filtroMarca.style.color="#212121";
+		filtroMarca.innerText = 'Marca: ' + inputMarcaBackend.value;
 	}		
+	else if (filtro == 'pdv') {
+		filtroPdv.style.transition="1s"
+		filtroPdv.style.background="transparent";
+		filtroPdv.style.border="1px solid #212121"
+		filtroPdv.style.color="#212121";
+		filtroPdv.innerText = 'PDV: ' + inputPdvBackend.value;
+	}					
 }
 
 function dataFiltroResponsiva() {
@@ -1664,6 +1904,8 @@ function buildUrlPages() {
 	var produto = document.getElementById('back_produto');		
 	var bairro = document.getElementById('back_bairro');	
 	var cliente = document.getElementById('back_cliente');
+	var marca = document.getElementById('back_marca');
+	var pdv = document.getElementById('back_pdv');
 
 	var pageNumber = document.getElementsByClassName('page_number');
 
@@ -1733,6 +1975,32 @@ function buildUrlPages() {
 				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&cliente=" + cliente.value);
 		}					
 	}	
+
+	else if(tipoFiltro.value == 'marca') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&marca=" + marca.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&marca=" + marca.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&marca=" + marca.value);
+		}					
+	}
+
+	else if(tipoFiltro.value == 'pdv') {
+
+		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1)  + "&pdv=" + pdv.value);
+		$('#proxima').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) + 1)  + "&pdv=" + pdv.value);
+
+		for (var i = 0; i < pageNumber.length; i ++) {
+			pageNumber[i].id="numeroPagina_" + i;
+			var idPagina = pageNumber[i].id;
+			$('#' + idPagina).attr("href", "/vendas?page=" + 
+				(parseInt(pageNumber[i].getAttribute('data-numeroPagina'))) + "&pdv=" + pdv.value);
+		}					
+	}		
 
 	else {
 		$('#anterior').attr("href", "/vendas?page=" + (parseInt(paginaAtual.value) - 1));
@@ -1826,6 +2094,8 @@ function tituloResponsivo(filtro) {
 	var produto = document.getElementById('back_produto');		
 	var bairro = document.getElementById('back_bairro');			
 	var cliente = document.getElementById('back_cliente');
+	var pdv = document.getElementById('back_pdv');
+	var marca = document.getElementById('back_marca');		
 	var clienteNome = document.getElementById('back_clienteNome');
 
 	if(filtro == "hoje") {
@@ -1850,6 +2120,17 @@ function tituloResponsivo(filtro) {
 	else if (filtro == "cliente") {
 		titulo.innerText="Giro do cliente " + clienteNome.value;
 	}	
+	else if (filtro == "marca") {
+		titulo.innerText="Vendas por marca:  " + marca.value;
+	}
+	else if (filtro == "pdv") {
+		if (pdv.value.includes("mobile")) {
+			titulo.innerText="Vendas realizadas por ponto móvel"
+		}
+		else {
+			titulo.innerText="Vendas no ponto " + pdv.value;
+		}
+	}		
 
 }
 
@@ -1866,6 +2147,8 @@ function buildUrlRelatorio() {
 		var produto = document.getElementById('back_produto');		
 		var bairro = document.getElementById('back_bairro');	
 		var cliente = document.getElementById('back_cliente');
+		var marca = document.getElementById('back_marca');
+		var pdv = document.getElementById('back_pdv');				
 
 		var url = "/vendas/relatorio?"
 
@@ -1888,6 +2171,12 @@ function buildUrlRelatorio() {
 		else if(tipoFiltro.value == 'cliente') {
 			url += "cliente=" + cliente.value;
 		}			
+		else if(tipoFiltro.value == 'marca') {
+			url += "marca=" + marca.value;
+		}	
+		else if(tipoFiltro.value == 'pdv') {
+			url += "pdv=" + pdv.value;
+		}					
 
 		$('#relatorio_button').attr("href", url);	
 

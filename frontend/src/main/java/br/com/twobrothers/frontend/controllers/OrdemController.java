@@ -59,6 +59,8 @@ public class OrdemController {
                                @RequestParam("produto") Optional<String> produto,
                                @RequestParam("bairro") Optional<String> bairro,
                                @RequestParam("cliente") Optional<String> cliente,
+                               @RequestParam("marca") Optional<String> marca,
+                               @RequestParam("pdv") Optional<String> pdv,
                                Model model, ModelAndView modelAndView,
                                RedirectAttributes redirAttrs,
                                ModelMap modelMap,
@@ -67,7 +69,8 @@ public class OrdemController {
         try {
             ordemService.modelMapBuilder(modelMap, pageable, req,
                     inicio.orElse(null), fim.orElse(null), mes.orElse(null), ano.orElse(null),
-                    produto.orElse(null), bairro.orElse(null), cliente.orElse(null));
+                    produto.orElse(null), bairro.orElse(null), cliente.orElse(null), marca.orElse(null),
+                    pdv.orElse(null));
             modelAndView.setViewName("vendas");
             return modelAndView;
 
@@ -105,6 +108,8 @@ public class OrdemController {
                           @RequestParam("produto") Optional<String> produto,
                           @RequestParam("bairro") Optional<String> bairro,
                           @RequestParam("cliente") Optional<String> cliente,
+                          @RequestParam("marca") Optional<String> marca,
+                          @RequestParam("pdv") Optional<String> pdv,
                           HttpServletResponse res) throws DocumentException, IOException {
 
         List<OrdemEntity> ordens = ordemService.filtroOrdensSemPaginacao(
@@ -114,7 +119,9 @@ public class OrdemController {
                 ano.orElse(null),
                 produto.orElse(null),
                 bairro.orElse(null),
-                cliente.orElse(null));
+                cliente.orElse(null),
+                marca.orElse(null),
+                pdv.orElse(null));
 
         HashMap<String, String> filtros = new HashMap<>();
         filtros.put("inicio", inicio.orElse(null));
@@ -124,6 +131,8 @@ public class OrdemController {
         filtros.put("produto", produto.orElse(null));
         filtros.put("bairro", bairro.orElse(null));
         filtros.put("cliente", cliente.orElse(null));
+        filtros.put("marca", marca.orElse(null));
+        filtros.put("pdv", pdv.orElse(null));
 
         res.setContentType("application/pdf");
         String headerKey = "Content-Disposition";

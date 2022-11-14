@@ -15,5 +15,6 @@ public class ErrorLog {
     String trace;
     String cause;
     String localizedMessage;
+    String completeUrl;
 
 }
