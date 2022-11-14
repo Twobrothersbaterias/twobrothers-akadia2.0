@@ -182,6 +182,16 @@ public class ProdutoEstoqueCrudService {
         log.info("[PROGRESS] Iniciando método de validação do objeto produto...");
         validation.validaCorpoRequisicao(produto, repository, ValidationType.UPDATE);
 
+        log.info("[PROGRESS] Atualizando entradas relacionadas ao produto...");
+        if (produtoAtualizado.getEntradas() != null && !produtoAtualizado.getEntradas().isEmpty()) {
+            List<EntradaOrdemEntity> entradasDoProduto = produtoAtualizado.getEntradas();
+            for (int i = 0; i < entradasDoProduto.size(); i++) {
+                OrdemEntity ordemEntity = entradasDoProduto.get(i).getOrdem();
+                ordemEntity.setEntradasString(ordemEntity.getEntradasString().replace(produtoAtualizado.getSigla(), produto.getSigla()));
+                ordemRepository.save(ordemEntity);
+            }
+        }
+
         log.info("[PROGRESS] Inicializando setagem e atualização dos atributos da variável produtoAtualizado com base" +
                 "no objeto produto recebido pela requisição...");
         if (!Objects.equals(produto.getSigla(), "SUC45")) produtoAtualizado.setSigla(produto.getSigla());

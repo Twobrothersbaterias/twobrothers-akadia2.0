@@ -177,16 +177,23 @@ function responsive(){
 
 		conteudoTituloText.style.fontSize="1.1rem";		
 
-		sideMenu.style.display="block";
-		menuMobile.style.display="none";
-
-		if (bodyWidth < 1400) {
-			main.style.width="95.5%";
-			sideMenu.style.width="4.5%";	
+		if (bodyHeight < 600) {
+			sideMenu.style.display="none";		
+			menuMobile.style.display="flex";	
+			main.style.width="100%";
+			sideMenu.style.width="0%";		
 		}
 		else {
-			main.style.width="96%";
-			sideMenu.style.width="4%";
+			sideMenu.style.display="block";
+			menuMobile.style.display="none";
+			if (bodyWidth < 1400) {
+				main.style.width="95.5%";
+				sideMenu.style.width="4.5%";	
+			}
+			else {
+				main.style.width="96%";
+				sideMenu.style.width="4%";
+			}			
 		}
 
 		containerNovo.style.fontSize="1rem";		
@@ -252,6 +259,10 @@ function responsive(){
 			imgContainer[i].style.width="20px";
 			imgContainer[i].style.marginLeft="10px";			
 		}
+		
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			menuSuperiorMobileItem[i].style.width="3.5%";
+		}
 
 		for (var i = 0; i < pageClick.length; i++) {
 			pageClick[i].style.fontSize="0.70rem";
@@ -280,16 +291,24 @@ function responsive(){
 		console.log("Tela: Grande");
 
 		conteudoTituloText.style.fontSize="1.1rem";
-		menuMobile.style.display="none";		
-		sideMenu.style.display="block";
 
-		if (bodyWidth < 1090) {
-			main.style.width="94.5%";
-			sideMenu.style.width="5.5%";	
+		if (bodyHeight < 600) {
+			sideMenu.style.display="none";		
+			menuMobile.style.display="flex";	
+			main.style.width="100%";
+			sideMenu.style.width="0%";		
 		}
 		else {
-			main.style.width="95%";
-			sideMenu.style.width="5%";				
+			sideMenu.style.display="block";
+			menuMobile.style.display="none";
+			if (bodyWidth < 1090) {
+				main.style.width="94.5%";
+				sideMenu.style.width="5.5%";	
+			}
+			else {
+				main.style.width="95%";
+				sideMenu.style.width="5%";
+			}			
 		}
 
 		containerNovo.style.fontSize="1rem";
@@ -357,6 +376,10 @@ function responsive(){
 			imgContainer[i].style.marginLeft="15px";			
 		}
 
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			menuSuperiorMobileItem[i].style.width="4%";
+		}		
+
 		for (var i = 0; i < pageClick.length; i++) {
 			pageClick[i].style.fontSize="0.65rem";
 		}			
@@ -383,18 +406,26 @@ function responsive(){
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Tela: Média');	
 
-		sideMenu.style.display="block";
-		if (bodyWidth > 870) {
-			main.style.width="94%";
-			sideMenu.style.width="6%";
+		if (bodyHeight < 600) {
+			sideMenu.style.display="none";		
+			menuMobile.style.display="flex";	
+			main.style.width="100%";
+			sideMenu.style.width="0%";		
 		}
 		else {
-			main.style.width="92.5%";
-			sideMenu.style.width="7.5%";	
+			sideMenu.style.display="block";
+			menuMobile.style.display="none";
+			if (bodyWidth < 870) {
+				main.style.width="94%";
+				sideMenu.style.width="6%";	
+			}
+			else {
+				main.style.width="92.5%";
+				sideMenu.style.width="7.5%";
+			}			
 		}
 
 		conteudoTituloText.style.fontSize="1rem";
-		menuMobile.style.display="none";
 		containerNovo.style.fontSize="1rem";		
 		novoTitulo.style.fontSize="1.1rem";
 		novoItemSubmit.style.marginTop="0px";
@@ -455,6 +486,10 @@ function responsive(){
 			imgContainer[i].style.width="20px";
 			imgContainer[i].style.marginLeft="15px";			
 		}	
+
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			menuSuperiorMobileItem[i].style.width="5%";
+		}		
 
 		for (var i = 0; i < pageClick.length; i++) {
 			pageClick[i].style.fontSize="0.60rem";

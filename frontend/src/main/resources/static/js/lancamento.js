@@ -255,21 +255,30 @@ function responsive(){
 	var botaoAdicionar = document.getElementsByClassName('botao_adicionar');
 	var informativoCampo = document.getElementsByClassName('informativo_campo');
 
+	var menuSuperiorMobileItem = document.getElementsByClassName('menu_superior_mobile_item');
+
 	var tituloVenda = document.getElementById('edita_titulo');
 
 	if(bodyWidth > 1200){
 		console.log("Tela: Muito grande");
 
-		sideMenu.style.display="block";
-		menuMobile.style.display="none";
-
-		if (bodyWidth < 1400) {
-			main.style.width="95.5%";
-			sideMenu.style.width="4.5%";	
+		if (bodyHeight < 600) {
+			sideMenu.style.display="none";		
+			menuMobile.style.display="flex";	
+			main.style.width="100%";
+			sideMenu.style.width="0%";		
 		}
 		else {
-			main.style.width="96%";
-			sideMenu.style.width="4%";
+			sideMenu.style.display="block";
+			menuMobile.style.display="none";
+			if (bodyWidth < 1400) {
+				main.style.width="95.5%";
+				sideMenu.style.width="4.5%";	
+			}
+			else {
+				main.style.width="96%";
+				sideMenu.style.width="4%";
+			}			
 		}
 
 		mainRow.style.width = "100%";
@@ -341,7 +350,9 @@ function responsive(){
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="12px";
 		}	
-
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			menuSuperiorMobileItem[i].style.width="3.5%";
+		}
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=false;
 		}
@@ -363,16 +374,23 @@ function responsive(){
 	else if(bodyWidth <= 1200 && bodyWidth > 992){
 		console.log("Tela: Grande");
 
-		menuMobile.style.display="none";		
-		sideMenu.style.display="block";
-
-		if (bodyWidth < 1090) {
-			main.style.width="94.5%";
-			sideMenu.style.width="5.5%";	
+		if (bodyHeight < 600) {
+			sideMenu.style.display="none";		
+			menuMobile.style.display="flex";	
+			main.style.width="100%";
+			sideMenu.style.width="0%";		
 		}
 		else {
-			main.style.width="95%";
-			sideMenu.style.width="5%";				
+			sideMenu.style.display="block";
+			menuMobile.style.display="none";
+			if (bodyWidth < 1090) {
+				main.style.width="94.5%";
+				sideMenu.style.width="5.5%";	
+			}
+			else {
+				main.style.width="95%";
+				sideMenu.style.width="5%";
+			}			
 		}
 
 
@@ -437,7 +455,9 @@ function responsive(){
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="12px";
 		}
-
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			menuSuperiorMobileItem[i].style.width="4%";
+		}
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=false;
 		}
@@ -459,14 +479,23 @@ function responsive(){
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Tela: Média');
 
-		sideMenu.style.display="block";
-		if (bodyWidth > 860) {
-			main.style.width="94%";
-			sideMenu.style.width="6%";
+		if (bodyHeight < 600) {
+			sideMenu.style.display="none";		
+			menuMobile.style.display="flex";	
+			main.style.width="100%";
+			sideMenu.style.width="0%";		
 		}
 		else {
-			main.style.width="93.5%";
-			sideMenu.style.width="6.5%";	
+			sideMenu.style.display="block";
+			menuMobile.style.display="none";
+			if (bodyWidth < 870) {
+				main.style.width="94%";
+				sideMenu.style.width="6%";	
+			}
+			else {
+				main.style.width="92.5%";
+				sideMenu.style.width="7.5%";
+			}			
 		}
 
 		mainRow.style.width = "100%";
@@ -535,15 +564,15 @@ function responsive(){
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="12px";
 		}
-
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			menuSuperiorMobileItem[i].style.width="5%";
+		}
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=false;
 		}
 		for(var i = 0; i < tdTipo.length; i++){
 			tdTipo[i].hidden=false;
 		}											
-	
-		menuMobile.style.display="none";	
 
 		for(var i = 0; i < divIcones.length; i++) {
 			divIcones[i].style.padding="6px 0";
@@ -632,7 +661,14 @@ function responsive(){
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="0px";
 		}		
-
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			if (bodyWidth > 670) {
+				menuSuperiorMobileItem[i].style.width="7.05%";
+			}
+			else {
+				menuSuperiorMobileItem[i].style.width="8%";
+			}
+		}
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=true;
 		}
@@ -720,7 +756,14 @@ function responsive(){
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="0px";
 		}				
-
+		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
+			if (bodyWidth > 470) {
+				menuSuperiorMobileItem[i].style.width="9%";
+			}
+			else {
+				menuSuperiorMobileItem[i].style.width="10%";	
+			}
+		}
 		for(var i = 0; i < thTipo.length; i++){
 			thTipo[i].hidden=true;
 		}
