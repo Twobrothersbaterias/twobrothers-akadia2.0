@@ -1747,6 +1747,11 @@ function validacaoCampos(tipo) {
 		var botaoFinalizar = document.getElementById('edita_item_submit');
 	}
 
+	inputCategoria.value = (inputCategoria.value).trim();
+	inputSubCategoria.value = (inputCategoria.value).trim();
+	inputTitulo.value = (inputCategoria.value).trim();
+	inputConteudo.value = (inputCategoria.value).trim();
+
 	var erros = "Ocorreram alguns erros no lançamento do post:\n";
 
 	if(inputTitulo.value == "") {

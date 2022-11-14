@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,7 +49,7 @@ public class PatrimonioController {
                                     @RequestParam("mes") Optional<String> mes,
                                     @RequestParam("ano") Optional<String> ano,
                                     @RequestParam("tipo") Optional<String> tipo,
-                                    Model model, ModelAndView modelAndView,
+                                    ModelAndView modelAndView,
                                     RedirectAttributes redirAttrs,
                                     ModelMap modelMap,
                                     HttpServletRequest req) {
@@ -59,10 +58,9 @@ public class PatrimonioController {
             patrimonioService.modelMapBuilder(modelMap, pageable, req, descricao.orElse(null),
                     mes.orElse(null), ano.orElse(null), tipo.orElse(null));
 
-            if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+            if (!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
                 modelAndView.setViewName("patrimonio");
-            }
-            else {
+            } else {
                 modelAndView.setViewName("redirect:/");
                 redirAttrs.addFlashAttribute("ErroCadastro",
                         "Você não possui o privilégio necessário para acessar a página de gestão patrimonial");
@@ -84,8 +82,7 @@ public class PatrimonioController {
             redirAttrs.addFlashAttribute("SucessoCadastro", "A carga de patrimônios foi realizada com sucesso");
             modelAndView.setViewName("redirect:../patrimonios");
             return modelAndView;
-        }
-        catch (InvalidRequestException e) {
+        } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroCadastro", e.getMessage());
             modelAndView.setViewName("redirect:../patrimonios");
             return modelAndView;

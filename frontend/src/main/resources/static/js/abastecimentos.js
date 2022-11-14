@@ -726,6 +726,10 @@ function validacaoDoObjetoAbastecimento(submitar, tipo) {
 		var botaoFinalizar = document.getElementById('edita_item_submit');
 	}
 
+	if(submitar == true) {
+		observacaoAbastecimentoInput.value = (observacaoAbastecimentoInput.value).trim();
+	}
+
 	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
 	if(produtoAbastecimentoInput.value != "" 
 			|| fornecedorAbastecimentoInput.value != "null" 

@@ -1568,11 +1568,13 @@ function validacaoDoObjetoColaborador(tipo) {
 	}	
 
 	if (inputUsername != null) {
-		inputUsername.value = inputUsername.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+		inputUsername.value = inputUsername.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+		inputUsername.value = inputUsername.value.trim();		
 	}
 
 	if (inputSenha != null) {
 		inputSenha.value = inputSenha.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
+		inputSenha.value = inputSenha.value.trim();
 	}		
 
 	if (inputEmail != null) {
@@ -1659,6 +1661,10 @@ function validacaoCampos(tipo) {
 		var botaoFinalizar = document.getElementById('edita_item_submit');		
 		var form = document.getElementById('form_edita');
 	}
+
+	inputNome.value = (inputNome.value).trim();
+	inputUsername.value = (inputUsername.value).trim();
+	inputSenha.value = (inputSenha.value).trim();
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 

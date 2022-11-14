@@ -1549,6 +1549,10 @@ function validacaoDoObjetoProduto(submitar, tipo) {
 		var botaoFinalizar = document.getElementById('edita_item_submit');	
 	}
 
+	siglaProdutoInput.value = (siglaProdutoInput.value).trim();
+	marcaProdutoInput.value = (marcaProdutoInput.value).trim();
+	especificacaoProdutoInput.value = (especificacaoProdutoInput.value).trim();
+
 	if (siglaProdutoInput != null) {
 		siglaProdutoInput.value = siglaProdutoInput.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
 	}	

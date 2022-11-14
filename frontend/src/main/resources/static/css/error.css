@@ -79,6 +79,10 @@
 	color: #C3C8C8;
 }
 
+#button_log {
+    margin-top: 10px;
+}
+
 /* ANIMATIONS */
 
 @keyframes pulse{

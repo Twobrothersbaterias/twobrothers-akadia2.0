@@ -20,7 +20,7 @@ import java.util.List;
 @Repository
 public interface PrecoFornecedorRepository extends JpaRepository<PrecoFornecedorEntity, Long> {
 
-    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.id = ?1")
+    @Query("Select p From PrecoFornecedorEntity p where p.produto.id = ?1")
     List<PrecoFornecedorEntity> buscaPorProdutoIdPaginado(Pageable pageable, Long id);
 
     @Query("Select p From PrecoFornecedorEntity p where p.produto.sigla like %:produto%")
@@ -32,8 +32,8 @@ public interface PrecoFornecedorRepository extends JpaRepository<PrecoFornecedor
     @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.nome like %:fornecedor%")
     List<PrecoFornecedorEntity> buscaPorFornecedorPaginado(Pageable pageable, @Param("fornecedor") String fornecedor);
 
-    @Query("Select p From PrecoFornecedorEntity p where p.fornecedor.id = ?1")
-    List<PrecoFornecedorEntity> buscaPorProdutoIdSemPaginacao(Pageable pageable, Long id);
+    @Query("Select p From PrecoFornecedorEntity p where p.produto.id = ?1")
+    List<PrecoFornecedorEntity> buscaPorProdutoIdSemPaginacao(Long id);
 
     @Query("Select p From PrecoFornecedorEntity p where p.produto.sigla like %:produto%")
     List<PrecoFornecedorEntity> buscaPorProdutoSemPaginacao(@Param("produto") String produto);

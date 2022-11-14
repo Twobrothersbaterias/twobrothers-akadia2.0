@@ -1158,6 +1158,8 @@ function validacaoCampos(tipo) {
 		var form = document.getElementById('form_edita');
 	}
 
+	inputObservacao.value = (inputObservacao.value).trim();
+
 	var erros = "Ocorreram alguns erros no lançamento do preço:\n";
 
 	if(inputProduto.value == "") {

@@ -949,6 +949,7 @@ function resetNovoProduto() {
 	var optionServico = document.getElementById('option_servico');
 	var labelTipoEntrada = document.getElementById('label_tipo_entrada');
 	var labelQuantidade = document.getElementById('label_quantidade');	
+	var labelValor = document.getElementById('label_valor');
 	var botaoAddProduto = document.getElementById('botao_add_produto');
 
 	if(optionProdutos.length > 0) {
@@ -1003,6 +1004,11 @@ function resetNovoProduto() {
 		botaoAddProduto.style.background="#2f3d61";		
 
 	}
+
+	inputValor.disabled=false;
+	inputValor.style.color="#303030";
+	inputValor.style.borderColor="grey";
+	labelValor.style.color="#303030";
 }
 
 function addNovoProduto() {
@@ -1042,6 +1048,7 @@ function addNovoProduto() {
 
 		inputEntradas.value = inputEntradas.value + string;
 
+		removeProdutoDosOptions(inputProduto.value, inputQuantidade.value);
 		resetNovoProduto();
 		calculaInformativos();
 
@@ -1058,6 +1065,20 @@ function addNovoProduto() {
 	}
 	else {
 		inputTipoProduto.focus();
+	}
+
+}
+
+function removeProdutoDosOptions(sigla, quantidadeReq) {
+	var optionProdutos = document.getElementsByClassName('option_produto');
+	for (var i = 0; i < optionProdutos.length; i++) {
+		if (optionProdutos[i].value == sigla && sigla != 'Serviço') {
+			optionProdutos[i].disabled=true;
+			optionProdutos[i].style.color="#4444";
+			var quantidadeAtual = (parseInt(optionProdutos[i].text.split("|")[0].replace('Qtd: ', ""))) - quantidadeReq;
+			optionProdutos[i].text="Qtd: " + quantidadeAtual + " | " + sigla;
+			console.log(quantidadeAtual);
+		}
 	}
 }
 
@@ -1591,6 +1612,10 @@ function validacaoCampos() {
 
 	/* ======================================================================= */
 
+	var inputNome = document.getElementById('input_nome');
+	var inputObservacaoPagamento = document.getElementById('input_observacao');
+	var inputObservacaoRetirada = document.getElementById('input_retirada_observacao');
+	var inputVeiculo = document.getElementById('input_veiculo');
 	var inputTelefone = document.getElementById('input_telefone');
 	var inputEmail = document.getElementById('input_email');
 	var inputCep = document.getElementById('cep_input');
@@ -1601,6 +1626,16 @@ function validacaoCampos() {
 	var inputComplemento = document.getElementById('input_complemento');	
 	var inputCpfCnpj = document.getElementById('input_cpfCnpj');
 	var selectTecnico = document.getElementById('select_tecnico');
+
+	inputNome.value = (inputNome.value).trim();
+	inputVeiculo.value = (inputVeiculo.value).trim();
+	inputObservacaoPagamento.value = (inputObservacaoPagamento.value).trim();
+	inputObservacaoRetirada.value = (inputObservacaoRetirada.value).trim();
+	inputEmail.value = (inputEmail.value).trim();
+	inputCidade.value = (inputCidade.value).trim();
+	inputBairro.value = (inputBairro.value).trim();
+	inputLogradouro.value = (inputLogradouro.value).trim();
+	inputComplemento.value = (inputComplemento.value).trim();
 
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 
@@ -1977,6 +2012,19 @@ function removeItemTb(item) {
 	calculaInformativos();
 	
 	console.log(inputEntradas.value);
+
+	console.log(item);
+
+	// DEVOLVENDO QUANTIDADE AO OPTION E HABILITANDO-O NOVAMENTE
+	var optionProdutos = document.getElementsByClassName('option_produto');
+	for (var i = 0; i < optionProdutos.length; i++) {
+		if (optionProdutos[i].value == item.split(";")[2] && item.split(";") != 'Serviço') {
+			optionProdutos[i].disabled=false;
+			optionProdutos[i].style.color="#303030";
+			var quantidadeAtual = (parseInt(optionProdutos[i].text.split("|")[0].replace('Qtd: ', ""))) + (parseInt(item.split(";")[4]));
+			optionProdutos[i].text="Qtd: " + quantidadeAtual + " | " + item.split(";")[2];
+		}
+	}	
 
 	$("#tbody_novo").remove();
 

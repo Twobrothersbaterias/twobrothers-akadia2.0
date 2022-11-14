@@ -687,7 +687,11 @@ function validacaoDoObjetoDespesa(submitar, tipo) {
 
 	if (descricaoDespesaInput != null) {
 		descricaoDespesaInput.value = descricaoDespesaInput.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
-	}		
+	}
+
+	if(submitar == true) {
+		descricaoDespesaInput.value = (descricaoDespesaInput.value).trim();
+	}
 
 	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
 	if(descricaoDespesaInput.value != "" 

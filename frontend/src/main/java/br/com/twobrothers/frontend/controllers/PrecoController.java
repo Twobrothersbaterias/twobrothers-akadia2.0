@@ -2,20 +2,13 @@ package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.PrecoFornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPrecoDTO;
-import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.PrecoFornecedorEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
-import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
-import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.PrecoFornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
-import br.com.twobrothers.frontend.services.FornecedorService;
 import br.com.twobrothers.frontend.services.PrecoService;
-import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
-import br.com.twobrothers.frontend.services.exporter.ColaboradorPdfExporter;
 import br.com.twobrothers.frontend.services.exporter.PrecoPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
@@ -34,7 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/precos")
@@ -47,19 +43,10 @@ public class PrecoController {
     PrecoFornecedorCrudService precoCrudService;
 
     @Autowired
-    ProdutoEstoqueService produtoEstoqueService;
-
-    @Autowired
-    FornecedorService fornecedorService;
-
-    @Autowired
     UsuarioRepository usuarioRepository;
 
     @Autowired
     FornecedorRepository fornecedorRepository;
-
-    @Autowired
-    ProdutoEstoqueRepository produtoEstoqueRepository;
 
     @GetMapping
     public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
@@ -72,81 +59,19 @@ public class PrecoController {
                                        ModelMap modelMap,
                                        HttpServletRequest req) {
 
-        String baseUrl = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + req.getContextPath();
-        String completeUrl = baseUrl + "/precos?" + req.getQueryString();
-
-        modelMap.addAttribute("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
-        modelMap.addAttribute("username", UsuarioUtils.loggedUser(usuarioRepository).getNome());
-        modelMap.addAttribute("baseUrl", baseUrl);
-        modelMap.addAttribute("queryString", req.getQueryString());
-        modelMap.addAttribute("completeUrl", completeUrl);
-
-        List<PrecoFornecedorEntity> precosPaginados = new ArrayList<>();
-        List<PrecoFornecedorEntity> precosSemPaginacao = new ArrayList<>();
-        List<Integer> paginas = new ArrayList<>();
-
         try {
-
-            precosPaginados = precoService.filtroPrecos(
-                    pageable,
-                    fornecedorId.orElse(null),
-                    fornecedor.orElse(null),
-                    produtoId.orElse(null),
-                    produto.orElse(null));
-
-            precosSemPaginacao = precoService.filtroPrecosSemPaginacao(
-                    fornecedorId.orElse(null),
-                    fornecedor.orElse(null),
-                    produtoId.orElse(null),
-                    produto.orElse(null));
-
-        }
-
-        catch (InvalidRequestException e) {
+            precoService.modelMapBuilder(modelMap, pageable, req, fornecedorId.orElse(null),
+                    fornecedor.orElse(null), produtoId.orElse(null), produto.orElse(null));
+            if (!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
+                modelAndView.setViewName("precos");
+            } else {
+                modelAndView.setViewName("redirect:/");
+                redirAttrs.addFlashAttribute("ErroCadastro",
+                        "Você não possui o privilégio necessário para acessar a página de preços");
+            }
+        } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:precos");
-            return modelAndView;
-        }
-
-        model.addAttribute("tipoFiltro", "todos");
-
-        FornecedorEntity fornecedorEncontradoPorId = new FornecedorEntity();
-        ProdutoEstoqueEntity produtoEncontradoPorId = new ProdutoEstoqueEntity();
-
-        if (fornecedorId.isPresent()) model.addAttribute("tipoFiltro", "fornecedorId");
-        if (fornecedorId.isPresent()) {
-            fornecedorEncontradoPorId = (fornecedorRepository.findById(Long.parseLong(fornecedorId.orElse(String.valueOf(0L)))).get());
-            model.addAttribute("tipoFiltro", "fornecedorId");
-        }
-        if (fornecedor.isPresent()) model.addAttribute("tipoFiltro", "fornecedor");
-        if (produtoId.isPresent()) {
-            produtoEncontradoPorId = (produtoEstoqueRepository.findById(Long.parseLong(produtoId.orElse(String.valueOf(0L)))).get());
-            model.addAttribute("tipoFiltro", "produtoId");
-        }
-        if (produto.isPresent()) model.addAttribute("tipoFiltro", "produto");
-
-        paginas = precoService.calculaQuantidadePaginas(precosSemPaginacao, pageable);
-
-        model.addAttribute("totalItens", precosSemPaginacao.size());
-        model.addAttribute("fornecedorId", fornecedorId.orElse(null));
-        model.addAttribute("fornecedorEncontradoPorId", fornecedorEncontradoPorId);
-        model.addAttribute("fornecedor", fornecedor.orElse(null));
-        model.addAttribute("produtoId", produtoId.orElse(null));
-        model.addAttribute("produtoEncontradoPorId", produtoEncontradoPorId);
-        model.addAttribute("produto", produto.orElse(null));
-        model.addAttribute("paginas", paginas);
-        model.addAttribute("pagina", pageable.getPageNumber());
-        model.addAttribute("precos", precosPaginados);
-        model.addAttribute("produtos", produtoEstoqueService.buscaTodos());
-        model.addAttribute("fornecedores", fornecedorService.buscaTodos());
-
-        if(!UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().equals(PrivilegioEnum.VENDEDOR)) {
-            modelAndView.setViewName("precos");
-        }
-        else {
-            modelAndView.setViewName("redirect:/");
-            redirAttrs.addFlashAttribute("ErroCadastro",
-                    "Você não possui o privilégio necessário para acessar a página de preços");
         }
 
         return modelAndView;
@@ -177,9 +102,9 @@ public class PrecoController {
 
     @PostMapping("/deleta-{id}")
     public ModelAndView deletaPreco(@PathVariable Long id,
-                                            RedirectAttributes redirAttrs,
-                                            ModelAndView modelAndView,
-                                            String query) {
+                                    RedirectAttributes redirAttrs,
+                                    ModelAndView modelAndView,
+                                    String query) {
         precoCrudService.deletaPorId(id);
         redirAttrs.addFlashAttribute("SucessoDelete", "Preço removido com sucesso");
         modelAndView.setViewName("redirect:../precos?" + query);

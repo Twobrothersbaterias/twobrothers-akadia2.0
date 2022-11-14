@@ -728,6 +728,10 @@ function validacaoDoObjetoPatrimonio(submitar, tipo) {
 		descricaoPatrimonioInput.value = descricaoPatrimonioInput.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")		
 	}	
 
+	if(submitar == true) {
+		descricaoPatrimonioInput.value = (descricaoPatrimonioInput.value).trim();
+	}	
+
 	// REALIZA VERIFICAÇÃO DOS 3 ATRIBUTOS OBRIGATÓRIOS NULOS
 	if(descricaoPatrimonioInput.value != "" 
 			|| tipoPatrimonioInput.value != "ATIVO" 

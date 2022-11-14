@@ -171,8 +171,8 @@ public class DespesaPdfExporter {
         p.setSpacingBefore(0);
         p.setSpacingAfter(5);
         return p;
-
     }
+
     public PdfPTable constroiTabelaInformativos(java.util.List<DespesaEntity> despesas,
                                                 DespesaService despesaService) {
 

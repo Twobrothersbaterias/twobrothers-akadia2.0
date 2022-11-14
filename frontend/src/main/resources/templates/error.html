@@ -28,19 +28,31 @@
 					
 					<img class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 battery" th:src="@{img/battery.png}" src="../static/img/battery.png"/>
 
-					<h1 class="col-xl-12 col-lg-12 md-12 col-sm-12 col-12 text-center titulo">
-						Perdido?
+					<h1 class="col-xl-12 col-lg-12 md-12 col-sm-12 col-12 text-center titulo" th:text="${title}">
 					</h1>
 
-					<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-						A página que você tentou acessar não foi encontrada. Mas você pode voltar para a página inicial clicando no botão abaixo
-					</p>
+					<p class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center" th:text="${text}">
+					</p>			
 
-					<button class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-8 bt">
+					<button class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-7 bt">
 						<a class="a" th:href="@{/}" href="#">
 							Início
 						</a>
-					</button>
+					</button>			
+
+					<form th:if="${code}" th:action="@{error-log}" method="POST" th:object="${errorLog}">		
+
+						<input name="code" th:value="${code}" hidden>
+						<input name="message" th:value="${message}" hidden>
+						<input name="trace" th:value="${trace}" hidden>
+						<input name="cause" th:value="${cause}" hidden>
+						<input name="localizedMessage" th:value="${localizedMessage}" hidden>
+
+						<button type="submit" class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-7 bt a" id="button_log">
+								Log de erro
+						</button>
+
+					</form>
 
 				</div>
 

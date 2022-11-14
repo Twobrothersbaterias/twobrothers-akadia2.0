@@ -1936,6 +1936,18 @@ function validacaoCampos(tipo) {
 		form = document.getElementById('form_edita');	
 	}
 
+	inputNome.value = (inputNome.value).trim();
+	inputTelefone.value = (inputTelefone.value).trim();
+	inputEmail.value = (inputEmail.value).trim();
+	inputCpfCnpj.value = (inputCpfCnpj.value).trim();
+
+	inputCep.value = (inputCep.value).trim();
+	inputCidade.value = (inputCidade.value).trim();
+	inputBairro.value = (inputBairro.value).trim();
+	inputLogradouro.value = (inputLogradouro.value).trim();
+	inputNumero.value = (inputNumero.value).trim();
+	inputComplemento.value = (inputComplemento.value).trim();
+
 	var erros = "Ocorreram alguns erros no lançamento da ordem:\n";
 
 	if(inputTelefone.value != "" && !tratamentoCampoTelefone(tipo)) {

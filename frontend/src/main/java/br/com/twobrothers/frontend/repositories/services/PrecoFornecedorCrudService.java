@@ -127,7 +127,7 @@ public class PrecoFornecedorCrudService {
     public List<PrecoFornecedorEntity> buscaPorProdutoIdPaginado(Pageable pageable, String produtoId) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de preço por produtoId: {}", produtoId);
-        return repository.buscaPorFornecedorIdPaginado(pageable, Long.parseLong(produtoId));
+        return repository.buscaPorProdutoIdPaginado(pageable, Long.parseLong(produtoId));
     }
 
     public List<PrecoFornecedorEntity> buscaPorProdutoPaginado(Pageable pageable, String produto) {
@@ -158,7 +158,7 @@ public class PrecoFornecedorCrudService {
     public List<PrecoFornecedorEntity> buscaPorProdutoIdSemPaginacao(String produtoId) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de preço por produtoId: {}", produtoId);
-        return repository.buscaPorFornecedorIdSemPaginacao(Long.parseLong(produtoId));
+        return repository.buscaPorProdutoIdSemPaginacao(Long.parseLong(produtoId));
     }
 
     public List<PrecoFornecedorEntity> buscaPorProdutoSemPaginacao(String produto) {
