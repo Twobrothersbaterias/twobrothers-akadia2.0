@@ -259,7 +259,7 @@ function responsive(){
 			imgContainer[i].style.width="20px";
 			imgContainer[i].style.marginLeft="10px";			
 		}
-		
+
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			menuSuperiorMobileItem[i].style.width="3.5%";
 		}

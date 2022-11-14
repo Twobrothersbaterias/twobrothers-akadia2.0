@@ -1,5 +1,6 @@
 package br.com.twobrothers.frontend.config.security;
 
+import br.com.twobrothers.frontend.services.ImprimeNota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
+
+import static br.com.twobrothers.frontend.services.ImprimeNota.retornaImpressoras;
 
 /**
  * @author Gabriel Lagrota
@@ -68,14 +71,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) throws IOException {
 
-        int maximo = 50;
-
-        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
-        for (int i=0; i <= maximo; i++) {
-            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
-            if (i < maximo) System.out.print(",");
-        }
-        System.out.print(";");
+        ImprimeNota imprimeNota = new ImprimeNota();
+        System.err.println(retornaImpressoras());
+        imprimeNota.detectaImpressoras("Microsoft Print to PDF");
+        imprimeNota.imprime("Testando impressão do arquivo");
+//        int maximo = 50;
+//
+//        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
+//        for (int i=0; i <= maximo; i++) {
+//            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
+//            if (i < maximo) System.out.print(",");
+//        }
+//        System.out.print(";");
 
     }
 
