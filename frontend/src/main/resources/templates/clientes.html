@@ -615,11 +615,11 @@
 											<form method="POST" th:action="@{clientes/deleta-{id}(id = ${cliente.id})}" class="form_remove_img" id="form_remove_img">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 												<button type="submit" class="col-lg-12 btn_excluir_img">
-													<img src="../static/img/minus-green.png" th:src="@{img/minus-green.png}" class="excluir_img" id="excluir_img">
+													<img src="../static/img/cancel.png" th:src="@{img/cancel.png}" class="excluir_img" id="excluir_img">
 												</button>
 											</form>	
 
-											<form method="POST" th:action="@{clientes/deleta-{id}(id = ${cliente.id})}" class="form_remove_text" id="form_remove_text">
+											<form method="POST" th:action="@{clientes/deleta-{id}(id = ${cliente.id})}" class="col-xl-12 col-lg-12 form_remove_text" id="form_remove_text">
 												<input type="text" name="query" th:value="${queryString}" th:text="${queryText}" hidden/>
 												<button type="submit" class="col-lg-12 btn_excluir">
 													<div class="excluir_text" id="excluir_text">

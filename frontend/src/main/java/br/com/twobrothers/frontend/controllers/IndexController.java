@@ -28,7 +28,7 @@ public class IndexController {
     PostagemCrudService postagemCrudService;
 
     @GetMapping
-    public ModelAndView telaPrincipal(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public ModelAndView telaPrincipal(@PageableDefault(size = 20, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
                                       @RequestParam("titulo") Optional<String> titulo,
                                       @RequestParam("inicio") Optional<String> inicio,
                                       @RequestParam("fim") Optional<String> fim,

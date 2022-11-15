@@ -50,7 +50,7 @@ public class OrdemController {
     ClienteRepository clienteRepository;
 
     @GetMapping
-    public ModelAndView ordens(@PageableDefault(size = 10, page = 0,
+    public ModelAndView ordens(@PageableDefault(size = 20, page = 0,
             sort = {"retirada.dataAgendamento"}, direction = Sort.Direction.ASC) Pageable pageable,
                                @RequestParam("inicio") Optional<String> inicio,
                                @RequestParam("fim") Optional<String> fim,

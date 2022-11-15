@@ -164,3 +164,7 @@
     animation: pulse 2s infinite;
     color: #C3C8C8;
 }
+
+.td_checkbox {
+    padding: 2px 0;
+}

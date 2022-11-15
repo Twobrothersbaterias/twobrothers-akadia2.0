@@ -171,6 +171,9 @@ function responsive(){
 	var listaVaziaTexto = document.getElementById('lista_vazia_texto');
 	var listaVaziaBotao = document.getElementById('lista_vazia_botao');
 	var pageClick = document.getElementsByClassName('page_click');
+	var excluirImg = document.getElementsByClassName('excluir_img');
+
+	mainRow.style.width = "100%";
 
 	if(bodyWidth > 1200){
 		console.log("Tela: Muito grande");
@@ -498,9 +501,12 @@ function responsive(){
 			liA[i].style.padding="5px 10px";			
 		}		
 		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="42%";			
+			formRemoveImg[i].style.display="block";	
 		}	
+		
+		for(var i = 0; i < excluirImg.length; i++) {
+			excluirImg[i].style.width="20px";
+		}
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="18px";
@@ -600,8 +606,11 @@ function responsive(){
 		}			
 		for(var i = 0; i < formRemoveImg.length; i++) {
 			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="47%";
 		}	
+
+		for(var i = 0; i < excluirImg.length; i++) {
+			excluirImg[i].style.width="15px";
+		}
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="18px";
@@ -705,9 +714,12 @@ function responsive(){
 			liA[i].style.padding="5px 10px";
 		}
 		for(var i = 0; i < formRemoveImg.length; i++) {
-			formRemoveImg[i].style.display="block";
-			formRemoveImg[i].style.maxWidth="55%";				
+			formRemoveImg[i].style.display="block";		
 		}
+
+		for(var i = 0; i < excluirImg.length; i++) {
+			excluirImg[i].style.width="15px";
+		}	
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="15px";
@@ -1921,7 +1933,7 @@ function ajustaCampos() {
 		}
 		else if (document.getElementsByClassName('td_status')[i].innerText == 'Entrega - entregue' 
 			|| document.getElementsByClassName('td_status')[i].innerText == 'Entregue') {
-			document.getElementsByClassName('td_status')[i].innerText = "Entregue dia " + agendamentoRetiradaBarreado	;
+			document.getElementsByClassName('td_status')[i].innerText = "Entregue";
 			trContent[i].style.borderLeft="4px solid #5eff00";
 			document.getElementsByClassName('td_status')[i].style.color="#5eff00";
 		}		

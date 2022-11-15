@@ -172,6 +172,8 @@ function responsive(){
 	var postagemTexto = document.getElementsByClassName('texto_postagem');
 	var botaoPostagem = document.getElementsByClassName('botao_postagem');
 
+	mainRow.style.width = "100%";
+
 	if(bodyWidth > 1200){
 		console.log("Tela: Muito grande");
 

@@ -174,7 +174,10 @@ function responsive(){
 	var filtroBuscarBt = document.getElementById('filtro_buscar_bt');
 	var editaSubtitulo = document.getElementById('edita_item_subtitulo');
 	var filtroTitulo = document.getElementById('filtro_titulo');
-	var pageClick = document.getElementsByClassName('page_click');			
+	var pageClick = document.getElementsByClassName('page_click');		
+	var excluirImg = document.getElementsByClassName('excluir_img');
+
+	mainRow.style.width = "100%";			
 
 	if(bodyWidth > 1200){
 		console.log("Tela: Muito grande");
@@ -433,6 +436,10 @@ function responsive(){
 			formRemoveImg[i].style.maxWidth="42%";			
 		}	
 
+		for(var i = 0; i < excluirImg.length; i++) {
+			excluirImg[i].style.width="20px";
+		}
+
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
 		}
@@ -514,6 +521,10 @@ function responsive(){
 			formRemoveImg[i].style.display="block";
 			formRemoveImg[i].style.maxWidth="47%";
 		}	
+
+		for(var i = 0; i < excluirImg.length; i++) {
+			excluirImg[i].style.width="15px";
+		}
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";
@@ -604,6 +615,10 @@ function responsive(){
 			formRemoveImg[i].style.display="block";
 			formRemoveImg[i].style.maxWidth="55%";		
 		}	
+
+		for(var i = 0; i < excluirImg.length; i++) {
+			excluirImg[i].style.width="15px";
+		}
 
 		for(var i = 0; i < btnExcluir.length; i++) {
 			btnExcluir[i].style.display="none";

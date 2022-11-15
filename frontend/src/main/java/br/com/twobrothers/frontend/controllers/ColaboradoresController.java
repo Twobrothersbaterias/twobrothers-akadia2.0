@@ -42,7 +42,7 @@ public class ColaboradoresController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView usuarios(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public ModelAndView usuarios(@PageableDefault(size = 20, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.DESC) Pageable pageable,
                                  @RequestParam("descricao") Optional<String> descricao,
                                  @RequestParam("inicio") Optional<String> inicio,
                                  @RequestParam("fim") Optional<String> fim,

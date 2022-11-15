@@ -3,18 +3,13 @@ package br.com.twobrothers.frontend.controllers;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
-import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.enums.PrivilegioEnum;
-import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.AbastecimentoService;
-import br.com.twobrothers.frontend.services.FornecedorService;
-import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import br.com.twobrothers.frontend.services.exporter.AbastecimentoPdfExporter;
-import br.com.twobrothers.frontend.services.exporter.FornecedorPdfExporter;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/compras")
@@ -47,19 +43,13 @@ public class AbastecimentoController {
     AbastecimentoCrudService abastecimentoCrudService;
 
     @Autowired
-    ProdutoEstoqueService produtoEstoqueService;
-
-    @Autowired
-    FornecedorService fornecedorService;
-
-    @Autowired
     UsuarioRepository usuarioRepository;
 
     @Autowired
     FornecedorRepository fornecedorRepository;
 
     @GetMapping
-    public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
+    public ModelAndView abastecimentos(@PageableDefault(size = 20, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
                                        @RequestParam("inicio") Optional<String> inicio,
                                        @RequestParam("fim") Optional<String> fim,
                                        @RequestParam("mes") Optional<String> mes,

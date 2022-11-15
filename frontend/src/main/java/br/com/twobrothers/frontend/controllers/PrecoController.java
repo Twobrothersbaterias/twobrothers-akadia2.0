@@ -49,7 +49,7 @@ public class PrecoController {
     FornecedorRepository fornecedorRepository;
 
     @GetMapping
-    public ModelAndView abastecimentos(@PageableDefault(size = 10, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
+    public ModelAndView abastecimentos(@PageableDefault(size = 20, page = 0, sort = {"dataCadastro"}, direction = Sort.Direction.ASC) Pageable pageable,
                                        @RequestParam("fornecedorId") Optional<String> fornecedorId,
                                        @RequestParam("fornecedor") Optional<String> fornecedor,
                                        @RequestParam("produtoId") Optional<String> produtoId,

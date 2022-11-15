@@ -44,7 +44,7 @@ public class PatrimonioController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView patrimonios(@PageableDefault(size = 10, page = 0, sort = {"statusPatrimonio"}, direction = Sort.Direction.DESC) Pageable pageable,
+    public ModelAndView patrimonios(@PageableDefault(size = 20, page = 0, sort = {"statusPatrimonio"}, direction = Sort.Direction.DESC) Pageable pageable,
                                     @RequestParam("descricao") Optional<String> descricao,
                                     @RequestParam("mes") Optional<String> mes,
                                     @RequestParam("ano") Optional<String> ano,
