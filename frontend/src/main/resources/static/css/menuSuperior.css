@@ -34,5 +34,9 @@
 }
 
 .menu_superior_img:hover {
-    animation: pulse 2s infinite;
+    animation: subpulse 2s infinite;
+}
+
+.warning_yellow, .warning_red{
+    animation: subpulse 2s infinite;
 }

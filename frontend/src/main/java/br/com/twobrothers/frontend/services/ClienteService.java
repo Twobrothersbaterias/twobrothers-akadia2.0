@@ -3,8 +3,10 @@ package br.com.twobrothers.frontend.services;
 import br.com.twobrothers.frontend.models.dto.ClienteDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroClienteDTO;
 import br.com.twobrothers.frontend.models.entities.ClienteEntity;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,9 @@ public class ClienteService {
 
     @Autowired
     ClienteCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -144,8 +149,11 @@ public class ClienteService {
         log.info("[STARTING] Iniciando método de construção de atributos passados por PathParam...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Iniciando setagem da lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
 
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<ClienteEntity> clientesSemPaginacao = filtroClientesSemPaginacao(
                 descricao,
                 inicio,
@@ -167,6 +175,8 @@ public class ClienteService {
 
         log.info("[PROGRESS] Inicializando setagem de atributos de busca...");
         atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("descricao", descricao);
         atributos.put("inicio", inicio);
         atributos.put("fim", fim);

@@ -2,9 +2,11 @@ package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.models.dto.FornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroFornecedorDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.FornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -29,6 +31,9 @@ public class FornecedorService {
 
     @Autowired
     FornecedorCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -151,7 +156,11 @@ public class FornecedorService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<FornecedorEntity> patrimoniosSemPaginacao = filtroFornecedoresSemPaginacao(
                 descricao,
                 inicio,
@@ -172,6 +181,8 @@ public class FornecedorService {
                 telefone);
 
         log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("descricao", descricao);
         atributos.put("dataInicio", inicio);
         atributos.put("dataFim", fim);

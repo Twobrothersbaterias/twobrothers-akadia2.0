@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.AbastecimentoDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroAbastecimentoDTO;
 import br.com.twobrothers.frontend.models.entities.AbastecimentoEntity;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
@@ -11,6 +12,7 @@ import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.AbastecimentoCrudService;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -35,6 +37,9 @@ public class AbastecimentoService {
 
     @Autowired
     AbastecimentoCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -233,7 +238,11 @@ public class AbastecimentoService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<AbastecimentoEntity> abastecimentosSemPaginacao = filtroAbastecimentosSemPaginacao(
                 inicio,
                 fim,
@@ -285,11 +294,14 @@ public class AbastecimentoService {
         }
 
         log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("inicio", inicio);
         atributos.put("fim", fim);
         atributos.put("mes", mes);
         atributos.put("ano", ano);
         atributos.put("fornecedorId", fornecedorId);
+        atributos.put("fornecedorEncontradoPorId", fornecedorEncontradoPorId);
         atributos.put("fornecedor", fornecedor);
         atributos.put("produto", produto);
         atributos.put("meio", meio);

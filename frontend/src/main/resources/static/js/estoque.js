@@ -1,7 +1,5 @@
 /* =========================== RESPONSIVIDADE DA TELA =========================== */
 
-
-window.print();
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
 buildUrlPages();

@@ -5,6 +5,7 @@ window.onresize = doALoadOfStuff;
 buildUrlPages();
 buildUrlRelatorio();
 dataFiltroResponsiva();
+ajustaCampos();
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro').value;
@@ -149,6 +150,8 @@ function responsive(){
 	var thUsuario = document.getElementsByClassName('th_usuario');
 	var tdData = document.getElementsByClassName('td_data');
 	var thData = document.getElementsByClassName('th_data');
+	var tdTecnico = document.getElementsByClassName('td_tecnico');
+	var thTecnico = document.getElementsByClassName('th_tecnico');	
 	var tdPagamento = document.getElementsByClassName('td_pagamento');
 	var thPagamento = document.getElementsByClassName('th_pagamento');
 	var tdRemove = document.getElementsByClassName('td_checkbox');
@@ -216,6 +219,22 @@ function responsive(){
 		for(var i = 0; i < tdUsuario.length; i++) {
 			tdUsuario[i].style.display="flex";
 		}
+
+		for(var i = 0; i < thData.length; i++) {
+			thData[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}
+
+		for(var i = 0; i < thTecnico.length; i++) {
+			thTecnico[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdTecnico.length; i++) {
+			tdTecnico[i].hidden=false;
+		}		
 
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.70rem";
@@ -327,6 +346,22 @@ function responsive(){
 			tdUsuario[i].style.display="flex";
 		}					
 
+		for(var i = 0; i < thData.length; i++) {
+			thData[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}
+
+		for(var i = 0; i < thTecnico.length; i++) {
+			thTecnico[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdTecnico.length; i++) {
+			tdTecnico[i].hidden=false;
+		}		
+
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.65rem";		
 		}		
@@ -430,6 +465,22 @@ function responsive(){
 
 		filtroTitulo.style.fontSize="1.1rem";	
 
+		for(var i = 0; i < thData.length; i++) {
+			thData[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=false;
+		}
+
+		for(var i = 0; i < thTecnico.length; i++) {
+			thTecnico[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdTecnico.length; i++) {
+			tdTecnico[i].hidden=false;
+		}		
+
 		for(var i = 0; i < th.length; i++){
 			th[i].style.fontSize="0.60rem";	
 		}
@@ -515,6 +566,21 @@ function responsive(){
 			tdUsuario[i].style.display="none";
 		}		
 
+		for(var i = 0; i < thData.length; i++) {
+			thData[i].hidden=true;
+		}
+
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=true;
+		}
+
+		for(var i = 0; i < thTecnico.length; i++) {
+			thTecnico[i].hidden=false;
+		}
+
+		for(var i = 0; i < tdTecnico.length; i++) {
+			tdTecnico[i].hidden=false;
+		}
 
 		for(var i = 0; i < th.length; i++) {
 			th[i].style.fontSize="0.55rem";
@@ -608,6 +674,22 @@ function responsive(){
 		for(var i = 0; i < td.length; i++){
 			td[i].style.fontSize="0.50rem";
 		}
+
+		for(var i = 0; i < thData.length; i++) {
+			thData[i].hidden=true;
+		}
+
+		for(var i = 0; i < tdData.length; i++) {
+			tdData[i].hidden=true;
+		}
+
+		for(var i = 0; i < thTecnico.length; i++) {
+			thTecnico[i].hidden=true;
+		}
+
+		for(var i = 0; i < tdTecnico.length; i++) {
+			tdTecnico[i].hidden=true;
+		}		
 
 		if (informativoRow != null) {
 			informativoRow.style.marginBottom="8px";
@@ -933,7 +1015,6 @@ function filtroChange() {
 		pdv.hidden=false;			
 		
 	}	
-
 }
 
 function reloadFiltro() {
@@ -1705,7 +1786,7 @@ function editaItemChangeTipo() {
 
 function ajustaTabela(){
 
-	ajustaCampos();
+
 	ajustaDatas();
 	ajustaUrlEdicao();
 
@@ -1820,13 +1901,13 @@ function ajustaCampos() {
 				}
 				// ATRASADO
 				else if(compareDates(hojeBarreado, agendamentoRetiradaBarreado) == "atrasado" || agendamentoRetirada.innerText == "Atrasado") {
-					document.getElementsByClassName('td_status')[i].innerText = "Entrega atrasada";
-					document.getElementsByClassName('td_status')[i].style.color="#f20a0a";
-					trContent[i].style.borderLeft="4px solid #f20a0a";			
+					document.getElementsByClassName('td_status')[i].innerText = "Atrasado desde " + agendamentoRetiradaBarreado;
+					document.getElementsByClassName('td_status')[i].style.color="#cd1f1f";
+					trContent[i].style.borderLeft="4px solid #cd1f1f";			
 				}	
 				// AGENDADO
 				else if(compareDates(hojeBarreado, agendamentoRetiradaBarreado) == "agendado" || agendamentoRetirada.innerText == "agendado") {
-					document.getElementsByClassName('td_status')[i].innerText = "Agendado";
+					document.getElementsByClassName('td_status')[i].innerText = "Agendado para " + agendamentoRetiradaBarreado;
 					trContent[i].style.borderLeft="4px solid #ffdd00";
 					document.getElementsByClassName('td_status')[i].style.color="#ffdd00";
 				}					
@@ -1840,7 +1921,7 @@ function ajustaCampos() {
 		}
 		else if (document.getElementsByClassName('td_status')[i].innerText == 'Entrega - entregue' 
 			|| document.getElementsByClassName('td_status')[i].innerText == 'Entregue') {
-			document.getElementsByClassName('td_status')[i].innerText = "Entregue";
+			document.getElementsByClassName('td_status')[i].innerText = "Entregue dia " + agendamentoRetiradaBarreado	;
 			trContent[i].style.borderLeft="4px solid #5eff00";
 			document.getElementsByClassName('td_status')[i].style.color="#5eff00";
 		}		

@@ -1,11 +1,12 @@
 package br.com.twobrothers.frontend.services;
 
-import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPostagemDTO;
 import br.com.twobrothers.frontend.models.dto.postagem.PostagemDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.postagem.PostagemEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.CategoriaCrudService;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.PostagemCrudService;
 import br.com.twobrothers.frontend.repositories.services.SubCategoriaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
@@ -15,12 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 import static br.com.twobrothers.frontend.utils.StringConstants.URI_POSTAGEM;
@@ -42,7 +41,7 @@ public class PostagemService {
     UsuarioRepository usuarioRepository;
 
     @Autowired
-    ModelMapperConfig modelMapper;
+    DespesaCrudService despesaCrudService;
 
     public String encaminhaParaCriacaoDoCrudService(PostagemDTO postagem) {
         try {
@@ -149,8 +148,11 @@ public class PostagemService {
         log.info("[STARTING] Iniciando método de construção de atributos passados por PathParam...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Iniciando setagem da lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
 
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<PostagemEntity> postagens = filtroPostagensSemPaginacao(
                 titulo,
                 inicio,
@@ -163,6 +165,8 @@ public class PostagemService {
 
         log.info("[PROGRESS] Inicializando setagem de atributos de busca...");
         atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("titulo", titulo);
         atributos.put("inicio", inicio);
         atributos.put("fim", fim);

@@ -3,12 +3,13 @@ package br.com.twobrothers.frontend.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.PatrimonioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPatrimonioDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
-import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.StatusPatrimonioEnum;
 import br.com.twobrothers.frontend.models.enums.TipoPatrimonioEnum;
 import br.com.twobrothers.frontend.repositories.PatrimonioRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.PatrimonioCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.ConversorDeDados;
@@ -27,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static br.com.twobrothers.frontend.utils.ConversorDeDados.converteValorDoubleParaValorMonetario;
 import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 
 @Slf4j
@@ -36,6 +36,9 @@ public class PatrimonioService {
 
     @Autowired
     PatrimonioCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -215,7 +218,11 @@ public class PatrimonioService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<PatrimonioEntity> patrimoniosSemPaginacao = filtroPatrimoniosSemPaginacao(
                 descricao,
                 tipo,
@@ -236,6 +243,8 @@ public class PatrimonioService {
         atributos.put("caixa", ConversorDeDados.converteValorDoubleParaValorMonetario(calculaValorCaixa(patrimoniosSemPaginacao)));
 
         log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("descricao", descricao);
         atributos.put("tipo", tipo);
         atributos.put("mes", mes);

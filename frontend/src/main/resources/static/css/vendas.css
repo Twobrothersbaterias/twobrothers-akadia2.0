@@ -174,3 +174,9 @@
 .novo_bt:hover {
 	animation: subpulse 2s infinite;
 }
+
+.td_status {
+	text-align: left;
+	justify-content: left;
+	padding-left: 7px;
+}

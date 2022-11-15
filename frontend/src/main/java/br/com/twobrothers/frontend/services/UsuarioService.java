@@ -2,8 +2,10 @@ package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.models.dto.UsuarioDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroUsuarioDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.UsuarioEntity;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.UsuarioCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -27,6 +29,9 @@ public class UsuarioService {
 
     @Autowired
     UsuarioCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -135,7 +140,11 @@ public class UsuarioService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<UsuarioEntity> usuariosSemPaginacao = filtroUsuariosSemPaginacao(
                 descricao,
                 inicio,
@@ -154,6 +163,8 @@ public class UsuarioService {
                 usuario);
 
         log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("descricao", descricao);
         atributos.put("dataInicio", inicio);
         atributos.put("dataFim", fim);

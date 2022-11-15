@@ -9,6 +9,8 @@ console.log('Privilégio: ' + privilegio);
 
 document.getElementById('input_nome').focus();
 
+removeItemTb(null);
+
 /* ================== TECLAS DE ATALHO ====================== */
 
 document.getElementById('botao_add_pagamento').onkeypress=function() {
@@ -1101,7 +1103,7 @@ function addNovoProduto() {
 		document.getElementById('sucessoCadastro').innerText="Nova entrada inserida à ordem com sucesso";		
 
 		inputTipoProduto.focus();
-		AjustaTabelaDeProdutos(string);
+		removeItemTb(null); // ATUALIZA A TABELA EXCLUINDO TUDO E CRIANDO DE NOVO
 		responsive();
 		console.log("Entradas: \n" + inputEntradas.value);
 
@@ -1109,7 +1111,6 @@ function addNovoProduto() {
 	else {
 		inputTipoProduto.focus();
 	}
-
 }
 
 function removeProdutoDosOptions(sigla, quantidadeReq) {
@@ -1884,87 +1885,7 @@ function fecharTabelaProdutos() {
 	sideMenu.style.transition="1s";	
 }
 
-function AjustaTabelaDeProdutos(inputEntradas) {
-
-	var totalEntradas = 0;
-
-	var inputEntradasSplitPai = inputEntradas.split("ENTRADA=");
-
-	if (document.getElementById('tr_base') != null) {
-		document.getElementById('tr_base').hidden=true;
-	}
-
-	for(var i = 1; i < inputEntradasSplitPai.length; i++) {
-
-		var tipo = null;
-
-		if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_SERVICO") {
-			tipo = "Serviço"
-		}
-		else if ((inputEntradasSplitPai[i].split(";")[0]) == "PADRAO_PRODUTO") {
-			tipo = "Produto";
-		}
-		else {
-			tipo = "Garantia"
-		}
-
-		$(table).find('tbody').append(
-			"<tr data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='tr_novo_body col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>" +
-
-				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_tipo col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2'>" 
-					+ tipo +
-				"</td>" +
-
-				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_produto col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4'>"
-					+ (inputEntradasSplitPai[i].split(";")[2]) + 
-				"</td>" +
-
-				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_quantidade col-xl-2 col-lg-2 col-md-2 col-sm-3 col-3'>" 
-					+ (inputEntradasSplitPai[i].split(";")[4]) + "</td>" +
-
-				"<td data-produto=" + (inputEntradasSplitPai[i].split(";")[2]) + " class='td_novo td_valor col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4'>" 
-					+ parseFloat((inputEntradasSplitPai[i].split(";")[3])).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
-
-				"<td" 
-				+ " data-tipo=" + (inputEntradasSplitPai[i].split(";")[0])
-				+ " data-troca=" + (inputEntradasSplitPai[i].split(";")[1])
-				+ " data-produto=" + (inputEntradasSplitPai[i].split(";")[2])
-				+ " data-valor=" + (inputEntradasSplitPai[i].split(";")[3])
-				+ " data-quantidade=" + (inputEntradasSplitPai[i].split(";")[4])
-				+ " onclick=removeItemTb('"+ inputEntradasSplitPai[i] +"')" 
-				+ " class='td_novo td_checkbox col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1'>"
-					
-					+ "<form class='form_remove_img'>"
-
-						+ "<input type='text' hidden/>"
-						+ "<button type='button' class='col-lg-12 btn_excluir_img'>"
-							+ "<img src='img/minus-green.png' th:src='@{img/minus-green.png}' class='excluir_img' id='excluir_img'/>"
-						+ "</button>"
-
-					+ "</form>"	
-
-					+ "<form class='form_remove_text'>"
-
-						+ "<input type='text' hidden/>"
-						+ "<button type='button' class='col-lg-12 btn_excluir'>"
-							+ "<div class='excluir_text' id='excluir_text'>"
-								+ "Excluir"
-							+ "</div>"
-						+ "</button>"
-
-					+ "</form>"
-
-				+ "</td>"
-
-			+ "</tr>");		
-	}
-
-	responsive();
-}
-
 function atualizaTabelaDeProdutos(inputEntradas) {
-
-	console.log('ATUALIZA TABELA ACESSADO');
 
 	console.log("VALOR RECEBIDO: " + inputEntradas);
 
@@ -2046,28 +1967,30 @@ function atualizaTabelaDeProdutos(inputEntradas) {
 	}
 
 	responsive();
-
 }
 
 function removeItemTb(item) {
+
 	var inputEntradas = document.getElementById('input_entradas');
-	inputEntradas.value = (inputEntradas.value.replace("ENTRADA=" + item, ""));
-	calculaInformativos();
-	
-	console.log(inputEntradas.value);
+	if (item != null) {	
+		inputEntradas.value = (inputEntradas.value.replace("ENTRADA=" + item, ""));
+		calculaInformativos();
+		
+		console.log(inputEntradas.value);
 
-	console.log(item);
+		console.log(item);
 
-	// DEVOLVENDO QUANTIDADE AO OPTION E HABILITANDO-O NOVAMENTE
-	var optionProdutos = document.getElementsByClassName('option_produto');
-	for (var i = 0; i < optionProdutos.length; i++) {
-		if (optionProdutos[i].value == item.split(";")[2] && item.split(";") != 'Serviço') {
-			optionProdutos[i].disabled=false;
-			optionProdutos[i].style.color="#303030";
-			var quantidadeAtual = (parseInt(optionProdutos[i].text.split("|")[0].replace('Qtd: ', ""))) + (parseInt(item.split(";")[4]));
-			optionProdutos[i].text="Qtd: " + quantidadeAtual + " | " + item.split(";")[2];
-		}
-	}	
+		// DEVOLVENDO QUANTIDADE AO OPTION E HABILITANDO-O NOVAMENTE
+		var optionProdutos = document.getElementsByClassName('option_produto');
+		for (var i = 0; i < optionProdutos.length; i++) {
+			if (optionProdutos[i].value == item.split(";")[2] && item.split(";") != 'Serviço') {
+				optionProdutos[i].disabled=false;
+				optionProdutos[i].style.color="#303030";
+				var quantidadeAtual = (parseInt(optionProdutos[i].text.split("|")[0].replace('Qtd: ', ""))) + (parseInt(item.split(";")[4]));
+				optionProdutos[i].text="Qtd: " + quantidadeAtual + " | " + item.split(";")[2];
+			}
+		}	
+	}
 
 	$("#tbody_novo").remove();
 

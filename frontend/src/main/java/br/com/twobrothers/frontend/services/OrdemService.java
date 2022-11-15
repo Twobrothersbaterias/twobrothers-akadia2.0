@@ -2,10 +2,12 @@ package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.ConversorDeDados;
@@ -32,28 +34,13 @@ public class OrdemService {
     OrdemCrudService crudService;
 
     @Autowired
+    DespesaCrudService despesaCrudService;
+
+    @Autowired
     UsuarioRepository usuarioRepository;
 
     @Autowired
     ClienteRepository clienteRepository;
-
-    public String encaminhaParaCriacaoDoCrudService(OrdemDTO ordem) {
-        try {
-            crudService.criaNovo(ordem);
-            return null;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-
-    public String encaminhaParaUpdateDoCrudService(OrdemDTO ordem) {
-        try {
-            crudService.atualizaPorId(ordem.getId(), ordem);
-            return null;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
 
     public List<OrdemEntity> filtroOrdens(
             Pageable pageable,
@@ -205,8 +192,11 @@ public class OrdemService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
 
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<OrdemEntity> ordensSemPaginacao = filtroOrdensSemPaginacao(
                 inicio,
                 fim,
@@ -245,6 +235,8 @@ public class OrdemService {
 
         log.info("[PROGRESS] Setando valores dos filtros...");
         atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("dataInicio", inicio);
         atributos.put("dataFim", fim);
         atributos.put("mes", mes);

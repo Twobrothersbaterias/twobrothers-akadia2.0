@@ -105,6 +105,14 @@ public class DespesaCrudService {
         return despesas;
     }
 
+    public List<DespesaEntity> buscaDespesasAtrasadas() {
+        return repository.buscaPorAtrasados(LocalDate.now().toString());
+    }
+
+    public List<DespesaEntity> buscaDespesasComVencimentoParaHoje() {
+        return repository.buscaPorVencimentoParaHoje(LocalDate.now().toString());
+    }
+
     public List<DespesaEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim) {
         log.info(BARRA_DE_LOG);
         log.info("[STARTING] Iniciando método de busca de despesa por range de data...");

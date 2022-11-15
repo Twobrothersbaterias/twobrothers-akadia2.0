@@ -3,10 +3,12 @@ package br.com.twobrothers.frontend.services;
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroProdutoDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.ProdutoEstoqueCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
@@ -33,6 +35,9 @@ public class ProdutoEstoqueService {
 
     @Autowired
     ProdutoEstoqueCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -186,7 +191,11 @@ public class ProdutoEstoqueService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<ProdutoEstoqueEntity> produtosSemPaginacao = filtroProdutosSemPaginacao(
                 descricao,
                 tipo,
@@ -216,6 +225,8 @@ public class ProdutoEstoqueService {
 
         log.info("[PROGRESS] Setando valores dos filtros...");
         atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("descricao", descricao);
         atributos.put("tipo", tipo);
         atributos.put("dataInicio", inicio);

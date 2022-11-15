@@ -1,16 +1,13 @@
 package br.com.twobrothers.frontend.services;
 
-import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.DespesaDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroDespesaDTO;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
-import br.com.twobrothers.frontend.repositories.DespesaRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
-import br.com.twobrothers.frontend.utils.ConversorDeDados;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,7 +176,11 @@ public class DespesaService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = crudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = crudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<DespesaEntity> despesasSemPaginacao = filtroDespesasSemPaginacao(
                 descricao,
                 tipo,
@@ -203,6 +204,8 @@ public class DespesaService {
         atributos.put("pagar", pendentesHoje());
 
         log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("descricao", descricao);
         atributos.put("tipo", tipo);
         atributos.put("dataInicio", inicio);

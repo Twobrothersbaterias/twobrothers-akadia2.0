@@ -22,6 +22,12 @@ import java.util.List;
 @Repository
 public interface DespesaRepository extends JpaRepository<DespesaEntity, Long> {
 
+    @Query("Select d From DespesaEntity d where d.dataAgendamento < ?1")
+    List<DespesaEntity> buscaPorAtrasados(String hoje);
+
+    @Query("Select d From DespesaEntity d where d.dataAgendamento = ?1")
+    List<DespesaEntity> buscaPorVencimentoParaHoje(String hoje);
+
     // Com paginação
     @Query("Select d From DespesaEntity d where d.dataPagamento between ?1 and ?2 OR d.dataAgendamento between ?1 and ?2")
     List<DespesaEntity> buscaPorRangeDeData(Pageable pageable, String dataInicio, String dataFim);

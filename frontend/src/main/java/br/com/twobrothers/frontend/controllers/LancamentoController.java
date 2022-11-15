@@ -1,13 +1,10 @@
 package br.com.twobrothers.frontend.controllers;
 
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
-import br.com.twobrothers.frontend.repositories.OrdemRepository;
-import br.com.twobrothers.frontend.repositories.UsuarioRepository;
-import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
+import br.com.twobrothers.frontend.repositories.services.OrdemCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.services.LancamentoService;
 import br.com.twobrothers.frontend.services.OrdemService;
-import br.com.twobrothers.frontend.services.ProdutoEstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,19 +22,10 @@ import java.util.Optional;
 public class LancamentoController {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
-
-    @Autowired
-    OrdemRepository ordemRepository;
-
-    @Autowired
-    ProdutoEstoqueService produtoEstoqueService;
-
-    @Autowired
-    ClienteCrudService clienteCrudService;
-
-    @Autowired
     OrdemService ordemService;
+
+    @Autowired
+    OrdemCrudService ordemCrudService;
 
     @Autowired
     LancamentoService lancamentoService;
@@ -49,8 +37,7 @@ public class LancamentoController {
             lancamentoService.modelMapBuilder(modelMap, id.orElse(null));
             modelAndView.setViewName("lancamento");
             return modelAndView;
-        }
-        catch (InvalidRequestException e) {
+        } catch (InvalidRequestException e) {
             redirAttrs.addFlashAttribute("ErroBusca", e.getMessage());
             modelAndView.setViewName("redirect:lancamento");
             return modelAndView;
@@ -62,32 +49,19 @@ public class LancamentoController {
     public ModelAndView lancamentoPost(ModelAndView modelAndView,
                                        RedirectAttributes redirAttrs,
                                        OrdemDTO ordem) {
-
-        String criaOrdem = ordemService.encaminhaParaCriacaoDoCrudService(ordem);
-
-        if (criaOrdem == null)
-            redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da ordem salvo com sucesso");
-        else
-            redirAttrs.addFlashAttribute("ErroCadastro", criaOrdem);
-
+        ordemCrudService.criaNovo(ordem);
+        redirAttrs.addFlashAttribute("SucessoCadastro", "Cadastro da ordem salvo com sucesso");
         modelAndView.setViewName("redirect:vendas");
         return modelAndView;
-
     }
 
     @PostMapping("/alterar")
     public ModelAndView atualizaOrdem(OrdemDTO ordem,
-                                              RedirectAttributes redirAttrs,
-                                              ModelAndView modelAndView,
-                                              String query) {
-
-        String atualizaOrdem = ordemService.encaminhaParaUpdateDoCrudService(ordem);
-
-        if (atualizaOrdem == null)
-            redirAttrs.addFlashAttribute("SucessoCadastro", "Atualização da ordem realizada com sucesso");
-        else
-            redirAttrs.addFlashAttribute("ErroCadastro", atualizaOrdem);
-
+                                      RedirectAttributes redirAttrs,
+                                      ModelAndView modelAndView,
+                                      String query) {
+        ordemCrudService.atualizaPorId(ordem.getId(), ordem);
+        redirAttrs.addFlashAttribute("SucessoCadastro", "Atualização da ordem realizada com sucesso");
         modelAndView.setViewName("redirect:../vendas?" + query);
         return modelAndView;
     }

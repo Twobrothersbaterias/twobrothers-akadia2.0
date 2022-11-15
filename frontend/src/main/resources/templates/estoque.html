@@ -134,9 +134,34 @@
 
 						<a th:if="${privilegio} != 'Vendedor'" class="menu_superior_botao_container" href="#" id="container_avisos" title="Avisos">
 
-							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10" id="avisos">
-								<img src="../static/img/warning-grey.png" th:src="@{img/warning-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
-							</button>	
+							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12 col-sm-11 col-10" id="avisos">
+
+								<img 
+								onclick="window.location.href='/despesas'"
+								th:if="${#lists.isEmpty(despesasAtrasadas)} and ${#lists.isEmpty(despesasHoje)}" 
+								src="../static/img/warning-grey.png" 
+								th:src="@{img/warning-grey.png}" 
+								class="menu_superior_img warning_ok col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" 
+								title="Todas as suas despesas estão em dia"/>
+
+								<img 
+								onclick="window.location.href='/despesas'"
+								th:if="${not #lists.isEmpty(despesasHoje)} and ${#lists.isEmpty(despesasAtrasadas)}"  
+								src="../static/img/warning-yellow.png" 
+								th:src="@{img/warning-yellow.png}" 
+								class="menu_superior_img warning_yellow col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+								title="Você possui despesas com vencimento para hoje"
+								th:title="'Você tem ' + ${#lists.size(despesasHoje)} + ' despesa(s) que vence(m) hoje'"/>
+
+								<img 
+								onclick="window.location.href='/despesas'"
+								th:if="${not #lists.isEmpty(despesasAtrasadas)}" 
+								src="../static/img/warning-red.png" th:src="@{img/warning-red.png}" 
+								class="menu_superior_img warning_red col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+								title="Você possui despesas em atraso"
+								th:title="'Você tem ' + ${#lists.size(despesasAtrasadas)} + ' despesa(s) em atraso'"/>
+
+							</button>		
 
 						</a>	
 

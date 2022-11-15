@@ -2,12 +2,14 @@ package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.models.dto.PrecoFornecedorDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroPrecoDTO;
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.FornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.PrecoFornecedorEntity;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.repositories.FornecedorRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.PrecoFornecedorCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
@@ -31,6 +33,9 @@ public class PrecoService {
 
     @Autowired
     PrecoFornecedorCrudService crudService;
+
+    @Autowired
+    DespesaCrudService despesaCrudService;
 
     @Autowired
     ProdutoEstoqueService produtoEstoqueService;
@@ -137,7 +142,11 @@ public class PrecoService {
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        log.info("[PROGRESS] Setando lista de itens encontrados...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
         List<PrecoFornecedorEntity> precosSemPaginacao = filtroPrecosSemPaginacao(
                 fornecedorId,
                 fornecedor,
@@ -171,6 +180,8 @@ public class PrecoService {
         if (produto != null) atributos.replace(TIPO_FILTRO, "produto");
 
         log.info("[PROGRESS] Setando valores dos filtros...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("fornecedorId", fornecedorId);
         atributos.put("fornecedorEncontradoPorId", fornecedorEncontradoPorId);
         atributos.put("fornecedor", fornecedor);

@@ -1,25 +1,19 @@
 package br.com.twobrothers.frontend.services;
 
+import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
-import br.com.twobrothers.frontend.models.entities.PatrimonioEntity;
 import br.com.twobrothers.frontend.repositories.OrdemRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.ClienteCrudService;
-import br.com.twobrothers.frontend.utils.ConversorDeDados;
+import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-
-import static br.com.twobrothers.frontend.utils.StringConstants.TIPO_FILTRO;
 
 @Slf4j
 @Service
@@ -37,6 +31,9 @@ public class LancamentoService {
     @Autowired
     ClienteCrudService clienteCrudService;
 
+    @Autowired
+    DespesaCrudService despesaCrudService;
+
     public ModelMap modelMapBuilder(ModelMap modelMap, String id) {
 
         log.info("[STARTING] Iniciando construção do modelMap...");
@@ -46,7 +43,13 @@ public class LancamentoService {
         if (id != null) ordem = ordemRepository.findById(Long.parseLong(id)).get();
         if (ordem != null) atributos.put("ordemEdicao", ordem);
 
-        log.info("[PROGRESS] Adicionando atributos ao modelMap...");
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        log.info("[PROGRESS] Iniciando setagem da lista de objetos encontrados com o filtro atual...");
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
         atributos.put("ordem", null);
         atributos.put("entradas", null);
         atributos.put("pagamentos", null);
