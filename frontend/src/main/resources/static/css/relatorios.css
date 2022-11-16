@@ -1,0 +1,142 @@
+/* INFORMATIVOS */
+
+.relatorio_informativos_container {
+	color: #C3C8C8;
+	margin: 0 auto;
+}
+
+.relatorio_informativos_subcontainer {
+	padding: 0 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.relatorio_informativo_block {
+	background-color: #303030;
+	box-shadow: 1px 1px 5px #121212;
+	padding: 30px 15px;
+	display: flex;
+	justify-content: center;
+	float: left;
+}
+
+.relatorio_img_informativo{
+	width: 37px;
+}
+
+.relatorio_img_subcontainer{
+	display: flex;
+	justify-content: center;
+}
+
+.relatorio_content_subcontainer {
+	float: left;
+	padding: 0;
+}
+
+.relatorio_content_titulo_qtde {
+	color: #E04AA5;
+}
+
+.relatorio_content_titulo_bruto {
+	color: #65c76a;
+}
+
+.relatorio_content_titulo_custos {
+	color: #FC8738;
+}
+
+.relatorio_content_titulo_liquido {
+	color: #51C6CF;
+}
+
+.relatorio_content_desc {
+	margin-top: 5px;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+/* CANVAS */
+
+.canvas_container {
+	margin: 0 auto;	
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;	
+}
+
+.canvas_subcontainer {
+	padding: 10px;
+	margin: 0;
+}
+
+.canvas_block {
+	background-color: #303030;
+	box-shadow: 1px 1px 15px #121212;
+	padding: 20px;
+	margin: 0;
+}
+
+.titulo_grafico {
+	color: #C3C8C8;
+	font-size: 1rem;
+	font-weight: 600;
+	padding-top: 8px;
+}
+
+.grafico_select {
+	background-color: transparent;
+	color: #C3C8C8;
+	padding: 5px;
+	font-size: 0.90rem;
+}
+
+.line-chart, .bar-chart {
+	margin-top: 15px;
+}
+
+/* ITENS */
+
+.hr_novo {
+	margin-bottom: 20px;
+}
+
+.pagamentos_container {
+	margin: 20px 0;
+}
+
+.pagamentos_subcontainer {
+	padding: 0px;
+	margin: 0;
+}
+
+
+.relatorio_item_titulo {
+	text-align: center;
+	color: #C3C8C8;
+	margin-bottom: 10px;
+}
+
+.pagamentos_block {
+	display: flex;
+	justify-content: center;
+	background-color: transparent;
+	box-shadow: none;
+	padding-top: 0;
+	padding: 0 10px;
+	margin: 0;
+}
+
+.relatorio_img_item {
+	width: 90px;
+}
+
+.relatorio_item_informativo {
+	background-color: #65c76a;
+	padding: 10px;
+	padding-top: 12px;
+	text-align: center;
+	color: #303030;
+	font-weight: 600;
+	margin-top: 15px;
+}
