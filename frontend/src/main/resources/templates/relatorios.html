@@ -245,7 +245,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a th:href="@{/relatorios}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/pie-grey.png" th:src="@{img/pie-grey.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/pie-green.png" th:src="@{img/pie-green.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -285,7 +285,7 @@
 						<div class="mobile mobile-1 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="mobile-principal">
 							<a th:href="@{/precos}" class="mobile_clicavel col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<button type="button" class="mobile_button col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-									<img src="../static/img/price-7da181.png" th:src="@{img/price-7da181.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
+									<img src="../static/img/price-959595.png" th:src="@{img/price-959595.png}" class="mobile_menu_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 								</button>	
 							</a>
 						</div>	
@@ -299,7 +299,7 @@
 				<!-------------- CONTEUDO_CONTAINER ------------>
 				<div class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_container" id="conteudo_container">
 
-					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
+					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo" id="conteudo_titulo">
 
 						<div th:if="${SucessoCadastro}" class="alert alert-success" id="sucessoCadastro" onclick="hideMessage()">
 							<p th:text="${SucessoCadastro}"></p>
@@ -312,27 +312,91 @@
 						<div th:if="${SucessoDelete}" class="alert alert-success" id="sucessoDelete" onclick="hideMessage()">
 							<p th:text="${SucessoDelete}"></p>
 						</div>
+
+						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_icones">
+
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo_text" id="conteudo_titulo_text">
+
+								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select_anterior">
+									<
+								</div>
+
+								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select_ano">
+									2022
+								</div>
+
+								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select_posterior">
+									>
+								</div>
+
+								<!--<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+
+									<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/precos}">
+										<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
+									</a>
+
+									<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+										<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
+									</a>
+
+								</div>	-->				
+							</div>
+
+						</div>	
 										
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_meses">
 
-						<h1 class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 conteudo_titulo_text" id="conteudo_titulo_text">
-							Fechamento deste mês
-						</h1>
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Jan
+							</div>
 
-						<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Fev
+							</div>	
 
-							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/precos}">
-								<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
-							</a>
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Mar
+							</div>	
 
-							<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
-							</a>
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Abr
+							</div>	
 
-							<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
-								<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/filter-gray.png" th:src="@{img/filter-gray.png}" onclick="abrirFiltro()"/>
-							</a>
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Mai
+							</div>
 
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Jun
+							</div>	
+
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Jul
+							</div>	
+
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Ago
+							</div>	
+
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Set
+							</div>	
+
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Out
+							</div>	
+
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
+								Nov
+							</div>	
+
+							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes" id="container_mes_dez">
+								Dez
+							</div>																																				
 						</div>
+
+
+
 					</div>
 
 					<hr id="hr_tabela">
@@ -478,10 +542,14 @@
 						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
 							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block">					
 								<h3 class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico">
-									Faturamento líquido por dia
+									Faturamento líquido
 								</h3>
 								<select class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select">
 									<option>Faturamento Líquido</option>
+									<option>Faturamento Bruto</option>
+									<option>Ticket médio</option>
+									<option>Custos</option>
+									<option>Despesas</option>
 								</select>	
 
 								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart"></canvas>
@@ -495,6 +563,7 @@
 								</h3>
 								<select class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select">
 									<option>Baterias vendidas</option>
+									<option>Entregas por bairro</option>
 								</select>	
 
 								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 bar-chart"></canvas>

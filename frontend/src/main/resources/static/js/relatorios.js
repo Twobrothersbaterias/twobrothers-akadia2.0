@@ -237,34 +237,6 @@ function responsive(){
 			}			
 		}
 
-
-		containerNovo.style.fontSize="1rem";
-		novoTitulo.style.fontSize="1.15rem";	
-		novoItemSubmit.style.marginTop="0px";
-
-		containerEdita.style.fontSize="1rem";
-		editaTitulo.style.fontSize="1.15rem";	
-		editaItemSubmit.style.marginTop="0px";	
-
-		conteudoTituloText.style.fontSize="1.1rem";
-		filtroTitulo.style.fontSize="1.1rem";	
-		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";
-		for(var i = 0; i < thDataCadastro.length; i++) {
-			thDataCadastro[i].hidden=false;
-		}
-
-		for(var i = 0; i < tdDataCadastro.length; i++) {
-			tdDataCadastro[i].hidden=false;
-		}	
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.65rem";
-		}		
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.65rem";		
-		}
-	
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.80rem";
 			liA[i].style.padding="5px 10px";
@@ -296,24 +268,7 @@ function responsive(){
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			menuSuperiorMobileItem[i].style.width="4%";
 		}
-		for (var i = 0; i < pageClick.length; i++) {
-			pageClick[i].style.fontSize="0.65rem";
-		}		
-
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
-		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
-
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="20px";
-		}
-
-		filtroBuscarBt.style.marginTop="20px";
-		filtroBuscarBt.style.justifyContent="center";			
+	
 	}
 	else if(bodyWidth <= 992 && bodyWidth > 768){
 		console.log('Tela: Média');	
@@ -335,34 +290,7 @@ function responsive(){
 				main.style.width="92.5%";
 				sideMenu.style.width="7.5%";
 			}			
-		}
-
-		containerNovo.style.fontSize="1rem";		
-		novoTitulo.style.fontSize="1.1rem";
-		novoItemSubmit.style.marginTop="0px";
-
-		containerEdita.style.fontSize="1rem";		
-		editaTitulo.style.fontSize="1.1rem";
-		editaItemSubmit.style.marginTop="0px";
-
-		conteudoTituloText.style.fontSize="1.1rem";
-		filtroTitulo.style.fontSize="1.1rem";		
-		conteudoContainer.style.marginTop="30px";
-		hrTabela.style.marginBottom="25px";
-		for(var i = 0; i < thDataCadastro.length; i++) {
-			thDataCadastro[i].hidden=false;
-		}
-
-		for(var i = 0; i < tdDataCadastro.length; i++) {
-			tdDataCadastro[i].hidden=false;
-		}
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.60rem";
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.60rem";
-		}			
+		}		
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.75rem";
@@ -396,24 +324,7 @@ function responsive(){
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			menuSuperiorMobileItem[i].style.width="5%";
 		}
-		for (var i = 0; i < pageClick.length; i++) {
-			pageClick[i].style.fontSize="0.60rem";
-		}	
 
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
-		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}		
-
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="20px";
-		}
-
-		filtroBuscarBt.style.marginTop="20px";
-		filtroBuscarBt.style.justifyContent="center";	
 	}
 	else if(bodyWidth <= 768 && bodyWidth > 540){
 		console.log('Tela: Pequena');	
@@ -423,32 +334,6 @@ function responsive(){
 		main.style.width="100%";
 		mainRow.style.width = "100%";
 		menuMobile.style.display="flex";	
-		containerNovo.style.fontSize="0.90rem";	
-		novoTitulo.style.fontSize="1.2rem";		
-		novoItemSubmit.style.marginTop="0px";
-
-		containerEdita.style.fontSize="0.90rem";	
-		editaTitulo.style.fontSize="1.2rem";		
-		editaItemSubmit.style.marginTop="0px";
-
-		conteudoTituloText.style.fontSize="0.90rem";
-		filtroTitulo.style.fontSize="1.1rem";						
-		conteudoContainer.style.marginTop="10px";
-		hrTabela.style.marginBottom="15px";
-		for(var i = 0; i < thDataCadastro.length; i++) {
-			thDataCadastro[i].hidden=true;
-		}
-
-		for(var i = 0; i < tdDataCadastro.length; i++) {
-			tdDataCadastro[i].hidden=true;
-		}	
-
-		for(var i = 0; i < th.length; i++) {
-			th[i].style.fontSize="0.55rem";	
-		}
-		for(var i = 0; i < td.length; i++) {
-			td[i].style.fontSize="0.55rem";	
-		}
 		
 		for(var i = 0; i < liA.length; i++) {
 			liA[i].style.fontSize="0.70rem";
@@ -481,10 +366,6 @@ function responsive(){
 			imgContainer[i].style.marginLeft="15px";			
 		}
 
-		for (var i = 0; i < pageClick.length; i++) {
-			pageClick[i].style.fontSize="0.55rem";
-		}
-
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
 			if (bodyWidth > 670) {
 				menuSuperiorMobileItem[i].style.width="7.05%";
@@ -494,20 +375,6 @@ function responsive(){
 			}
 		}
 
-		for(var i = 0; i < novoItemInput.length; i++) {
-			novoItemInput[i].style.marginBottom="0";
-		}	
-
-		for(var i = 0; i < editaItemInput.length; i++) {
-			editaItemInput[i].style.marginBottom="0";
-		}
-
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="20px";
-		}
-
-		filtroBuscarBt.style.marginTop="20px";
-		filtroBuscarBt.style.justifyContent="center";
 	}
 	else if(bodyWidth < 540){
 		console.log('Tela: Muito pequena');
@@ -517,32 +384,6 @@ function responsive(){
 		main.style.width="100%";
 		mainRow.style.width = "100%";
 		menuMobile.style.display="flex";
-		containerNovo.style.fontSize="0.90rem";
-		novoTitulo.style.fontSize="1rem";
-		novoItemSubmit.style.marginTop="5px";
-
-		containerEdita.style.fontSize="0.90rem";
-		editaTitulo.style.fontSize="1rem";
-		editaItemSubmit.style.marginTop="5px";
-
-		conteudoTituloText.style.fontSize="0.80rem";
-		filtroTitulo.style.fontSize="1.1rem";		
-		conteudoContainer.style.marginTop="10px";
-		hrTabela.style.marginBottom="15px";
-		for(var i = 0; i < thDataCadastro.length; i++) {
-			thDataCadastro[i].hidden=true;
-		}
-
-		for(var i = 0; i < tdDataCadastro.length; i++) {
-			tdDataCadastro[i].hidden=true;
-		}	
-
-		for(var i = 0; i < th.length; i++){
-			th[i].style.fontSize="0.50rem";
-		}
-		for(var i = 0; i < td.length; i++){
-			td[i].style.fontSize="0.50rem";
-		}
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.60rem";
@@ -568,10 +409,6 @@ function responsive(){
 
 		for(var i = 0; i < aImg.length; i++) {
 			aImg[i].style.marginLeft="8px";
-		}
-
-		for (var i = 0; i < pageClick.length; i++) {
-			pageClick[i].style.fontSize="0.50rem";
 		}	
 
 		for(var i = 0; i < menuSuperiorMobileItem.length; i++) {
@@ -583,12 +420,6 @@ function responsive(){
 			}
 		}
 
-		for(var i = 0; i < filtroBlock.length; i++) {
-			filtroBlock[i].style.marginBottom="20px";
-		}
-
-		filtroBuscarBt.style.marginTop="20px";
-		filtroBuscarBt.style.justifyContent="center";
 	}
 
 }
@@ -685,7 +516,7 @@ function barChart() {
 					data: [5, 10, 5, 14, 20, 15, 6],
 					borderWidth: 3,
 					borderColor: 'rgba(224, 74, 165, 0.85)',
-					backgroundColor: 'rgba(224, 74, 165, 0.1)'
+					backgroundColor: 'rgba(224, 74, 165, 0.5)'
 				},
 				/*{
 					label: "TAXA DE CLIQUES - 2022",
