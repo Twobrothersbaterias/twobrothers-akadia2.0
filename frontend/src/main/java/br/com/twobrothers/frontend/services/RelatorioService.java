@@ -242,25 +242,17 @@ public class RelatorioService {
         return despesasPorDia;
     }
 
-    public ModelMap modelMapBuilder(ModelMap modelMap) throws JsonProcessingException {
+    public ModelMap modelMapBuilder(ModelMap modelMap, String mes, String ano) throws JsonProcessingException {
 
         log.info("[STARTING] Iniciando construção do modelMap...");
         HashMap<String, Object> atributos = new HashMap<>();
 
-        List<OrdemEntity> ordensNoMes = ordemService.filtroOrdensSemPaginacao(
-                null,
-                null,
-                "11", //TODO MOCK
-                "2022", //TODO MOCK
-                null,
-                null,
-                null,
-                null,
-                null);
-
+        List<OrdemEntity> ordensNoMes = ordemService.filtroOrdensRelatorio(mes, ano);
         List<DespesaEntity> despesasNoMes =
-                despesaCrudService.buscaDespesasPagasNoMes(Integer.parseInt("11"), Integer.parseInt("2022"));
-        //TODO MOCK
+                despesaCrudService.buscaDespesasPagasNoMes(Integer.parseInt(mes), Integer.parseInt(ano));
+
+        atributos.put("mes", mes);
+        atributos.put("ano", ano);
 
         atributos.put("totalBateriasVendidas", ordemService.calculaQuantidadeVendida(ordensNoMes));
         atributos.put("totalBruto", converteValorDoubleParaValorMonetario(ordemService.calculaBrutoVendido(ordensNoMes)));

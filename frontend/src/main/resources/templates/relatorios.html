@@ -330,39 +330,53 @@
 							<p th:text="${SucessoDelete}"></p>
 						</div>
 
+						<input th:value="${mes}" id="back_mes" hidden>
+						<input th:value="${ano}" id="back_ano" hidden>
+
 						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_icones">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo_text" id="conteudo_titulo_text">
 
-								<select class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select select_mes">
-									<option>Todos</option>
-									<option>Janeiro</option>
-									<option>Fevereiro</option>
-									<option>Março</option>
-									<option>Abril</option>
-									<option>Maio</option>
-									<option>Junho</option>
-									<option>Julho</option>
-									<option>Agosto</option>
-									<option>Setembro</option>
-									<option>Outubro</option>
-									<option>Novembro</option>
-									<option>Dezembro</option>
-								</select>								
+								<div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 titulo_container">
+									<select th:value="${mes}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 select select_mes" id="select_mes">
+										<option value="0" hidden>Todos</option>
+										<option value="1">Janeiro</option>
+										<option value="2">Fevereiro</option>
+										<option value="3">Março</option>
+										<option value="4">Abril</option>
+										<option value="5">Maio</option>
+										<option value="6">Junho</option>
+										<option value="7">Julho</option>
+										<option value="8">Agosto</option>
+										<option value="9">Setembro</option>
+										<option value="10">Outubro</option>
+										<option value="11">Novembro</option>
+										<option value="12">Dezembro</option>
+									</select>
+								</div>
 
-								<select class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select select_ano">
-									<option>2022</option>
-									<option>2023</option>
-									<option>2024</option>
-									<option>2025</option>
-									<option>2026</option>
-									<option>2027</option>
-									<option>2028</option>
-									<option>2029</option>
-									<option>2030</option>
-								</select>	
 
-								<div class="col-xl-9"></div>
+								<div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 titulo_container">
+									<select th:value="${ano}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 select select_ano" id="select_ano">
+										<option value="2022">2022</option>
+										<option value="2023">2023</option>
+										<option value="2024">2024</option>
+										<option value="2025">2025</option>
+										<option value="2026">2026</option>
+										<option value="2027">2027</option>
+										<option value="2028">2028</option>
+										<option value="2029">2029</option>
+										<option value="2030">2030</option>
+									</select>	
+								</div>
+
+								<div class="col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2 titulo_container">
+									<button class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 bt_ir" type="button" onclick="buildUrlFiltro()">
+										Ir
+									</button>	
+								</div>
+
+								<div class="col-xl-6 col-lg-6 col-md-3 col-sm-3 col-3"></div>
 
 								<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
@@ -383,7 +397,7 @@
 
 					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_informativos_container">
 
-						<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 relatorio_informativos_subcontainer">
+						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 relatorio_informativos_subcontainer">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_informativo_block">
 								
@@ -416,7 +430,7 @@
 
 						</div>	
 
-						<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 relatorio_informativos_subcontainer">
+						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 relatorio_informativos_subcontainer">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_informativo_block">
 								
@@ -449,7 +463,7 @@
 
 						</div>	
 
-						<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 relatorio_informativos_subcontainer">
+						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 relatorio_informativos_subcontainer">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_informativo_block">
 								
@@ -482,7 +496,7 @@
 
 						</div>		
 
-						<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 relatorio_informativos_subcontainer relatorio_informativos_subcontainer_liquido">
+						<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 relatorio_informativos_subcontainer relatorio_informativos_subcontainer_liquido">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_informativo_block relatorio_informativo_block_liquido">
 								
@@ -519,19 +533,19 @@
 
 					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_container">
 
-						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
+						<div class="row col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 canvas_subcontainer">
 							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">
-								<h3 th:text="'Total: ' + ${faturamentoLiquidoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_liquido">
+								<h3 th:text="'Total: ' + ${faturamentoLiquidoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_liquido">
 								</h3>
-								<h3 th:text="'Bruto: ' + ${faturamentoBrutoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_bruto" hidden>
+								<h3 th:text="'Bruto: ' + ${faturamentoBrutoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_bruto" hidden>
 								</h3>
-								<h3 th:text="'TM: ' + ${ticketMedioTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_ticket" hidden>
+								<h3 th:text="'TM: ' + ${ticketMedioTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_ticket" hidden>
 								</h3>
-								<h3 th:text="'Custos: ' + ${custoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_custo" hidden>
+								<h3 th:text="'Custos: ' + ${custoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_custo" hidden>
 								</h3>									
-								<h3 th:text="'Despesas: ' + ${despesasTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_despesa" hidden>
+								<h3 th:text="'Despesas: ' + ${despesasTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_despesa" hidden>
 								</h3>	
-								<select onchange="changeGraficoLinha()" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select" id="grafico_line">
+								<select onchange="changeGraficoLinha()" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-6 grafico_select" id="grafico_line">
 									<option value="liquido">Faturamento Líquido</option>
 									<option value="bruto">Faturamento Bruto</option>
 									<option value="ticket">Ticket médio</option>
@@ -548,7 +562,7 @@
 							</div>
 						</div>
 
-						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
+						<div class="row col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 canvas_subcontainer">
 							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">					
 								<h3 th:text="'Baterias vendidas: ' + ${totalBateriasVendidas}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_tipo">
 								</h3>									
@@ -571,7 +585,7 @@
 
 						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_subcontainer">
 							
-							<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
 
 								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_dinheiro">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_dinheiro">
@@ -584,7 +598,7 @@
 								</div>
 							</div>	
 
-							<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
 								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_credito">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_credito">
 										Crédito
@@ -596,7 +610,7 @@
 								</div>
 							</div>		
 
-							<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
 								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_debito">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_debito">
 										Débito
@@ -608,7 +622,7 @@
 								</div>
 							</div>	
 
-							<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
 								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_pix">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_pix">
 										Pix
@@ -620,7 +634,7 @@
 								</div>
 							</div>
 
-							<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
 								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_boleto">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_boleto">
 										Boletos
@@ -632,7 +646,7 @@
 								</div>
 							</div>		
 
-							<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
 								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_faturado">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_faturado">
 										Faturados

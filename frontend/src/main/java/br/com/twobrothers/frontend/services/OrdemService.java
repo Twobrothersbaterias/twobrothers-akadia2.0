@@ -42,6 +42,10 @@ public class OrdemService {
     @Autowired
     ClienteRepository clienteRepository;
 
+    public List<OrdemEntity> filtroOrdensRelatorio(String mes, String ano) {
+        return crudService.buscaPorPeriodoRelatorio(Integer.parseInt(mes), Integer.parseInt(ano));
+    }
+
     public List<OrdemEntity> filtroOrdens(
             Pageable pageable,
             String dataInicio,

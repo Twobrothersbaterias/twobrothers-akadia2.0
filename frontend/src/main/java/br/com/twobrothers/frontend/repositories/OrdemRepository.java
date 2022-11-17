@@ -56,4 +56,9 @@ public interface OrdemRepository extends JpaRepository<OrdemEntity, Long> {
     @Query("Select o From OrdemEntity o where o.loja = ?1")
     List<OrdemEntity> buscaPorPdvSemPaginacao(LojaEnum loja);
 
+    @Query("Select o From OrdemEntity o where o.dataCadastro between ?1 and ?2 " +
+            "OR o.retirada.dataAgendamento between ?1 and ?2" +
+            "OR o.retirada.dataRetirada between ?1 and ?2")
+    List<OrdemEntity> buscaPorPeriodoRelatorio(String dataInicio, String dataFim);
+
 }

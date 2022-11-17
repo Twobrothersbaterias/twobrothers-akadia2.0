@@ -2,6 +2,7 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
+mesAnoResponsivos();
 
 //console.log(JSON.parse(objetoFaturamentoLiquido[0]));
 //console.log(JSON.parse(objetoFaturamentoLiquido[1]));
@@ -186,6 +187,8 @@ function responsive(){
 	var pageClick = document.getElementsByClassName('page_click');		
 	var excluirImg = document.getElementsByClassName('excluir_img');
 
+	var relatorioInformativoBlock = document.getElementsByClassName('relatorio_informativo_block');
+
 	mainRow.style.width = "100%";			
 
 	if(bodyWidth > 1200){
@@ -208,6 +211,10 @@ function responsive(){
 				main.style.width="96%";
 				sideMenu.style.width="4%";
 			}			
+		}
+
+		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
+			relatorioInformativoBlock[i].style.padding="30px 15px";
 		}
 
 		for(var i = 0; i < liA.length; i++){
@@ -254,6 +261,10 @@ function responsive(){
 			}			
 		}
 
+		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
+			relatorioInformativoBlock[i].style.padding="20px 15px";
+		}
+
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.80rem";
 			liA[i].style.padding="5px 10px";
@@ -271,7 +282,7 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="20px";
+			img[i].style.width="22px";
 			img[i].style.padding="2px 0";
 		}
 
@@ -308,7 +319,11 @@ function responsive(){
 				main.style.width="92.5%";
 				sideMenu.style.width="7.5%";
 			}			
-		}		
+		}
+
+		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
+			relatorioInformativoBlock[i].style.padding="20px 15px";
+		}				
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.75rem";
@@ -329,7 +344,7 @@ function responsive(){
 		}
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="18px";
+			img[i].style.width="20px";
 			img[i].style.padding="2px 0";			
 		}
 
@@ -354,6 +369,10 @@ function responsive(){
 		mainRow.style.width = "100%";
 		menuMobile.style.display="flex";	
 		
+		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
+			relatorioInformativoBlock[i].style.padding="20px 15px";
+		}
+
 		for(var i = 0; i < liA.length; i++) {
 			liA[i].style.fontSize="0.70rem";
 			liA[i].style.padding="5px 8px";
@@ -373,7 +392,7 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="18px";
+			img[i].style.width="20px";
 			img[i].style.padding="2px 0";			
 		}
 
@@ -396,6 +415,7 @@ function responsive(){
 		}
 
 	}
+
 	else if(bodyWidth < 540){
 		console.log('Tela: Muito pequena');
 
@@ -404,6 +424,10 @@ function responsive(){
 		main.style.width="100%";
 		mainRow.style.width = "100%";
 		menuMobile.style.display="flex";
+
+		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
+			relatorioInformativoBlock[i].style.padding="20px 15px";
+		}
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.60rem";
@@ -424,7 +448,7 @@ function responsive(){
 		}
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="15px";
+			img[i].style.width="18px";
 			img[i].style.padding="2px 0";			 
 		}
 
@@ -440,7 +464,6 @@ function responsive(){
 				menuSuperiorMobileItem[i].style.width="10%";	
 			}
 		}
-
 	}
 
 }
@@ -449,8 +472,7 @@ function responsive(){
 
 function graficoResumido() {
 
-	var ctx = document.getElementsByClassName("baterias_vendidas_resumido");
-
+	var ctx = document.getElementsByClassName("chart-liquido");
 	var chartGraph = new Chart(ctx, {
 		type: 'line',
 		data: {
@@ -466,14 +488,24 @@ function graficoResumido() {
 				}									
 			]
 		},
-		options: {			
-	         legend: {
-	            display: false,
-	         },			
-			title: {
-				display: false,
-			},
-		}
+		options: {
+            title: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }],
+		        yAxes: [{
+		            display: false,
+		        }]
+            },
+            legend: {
+                display: false
+            }
+        }
 	});
 }
 
@@ -629,41 +661,88 @@ function lineChart() {
 }
 
 function chartLiquido() {
-	var ctx = document.getElementsByClassName("chart-liquido");
-	var chartGraph = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: diasDoMes,
-			datasets: [
-				{
-					label: "Valor líquido do dia",
-					data: faturamentoLiquidoPorDiasMes,
-					borderWidth: 3,
-					borderColor: 'rgba(77, 166, 253, 0.85)',
-					backgroundColor: 'rgba(77, 166, 253, 0.1)'
-				},						
-			]
-		},
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
-				},
+
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {
+		var ctx = document.getElementsByClassName("chart-liquido");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Valor líquido do dia",
+						data: faturamentoLiquidoPorDiasMes,
+						borderWidth: 3,
+						borderColor: 'rgba(77, 166, 253, 0.85)',
+						backgroundColor: 'rgba(77, 166, 253, 0.1)'
+					},						
+				]
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		}
-	});		
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});	
+	}	
+	else {
+		var ctx = document.getElementsByClassName("chart-liquido");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Valor líquido do dia",
+						data: faturamentoLiquidoPorDiasMes,
+						borderWidth: 3,
+						borderColor: 'rgba(77, 166, 253, 0.85)',
+						backgroundColor: 'rgba(77, 166, 253, 0.1)'
+					},						
+				]
+			},		
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});			
+	}
 }
 
 function chartBruto() {
@@ -912,6 +991,16 @@ function doALoadOfStuff() {
 	responsive();
 }
 
+function mesAnoResponsivos() {
+	const d = new Date();
+	var ano = d.getFullYear();
+	var mes = d.getMonth()+1;
+	var dia = d.getDate();
+
+	document.getElementById('select_mes').value = document.getElementById('back_mes').value;
+	document.getElementById('select_ano').value = document.getElementById('back_ano').value;
+}
+
 function tituloResponsivo(filtro) {
 
 	var titulo = document.getElementById('conteudo_titulo_text');	
@@ -955,4 +1044,12 @@ function tituloResponsivo(filtro) {
 	else if (filtro == "usuario") {
 		titulo.innerText="Colaboradores de usuário " + (usuario.value);
 	}
+}
+
+function buildUrlFiltro() {
+	var mes = document.getElementById('select_mes').value;
+	var ano = document.getElementById('select_ano').value;
+	console.log(mes);
+	console.log(ano);
+	window.location.href='/relatorios?mes=' + mes + '&ano=' + ano;
 }

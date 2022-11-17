@@ -16,7 +16,7 @@
 .img_div, .conteudo_titulo_text {
 	padding: 0;
 	font-size: 1rem;
-	font-weight: 400;	
+	font-weight: 400;
 }
 
 .conteudo_titulo_text {
@@ -32,8 +32,14 @@
 	padding: 2px 5px;
 }
 
-.select_ano {
-	margin-left: 15px;
+.bt_ir {
+	padding: 5px 5px;
+	border: none;
+	background-color: #65c76a;
+	color: #303030;
+	font-weight: 600;
+	box-shadow: 0px 0px 5px #121212;
+	border-radius: 1px;
 }
 
 /* INFORMATIVOS */
@@ -47,6 +53,7 @@
 	padding: 0 10px;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 10px;
 }
 
 .relatorio_informativo_block {
@@ -100,7 +107,7 @@
 	margin: 0 auto;	
 	display: flex;
 	justify-content: center;
-	margin-top: 20px;	
+	margin-top: 5px;	
 }
 
 .canvas_subcontainer {
@@ -113,6 +120,7 @@
 	box-shadow: 1px 1px 15px #121212;
 	padding: 20px;
 	margin: 0;
+	padding-bottom: 5px;
 }
 
 .titulo_grafico {
@@ -143,6 +151,10 @@
 	margin-bottom: 20px;
 }
 
+.hr_tabela {
+	margin-top: 10px;
+}
+
 .pagamentos_container {
 	margin: 20px 0;
 }
@@ -167,6 +179,7 @@
 	padding-top: 0;
 	padding: 0 10px;
 	margin: 0;
+	margin-bottom: 20px;
 }
 
 .relatorio_img_item {

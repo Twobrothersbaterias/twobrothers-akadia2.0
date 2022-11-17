@@ -38,10 +38,10 @@ import static br.com.twobrothers.frontend.utils.TrataAtributosVazios.*;
 
 /**
  * @author Gabriel Lagrota
+ * @version 1.0
  * @email gabriellagrota23@gmail.com
  * @phone (11)97981-5415
  * @github https://github.com/LagrotaGabriel
- * @version 1.0
  * @since 30-08-22
  */
 @Slf4j
@@ -157,9 +157,7 @@ public class OrdemCrudService {
                 clienteEntity.setEndereco(null);
             }
 
-        }
-
-        else {
+        } else {
             log.warn("[INFO] Nenhum cliente foi recebido no corpo da requisição");
 
             log.info("[PROGRESS] Setando cliente do objeto ordem como nulo...");
@@ -179,14 +177,15 @@ public class OrdemCrudService {
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
 
         if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty()) {
-            if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO)) ordem.getRetirada().setDataAgendamento("Em aberto");
+            if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
+                ordem.getRetirada().setDataAgendamento("Em aberto");
             else ordem.getRetirada().setDataAgendamento("Não possui");
-        }
-        else if (ordem.getRetirada().getDataAgendamento() == null
+        } else if (ordem.getRetirada().getDataAgendamento() == null
                 || ordem.getRetirada().getDataAgendamento().isEmpty() && !ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
             ordem.getRetirada().setDataAgendamento("Sem agendamento");
 
-        if (ordem.getRetirada().getDataRetirada() == null || ordem.getRetirada().getDataRetirada().isEmpty()) ordem.getRetirada().setDataRetirada("Em aberto");
+        if (ordem.getRetirada().getDataRetirada() == null || ordem.getRetirada().getDataRetirada().isEmpty())
+            ordem.getRetirada().setDataRetirada("Em aberto");
 
         log.info("[PROGRESS] Iniciando validação em massa da relação ORDEM -> PAGAMENTO...");
         pagamentoValidation.validaCorpoRequisicaoEmMassa(ordem.getPagamentos());
@@ -220,8 +219,7 @@ public class OrdemCrudService {
             try {
                 log.info("[PROGRESS] Persistindo ordem no banco de dados e atribuindo seu retorno à variável ordemEntity...");
                 ordemEntity = repository.save(ordemEntity);
-            }
-            catch (DataException e) {
+            } catch (DataException e) {
                 throw new InvalidRequestException("O número de saídas lançadas na ordem excedeu o limite permitido pelo" +
                         "banco de dados");
             }
@@ -233,7 +231,7 @@ public class OrdemCrudService {
             EntradaOrdemEntity entradaOrdemEntity =
                     entradaOrdemRepository.save(modelMapper.mapper().map(entradaOrdemDTO, EntradaOrdemEntity.class));
 
-            if(produto != null) {
+            if (produto != null) {
                 log.info("[PROGRESS] Adicionando o produto à ordem e a ordem ao produto...");
                 ProdutoEstoqueEntity produtoEstoqueEntity = produtoEstoqueEntityOptional.get();
                 produtoEstoqueEntity.addEntrada(entradaOrdemEntity);
@@ -346,6 +344,23 @@ public class OrdemCrudService {
         LocalDate dataInicio = LocalDate.of(ano, mes, 1);
         LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
         return repository.buscaPorPeriodoSemPaginacao(dataInicio.toString(), dataFim.toString());
+    }
+
+    public List<OrdemEntity> buscaPorPeriodoRelatorio(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de ordem por período...");
+
+        LocalDate dataInicio;
+        LocalDate dataFim;
+        if (mes != 0) {
+            dataInicio = LocalDate.of(ano, mes, 1);
+            dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        }
+        else {
+            dataInicio = LocalDate.of(ano, 1, 1);
+            dataFim = LocalDate.of(ano, 12, LocalDate.now().withMonth(12).withYear(12).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        }
+        return repository.buscaPorPeriodoRelatorio(dataInicio.toString(), dataFim.toString());
     }
 
     public List<OrdemEntity> buscaHojeSemPaginacao() {
