@@ -26,6 +26,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	    var diasDoMes = /*[[${diasDoMes}]]*/ 'default';
+	    var faturamentoLiquidoPorDiasMes = /*[[${faturamentoLiquidoPorDiasMes}]]*/ 'default';
+	    var faturamentoBrutoPorDiasMes = /*[[${faturamentoBrutoPorDiasMes}]]*/ 'default';
+	    var ticketMedioPorDiaMes = /*[[${ticketMedioPorDiaMes}]]*/ 'default';
+	    var custosPorDiaMes = /*[[${custosPorDiaMes}]]*/ 'default';
+	    var despesasPorDiaMes = /*[[${despesasPorDiaMes}]]*/ 'default';
+	/*]]>*/
+</script>	
+
 	<title>VALT | Relatórios</title>
 
 </head>
@@ -317,19 +328,37 @@
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo_text" id="conteudo_titulo_text">
 
-								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select_anterior">
-									<
-								</div>
+								<select class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select select_mes">
+									<option>Todos</option>
+									<option>Janeiro</option>
+									<option>Fevereiro</option>
+									<option>Março</option>
+									<option>Abril</option>
+									<option>Maio</option>
+									<option>Junho</option>
+									<option>Julho</option>
+									<option>Agosto</option>
+									<option>Setembro</option>
+									<option>Outubro</option>
+									<option>Novembro</option>
+									<option>Dezembro</option>
+								</select>								
 
-								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select_ano">
-									2022
-								</div>
+								<select class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select select_ano">
+									<option>2022</option>
+									<option>2023</option>
+									<option>2024</option>
+									<option>2025</option>
+									<option>2026</option>
+									<option>2027</option>
+									<option>2028</option>
+									<option>2029</option>
+									<option>2030</option>
+								</select>	
 
-								<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 select_posterior">
-									>
-								</div>
+								<div class="col-xl-9"></div>
 
-								<!--<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
+								<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
 									<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/precos}">
 										<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
@@ -339,63 +368,8 @@
 										<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 									</a>
 
-								</div>	-->				
-							</div>
-
-						</div>	
-										
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_meses">
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Jan
-							</div>
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Fev
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Mar
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Abr
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Mai
-							</div>
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Jun
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Jul
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Ago
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Set
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Out
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes">
-								Nov
-							</div>	
-
-							<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1 container_mes" id="container_mes_dez">
-								Dez
-							</div>																																				
-						</div>
-
-
+								</div>				
+							</div>								
 
 					</div>
 
@@ -423,7 +397,7 @@
 											Baterias vendidas
 										</h2>
 
-										<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
+										<h3 th:text="${totalBateriasVendidas}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
 											0
 										</h3>
 							
@@ -456,7 +430,7 @@
 											Faturamento bruto
 										</h2>
 
-										<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
+										<h3 th:text="${totalBruto}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
 											R$ 0,00
 										</h3>
 							
@@ -489,7 +463,7 @@
 											Custos
 										</h2>
 
-										<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
+										<h3 th:text="${totalCusto}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
 											R$ 0,00
 										</h3>
 							
@@ -522,7 +496,7 @@
 											Faturamento líquido
 										</h2>
 
-										<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
+										<h3 th:text="${totalLiquido}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_content_desc">
 											R$ 0,00
 										</h3>
 							
@@ -540,26 +514,31 @@
 					<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_container">
 
 						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
-							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block">					
+							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">
 								<h3 class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico">
-									Faturamento líquido
+									
 								</h3>
-								<select class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select">
-									<option>Faturamento Líquido</option>
-									<option>Faturamento Bruto</option>
-									<option>Ticket médio</option>
-									<option>Custos</option>
-									<option>Despesas</option>
+								<select onchange="changeGraficoLinha()" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select" id="grafico_line">
+									<option value="liquido">Faturamento Líquido</option>
+									<option value="bruto">Faturamento Bruto</option>
+									<option value="ticket">Ticket médio</option>
+									<option value="custos">Custos</option>
+									<option value="despesas">Despesas</option>
 								</select>	
 
-								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart"></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart chart-liquido" id="chart_liquido"></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart chart-bruto" id="chart_bruto" hidden></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart chart-ticket" id="chart_ticket" hidden></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart chart-custos" id="chart_custos" hidden></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 line-chart chart-despesas" id="chart_despesas" hidden></canvas>								
+
 							</div>
 						</div>
 
 						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
-							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block">					
+							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">					
 								<h3 class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico">
-									Baterias vendidas
+									
 								</h3>
 								<select class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select">
 									<option>Baterias vendidas</option>
@@ -584,7 +563,7 @@
 										Dinheiro
 									</h3>
 									<img th:src="@{img/white-note.png}" src="../static/img/white-note.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_img_item relatorio_img_item_dinheiro"/>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_dinheiro_informativo">
+									<div th:text="${totalDinheiro}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_dinheiro_informativo">
 										R$ 0,00
 									</div>
 								</div>
@@ -596,7 +575,7 @@
 										Crédito
 									</h3>								
 									<img th:src="@{img/white-card.png}" src="../static/img/white-card.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_img_item relatorio_img_item_credito"/>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_credito_informativo">
+									<div th:text="${totalCredito}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_credito_informativo">
 										R$ 0,00
 									</div>
 								</div>
@@ -608,7 +587,7 @@
 										Débito
 									</h3>								
 									<img th:src="@{img/white-atm.png}" src="../static/img/white-atm.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_img_item relatorio_img_item_debito"/>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_debito_informativo">
+									<div th:text="${totalDebito}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_debito_informativo">
 										R$ 0,00
 									</div>
 								</div>
@@ -620,7 +599,7 @@
 										Pix
 									</h3>								
 									<img th:src="@{img/white-pix.png}" src="../static/img/white-pix.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_img_item relatorio_img_item_pix"/>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_pix_informativo">
+									<div th:text="${totalPix}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_pix_informativo">
 										R$ 0,00
 									</div>
 								</div>
@@ -632,7 +611,7 @@
 										Boletos
 									</h3>								
 									<img th:src="@{img/white-boleto.png}" src="../static/img/white-boleto.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_img_item relatorio_img_item_boleto"/>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_boleto_informativo">
+									<div th:text="${totalBoletos}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_boleto_informativo">
 										R$ 0,00
 									</div>
 								</div>
@@ -644,7 +623,7 @@
 										Faturados
 									</h3>								
 									<img th:src="@{img/white-faturado.png}" src="../static/img/white-faturado.png" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_img_item relatorio_img_item_faturado"/>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_faturado_informativo">
+									<div th:text="${totalFaturados}" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_informativo relatorio_item_faturado_informativo">
 										R$ 0,00
 									</div>
 								</div>

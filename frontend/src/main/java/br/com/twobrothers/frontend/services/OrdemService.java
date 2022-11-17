@@ -2,9 +2,8 @@ package br.com.twobrothers.frontend.services;
 
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
-import br.com.twobrothers.frontend.models.entities.DespesaEntity;
-import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
-import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.models.entities.*;
+import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
@@ -183,6 +182,15 @@ public class OrdemService {
         }
 
         return URI_ORDENS;
+    }
+
+    public Double calculaFormaPagamento(List<OrdemEntity> ordens, FormaPagamentoEnum formaPagamento) {
+        Double valor = 0.0;
+        for (OrdemEntity ordem : ordens) {
+            for (PagamentoEntity pagamento: ordem.getPagamentos())
+                if (pagamento.getFormaPagamento().equals(formaPagamento)) valor += pagamento.getValor();
+        }
+        return valor;
     }
 
     public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,

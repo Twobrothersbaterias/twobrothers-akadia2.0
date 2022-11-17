@@ -9,6 +9,9 @@ server:
 spring:
   application:
     name: frontend
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher

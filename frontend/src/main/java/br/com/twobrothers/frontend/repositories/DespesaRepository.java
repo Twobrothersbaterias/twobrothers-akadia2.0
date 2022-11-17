@@ -22,6 +22,9 @@ import java.util.List;
 @Repository
 public interface DespesaRepository extends JpaRepository<DespesaEntity, Long> {
 
+    @Query("Select d From DespesaEntity d where d.dataPagamento between ?1 and ?2")
+    List<DespesaEntity> buscaPagosNoMes(String dataInicio, String dataFim);
+
     @Query("Select d From DespesaEntity d where d.dataAgendamento < ?1")
     List<DespesaEntity> buscaPorAtrasados(String hoje);
 

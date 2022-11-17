@@ -2,7 +2,17 @@
 
 window.onload = responsive();
 window.onresize = doALoadOfStuff;
-grafico();
+
+//console.log(JSON.parse(objetoFaturamentoLiquido[0]));
+//console.log(JSON.parse(objetoFaturamentoLiquido[1]));
+//console.log(JSON.parse(objetoFaturamentoLiquido[2]));
+//console.log(JSON.parse(objetoFaturamentoLiquido[3]));
+
+console.log(faturamentoBrutoPorDiasMes);
+console.log(faturamentoLiquidoPorDiasMes);
+console.log(ticketMedioPorDiaMes);
+console.log(custosPorDiaMes);
+console.log(despesasPorDiaMes);
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
@@ -20,6 +30,8 @@ document.onkeydown=function(){
 	bind(keyCode);
 
 }
+
+grafico();
 
 function bind(keyCode) {
 
@@ -200,7 +212,8 @@ function responsive(){
 		}	
 
 		for(var i = 0; i < img.length; i++) {
-			img[i].style.width="22px";
+			img[i].style.width="23px";
+			img[i].style.padding="2px 0";
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
@@ -255,6 +268,7 @@ function responsive(){
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="20px";
+			img[i].style.padding="2px 0";
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
@@ -312,6 +326,7 @@ function responsive(){
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="18px";
+			img[i].style.padding="2px 0";			
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
@@ -355,6 +370,7 @@ function responsive(){
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="18px";
+			img[i].style.padding="2px 0";			
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
@@ -405,6 +421,7 @@ function responsive(){
 
 		for(var i = 0; i < img.length; i++) {
 			img[i].style.width="15px";
+			img[i].style.padding="2px 0";			 
 		}
 
 		for(var i = 0; i < aImg.length; i++) {
@@ -454,28 +471,76 @@ function graficoResumido() {
 			},
 		}
 	});
-
-
 }
 
 function grafico() {
 
-	lineChart();
-	barChart();
+	if (diasDoMes != null && diasDoMes.length > 20) {
+		chartLiquido();
+		barChart();
+	}
+
+}
+
+function changeGraficoLinha() {
+
+	var select = document.getElementById('grafico_line');
+	if (select.value == 'liquido') {
+		document.getElementById('chart_liquido').hidden=false;
+		document.getElementById('chart_bruto').hidden=true;
+		document.getElementById('chart_ticket').hidden=true;
+		document.getElementById('chart_custos').hidden=true;
+		document.getElementById('chart_despesas').hidden=true;
+		chartLiquido();
+	}
+	else if (select.value == 'bruto') {
+		document.getElementById('chart_liquido').hidden=true;
+		document.getElementById('chart_bruto').hidden=false;		
+		document.getElementById('chart_ticket').hidden=true;
+		document.getElementById('chart_custos').hidden=true;
+		document.getElementById('chart_despesas').hidden=true;		
+		chartBruto();
+	}
+	else if (select.value == 'ticket') {
+		document.getElementById('chart_liquido').hidden=true;
+		document.getElementById('chart_bruto').hidden=true;
+		document.getElementById('chart_ticket').hidden=false;
+		document.getElementById('chart_custos').hidden=true;
+		document.getElementById('chart_despesas').hidden=true;				
+		chartTicket();
+	}
+	else if (select.value == 'custos') {
+		document.getElementById('chart_liquido').hidden=true;
+		document.getElementById('chart_bruto').hidden=true;
+		document.getElementById('chart_ticket').hidden=true;
+		document.getElementById('chart_custos').hidden=false;
+		document.getElementById('chart_despesas').hidden=true;				
+		chartCustos();
+	}
+	else if (select.value == 'despesas') {
+		document.getElementById('chart_liquido').hidden=true;
+		document.getElementById('chart_bruto').hidden=true;
+		document.getElementById('chart_ticket').hidden=true;
+		document.getElementById('chart_custos').hidden=true;
+		document.getElementById('chart_despesas').hidden=false;				
+		chartDespesas();
+	}
 
 }
 
 function lineChart() {
+
 	var ctx = document.getElementsByClassName("line-chart");
+	var select = document.getElementById('grafico_line');
 
 	var chartGraph = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ["Jan", "Fev", "Mar", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+			labels: diasDoMes,
 			datasets: [
 				{
-					label: "Taxa de cliques",
-					data: [5, 10, 5, 14, 20, 15, 6, 14, 8, 12, 15, 5, 10],
+					label: "Valor",
+					data: faturamentoLiquidoPorDiasMes,
 					borderWidth: 3,
 					borderColor: 'rgba(77, 166, 253, 0.85)',
 					backgroundColor: 'rgba(77, 166, 253, 0.1)'
@@ -484,7 +549,7 @@ function lineChart() {
 					label: "TAXA DE CLIQUES - 2022",
 					data: [3, 6, 15, 4, 29, 12, 5, 2, 0, 5, 17, 4, 15],
 					borderWidth: 6,
-					borderColor: 'rgba(6, 204, 6, 0.85)',
+					borderColor: 'rgba(252, 135, 56, 0.85)',
 					backgroundColor: 'transparent',
 				}*/							
 			]
@@ -501,6 +566,156 @@ function lineChart() {
 	         },				
 		}
 	});	
+}
+
+function chartLiquido() {
+	var ctx = document.getElementsByClassName("chart-liquido");
+	var chartGraph = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: diasDoMes,
+			datasets: [
+				{
+					label: "Valor líquido do dia",
+					data: faturamentoLiquidoPorDiasMes,
+					borderWidth: 3,
+					borderColor: 'rgba(77, 166, 253, 0.85)',
+					backgroundColor: 'rgba(77, 166, 253, 0.1)'
+				},						
+			]
+		},
+		options: {
+			//maintainAspectRatio: false,
+			elements: {
+				line: {
+					tension: 0,
+				},
+			},
+	         legend: {
+	            display: false,
+	         },				
+		}
+	});		
+}
+
+function chartBruto() {
+	var ctx = document.getElementsByClassName("chart-bruto");
+	var chartGraph = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: diasDoMes,
+			datasets: [
+				{
+					label: "Valor bruto do dia",
+					data: faturamentoBrutoPorDiasMes,
+					borderWidth: 3,
+					borderColor: 'rgba(252, 135, 56, 0.85)',
+					backgroundColor: 'rgba(252, 135, 56, 0.1)'
+				},						
+			]
+		},
+		options: {
+			//maintainAspectRatio: false,
+			elements: {
+				line: {
+					tension: 0,
+				},
+			},
+	         legend: {
+	            display: false,
+	         },				
+		}
+	});		
+}
+
+function chartTicket() {
+	var ctx = document.getElementsByClassName("chart-ticket");
+	var chartGraph = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: diasDoMes,
+			datasets: [
+				{
+					label: "Ticket médio do dia",
+					data: ticketMedioPorDiaMes,
+					borderWidth: 3,
+					borderColor: 'rgba(201, 175, 44, 0.85)',
+					backgroundColor: 'rgba(201, 175, 44, 0.1)'
+				},						
+			]
+		},
+		options: {
+			//maintainAspectRatio: false,
+			elements: {
+				line: {
+					tension: 0,
+				},
+			},
+	         legend: {
+	            display: false,
+	         },				
+		}
+	});		
+}
+
+function chartCustos() {
+	var ctx = document.getElementsByClassName("chart-custos");
+	var chartGraph = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: diasDoMes,
+			datasets: [
+				{
+					label: "Custos do dia",
+					data: custosPorDiaMes,
+					borderWidth: 3,
+					borderColor: 'rgba(101, 199, 106, 0.85)',
+					backgroundColor: 'rgba(101, 199, 106, 0.1)'
+				},						
+			]
+		},
+		options: {
+			//maintainAspectRatio: false,
+			elements: {
+				line: {
+					tension: 0,
+				},
+			},
+	         legend: {
+	            display: false,
+	         },				
+		}
+	});		
+}
+
+function chartDespesas() {
+	var ctx = document.getElementsByClassName("chart-despesas");
+	var chartGraph = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: diasDoMes,
+			datasets: [
+				{
+					label: "Despesas do dia",
+					data: despesasPorDiaMes,
+					borderWidth: 3,
+					borderColor: 'rgba(81, 198, 207, 0.85)',
+					backgroundColor: 'rgba(81, 198, 207, 0.1)'
+				},						
+			]
+		},
+		options: {
+			//maintainAspectRatio: false,
+			elements: {
+				line: {
+					tension: 0,
+				},
+			},
+	         legend: {
+	            display: false,
+	         },				
+		}
+	});		
 }
 
 function barChart() {

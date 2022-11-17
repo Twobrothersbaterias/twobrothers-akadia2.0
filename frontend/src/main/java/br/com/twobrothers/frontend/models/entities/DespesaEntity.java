@@ -3,10 +3,11 @@ package br.com.twobrothers.frontend.models.entities;
 import br.com.twobrothers.frontend.models.enums.PersistenciaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusDespesaEnum;
 import br.com.twobrothers.frontend.models.enums.TipoDespesaEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * @author Gabriel Lagrota
@@ -45,6 +46,8 @@ public class DespesaEntity {
     @Enumerated(EnumType.STRING)
     private PersistenciaEnum persistencia;
 
+    @JsonIgnore
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuarioResponsavel;

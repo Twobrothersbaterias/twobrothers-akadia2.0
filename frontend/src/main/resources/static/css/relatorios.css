@@ -21,45 +21,19 @@
 
 .conteudo_titulo_text {
 	display: flex;
-	justify-content: center;
+	justify-content: right;
+}
+
+.select {
+	background: transparent;
+	color: #C3C8C8;
+	font-family: calibri;
+	font-size: 1rem;
+	padding: 2px 5px;
 }
 
 .select_ano {
-	background: transparent;
-	color: #C3C8C8;
-	text-align: center;
-	font-weight: 600;
-	font-family: calibri;
-	width: 5%;	
-	font-size: 1.5rem;
-}
-
-.select_anterior, .select_posterior {
-	text-align: center;
-	font-weight: 600;
-	font-family: calibri;
-	color: #51C6CF;
-	width: 3%;	
-	padding-top: 5px;
-}
-
-.container_meses {
-	display: flex;
-	justify-content: center;
-}
-
-.container_mes {
-	display: flex;
-	justify-content: center;
-	border: 1px solid #51C6CF;
-	border-right: none;
-	color: #C3C8C8;
-	font-weight: 600;
-	padding: 8px 0;
-}
-
-#container_mes_dez {
-	border-right: 1px solid #51C6CF;
+	margin-left: 15px;
 }
 
 /* INFORMATIVOS */
@@ -156,7 +130,11 @@
 }
 
 .line-chart, .bar-chart {
-	margin-top: 15px;
+	margin-top: 20px;
+}
+
+.line-chart {
+	padding: 0;
 }
 
 /* ITENS */
@@ -203,4 +181,9 @@
 	color: #303030;
 	font-weight: 600;
 	margin-top: 15px;
+}
+
+.hr_novo {
+	margin-top: 20px;
+	margin-bottom: 5px;
 }

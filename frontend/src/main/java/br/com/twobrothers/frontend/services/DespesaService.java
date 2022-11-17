@@ -9,6 +9,10 @@ import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.utils.UsuarioUtils;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -168,6 +173,37 @@ public class DespesaService {
         }
 
         return uri;
+    }
+
+
+    public List<String> serializeToJson(List<DespesaEntity> despesas) {
+        List<String> despesasJson = new ArrayList<>();
+
+        try {
+
+            for (DespesaEntity despesa: despesas) {
+                String jsonString = null;
+                ObjectMapper mapper = new ObjectMapper();
+                jsonString = mapper.writeValueAsString(despesa);
+                despesasJson.add(jsonString);
+            }
+
+        }
+        catch (JsonGenerationException e) {
+            e.printStackTrace();
+        }
+        catch (JsonMappingException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return despesasJson;
+    }
+
+    public DespesaEntity desealizeJson(String despesaJson) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(despesaJson, DespesaEntity.class);
     }
 
     public ModelMap modelMapBuilder(ModelMap modelMap, Pageable pageable, HttpServletRequest req,

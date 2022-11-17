@@ -105,6 +105,14 @@ public class DespesaCrudService {
         return despesas;
     }
 
+    public List<DespesaEntity> buscaDespesasPagasNoMes(Integer mes, Integer ano) {
+        log.info(BARRA_DE_LOG);
+        log.info("[STARTING] Iniciando método de busca de despesa por período...");
+        LocalDate dataInicio = LocalDate.of(ano, mes, 1);
+        LocalDate dataFim = LocalDate.of(ano, mes, LocalDate.now().withMonth(mes).withYear(ano).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth());
+        return repository.buscaPagosNoMes(dataInicio.toString(), dataFim.toString());
+    }
+
     public List<DespesaEntity> buscaDespesasAtrasadas() {
         return repository.buscaPorAtrasados(LocalDate.now().toString());
     }
