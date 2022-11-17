@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.filters.FiltroOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.*;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
+import br.com.twobrothers.frontend.models.enums.TipoOrdemEnum;
 import br.com.twobrothers.frontend.repositories.ClienteRepository;
 import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
@@ -110,7 +111,7 @@ public class OrdemService {
         if (ordens != null && !ordens.isEmpty()) {
             for (OrdemEntity ordem : ordens) {
                 for(EntradaOrdemEntity entrada : ordem.getEntradas()) {
-                    quantidade += entrada.getQuantidade();
+                    if (entrada.getTipoOrdem() != TipoOrdemEnum.GARANTIA) quantidade += entrada.getQuantidade();
                 }
             }
         }

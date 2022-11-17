@@ -34,6 +34,12 @@
 	    var ticketMedioPorDiaMes = /*[[${ticketMedioPorDiaMes}]]*/ 'default';
 	    var custosPorDiaMes = /*[[${custosPorDiaMes}]]*/ 'default';
 	    var despesasPorDiaMes = /*[[${despesasPorDiaMes}]]*/ 'default';
+
+		var tiposBateria = /*[[${tiposBateria}]]*/ 'default';
+	    var quantidadeBateriasPorTipo = /*[[${quantidadeBateriasPorTipo}]]*/ 'default';
+
+		var tiposBateriaPorBairro = /*[[${tiposBateriaPorBairro}]]*/ 'default';
+	    var quantidadeBateriasPorBairro = /*[[${quantidadeBateriasPorBairro}]]*/ 'default';	
 	/*]]>*/
 </script>	
 
@@ -360,11 +366,11 @@
 
 								<div class="img_div col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
 
-									<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/precos}">
+									<a class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6" th:href="@{/relatorios}">
 										<img class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 img" src="../static/img/refresh-gray.png" th:src="@{img/refresh-gray.png}"/>
 									</a>
 
-									<a id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
+									<a onclick="window.print()" id="relatorio_button" th:if="${privilegio} != 'Vendedor'" class="a_img col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6">
 										<img class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-6 img" src="../static/img/line-gray.png"  th:src="@{img/line-gray.png}"/>
 									</a>
 
@@ -515,9 +521,16 @@
 
 						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
 							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">
-								<h3 class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico">
-									
+								<h3 th:text="'Total: ' + ${faturamentoLiquidoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_liquido">
 								</h3>
+								<h3 th:text="'Bruto: ' + ${faturamentoBrutoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_bruto" hidden>
+								</h3>
+								<h3 th:text="'TM: ' + ${ticketMedioTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_ticket" hidden>
+								</h3>
+								<h3 th:text="'Custos: ' + ${custoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_custo" hidden>
+								</h3>									
+								<h3 th:text="'Despesas: ' + ${despesasTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_despesa" hidden>
+								</h3>	
 								<select onchange="changeGraficoLinha()" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select" id="grafico_line">
 									<option value="liquido">Faturamento Líquido</option>
 									<option value="bruto">Faturamento Bruto</option>
@@ -537,15 +550,17 @@
 
 						<div class="row col-xl-6 col-lg-4 col-md-4 col-sm-4 col-4 canvas_subcontainer">
 							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">					
-								<h3 class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico">
-									
-								</h3>
-								<select class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select">
-									<option>Baterias vendidas</option>
-									<option>Entregas por bairro</option>
+								<h3 th:text="'Baterias vendidas: ' + ${totalBateriasVendidas}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_tipo">
+								</h3>									
+								<h3 class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_bairro" hidden>
+								</h3>	
+								<select onchange="changeGraficoBarra()" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select" id="grafico_bar">
+									<option value="porTipo">Baterias vendidas</option>
+									<option value="porBairro">Baterias por bairro</option>
 								</select>	
 
-								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 bar-chart"></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 bar-chart chart-bateriaTipo" id="chart_tipo"></canvas>
+								<canvas class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 bar-chart chart-bateriaBairro" id="chart_bairro" hidden></canvas>															
 							</div>
 						</div>						
 					</div>		

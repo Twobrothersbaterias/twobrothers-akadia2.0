@@ -13,6 +13,10 @@ console.log(faturamentoLiquidoPorDiasMes);
 console.log(ticketMedioPorDiaMes);
 console.log(custosPorDiaMes);
 console.log(despesasPorDiaMes);
+console.log(tiposBateria);
+console.log(quantidadeBateriasPorTipo);	
+console.log(tiposBateriaPorBairro);
+console.log(quantidadeBateriasPorBairro);
 
 var privilegio = document.getElementById('body').getAttribute('data-privilegio');
 var tipoFiltro = document.getElementById('tipo_filtro');
@@ -477,13 +481,12 @@ function grafico() {
 
 	if (diasDoMes != null && diasDoMes.length > 20) {
 		chartLiquido();
-		barChart();
+		chartBateriasPorTipo();
 	}
 
 }
 
 function changeGraficoLinha() {
-
 	var select = document.getElementById('grafico_line');
 	if (select.value == 'liquido') {
 		document.getElementById('chart_liquido').hidden=false;
@@ -491,6 +494,12 @@ function changeGraficoLinha() {
 		document.getElementById('chart_ticket').hidden=true;
 		document.getElementById('chart_custos').hidden=true;
 		document.getElementById('chart_despesas').hidden=true;
+
+		document.getElementById('titulo_grafico_liquido').hidden=false;	
+		document.getElementById('titulo_grafico_bruto').hidden=true;
+		document.getElementById('titulo_grafico_ticket').hidden=true;
+		document.getElementById('titulo_grafico_custo').hidden=true;
+		document.getElementById('titulo_grafico_despesa').hidden=true;
 		chartLiquido();
 	}
 	else if (select.value == 'bruto') {
@@ -498,7 +507,13 @@ function changeGraficoLinha() {
 		document.getElementById('chart_bruto').hidden=false;		
 		document.getElementById('chart_ticket').hidden=true;
 		document.getElementById('chart_custos').hidden=true;
-		document.getElementById('chart_despesas').hidden=true;		
+		document.getElementById('chart_despesas').hidden=true;	
+
+		document.getElementById('titulo_grafico_liquido').hidden=true;	
+		document.getElementById('titulo_grafico_bruto').hidden=false;
+		document.getElementById('titulo_grafico_ticket').hidden=true;
+		document.getElementById('titulo_grafico_custo').hidden=true;
+		document.getElementById('titulo_grafico_despesa').hidden=true;
 		chartBruto();
 	}
 	else if (select.value == 'ticket') {
@@ -506,7 +521,13 @@ function changeGraficoLinha() {
 		document.getElementById('chart_bruto').hidden=true;
 		document.getElementById('chart_ticket').hidden=false;
 		document.getElementById('chart_custos').hidden=true;
-		document.getElementById('chart_despesas').hidden=true;				
+		document.getElementById('chart_despesas').hidden=true;	
+
+		document.getElementById('titulo_grafico_liquido').hidden=true;	
+		document.getElementById('titulo_grafico_bruto').hidden=true;
+		document.getElementById('titulo_grafico_ticket').hidden=false;
+		document.getElementById('titulo_grafico_custo').hidden=true;
+		document.getElementById('titulo_grafico_despesa').hidden=true;		
 		chartTicket();
 	}
 	else if (select.value == 'custos') {
@@ -514,7 +535,13 @@ function changeGraficoLinha() {
 		document.getElementById('chart_bruto').hidden=true;
 		document.getElementById('chart_ticket').hidden=true;
 		document.getElementById('chart_custos').hidden=false;
-		document.getElementById('chart_despesas').hidden=true;				
+		document.getElementById('chart_despesas').hidden=true;	
+
+		document.getElementById('titulo_grafico_liquido').hidden=true;	
+		document.getElementById('titulo_grafico_bruto').hidden=true;
+		document.getElementById('titulo_grafico_ticket').hidden=true;
+		document.getElementById('titulo_grafico_custo').hidden=false;
+		document.getElementById('titulo_grafico_despesa').hidden=true;			
 		chartCustos();
 	}
 	else if (select.value == 'despesas') {
@@ -522,10 +549,35 @@ function changeGraficoLinha() {
 		document.getElementById('chart_bruto').hidden=true;
 		document.getElementById('chart_ticket').hidden=true;
 		document.getElementById('chart_custos').hidden=true;
-		document.getElementById('chart_despesas').hidden=false;				
+		document.getElementById('chart_despesas').hidden=false;
+
+		document.getElementById('titulo_grafico_liquido').hidden=true;	
+		document.getElementById('titulo_grafico_bruto').hidden=true;
+		document.getElementById('titulo_grafico_ticket').hidden=true;
+		document.getElementById('titulo_grafico_custo').hidden=true;
+		document.getElementById('titulo_grafico_despesa').hidden=false;			
 		chartDespesas();
 	}
+}
 
+function changeGraficoBarra() {
+	var select = document.getElementById('grafico_bar');
+	if (select.value == 'porTipo') {
+		document.getElementById('chart_tipo').hidden=false;
+		document.getElementById('chart_bairro').hidden=true;
+
+		document.getElementById('titulo_tipo').hidden=false;	
+		document.getElementById('titulo_bairro').hidden=true;
+		chartBateriasPorTipo();
+	}
+	else if (select.value == 'porBairro') {
+		document.getElementById('chart_tipo').hidden=true;
+		document.getElementById('chart_bairro').hidden=false;		
+
+		document.getElementById('titulo_tipo').hidden=true;	
+		document.getElementById('titulo_bairro').hidden=false;
+		chartBateriasPorBairro();
+	}
 }
 
 function lineChart() {
@@ -563,7 +615,15 @@ function lineChart() {
 			},
 	         legend: {
 	            display: false,
-	         },				
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
 		}
 	});	
 }
@@ -593,7 +653,15 @@ function chartLiquido() {
 			},
 	         legend: {
 	            display: false,
-	         },				
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
 		}
 	});		
 }
@@ -623,7 +691,15 @@ function chartBruto() {
 			},
 	         legend: {
 	            display: false,
-	         },				
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
 		}
 	});		
 }
@@ -653,7 +729,15 @@ function chartTicket() {
 			},
 	         legend: {
 	            display: false,
-	         },				
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
 		}
 	});		
 }
@@ -683,7 +767,15 @@ function chartCustos() {
 			},
 	         legend: {
 	            display: false,
-	         },				
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
 		}
 	});		
 }
@@ -713,35 +805,37 @@ function chartDespesas() {
 			},
 	         legend: {
 	            display: false,
-	         },				
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
 		}
 	});		
 }
 
-function barChart() {
-	var ctx = document.getElementsByClassName("bar-chart");
+function chartBateriasPorTipo() {
+	var ctx = document.getElementsByClassName("chart-bateriaTipo");
 
 	var chartGraph = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: ["Moura", "Heliar", "Delco", "America", "Baxter", "Eletran", "Freedom"],
+			labels: tiposBateria,
 			datasets: [
 				{
 					label: "Vendas",
-					data: [5, 10, 5, 14, 20, 15, 6],
+					data: quantidadeBateriasPorTipo,
 					borderWidth: 3,
 					borderColor: 'rgba(224, 74, 165, 0.85)',
-					backgroundColor: 'rgba(224, 74, 165, 0.5)'
-				},
-				/*{
-					label: "TAXA DE CLIQUES - 2022",
-					data: [3, 6, 15, 4, 29, 12, 5, 2, 0, 5, 17, 4, 15],
-					borderWidth: 6,
-					borderColor: 'rgba(6, 204, 6, 0.85)',
-					backgroundColor: 'transparent',
-				}*/							
+					backgroundColor: 'rgba(224, 74, 165, 0.5)',
+					base: 5,
+				},						
 			]
-		},
+		},	
 		options: {
 			//maintainAspectRatio: false,
 			elements: {
@@ -751,13 +845,60 @@ function barChart() {
 			},
 	         legend: {
 	            display: false,
-	         },				
-		}
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
+		},
+	});	
+}
+
+function chartBateriasPorBairro() {
+	var ctx = document.getElementsByClassName("chart-bateriaBairro");
+
+	var chartGraph = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: tiposBateriaPorBairro,
+			datasets: [
+				{
+					label: "Vendas",
+					data: quantidadeBateriasPorBairro,
+					borderWidth: 3,
+					borderColor: 'rgba(252, 135, 56, 0.85)',
+					backgroundColor: 'rgba(252, 135, 56, 0.5)',
+					base: 5,
+				},						
+			]
+		},	
+		options: {
+			//maintainAspectRatio: false,
+			elements: {
+				line: {
+					tension: 0,
+				},
+			},
+	         legend: {
+	            display: false,
+	         },	
+		    scales: {
+		        yAxes: [{
+		            display: true,
+		            ticks: {
+		                suggestedMin: 0,
+		            }
+		        }]
+		    },	         			
+		},
 	});	
 }
 
 /* ================== MISC ====================== */
-
 
 function hideMessage(){
 	var alertas = document.getElementsByClassName('alert');
@@ -765,7 +906,6 @@ function hideMessage(){
 		alertas[i].hidden=true;
 	}
 }
-
 
 function doALoadOfStuff() {
 	document.getElementById('conteudo_container').style.transition="2s";
@@ -815,5 +955,4 @@ function tituloResponsivo(filtro) {
 	else if (filtro == "usuario") {
 		titulo.innerText="Colaboradores de usuário " + (usuario.value);
 	}
-
 }
