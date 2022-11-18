@@ -130,7 +130,7 @@
 			<!-- Menu superior 1 -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
 
-				<ul class="menu_superior_1_ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="menu_superior_ul">
+				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" id="menu_superior_ul">
 
 					<li class="menu_superior_li col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -163,7 +163,7 @@
 								title="Você possui despesas em atraso"
 								th:title="'Você tem ' + ${#lists.size(despesasAtrasadas)} + ' despesa(s) em atraso'"/>
 
-							</button>	
+							</button>		
 
 						</a>	
 
@@ -180,7 +180,15 @@
 								<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-						</form>						
+						</form>		
+
+						<a onclick="window.print()" class="menu_superior_botao_container" title="Imprimir tela">
+
+							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10">
+								<img src="../static/img/printer-grey.png" th:src="@{img/printer-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>								
+							</button>	
+
+						</a>										
 
 					</li>
 

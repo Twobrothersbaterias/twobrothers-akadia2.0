@@ -3,10 +3,13 @@ package br.com.twobrothers.frontend.services;
 import br.com.twobrothers.frontend.models.entities.DespesaEntity;
 import br.com.twobrothers.frontend.models.entities.EntradaOrdemEntity;
 import br.com.twobrothers.frontend.models.entities.OrdemEntity;
+import br.com.twobrothers.frontend.models.entities.PagamentoEntity;
 import br.com.twobrothers.frontend.models.enums.FormaPagamentoEnum;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.TipoOrdemEnum;
+import br.com.twobrothers.frontend.repositories.UsuarioRepository;
 import br.com.twobrothers.frontend.repositories.services.DespesaCrudService;
+import br.com.twobrothers.frontend.utils.UsuarioUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +21,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -39,6 +43,9 @@ public class RelatorioService {
     @Autowired
     DespesaService despesaService;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
     public String serializaHashMapParaJson(HashMap<String, Object> maps) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(maps);
@@ -47,6 +54,16 @@ public class RelatorioService {
     public void sortbykey(HashMap<Integer, Object> maps) {
         TreeMap<Integer, Object> sorted = new TreeMap<>();
         sorted.putAll(maps);
+    }
+
+    public List<OrdemEntity> faturados(List<OrdemEntity> ordens) {
+        List<OrdemEntity> ordensFaturadas = new ArrayList<>();
+        for (OrdemEntity ordem: ordens) {
+            for (PagamentoEntity pagamento: ordem.getPagamentos()) {
+                if (pagamento.getFormaPagamento().equals(FormaPagamentoEnum.FATURADO)) ordensFaturadas.add(ordem);
+            }
+        }
+        return ordensFaturadas;
     }
 
     public HashMap<String, Integer> quantidadeBateriasPorBairro(List<OrdemEntity> ordens) {
@@ -251,8 +268,21 @@ public class RelatorioService {
         List<DespesaEntity> despesasNoMes =
                 despesaCrudService.buscaDespesasPagasNoMes(Integer.parseInt(mes), Integer.parseInt(ano));
 
+
+        log.info("[PROGRESS] Verificando se existem itens em atraso ou que vencem hoje...");
+        List<DespesaEntity> despesasAtrasadas = despesaCrudService.buscaDespesasAtrasadas();
+        List<DespesaEntity> despesasHoje = despesaCrudService.buscaDespesasComVencimentoParaHoje();
+
+        atributos.put("privilegio", UsuarioUtils.loggedUser(usuarioRepository).getPrivilegio().getDesc());
+        atributos.put("usuarioLogado", UsuarioUtils.loggedUser(usuarioRepository));
+        atributos.put("despesasAtrasadas", despesasAtrasadas);
+        atributos.put("despesasHoje", despesasHoje);
+
         atributos.put("mes", mes);
         atributos.put("ano", ano);
+
+        atributos.put("faturados", faturados(ordensNoMes));
+        atributos.put("ordens", ordensNoMes);
 
         atributos.put("totalBateriasVendidas", ordemService.calculaQuantidadeVendida(ordensNoMes));
         atributos.put("totalBruto", converteValorDoubleParaValorMonetario(ordemService.calculaBrutoVendido(ordensNoMes)));

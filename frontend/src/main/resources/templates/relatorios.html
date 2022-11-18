@@ -146,7 +146,7 @@
 			<!-- Menu superior 1 -->
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 menu_superior_1" id="menu_superior">
 
-				<ul class="menu_superior_1_ul col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="menu_superior_ul">
+				<ul class="menu_superior_1_ul col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11" id="menu_superior_ul">
 
 					<li class="menu_superior_li col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -196,7 +196,15 @@
 								<img src="../static/img/logout-grey.png" th:src="@{img/logout-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>
 							</button>	
 							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-						</form>						
+						</form>		
+
+						<a onclick="alert('Impressão desabilitada para essa tela')" class="menu_superior_botao_container" title="Imprimir tela">
+
+							<button class="menu_superior_botao col-xl-12 col-lg-12 col-md-12	 col-sm-11 col-10">
+								<img src="../static/img/printer-grey.png" th:src="@{img/printer-grey.png}" class="menu_superior_img col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"/>								
+							</button>	
+
+						</a>										
 
 					</li>
 
@@ -333,12 +341,12 @@
 						<input th:value="${mes}" id="back_mes" hidden>
 						<input th:value="${ano}" id="back_ano" hidden>
 
-						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_icones">
+						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 container_icones" id="container_icones">
 
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 conteudo_titulo_text" id="conteudo_titulo_text">
 
 								<div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 titulo_container">
-									<select th:value="${mes}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 select select_mes" id="select_mes">
+									<select th:value="${mes}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 select_superior select select_mes" id="select_mes">
 										<option value="0" hidden>Todos</option>
 										<option value="1">Janeiro</option>
 										<option value="2">Fevereiro</option>
@@ -357,7 +365,7 @@
 
 
 								<div class="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-3 titulo_container">
-									<select th:value="${ano}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 select select_ano" id="select_ano">
+									<select th:value="${ano}" class="col-xl-11 col-lg-11 col-md-11 col-sm-11 col-11 select_superior select select_ano" id="select_ano">
 										<option value="2022">2022</option>
 										<option value="2023">2023</option>
 										<option value="2024">2024</option>
@@ -535,17 +543,17 @@
 
 						<div class="row col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 canvas_subcontainer">
 							<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 canvas_block canvas_block_titulo">
-								<h3 th:text="'Total: ' + ${faturamentoLiquidoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_liquido">
+								<h3 th:text="'Total: ' + ${faturamentoLiquidoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_liquido">
 								</h3>
-								<h3 th:text="'Bruto: ' + ${faturamentoBrutoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_bruto" hidden>
+								<h3 th:text="'Bruto: ' + ${faturamentoBrutoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_bruto" hidden>
 								</h3>
-								<h3 th:text="'TM: ' + ${ticketMedioTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_ticket" hidden>
+								<h3 th:text="'TM: ' + ${ticketMedioTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_ticket" hidden>
 								</h3>
-								<h3 th:text="'Custos: ' + ${custoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_custo" hidden>
+								<h3 th:text="'Custos: ' + ${custoTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_custo" hidden>
 								</h3>									
-								<h3 th:text="'Despesas: ' + ${despesasTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-7 col-6 titulo_grafico" id="titulo_grafico_despesa" hidden>
+								<h3 th:text="'Despesas: ' + ${despesasTotal}" class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 titulo_grafico" id="titulo_grafico_despesa" hidden>
 								</h3>	
-								<select onchange="changeGraficoLinha()" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-6 grafico_select" id="grafico_line">
+								<select onchange="changeGraficoLinha()" class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 grafico_select" id="grafico_line">
 									<option value="liquido">Faturamento Líquido</option>
 									<option value="bruto">Faturamento Bruto</option>
 									<option value="ticket">Ticket médio</option>
@@ -585,9 +593,9 @@
 
 						<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_subcontainer">
 							
-							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12 pagamentos_subcontainer">
 
-								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_dinheiro">	
+								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-8 pagamentos_block pagamentos_block_dinheiro">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_dinheiro">
 										Dinheiro
 									</h3>
@@ -598,8 +606,8 @@
 								</div>
 							</div>	
 
-							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
-								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_credito">	
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12 pagamentos_subcontainer">
+								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-8 pagamentos_block pagamentos_block_credito">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_credito">
 										Crédito
 									</h3>								
@@ -610,8 +618,8 @@
 								</div>
 							</div>		
 
-							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
-								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_debito">	
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12 pagamentos_subcontainer">
+								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-8 pagamentos_block pagamentos_block_debito">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_debito">
 										Débito
 									</h3>								
@@ -622,8 +630,8 @@
 								</div>
 							</div>	
 
-							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
-								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_pix">	
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12 pagamentos_subcontainer">
+								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-8 pagamentos_block pagamentos_block_pix">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_pix">
 										Pix
 									</h3>								
@@ -634,8 +642,8 @@
 								</div>
 							</div>
 
-							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
-								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_boleto">	
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12 pagamentos_subcontainer">
+								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-8 pagamentos_block pagamentos_block_boleto">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_boleto">
 										Boletos
 									</h3>								
@@ -646,8 +654,8 @@
 								</div>
 							</div>		
 
-							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-6 pagamentos_subcontainer">
-								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pagamentos_block pagamentos_block_faturado">	
+							<div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12 pagamentos_subcontainer">
+								<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-8 pagamentos_block pagamentos_block_faturado">	
 									<h3 class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 relatorio_item_titulo relatorio_item_titulo_faturado">
 										Faturados
 									</h3>								
@@ -660,13 +668,11 @@
 
 						</div>
 					</div>											
-
 				</div>
 
 			</div>			
 
 		</main>
-
 
 		<div class="main_loader" id="main_loader">
 			<div class="loader"></div>

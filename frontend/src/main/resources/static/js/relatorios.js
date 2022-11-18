@@ -40,35 +40,6 @@ grafico();
 
 function bind(keyCode) {
 
-    	if(keyCode == '27') {
-	        fechaNovoItem();
-	        fecharFiltro();
-	        fechaEditaItem();
-	        hideMessage();        
-	    }
-
-	    if(keyCode == '13') {
-			if(document.getElementById('conteudo_container_edita').hidden==false) {
-			    validacaoCampos('edita');
-			}
-			else if (document.getElementById('conteudo_container_filtro').hidden==false) {
-
-			    var btAdd = document.getElementById('filtro_bt');
-			    var btBuscar = document.getElementById('filtro_buscar_bt_inside');
-
-			    if(btAdd.hidden == false) {
-					btAdd.click();
-				}
-				else {
-					btBuscar.click();
-				}
-
-			}
-			else if (document.getElementById('conteudo_container_novo').hidden==false) {
-				validacaoCampos('novo');
-			}    
-		}    
-
 	    if (keyCode == '49') {
 	    	window.location.href="/";
 	    }
@@ -123,10 +94,6 @@ function bind(keyCode) {
 	    else if(keyCode == '82') {
 	    	window.location.href="/precos";
 	    }
-
-	    else if(keyCode == '70') {
-	    	abrirFiltro();
-	    }	 	  
 
 	    else if(keyCode == '192' && privilegio != "Vendedor") {
 	    	document.getElementById('relatorio_button').click();
@@ -189,6 +156,12 @@ function responsive(){
 
 	var relatorioInformativoBlock = document.getElementsByClassName('relatorio_informativo_block');
 
+	var graficoSelect = document.getElementsByClassName('grafico_select');
+	var tituloGrafico = document.getElementsByClassName('titulo_grafico');
+
+	var containerSuperior = document.getElementById('conteudo_titulo_text');
+	var selectSuperior = document.getElementsByClassName('select_superior');
+
 	mainRow.style.width = "100%";			
 
 	if(bodyWidth > 1200){
@@ -212,6 +185,23 @@ function responsive(){
 				sideMenu.style.width="4%";
 			}			
 		}
+
+		for(var i = 0; i < tituloGrafico.length; i++) {
+			tituloGrafico[i].style.fontSize="1rem";
+			tituloGrafico[i].style.paddingLeft="12px";
+			tituloGrafico[i].style.paddingTop="8px";			
+		}			
+
+		for(var i = 0; i < graficoSelect.length; i++) {
+			graficoSelect[i].style.fontSize="1rem";
+			graficoSelect[i].style.padding="5px";
+		}		
+
+		for(var i = 0; i < selectSuperior.length; i++) {
+			selectSuperior[i].style.fontSize="1rem";
+		}		
+
+		containerSuperior.style.fontSize="1rem";
 
 		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
 			relatorioInformativoBlock[i].style.padding="30px 15px";
@@ -260,6 +250,23 @@ function responsive(){
 				sideMenu.style.width="5%";
 			}			
 		}
+
+		containerSuperior.style.fontSize="0.90rem";		
+
+		for(var i = 0; i < tituloGrafico.length; i++) {
+			tituloGrafico[i].style.fontSize="0.95rem";
+			tituloGrafico[i].style.paddingLeft="12px";		
+			tituloGrafico[i].style.paddingTop="7px";
+		}			
+
+		for(var i = 0; i < graficoSelect.length; i++) {
+			graficoSelect[i].style.fontSize="0.90rem";
+			graficoSelect[i].style.padding="5px";
+		}
+
+		for(var i = 0; i < selectSuperior.length; i++) {
+			selectSuperior[i].style.fontSize="0.90rem";
+		}						
 
 		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
 			relatorioInformativoBlock[i].style.padding="20px 15px";
@@ -321,9 +328,26 @@ function responsive(){
 			}			
 		}
 
+		containerSuperior.style.fontSize="0.80rem";
+
+		for(var i = 0; i < tituloGrafico.length; i++) {
+			tituloGrafico[i].style.fontSize="0.85rem";
+			tituloGrafico[i].style.paddingLeft="12px";	
+			tituloGrafico[i].style.paddingTop="7px";					
+		}			
+
+		for(var i = 0; i < graficoSelect.length; i++) {
+			graficoSelect[i].style.fontSize="0.80rem";
+			graficoSelect[i].style.padding="3px";			
+		}				
+
 		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
 			relatorioInformativoBlock[i].style.padding="20px 15px";
-		}				
+		}	
+
+		for(var i = 0; i < selectSuperior.length; i++) {
+			selectSuperior[i].style.fontSize="0.80rem";
+		}							
 
 		for(var i = 0; i < liA.length; i++){
 			liA[i].style.fontSize="0.75rem";
@@ -369,8 +393,25 @@ function responsive(){
 		mainRow.style.width = "100%";
 		menuMobile.style.display="flex";	
 		
+		containerSuperior.style.fontSize="0.70rem";
+
+		for(var i = 0; i < tituloGrafico.length; i++) {
+			tituloGrafico[i].style.fontSize="0.75rem";
+			tituloGrafico[i].style.paddingLeft="12px";			
+			tituloGrafico[i].style.paddingTop="5px";			
+		}	
+
+		for(var i = 0; i < graficoSelect.length; i++) {
+			graficoSelect[i].style.fontSize="0.70rem";
+			graficoSelect[i].style.padding="2px";			
+		}		
+
+		for(var i = 0; i < selectSuperior.length; i++) {
+			selectSuperior[i].style.fontSize="0.70rem";
+		}						
+
 		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
-			relatorioInformativoBlock[i].style.padding="20px 15px";
+			relatorioInformativoBlock[i].style.padding="15px 15px";
 		}
 
 		for(var i = 0; i < liA.length; i++) {
@@ -424,6 +465,23 @@ function responsive(){
 		main.style.width="100%";
 		mainRow.style.width = "100%";
 		menuMobile.style.display="flex";
+
+		containerSuperior.style.fontSize="0.60rem";
+
+		for(var i = 0; i < tituloGrafico.length; i++) {
+			tituloGrafico[i].style.fontSize="0.65rem";
+			tituloGrafico[i].style.paddingLeft="0px";	
+			tituloGrafico[i].style.paddingTop="5px";					
+		}		
+
+		for(var i = 0; i < graficoSelect.length; i++) {
+			graficoSelect[i].style.fontSize="0.60rem";
+			graficoSelect[i].style.padding="1px";			
+		}	
+
+		for(var i = 0; i < selectSuperior.length; i++) {
+			selectSuperior[i].style.fontSize="0.60rem";
+		}					
 
 		for(var i = 0; i < relatorioInformativoBlock.length; i++) {
 			relatorioInformativoBlock[i].style.padding="20px 15px";
@@ -515,7 +573,6 @@ function grafico() {
 		chartLiquido();
 		chartBateriasPorTipo();
 	}
-
 }
 
 function changeGraficoLinha() {
@@ -746,235 +803,521 @@ function chartLiquido() {
 }
 
 function chartBruto() {
-	var ctx = document.getElementsByClassName("chart-bruto");
-	var chartGraph = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: diasDoMes,
-			datasets: [
-				{
-					label: "Valor bruto do dia",
-					data: faturamentoBrutoPorDiasMes,
-					borderWidth: 3,
-					borderColor: 'rgba(252, 135, 56, 0.85)',
-					backgroundColor: 'rgba(252, 135, 56, 0.1)'
-				},						
-			]
-		},
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
-				},
+
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {	
+		var ctx = document.getElementsByClassName("chart-bruto");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Valor bruto do dia",
+						data: faturamentoBrutoPorDiasMes,
+						borderWidth: 3,
+						borderColor: 'rgba(252, 135, 56, 0.85)',
+						backgroundColor: 'rgba(252, 135, 56, 0.1)'
+					},						
+				]
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		}
-	});		
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});
+	}
+	else {
+		var ctx = document.getElementsByClassName("chart-bruto");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Valor bruto do dia",
+						data: faturamentoBrutoPorDiasMes,
+						borderWidth: 3,
+						borderColor: 'rgba(252, 135, 56, 0.85)',
+						backgroundColor: 'rgba(252, 135, 56, 0.1)'
+					},						
+				]
+			},
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});		
+	}	
 }
 
 function chartTicket() {
-	var ctx = document.getElementsByClassName("chart-ticket");
-	var chartGraph = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: diasDoMes,
-			datasets: [
-				{
-					label: "Ticket médio do dia",
-					data: ticketMedioPorDiaMes,
-					borderWidth: 3,
-					borderColor: 'rgba(201, 175, 44, 0.85)',
-					backgroundColor: 'rgba(201, 175, 44, 0.1)'
-				},						
-			]
-		},
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
-				},
+
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {		
+		var ctx = document.getElementsByClassName("chart-ticket");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Ticket médio do dia",
+						data: ticketMedioPorDiaMes,
+						borderWidth: 3,
+						borderColor: 'rgba(201, 175, 44, 0.85)',
+						backgroundColor: 'rgba(201, 175, 44, 0.1)'
+					},						
+				]
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		}
-	});		
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});	
+	}
+	else {
+		var ctx = document.getElementsByClassName("chart-ticket");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Ticket médio do dia",
+						data: ticketMedioPorDiaMes,
+						borderWidth: 3,
+						borderColor: 'rgba(201, 175, 44, 0.85)',
+						backgroundColor: 'rgba(201, 175, 44, 0.1)'
+					},						
+				]
+			},
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});		
+	}
 }
 
 function chartCustos() {
-	var ctx = document.getElementsByClassName("chart-custos");
-	var chartGraph = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: diasDoMes,
-			datasets: [
-				{
-					label: "Custos do dia",
-					data: custosPorDiaMes,
-					borderWidth: 3,
-					borderColor: 'rgba(101, 199, 106, 0.85)',
-					backgroundColor: 'rgba(101, 199, 106, 0.1)'
-				},						
-			]
-		},
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
-				},
+
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {			
+		var ctx = document.getElementsByClassName("chart-custos");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Custos do dia",
+						data: custosPorDiaMes,
+						borderWidth: 3,
+						borderColor: 'rgba(101, 199, 106, 0.85)',
+						backgroundColor: 'rgba(101, 199, 106, 0.1)'
+					},						
+				]
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		}
-	});		
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});	
+	}
+	else {
+		var ctx = document.getElementsByClassName("chart-custos");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Custos do dia",
+						data: custosPorDiaMes,
+						borderWidth: 3,
+						borderColor: 'rgba(101, 199, 106, 0.85)',
+						backgroundColor: 'rgba(101, 199, 106, 0.1)'
+					},						
+				]
+			},
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});		
+	}
 }
 
 function chartDespesas() {
-	var ctx = document.getElementsByClassName("chart-despesas");
-	var chartGraph = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: diasDoMes,
-			datasets: [
-				{
-					label: "Despesas do dia",
-					data: despesasPorDiaMes,
-					borderWidth: 3,
-					borderColor: 'rgba(81, 198, 207, 0.85)',
-					backgroundColor: 'rgba(81, 198, 207, 0.1)'
-				},						
-			]
-		},
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
-				},
+
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {	
+		var ctx = document.getElementsByClassName("chart-despesas");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Despesas do dia",
+						data: despesasPorDiaMes,
+						borderWidth: 3,
+						borderColor: 'rgba(81, 198, 207, 0.85)',
+						backgroundColor: 'rgba(81, 198, 207, 0.1)'
+					},						
+				]
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		}
-	});		
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});		
+	}
+	else {
+		var ctx = document.getElementsByClassName("chart-despesas");
+		var chartGraph = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: diasDoMes,
+				datasets: [
+					{
+						label: "Despesas do dia",
+						data: despesasPorDiaMes,
+						borderWidth: 3,
+						borderColor: 'rgba(81, 198, 207, 0.85)',
+						backgroundColor: 'rgba(81, 198, 207, 0.1)'
+					},						
+				]
+			},
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			}
+		});		
+	}
 }
 
 function chartBateriasPorTipo() {
-	var ctx = document.getElementsByClassName("chart-bateriaTipo");
 
-	var chartGraph = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: tiposBateria,
-			datasets: [
-				{
-					label: "Vendas",
-					data: quantidadeBateriasPorTipo,
-					borderWidth: 3,
-					borderColor: 'rgba(224, 74, 165, 0.85)',
-					backgroundColor: 'rgba(224, 74, 165, 0.5)',
-					base: 5,
-				},						
-			]
-		},	
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {		
+		var ctx = document.getElementsByClassName("chart-bateriaTipo");
+
+		var chartGraph = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: tiposBateria,
+				datasets: [
+					{
+						label: "Vendas",
+						data: quantidadeBateriasPorTipo,
+						borderWidth: 3,
+						borderColor: 'rgba(224, 74, 165, 0.85)',
+						backgroundColor: 'rgba(224, 74, 165, 0.5)',
+						base: 5,
+					},						
+				]
+			},	
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
 				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		},
-	});	
+		});	
+	}
+	else {
+		var ctx = document.getElementsByClassName("chart-bateriaTipo");
+
+		var chartGraph = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: tiposBateria,
+				datasets: [
+					{
+						label: "Vendas",
+						data: quantidadeBateriasPorTipo,
+						borderWidth: 3,
+						borderColor: 'rgba(224, 74, 165, 0.85)',
+						backgroundColor: 'rgba(224, 74, 165, 0.5)',
+						base: 5,
+					},						
+				]
+			},	
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			},
+		});			
+	}
 }
 
 function chartBateriasPorBairro() {
-	var ctx = document.getElementsByClassName("chart-bateriaBairro");
 
-	var chartGraph = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: tiposBateriaPorBairro,
-			datasets: [
-				{
-					label: "Vendas",
-					data: quantidadeBateriasPorBairro,
-					borderWidth: 3,
-					borderColor: 'rgba(252, 135, 56, 0.85)',
-					backgroundColor: 'rgba(252, 135, 56, 0.5)',
-					base: 5,
-				},						
-			]
-		},	
-		options: {
-			//maintainAspectRatio: false,
-			elements: {
-				line: {
-					tension: 0,
+	bodyWidth = document.getElementById('body').clientWidth;
+
+	if (bodyWidth > 540) {			
+		var ctx = document.getElementsByClassName("chart-bateriaBairro");
+
+		var chartGraph = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: tiposBateriaPorBairro,
+				datasets: [
+					{
+						label: "Vendas",
+						data: quantidadeBateriasPorBairro,
+						borderWidth: 3,
+						borderColor: 'rgba(252, 135, 56, 0.85)',
+						backgroundColor: 'rgba(252, 135, 56, 0.5)',
+						base: 5,
+					},						
+				]
+			},	
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
 				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+			        yAxes: [{
+			            display: true,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
 			},
-	         legend: {
-	            display: false,
-	         },	
-		    scales: {
-		        yAxes: [{
-		            display: true,
-		            ticks: {
-		                suggestedMin: 0,
-		            }
-		        }]
-		    },	         			
-		},
-	});	
+		});	
+	}
+	else {
+		var ctx = document.getElementsByClassName("chart-bateriaBairro");
+
+		var chartGraph = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: tiposBateriaPorBairro,
+				datasets: [
+					{
+						label: "Vendas",
+						data: quantidadeBateriasPorBairro,
+						borderWidth: 3,
+						borderColor: 'rgba(252, 135, 56, 0.85)',
+						backgroundColor: 'rgba(252, 135, 56, 0.5)',
+						base: 5,
+					},						
+				]
+			},	
+			options: {
+				//maintainAspectRatio: false,
+				elements: {
+					line: {
+						tension: 0,
+					},
+				},
+		         legend: {
+		            display: false,
+		         },	
+			    scales: {
+	                xAxes: [{
+	                    ticks: {
+	                        display: false
+	                    }
+	                }],			    	
+			        yAxes: [{
+			            display: false,
+			            ticks: {
+			                suggestedMin: 0,
+			            }
+			        }]
+			    },	         			
+			},
+		});			
+	}
 }
 
 /* ================== MISC ====================== */
