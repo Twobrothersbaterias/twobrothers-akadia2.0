@@ -71,12 +71,12 @@ public class RelatorioService {
         HashMap<String, Integer> bateriasPorBairro = new HashMap<>();
 
         for (OrdemEntity ordem: ordens) {
+            if (ordem.getRetirada().getStatusRetirada() != StatusRetiradaEnum.LOJA_FISICA) {
 
-            if (ordem.getRetirada().getStatusRetirada() != StatusRetiradaEnum.LOJA_FISICA
-            && ordem.getCliente() != null) {
-
-                if (ordem.getCliente().getEndereco().getBairro() != null
-                && !ordem.getCliente().getEndereco().getBairro().isEmpty()) {
+                if (ordem.getCliente() != null
+                        && ordem.getCliente().getEndereco() != null
+                        && ordem.getCliente().getEndereco().getBairro() != null
+                        && !ordem.getCliente().getEndereco().getBairro().isEmpty()) {
 
                     for (EntradaOrdemEntity entrada : ordem.getEntradas()) {
                         if (entrada.getProduto() != null && !entrada.getTipoOrdem().equals(TipoOrdemEnum.GARANTIA)) {
@@ -183,10 +183,14 @@ public class RelatorioService {
 
             for (OrdemEntity ordem : ordens) {
                 if (Integer.parseInt(ordem.getDataCadastro().split("-")[2]) == i) {
-                    totalDia += ordem.getTotalVendas();
                     for (EntradaOrdemEntity entrada : ordem.getEntradas()) {
-                        if (entrada.getProduto() == null) quantidadeDia += 1;
-                        else quantidadeDia += entrada.getQuantidade();
+                        if (!entrada.getTipoOrdem().equals(TipoOrdemEnum.GARANTIA)) {
+                            if (entrada.getProduto() == null) quantidadeDia += 1;
+                            else {
+                                quantidadeDia += entrada.getQuantidade();
+                            }
+                            totalDia += entrada.getValor();
+                        }
                     }
                 }
             }
@@ -206,9 +210,13 @@ public class RelatorioService {
         Integer quantidade = 0;
         for (OrdemEntity ordem : ordens) {
             for (EntradaOrdemEntity entrada : ordem.getEntradas()) {
-                if (entrada.getProduto() != null) {
+                if (!entrada.getTipoOrdem().equals(TipoOrdemEnum.GARANTIA)) {
+                    if (entrada.getProduto() != null) {
+                        quantidade += entrada.getQuantidade();
+                    } else {
+                        quantidade += 1;
+                    }
                     total += entrada.getValor();
-                    quantidade += entrada.getQuantidade();
                 }
             }
         }
@@ -230,7 +238,7 @@ public class RelatorioService {
                 if (Integer.parseInt(ordem.getDataCadastro().split("-")[2]) == i) {
                     for (EntradaOrdemEntity entrada : ordem.getEntradas()) {
                         if (entrada.getProduto() != null) {
-                            custosDia += entrada.getProduto().getCustoUnitario();
+                            custosDia += (entrada.getProduto().getCustoUnitario() * entrada.getQuantidade());
                         }
                     }
                 }

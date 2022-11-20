@@ -57,6 +57,7 @@ public class LoginController {
                     .dataCadastro(LocalDate.now().toString())
                     .entradas(new ArrayList<>())
                     .precosFornecedor(new ArrayList<>())
+                    .usuarioResponsavel(usuarioRepository.findByNomeUsuario("admin").get())
                     .build());
 
         modelAndView.setViewName("login");

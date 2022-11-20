@@ -269,7 +269,8 @@ public class ClienteCrudService {
             if (cliente.getOrdens() != null && !cliente.getOrdens().isEmpty()) {
                 List<OrdemEntity> ordensDoCliente = cliente.getOrdens();
                 for(int i = 0; i < ordensDoCliente.size(); i++) {
-                    remocaoDeClienteDaOrdem(ordensDoCliente.get(i));
+                    cliente = remocaoDeClienteDaOrdem(ordensDoCliente.get(i));
+                    if (!ordensDoCliente.isEmpty()) i -= 1;
                 }
             }
 
@@ -283,10 +284,11 @@ public class ClienteCrudService {
 
     }
 
-    private void remocaoDeClienteDaOrdem(OrdemEntity ordem) {
+    private ClienteEntity remocaoDeClienteDaOrdem(OrdemEntity ordem) {
         ClienteEntity clienteEntity = ordem.getCliente();
         clienteEntity.removeOrdem(ordem);
         ordemRepository.save(ordem);
+        return repository.save(clienteEntity);
     }
 
 }

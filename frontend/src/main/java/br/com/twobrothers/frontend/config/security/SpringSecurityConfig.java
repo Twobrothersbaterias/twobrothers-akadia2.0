@@ -1,6 +1,5 @@
 package br.com.twobrothers.frontend.config.security;
 
-import br.com.twobrothers.frontend.services.ImprimeNota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,10 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.io.*;
-import java.nio.channels.FileChannel;
-
-import static br.com.twobrothers.frontend.services.ImprimeNota.retornaImpressoras;
+import java.io.IOException;
 
 /**
  * @author Gabriel Lagrota
@@ -71,10 +67,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) throws IOException {
 
-        ImprimeNota imprimeNota = new ImprimeNota();
-        System.err.println(retornaImpressoras());
-        imprimeNota.detectaImpressoras("Microsoft Print to PDF");
-        imprimeNota.imprime("Testando impressão do arquivo");
+
+
+//        ImprimeNota imprimeNota = new ImprimeNota();
+//        System.err.println(retornaImpressoras());
+//        imprimeNota.detectaImpressoras("Microsoft Print to PDF");
+//        imprimeNota.imprime("Testando impressão do arquivo");
 //        int maximo = 50;
 //
 //        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");

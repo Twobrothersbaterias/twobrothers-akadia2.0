@@ -4,6 +4,7 @@ import br.com.twobrothers.frontend.config.ModelMapperConfig;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.entities.ProdutoEstoqueEntity;
 import br.com.twobrothers.frontend.models.enums.TipoEntradaEnum;
+import br.com.twobrothers.frontend.models.enums.TipoOrdemEnum;
 import br.com.twobrothers.frontend.models.enums.TipoProdutoEnum;
 import br.com.twobrothers.frontend.repositories.AbastecimentoRepository;
 import br.com.twobrothers.frontend.repositories.ProdutoEstoqueRepository;
@@ -56,11 +57,22 @@ public class GerenciamentoEstoqueService {
 
     public void remocaoDeOrdemComum(EntradaOrdemDTO entradaOrdemDTO) {
         verificaSeExiste(entradaOrdemDTO);
+        ProdutoEstoqueEntity sucata = produtoEstoqueRepository.buscaPorSigla("SUC45").get();
+        List<ProdutoEstoqueEntity> entidades = new ArrayList<>();
         if (entradaOrdemDTO.getProduto() != null) {
+
+            if (entradaOrdemDTO.getTipoEntrada().equals(TipoEntradaEnum.TROCA))
+                sucata.setQuantidade(sucata.getQuantidade() - entradaOrdemDTO.getQuantidade());
+
+            entidades.add(sucata);
+
             ProdutoEstoqueEntity produtoEstoque = produtoEstoqueRepository.buscaPorSigla(entradaOrdemDTO.getProduto().getSigla()).get();
             produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() + entradaOrdemDTO.getQuantidade());
             produtoEstoque.setCustoTotal(produtoEstoque.getQuantidade() * produtoEstoque.getCustoUnitario());
-            produtoEstoqueRepository.save(produtoEstoque);
+
+            entidades.add(produtoEstoque);
+
+            produtoEstoqueRepository.saveAll(entidades);
         }
     }
 
@@ -97,7 +109,8 @@ public class GerenciamentoEstoqueService {
                 produtoEstoqueEntity.setCustoTotal(produtoEstoqueEntity.getQuantidade() * produtoEstoqueEntity.getCustoUnitario());
                 produtosInseridos.add(produtoEstoqueEntity);
 
-                if (entradaOrdemDTO.getTipoEntrada().equals(TipoEntradaEnum.TROCA)) {
+                if (entradaOrdemDTO.getTipoEntrada().equals(TipoEntradaEnum.TROCA)
+                        && !entradaOrdemDTO.getTipoOrdem().equals(TipoOrdemEnum.GARANTIA)) {
                     sucata.setQuantidade(sucata.getQuantidade() + entradaOrdemDTO.getQuantidade());
                     produtosInseridos.add(sucata);
                 }

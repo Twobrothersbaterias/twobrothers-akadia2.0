@@ -61,16 +61,16 @@ public class ProdutoEstoqueValidation {
 
     public void validaAtributoSigla(String sigla) {
         log.info("[VALIDAÇÃO - PRODUTO] Inicializando validação do atributo sigla...");
-        if (sigla.length() > 10)
-            throw new InvalidRequestException("Validação da sigla falhou. Motivo: A sigla deve possuir no máximo 10 caracteres");
+        if (sigla.length() > 25)
+            throw new InvalidRequestException("Validação da sigla falhou. Motivo: A sigla deve possuir no máximo 25 caracteres");
         log.warn("Validação do atributo sigla OK");
     }
 
     public void validaAtributoMarcaBateria(String marcaBateria) {
         log.info("[VALIDAÇÃO - PRODUTO] Inicializando validação do atributo marcaBateria...");
-        if (marcaBateria.length() > 20)
+        if (marcaBateria.length() > 25)
             throw new InvalidRequestException("Validação da marca da bateria falhou. " +
-                    "Motivo: A marca da bateria deve possuir no máximo 20 caracteres");
+                    "Motivo: A marca da bateria deve possuir no máximo 250 caracteres");
         log.warn("Validação do atributo marcaBateria OK");
     }
 

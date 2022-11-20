@@ -161,6 +161,7 @@ function responsive(){
 	var thPagamento = document.getElementsByClassName('th_pagamento');
 	var tdCustoUnitario = document.getElementsByClassName('td_custoUnitario');
 	var thCustoUnitario = document.getElementsByClassName('th_custoUnitario');
+	var tdSigla = document.getElementsByClassName('td_code');
 	var tdRemove = document.getElementsByClassName('td_checkbox');
 	var thRemove = document.getElementsByClassName('th_remove');	
 	var btnExcluir = document.getElementsByClassName('btn_excluir');
@@ -178,6 +179,10 @@ function responsive(){
 	var excluirImg = document.getElementsByClassName('excluir_img');	
 
 	mainRow.style.width = "100%";
+
+	for(var i = 0; i < tdSigla.length; i++) {
+		tdSigla[i].style.justifyContent="left";
+	}
 
 	if(bodyWidth > 1200){
 		console.log("Tela: Muito grande");
@@ -1368,6 +1373,19 @@ function abrirEditaItem(
 							custoUnitario,
 							custoTotal) {
 
+	if (sigla == 'SUC45') {
+		document.getElementById('sigla_produto_input_edicao').readOnly=true;
+		document.getElementById('edita_item_subtitulo_precos').hidden=true;
+		document.getElementById('edita_item_subtitulo_compras').hidden=true;
+		document.getElementById('edita_item_subtitulo_vendas').hidden=true;
+	}
+	else {
+		document.getElementById('sigla_produto_input_edicao').readOnly=false;
+		document.getElementById('edita_item_subtitulo_precos').hidden=false;
+		document.getElementById('edita_item_subtitulo_compras').hidden=false;
+		document.getElementById('edita_item_subtitulo_vendas').hidden=false;
+	}
+
 	var containerPrincipal = document.getElementById('conteudo_container');
 	var menuSuperior = document.getElementById('menu_superior');
 	var menuSuperiorMobile = document.getElementById('menu_superior_mobile');
@@ -1437,6 +1455,7 @@ function fecharEditaItem() {
 	var valorUnitarioProdutoInput = document.getElementById('valor_unitario_produto_input_edicao');
 	var valorTotalProdutoInput = document.getElementById('valor_total_produto_input_edicao');
 
+	siglaProdutoInput.disabled=false;
 	siglaProdutoInput.value="";
 	tipoProdutoInput.value="BATERIA";
 	marcaProdutoInput.value="";

@@ -43,7 +43,7 @@ public class EstoqueController {
     UsuarioRepository usuarioRepository;
 
     @GetMapping
-    public ModelAndView getProdutos(@PageableDefault(size = 20, page = 0, sort = {"quantidade"}, direction = Sort.Direction.ASC) Pageable pageable,
+    public ModelAndView getProdutos(@PageableDefault(size = 20, page = 0, sort = {"sigla"}, direction = Sort.Direction.ASC) Pageable pageable,
                                     @RequestParam("descricao") Optional<String> descricao,
                                     @RequestParam("inicio") Optional<String> inicio,
                                     @RequestParam("fim") Optional<String> fim,

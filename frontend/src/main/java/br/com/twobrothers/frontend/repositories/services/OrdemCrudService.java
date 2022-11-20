@@ -134,6 +134,9 @@ public class OrdemCrudService {
                 log.info("[PROGRESS] Setando valor do cliente recebido na requisição através da ordem na variável clienteEntity...");
                 clienteEntity = modelMapper.mapper().map(ordem.getCliente(), ClienteEntity.class);
                 clienteEntity.setDataCadastro(LocalDate.now().toString());
+
+                log.info("[PROGRESS] Setando o usuário responsável pelo cadastro do novo cliente...");
+                clienteEntity.setUsuarioResponsavel(UsuarioUtils.loggedUser(usuarioRepository));
             }
 
             trataAtributosVaziosDoObjetoEndereco(ordem.getCliente().getEndereco());
@@ -154,7 +157,7 @@ public class OrdemCrudService {
                 clienteEntity.getEndereco().setDataCadastro(LocalDate.now().toString());
             } else {
                 log.warn("[INFO] Nenhum endereço foi encontrado dentro do objeto cliente recebido via requisição");
-                clienteEntity.setEndereco(null);
+                clienteEntity.setEndereco(modelMapper.mapper().map(ordem.getCliente().getEndereco(), EnderecoEntity.class));
             }
 
         } else {
