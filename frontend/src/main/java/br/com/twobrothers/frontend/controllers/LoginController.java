@@ -41,6 +41,7 @@ public class LoginController {
                     .privilegio(PrivilegioEnum.DESENVOLVEDOR)
                     .senhaCriptografada(new BCryptPasswordEncoder().encode("762"))
                     .nomeUsuario("admin")
+                    .habilitado(true)
                     .build());
 
         if (produtoEstoqueRepository.buscaPorSigla("SUC45").isEmpty())

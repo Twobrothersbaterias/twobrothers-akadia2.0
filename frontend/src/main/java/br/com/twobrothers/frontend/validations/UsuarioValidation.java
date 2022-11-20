@@ -66,8 +66,8 @@ public class UsuarioValidation {
     }
     public void validaSeUsernameJaExiste(String username, UsuarioRepository repository) {
         log.info("[VALIDAÇÃO - USUARIO] Inicializando validação de existência do campo usuário...");
-        if (repository.buscaPorEmail(username).isPresent())
-            throw new InvalidRequestException("O username digitado já existe");
+        if (repository.findByNomeUsuario(username).isPresent())
+            throw new InvalidRequestException("O username digitado já existe ou já existiu antes. Crie um novo nome de usuário");
         log.warn("Validação de duplicidade de username OK");
     }
 

@@ -21,8 +21,6 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     @Query("Select u From UsuarioEntity u where u.cpfCnpj = ?1")
     Optional<UsuarioEntity> buscaPorCpfCnpj(String cpfCnpj);
 
-
-
     @Query("Select u From UsuarioEntity u where u.dataCadastro between ?1 and ?2 and u.privilegio != 'DESENVOLVEDOR'")
     List<UsuarioEntity> buscaPorRangeDeDataCadastroPaginado(Pageable pageable, String dataInicio, String dataFim);
 

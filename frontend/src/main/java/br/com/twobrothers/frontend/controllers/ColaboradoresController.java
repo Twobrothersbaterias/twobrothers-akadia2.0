@@ -101,8 +101,18 @@ public class ColaboradoresController {
                                       ModelAndView modelAndView,
                                       String query) {
         usuarioCrudService.deletaPorId(id);
-        redirAttrs.addFlashAttribute("SucessoDelete", "Usuário deletado com sucesso");
-        modelAndView.setViewName("redirect:../colaboradores?" + query);
+        UsuarioEntity usuarioEntity = new UsuarioEntity();
+        if (usuarioRepository.findById(id).isPresent()) {
+            usuarioEntity = usuarioRepository.findById(id).get();
+        }
+
+        if (UsuarioUtils.loggedUser(usuarioRepository).equals(usuarioEntity)) {
+            modelAndView.setViewName("redirect:../login?logout");
+        }
+        else {
+            redirAttrs.addFlashAttribute("SucessoDelete", "Usuário deletado com sucesso");
+            modelAndView.setViewName("redirect:../colaboradores?" + query);
+        }
         return modelAndView;
     }
 

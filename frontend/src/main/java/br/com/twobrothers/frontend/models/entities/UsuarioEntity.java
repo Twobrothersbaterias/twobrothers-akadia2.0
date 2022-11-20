@@ -48,6 +48,8 @@ public class UsuarioEntity implements UserDetails {
 
     private String senha;
 
+    private Boolean habilitado;
+
     private String senhaCriptografada;
 
     @Enumerated(EnumType.STRING)
@@ -88,7 +90,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.habilitado;
     }
 
 }

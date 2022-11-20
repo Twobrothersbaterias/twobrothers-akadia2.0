@@ -45,7 +45,6 @@ public class UsuarioCrudService {
     ModelMapperConfig modelMapper;
 
     UsuarioValidation validation = new UsuarioValidation();
-    EnderecoValidation enderecoValidation = new EnderecoValidation();
 
     public List<UsuarioEntity> buscaTodosPaginado(Pageable pageable) {
         return repository.buscaTodosPaginado(pageable);
@@ -65,6 +64,8 @@ public class UsuarioCrudService {
 
         log.info("[PROGRESS] Setando usuário responsável pelo cadastro do novo usuário...");
         usuario.setUsuarioResponsavel(modelMapper.mapper().map(UsuarioUtils.loggedUser(repository), UsuarioDTO.class));
+
+        usuario.setHabilitado(true);
 
         TrataAtributosVazios.trataAtributosVaziosDoObjetoColaborador(usuario);
 
@@ -185,6 +186,7 @@ public class UsuarioCrudService {
             usuarioAtualizado.setTelefone(usuario.getTelefone());
             usuarioAtualizado.setEmail(usuario.getEmail());
             usuarioAtualizado.setDataNascimento(usuario.getDataNascimento());
+            usuarioAtualizado.setHabilitado(true);
 
             UsuarioEntity usuarioEntity;
 
@@ -216,9 +218,10 @@ public class UsuarioCrudService {
             log.warn("[INFO] Usuário encontrado.");
 
             UsuarioEntity usuario = usuarioOptional.get();
+            usuario.setHabilitado(false);
 
-            log.info("[PROGRESS] Removendo o usuário da base de dados...");
-            repository.deleteById(id);
+            log.info("[PROGRESS] Alterando status do usuário para desabilitado...");
+            repository.save(usuario);
             log.warn(REQUISICAO_FINALIZADA_COM_SUCESSO);
         } else {
             log.error("[FAILURE] Usuário com o id {} não encontrado", id);

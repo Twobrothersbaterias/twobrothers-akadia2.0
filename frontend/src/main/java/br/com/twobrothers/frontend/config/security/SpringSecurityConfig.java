@@ -73,14 +73,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //        System.err.println(retornaImpressoras());
 //        imprimeNota.detectaImpressoras("Microsoft Print to PDF");
 //        imprimeNota.imprime("Testando impressão do arquivo");
-//        int maximo = 50;
-//
-//        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
-//        for (int i=0; i <= maximo; i++) {
-//            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
-//            if (i < maximo) System.out.print(",");
-//        }
-//        System.out.print(";");
+        int maximo = 50;
+
+        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
+        for (int i=0; i <= maximo; i++) {
+            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
+            if (i < maximo) System.out.print(",");
+        }
+        System.out.print(";");
 
     }
 

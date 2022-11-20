@@ -424,7 +424,7 @@
 									</tr>											
 
 									<tr 									
-									th:each="colaborador: ${usuarios}"
+									th:each="colaborador: ${usuarios}" th:if="${colaborador.habilitado}"
 									class="tr tr_spring col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
 									>								
 										<td 

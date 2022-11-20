@@ -25,6 +25,7 @@ public class UsuarioDTO {
     private String senha;
     private String senhaCriptografada;
     private PrivilegioEnum privilegio;
+    private Boolean habilitado;
     private List<RetiradaDTO> retiradas = new ArrayList<>();
 
 }
