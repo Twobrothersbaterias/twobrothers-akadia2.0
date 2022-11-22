@@ -135,53 +135,44 @@ function bind(keyCode) {
     	!document.activeElement.className.includes('novo_item_input')
     	&& !document.activeElement.className.includes('botao_adicionar')) {
 
-	    if (keyCode == '49') {
+	    if (keyCode == '48') {
 	    	window.location.href="/";
 	    }
 
-	    else if (keyCode == '50') {
+	    else if (keyCode == '49') {
 	    	window.location.href="/clientes";
 	    }
 
-	    else if (keyCode == '51') {
+	    else if (keyCode == '50') {
 	    	window.location.href="/vendas";
 	    }	    
 
-	    else if (keyCode == '52') {
+	    else if (keyCode == '51') {
 	    	window.location.href="/estoque";
 	    }
 
-	    else if (keyCode == '53' && privilegio != "Vendedor") {
+	    else if (keyCode == '52' && privilegio != "Vendedor") {
 	    	window.location.href="/despesas";
 	    }
 
-	    else if (keyCode == '54' && privilegio != "Vendedor") {
+	    else if (keyCode == '53' && privilegio != "Vendedor") {
 	    	window.location.href="/relatorios";
 	    }
 
-	    else if (keyCode == '55' && privilegio != "Vendedor") {
+	    else if (keyCode == '54' && privilegio != "Vendedor") {
 	    	window.location.href="/patrimonios";
 	    }
 
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
+	    else if (keyCode == '55' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 
-	    else if (keyCode == '57' && privilegio != "Vendedor") {
+	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/colaboradores";
 	    } 
-
-	    else if (keyCode == '48' && privilegio != "Vendedor") {
+	    else if (keyCode == '57' && privilegio != "Vendedor") {
 	    	window.location.href="/precos";
 	    } 	    
-
-	    else if(keyCode == '32') {
-	    	window.location.href="/lancamento";
-	    }
 
 	    else if(keyCode == '82') {
 			if (confirm("Ao reiniciar a tela atual todos os dados da ordem serão perdidos\n" + 

@@ -40,48 +40,44 @@ grafico();
 
 function bind(keyCode) {
 
-	    if (keyCode == '49') {
+	    if (keyCode == '48') {
 	    	window.location.href="/";
 	    }
 
-	    else if (keyCode == '50') {
+	    else if (keyCode == '49') {
 	    	window.location.href="/clientes";
 	    }
 
-	    else if (keyCode == '51') {
+	    else if (keyCode == '50') {
 	    	window.location.href="/vendas";
 	    }	    
 
-	    else if (keyCode == '52') {
+	    else if (keyCode == '51') {
 	    	window.location.href="/estoque";
 	    }
 
-	    else if (keyCode == '53' && privilegio != "Vendedor") {
+	    else if (keyCode == '52' && privilegio != "Vendedor") {
 	    	window.location.href="/despesas";
 	    }
 
-	    else if (keyCode == '54' && privilegio != "Vendedor") {
+	    else if (keyCode == '53' && privilegio != "Vendedor") {
 	    	window.location.href="/relatorios";
 	    }
 
-	    else if (keyCode == '55' && privilegio != "Vendedor") {
+	    else if (keyCode == '54' && privilegio != "Vendedor") {
 	    	window.location.href="/patrimonios";
 	    }
 
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
-	    	window.location.href="/compras";
-	    }  
-
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
+	    else if (keyCode == '55' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 
-	    else if (keyCode == '57' && privilegio != "Vendedor") {
+	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/colaboradores";
 	    } 
-	    else if (keyCode == '48' && privilegio != "Vendedor") {
+	    else if (keyCode == '57' && privilegio != "Vendedor") {
 	    	window.location.href="/precos";
-	    } 	    
+	    } 	    	    
 
 	    else if(keyCode == '32') {
 	    	window.location.href="/lancamento";
@@ -94,10 +90,7 @@ function bind(keyCode) {
 	    else if(keyCode == '82') {
 	    	window.location.href="/precos";
 	    }
-
-	    else if(keyCode == '192' && privilegio != "Vendedor") {
-	    	document.getElementById('relatorio_button').click();
-	    }	                       
+                   
 }
 
 function responsive(){

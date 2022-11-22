@@ -56,42 +56,42 @@ function bind(keyCode) {
     	&& document.getElementById('conteudo_container_filtro').hidden==true
     	&& document.getElementById('conteudo_container_novo').hidden==true) {
 
-	    if (keyCode == '49') {
+	    if (keyCode == '48') {
 	    	window.location.href="/";
 	    }
 
-	    else if (keyCode == '50') {
+	    else if (keyCode == '49') {
 	    	window.location.href="/clientes";
 	    }
 
-	    else if (keyCode == '51') {
+	    else if (keyCode == '50') {
 	    	window.location.href="/vendas";
 	    }	    
 
-	    else if (keyCode == '52') {
+	    else if (keyCode == '51') {
 	    	window.location.href="/estoque";
 	    }
 
-	    else if (keyCode == '53' && privilegio != "Vendedor") {
+	    else if (keyCode == '52' && privilegio != "Vendedor") {
 	    	window.location.href="/despesas";
 	    }
 
-	    else if (keyCode == '54' && privilegio != "Vendedor") {
+	    else if (keyCode == '53' && privilegio != "Vendedor") {
 	    	window.location.href="/relatorios";
 	    }
 
-	    else if (keyCode == '55' && privilegio != "Vendedor") {
+	    else if (keyCode == '54' && privilegio != "Vendedor") {
 	    	window.location.href="/patrimonios";
 	    }
 
-	    else if (keyCode == '56' && privilegio != "Vendedor") {
+	    else if (keyCode == '55' && privilegio != "Vendedor") {
 	    	window.location.href="/fornecedores";
 	    }  
 
-	    else if (keyCode == '57' && privilegio != "Vendedor") {
+	    else if (keyCode == '56' && privilegio != "Vendedor") {
 	    	window.location.href="/colaboradores";
 	    } 
-	    else if (keyCode == '48' && privilegio != "Vendedor") {
+	    else if (keyCode == '57' && privilegio != "Vendedor") {
 	    	window.location.href="/precos";
 	    } 	    
 
@@ -2011,6 +2011,8 @@ function pageResponsiva(){
 		document.getElementById('anterior').style.borderColor="#303030";
 		document.getElementById('anterior').style.color="#C3C8C8";
 	}
+
+	paginacaoComprimida();
 }
 
 function ajustaTabela(){
@@ -2036,6 +2038,38 @@ function ajustaTabela(){
 function doALoadOfStuff() {
 	document.getElementById('conteudo_container').style.transition="2s";
 	responsive();
+}
+
+function paginacaoComprimida() {
+
+	var paginaAtual = document.getElementById('pegando_page');
+	var paginas = document.getElementsByClassName('page_li');
+	var paginasInside = document.getElementsByClassName('page_number');
+
+	for (var i = 0; i < paginasInside.length; i++) {
+		paginas[i].hidden=false;
+		if (bodyWidth > 400) {
+			if (paginasInside[i].text < (parseInt(paginaAtual.innerText) - 1)) {
+				paginas[i].hidden=true;
+			}
+			else {
+				if (paginasInside[i].text > (parseInt(paginaAtual.innerText) + 3)) {
+					paginas[i].hidden=true;
+				}
+			}
+		}
+		else {
+		if (paginasInside[i].text < (parseInt(paginaAtual.innerText))) {
+				paginas[i].hidden=true;
+			}
+			else {
+				if (paginasInside[i].text > (parseInt(paginaAtual.innerText) + 2)) {
+					paginas[i].hidden=true;
+				}
+			}			
+		}
+	}
+
 }
 
 /* ================== BLOCOS ====================== */
