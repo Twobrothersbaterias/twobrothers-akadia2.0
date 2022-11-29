@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * @author Gabriel Lagrota
@@ -68,26 +67,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) throws IOException {
 
-        String s = "minusplusminus";
-        StringBuilder reformatedString = new StringBuilder();
-
-        for(int i = 0; i < s.length(); i++) {
-            if (s.length() >= (i+4) && s.substring(i, i+4).equals("plus")) reformatedString.append("+");
-            if (s.length() >= (i+5) && s.substring(i, i+5).equals("minus")) reformatedString.append("-");
-        }
+//        String s = "minusplusminus";
+//        StringBuilder reformatedString = new StringBuilder();
+//
+//        for(int i = 0; i < s.length(); i++) {
+//            if (s.length() >= (i+4) && s.substring(i, i+4).equals("plus")) reformatedString.append("+");
+//            if (s.length() >= (i+5) && s.substring(i, i+5).equals("minus")) reformatedString.append("-");
+//        }
 
 //        ImprimeNota imprimeNota = new ImprimeNota();
 //        System.err.println(retornaImpressoras());
 //        imprimeNota.detectaImpressoras("Microsoft Print to PDF");
 //        imprimeNota.imprime("Testando impressão do arquivo");
-        int maximo = 150;
 
-        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
-        for (int i=0; i <= maximo; i++) {
-            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
-            if (i < maximo) System.out.print(",");
-        }
-        System.out.print(";");
+//        int maximo = 150;
+//
+//        System.out.print("INSERT INTO tb_cliente(cpf_cnpj, data_cadastro, data_nascimento, email, nome_completo, telefone, endereco_id, usuario_id) VALUES ");
+//        for (int i=0; i <= maximo; i++) {
+//            System.out.print("(NULL, '2022-11-13',  '1998-07-21',NULL, 'Carga de dados', '(11)97981-5415', NULL, 1)");
+//            if (i < maximo) System.out.print(",");
+//        }
+//        System.out.print(";");
 
     }
 

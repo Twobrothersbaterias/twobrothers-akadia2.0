@@ -23,10 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/clientes")
@@ -54,8 +51,11 @@ public class ClienteController {
                                  RedirectAttributes redirAttrs,
                                  ModelMap modelMap,
                                  HttpServletRequest req) {
-        try {
 
+        Map<String, String> saidas = new HashMap<>();
+        saidas.put("A38JD", "R$ 220,00");
+
+        try {
             clienteService.modelMapperBuilder(modelMap, pageable, req,
                     descricao.orElse(null), inicio.orElse(null),
                     fim.orElse(null), mes.orElse(null), ano.orElse(null),

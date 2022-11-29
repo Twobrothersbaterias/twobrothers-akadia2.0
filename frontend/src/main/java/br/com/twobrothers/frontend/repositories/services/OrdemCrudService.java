@@ -1,6 +1,7 @@
 package br.com.twobrothers.frontend.repositories.services;
 
 import br.com.twobrothers.frontend.config.ModelMapperConfig;
+import br.com.twobrothers.frontend.models.Impressao;
 import br.com.twobrothers.frontend.models.dto.EntradaOrdemDTO;
 import br.com.twobrothers.frontend.models.dto.OrdemDTO;
 import br.com.twobrothers.frontend.models.dto.ProdutoEstoqueDTO;
@@ -9,6 +10,7 @@ import br.com.twobrothers.frontend.models.entities.*;
 import br.com.twobrothers.frontend.models.enums.LojaEnum;
 import br.com.twobrothers.frontend.models.enums.StatusRetiradaEnum;
 import br.com.twobrothers.frontend.models.enums.ValidationType;
+import br.com.twobrothers.frontend.proxys.ImpressaoProxy;
 import br.com.twobrothers.frontend.repositories.*;
 import br.com.twobrothers.frontend.repositories.services.exceptions.InvalidRequestException;
 import br.com.twobrothers.frontend.repositories.services.exceptions.ObjectNotFoundException;
@@ -70,6 +72,9 @@ public class OrdemCrudService {
 
     @Autowired
     ModelMapperConfig modelMapper;
+
+    @Autowired
+    ImpressaoProxy impressaoProxy;
 
     OrdemValidation validation = new OrdemValidation();
     ClienteValidation clienteValidation = new ClienteValidation();
@@ -180,8 +185,22 @@ public class OrdemCrudService {
         retiradaValidation.validaCorpoRequisicao(ordem.getRetirada());
 
         if (ordem.getRetirada().getDataAgendamento() == null || ordem.getRetirada().getDataAgendamento().isEmpty()) {
-            if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
+            if (ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO)) {
+//                impressaoProxy.imprimeNaoFiscal(Impressao.builder()
+//                        .nomeCliente(ordem.getCliente().getNomeCompleto())
+//                        .uf(ordem.getCliente().getEndereco().getEstado().getDesc())
+//                        .bairro(ordem.getCliente().getEndereco().getBairro())
+//                        .cidade(ordem.getCliente().getEndereco().getCidade())
+//                        .numeroLogradouro(ordem.getCliente().getEndereco().getNumero().toString())
+//                        .valorTotal(ConversorDeDados.converteValorDoubleParaValorMonetario(ordem.getPagamentos().get(0).getValor())) //ARRUMAR
+//                        .logradouro(ordem.getCliente().getEndereco().getLogradouro())
+//                        .tecnicoResponsavel(ordem.getRetirada().getTecnicoEntrada().getNome())
+//                        .veiculo(ordem.getVeiculo())
+//                        .data(ordem.getDataCadastro())
+//                        .saidas(null) //ARRUMAR
+//                        .build()); //TODO IMPRESSAO
                 ordem.getRetirada().setDataAgendamento("Em aberto");
+            }
             else ordem.getRetirada().setDataAgendamento("Não possui");
         } else if (ordem.getRetirada().getDataAgendamento() == null
                 || ordem.getRetirada().getDataAgendamento().isEmpty() && !ordem.getRetirada().getStatusRetirada().equals(StatusRetiradaEnum.ENTREGA_EM_TRANSITO))
